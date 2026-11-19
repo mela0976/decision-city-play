@@ -1,0 +1,64 @@
+{
+  "unlock": {
+    "titleCode": "AMA",
+    "templeVisits": 3
+  },
+  "intro": [
+    {
+      "who": "grandma",
+      "text": "（示範）少年欸，你拜這麼勤，是工作不順喔？"
+    },
+    {
+      "who": "grandma",
+      "text": "（示範）來，這個菜籃給你，阿嬤教你怎麼做生意。"
+    }
+  ],
+  "perk": {
+    "name": "阿嬤的菜籃",
+    "desc": "（示範）每個抉擇多一個阿嬤的選項，車流會讓你。"
+  },
+  "greetings": [
+    "（示範）阿嬤早！呷飽未？",
+    "（示範）阿嬤騎慢一點喔。"
+  ],
+  "choiceOverrides": {
+    "m2018": {
+      "text": "（示範）阿嬤說：看板字要大，我才看得到",
+      "effects": {
+        "trust": 6,
+        "brand": 4,
+        "liver": -2
+      },
+      "feedback": "（示範）字放大以後，連對面月台都看得到。",
+      "insight": "延伸：（示範）這裡會放書中關於高齡的內容。"
+    },
+    "m2019": {
+      "text": "（示範）阿嬤說：去問隔壁賣菜的就知道",
+      "effects": {
+        "trust": 7,
+        "sales": 3,
+        "liver": -2
+      },
+      "feedback": "（示範）賣菜的阿姨五分鐘講完整條街的事。",
+      "insight": "延伸：（示範）這裡會放書中關於高齡的內容。"
+    }
+  },
+  "elderCards": [
+    {
+      "image": "elder_card_1",
+      "caption": "早安，認真的人最美"
+    },
+    {
+      "image": "elder_card_2",
+      "caption": "平安喜樂，記得吃飯"
+    },
+    {
+      "image": "elder_card_3",
+      "caption": "今天也要準時下班"
+    }
+  ],
+  "ending": {
+    "title": "（示範）阿嬤結局",
+    "text": "（示範）收工以後，整間熱炒店都在聽阿嬤講怎麼做生意。"
+  }
+}

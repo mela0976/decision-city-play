@@ -1,0 +1,65 @@
+// 結局與成績單：結局圖、蓋章的等第；成績單是一張單據（欄位、騎縫線、等寬數字），列四項數值、任務數、問答正確率、提案頁數。
+
+import { h } from '../dom.js';
+import { T, METER_IDS, METER_NAMES } from '../strings.js';
+
+export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, role, note, onAgain, sfx }) {
+  const rate = quiz.asked > 0 ? `${Math.round((quiz.right / quiz.asked) * 100)}%` : '—';
+  const again = h('button', { type: 'button', class: 'btn btn--primary btn--big', id: 'ending-again', 'data-primary': true, text: T.playAgain });
+  again.addEventListener('click', () => {
+    sfx?.play('select');
+    onAgain();
+  });
+
+  const root = h(
+    'section',
+    { class: 'ending', dataset: { ending: ending.id || '' }, 'aria-labelledby': 'ending-title' },
+    h(
+      'div',
+      { class: 'ending-story' },
+      assets.art(ending.image, { kind: 'wide', className: 'ending-art' }),
+      h('div', { class: 'stamp stamp--grade', 'aria-hidden': 'true' }, h('span', { text: stamp })),
+      h('h2', { id: 'ending-title', text: ending.title || '' }),
+      h('p', { class: 'ending-text', text: ending.text || '' }),
+      note ? h('p', { class: 'ending-note', text: note }) : null,
+    ),
+    h(
+      'div',
+      { class: 'report ticket' },
+      h('header', { class: 'ticket-stub' }, h('span', { class: 'ticket-kind', text: T.reportSlip }), role ? h('span', { class: 'report-role', text: role }) : null),
+      h(
+        'ul',
+        { class: 'report-meters' },
+        METER_IDS.map((id) =>
+          h(
+            'li',
+            { dataset: { meter: id } },
+            h('span', { class: 'm-name', text: METER_NAMES[id] }),
+            h('span', { class: 'm-bar', 'aria-hidden': 'true' }, h('i', { vars: { '--v': String(meters[id] ?? 0) } })),
+            h('b', { class: 'm-num', text: String(meters[id] ?? 0) }),
+          ),
+        ),
+      ),
+      h(
+        'dl',
+        { class: 'report-facts' },
+        h('div', {}, h('dt', { text: T.reportMissions }), h('dd', { id: 'report-missions', text: `${missionsDone}／${missionsTotal}` })),
+        h('div', {}, h('dt', { text: T.reportQuiz }), h('dd', { id: 'report-quiz', text: rate })),
+        h('div', {}, h('dt', { text: T.reportBooks }), h('dd', { id: 'report-books', text: `${ownedYears.length + extraPages}／${books.length + extraPages}` })),
+      ),
+      h(
+        'ol',
+        { class: 'report-books', 'aria-label': T.reportBooks },
+        books.map((book) => {
+          const owned = ownedYears.includes(book.year);
+          return h('li', { class: owned ? 'is-owned' : 'is-locked', 'aria-label': owned ? `${book.year} ${book.title}` : `${book.year} ${T.blankPage}` }, h('span', { 'aria-hidden': 'true', text: String(book.year) }));
+        }),
+      ),
+      again,
+    ),
+  );
+
+  screen.replaceChildren(root);
+  again.focus({ preventScroll: true });
+  return { destroy: () => root.remove() };
+}

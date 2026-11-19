@@ -1,0 +1,152 @@
+{
+  "premise": "（示範資料）今晚要比稿，白天跑兩個現場，每過一關拿到提案的一頁。",
+  "prologue": [
+    {
+      "who": "grandma_demo",
+      "text": "（示範）早安，出門記得穿外套。",
+      "via": "line"
+    },
+    {
+      "who": "player",
+      "text": "（示範）機車又發不動，踩了第三次才著。"
+    },
+    {
+      "who": "boss_demo",
+      "text": "（示範）今晚九點比稿。",
+      "via": "line"
+    },
+    {
+      "who": "boss_demo",
+      "text": "（示範）簡報目前零頁。",
+      "via": "line"
+    },
+    {
+      "who": "clerk_demo",
+      "text": "（示範）比稿喔？茶葉蛋多送你一顆。"
+    }
+  ],
+  "cast": [
+    {
+      "id": "partner",
+      "npcId": "clerk_demo",
+      "role": "搭檔",
+      "blurb": "（示範）嘴很壞，但會幫你擋。"
+    },
+    {
+      "id": "boss",
+      "npcId": "boss_demo",
+      "role": "主管",
+      "blurb": "（示範）訊息只有問號。"
+    },
+    {
+      "id": "grandma",
+      "npcId": "grandma_demo",
+      "role": "阿嬤",
+      "blurb": "（示範）一天傳好幾張早安圖。"
+    }
+  ],
+  "interludes": [
+    {
+      "after": "m2018",
+      "slide": "（示範）第一頁的標題：先量得到，才談得上買得準",
+      "sincere": {
+        "who": "client_demo",
+        "text": "（示範）說真的，你是第一個先幫我想、沒急著賣我版位的人。"
+      },
+      "interrupt": {
+        "kind": "garbage_truck",
+        "text": "（示範）垃圾車的音樂從巷口響起，他提著兩袋垃圾衝了出去。"
+      },
+      "partner": {
+        "who": "clerk_demo",
+        "text": "（示範）第一頁收到，算你過。"
+      },
+      "grandma": {
+        "text": "（示範）今天下雨機率三成，雨衣有放車廂嗎？",
+        "replies": [
+          {
+            "text": "已讀，先騎車",
+            "bond": 0
+          },
+          {
+            "text": "回一張「早安」貼圖",
+            "bond": 1
+          },
+          {
+            "text": "打給她：「有啦，放了。」",
+            "bond": 2,
+            "effects": {
+              "liver": -3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2019",
+      "slide": "（示範）第二頁的標題：數字以外，還要去現場問一句",
+      "sincere": {
+        "who": "boss_demo",
+        "text": "（示範）這兩頁，是你一個現場一個現場跑出來的。我其實……"
+      },
+      "interrupt": {
+        "kind": "alert",
+        "text": "（示範）所有手機同時尖叫，國家級警報。低頭一看，是測試訊息。"
+      },
+      "partner": {
+        "who": "clerk_demo",
+        "text": "（示範）第二頁收到，晚點再吐槽你。"
+      },
+      "grandma": {
+        "text": "（示範）阿嬤不懂簡報，但這句給你：先懂人，再講道理。",
+        "replies": [
+          {
+            "text": "已讀，先上台",
+            "bond": 0
+          },
+          {
+            "text": "回一張「謝謝阿嬤」貼圖",
+            "bond": 1
+          },
+          {
+            "text": "打給她：「這句我放最後一頁。」",
+            "bond": 2
+          }
+        ]
+      }
+    }
+  ],
+  "finale": {
+    "bondThreshold": 3,
+    "withGrandma": [
+      {
+        "who": "clerk_demo",
+        "text": "（示範）最後那頁一放上去，客戶整個安靜下來。"
+      },
+      {
+        "who": "player",
+        "text": "（示範）那句是我阿嬤寫的。"
+      },
+      {
+        "who": "grandma_demo",
+        "text": "（示範）比完了沒？阿嬤幫你留了一碗湯。",
+        "via": "line"
+      }
+    ],
+    "withoutGrandma": [
+      {
+        "who": "clerk_demo",
+        "text": "（示範）兩頁排得很漂亮，跟對手那份一樣漂亮。"
+      },
+      {
+        "who": "player",
+        "text": "（示範）阿嬤今天傳的訊息，我一則都還沒點開。"
+      },
+      {
+        "who": "grandma_demo",
+        "text": "（示範）有空回阿嬤一下就好。",
+        "via": "line"
+      }
+    ]
+  }
+}

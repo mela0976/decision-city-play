@@ -1,0 +1,66 @@
+[
+  {
+    "id": "client_demo",
+    "name": "陳經理",
+    "skin": "npc_client",
+    "locationId": "mrt",
+    "title": "示範客戶",
+    "lines": [
+      "（示範）看板的事就拜託了。",
+      "（示範）老闆又在問數字了。"
+    ]
+  },
+  {
+    "id": "boss_demo",
+    "name": "林總",
+    "skin": "npc_boss",
+    "locationId": "office",
+    "title": "示範主管",
+    "lines": [
+      "（示範）報表看了沒？",
+      "（示範）午餐記得吃。"
+    ]
+  },
+  {
+    "id": "clerk_demo",
+    "name": "小安",
+    "skin": "npc_vendor",
+    "locationId": "convenience",
+    "title": "示範店員",
+    "lines": [
+      "（示範）歡迎光臨。",
+      "（示範）今天茶葉蛋剛滷好。"
+    ]
+  },
+  {
+    "id": "temple_demo",
+    "name": "廟公阿伯",
+    "skin": "npc_elder",
+    "locationId": "temple",
+    "title": "示範廟公",
+    "lines": [
+      "（示範）有拜有保庇。",
+      "（示範）慢慢來，不要急。"
+    ]
+  },
+  {
+    "id": "grandma_demo",
+    "name": "阿嬤",
+    "skin": "npc_grandma",
+    "locationId": "gamadiam",
+    "title": "柑仔店常客",
+    "lines": [
+      "（示範）呷飽未？"
+    ]
+  },
+  {
+    "id": "rider_demo",
+    "name": "阿傑",
+    "skin": "npc_rider",
+    "locationId": "riverside",
+    "title": "示範外送員",
+    "lines": [
+      "（示範）河邊風很涼。"
+    ]
+  }
+]

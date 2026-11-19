@@ -1,0 +1,1323 @@
+/* 遊戲中：HUD、下方提示列、過場劇照（寬銀幕）、字幕式對話、抉擇、問答、章節卡。 */
+
+/* ── HUD：用格線排，寬螢幕一列、窄螢幕往下疊 ────────── */
+
+#hud {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
+  /* 最後一列吃掉剩下的高度，跨列的右上角（小地圖）才不會把前兩列撐高 */
+  grid-template-rows: auto auto minmax(0, 1fr);
+  align-content: start;
+  align-items: start;
+  gap: 0.5rem;
+  padding: var(--top) var(--edge) 0;
+}
+
+#hud > * {
+  pointer-events: auto;
+  min-inline-size: 0;
+}
+
+.hud-id {
+  grid-area: 1 / 1;
+}
+
+.hud-meters {
+  grid-area: 1 / 2;
+}
+
+.hud-radio {
+  grid-area: 1 / 3;
+  justify-self: center;
+  inline-size: min(100%, 32rem);
+}
+
+.hud-corner {
+  grid-area: 1 / 4 / span 3;
+}
+
+.hud-task {
+  grid-area: 2 / 1 / auto / span 3;
+  justify-self: start;
+}
+
+.hud-id,
+.hud-meters,
+.hud-radio {
+  /* 面板底紋：極淡的小口磚 */
+  background-color: var(--panel);
+  background-image: var(--tex-tile);
+  background-size: var(--tex-tile-size);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  backdrop-filter: blur(10px);
+}
+
+.hud-id {
+  display: flex;
+  align-items: stretch;
+  block-size: 3.5rem;
+}
+
+.hud-portrait {
+  inline-size: 2.625rem;
+  border-inline-end: 1px solid var(--line);
+}
+
+.hud-portrait .art {
+  block-size: 100%;
+  aspect-ratio: auto;
+}
+
+.hud-who {
+  display: grid;
+  align-content: center;
+  padding-inline: 0.7rem 0.9rem;
+  line-height: 1.2;
+}
+
+#hud-role {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+#hud-clock {
+  font-family: var(--mono);
+  font-size: 1.45rem;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.hud-meters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(4.4rem, 5.6rem));
+  gap: 0 0.9rem;
+  block-size: 3.5rem;
+  align-content: center;
+  padding-inline: 0.9rem;
+}
+
+.hud-meters li {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 0.3rem;
+}
+
+.hud-meters .m-name {
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud-meters .m-num {
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.hud-meters .m-bar {
+  grid-column: 1 / -1;
+}
+
+.hud-meters .is-danger .m-num {
+  color: #ff8a7c;
+}
+
+.m-delta {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-end: 0;
+  z-index: 1;
+  margin-block-start: 0.5rem;
+  padding: 0 0.4rem;
+  background: var(--panel-solid);
+  border: 1px solid currentColor;
+  font-style: normal;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .m-delta {
+    animation: delta-pop 1.6s ease-out both;
+  }
+}
+
+@keyframes delta-pop {
+  0% {
+    opacity: 0;
+    translate: 0 -0.4rem;
+  }
+
+  15%,
+  75% {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.hud-task {
+  /* 路名牌：綠底白字、白色內框。任務在哪、往哪走，都寫在這塊牌子上 */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.8rem;
+  max-inline-size: min(100%, 40rem);
+  min-block-size: var(--tap);
+  padding: 0.3rem 0.4rem 0.3rem 0.9rem;
+  border-radius: 3px;
+  background: var(--post);
+  color: #fff;
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.85), 0 2px 10px rgb(0 0 0 / 0.45);
+}
+
+#hud-task-title {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+#hud-task-hint {
+  font-size: 1rem;
+  color: rgb(255 255 255 / 0.86);
+}
+
+.hud-timer {
+  padding-inline: 0.5rem;
+  border: 1.5px solid #fff;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.hud-timer.is-urgent {
+  border-color: var(--red);
+  background: var(--red);
+  color: #fff;
+}
+
+.hud-autoride,
+.hud-autoride:hover:not(:disabled) {
+  margin-inline-start: auto;
+  border-color: #fff;
+  background: rgb(0 0 0 / 0.22);
+  color: #fff;
+  backdrop-filter: none;
+}
+
+.hud-autoride[aria-pressed="true"],
+.hud-autoride[aria-pressed="true"]:hover:not(:disabled) {
+  border-color: #fff;
+  background: #fff;
+  color: var(--post);
+}
+
+.hud-corner {
+  display: grid;
+  justify-items: end;
+  gap: 0.5rem;
+  z-index: 3;
+}
+
+.hud-map {
+  display: block;
+  inline-size: clamp(88px, 21vmin, 200px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.hud-map canvas {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  cursor: zoom-in;
+}
+
+.hud-radio {
+  display: flex;
+  align-items: stretch;
+  min-block-size: calc(var(--tap) + 2px);
+}
+
+.radio-station {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+  max-inline-size: 50%;
+  min-inline-size: var(--tap);
+  padding-inline: 0.8rem;
+  border: 0;
+  border-inline-end: 1px solid var(--line);
+  background: transparent;
+  font-size: max(18px, 1rem);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.radio-station::before {
+  content: "";
+  flex: none;
+  inline-size: 0.45rem;
+  block-size: 0.45rem;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 8px var(--neon);
+}
+
+.radio-station:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+
+.radio-ticker {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  padding-inline: 0.7rem;
+  overflow: hidden;
+  font-size: 1rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.radio-ticker.is-rolling #radio-text {
+  display: inline-block;
+  padding-inline-start: 100%;
+  animation: ticker var(--dur, 20s) linear infinite;
+}
+
+@keyframes ticker {
+  to {
+    translate: -100% 0;
+  }
+}
+
+/* 選單開著時跑馬燈與劇照的推近都停住 */
+body:has(dialog[open]) .radio-ticker.is-rolling #radio-text,
+body:has(dialog[open]) .scene-art img {
+  animation-play-state: paused;
+}
+
+/* 過場劇照期間：HUD 只留選單鈕，放在上方黑邊裡 */
+#stage[data-scene="on"] :is(.hud-id, .hud-meters, .hud-task, .hud-radio, .hud-map) {
+  display: none;
+}
+
+#stage[data-scene="on"] #hud {
+  padding-block-start: calc(env(safe-area-inset-top) + (var(--bar) - var(--tap)) / 2);
+}
+
+/* 窄螢幕：身分、數值、任務、電台一列一列往下疊，右上角留給小地圖 */
+@media (max-width: 760px) {
+  #hud {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  }
+
+  .hud-id {
+    grid-area: 1 / 1;
+    justify-self: start;
+  }
+
+  .hud-corner {
+    grid-area: 1 / 2 / span 3;
+  }
+
+  .hud-meters {
+    grid-area: 2 / 1;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 0.5rem;
+    block-size: auto;
+    padding: 0.3rem 0.5rem 0.4rem;
+  }
+
+  /* 名稱在上、數字在下，四個字的「客戶信任」才不會被截掉 */
+  .hud-meters li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hud-meters .m-name {
+    font-size: 0.76rem;
+    overflow: visible;
+  }
+
+  .hud-meters .m-num {
+    justify-self: start;
+    line-height: 1.2;
+  }
+
+  .hud-task {
+    grid-area: 3 / 1;
+    max-inline-size: 100%;
+  }
+
+  .hud-radio {
+    grid-area: 4 / 1 / auto / span 2;
+    justify-self: stretch;
+    inline-size: auto;
+  }
+}
+
+@media (max-width: 1100px) and (min-width: 761px) {
+  .hud-meters {
+    grid-template-columns: repeat(4, minmax(3.6rem, 4.6rem));
+    gap: 0 0.6rem;
+    padding-inline: 0.6rem;
+  }
+
+  .hud-who {
+    padding-inline: 0.5rem 0.6rem;
+  }
+}
+
+/* ── 下方提示列：永遠在底部置中，左段是要做什麼（一塊小路名牌）、右段是能按什麼 ── */
+
+#stage {
+  --hint-h: 2.5rem;
+  --actions-b: env(safe-area-inset-bottom);
+}
+
+#stage[data-hint="off"] {
+  --hint-h: 0rem;
+}
+
+#hint {
+  position: absolute;
+  z-index: 7;
+  inset-block-end: var(--bottom);
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem 0.8rem;
+  inline-size: max-content;
+  max-inline-size: calc(100% - 2 * var(--edge));
+  min-block-size: var(--hint-h);
+  margin: 0;
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--muted);
+  text-align: center;
+  pointer-events: none;
+  transform-origin: 50% 100%;
+}
+
+#hint-task {
+  padding: 0.05em 0.6em;
+  border-radius: 3px;
+  background: var(--post);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.85);
+}
+
+#hint-keys,
+.hint-part {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem 0.35rem;
+}
+
+#hint-keys {
+  gap: 0.15rem 0.55rem;
+}
+
+.hint-sep {
+  opacity: 0.6;
+}
+
+/* 城市畫面（含空拍）：左下與右下兩個角落是地圖資料來源的標註，提示列只待在中間 */
+#stage[data-phase="play"]:not([data-scene]) #hint {
+  max-inline-size: calc(100% - 2 * var(--attr-w) - 1rem);
+}
+
+/* 觸控時下方兩角還有引擎的搖桿與按鈕，再讓寬一點 */
+#stage[data-phase="play"][data-input="touch"]:not([data-scene]) #hint {
+  max-inline-size: calc(100% - max(24rem, 2 * var(--attr-w) + 1rem));
+}
+
+/* 中間放不下時（視窗不夠寬），整列往上移到標註之上；觸控再移到搖桿之上 */
+@media (max-width: 1100px) {
+  #stage[data-phase="play"]:not([data-scene]) #hint {
+    inset-block-end: calc(var(--bottom) + var(--attr-h));
+    max-inline-size: calc(100% - 2 * var(--edge));
+  }
+
+  #stage[data-phase="play"][data-input="touch"]:not([data-scene]) #hint {
+    inset-block-end: calc(var(--bottom) + max(7.4rem, 126px));
+    max-inline-size: calc(100% - 2 * var(--edge));
+  }
+}
+
+/* 劇照期間提示列落在下方黑邊裡，不擋字幕 */
+#stage[data-scene="on"] #hint {
+  inset-block-end: calc(env(safe-area-inset-bottom) + (var(--bar) - var(--hint-h)) / 2);
+  max-inline-size: calc(100% - 36rem);
+  border-color: transparent;
+  background: none;
+  backdrop-filter: none;
+}
+
+/* 窄螢幕：黑邊加高成兩列，上列放按鈕、下列放提示（提示可能排成兩行） */
+@media (max-width: 1100px) {
+  #stage {
+    --bar-b: calc(var(--bar) + var(--hint-h) + env(safe-area-inset-bottom));
+    --actions-b: calc(var(--hint-h) + env(safe-area-inset-bottom));
+  }
+
+  #stage[data-scene="on"] #hint {
+    inset-block-end: env(safe-area-inset-bottom);
+    max-inline-size: calc(100% - 2 * var(--edge));
+  }
+}
+
+/* 直向手機：提示常常要排成兩行，先把高度留好；標題與結局的提示只有一行 */
+@media (max-width: 620px) {
+  #stage:not([data-hint="off"]) {
+    --hint-h: 4.4rem;
+  }
+
+  #stage:is([data-phase="title"], [data-phase="ending"]):not([data-hint="off"]) {
+    --hint-h: 2.5rem;
+  }
+}
+
+/* 第一次進城市、或 goto 步驟開始時，放大閃一下 */
+#hint.is-flash {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #hint.is-flash {
+    animation: hint-flash 2.6s ease-out both;
+  }
+}
+
+/* 視窗不夠寬時提示列幾乎橫跨整個畫面，再放大會跑出去或壓到角落的地圖標註：只閃光暈，不放大 */
+@media (max-width: 1100px) {
+  #hint {
+    --flash-big: 1;
+    --flash-mid: 1;
+  }
+}
+
+@keyframes hint-flash {
+  0%,
+  100% {
+    scale: 1;
+    box-shadow: 0 0 0 0 transparent;
+  }
+
+  10%,
+  34%,
+  58% {
+    scale: var(--flash-big, 1.24);
+    box-shadow: 0 0 26px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
+  22%,
+  46% {
+    scale: var(--flash-mid, 1.16);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+
+  80% {
+    scale: 1;
+  }
+}
+
+/* ── 過場劇照：任務的 splash 圖滿版（cover），上下黑邊做成寬銀幕 ── */
+
+#scene {
+  background: #000;
+  overflow: hidden;
+}
+
+.scene-art,
+.scene-shade {
+  position: absolute;
+  inset: var(--bar-t) 0 var(--bar-b);
+}
+
+.scene-art {
+  aspect-ratio: auto;
+}
+
+.scene-shade {
+  background:
+    linear-gradient(0deg, rgb(3 5 8 / 0.94) 0%, rgb(3 5 8 / 0.62) 30%, transparent 64%),
+    linear-gradient(180deg, rgb(3 5 8 / 0.45) 0%, transparent 24%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene-art img {
+    animation: push-in 36s ease-out both;
+  }
+}
+
+@keyframes push-in {
+  from {
+    scale: 1;
+  }
+
+  to {
+    scale: 1.08;
+    translate: -1% -1%;
+  }
+}
+
+/* 黑邊裡的操作列 */
+.cine-actions {
+  position: absolute;
+  inset-inline: var(--edge);
+  inset-block-end: var(--actions-b);
+  block-size: var(--bar);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.cine-actions .btn {
+  min-block-size: var(--tap);
+  padding-block: 0.2rem;
+}
+
+/* ── 字幕 ─────────────────────────────────────────── */
+
+.dlg,
+.choice,
+.quiz,
+.chapter {
+  position: absolute;
+  inset: 0;
+}
+
+.dlg {
+  cursor: pointer;
+}
+
+.sub {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: calc(var(--bar-b) + clamp(0.7rem, 3vh, 1.8rem));
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  max-block-size: calc(100% - var(--bar-t) - var(--bar-b) - 1.4rem);
+  padding-inline: max(var(--edge), 6vw);
+  overflow: hidden;
+  text-align: center;
+}
+
+.sub-who {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0 0.7em;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-shadow: 0 1px 4px #000;
+}
+
+.sub-name {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.dlg[data-side="player"] .sub-name {
+  color: var(--text);
+}
+
+.sub-role {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.sub-text {
+  max-inline-size: min(30em, 100%);
+  min-block-size: 3.1em;
+  font-size: clamp(1.12rem, 0.9vmin + 0.9rem, 1.45rem);
+  font-weight: 500;
+  line-height: 1.55;
+  color: #fff;
+  text-wrap: balance;
+  /* 白字加細黑描邊與陰影，壓在任何劇照上都讀得到 */
+  text-shadow:
+    1px 0 0 #000,
+    -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000,
+    0 2px 6px rgb(0 0 0 / 0.85);
+}
+
+.sub-rest {
+  visibility: hidden;
+}
+
+/* ── 抉擇 ─────────────────────────────────────────── */
+
+.choice,
+.quiz {
+  /* 內容貼著下緣排；太多時往下長、可以捲，不會從上面被切掉 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(0.5rem, 2vh, 1rem);
+  padding: calc(var(--bar-t) + 0.4rem) var(--edge) calc(var(--bar-b) + clamp(0.5rem, 2.4vh, 1.4rem));
+  overflow: hidden auto;
+  scrollbar-width: none;
+}
+
+.choice > :first-child,
+.quiz > :first-child {
+  margin-block-start: auto;
+}
+
+.choice:focus,
+.quiz:focus {
+  outline: none;
+}
+
+.choice-prompt,
+.quiz-head h2 {
+  max-inline-size: min(34em, 100%);
+  font-size: clamp(1.06rem, 0.8vmin + 0.9rem, 1.35rem);
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow:
+    1px 0 0 #000,
+    -1px 0 0 #000,
+    0 1px 0 #000,
+    0 -1px 0 #000,
+    0 2px 6px rgb(0 0 0 / 0.85);
+}
+
+.choice-options {
+  display: grid;
+  grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+  gap: clamp(0.4rem, 1vw, 0.9rem);
+  inline-size: min(100%, 78rem);
+}
+
+.option {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-content: start;
+  align-items: start;
+  gap: 0.35rem 0.6rem;
+  min-block-size: max(var(--tap), 3.6rem);
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: rgb(5 8 12 / 0.66);
+  backdrop-filter: blur(10px);
+  text-align: start;
+  font-size: max(18px, 1.05rem);
+  line-height: 1.45;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.option > * {
+  grid-column: 2;
+}
+
+.option > .option-key {
+  grid-column: 1;
+  grid-row: 1 / span 4;
+  margin-block-start: 0.1rem;
+}
+
+.option-tag {
+  justify-self: start;
+}
+
+.option:hover:not(:disabled),
+.option:focus {
+  border-color: var(--accent);
+  background: rgb(5 8 12 / 0.86);
+}
+
+.option-tag {
+  padding: 0 0.5rem;
+  border: 1px solid var(--neon);
+  color: var(--neon);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+/* 阿嬤的選項：茄芷袋的紅藍綠條紋（只在阿嬤模組出現） */
+.option--grandma {
+  border-image: repeating-linear-gradient(90deg, #d8402f 0 10px, #2f6fb5 10px 20px, #2c9a5b 20px 30px) 1;
+}
+
+.option-tag--grandma {
+  border-color: var(--stone);
+  color: var(--stone);
+}
+
+.option-hint {
+  display: grid;
+  gap: 0.1rem;
+  padding-inline-start: 0.6rem;
+  border-inline-start: 1px solid var(--neon);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.option-hint b {
+  color: var(--neon);
+  font-weight: 600;
+}
+
+.choice.is-answered .choice-prompt {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.choice-result {
+  display: grid;
+  justify-items: center;
+  gap: clamp(0.4rem, 1.6vh, 0.8rem);
+  inline-size: min(100%, 52rem);
+  text-align: center;
+}
+
+.choice-feedback {
+  min-block-size: 0;
+  max-inline-size: min(34em, 100%);
+  font-size: clamp(1.06rem, 0.7vmin + 0.9rem, 1.3rem);
+}
+
+.choice-effects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+}
+
+.choice-effects .chips,
+.quiz-verdict .chips {
+  justify-content: center;
+}
+
+.choice-effects .chips li,
+.quiz-verdict .chips li {
+  background: rgb(5 8 12 / 0.7);
+}
+
+.bonus-stamp {
+  display: inline-flex;
+  gap: 0.5em;
+  padding: 0.1rem 0.6rem;
+  background: var(--neon);
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.insight {
+  display: grid;
+  gap: 0.15rem;
+  max-inline-size: min(46em, 100%);
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line);
+  border-inline-start: 2px solid var(--stone);
+  background-color: rgb(5 8 12 / 0.74);
+  background-image: var(--tex-terrazzo);
+  background-size: var(--tex-terrazzo-size);
+  backdrop-filter: blur(10px);
+  text-align: start;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.insight cite {
+  font-style: normal;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--stone);
+}
+
+/* ── 問答 ─────────────────────────────────────────── */
+
+.quiz-head {
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+}
+
+.quiz-count {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 4px #000;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(0.4rem, 1vw, 0.7rem);
+  inline-size: min(100%, 58rem);
+}
+
+.quiz-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-block-size: var(--tap);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: rgb(5 8 12 / 0.66);
+  backdrop-filter: blur(10px);
+  text-align: start;
+  font-size: max(18px, 1.05rem);
+  line-height: 1.4;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.quiz-option:hover:not(:disabled),
+.quiz-option:focus {
+  border-color: var(--accent);
+  background: rgb(5 8 12 / 0.86);
+}
+
+.quiz-mark {
+  flex: none;
+}
+
+.quiz-option.is-removed {
+  opacity: 0.45;
+}
+
+.quiz-option.is-removed .quiz-option-text {
+  text-decoration: line-through;
+}
+
+.quiz-removed {
+  margin-inline-start: auto;
+  font-style: normal;
+  font-size: 0.82rem;
+  color: var(--neon);
+  white-space: nowrap;
+}
+
+.quiz-option.is-answer {
+  border-color: var(--neon);
+  color: var(--neon);
+}
+
+.quiz-option.is-wrong {
+  border-color: var(--red);
+  color: #ff8a7c;
+}
+
+.quiz.is-answered .quiz-option:not(.is-answer, .is-wrong) {
+  display: none;
+}
+
+.quiz.is-answered .quiz-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.quiz.is-answered .quiz-option {
+  flex: 1 1 16rem;
+  max-inline-size: 29rem;
+}
+
+.quiz-result {
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  inline-size: min(100%, 50rem);
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--line);
+  background: rgb(5 8 12 / 0.72);
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.quiz-verdict {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+}
+
+.quiz-verdict strong {
+  font-size: 1.15rem;
+  letter-spacing: 0.2em;
+}
+
+.quiz.is-right .quiz-verdict strong {
+  color: var(--neon);
+}
+
+.quiz.is-miss .quiz-verdict strong {
+  color: #ff8a7c;
+}
+
+.quiz-explain {
+  max-inline-size: min(42em, 100%);
+  line-height: 1.5;
+}
+
+.quiz-source {
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.quiz-source cite {
+  font-style: normal;
+}
+
+/* ── 任務卡與過關結算：疊在劇照上的兩張單據 ─────────── */
+
+.chapter {
+  display: grid;
+  padding: calc(var(--bar-t) + clamp(0.5rem, 2.4vh, 1.6rem)) max(var(--edge), 4vw) calc(var(--bar-b) + clamp(0.5rem, 2.4vh, 1.6rem));
+  overflow: hidden auto;
+  scrollbar-width: none;
+}
+
+/* 任務卡：單據壓在劇照左下的暗部，人物留在畫面上 */
+.chapter--card {
+  align-items: end;
+  justify-items: start;
+}
+
+.ticket--mission {
+  inline-size: min(100%, 36rem);
+}
+
+.ticket-brief {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* 過關：劇照壓暗，結算單置中，朱紅印章蓋在右上 */
+.chapter--clear {
+  place-items: center;
+  background: rgb(3 5 8 / 0.62);
+  backdrop-filter: blur(6px);
+}
+
+.ticket--clear {
+  inline-size: min(100%, 38rem);
+}
+
+.ticket--clear .stamp {
+  position: absolute;
+  inset-block-start: 3.4rem;
+  inset-inline-end: 1.1rem;
+  inline-size: 5.6rem;
+  block-size: 5.6rem;
+  font-size: 2rem;
+}
+
+.ticket--clear h2,
+.ticket--clear .ticket-fields {
+  margin-inline-end: 6.8rem;
+}
+
+.clear-meters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1.6rem;
+}
+
+.clear-meters li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: baseline;
+  column-gap: 0.6rem;
+}
+
+.clear-meters .m-name {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.clear-meters .m-num {
+  font-size: 1.4rem;
+}
+
+.clear-delta {
+  min-inline-size: 2.4em;
+  font-family: var(--mono);
+  font-style: normal;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+  color: var(--muted);
+}
+
+.clear-delta.is-good {
+  color: var(--neon);
+}
+
+.clear-delta.is-bad {
+  color: #ff8a7c;
+}
+
+.clear-meters .m-bar {
+  grid-column: 1 / -1;
+}
+
+.clear-book {
+  display: grid;
+  grid-template-columns: clamp(5.5rem, 22vmin, 10rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  background: rgb(5 8 12 / 0.6);
+}
+
+.clear-book p {
+  display: grid;
+  gap: 0.1rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.clear-book p > span:last-child {
+  color: var(--muted);
+}
+
+.clear-book-tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  color: var(--neon);
+}
+
+/* ── 窄螢幕（直向手機）：選項與答案排成一欄 ────────── */
+
+@media (max-width: 760px) {
+  .choice-options,
+  .quiz-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .option-hint > span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .option {
+    min-block-size: var(--tap);
+    padding: 0.5rem 0.8rem;
+  }
+
+  .ticket--clear .stamp {
+    inset-block-start: 3.2rem;
+    inline-size: 4.4rem;
+    block-size: 4.4rem;
+    font-size: 1.6rem;
+  }
+
+  .ticket--clear h2,
+  .ticket--clear .ticket-fields {
+    margin-inline-end: 5.2rem;
+  }
+
+  .clear-meters {
+    gap: 0.5rem 1rem;
+  }
+}
+
+/* ── 矮螢幕（手機橫向）：省高度 ─────────────────── */
+
+@media (max-height: 480px) {
+  /* 黑邊與提示列都收窄一點，把高度還給畫面 */
+  #stage {
+    --bar: 48px;
+  }
+
+  #stage:not([data-hint="off"]) {
+    --hint-h: 2.3rem;
+  }
+
+  /* 題目與問題不伸到右上角的選單鈕底下 */
+  .choice-prompt,
+  .quiz-head {
+    max-inline-size: calc(100% - 13rem);
+  }
+
+  .option {
+    min-block-size: var(--tap);
+    padding: 0.35rem 0.7rem;
+    line-height: 1.35;
+  }
+
+  .option-hint > span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .sub-text {
+    min-block-size: 0;
+  }
+
+  .choice,
+  .quiz {
+    gap: 0.4rem;
+    padding-block-end: calc(var(--bar-b) + 0.4rem);
+  }
+
+  /* 結果與書中依據左右並排 */
+  .choice-result {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    justify-items: stretch;
+    inline-size: 100%;
+    gap: 0.4rem 1rem;
+  }
+
+  .choice-result .choice-feedback {
+    grid-row: span 2;
+    text-align: start;
+    font-size: 1.05rem;
+  }
+
+  .choice-effects {
+    justify-content: flex-start;
+  }
+
+  .choice.is-answered .choice-prompt {
+    display: none;
+  }
+
+  .insight {
+    padding: 0.35rem 0.7rem;
+    line-height: 1.4;
+  }
+
+  .quiz-result {
+    gap: 0.15rem;
+    padding: 0.35rem 0.8rem;
+  }
+
+  .quiz.is-answered .quiz-count {
+    display: none;
+  }
+
+  .ticket-stub {
+    padding: 0.55rem 0.9rem 0.4rem;
+  }
+
+  .ticket-body {
+    gap: 0.35rem;
+    padding: 0.5rem 0.9rem 0.6rem;
+  }
+
+  .ticket-body h2 {
+    font-size: 1.25rem;
+  }
+
+  .ticket-brief {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .ticket-fields {
+    padding-block-start: 0.35rem;
+  }
+
+  .ticket--mission {
+    inline-size: min(100%, 44rem);
+  }
+
+  .ticket--clear {
+    inline-size: min(100%, 46rem);
+  }
+
+  .ticket--clear .stamp {
+    inset-block-start: 2.9rem;
+    inline-size: 4rem;
+    block-size: 4rem;
+    font-size: 1.45rem;
+  }
+
+  .clear-meters {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.3rem 0.9rem;
+  }
+
+  .clear-meters li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .clear-meters .m-name {
+    grid-column: 1 / -1;
+  }
+
+  .clear-meters .m-num {
+    font-size: 1.2rem;
+  }
+}
+
+/* 很窄的直向手機：抉擇的間距再收一點 */
+@media (max-width: 420px) {
+  .choice,
+  .quiz {
+    gap: 0.4rem;
+    padding-block-end: calc(var(--bar-b) + 0.4rem);
+  }
+
+  .option {
+    padding: 0.4rem 0.7rem;
+    line-height: 1.38;
+  }
+
+  .choice-prompt,
+  .quiz-head h2 {
+    line-height: 1.4;
+  }
+}

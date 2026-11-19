@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ae",
+    "title": "業務 AE",
+    "team": "示範團隊甲",
+    "tagline": "客戶與內部之間的總機，什麼都要接",
+    "intro": "（示範資料）早上回客戶訊息，下午追內部進度，晚上改報價單。",
+    "strength": "trust",
+    "perk": {
+      "name": "安撫客戶",
+      "desc": "（示範）每個任務的對話中可以安撫客戶一次。"
+    },
+    "start": {
+      "brand": 40,
+      "sales": 40,
+      "trust": 55,
+      "liver": 20
+    },
+    "portrait": "role_ae"
+  },
+  {
+    "id": "data",
+    "title": "數據分析師",
+    "team": "示範團隊乙",
+    "tagline": "用數據證明或推翻大家的直覺",
+    "intro": "（示範資料）報表拉到一半，總有人跑來問這個數字為什麼掉了。",
+    "strength": "sales",
+    "perk": {
+      "name": "先刪一個",
+      "desc": "（示範）問答時先刪去一個錯的選項。"
+    },
+    "start": {
+      "brand": 40,
+      "sales": 52,
+      "trust": 42,
+      "liver": 22
+    },
+    "portrait": "role_data"
+  }
+]

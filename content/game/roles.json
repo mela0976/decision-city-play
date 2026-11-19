@@ -1,0 +1,116 @@
+[
+  {
+    "id": "ae",
+    "title": "業務 AE",
+    "team": "台灣電通",
+    "tagline": "客戶與內部之間的總機，什麼都要接",
+    "intro": "早上八點，手機已經有三通客戶未接來電。你從吳興街騎車到 A25，一路在紅燈前回 LINE，一邊盤算今天要跟創意、媒體、數據各催哪一份稿。客戶說「你們先給我看看」的時候，接住他的人是你。",
+    "strength": "trust",
+    "perk": {
+      "name": "安撫客戶",
+      "desc": "對話中多一次安撫客戶的機會；與客戶溝通、誠實面對問題的選項，客戶信任加成。"
+    },
+    "start": {
+      "brand": 40,
+      "sales": 40,
+      "trust": 50,
+      "liver": 20
+    },
+    "portrait": "role_ae"
+  },
+  {
+    "id": "planner",
+    "title": "策略企劃",
+    "team": "安索帕 isobar",
+    "tagline": "從洞察找出品牌該說什麼",
+    "intro": "你的桌上永遠攤著三份報告和一本便利貼。別人問「要做什麼」，你先問「為什麼」。提案前一晚，你會把簡報第一頁那一句話改到第十二版。",
+    "strength": "brand",
+    "perk": {
+      "name": "洞察便利貼",
+      "desc": "每次抉擇前，可以先看到一句來自當年書中的洞察提示。"
+    },
+    "start": {
+      "brand": 50,
+      "sales": 35,
+      "trust": 45,
+      "liver": 20
+    },
+    "portrait": "role_planner"
+  },
+  {
+    "id": "media",
+    "title": "媒體企劃",
+    "team": "凱絡媒體 Carat",
+    "tagline": "決定預算放在哪裡、何時出現",
+    "intro": "你的 Excel 裡有電視、捷運、YouTube、LINE 和一百多個版位。客戶的錢要放在哪裡、哪一天出現、出現幾次，最後都要算到小數點後兩位。媒體報價單是你的早餐配菜。",
+    "strength": "sales",
+    "perk": {
+      "name": "版位精算",
+      "desc": "與預算、版位、媒體組合有關的選項，業績加成。"
+    },
+    "start": {
+      "brand": 40,
+      "sales": 50,
+      "trust": 40,
+      "liver": 20
+    },
+    "portrait": "role_media"
+  },
+  {
+    "id": "creative",
+    "title": "創意",
+    "team": "電通創意事業群",
+    "tagline": "把策略變成讓人想看的東西",
+    "intro": "你的一天從看片開始，到改稿結束，中間穿插兩次比稿和一次跟導演搶便當。客戶說「再年輕一點」的時候，只有你聽得懂那是什麼意思。",
+    "strength": "brand",
+    "perk": {
+      "name": "好故事",
+      "desc": "與內容、故事、畫面有關的選項，品牌力加成。"
+    },
+    "start": {
+      "brand": 50,
+      "sales": 40,
+      "trust": 40,
+      "liver": 20
+    },
+    "portrait": "role_creative"
+  },
+  {
+    "id": "data",
+    "title": "數據分析師",
+    "team": "電通智能中心",
+    "tagline": "用數據證明或推翻大家的直覺",
+    "intro": "大家以為你會魔法，其實你八成時間都在清資料。會議上有人說「我覺得」，你會默默打開報表。你最常說的一句話是：「這個數字，是怎麼來的？」",
+    "strength": "sales",
+    "perk": {
+      "name": "刪去法",
+      "desc": "回答問答題時，可以先刪掉一個錯誤選項。"
+    },
+    "start": {
+      "brand": 35,
+      "sales": 50,
+      "trust": 45,
+      "liver": 20
+    },
+    "portrait": "role_data"
+  },
+  {
+    "id": "cx",
+    "title": "CX／電商顧問",
+    "team": "美庫爾台灣 Merkle",
+    "tagline": "顧客旅程、會員與轉換",
+    "intro": "你每天都在看顧客從哪裡進來、在哪一步卡住、為什麼沒結帳。會員資料、購物車、客服紀錄攤在一起，你就看得出問題在哪。客戶說「轉換率很低」，你會先問：「顧客在哪一步猶豫？」",
+    "strength": "trust",
+    "perk": {
+      "name": "旅程地圖",
+      "desc": "與會員、顧客體驗、客服有關的選項，客戶信任加成。"
+    },
+    "start": {
+      "brand": 45,
+      "sales": 35,
+      "trust": 50,
+      "liver": 20
+    },
+    "portrait": "role_cx"
+  }
+]

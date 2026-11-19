@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>決策之城｜城市引擎示範</title>
+<link rel="icon" href="data:,">
+<style>
+  * { box-sizing: border-box }
+  body { margin:0; overflow:hidden; background:#17272e; color:#f8e9c2; font: 14px/1.4 system-ui,sans-serif }
+  header { position:fixed; z-index:2; top:max(8px, env(safe-area-inset-top)); left:max(10px, env(safe-area-inset-left)); pointer-events:none }
+  h1 { margin:0; font-size:clamp(18px,2.7vw,29px); letter-spacing:.06em; color:#ffcf66; text-shadow:0 2px 6px #111 }
+  p { margin:0 }
+  #viewport { position:relative; width:100dvw; height:100dvh }
+  #city { display:block; width:100dvw; height:100dvh; outline:none; background:#656f72 }
+  #map { position:absolute; right:max(12px,env(safe-area-inset-right)); top:max(12px,env(safe-area-inset-top));
+    width:clamp(112px,15vw,220px); height:auto; aspect-ratio:1.65; border:1px solid #f0ce89; cursor:pointer }
+  aside { position:fixed; z-index:3; top:max(47px,env(safe-area-inset-top)); right:max(12px,env(safe-area-inset-right));
+    width:min(344px,90vw); max-height:calc(100dvh - 146px); overflow:auto; background:#17272ef2; border:1px solid #8d8062; padding:7px }
+  #panel:not(:has(details[open])) { width:auto; padding:5px 8px }
+  #panel:has(details[open]) { top:max(112px,env(safe-area-inset-top)) }
+  summary { cursor:pointer }
+  fieldset { margin:4px 0; min-width:0; border:1px solid #52655a; padding:5px }
+  legend { color:#98d9bb }
+  .row,#locations { display:flex; flex-wrap:wrap; align-items:center; gap:4px }
+  button,select,input { font:inherit }
+  button,select { border:1px solid #6a7f73; background:#293e40; color:inherit; padding:3px 6px; cursor:pointer }
+  button:hover,button:focus-visible { background:#f5d084; color:#17272e }
+  output { font-variant-numeric:tabular-nums }
+  #events { margin:0; max-height:93px; overflow:auto; white-space:pre-wrap; color:#c9e3cd; font-size:10px }
+  #state { position:fixed; bottom:max(3px,env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); z-index:2;
+    max-width:min(96vw,840px); width:max-content; padding:3px 8px; text-align:center; background:#192024d9; font-size:clamp(10px,1.2vw,13px) }
+  #diagnostics, #modeInfo { font-size:11px; color:#c2d4c4 }
+  #panel:not(:has(details[open])) { top:max(8px,env(safe-area-inset-top)); right:calc(clamp(112px,15vw,220px) + max(18px,env(safe-area-inset-right))) }
+  @media (pointer:coarse) { #state { max-width:55vw } }
+</style>
+</head>
+<body>
+<header><h1>決策之城</h1></header>
+<main>
+<section>
+  <div id="viewport">
+    <canvas id="city" width="960" height="540" tabindex="0" aria-label="決策區城市畫面"></canvas>
+    <canvas id="map" width="170" height="110" aria-label="決策區小地圖"></canvas>
+  </div>
+  <div id="state"><output id="controls">方向鍵移動 · 空白鍵動作 · G 自動前往</output></div>
+</section>
+<aside id="panel"><details><summary>示範控制</summary><div id="diagnostics"><output id="snapshot"></output> · <output id="renderer"></output></div><div class="row"><button id="switch">切換 2D</button><label>場景 <select id="sceneMode">
+<option value="">自動</option><option value="google">Google 真實場景</option><option value="stylized">程式化 3D</option><option value="2d">俯視 2D</option>
+</select></label><label>Google Maps 金鑰 <input id="gmkey" type="password" autocomplete="off" size="15"></label>
+<button id="saveKey">套用金鑰</button><output id="modeInfo"></output><button id="textures">切換寫實貼圖</button><select id="route"><option value="office">富幫 A25</option><option value="client">台北一洞么</option><option value="river">彩虹河濱公園</option></select><button id="autoRide">自動前往</button></div>
+  <fieldset><legend>地點</legend><div id="locations"></div></fieldset>
+  <fieldset><legend>交通與時間</legend>
+    <div class="row"><label>時間 <input id="time" type="range" min="0" max="24" value="17.35" step=".05"></label><output id="hour">17:21</output></div>
+    <div class="row"><button id="dawn">清晨</button><button id="day">正午</button><button id="dusk">黃昏</button><button id="night">夜晚</button><button id="weather">下雨</button></div>
+    <label>車流 <input id="traffic" type="range" min="0" max="1" step=".05" value=".55"></label>
+  </fieldset>
+  <fieldset><legend>外觀與效果</legend>
+    <div class="row"><select id="skin" aria-label="外觀">
+      <option value="ae">業務 AE</option><option value="planner">策略企劃</option><option value="media">媒體企劃</option>
+      <option value="creative">創意</option><option value="data">數據分析師</option><option value="cx">CX／電商顧問</option><option value="grandma">阿嬤</option>
+    </select><select id="filter" aria-label="濾鏡"><option value="none">無濾鏡</option><option value="grandma">暖色</option><option value="flashback">回憶</option></select>
+    <button id="shake">震動</button></div>
+  </fieldset>
+  <fieldset><legend>標記與人物</legend><div class="row">
+    <button id="markers">移除標記</button><button id="waypoint">導航到河濱</button>
+    <button id="npcs">移除 NPC</button><button id="say">現在地的 NPC 說話</button>
+  </div></fieldset>
+  <fieldset><legend>引擎</legend><div class="row">
+    <button id="flyover">空拍所選地點</button><button id="estimate">估算所選路線</button><output id="estimateResult"></output><button id="roadReturn">回到路上</button><button id="run">停止</button><button id="pause">暫停</button><button id="input">關閉操作</button><button id="listen">取消事件監聽</button>
+  </div></fieldset>
+  <fieldset><legend>收到的事件</legend><pre id="events" aria-live="polite"></pre></fieldset>
+</details></aside>
+</main>
+<script type="module">
+import {createEngine} from './index.js';
+import {metersPerUnit} from './world.mjs';
+const get=id=>document.getElementById(id);
+const canvas=get('city');
+const engine=await createEngine({canvas,minimapCanvas:get('map')});
+const locations=engine.getLocations();
+const npcs=locations.map(({id,name})=>({
+  id:`npc-${id}`,locationId:id,skin:id==='temple'?'npc_grandma':'npc_vendor',name:id==='temple'?'廟口阿嬤':`${name}街坊`,
+}));
+const markers=[
+  {id:'home',locationId:'home',kind:'home',label:'回家'},
+  {id:'office',locationId:'office',kind:'mission',label:'晨會'},
+  {id:'client',locationId:'client_hq',kind:'mission',label:'客戶總部'},
+  {id:'temple',locationId:'temple',kind:'egg',label:'廟口'},
+  {id:'river',locationId:'riverside',kind:'book',label:'河畔散步'},
+  {id:'market',locationId:'night_market',kind:'npc',label:'晚餐'},
+];
+let cue={action:null,targetName:null};
+const names=['location:enter','location:leave','marker:reach','interact','crash','mode:change','autoride:change','input:mode','context:change','flyover:end'];
+const handlers=new Map(names.map(name=>[name,payload=>{
+  if(name==='context:change') cue=payload;
+  const log=get('events');
+  log.textContent=(`${name} ${JSON.stringify(payload)}\n`+log.textContent).split('\n').slice(0,50).join('\n');
+}]));
+for (const [event,handler] of handlers) engine.on(event,handler);
+engine.setNpcs(npcs);
+engine.setMarkers(markers);
+for (const {id,name} of locations) {
+  const button=document.createElement('button');
+  button.textContent=name;
+  button.dataset.location=id;
+  button.onclick=()=>{engine.teleportTo(id); canvas.focus({preventScroll:true});};
+  get('locations').append(button);
+  if(!['office','client_hq','riverside'].includes(id)){
+    const option=new Option(name,'demo:'+id);
+    get('route').add(option);
+  }
+}
+const click=(id,fn)=>get(id).onclick=()=>{
+  fn();
+  canvas.focus({preventScroll:true});
+};
+function toggle(id,on,labels,fn) {
+  click(id,()=>{on=!on; fn(on); get(id).textContent=labels[Number(on)];});
+}
+function setTime(time) {
+  get('time').value=time;
+  const minutes=Math.round(time*60);
+  get('hour').textContent=`${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;
+  engine.setTimeOfDay(time);
+}
+get('time').oninput=event=>setTime(Number(event.target.value));
+get('traffic').oninput=event=>engine.setTrafficDensity(Number(event.target.value));
+get('skin').onchange=event=>{engine.setPlayerSkin(event.target.value);canvas.focus();};
+get('filter').onchange=event=>{engine.setFilter(event.target.value);canvas.focus();};
+click('dawn',()=>setTime(5.85));
+click('day',()=>setTime(12));
+click('dusk',()=>setTime(17.35));
+click('night',()=>setTime(22));
+click('shake',()=>engine.shake(.8));
+click('say',()=>engine.say(`npc-${engine.player.locationId}`,'食飽未？有閒來坐！',4000));
+toggle('weather',false,['下雨','放晴'],on=>engine.setWeather(on?'rain':'clear'));
+toggle('markers',true,['顯示標記','移除標記'],on=>engine.setMarkers(on?markers:[]));
+toggle('waypoint',false,['導航到河濱','關閉導航'],on=>engine.setWaypoint(on?'river':null));
+toggle('npcs',true,['顯示 NPC','移除 NPC'],on=>engine.setNpcs(on?npcs:[]));
+toggle('run',true,['啟動','停止'],on=>on?engine.start():engine.stop());
+toggle('pause',false,['暫停','繼續'],on=>engine.setPaused(on));
+toggle('input',true,['開啟操作','關閉操作'],on=>engine.setInputEnabled(on));
+toggle('listen',true,['恢復事件監聽','取消事件監聽'],on=>{
+  for (const [event,handler] of handlers) engine[on?'on':'off'](event,handler);
+});
+function selectDemoWaypoint(){
+  const value=get('route').value;
+  if(value.startsWith('demo:')){
+    const locationId=value.slice(5);
+    engine.setMarkers([...markers,{id:value,locationId,label:locations.find(p=>p.id===locationId).name}]);
+  }
+  engine.setWaypoint(value);
+}
+const selectedLocation=()=>{
+  const route=get('route').value;
+  return route.startsWith('demo:')?route.slice(5):({client:'client_hq',river:'riverside'}[route]??route);
+};
+click('flyover',()=>engine.flyover(selectedLocation()));
+click('estimate',()=>{
+  const id=selectedLocation();
+  const seconds=engine.estimateRideSeconds(id);
+  get('estimateResult').textContent=seconds===null?'無可用路線':Math.ceil(seconds)+' 秒';
+});
+click('roadReturn',()=>engine.nearestRoadTeleport());
+get('route').onchange=()=>{selectDemoWaypoint();canvas.focus();};
+click('autoRide',()=>{selectDemoWaypoint();engine.setAutoRide(!engine.autoRide);});
+get('textures').onclick=()=>{
+  const url=new URL(location.href);
+  if(url.searchParams.get('textures')==='0')url.searchParams.delete('textures');
+  else url.searchParams.set('textures','0');
+  location.assign(url);
+};
+const scene=new URLSearchParams(location.search).get('engine')??'';
+get('sceneMode').value=['google','stylized','2d'].includes(scene)?scene:'';
+get('sceneMode').onchange=()=>{
+  const url=new URL(location.href);
+  if(get('sceneMode').value)url.searchParams.set('engine',get('sceneMode').value);
+  else url.searchParams.delete('engine');
+  location.assign(url);
+};
+get('saveKey').onclick=()=>{
+  const key=get('gmkey').value.trim();
+  try{
+    if(key)localStorage.setItem('dc-gmkey',key);
+    else localStorage.removeItem('dc-gmkey');
+  }catch{return;}
+  const url=new URL(location.href);
+  url.searchParams.delete('gmkey');
+  url.searchParams.set('engine','google');
+  location.assign(url);
+};
+const explicit2d=new URLSearchParams(location.search).get('engine')==='2d';
+get('switch').textContent=explicit2d?'切換至 3D':'切換至 2D';
+get('switch').onclick=()=>{
+  const url=new URL(location.href);
+  if(explicit2d) url.searchParams.delete('engine');
+  else url.searchParams.set('engine','2d');
+  location.assign(url);
+};
+setTime(explicit2d?9:17.35);
+const preview=new URLSearchParams(location.search).get('previewLocation');
+if(preview&&locations.some(site=>site.id===preview)){
+  engine.teleportTo(preview);
+  engine.setTrafficDensity(1);
+  get('traffic').value='1';
+}
+engine.start();
+function status() {
+  const {x,y,speed,mode,locationId}=engine.player;
+  get('snapshot').textContent=`${mode==='scooter'?'騎車':'步行'} · ${Math.round(speed*metersPerUnit*3.6)} km/h · (${Math.round(x)}, ${Math.round(y)}) · ${locationId??'街道'}`;
+  const hints=engine.inputMode==='touch'?'搖桿移動 · 大圓鍵動作 · 小箭頭自動前往':'方向鍵移動 · 空白鍵動作 · G 自動前往';
+  const action=cue.action==='talk'?`和${cue.targetName}說話`:cue.action==='enter'?`進入${cue.targetName}`:'';
+  canvas.dataset.aerial=String(engine.aerial);
+  get('controls').textContent=engine.aerial?'空拍 · 動作鍵可跳過 · M 關閉地圖':engine.autoRide?'自動前往中 · 移動即可取消':[hints,action].filter(Boolean).join(' · ');
+  const renderMode=canvas.dataset.engine??'stylized';
+  get('modeInfo').textContent=`${renderMode} · ${canvas.dataset.engineReason??''} · 可見圖磚 ${canvas.dataset.tileCount??0}`;
+  const stats=JSON.parse(canvas.dataset.engineStats||'null');
+  get('renderer').textContent=stats
+    ? `3D · ${stats.calls} draw calls · ${stats.triangles.toLocaleString()} 三角形 · DPR ${stats.dpr}`
+    : canvas.dataset.engine==='2d'?'2D':'3D';
+  requestAnimationFrame(status);
+}
+status();
+</script>
+</body>
+</html>

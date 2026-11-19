@@ -1,0 +1,43 @@
+[
+  {
+    "id": "S",
+    "min": {
+      "brand": 70,
+      "sales": 70,
+      "trust": 70
+    },
+    "maxLiver": 60,
+    "title": "（示範）S 級結局",
+    "text": "（示範）客戶續約，團隊準時下班，你還吃得下第二盤炒飯。",
+    "image": "ending_s"
+  },
+  {
+    "id": "A",
+    "min": {
+      "brand": 55,
+      "sales": 55,
+      "trust": 55
+    },
+    "maxLiver": 80,
+    "title": "（示範）A 級結局",
+    "text": "（示範）提案過了，雖然改了三輪。這一杯敬今天。",
+    "image": "ending_a"
+  },
+  {
+    "id": "B",
+    "min": {
+      "brand": 40,
+      "sales": 40,
+      "trust": 40
+    },
+    "title": "（示範）B 級結局",
+    "text": "（示範）有驚無險。明天還有一場會。",
+    "image": "ending_b"
+  },
+  {
+    "id": "C",
+    "title": "（示範）C 級結局",
+    "text": "（示範）今天先這樣，飯還是要吃。",
+    "image": "ending_c"
+  }
+]

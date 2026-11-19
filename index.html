@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>決策之城 Decision City</title>
+  <meta name="description" content="選一個代理商職能，騎機車在台北信義區過完一個工作天，一天走過九年。">
+  <meta name="theme-color" content="#1c2b5a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='4' fill='%23d92a1c' stroke='%230a0a0a' stroke-width='3'/%3E%3Crect x='9' y='9' width='14' height='14' fill='%23ffd60a' stroke='%230a0a0a' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/play.css">
+  <link rel="stylesheet" href="css/panels.css">
+  <link rel="stylesheet" href="css/story.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <main id="stage" data-phase="boot">
+    <!-- 引擎可能在 #world 裡加自己的覆蓋層（class 以 dc-engine- 開頭）；遊戲介面都疊在 #world 之上。 -->
+    <div id="world">
+      <canvas id="city" tabindex="0" aria-label="城市街景。方向鍵或 WASD 移動，空白鍵互動，G 自動前往。"></canvas>
+    </div>
+
+    <div id="scene" hidden></div>
+
+    <div id="hud" hidden>
+      <div class="hud-id">
+        <div class="hud-portrait" id="hud-portrait"></div>
+        <div class="hud-who">
+          <strong id="hud-role"></strong>
+          <time id="hud-clock" aria-label="遊戲時間"></time>
+        </div>
+      </div>
+      <ul class="hud-meters" id="hud-meters"></ul>
+      <div class="hud-radio" id="hud-radio">
+        <button type="button" class="radio-station" id="radio-station"></button>
+        <div class="radio-ticker" id="radio-ticker"><span id="radio-text"></span></div>
+      </div>
+      <div class="hud-corner">
+        <!-- 小地圖外框。放大（M 或點一下）由引擎處理，所以這裡不是按鈕。 -->
+        <div class="hud-map" id="hud-map">
+          <canvas id="minimap"></canvas>
+        </div>
+        <button type="button" class="btn btn--small" id="hud-menu"></button>
+      </div>
+      <div class="hud-task" id="hud-task" hidden>
+        <strong id="hud-task-title"></strong>
+        <span id="hud-task-hint"></span>
+        <span class="hud-timer" id="hud-timer" hidden></span>
+        <button type="button" class="btn btn--small hud-autoride" id="hud-autoride" hidden></button>
+      </div>
+    </div>
+
+    <div id="layer"></div>
+    <div id="screen"></div>
+    <div id="pause-plate" hidden></div>
+    <!-- 下方提示列：左段是現在要做什麼，右段是現在能按什麼 -->
+    <p id="hint" hidden><span id="hint-task"></span><span id="hint-keys"></span></p>
+    <div id="toasts" role="status" aria-live="polite"></div>
+    <div id="boot-plate">載入中</div>
+  </main>
+
+  <dialog id="menu" class="sheet" aria-labelledby="menu-title" closedby="any"></dialog>
+  <dialog id="proposal" class="sheet sheet--wide" aria-labelledby="proposal-title" closedby="any"></dialog>
+  <dialog id="elder" class="sheet sheet--wide" aria-labelledby="elder-title" closedby="any"></dialog>
+  <dialog id="confirm" class="sheet" aria-labelledby="confirm-title"></dialog>
+
+  <noscript><p class="noscript">這個遊戲需要開啟 JavaScript 才能玩。</p></noscript>
+</body>
+</html>

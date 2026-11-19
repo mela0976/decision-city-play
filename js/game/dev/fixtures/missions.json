@@ -1,0 +1,197 @@
+[
+  {
+    "id": "m2018",
+    "year": 2018,
+    "order": 1,
+    "clock": "08:30",
+    "title": "示範任務：捷運站的看板",
+    "locationId": "mrt",
+    "giver": "client_demo",
+    "brief": "（示範資料）客戶想在捷運市政府站買看板。先聽他怎麼說，再決定怎麼提。",
+    "splash": "book_2018",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "client_demo",
+            "text": "早安，{role}。我們想在這一站買一面看板，可是老闆問我：到底有多少人看到？"
+          },
+          {
+            "who": "player",
+            "text": "這題我回去算。先讓我看一下現場的人流。"
+          },
+          {
+            "who": "client_demo",
+            "text": "好，中午前給我一個方向就行。"
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "（示範）你要怎麼回覆客戶？",
+        "options": [
+          {
+            "text": "先做一週人流量測，再決定買哪一面",
+            "effects": {
+              "brand": 6,
+              "trust": 5,
+              "liver": 6
+            },
+            "feedback": "（示範）你在出口站了三天，數字很漂亮，腿很痠。",
+            "insight": "（示範依據）這裡會放那一年書裡的一句依據。",
+            "roleBonus": {
+              "data": {
+                "sales": 5
+              }
+            }
+          },
+          {
+            "text": "直接買最大那面，先衝聲量",
+            "effects": {
+              "sales": 8,
+              "brand": -3,
+              "liver": 3
+            },
+            "feedback": "（示範）看板很大，老闆很滿意，但沒人說得出效果。",
+            "insight": "（示範依據）這裡會放那一年書裡的一句依據。"
+          },
+          {
+            "text": "跟客戶談清楚目標，再回頭排版位",
+            "effects": {
+              "trust": 8,
+              "sales": 3,
+              "liver": 4
+            },
+            "feedback": "（示範）客戶第一次把目標講清楚，你也少改了兩輪。",
+            "insight": "（示範依據）這裡會放那一年書裡的一句依據。",
+            "roleBonus": {
+              "ae": {
+                "trust": 5
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2018_01",
+          "q2018_02"
+        ]
+      }
+    ],
+    "reward": {
+      "brand": 2,
+      "sales": 2,
+      "trust": 2,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2019",
+    "year": 2019,
+    "order": 2,
+    "clock": "10:00",
+    "title": "示範任務：數據說業績掉了",
+    "locationId": "office",
+    "giver": "boss_demo",
+    "brief": "（示範資料）報表說業績掉了。先去巷口超商問店員，再回來下判斷。",
+    "splash": "book_2019",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "boss_demo",
+            "text": "{role}，這份報表說上個月掉了一成。你怎麼看？"
+          },
+          {
+            "who": "player",
+            "text": "我先去通路問一下，報表上看不到的事很多。"
+          }
+        ]
+      },
+      {
+        "type": "goto",
+        "locationId": "convenience",
+        "hint": "去巷口超商找店員聊聊",
+        "timeLimitSec": 60
+      },
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "clerk_demo",
+            "text": "上個月喔？隔壁在修路，客人都繞別條走啦。"
+          },
+          {
+            "who": "player",
+            "text": "……原來是這樣。"
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "（示範）回公司後，你怎麼報告？",
+        "options": [
+          {
+            "text": "照報表建議加碼促銷",
+            "effects": {
+              "sales": 7,
+              "brand": -4,
+              "liver": 4
+            },
+            "feedback": "（示範）促銷檔期排滿，毛利被吃掉一塊。",
+            "insight": "（示範依據）這裡會放那一年書裡的一句依據。"
+          },
+          {
+            "text": "把現場聽到的原因補進報告",
+            "effects": {
+              "trust": 8,
+              "brand": 4,
+              "liver": 5
+            },
+            "feedback": "（示範）主管把你的那一頁放到最前面。",
+            "insight": "（示範依據）這裡會放那一年書裡的一句依據。",
+            "roleBonus": {
+              "data": {
+                "trust": 4
+              },
+              "ae": {
+                "sales": 4
+              }
+            }
+          },
+          {
+            "text": "再觀察一個月",
+            "effects": {
+              "liver": -4,
+              "sales": -3,
+              "trust": 3
+            },
+            "feedback": "（示範）這個月你準時下班，但客戶多問了兩次。",
+            "insight": "（示範依據）這裡會放那一年書裡的一句依據。"
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2019_01",
+          "q2019_02"
+        ]
+      },
+      {
+        "type": "cutscene",
+        "video": "to_noon"
+      }
+    ],
+    "reward": {
+      "brand": 2,
+      "sales": 0,
+      "trust": 3,
+      "liver": 0
+    }
+  }
+]

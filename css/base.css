@@ -1,0 +1,796 @@
+/* 決策之城｜基礎樣式
+   美術方向照 docs/CONTRACTS.md 第 7 節與 docs/NARRATIVE.md 第 3 節：
+   電影感的深色介面當底，質感取自台灣日常——票券與單據、小口磚與磨石子、鐵窗花、路名牌、壓克力燈箱。
+   一個畫面最多兩個重點色：霓虹綠（可以按的、路名牌是同色系的郵局綠）與廟宇朱紅（印章、警示、肝指數）。 */
+
+:root {
+  --ink: #06080c;
+  --night: #0b1018;
+  --panel: rgb(8 12 18 / 0.78);
+  --panel-solid: #0d131c;
+  --line: rgb(255 255 255 / 0.16);
+  --line-strong: rgb(255 255 255 / 0.4);
+  --text: #f3f0e9;
+  --muted: #b3bac4;
+  --stone: #d9d3c3; /* 磨石子米灰 */
+  --paper: #efe9d9;
+  --neon: #3dff9a;
+  --post: #0b7a55; /* 郵局綠：路名牌 */
+  --red: #e5402f; /* 廟宇朱紅 */
+  --taxi: #f5c400; /* 計程車黃：只給垃圾車跑馬燈與警示條 */
+  --sunset: #ff9340; /* 只在阿嬤模組當重點色 */
+  --accent: var(--neon);
+  --font: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Noto Sans Mono CJK TC", monospace;
+  /* 流動的邊距，並避開瀏海與圓角的安全區 */
+  --pad: clamp(0.5rem, 1.2vmin + 0.2rem, 1.3rem);
+  --edge: max(var(--pad), env(safe-area-inset-left), env(safe-area-inset-right));
+  --top: max(var(--pad), env(safe-area-inset-top));
+  --bottom: max(var(--pad), env(safe-area-inset-bottom));
+  /* 城市畫面的左下角（OpenStreetMap 標註）與右下角（Google 地圖標誌與資料來源）留給引擎，介面不能蓋住 */
+  --attr-h: max(2.4rem, 40px);
+  --attr-w: min(15rem, 42vw);
+  /* 觸控目標 */
+  --tap: 48px;
+  /* 底紋：磨石子（散落的小石粒）與小口磚（細格線），都極淡 */
+  --tex-terrazzo:
+    radial-gradient(circle at 12% 18%, rgb(255 255 255 / 0.05) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 64% 42%, rgb(255 255 255 / 0.04) 0 2.5px, transparent 3px),
+    radial-gradient(circle at 34% 78%, rgb(255 255 255 / 0.035) 0 1.8px, transparent 2.4px),
+    radial-gradient(circle at 86% 84%, rgb(255 255 255 / 0.05) 0 1.2px, transparent 1.8px),
+    radial-gradient(ellipse at 48% 12%, rgb(255 255 255 / 0.03) 0 3px, transparent 3.6px);
+  --tex-terrazzo-size: 97px 89px, 131px 113px, 71px 83px, 109px 127px, 151px 139px;
+  --tex-tile:
+    linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+  --tex-tile-size: 26px 13px;
+  /* 鐵窗花：細線的圓與菱形，一格一格接起來 */
+  --ironwork: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='14' viewBox='0 0 36 14' fill='none' stroke='%23ffffff' stroke-opacity='.34' stroke-width='1'%3E%3Cpath d='M0 7h6M30 7h6M6 7l6-6 6 6-6 6zM18 7a6 6 0 0112 0 6 6 0 01-12 0zM24 1v12'/%3E%3C/svg%3E");
+  --ironwork-corner: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22' fill='none' stroke='%23ffffff' stroke-opacity='.42' stroke-width='1'%3E%3Cpath d='M1 21V1h20M1 11a10 10 0 0010-10M1 16A15 15 0 0016 1M6 1v5H1'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+
+/* 字級跟著視窗短邊流動：內文最小 17px，超寬螢幕封頂 21px */
+html {
+  font-size: clamp(17px, 0.5vmin + 15.2px, 21px);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 阿嬤模組：字放大、重點色換成暖色 */
+html.grandma {
+  font-size: calc(clamp(17px, 0.5vmin + 15.2px, 21px) * 1.14);
+  --accent: var(--sunset);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.55;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd,
+blockquote,
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+fieldset {
+  border: 0;
+  min-inline-size: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+:where(button, a, input, select, summary, canvas, label, section, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* 街景拿到鍵盤焦點時只在畫面邊緣留一圈細線，不搶戲 */
+#city:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 65%, transparent);
+  outline-offset: -2px;
+}
+
+.icon {
+  inline-size: 1.25em;
+  block-size: 1.25em;
+  flex: none;
+}
+
+/* ── 舞台 ─────────────────────────────────────────── */
+
+/* 舞台永遠是整個視窗（100dvw × 100dvh），任何長寬比都不留黑邊、不出現捲軸 */
+#stage {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100vw;
+  inline-size: 100dvw;
+  block-size: 100vh;
+  block-size: 100dvh;
+  overflow: hidden;
+  background: var(--night);
+  user-select: none;
+  -webkit-user-select: none;
+  /* 過場劇照的寬銀幕黑邊高度；上下各自再讓出安全區 */
+  --bar: clamp(56px, 9vh, 96px);
+  --bar: clamp(56px, 9dvh, 96px);
+  --bar-t: calc(var(--bar) + env(safe-area-inset-top));
+  --bar-b: calc(var(--bar) + env(safe-area-inset-bottom));
+}
+
+/* 主 canvas 的容器：position: relative、大小等於 canvas；引擎自己的覆蓋層也放在這裡（契約第 4 節）。
+   遊戲介面全部疊在 #world 之上。這一串祖先都不能有 transform／filter，
+   引擎放大小地圖時用的 position: fixed 才會對齊視窗。 */
+#world {
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+#city {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  touch-action: none;
+}
+
+#scene,
+#layer,
+#screen,
+#hud {
+  position: absolute;
+  inset: 0;
+}
+
+#layer,
+#screen,
+#hud {
+  pointer-events: none;
+}
+
+#layer > *,
+#screen > * {
+  pointer-events: auto;
+}
+
+#screen {
+  z-index: 6;
+}
+
+#pause-plate,
+#toasts {
+  z-index: 8;
+}
+
+/* 阿嬤模組的暖色濾鏡：蓋在舞台上，不擋操作；底下一條讓給地圖的資料來源標註 */
+#stage::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 var(--attr-h);
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(255 176 80 / 0.16), rgb(255 120 60 / 0.1));
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+html.grandma #stage::after {
+  opacity: 1;
+}
+
+/* 載入中：一段鐵窗花 */
+#boot-plate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.3em;
+  background: var(--ink);
+}
+
+#boot-plate::before {
+  content: "";
+  inline-size: 9rem;
+  block-size: 14px;
+  background: var(--ironwork) repeat-x center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #boot-plate::before {
+    animation: ironwork-slide 1.6s linear infinite;
+  }
+}
+
+@keyframes ironwork-slide {
+  to {
+    background-position-x: 36px;
+  }
+}
+
+#stage:not([data-phase="boot"]) #boot-plate {
+  display: none;
+}
+
+#pause-plate {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  translate: -50% -50%;
+  padding: 0.7rem 1.6rem;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  letter-spacing: 0.3em;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+/* ── 按鈕 ─────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  min-block-size: var(--tap);
+  min-inline-size: var(--tap);
+  padding: 0.4rem 1.2rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.06);
+  color: var(--text);
+  font-size: max(18px, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgb(255 255 255 / 0.14);
+  border-color: var(--text);
+}
+
+.btn:active:not(:disabled) {
+  background: rgb(255 255 255 / 0.22);
+}
+
+.btn:disabled {
+  opacity: 0.38;
+}
+
+/* 重點按鈕：一塊亮著的壓克力燈箱 */
+.btn--primary,
+.btn--primary:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--accent) 70%, white);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 78%, white), var(--accent));
+  color: var(--ink);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.6),
+    inset 0 0 14px rgb(255 255 255 / 0.3),
+    0 0 20px color-mix(in srgb, var(--accent) 34%, transparent);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 62%, white), color-mix(in srgb, var(--accent) 88%, white));
+}
+
+.btn--danger {
+  border-color: var(--red);
+  color: #ffb4aa;
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.btn--perk {
+  border-color: var(--stone);
+  color: var(--stone);
+}
+
+.btn--big {
+  min-block-size: max(var(--tap), 3.1rem);
+  padding-inline: 1.6rem;
+  font-size: max(18px, 1.12rem);
+}
+
+.btn--small {
+  padding: 0.3rem 0.9rem;
+}
+
+.btn-note {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.55em;
+  padding: 0 0.4em;
+  border: 1px solid var(--line-strong);
+  border-block-end-width: 2px;
+  border-radius: 4px;
+  background: rgb(255 255 255 / 0.08);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.86em;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 台灣設計語彙的幾個零件 ───────────────────────── */
+
+/* 壓克力燈箱招牌：年份標籤。米白的燈箱面、從裡面透出來的光 */
+.lightbox {
+  display: inline-grid;
+  place-items: center;
+  padding: 0.05em 0.5em;
+  border: 1px solid rgb(255 255 255 / 0.9);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #fffdf4, var(--paper));
+  color: #1a1c20;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  box-shadow:
+    inset 0 0 0.5em rgb(255 255 255 / 0.95),
+    0 0 1em rgb(255 244 214 / 0.42),
+    0 0 2.2em rgb(255 244 214 / 0.18);
+}
+
+.lightbox--small {
+  font-size: 0.82rem;
+}
+
+/* 路名牌：綠底白字、白色內框，地點名稱與導航提示用它 */
+.sign-plate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.12em 0.7em;
+  border-radius: 3px;
+  background: var(--post);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.85), 0 1px 0 rgb(0 0 0 / 0.5);
+}
+
+/* 鐵窗花分隔線 */
+.ironwork {
+  block-size: 14px;
+  background: var(--ironwork) repeat-x center;
+}
+
+/* 票券與單據：存根（上緣打孔）、騎縫線、欄位、等寬數字 */
+.ticket {
+  position: relative;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background-color: rgb(9 13 19 / 0.86);
+  background-image: var(--tex-terrazzo);
+  background-size: var(--tex-terrazzo-size);
+  backdrop-filter: blur(10px);
+}
+
+/* 角落的鐵窗花 */
+.ticket::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 6px;
+  inset-inline-end: 6px;
+  inline-size: 22px;
+  block-size: 22px;
+  background: var(--ironwork-corner) no-repeat;
+  rotate: 180deg;
+  pointer-events: none;
+}
+
+.ticket-stub {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.75rem 1rem 0.6rem;
+  /* 上緣一排打孔 */
+  background: radial-gradient(circle at 50% 0, var(--ink) 0 3.5px, transparent 4px) repeat-x 0 -1px / 16px 9px;
+  /* 騎縫線 */
+  border-block-end: 2px dashed var(--line-strong);
+}
+
+/* 騎縫線兩端的半圓缺口 */
+.ticket-stub::before,
+.ticket-stub::after {
+  content: "";
+  position: absolute;
+  inset-block-end: -8px;
+  inline-size: 14px;
+  block-size: 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.ticket-stub::before {
+  inset-inline-start: -8px;
+  clip-path: inset(0 0 0 50%);
+}
+
+.ticket-stub::after {
+  inset-inline-end: -8px;
+  clip-path: inset(0 50% 0 0);
+}
+
+.ticket-kind {
+  font-size: 0.86rem;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+}
+
+.ticket-no {
+  margin-inline-start: auto;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.ticket-no::before {
+  content: "No.";
+  margin-inline-end: 0.3em;
+  font-size: 0.75em;
+}
+
+.ticket-body {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.ticket-body h2 {
+  font-size: clamp(1.3rem, 1.6vmin + 0.9rem, 2rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.ticket-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.6rem;
+  padding-block-start: 0.6rem;
+  border-block-start: 1px solid var(--line);
+}
+
+.ticket-field dt {
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+}
+
+.ticket-field dd {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.ticket-field.is-mono dd {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+/* ── 插畫框：永遠先有深色漸層，圖載入成功才淡入 ─────── */
+
+.art {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 82% 105%, rgb(255 147 64 / 0.2), transparent 62%),
+    radial-gradient(90% 70% at 8% -5%, rgb(107 178 207 / 0.16), transparent 60%),
+    linear-gradient(160deg, #151c28, #080b11);
+}
+
+.art[data-tone="1"] {
+  background:
+    radial-gradient(110% 90% at 15% 105%, rgb(61 255 154 / 0.14), transparent 60%),
+    radial-gradient(90% 70% at 95% -5%, rgb(107 178 207 / 0.16), transparent 60%),
+    linear-gradient(200deg, #131b22, #07090e);
+}
+
+.art[data-tone="2"] {
+  background:
+    radial-gradient(120% 90% at 50% 110%, rgb(229 64 47 / 0.2), transparent 60%),
+    linear-gradient(180deg, #181a26, #08090f);
+}
+
+.art[data-tone="3"] {
+  background:
+    radial-gradient(100% 80% at 90% 10%, rgb(255 216 74 / 0.12), transparent 60%),
+    radial-gradient(100% 80% at 0% 100%, rgb(107 178 207 / 0.18), transparent 60%),
+    linear-gradient(140deg, #121923, #07090e);
+}
+
+.art[data-tone="4"] {
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgb(255 147 64 / 0.16), transparent 60%),
+    radial-gradient(90% 70% at 100% 100%, rgb(229 64 47 / 0.14), transparent 60%),
+    linear-gradient(170deg, #171923, #08090e);
+}
+
+.art img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.art.has-img img {
+  opacity: 1;
+}
+
+.art--wide {
+  aspect-ratio: 16 / 9;
+}
+
+.art--portrait {
+  aspect-ratio: 3 / 4;
+}
+
+.art--square {
+  aspect-ratio: 1;
+}
+
+.art--cover {
+  position: absolute;
+  inset: 0;
+}
+
+/* 立繪缺圖：在暗部留一個人形輪廓 */
+.art--portrait:not(.has-img)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 36%, rgb(255 255 255 / 0.1) 0 17%, transparent 17.6%),
+    radial-gradient(ellipse 46% 34% at 50% 100%, rgb(255 255 255 / 0.1) 0 99%, transparent 100%);
+}
+
+/* 頭像：圓的；沒有立繪的人用名字的第一個字 */
+.avatar {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 2.4rem;
+  block-size: 2.4rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.1);
+  font-weight: 600;
+}
+
+.avatar .art {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* ── 數值條（HUD、選角、過關、成績單共用）：中性的米灰，只有肝指數用朱紅 ── */
+
+[data-meter] {
+  --mc: var(--stone);
+}
+
+[data-meter="liver"] {
+  --mc: var(--red);
+}
+
+.m-bar {
+  display: block;
+  order: 3;
+  block-size: 3px;
+  background: rgb(255 255 255 / 0.16);
+}
+
+.m-bar i {
+  display: block;
+  block-size: 100%;
+  inline-size: calc(var(--v, 0) * 1%);
+  background: var(--mc, var(--text));
+  transition: inline-size 0.5s ease-out;
+}
+
+.m-num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.is-good {
+  color: var(--neon);
+}
+
+.is-bad {
+  color: #ff8a7c;
+}
+
+/* 數值變化的小標籤 */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.6rem;
+}
+
+.chips li {
+  display: inline-flex;
+  gap: 0.4em;
+  padding: 0.1rem 0.6rem;
+  border: 1px solid currentColor;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chips li span {
+  color: var(--text);
+}
+
+.chips li b {
+  font-family: var(--mono);
+}
+
+/* ── 提示訊息 ─────────────────────────────────────── */
+
+#toasts {
+  position: absolute;
+  inset-block-start: 26%;
+  inset-inline: var(--edge);
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+
+.toast {
+  max-inline-size: 100%;
+  padding: 0.4rem 1.2rem;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-inline-start: 2px solid var(--accent);
+  backdrop-filter: blur(8px);
+  font-weight: 600;
+}
+
+.toast--bad {
+  border-inline-start-color: var(--red);
+}
+
+.toast--good {
+  border-inline-start-color: var(--neon);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toast {
+    animation: toast-in 0.25s ease-out;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    translate: 0 -0.5rem;
+  }
+}
+
+/* ── 印章：過關、提案入手與結局等第 ────────────────── */
+
+.stamp {
+  display: grid;
+  place-items: center;
+  inline-size: 5.4rem;
+  block-size: 5.4rem;
+  border: 2px solid var(--red);
+  outline: 1px solid var(--red);
+  outline-offset: 3px;
+  color: var(--red);
+  background: rgb(229 64 47 / 0.1);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+  rotate: -7deg;
+  text-shadow: 0 0 14px rgb(229 64 47 / 0.6);
+  box-shadow: 0 0 26px rgb(229 64 47 / 0.25);
+}
+
+.stamp span {
+  writing-mode: vertical-rl;
+  letter-spacing: 0.08em;
+}
+
+/* 蓋章：重重落下，乾脆 */
+@media (prefers-reduced-motion: no-preference) {
+  .stamp {
+    animation: stamp-in 0.42s cubic-bezier(0.2, 1.4, 0.4, 1) 0.25s both;
+  }
+}
+
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    scale: 2.4;
+    rotate: 8deg;
+  }
+}
+
+.noscript {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+}

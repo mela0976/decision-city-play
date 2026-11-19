@@ -1,0 +1,1544 @@
+{
+  "images": {
+    "title_key": {
+      "src": "assets/img/title_key.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2018": {
+      "src": "assets/img/book_2018.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2019": {
+      "src": "assets/img/book_2019.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2020": {
+      "src": "assets/img/book_2020.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2021": {
+      "src": "assets/img/book_2021.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2022": {
+      "src": "assets/img/book_2022.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2023": {
+      "src": "assets/img/book_2023.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2024": {
+      "src": "assets/img/book_2024.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2025": {
+      "src": "assets/img/book_2025.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "book_2026": {
+      "src": "assets/img/book_2026.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_office": {
+      "src": "assets/img/loc_office.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_client_hq": {
+      "src": "assets/img/loc_client_hq.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_night_market": {
+      "src": "assets/img/loc_night_market.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_temple": {
+      "src": "assets/img/loc_temple.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_gamadiam": {
+      "src": "assets/img/loc_gamadiam.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_rechao": {
+      "src": "assets/img/loc_rechao.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "ending_s": {
+      "src": "assets/img/ending_s.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "ending_a": {
+      "src": "assets/img/ending_a.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "ending_b": {
+      "src": "assets/img/ending_b.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "ending_c": {
+      "src": "assets/img/ending_c.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "ending_grandma": {
+      "src": "assets/img/ending_grandma.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "intro_poster": {
+      "src": "assets/img/intro_poster.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "grandma_poster": {
+      "src": "assets/img/grandma_poster.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "role_ae": {
+      "src": "assets/img/role_ae.webp",
+      "w": 900,
+      "h": 1200
+    },
+    "role_planner": {
+      "src": "assets/img/role_planner.webp",
+      "w": 900,
+      "h": 1200
+    },
+    "role_media": {
+      "src": "assets/img/role_media.webp",
+      "w": 900,
+      "h": 1200
+    },
+    "role_creative": {
+      "src": "assets/img/role_creative.webp",
+      "w": 900,
+      "h": 1200
+    },
+    "role_data": {
+      "src": "assets/img/role_data.webp",
+      "w": 900,
+      "h": 1200
+    },
+    "role_cx": {
+      "src": "assets/img/role_cx.webp",
+      "w": 900,
+      "h": 1200
+    },
+    "grandma_portrait": {
+      "src": "assets/img/grandma_portrait.webp",
+      "w": 900,
+      "h": 1200
+    },
+    "elder_card_1": {
+      "src": "assets/img/elder_card_1.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "elder_card_2": {
+      "src": "assets/img/elder_card_2.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "elder_card_3": {
+      "src": "assets/img/elder_card_3.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_apartment": {
+      "src": "assets/tex/tex_facade_apartment.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_shophouse": {
+      "src": "assets/tex/tex_facade_shophouse.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_glass": {
+      "src": "assets/tex/tex_facade_glass.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_office": {
+      "src": "assets/tex/tex_facade_office.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_asphalt": {
+      "src": "assets/tex/tex_asphalt.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_sidewalk": {
+      "src": "assets/tex/tex_sidewalk.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "feed_2018": {
+      "src": "assets/img/feed_2018.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2019": {
+      "src": "assets/img/feed_2019.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2020": {
+      "src": "assets/img/feed_2020.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2021": {
+      "src": "assets/img/feed_2021.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2022": {
+      "src": "assets/img/feed_2022.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2023": {
+      "src": "assets/img/feed_2023.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2024": {
+      "src": "assets/img/feed_2024.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2025": {
+      "src": "assets/img/feed_2025.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "feed_2026": {
+      "src": "assets/img/feed_2026.webp",
+      "w": 720,
+      "h": 1280
+    },
+    "tex_shopfront_a": {
+      "src": "assets/tex/tex_shopfront_a.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_b": {
+      "src": "assets/tex/tex_shopfront_b.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_c": {
+      "src": "assets/tex/tex_shopfront_c.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_d": {
+      "src": "assets/tex/tex_shopfront_d.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_e": {
+      "src": "assets/tex/tex_shopfront_e.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_f": {
+      "src": "assets/tex/tex_shopfront_f.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_facade_apartment_b": {
+      "src": "assets/tex/tex_facade_apartment_b.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_apartment_c": {
+      "src": "assets/tex/tex_facade_apartment_c.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_tower_b": {
+      "src": "assets/tex/tex_facade_tower_b.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_tower_c": {
+      "src": "assets/tex/tex_facade_tower_c.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_roof_top": {
+      "src": "assets/tex/tex_roof_top.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "tex_facade_mall": {
+      "src": "assets/tex/tex_facade_mall.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_temple_front": {
+      "src": "assets/tex/tex_temple_front.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "avatar_player_m": {
+      "src": "assets/img/avatar_player_m.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_player_f": {
+      "src": "assets/img/avatar_player_f.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_breakfast_auntie": {
+      "src": "assets/img/avatar_breakfast_auntie.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_temple_uncle": {
+      "src": "assets/img/avatar_temple_uncle.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_clerk_ning": {
+      "src": "assets/img/avatar_clerk_ning.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_vendor_cheng": {
+      "src": "assets/img/avatar_vendor_cheng.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_rival_vicky": {
+      "src": "assets/img/avatar_rival_vicky.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_rider_jie": {
+      "src": "assets/img/avatar_rider_jie.webp",
+      "w": 512,
+      "h": 512
+    },
+    "loc_convenience": {
+      "src": "assets/img/loc_convenience.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_breakfast": {
+      "src": "assets/img/loc_breakfast.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "avatar_client_wu": {
+      "src": "assets/img/avatar_client_wu.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_boss_lin": {
+      "src": "assets/img/avatar_boss_lin.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_grandma": {
+      "src": "assets/img/avatar_grandma.webp",
+      "w": 512,
+      "h": 512
+    },
+    "ad_1": {
+      "src": "assets/tex/ad_1.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "ad_2": {
+      "src": "assets/tex/ad_2.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "ad_4": {
+      "src": "assets/tex/ad_4.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "ad_5": {
+      "src": "assets/tex/ad_5.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "ad_6": {
+      "src": "assets/tex/ad_6.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "ad_7": {
+      "src": "assets/tex/ad_7.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_g": {
+      "src": "assets/tex/tex_shopfront_g.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "avatar_roommate_yu": {
+      "src": "assets/img/avatar_roommate_yu.webp",
+      "w": 512,
+      "h": 512
+    },
+    "loc_mrt": {
+      "src": "assets/img/loc_mrt.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "ad_3": {
+      "src": "assets/tex/ad_3.webp",
+      "w": 1024,
+      "h": 1024
+    },
+    "loc_department": {
+      "src": "assets/img/loc_department.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_datalab": {
+      "src": "assets/img/loc_datalab.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "avatar_client_chen": {
+      "src": "assets/img/avatar_client_chen.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_client_hsu": {
+      "src": "assets/img/avatar_client_hsu.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_ae_mei": {
+      "src": "assets/img/avatar_ae_mei.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_cd_wei": {
+      "src": "assets/img/avatar_cd_wei.webp",
+      "w": 512,
+      "h": 512
+    },
+    "ad_8": {
+      "src": "assets/tex/ad_8.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_j": {
+      "src": "assets/tex/tex_shopfront_j.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_h": {
+      "src": "assets/tex/tex_shopfront_h.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_i": {
+      "src": "assets/tex/tex_shopfront_i.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "loc_studio": {
+      "src": "assets/img/loc_studio.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "loc_tvstation": {
+      "src": "assets/img/loc_tvstation.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "avatar_tv_su": {
+      "src": "assets/img/avatar_tv_su.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_data_kai": {
+      "src": "assets/img/avatar_data_kai.webp",
+      "w": 512,
+      "h": 512
+    },
+    "tex_shopfront_k": {
+      "src": "assets/tex/tex_shopfront_k.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "tex_shopfront_l": {
+      "src": "assets/tex/tex_shopfront_l.webp",
+      "w": 2048,
+      "h": 1024
+    },
+    "loc_riverside": {
+      "src": "assets/img/loc_riverside.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "avatar_rechao_boss": {
+      "src": "assets/img/avatar_rechao_boss.webp",
+      "w": 512,
+      "h": 512
+    },
+    "sky_dusk": {
+      "src": "assets/tex/sky_dusk.webp",
+      "w": 4096,
+      "h": 2048
+    },
+    "sky_day": {
+      "src": "assets/tex/sky_day.webp",
+      "w": 4096,
+      "h": 2048
+    },
+    "sky_night": {
+      "src": "assets/tex/sky_night.webp",
+      "w": 4096,
+      "h": 2048
+    },
+    "loc_home": {
+      "src": "assets/img/loc_home.webp",
+      "w": 1600,
+      "h": 900
+    },
+    "og": {
+      "src": "assets/img/og.webp",
+      "w": 1200,
+      "h": 630
+    },
+    "og_jpg": {
+      "src": "assets/img/og.jpg",
+      "w": 1200,
+      "h": 630
+    },
+    "icon": {
+      "src": "assets/img/icon.png",
+      "w": 512,
+      "h": 512
+    }
+  },
+  "videos": {
+    "intro": {
+      "src": "assets/video/intro.mp4",
+      "w": 1280,
+      "h": 720,
+      "sec": 5.041667,
+      "poster": "assets/img/intro_poster.webp"
+    },
+    "to_noon": {
+      "src": "assets/video/to_noon.mp4",
+      "w": 1280,
+      "h": 720,
+      "sec": 5.041667
+    },
+    "to_evening": {
+      "src": "assets/video/to_evening.mp4",
+      "w": 1280,
+      "h": 720,
+      "sec": 5.041667
+    },
+    "to_night": {
+      "src": "assets/video/to_night.mp4",
+      "w": 1280,
+      "h": 720,
+      "sec": 5.041667
+    },
+    "grandma_reveal": {
+      "src": "assets/video/grandma_reveal.mp4",
+      "w": 1280,
+      "h": 720,
+      "sec": 5.041667,
+      "poster": "assets/img/grandma_poster.webp"
+    },
+    "ending": {
+      "src": "assets/video/ending.mp4",
+      "w": 1280,
+      "h": 720,
+      "sec": 5.041667
+    }
+  },
+  "models": {
+    "rider_scooter": {
+      "src": "assets/models/rider_scooter.glb",
+      "bytes": 601012,
+      "triangles": 20457,
+      "rigged": false,
+      "animations": []
+    },
+    "grandma_scooter": {
+      "src": "assets/models/grandma_scooter.glb",
+      "bytes": 766408,
+      "triangles": 19990,
+      "rigged": false,
+      "animations": []
+    },
+    "walker_m": {
+      "src": "assets/models/walker_m.glb",
+      "bytes": 555732,
+      "triangles": 15535,
+      "rigged": true,
+      "animations": [
+        "Armature|Casual_Walk|baselayer"
+      ]
+    },
+    "walker_f": {
+      "src": "assets/models/walker_f.glb",
+      "bytes": 562456,
+      "triangles": 15447,
+      "rigged": true,
+      "animations": [
+        "Armature|Casual_Walk|baselayer"
+      ]
+    },
+    "car_ev": {
+      "src": "assets/models/car_ev.glb",
+      "bytes": 464944,
+      "triangles": 20008,
+      "rigged": false,
+      "animations": []
+    },
+    "scooter_parked": {
+      "src": "assets/models/scooter_parked.glb",
+      "bytes": 598200,
+      "triangles": 20288,
+      "rigged": false,
+      "animations": []
+    },
+    "garbage_truck": {
+      "src": "assets/models/garbage_truck.glb",
+      "bytes": 2046324,
+      "triangles": 19759,
+      "rigged": false,
+      "animations": []
+    },
+    "bus": {
+      "src": "assets/models/bus.glb",
+      "bytes": 704876,
+      "triangles": 19251,
+      "rigged": false,
+      "animations": []
+    }
+  },
+  "audio": {
+    "music": {
+      "music_title": {
+        "src": "assets/audio/music/music_title.mp3",
+        "sec": 60.0,
+        "loop": true
+      },
+      "music_fm2018": {
+        "src": "assets/audio/music/music_fm2018.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2019": {
+        "src": "assets/audio/music/music_fm2019.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2020": {
+        "src": "assets/audio/music/music_fm2020.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2021": {
+        "src": "assets/audio/music/music_fm2021.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2022": {
+        "src": "assets/audio/music/music_fm2022.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2023": {
+        "src": "assets/audio/music/music_fm2023.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2024": {
+        "src": "assets/audio/music/music_fm2024.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2025": {
+        "src": "assets/audio/music/music_fm2025.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_fm2026": {
+        "src": "assets/audio/music/music_fm2026.mp3",
+        "sec": 45.0,
+        "loop": true
+      },
+      "music_grandma": {
+        "src": "assets/audio/music/music_grandma.mp3",
+        "sec": 30.0,
+        "loop": true
+      },
+      "music_ending": {
+        "src": "assets/audio/music/music_ending.mp3",
+        "sec": 30.0,
+        "loop": true
+      }
+    },
+    "sfx": {
+      "sfx_garbage_truck": {
+        "src": "assets/audio/sfx/sfx_garbage_truck.mp3",
+        "sec": 5.948844,
+        "loop": false
+      },
+      "sfx_alert": {
+        "src": "assets/audio/sfx/sfx_alert.mp3",
+        "sec": 2.933923,
+        "loop": false
+      },
+      "sfx_thunder": {
+        "src": "assets/audio/sfx/sfx_thunder.mp3",
+        "sec": 3.948617,
+        "loop": false
+      },
+      "sfx_campaign_truck": {
+        "src": "assets/audio/sfx/sfx_campaign_truck.mp3",
+        "sec": 4.949637,
+        "loop": false
+      },
+      "sfx_phone_ring": {
+        "src": "assets/audio/sfx/sfx_phone_ring.mp3",
+        "sec": 1.72068,
+        "loop": false
+      },
+      "sfx_message": {
+        "src": "assets/audio/sfx/sfx_message.mp3",
+        "sec": 0.947891,
+        "loop": false
+      },
+      "sfx_stamp": {
+        "src": "assets/audio/sfx/sfx_stamp.mp3",
+        "sec": 0.293832,
+        "loop": false
+      },
+      "sfx_success": {
+        "src": "assets/audio/sfx/sfx_success.mp3",
+        "sec": 1.970454,
+        "loop": false
+      },
+      "sfx_fail": {
+        "src": "assets/audio/sfx/sfx_fail.mp3",
+        "sec": 1.393832,
+        "loop": false
+      },
+      "sfx_scooter_start": {
+        "src": "assets/audio/sfx/sfx_scooter_start.mp3",
+        "sec": 1.948095,
+        "loop": false
+      },
+      "sfx_scooter_loop": {
+        "src": "assets/audio/sfx/sfx_scooter_loop.mp3",
+        "sec": 9.0,
+        "loop": true
+      },
+      "sfx_ev_hum": {
+        "src": "assets/audio/sfx/sfx_ev_hum.mp3",
+        "sec": 9.0,
+        "loop": true
+      },
+      "sfx_rain_loop": {
+        "src": "assets/audio/sfx/sfx_rain_loop.mp3",
+        "sec": 9.0,
+        "loop": true
+      },
+      "sfx_city_day_loop": {
+        "src": "assets/audio/sfx/sfx_city_day_loop.mp3",
+        "sec": 9.0,
+        "loop": true
+      },
+      "sfx_night_market_loop": {
+        "src": "assets/audio/sfx/sfx_night_market_loop.mp3",
+        "sec": 9.0,
+        "loop": true
+      },
+      "sfx_temple_bell": {
+        "src": "assets/audio/sfx/sfx_temple_bell.mp3",
+        "sec": 2.927687,
+        "loop": false
+      },
+      "sfx_elevator_ding": {
+        "src": "assets/audio/sfx/sfx_elevator_ding.mp3",
+        "sec": 1.94771,
+        "loop": false
+      }
+    },
+    "voice": {
+      "client_wu/284a14df": {
+        "src": "assets/audio/voice/client_wu/284a14df.mp3",
+        "sec": 6.303208
+      },
+      "client_wu/94718818": {
+        "src": "assets/audio/voice/client_wu/94718818.mp3",
+        "sec": 6.411833
+      },
+      "client_wu/d37da264": {
+        "src": "assets/audio/voice/client_wu/d37da264.mp3",
+        "sec": 5.213833
+      },
+      "client_wu/56f65438": {
+        "src": "assets/audio/voice/client_wu/56f65438.mp3",
+        "sec": 5.962333
+      },
+      "client_wu/3201a68d": {
+        "src": "assets/audio/voice/client_wu/3201a68d.mp3",
+        "sec": 5.408125
+      },
+      "client_wu/fa1576ca": {
+        "src": "assets/audio/voice/client_wu/fa1576ca.mp3",
+        "sec": 5.730958
+      },
+      "client_wu/1f99f81e": {
+        "src": "assets/audio/voice/client_wu/1f99f81e.mp3",
+        "sec": 4.14825
+      },
+      "player_f/96f6e694": {
+        "src": "assets/audio/voice/player_f/96f6e694.mp3",
+        "sec": 3.725625
+      },
+      "player_m/61a13167": {
+        "src": "assets/audio/voice/player_m/61a13167.mp3",
+        "sec": 4.01325
+      },
+      "client_wu/1d10bb97": {
+        "src": "assets/audio/voice/client_wu/1d10bb97.mp3",
+        "sec": 2.860625
+      },
+      "client_wu/45d9d29f": {
+        "src": "assets/audio/voice/client_wu/45d9d29f.mp3",
+        "sec": 7.546833
+      },
+      "data_kai/447e6d23": {
+        "src": "assets/audio/voice/data_kai/447e6d23.mp3",
+        "sec": 5.745875
+      },
+      "boss_lin/bb9bfc1b": {
+        "src": "assets/audio/voice/boss_lin/bb9bfc1b.mp3",
+        "sec": 3.958333
+      },
+      "boss_lin/16bf3b06": {
+        "src": "assets/audio/voice/boss_lin/16bf3b06.mp3",
+        "sec": 4.358583
+      },
+      "boss_lin/9bbd1eda": {
+        "src": "assets/audio/voice/boss_lin/9bbd1eda.mp3",
+        "sec": 3.981583
+      },
+      "boss_lin/5ef5205a": {
+        "src": "assets/audio/voice/boss_lin/5ef5205a.mp3",
+        "sec": 3.998875
+      },
+      "boss_lin/eeffa4b5": {
+        "src": "assets/audio/voice/boss_lin/eeffa4b5.mp3",
+        "sec": 4.600875
+      },
+      "boss_lin/a033d622": {
+        "src": "assets/audio/voice/boss_lin/a033d622.mp3",
+        "sec": 4.925625
+      },
+      "boss_lin/e02f3b13": {
+        "src": "assets/audio/voice/boss_lin/e02f3b13.mp3",
+        "sec": 8.068542
+      },
+      "data_kai/14c536e7": {
+        "src": "assets/audio/voice/data_kai/14c536e7.mp3",
+        "sec": 5.597458
+      },
+      "boss_lin/e56a71e6": {
+        "src": "assets/audio/voice/boss_lin/e56a71e6.mp3",
+        "sec": 6.898042
+      },
+      "boss_lin/d668581f": {
+        "src": "assets/audio/voice/boss_lin/d668581f.mp3",
+        "sec": 4.681958
+      },
+      "clerk_ning/e573359e": {
+        "src": "assets/audio/voice/clerk_ning/e573359e.mp3",
+        "sec": 4.155875
+      },
+      "player_f/baab3339": {
+        "src": "assets/audio/voice/player_f/baab3339.mp3",
+        "sec": 1.372417
+      },
+      "player_m/f1d9dd06": {
+        "src": "assets/audio/voice/player_m/f1d9dd06.mp3",
+        "sec": 1.451167
+      },
+      "clerk_ning/c934d607": {
+        "src": "assets/audio/voice/clerk_ning/c934d607.mp3",
+        "sec": 4.827292
+      },
+      "clerk_ning/fede2e1e": {
+        "src": "assets/audio/voice/clerk_ning/fede2e1e.mp3",
+        "sec": 3.916458
+      },
+      "clerk_ning/107f745e": {
+        "src": "assets/audio/voice/clerk_ning/107f745e.mp3",
+        "sec": 4.03875
+      },
+      "client_chen/b05e1054": {
+        "src": "assets/audio/voice/client_chen/b05e1054.mp3",
+        "sec": 6.6135
+      },
+      "client_chen/96d1bb69": {
+        "src": "assets/audio/voice/client_chen/96d1bb69.mp3",
+        "sec": 4.802042
+      },
+      "rival_vicky/815995e7": {
+        "src": "assets/audio/voice/rival_vicky/815995e7.mp3",
+        "sec": 3.94075
+      },
+      "rival_vicky/3112e3a8": {
+        "src": "assets/audio/voice/rival_vicky/3112e3a8.mp3",
+        "sec": 6.419292
+      },
+      "rival_vicky/862357ec": {
+        "src": "assets/audio/voice/rival_vicky/862357ec.mp3",
+        "sec": 4.755667
+      },
+      "rival_vicky/a7e6d988": {
+        "src": "assets/audio/voice/rival_vicky/a7e6d988.mp3",
+        "sec": 4.864167
+      },
+      "rival_vicky/62cc6b29": {
+        "src": "assets/audio/voice/rival_vicky/62cc6b29.mp3",
+        "sec": 5.078167
+      },
+      "rival_vicky/61be3c7c": {
+        "src": "assets/audio/voice/rival_vicky/61be3c7c.mp3",
+        "sec": 5.066
+      },
+      "player_f/2a81b536": {
+        "src": "assets/audio/voice/player_f/2a81b536.mp3",
+        "sec": 3.8205
+      },
+      "player_m/b7a1ba4d": {
+        "src": "assets/audio/voice/player_m/b7a1ba4d.mp3",
+        "sec": 3.034667
+      },
+      "client_chen/bc7bebf6": {
+        "src": "assets/audio/voice/client_chen/bc7bebf6.mp3",
+        "sec": 5.422458
+      },
+      "client_chen/be73a6f4": {
+        "src": "assets/audio/voice/client_chen/be73a6f4.mp3",
+        "sec": 5.46525
+      },
+      "client_chen/8bca7aab": {
+        "src": "assets/audio/voice/client_chen/8bca7aab.mp3",
+        "sec": 4.600625
+      },
+      "client_chen/6119c5bf": {
+        "src": "assets/audio/voice/client_chen/6119c5bf.mp3",
+        "sec": 5.581208
+      },
+      "client_chen/dd65bb5b": {
+        "src": "assets/audio/voice/client_chen/dd65bb5b.mp3",
+        "sec": 4.345958
+      },
+      "client_chen/6211a14a": {
+        "src": "assets/audio/voice/client_chen/6211a14a.mp3",
+        "sec": 6.569333
+      },
+      "client_chen/dc862cfd": {
+        "src": "assets/audio/voice/client_chen/dc862cfd.mp3",
+        "sec": 6.109083
+      },
+      "data_kai/139d3073": {
+        "src": "assets/audio/voice/data_kai/139d3073.mp3",
+        "sec": 5.463417
+      },
+      "data_kai/eb293679": {
+        "src": "assets/audio/voice/data_kai/eb293679.mp3",
+        "sec": 3.803958
+      },
+      "data_kai/ad5fa76d": {
+        "src": "assets/audio/voice/data_kai/ad5fa76d.mp3",
+        "sec": 3.564833
+      },
+      "cd_wei/bf195917": {
+        "src": "assets/audio/voice/cd_wei/bf195917.mp3",
+        "sec": 4.712167
+      },
+      "cd_wei/fbed0e30": {
+        "src": "assets/audio/voice/cd_wei/fbed0e30.mp3",
+        "sec": 4.617167
+      },
+      "cd_wei/ed9c7844": {
+        "src": "assets/audio/voice/cd_wei/ed9c7844.mp3",
+        "sec": 5.389208
+      },
+      "cd_wei/00bf8390": {
+        "src": "assets/audio/voice/cd_wei/00bf8390.mp3",
+        "sec": 4.722458
+      },
+      "cd_wei/35af31ed": {
+        "src": "assets/audio/voice/cd_wei/35af31ed.mp3",
+        "sec": 6.822583
+      },
+      "cd_wei/e3b8d2b4": {
+        "src": "assets/audio/voice/cd_wei/e3b8d2b4.mp3",
+        "sec": 5.296833
+      },
+      "cd_wei/4e18238e": {
+        "src": "assets/audio/voice/cd_wei/4e18238e.mp3",
+        "sec": 4.362667
+      },
+      "player_f/788bab8b": {
+        "src": "assets/audio/voice/player_f/788bab8b.mp3",
+        "sec": 1.787167
+      },
+      "player_m/32ea56ce": {
+        "src": "assets/audio/voice/player_m/32ea56ce.mp3",
+        "sec": 1.518083
+      },
+      "cd_wei/cb7d8b60": {
+        "src": "assets/audio/voice/cd_wei/cb7d8b60.mp3",
+        "sec": 5.311167
+      },
+      "cd_wei/5af4de9c": {
+        "src": "assets/audio/voice/cd_wei/5af4de9c.mp3",
+        "sec": 3.880167
+      },
+      "client_hsu/2e40f502": {
+        "src": "assets/audio/voice/client_hsu/2e40f502.mp3",
+        "sec": 5.63375
+      },
+      "client_hsu/59adcdf9": {
+        "src": "assets/audio/voice/client_hsu/59adcdf9.mp3",
+        "sec": 5.025083
+      },
+      "client_hsu/3deea3ed": {
+        "src": "assets/audio/voice/client_hsu/3deea3ed.mp3",
+        "sec": 4.880625
+      },
+      "client_hsu/dae7efc5": {
+        "src": "assets/audio/voice/client_hsu/dae7efc5.mp3",
+        "sec": 5.181458
+      },
+      "client_hsu/21913808": {
+        "src": "assets/audio/voice/client_hsu/21913808.mp3",
+        "sec": 5.7965
+      },
+      "client_hsu/237b902b": {
+        "src": "assets/audio/voice/client_hsu/237b902b.mp3",
+        "sec": 6.506792
+      },
+      "client_hsu/37ed8212": {
+        "src": "assets/audio/voice/client_hsu/37ed8212.mp3",
+        "sec": 5.176083
+      },
+      "player_f/05298823": {
+        "src": "assets/audio/voice/player_f/05298823.mp3",
+        "sec": 2.217542
+      },
+      "player_m/285b609c": {
+        "src": "assets/audio/voice/player_m/285b609c.mp3",
+        "sec": 2.577875
+      },
+      "client_hsu/a5ea42c2": {
+        "src": "assets/audio/voice/client_hsu/a5ea42c2.mp3",
+        "sec": 5.594625
+      },
+      "client_hsu/06cbc979": {
+        "src": "assets/audio/voice/client_hsu/06cbc979.mp3",
+        "sec": 6.516583
+      },
+      "rival_vicky/8ca25fc4": {
+        "src": "assets/audio/voice/rival_vicky/8ca25fc4.mp3",
+        "sec": 3.870667
+      },
+      "rival_vicky/fd808c59": {
+        "src": "assets/audio/voice/rival_vicky/fd808c59.mp3",
+        "sec": 5.578458
+      },
+      "rival_vicky/e9849d5d": {
+        "src": "assets/audio/voice/rival_vicky/e9849d5d.mp3",
+        "sec": 4.873958
+      },
+      "rival_vicky/8db9c79d": {
+        "src": "assets/audio/voice/rival_vicky/8db9c79d.mp3",
+        "sec": 3.722875
+      },
+      "rival_vicky/1cf36c6e": {
+        "src": "assets/audio/voice/rival_vicky/1cf36c6e.mp3",
+        "sec": 4.649917
+      },
+      "rival_vicky/d0265345": {
+        "src": "assets/audio/voice/rival_vicky/d0265345.mp3",
+        "sec": 5.574542
+      },
+      "data_kai/1fe85369": {
+        "src": "assets/audio/voice/data_kai/1fe85369.mp3",
+        "sec": 5.94
+      },
+      "data_kai/62d3c24c": {
+        "src": "assets/audio/voice/data_kai/62d3c24c.mp3",
+        "sec": 5.68225
+      },
+      "data_kai/082e1350": {
+        "src": "assets/audio/voice/data_kai/082e1350.mp3",
+        "sec": 5.377958
+      },
+      "data_kai/32a08048": {
+        "src": "assets/audio/voice/data_kai/32a08048.mp3",
+        "sec": 6.473875
+      },
+      "data_kai/6fd65ed7": {
+        "src": "assets/audio/voice/data_kai/6fd65ed7.mp3",
+        "sec": 5.429625
+      },
+      "data_kai/b5f58dbe": {
+        "src": "assets/audio/voice/data_kai/b5f58dbe.mp3",
+        "sec": 7.134375
+      },
+      "cd_wei/0e9d44d7": {
+        "src": "assets/audio/voice/cd_wei/0e9d44d7.mp3",
+        "sec": 5.152792
+      },
+      "player_f/f667a008": {
+        "src": "assets/audio/voice/player_f/f667a008.mp3",
+        "sec": 0.87525
+      },
+      "player_m/fd3d5aed": {
+        "src": "assets/audio/voice/player_m/fd3d5aed.mp3",
+        "sec": 1.549917
+      },
+      "cd_wei/9391c38e": {
+        "src": "assets/audio/voice/cd_wei/9391c38e.mp3",
+        "sec": 5.694542
+      },
+      "data_kai/d42be205": {
+        "src": "assets/audio/voice/data_kai/d42be205.mp3",
+        "sec": 4.548083
+      },
+      "cd_wei/4b1dab6d": {
+        "src": "assets/audio/voice/cd_wei/4b1dab6d.mp3",
+        "sec": 7.561958
+      },
+      "ae_mei/62eb5e33": {
+        "src": "assets/audio/voice/ae_mei/62eb5e33.mp3",
+        "sec": 7.476042
+      },
+      "ae_mei/a6f9cc62": {
+        "src": "assets/audio/voice/ae_mei/a6f9cc62.mp3",
+        "sec": 6.967042
+      },
+      "ae_mei/6ffb0ece": {
+        "src": "assets/audio/voice/ae_mei/6ffb0ece.mp3",
+        "sec": 6.987708
+      },
+      "ae_mei/ff11fa66": {
+        "src": "assets/audio/voice/ae_mei/ff11fa66.mp3",
+        "sec": 5.141042
+      },
+      "ae_mei/a1b7a5f1": {
+        "src": "assets/audio/voice/ae_mei/a1b7a5f1.mp3",
+        "sec": 7.68975
+      },
+      "ae_mei/f532b98c": {
+        "src": "assets/audio/voice/ae_mei/f532b98c.mp3",
+        "sec": 7.163542
+      },
+      "vendor_cheng/a9eabcc0": {
+        "src": "assets/audio/voice/vendor_cheng/a9eabcc0.mp3",
+        "sec": 4.862
+      },
+      "ae_mei/be14c2b2": {
+        "src": "assets/audio/voice/ae_mei/be14c2b2.mp3",
+        "sec": 5.40675
+      },
+      "vendor_cheng/ca354cfd": {
+        "src": "assets/audio/voice/vendor_cheng/ca354cfd.mp3",
+        "sec": 5.383833
+      },
+      "ae_mei/805230b3": {
+        "src": "assets/audio/voice/ae_mei/805230b3.mp3",
+        "sec": 4.494833
+      },
+      "temple_uncle/6e33a9e5": {
+        "src": "assets/audio/voice/temple_uncle/6e33a9e5.mp3",
+        "sec": 5.553167
+      },
+      "player_f/ad810cc5": {
+        "src": "assets/audio/voice/player_f/ad810cc5.mp3",
+        "sec": 5.21975
+      },
+      "player_m/83312292": {
+        "src": "assets/audio/voice/player_m/83312292.mp3",
+        "sec": 4.777958
+      },
+      "temple_uncle/af3c87d9": {
+        "src": "assets/audio/voice/temple_uncle/af3c87d9.mp3",
+        "sec": 5.46825
+      },
+      "temple_uncle/2d1424d3": {
+        "src": "assets/audio/voice/temple_uncle/2d1424d3.mp3",
+        "sec": 5.650708
+      },
+      "tv_su/69103022": {
+        "src": "assets/audio/voice/tv_su/69103022.mp3",
+        "sec": 5.090792
+      },
+      "tv_su/9f702b91": {
+        "src": "assets/audio/voice/tv_su/9f702b91.mp3",
+        "sec": 5.946708
+      },
+      "tv_su/1a66b875": {
+        "src": "assets/audio/voice/tv_su/1a66b875.mp3",
+        "sec": 6.683458
+      },
+      "tv_su/76a54e75": {
+        "src": "assets/audio/voice/tv_su/76a54e75.mp3",
+        "sec": 6.570417
+      },
+      "tv_su/f3049a18": {
+        "src": "assets/audio/voice/tv_su/f3049a18.mp3",
+        "sec": 5.188375
+      },
+      "tv_su/2684ee0d": {
+        "src": "assets/audio/voice/tv_su/2684ee0d.mp3",
+        "sec": 6.817958
+      },
+      "tv_su/debeb6d9": {
+        "src": "assets/audio/voice/tv_su/debeb6d9.mp3",
+        "sec": 6.834208
+      },
+      "player_f/8d9664bd": {
+        "src": "assets/audio/voice/player_f/8d9664bd.mp3",
+        "sec": 1.3405
+      },
+      "player_m/829853e0": {
+        "src": "assets/audio/voice/player_m/829853e0.mp3",
+        "sec": 1.264375
+      },
+      "tv_su/56fabfde": {
+        "src": "assets/audio/voice/tv_su/56fabfde.mp3",
+        "sec": 3.998958
+      },
+      "rival_vicky/33486fa6": {
+        "src": "assets/audio/voice/rival_vicky/33486fa6.mp3",
+        "sec": 3.309292
+      },
+      "rival_vicky/71d12f53": {
+        "src": "assets/audio/voice/rival_vicky/71d12f53.mp3",
+        "sec": 4.412458
+      },
+      "rival_vicky/a61b5657": {
+        "src": "assets/audio/voice/rival_vicky/a61b5657.mp3",
+        "sec": 4.870333
+      },
+      "rival_vicky/f83165ff": {
+        "src": "assets/audio/voice/rival_vicky/f83165ff.mp3",
+        "sec": 3.886875
+      },
+      "rival_vicky/5b950fbc": {
+        "src": "assets/audio/voice/rival_vicky/5b950fbc.mp3",
+        "sec": 4.111417
+      },
+      "rival_vicky/1689cd0d": {
+        "src": "assets/audio/voice/rival_vicky/1689cd0d.mp3",
+        "sec": 4.250292
+      },
+      "tv_su/718235bc": {
+        "src": "assets/audio/voice/tv_su/718235bc.mp3",
+        "sec": 5.746333
+      },
+      "breakfast_auntie/010816cb": {
+        "src": "assets/audio/voice/breakfast_auntie/010816cb.mp3",
+        "sec": 4.225958
+      },
+      "breakfast_auntie/b02d0dc8": {
+        "src": "assets/audio/voice/breakfast_auntie/b02d0dc8.mp3",
+        "sec": 3.692125
+      },
+      "player_f/1d23dbaa": {
+        "src": "assets/audio/voice/player_f/1d23dbaa.mp3",
+        "sec": 3.739792
+      },
+      "player_m/0efea447": {
+        "src": "assets/audio/voice/player_m/0efea447.mp3",
+        "sec": 2.812208
+      },
+      "breakfast_auntie/a48494ea": {
+        "src": "assets/audio/voice/breakfast_auntie/a48494ea.mp3",
+        "sec": 4.814458
+      },
+      "boss_lin/64e2cb5a": {
+        "src": "assets/audio/voice/boss_lin/64e2cb5a.mp3",
+        "sec": 7.190958
+      },
+      "boss_lin/cef17213": {
+        "src": "assets/audio/voice/boss_lin/cef17213.mp3",
+        "sec": 6.389542
+      },
+      "boss_lin/fd2ae1ff": {
+        "src": "assets/audio/voice/boss_lin/fd2ae1ff.mp3",
+        "sec": 6.787792
+      },
+      "boss_lin/e537a57f": {
+        "src": "assets/audio/voice/boss_lin/e537a57f.mp3",
+        "sec": 5.418625
+      },
+      "boss_lin/f7423694": {
+        "src": "assets/audio/voice/boss_lin/f7423694.mp3",
+        "sec": 7.147833
+      },
+      "boss_lin/172ec9b7": {
+        "src": "assets/audio/voice/boss_lin/172ec9b7.mp3",
+        "sec": 7.841917
+      },
+      "boss_lin/2c511b0d": {
+        "src": "assets/audio/voice/boss_lin/2c511b0d.mp3",
+        "sec": 5.25925
+      },
+      "ae_mei/857c98ac": {
+        "src": "assets/audio/voice/ae_mei/857c98ac.mp3",
+        "sec": 5.253583
+      },
+      "ae_mei/43ad6bda": {
+        "src": "assets/audio/voice/ae_mei/43ad6bda.mp3",
+        "sec": 6.364833
+      },
+      "boss_lin/663b391c": {
+        "src": "assets/audio/voice/boss_lin/663b391c.mp3",
+        "sec": 6.845083
+      },
+      "data_kai/a6bc670c": {
+        "src": "assets/audio/voice/data_kai/a6bc670c.mp3",
+        "sec": 4.563125
+      },
+      "grandma/b0664754": {
+        "src": "assets/audio/voice/grandma/b0664754.mp3",
+        "sec": 7.456333
+      },
+      "player_f/2e6a67e6": {
+        "src": "assets/audio/voice/player_f/2e6a67e6.mp3",
+        "sec": 7.1725
+      },
+      "player_m/beef5f07": {
+        "src": "assets/audio/voice/player_m/beef5f07.mp3",
+        "sec": 7.245625
+      },
+      "breakfast_auntie/2f122bb9": {
+        "src": "assets/audio/voice/breakfast_auntie/2f122bb9.mp3",
+        "sec": 3.142833
+      },
+      "boss_lin/d129dafc": {
+        "src": "assets/audio/voice/boss_lin/d129dafc.mp3",
+        "sec": 8.189
+      },
+      "boss_lin/4a96e474": {
+        "src": "assets/audio/voice/boss_lin/4a96e474.mp3",
+        "sec": 1.456708
+      },
+      "data_kai/55470336": {
+        "src": "assets/audio/voice/data_kai/55470336.mp3",
+        "sec": 5.95875
+      },
+      "rival_vicky/4f97fa3e": {
+        "src": "assets/audio/voice/rival_vicky/4f97fa3e.mp3",
+        "sec": 2.981625
+      },
+      "breakfast_auntie/d8b148d2": {
+        "src": "assets/audio/voice/breakfast_auntie/d8b148d2.mp3",
+        "sec": 4.304792
+      },
+      "client_wu/9efafa20": {
+        "src": "assets/audio/voice/client_wu/9efafa20.mp3",
+        "sec": 3.941375
+      },
+      "data_kai/de58ae06": {
+        "src": "assets/audio/voice/data_kai/de58ae06.mp3",
+        "sec": 3.8105
+      },
+      "grandma/1650d5db": {
+        "src": "assets/audio/voice/grandma/1650d5db.mp3",
+        "sec": 6.907542
+      },
+      "clerk_ning/36519727": {
+        "src": "assets/audio/voice/clerk_ning/36519727.mp3",
+        "sec": 3.222208
+      },
+      "data_kai/011fb7d0": {
+        "src": "assets/audio/voice/data_kai/011fb7d0.mp3",
+        "sec": 5.360333
+      },
+      "grandma/bacf1607": {
+        "src": "assets/audio/voice/grandma/bacf1607.mp3",
+        "sec": 11.121083
+      },
+      "client_chen/4f476325": {
+        "src": "assets/audio/voice/client_chen/4f476325.mp3",
+        "sec": 4.649208
+      },
+      "data_kai/4ba1ed63": {
+        "src": "assets/audio/voice/data_kai/4ba1ed63.mp3",
+        "sec": 3.994333
+      },
+      "grandma/5d15317e": {
+        "src": "assets/audio/voice/grandma/5d15317e.mp3",
+        "sec": 8.115833
+      },
+      "cd_wei/e97cdf5d": {
+        "src": "assets/audio/voice/cd_wei/e97cdf5d.mp3",
+        "sec": 3.539083
+      },
+      "grandma/356722d3": {
+        "src": "assets/audio/voice/grandma/356722d3.mp3",
+        "sec": 9.472042
+      },
+      "client_hsu/71aff701": {
+        "src": "assets/audio/voice/client_hsu/71aff701.mp3",
+        "sec": 3.151583
+      },
+      "data_kai/2306a064": {
+        "src": "assets/audio/voice/data_kai/2306a064.mp3",
+        "sec": 7.834917
+      },
+      "grandma/510fdc7f": {
+        "src": "assets/audio/voice/grandma/510fdc7f.mp3",
+        "sec": 8.008583
+      },
+      "data_kai/3a719fdf": {
+        "src": "assets/audio/voice/data_kai/3a719fdf.mp3",
+        "sec": 3.838833
+      },
+      "data_kai/e0a364a1": {
+        "src": "assets/audio/voice/data_kai/e0a364a1.mp3",
+        "sec": 5.270667
+      },
+      "grandma/03742686": {
+        "src": "assets/audio/voice/grandma/03742686.mp3",
+        "sec": 10.230667
+      },
+      "vendor_cheng/9b048075": {
+        "src": "assets/audio/voice/vendor_cheng/9b048075.mp3",
+        "sec": 3.117208
+      },
+      "data_kai/83797f9d": {
+        "src": "assets/audio/voice/data_kai/83797f9d.mp3",
+        "sec": 5.534042
+      },
+      "grandma/7473ce9d": {
+        "src": "assets/audio/voice/grandma/7473ce9d.mp3",
+        "sec": 13.308875
+      },
+      "tv_su/ea12f04c": {
+        "src": "assets/audio/voice/tv_su/ea12f04c.mp3",
+        "sec": 6.947
+      },
+      "data_kai/4ed22980": {
+        "src": "assets/audio/voice/data_kai/4ed22980.mp3",
+        "sec": 5.334
+      },
+      "grandma/eead2002": {
+        "src": "assets/audio/voice/grandma/eead2002.mp3",
+        "sec": 8.477083
+      },
+      "boss_lin/11fe17a0": {
+        "src": "assets/audio/voice/boss_lin/11fe17a0.mp3",
+        "sec": 4.441958
+      },
+      "data_kai/d14f6c3e": {
+        "src": "assets/audio/voice/data_kai/d14f6c3e.mp3",
+        "sec": 4.586083
+      },
+      "grandma/3251a7f7": {
+        "src": "assets/audio/voice/grandma/3251a7f7.mp3",
+        "sec": 9.577958
+      },
+      "data_kai/1e18bf8b": {
+        "src": "assets/audio/voice/data_kai/1e18bf8b.mp3",
+        "sec": 3.31025
+      },
+      "boss_lin/0d467bc9": {
+        "src": "assets/audio/voice/boss_lin/0d467bc9.mp3",
+        "sec": 3.302625
+      },
+      "player_f/30845c64": {
+        "src": "assets/audio/voice/player_f/30845c64.mp3",
+        "sec": 0.710417
+      },
+      "player_m/a7357ba3": {
+        "src": "assets/audio/voice/player_m/a7357ba3.mp3",
+        "sec": 0.702208
+      },
+      "boss_lin/e50dab89": {
+        "src": "assets/audio/voice/boss_lin/e50dab89.mp3",
+        "sec": 0.536583
+      },
+      "rival_vicky/d13baf4d": {
+        "src": "assets/audio/voice/rival_vicky/d13baf4d.mp3",
+        "sec": 3.655958
+      },
+      "grandma/9199bd73": {
+        "src": "assets/audio/voice/grandma/9199bd73.mp3",
+        "sec": 4.612667
+      },
+      "data_kai/839ad3c0": {
+        "src": "assets/audio/voice/data_kai/839ad3c0.mp3",
+        "sec": 3.900833
+      },
+      "rival_vicky/d72f8897": {
+        "src": "assets/audio/voice/rival_vicky/d72f8897.mp3",
+        "sec": 2.98075
+      },
+      "player_f/5f40f78b": {
+        "src": "assets/audio/voice/player_f/5f40f78b.mp3",
+        "sec": 4.009958
+      },
+      "player_m/90ebf186": {
+        "src": "assets/audio/voice/player_m/90ebf186.mp3",
+        "sec": 4.667792
+      },
+      "grandma/9af99acf": {
+        "src": "assets/audio/voice/grandma/9af99acf.mp3",
+        "sec": 3.135542
+      },
+      "cd_wei/0f4609b9": {
+        "src": "assets/audio/voice/cd_wei/0f4609b9.mp3",
+        "sec": 3.821792
+      },
+      "data_kai/4ba23621": {
+        "src": "assets/audio/voice/data_kai/4ba23621.mp3",
+        "sec": 4.0905
+      }
+    }
+  }
+}
