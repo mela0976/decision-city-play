@@ -1321,6 +1321,11 @@ body:has(dialog[open]) :is(.fx-marquee-track, .fx-rain, .fx-call-ring, .live-hea
 
 .voice-msg {
   display: flex;
+  min-block-size: var(--tap);
+  border: 0;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
   align-items: center;
   gap: 0.6rem;
   max-inline-size: 88%;
@@ -1331,13 +1336,12 @@ body:has(dialog[open]) :is(.fx-marquee-track, .fx-rain, .fx-call-ring, .live-hea
   color: #17191d;
 }
 
-.voice-play {
+.voice-icon {
   flex: none;
   display: grid;
   place-items: center;
-  inline-size: var(--tap);
-  block-size: var(--tap);
-  border: 0;
+  inline-size: 2.2rem;
+  block-size: 2.2rem;
   border-radius: 50%;
   background: #17191d;
   color: var(--paper);
@@ -1366,27 +1370,30 @@ body:has(dialog[open]) :is(.fx-marquee-track, .fx-rain, .fx-call-ring, .live-hea
   font-variant-numeric: tabular-nums;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .voice-msg.is-playing .voice-wave i {
-    animation: wave 0.8s ease-in-out infinite alternate;
-    animation-delay: calc(var(--i) * -70ms);
-  }
-}
-
+/* 播放進度：波形條從左到右一根一根變深，走完剛好是語音的長度 */
 .voice-msg.is-playing .voice-wave i {
-  background: #17191d;
+  animation: wave-fill 0.2s linear both;
+  animation-delay: calc(var(--i) / 22 * var(--dur, 3s));
 }
 
-@keyframes wave {
-  from {
-    scale: 1 0.45;
-  }
-
+@keyframes wave-fill {
   to {
-    scale: 1 1;
+    background: #17191d;
   }
 }
 
 body:has(dialog[open]) .voice-wave i {
   animation-play-state: paused;
+}
+
+/* 自己的回覆旁邊放自己的頭像 */
+.msg--note {
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 0.4rem;
+}
+
+.msg--note .avatar {
+  inline-size: 1.9rem;
+  block-size: 1.9rem;
 }

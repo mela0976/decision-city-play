@@ -8,6 +8,10 @@ export function createHint({ root, stage }) {
   let enabled = true;
   let last = '';
   let flashTimer = 0;
+  let note = null;
+  const noteEl = h('span', { class: 'hint-note', hidden: true });
+  root.prepend(noteEl);
+  const visible = () => !!note || (enabled && !!last && last !== JSON.stringify(['', []]));
 
   const render = ({ task, parts }) => {
     const signature = JSON.stringify([task, parts]);
@@ -21,12 +25,12 @@ export function createHint({ root, stage }) {
       nodes.push(h('span', { class: 'hint-part' }, item.keys.map((key) => h('kbd', { text: key })), item.text ? h('span', { text: item.text }) : null));
     });
     fill(keysEl, nodes);
-    root.hidden = !enabled || (!task && parts.length === 0);
+    root.hidden = !note && (!enabled || (!task && parts.length === 0));
   };
 
   const applyEnabled = () => {
     stage.dataset.hint = enabled ? 'on' : 'off';
-    if (!enabled) root.hidden = true;
+    if (!enabled) root.hidden = !note;
     else {
       const keep = last;
       last = '';
@@ -47,6 +51,13 @@ export function createHint({ root, stage }) {
       void root.offsetWidth;
       root.classList.add('is-flash');
       flashTimer = setTimeout(() => root.classList.remove('is-flash'), ms);
+    },
+    /** 一則臨時的提醒（例如「點一下開啟聲音」），放在提示列最前面；傳 null 收掉。就算玩家關了操作提示也會顯示。 */
+    setNote(text) {
+      note = text || null;
+      noteEl.textContent = note || '';
+      noteEl.hidden = !note;
+      root.hidden = !visible();
     },
     get enabled() {
       return enabled;

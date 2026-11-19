@@ -14,6 +14,7 @@ import { runDialogue } from './ui/dialogue.js';
 import { runChoice } from './ui/choice.js';
 import { runQuiz } from './ui/quiz.js';
 import { showMissionCard, showMissionClear } from './ui/mission-card.js';
+import { showPlaceCard } from './ui/place-card.js';
 import { playCutscene } from './ui/cutscene.js';
 import { showEnding } from './ui/ending.js';
 import { openProposal } from './ui/proposal.js';
@@ -108,6 +109,9 @@ export class Game {
 
     this.toast = createToasts(els.toasts);
     this.hint = hint;
+    // 語音被瀏覽器擋下（還沒有任何使用者操作）：提示列顯示一次「點一下開啟聲音」，點過就收掉
+    sound.onBlocked = () => hint.setNote?.(T.tapForSound);
+    sound.onUnblocked = () => hint.setNote?.(null);
     this.hint.setEnabled(store.readPrefs().hint !== false);
     this.hud = createHud({
       root: els.hud,
@@ -586,7 +590,10 @@ export class Game {
     this.state.relief.push(locationId);
     const deltas = this.applyEffects({ liver: relief });
     this.sfx.play('right');
-    this.toast(`${this.placeName(locationId)}　${T.relief}　${this.describe(deltas)}`.trim(), { tone: 'good' });
+    // 小卡：那個地點的插畫當背景；清單裡沒有圖就照舊是一行字
+    const artKey = `loc_${locationId}`;
+    if (this.assets.imageSrc(artKey)) this.toast(`${T.relief}　${this.describe(deltas)}`, { tone: 'good', ms: 3600, title: this.placeName(locationId), art: this.assets.art(artKey, { kind: 'cover' }) });
+    else this.toast(`${this.placeName(locationId)}　${T.relief}　${this.describe(deltas)}`.trim(), { tone: 'good' });
     if (this.phase !== 'mission') this.commit();
   }
 
@@ -979,16 +986,31 @@ export class Game {
     }
   }
 
+  /** 這個人的頭像 key（avatar_<npcId>；主角依職能用 player_f 或 player_m）。清單裡沒有就回傳 null，由呼叫的地方退回原本的做法。 */
+  avatarKey(who) {
+    let id = who;
+    if (who === 'player') id = PLAYER_VOICE[this.state.roleId] || 'player_f';
+    else if (who === 'grandma' && !this.content.npcById.has(who)) id = this.content.npcs.find((n) => n.skin === 'npc_grandma')?.id || who;
+    const key = `avatar_${id}`;
+    return id && this.assets.imageSrc(key) ? key : null;
+  }
+
   speakerOf(who) {
     const role = this.role;
-    if (who === 'player') return { name: role?.title || '', title: '', isPlayer: true };
+    const avatar = this.avatarKey(who);
+    if (who === 'player') return { name: role?.title || '', title: '', isPlayer: true, avatar };
     const npc = this.content.npcById.get(who);
-    if (npc) return { name: npc.name, title: npc.title || '' };
+    if (npc) {
+      // 搭檔跟玩家同一個職能時，只顯示名字，不標職稱（台詞不動）
+      const partnerId = this.content.story?.cast?.find((member) => member.id === 'partner')?.npcId;
+      const sameJob = who === partnerId && !!npc.title && npc.title === role?.title;
+      return { name: npc.name, title: sameJob ? '' : npc.title || '', avatar };
+    }
     if (who === 'grandma') {
       const elder = this.content.npcs.find((n) => n.skin === 'npc_grandma');
-      return { name: elder?.name || T.grandmaName, title: elder?.title || '' };
+      return { name: elder?.name || T.grandmaName, title: elder?.title || '', avatar };
     }
-    return { name: who || '', title: '' };
+    return { name: who || '', title: '', avatar };
   }
 
   fillLines(lines) {
@@ -1023,6 +1045,7 @@ export class Game {
       layer: this.els.layer,
       lines,
       speakerOf: (who) => this.speakerOf(who),
+      assets: this.assets,
       extra,
       signal,
       sfx: this.sfx,
@@ -1047,15 +1070,23 @@ export class Game {
     this.setScene(null);
     if (engine.player.locationId === step.locationId) return;
 
-    this.objective = { kind: 'goto', markerId: GOTO_MARKER, locationId: step.locationId };
-    this.refreshMarkers();
-    hud.setTask(mission.title, step.hint || this.placeName(step.locationId));
     // 倒數秒數：內容寫的 timeLimitSec 與引擎估的騎乘時間乘 1.4，取較大的（契約第 5 節），城市再大也騎得到。
     let left = Number(step.timeLimitSec) > 0 ? Number(step.timeLimitSec) : null;
     if (left != null && typeof engine.estimateRideSeconds === 'function') {
       const estimate = Number(engine.estimateRideSeconds(step.locationId));
       if (Number.isFinite(estimate) && estimate > 0) left = Math.max(left, Math.ceil(estimate * GOTO_ESTIMATE_FACTOR));
     }
+    // 目的地卡：目的地的插畫滿版，上面一塊路名牌；按「出發」才回到街上開始倒數。
+    hud.setTask(mission.title, step.hint || this.placeName(step.locationId));
+    this.setScene(`loc_${step.locationId}`);
+    this.setHint('place', { place: this.placeName(step.locationId) });
+    await showPlaceCard({ layer: this.els.layer, name: this.placeName(step.locationId), hint: step.hint || '', limit: left != null ? `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}` : '', signal, sfx: this.sfx });
+    this.els.layer.replaceChildren();
+    this.setScene(null);
+
+    this.objective = { kind: 'goto', markerId: GOTO_MARKER, locationId: step.locationId };
+    this.refreshMarkers();
+    hud.setTask(mission.title, step.hint || this.placeName(step.locationId));
     this.setFree(true);
     // 限時前往一開始就提醒可以自動前往，提示列閃一下。
     if (this.canAutoRide) {
@@ -1559,6 +1590,13 @@ export class Game {
       /** 以下三個只播畫面，不動存檔：驗收時用來快速看到每一種貼文外框與每一種打斷。 */
       playFeed: async (missionId) => preview(missionId, (mission, signal) => playFeedFor(this, mission, signal)),
       playInterlude: async (missionId) => preview(missionId, (mission, signal) => playInterlude(this, mission, signal, { preview: true })),
+      /** 預覽某個地點的目的地卡（只播畫面） */
+      showPlace: async (locationId) =>
+        preview(this.content.missions[0].id, async (mission, signal) => {
+          this.setScene(`loc_${locationId}`);
+          this.setHint('place', { place: this.placeName(locationId) });
+          await showPlaceCard({ layer: this.els.layer, name: this.placeName(locationId), hint: '', limit: '', signal, sfx: this.sfx });
+        }),
       playPrologue: async () => preview(this.content.missions[0].id, async (mission, signal) => playPrologue(this, signal)),
     };
   }

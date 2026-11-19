@@ -84,7 +84,7 @@ export function runSincere({ layer, assets, speaker, text, interrupt, sender, si
       'section',
       { class: 'dlg dlg--sincere', 'aria-label': '對話', dataset: { kind } },
       fxSlot,
-      h('div', { class: 'sub' }, h('header', { class: 'sub-who' }, h('strong', { class: 'sub-name', text: speaker.name || '' }), h('span', { class: 'sub-role', text: speaker.title || '' })), line, caption),
+      h('div', { class: 'sub' }, h('header', { class: 'sub-who' }, speaker.avatar ? h('span', { class: 'sub-face' }, h('span', { class: 'avatar' }, assets.art(speaker.avatar, { kind: 'square' }))) : null, h('strong', { class: 'sub-name', text: speaker.name || '' }), h('span', { class: 'sub-role', text: speaker.title || '' })), line, caption),
       h('div', { class: 'cine-actions' }, nextBtn),
     );
 

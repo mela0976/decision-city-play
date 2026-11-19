@@ -37,6 +37,8 @@ export function hintFor(state, mode) {
     }
     case 'card':
       return { task: HINT.newMission, parts: touch ? [say(`${HINT.tap} ${T.acceptMission}`)] : [part(KEY.action, T.acceptMission), part(KEY.esc, HINT.menu)] };
+    case 'place':
+      return { task: state.place ? HINT.goTo(state.place) : '', parts: touch ? [say(`${HINT.tap} ${T.depart}`)] : [part(KEY.action, T.depart), part(KEY.esc, HINT.menu)] };
     case 'dialogue':
       // 序幕與收尾還沒有（或已經沒有）選單可開，就不提 Esc
       return { task: state.speaker ? HINT.talkTo(state.speaker) : '', parts: touch ? [say(`${HINT.tap} ${HINT.next}`)] : state.menu === false ? [part(KEY.action, HINT.next)] : [part(KEY.action, HINT.next), part(KEY.esc, HINT.menu)] };

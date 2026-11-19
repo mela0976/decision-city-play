@@ -1345,7 +1345,7 @@
       },
       "grandma/b0664754": {
         "src": "assets/audio/voice/grandma/b0664754.mp3",
-        "sec": 7.456333
+        "sec": 6.368667
       },
       "player_f/2e6a67e6": {
         "src": "assets/audio/voice/player_f/2e6a67e6.mp3",
@@ -1389,7 +1389,7 @@
       },
       "grandma/1650d5db": {
         "src": "assets/audio/voice/grandma/1650d5db.mp3",
-        "sec": 6.907542
+        "sec": 8.774542
       },
       "clerk_ning/36519727": {
         "src": "assets/audio/voice/clerk_ning/36519727.mp3",
@@ -1401,7 +1401,7 @@
       },
       "grandma/bacf1607": {
         "src": "assets/audio/voice/grandma/bacf1607.mp3",
-        "sec": 11.121083
+        "sec": 14.754792
       },
       "client_chen/4f476325": {
         "src": "assets/audio/voice/client_chen/4f476325.mp3",
@@ -1413,7 +1413,7 @@
       },
       "grandma/5d15317e": {
         "src": "assets/audio/voice/grandma/5d15317e.mp3",
-        "sec": 8.115833
+        "sec": 8.263792
       },
       "cd_wei/e97cdf5d": {
         "src": "assets/audio/voice/cd_wei/e97cdf5d.mp3",
@@ -1421,7 +1421,7 @@
       },
       "grandma/356722d3": {
         "src": "assets/audio/voice/grandma/356722d3.mp3",
-        "sec": 9.472042
+        "sec": 7.971375
       },
       "client_hsu/71aff701": {
         "src": "assets/audio/voice/client_hsu/71aff701.mp3",
@@ -1433,7 +1433,7 @@
       },
       "grandma/510fdc7f": {
         "src": "assets/audio/voice/grandma/510fdc7f.mp3",
-        "sec": 8.008583
+        "sec": 11.793708
       },
       "data_kai/3a719fdf": {
         "src": "assets/audio/voice/data_kai/3a719fdf.mp3",
@@ -1445,7 +1445,7 @@
       },
       "grandma/03742686": {
         "src": "assets/audio/voice/grandma/03742686.mp3",
-        "sec": 10.230667
+        "sec": 10.690917
       },
       "vendor_cheng/9b048075": {
         "src": "assets/audio/voice/vendor_cheng/9b048075.mp3",
@@ -1457,7 +1457,7 @@
       },
       "grandma/7473ce9d": {
         "src": "assets/audio/voice/grandma/7473ce9d.mp3",
-        "sec": 13.308875
+        "sec": 12.969125
       },
       "tv_su/ea12f04c": {
         "src": "assets/audio/voice/tv_su/ea12f04c.mp3",
@@ -1469,7 +1469,7 @@
       },
       "grandma/eead2002": {
         "src": "assets/audio/voice/grandma/eead2002.mp3",
-        "sec": 8.477083
+        "sec": 11.066333
       },
       "boss_lin/11fe17a0": {
         "src": "assets/audio/voice/boss_lin/11fe17a0.mp3",
@@ -1481,7 +1481,7 @@
       },
       "grandma/3251a7f7": {
         "src": "assets/audio/voice/grandma/3251a7f7.mp3",
-        "sec": 9.577958
+        "sec": 10.987125
       },
       "data_kai/1e18bf8b": {
         "src": "assets/audio/voice/data_kai/1e18bf8b.mp3",
@@ -1509,7 +1509,7 @@
       },
       "grandma/9199bd73": {
         "src": "assets/audio/voice/grandma/9199bd73.mp3",
-        "sec": 4.612667
+        "sec": 5.689958
       },
       "data_kai/839ad3c0": {
         "src": "assets/audio/voice/data_kai/839ad3c0.mp3",
@@ -1529,7 +1529,7 @@
       },
       "grandma/9af99acf": {
         "src": "assets/audio/voice/grandma/9af99acf.mp3",
-        "sec": 3.135542
+        "sec": 5.992875
       },
       "cd_wei/0f4609b9": {
         "src": "assets/audio/voice/cd_wei/0f4609b9.mp3",
@@ -1538,6 +1538,56 @@
       "data_kai/4ba23621": {
         "src": "assets/audio/voice/data_kai/4ba23621.mp3",
         "sec": 4.0905
+      }
+    },
+    "candidates": {
+      "grandma_A_1": {
+        "key": "grandma_A_1",
+        "src": "assets/audio/candidates/grandma_A_1.mp3",
+        "description": "Maya，成熟女聲，語速 0.80、音高 0.80",
+        "text": "【早安】平安就是福，出門記得穿外套。",
+        "lineHash": "b0664754",
+        "sec": 4.94825
+      },
+      "grandma_A_2": {
+        "key": "grandma_A_2",
+        "src": "assets/audio/candidates/grandma_A_2.mp3",
+        "description": "Maya，成熟女聲，語速 0.80、音高 0.80",
+        "text": "阿嬤知道你今晚要比稿。阿嬤不懂 AI，但你今天見的都是人。這句給你：先懂人，再講道理。",
+        "lineHash": "3251a7f7",
+        "sec": 12.075417
+      },
+      "grandma_B_1": {
+        "key": "grandma_B_1",
+        "src": "assets/audio/candidates/grandma_B_1.mp3",
+        "description": "Mabel，原預設加八十歲沙啞慢語指示，語速 0.78、音高 0.78",
+        "text": "【早安】平安就是福，出門記得穿外套。",
+        "lineHash": "b0664754",
+        "sec": 6.807583
+      },
+      "grandma_B_2": {
+        "key": "grandma_B_2",
+        "src": "assets/audio/candidates/grandma_B_2.mp3",
+        "description": "Mabel，原預設加八十歲沙啞慢語指示，語速 0.78、音高 0.78",
+        "text": "阿嬤知道你今晚要比稿。阿嬤不懂 AI，但你今天見的都是人。這句給你：先懂人，再講道理。",
+        "lineHash": "3251a7f7",
+        "sec": 10.595458
+      },
+      "grandma_C_1": {
+        "key": "grandma_C_1",
+        "src": "assets/audio/candidates/grandma_C_1.mp3",
+        "description": "Hana，低音女聲加八十歲沙啞慢語指示，語速 0.82、音高 0.75",
+        "text": "【早安】平安就是福，出門記得穿外套。",
+        "lineHash": "b0664754",
+        "sec": 4.98475
+      },
+      "grandma_C_2": {
+        "key": "grandma_C_2",
+        "src": "assets/audio/candidates/grandma_C_2.mp3",
+        "description": "Hana，低音女聲加八十歲沙啞慢語指示，語速 0.82、音高 0.75",
+        "text": "阿嬤知道你今晚要比稿。阿嬤不懂 AI，但你今天見的都是人。這句給你：先懂人，再講道理。",
+        "lineHash": "3251a7f7",
+        "sec": 10.987125
       }
     }
   }

@@ -6,17 +6,20 @@ import { showMessages } from './ui/phone.js';
 import { playFeed } from './ui/feed.js';
 import { showSlide, runSincere } from './ui/interlude.js';
 
-const PROLOGUE_SCENE = 'intro_poster';
+// 序幕在吳興街租屋處；清單裡沒有那張圖就退回開場海報
+const PROLOGUE_SCENE = 'loc_home';
+const PROLOGUE_SCENE_FALLBACK = 'intro_poster';
 const FINALE_SCENE = 'loc_rechao';
 
-/** 訊息畫面上的對象：名字、職稱、頭像（只有阿嬤與玩家自己有立繪）。 */
+/** 訊息畫面上的對象：名字、職稱、頭像。有 avatar_<id> 就用；沒有的話阿嬤與玩家自己用立繪，其他人用名字的第一個字。 */
 export function contactOf(game, who) {
   const person = game.speakerOf(who);
   const npc = game.content.npcById.get(who);
-  let portrait = null;
-  if (who === 'grandma' || npc?.skin === 'npc_grandma') portrait = 'grandma_portrait';
-  else if (person.isPlayer) portrait = game.role?.portrait || null;
-  return { id: who, name: person.name, title: person.title, portrait };
+  const isGrandma = who === 'grandma' || npc?.skin === 'npc_grandma';
+  let portrait = person.avatar || null;
+  if (!portrait && isGrandma) portrait = 'grandma_portrait';
+  else if (!portrait && person.isPlayer) portrait = game.role?.portrait || null;
+  return { id: who, name: person.name, title: person.title, portrait, isGrandma };
 }
 
 const castNpc = (game, id) => game.content.story.cast?.find((member) => member.id === id)?.npcId || null;
@@ -45,12 +48,13 @@ export async function playLines(game, lines, { sceneKey, signal }) {
         layer,
         assets: game.assets,
         contact,
-        history: contact.portrait === 'grandma_portrait' ? grandmaHistory(game) : [],
+        history: contact.isGrandma ? grandmaHistory(game) : [],
+        me: contactOf(game, 'player'),
         messages: filled.slice(i, j).map((item) => item.text),
         signal,
         sfx: game.sfx,
         voice: game.voiceFor(line.who),
-        voiceMessage: contact.portrait === 'grandma_portrait',
+        voiceMessage: contact.isGrandma,
         onState: () => game.setHint('message', { name: contact.name }),
       });
     } else {
@@ -65,7 +69,7 @@ export async function playLines(game, lines, { sceneKey, signal }) {
 export async function playPrologue(game, signal) {
   const lines = game.content.story.prologue || [];
   if (!lines.length) return;
-  await playLines(game, lines, { sceneKey: PROLOGUE_SCENE, signal });
+  await playLines(game, lines, { sceneKey: game.assets.imageSrc(PROLOGUE_SCENE) ? PROLOGUE_SCENE : PROLOGUE_SCENE_FALLBACK, signal });
   game.setScene(null);
 }
 
@@ -129,6 +133,7 @@ export async function playInterlude(game, mission, signal, { preview = false } =
     history: grandmaHistory(game),
     messages: [game.fillLines([item.grandma])[0].text],
     replies: item.grandma.replies,
+    me: contactOf(game, 'player'),
     signal,
     sfx: game.sfx,
     voice: game.voiceFor(grandmaId),
@@ -182,7 +187,9 @@ export function proposalPages(game) {
   const last = content.story.interludes[content.story.interludes.length - 1];
   if (last && grandmaWithUs(game) && state.interludesSeen.includes(last.after)) {
     const grandma = contactOf(game, castNpc(game, 'grandma') || 'grandma');
-    pages.push({ no: pages.length + 1, year: null, title: last.grandma.text, points: [], quote: '', source: grandma.name, owned: true, grandma: true });
+    // 內容有寫 finale.grandmaSlide 就用它；沒有才退回她最後那則訊息
+    const slide = content.story.finale?.grandmaSlide;
+    pages.push({ no: pages.length + 1, year: null, title: slide?.title || last.grandma.text, points: [], quote: slide?.title ? slide.text || '' : '', source: grandma.name, owned: true, grandma: true });
   }
   return pages;
 }

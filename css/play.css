@@ -1321,3 +1321,98 @@ body:has(dialog[open]) .scene-art img {
     line-height: 1.4;
   }
 }
+
+/* ── 說話者的小頭像（字幕名字旁） ── */
+.sub-who {
+  align-items: center;
+}
+
+.sub-face {
+  display: inline-grid;
+}
+
+.sub-face[hidden] {
+  display: none;
+}
+
+.sub-face .avatar {
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+  box-shadow: 0 1px 6px rgb(0 0 0 / 0.7);
+}
+
+/* ── 目的地卡：插畫滿版，左下一塊路名牌 ── */
+.place-card {
+  display: grid;
+  justify-items: start;
+  gap: 0.55rem;
+  inline-size: min(100%, 34rem);
+  padding: 1rem 1.2rem 1.1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background-color: rgb(9 13 19 / 0.86);
+  background-image: var(--tex-terrazzo);
+  background-size: var(--tex-terrazzo-size);
+  backdrop-filter: blur(8px);
+}
+
+.place-way {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.3em;
+}
+
+.place-arrow {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 1.5em;
+  block-size: 1.5em;
+  border-radius: 3px;
+  background: var(--post);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.place-name {
+  font-size: clamp(1.5rem, 4.2vmin, 2.2rem);
+  letter-spacing: 0.12em;
+  padding: 0.15em 0.6em;
+}
+
+.place-hint {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.place-limit {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7em;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+}
+
+.place-limit b {
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+}
+
+/* 提示列最前面的臨時提醒（點一下開啟聲音） */
+.hint-note {
+  padding: 0.05em 0.6em;
+  border-radius: 3px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.hint-note[hidden] {
+  display: none;
+}

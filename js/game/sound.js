@@ -116,7 +116,8 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
         return;
       }
       const attempt = el.play();
-      if (attempt?.catch) attempt.catch(() => {});
+      // 瀏覽器不讓播（還沒有使用者操作）：記下來，下一次操作時再試，並請介面提示一次
+      if (attempt?.catch) attempt.catch((err) => { if (err?.name === 'NotAllowedError' && !track.dead) { track.blocked = true; reportBlocked(); } });
     };
     track.stop = () => {
       if (track.dead) return;
@@ -193,14 +194,51 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
 
   const everyTrack = () => [music.track, voice?.track, ...[...loops.values()].map((l) => l.track), ...oneShots].filter(Boolean);
 
+  // 被瀏覽器擋下的播放：語音在解鎖前就被要求播、或 play() 被拒絕。提示只請介面顯示一次。
+  let waitingVoice = null;
+  let blockedNoted = false;
+  const reportBlocked = () => {
+    record('system', 'blocked', '');
+    if (blockedNoted) return;
+    blockedNoted = true;
+    api.onBlocked?.();
+  };
+  const retryBlocked = () => {
+    for (const track of everyTrack()) {
+      if (track.blocked && !track.dead) {
+        track.blocked = false;
+        track.play();
+      }
+    }
+    if (waitingVoice) {
+      const again = waitingVoice;
+      waitingVoice = null;
+      api.voice.play(again.speaker, again.text, { onEnd: again.onEnd });
+    }
+    if (blockedNoted) api.onUnblocked?.();
+  };
+
   const unlock = () => {
     if (!build()) return;
     if (ctx.state === 'suspended' && pauseMode !== 'all') ctx.resume().catch(() => {});
-    if (unlocked) return;
+    if (unlocked) {
+      retryBlocked();
+      return;
+    }
     unlocked = true;
     record('system', 'unlock', '');
+    // 在這一下操作裡先播一段無聲，之後的語音與配樂不必再等一次點擊
+    try {
+      const silent = ctx.createBufferSource();
+      silent.buffer = ctx.createBuffer(1, 1, 22050);
+      silent.connect(ctx.destination);
+      silent.start(0);
+    } catch {
+      /* 播不了也不影響 */
+    }
     applyMusic();
     for (const id of want.loops.keys()) applyLoop(id);
+    retryBlocked();
   };
   for (const type of ['pointerdown', 'keydown', 'touchend']) window.addEventListener(type, unlock, { capture: true });
 
@@ -208,6 +246,9 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
 
   const api = {
     log,
+    /** 介面掛上來的回呼：播放被瀏覽器擋下時叫一次 onBlocked，之後第一次操作成功重試時叫 onUnblocked。 */
+    onBlocked: null,
+    onUnblocked: null,
     get unlocked() {
       return unlocked;
     },
@@ -274,6 +315,17 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
         const info = assets.audio('voice', key);
         record('voice', info ? 'play' : 'missing', key);
         const handle = { key, found: !!info, stop: () => {} };
+        waitingVoice = null;
+        if (info && (!unlocked || !nodes)) {
+          // 還沒有任何使用者操作：先記著，解鎖的那一下再播
+          waitingVoice = { key, speaker, text, onEnd };
+          handle.stop = () => {
+            if (waitingVoice?.key === key) waitingVoice = null;
+            if (voice?.key === key) stopVoice('stop');
+          };
+          reportBlocked();
+          return handle;
+        }
         if (!info || !unlocked || !nodes) return handle;
         const track = preloaded.get(key) || makeTrack(info, nodes.bus.voice);
         preloaded.delete(key);

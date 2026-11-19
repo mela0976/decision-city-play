@@ -29,6 +29,9 @@ export const T = {
   backToTitle: '回標題',
 
   acceptMission: '接下任務',
+  depart: '出發',
+  destination: '下一站',
+  timeLimit: '限時',
   fastForward: '快轉',
   next: '繼續',
   insight: '書中依據',
@@ -52,7 +55,8 @@ export const T = {
   // 敘事層
   messages: '訊息',
   read: '已讀',
-  playVoice: '播放語音訊息',
+  playVoice: '重播語音訊息',
+  tapForSound: '點一下開啟聲音',
   stopVoice: '停止播放',
   feedTitle: '那一年的台灣網路',
   feedLive: '直播中',

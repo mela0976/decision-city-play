@@ -181,7 +181,7 @@ html.grandma dialog.sheet {
 
 /* 阿嬤的那一頁：花布的牡丹紅，加一條茄芷袋條紋（只有這一頁） */
 .page--grandma,
-.slide--grandma {
+.slide.slide--grandma {
   border-block-start: 8px solid;
   border-image: repeating-linear-gradient(90deg, #d8402f 0 12px, #2f6fb5 12px 24px, #2c9a5b 24px 36px) 8 1 1 1;
 }

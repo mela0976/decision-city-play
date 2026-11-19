@@ -29,7 +29,7 @@ const clock = (sec) => `${Math.floor(sec / 60)}:${String(Math.round(sec) % 60).p
  * replies：[{ text, … }]，有的話最後一則之後出現選項，回傳選中的那一個。
  * voice：{ info(text) → { sec } 或 null, play(text, { onEnd }) → { stop } }；voiceMessage：做成語音訊息。
  */
-export function showMessages({ layer, assets, contact, history = [], messages, replies = null, signal, sfx, onState, onReply, voice = null, voiceMessage = false }) {
+export function showMessages({ layer, assets, contact, history = [], messages, replies = null, me = null, signal, sfx, onState, onReply, voice = null, voiceMessage = false }) {
   return interaction(signal, (done) => {
     let index = -1;
     let speaking = null;
@@ -60,27 +60,22 @@ export function showMessages({ layer, assets, contact, history = [], messages, r
     const hush = () => {
       speaking?.stop();
       speaking = null;
+      for (const el of thread.querySelectorAll('.voice-msg.is-playing')) el.classList.remove('is-playing');
     };
 
     /** 語音訊息：播放鍵、波形條、長度，文字放在下面。 */
     const voiceBubble = (text, info) => {
-      const button = h('button', { type: 'button', class: 'voice-play', 'aria-label': T.playVoice }, icon('play', { filled: true }));
-      const bubble = h('div', { class: 'voice-msg' }, button, h('span', { class: 'voice-wave', 'aria-hidden': 'true' }, waveform(text)), h('span', { class: 'voice-len', text: clock(info.sec || 0) }));
-      const setPlaying = (on) => {
-        bubble.classList.toggle('is-playing', on);
-        button.replaceChildren(icon(on ? 'stop' : 'play', { filled: true }));
-        button.setAttribute('aria-label', on ? T.stopVoice : T.playVoice);
-      };
-      button.addEventListener('click', () => {
-        if (bubble.classList.contains('is-playing')) {
-          hush();
-          setPlaying(false);
-          return;
-        }
+      // 出現就自動播；波形條只是顯示播放進度的裝飾。整顆泡泡可以點來重播，但不是必要操作。
+      const bubble = h('button', { type: 'button', class: 'voice-msg', 'aria-label': T.playVoice, vars: { '--dur': `${Math.max(0.5, info.sec || 0)}s` } }, h('span', { class: 'voice-icon', 'aria-hidden': 'true' }, icon('speaker', { filled: true })), h('span', { class: 'voice-wave', 'aria-hidden': 'true' }, waveform(text)), h('span', { class: 'voice-len', text: clock(info.sec || 0) }));
+      const start = () => {
         hush();
-        setPlaying(true);
-        speaking = voice.play(text, { onEnd: () => setPlaying(false) });
-      });
+        bubble.classList.remove('is-playing');
+        void bubble.offsetWidth;
+        bubble.classList.add('is-playing');
+        speaking = voice.play(text, { onEnd: () => bubble.classList.remove('is-playing') });
+      };
+      bubble.addEventListener('click', start);
+      bubble.start = start;
       return bubble;
     };
 
@@ -97,7 +92,7 @@ export function showMessages({ layer, assets, contact, history = [], messages, r
           onReply?.(reply);
           // 回覆是「怎麼回」的動作描述，用一行註記呈現；阿嬤那則訊息底下標上已讀。
           thread.lastElementChild?.append(h('small', { class: 'msg-read', text: T.read }));
-          thread.append(h('li', { class: 'msg msg--note' }, h('p', { text: reply.text })));
+          thread.append(h('li', { class: 'msg msg--note' }, h('p', { text: reply.text }), me?.portrait ? avatarFor(me, assets) : null));
           scrollDown();
           nextBtn.hidden = false;
           nextBtn.onclick = () => {
@@ -128,11 +123,14 @@ export function showMessages({ layer, assets, contact, history = [], messages, r
       const text = messages[index];
       const info = voice?.info(text) || null;
       const item = h('li', { class: 'msg msg--in' });
-      if (info && voiceMessage) item.append(voiceBubble(text, info));
+      const bubble = info && voiceMessage ? voiceBubble(text, info) : null;
+      if (bubble) item.append(bubble);
       item.append(h('p', { text }));
       thread.append(item);
       sfx?.play('message');
-      if (info && !voiceMessage) speaking = voice.play(text);
+      // 有語音就出現即播；前一則在 hush() 已經停掉，不會疊在一起
+      if (bubble) bubble.start();
+      else if (info) speaking = voice.play(text);
       scrollDown();
       if (index === messages.length - 1 && replies?.length) showReplies();
     };

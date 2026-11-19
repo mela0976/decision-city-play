@@ -8,7 +8,7 @@ import { T } from '../strings.js';
 
 const CHAR_MS = 26;
 
-export function runDialogue({ layer, lines, speakerOf, extra, signal, sfx, onLine, voice }) {
+export function runDialogue({ layer, lines, speakerOf, assets, extra, signal, sfx, onLine, voice }) {
   return interaction(signal, (done) => {
     let index = 0;
     let typing = 0;
@@ -16,6 +16,7 @@ export function runDialogue({ layer, lines, speakerOf, extra, signal, sfx, onLin
     let full = '';
     let speaking = null;
 
+    const face = h('span', { class: 'sub-face', hidden: true });
     const name = h('strong', { class: 'sub-name' });
     const role = h('span', { class: 'sub-role' });
     const srText = h('span', { class: 'sr-only' });
@@ -29,7 +30,7 @@ export function runDialogue({ layer, lines, speakerOf, extra, signal, sfx, onLin
     const box = h(
       'section',
       { class: 'dlg', 'aria-label': '對話' },
-      h('div', { class: 'sub' }, h('header', { class: 'sub-who' }, name, role), text),
+      h('div', { class: 'sub' }, h('header', { class: 'sub-who' }, face, name, role), text),
       h('div', { class: 'cine-actions' }, extraBtn, nextBtn),
     );
 
@@ -47,6 +48,12 @@ export function runDialogue({ layer, lines, speakerOf, extra, signal, sfx, onLin
       const line = lines[index];
       const who = speakerOf(line.who);
       full = line.text;
+      // 說話者的小頭像；清單裡沒有就只顯示名字
+      face.hidden = !(who.avatar && assets);
+      if (face.dataset.key !== (who.avatar || '')) {
+        face.dataset.key = who.avatar || '';
+        face.replaceChildren(...(face.hidden ? [] : [h('span', { class: 'avatar' }, assets.art(who.avatar, { kind: 'square' }))]));
+      }
       name.textContent = who.name;
       role.textContent = who.title || '';
       box.dataset.side = who.isPlayer ? 'player' : 'npc';
