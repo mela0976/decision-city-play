@@ -360,7 +360,8 @@ export function createRenderer(canvas,minimapCanvas) {
     for (const b of buildings) if (visible(b.x+b.w/2,b.y+b.h/2,140)) {
       bodies.push({y:b.y+b.h,draw:()=>{const light=building(ctx,b,camera,night>.15); if (light) lights.push(light);}});
     }
-    for (const car of state.cars) if (!car.hidden && visible(car.x,car.y)) bodies.push({y:car.y,draw:()=>vehicle(ctx,car,night>.3)});
+    const streetCars=[...state.cars,...(state.featuredParked??[])]; // A22 show every solid curb vehicle in 2D.
+    for (const car of streetCars) if (!car.hidden && visible(car.x,car.y)) bodies.push({y:car.y,draw:()=>vehicle(ctx,car,night>.3)});
     for (const walker of state.walkers) if (!walker.hidden && visible(walker.x,walker.y)) {
       bodies.push({y:walker.y,draw:()=>person(ctx,walker.x,walker.y,0,walker.skin,'foot',clock*5+walker.x)});
     }
@@ -368,7 +369,13 @@ export function createRenderer(canvas,minimapCanvas) {
       bodies.push({y:npc.y,draw:()=>person(ctx,npc.x,npc.y,0,npc.skin,'foot',0)});
     }
     const stance=player.mode==='foot'&&player.speed<.5?state.standingPoint??player:player;
-    bodies.push({y:stance.y,draw:()=>person(ctx,stance.x,stance.y,player.heading,player.skin,player.mode,clock*player.speed*.29)});
+    if(player.vehicle==='flyingTesla'){
+      const lift=(player.altitude??0)*4.3;
+      bodies.push({y:player.y,draw:()=>{
+        if(lift>0)dot(ctx,player.x,player.y,11,'#16233364');
+        vehicle(ctx,{x:player.x,y:player.y-lift,heading:player.heading,color:'#bed6dd'},night);
+      }});
+    }else bodies.push({y:stance.y,draw:()=>person(ctx,stance.x,stance.y,player.heading,player.skin,player.mode,clock*player.speed*.29)});
     bodies.sort((a,b)=>a.y-b.y);
     for (const body of bodies) body.draw();
 
@@ -407,7 +414,7 @@ export function createRenderer(canvas,minimapCanvas) {
       ctx.globalAlpha=1;
     }
     if (state.weather==='rain') {
-      for (const [i,car] of state.cars.entries()) if (!car.hidden && visible(car.x,car.y)) {
+      for (const [i,car] of streetCars.entries()) if (!car.hidden && visible(car.x,car.y)) {
         line(ctx,[[car.x-9,car.y+13],[car.x+11+Math.sin(clock*4+i)*7,car.y+13]],night>.3?'#ffc88775':'#dee9e67a',2);
       }
     }

@@ -1,6 +1,10 @@
 import {urbanInfill} from './infill.mjs';
 import {placeStreetLife} from './3d/street-life.js';
+import {visitLandscapeTrees} from './3d/vegetation.js'; // A19 vegetation hook
 import {placeEntrance} from './3d/frontage.js';
+// A19 terrain-landmarks hook
+import {placeFloodDefenses} from './3d/terrain.js';
+import {placeTempleCourt} from './3d/landmarks.js';
 import {locations,metersPerUnit as unit,inBuilding} from './world.mjs';
 
 let cached;
@@ -18,7 +22,11 @@ export function fixtureColliders(){
     push(x,z,.93,.39,heading,'parked');
     return true;
   }});
+  // A19 vegetation hook
+  visitLandscapeTrees(({x,z,width})=>push(x,z,width/2,width/2,0,'tree'));
   for(const p of locations)placeEntrance(p,{instance,sign:()=>{}});
+  placeFloodDefenses(instance);
+  placeTempleCourt(locations.find(p=>p.shape==='temple'),instance);
   for(const parcel of urbanInfill()){
     if(parcel.housing)result.push({x:parcel.x/unit,y:parcel.z/unit,r:parcel.width*.5/unit,
       width:parcel.depth*.5/unit,heading:parcel.heading??0,top:parcel.height,type:'infill'});

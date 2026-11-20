@@ -1,65 +1,85 @@
-const jade=['#62877f','#47716d','#729d91','#35534f'];
+const jade=['#4f8781','#517a7a','#628d89','#355d63'];
 const glass=['#638489','#7d9ca3','#496b78','#88abb0'];
 const stone='#a79884';
 
 export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
   const shape=b.shape;
   if(shape==='spire') {
-    block('highglass','#7d948b',x,13,z,w*.73,26,d*.76);
-    for(const side of [-1,1]){
-      for(let floor=1;floor<=7;floor++){
-        block('metal','#8f9f99',x,floor*3.55,z+side*d*.382,w*.735,.11,.10);
-        block('metal','#8f9f99',x+side*w*.368,floor*3.55,z,.10,.11,d*.775);
-      }
-      for(let pl=-5;pl<=5;pl++){
-        block('highglass','#607f78',x+pl*w*.062,13,z+side*d*.389,.17,26,.10);
-        block('highglass','#607f78',x+side*w*.375,13,z+pl*d*.063,.10,26,.17);
+    block('concrete','#9c9b8e',x,3,z,w*.75,6,d*.76);
+    for(let floor=0;floor<6;floor++){
+      const y=7.5+floor*1.2;
+      block('highglass',glass[floor%4],x,y,z,w*.69,1.18,d*.70);
+      block('metal','#8b9996',x,y+.51,z,w*.70,.17,d*.71);
+    }
+    const podiumTop=14.2;
+    block('concrete','#a6a497',x,podiumTop,z,w*.72,.38,d*.73);
+    for(let section=0;section<5;section++){
+      const span=w*(.49-section*.017),depth=d*(.47-section*.017);
+      const y=17+section*4.2;
+      block('highglass',jade[section%4],x,y,z,span,4.2,depth);
+      block('metal','#a79479',x,y+2,z,span*1.015,.20,depth*1.015);
+    }
+    for(let tier=0;tier<8;tier++){
+      const y=36+tier*12.15,span=w*(.46-tier*.009),depth=d*(.43-tier*.008);
+      instance('highglass','spireTier',jade[tier%4],x,y+4.88,z,span,9.76,depth);
+      block('highglass','#a5b6a6',x,y+9.77,z,span,.24,depth);
+      block('highglass','#3c6469',x,y+10.96,z,span*.79,2.40,depth*.79);
+      // The paired jade reliefs mark the bottom of each tier on all four façades.
+      for(const side of [-1,1]){
+        block('highglass','#7b9c96',x,y+1.10,z+side*depth*.438,2.2,1.17,.29);
+        block('highglass','#7b9c96',x+side*span*.438,y+1.10,z,.29,1.17,2.2);
       }
     }
-    block('highglass','#56716a',x,75,z,w*.32,144,d*.39);
-    for(let tier=0;tier<8;tier++) {
-      const y=33+tier*13.2, span=w*(.75-tier*.038), depth=d*(.89-tier*.039);
-      for(let level=0;level<6;level++) {
-        const f=.69+level*.066;
-        block('highglass',jade[(tier+level)%jade.length],x,y+level*1.54,z,span*f,1.59,depth*f);
-      }
-      block('highglass','#92ab9c',x,y+9.35,z,span*1.06,.67,depth*1.07);
-      block('highglass','#667b71',x,y+10.9,z,span*.68,3.0,depth*.70);
-      for(const s of [-1,1]) {
-        block('highglass','#93a69a',x+s*span*.39,y+5.1,z-depth*.404,.3,9,.36);
-        block('highglass','#93a69a',x-span*.389,y+5.1,z+s*depth*.39,.36,9,.3);
-      }
-    }
-    block('highglass',jade[1],x,137,z,6.8,12,5.8);
-    block('highglass','#a1a99b',x,148,z,2.37,13,2.4);
-    pole('highglass','#e0d1b0',x,156,z,.29,7);
-    pole('towerLights','#e96350',x,159.7,z,.63,.46);
-    block('towerLights','#76b292',x,142.0,z,6.75,.27,5.85);
+    block('highglass',jade[1],x,136,z,19,7.1,17);
+    block('highglass','#789595',x,143,z,8.1,8.3,7.5);
+    block('metal','#a9b4ab',x,150,z,2.45,13,2.45);
+    pole('metal','#d8d1b6',x,157.45,z,.75,5.0);
+    pole('towerLights','#e96350',x,159.85,z,.78,.30);
     return true;
   }
   if(shape==='twist') {
     pole('highglass','#a6a7a0',x,38,z,3.1,76);
     for(let floor=0;floor<20;floor++) {
       const a=(floor-9.5)*Math.PI/38,y=2.8+floor*3.8;
-      block('highglass',glass[floor%4],x,y+1.25,z,w*.67,3.42,d*.56,a);
-      block('highglass','#d4cbbc',x,y,z,w*1.01,.49,d*.72,a);
+      block('highglass',glass[(floor+2)%4],x,y+1.25,z,w*.65,3.42,d*.54,a);
+      block('highglass','#b6b7aa',x,y,z,w*.76,.34,d*.63,a);
       for(const q of [-1,1]) {
-        const xx=x+Math.cos(a)*q*w*.38,zz=z-Math.sin(a)*q*w*.38;
-        block('highglass','#698159',xx,y+.34,zz,4.32,.51,d*.50,a);
-        for(const f of [-1,0,1]) {
-          instance('grass','crown','#72955e',xx-Math.sin(a)*f*1.6,y+1.04,zz-Math.cos(a)*f*1.6,1.85,1.58,1.63);
+        const xx=x+Math.cos(a)*q*w*.332,zz=z-Math.sin(a)*q*w*.332;
+        block('highglass','#698159',xx,y+.34,zz,4.1,.51,d*.51,a);
+        block('highglass','#d0cec3',xx,y+1.93,zz,.38,3.42,d*.54,a);
+        for(const f of [-2,-1,0,1,2]) {
+          const color=(floor+f)%3===0?'#6b8a59':'#597b4e';
+          instance('grass','crown',color,xx-Math.sin(a)*f*3.6,y+1.04,zz-Math.cos(a)*f*3.6,2.52,1.37,2.31);
         }
       }
     }
     return true;
   }
   if(shape==='dome') {
-    block('metal','#868984',x,1.43,z,w*.99,2.86,d*.95);
-    instance('metal','dome','#c0c2c4',x,2.2,z,w*1.00,d*.65,d*.96);
-    for(let i=0;i<26;i++) {
-      const a=i*Math.PI*2/26;
-      pole('metal','#aaaead',x+Math.cos(a)*w*.5,1.83,z+Math.sin(a)*d*.47,.27,2.8);
+    instance('concrete','cylinder','#a8a49a',x,1.42,z,w*.94,2.86,d*.90);
+    instance('glass','cylinder','#79909a',x,3.58,z,w*.956,1.66,d*.925);
+    instance('metal','cylinder','#aeb5b7',x,4.48,z,w*.987,.54,d*.96);
+    instance('metal','dome','#bfc5c6',x,4.54,z,w*.99,d*.31,d*.964);
+    for(let i=0;i<24;i++){
+      const a=i*Math.PI/12;
+      const px=x+Math.cos(a)*w*.473,pz=z+Math.sin(a)*d*.453;
+      pole('metal','#888f92',px,3.49,pz,.29,2.19);
     }
+    for(let rib=0;rib<16;rib++){
+      const heading=rib*Math.PI/8;
+      const at=t=>[
+        x+Math.cos(t)*Math.cos(heading)*w*.495,
+        4.58+Math.sin(t)*d*.155,
+        z+Math.cos(t)*Math.sin(heading)*d*.482,
+      ];
+      for(let span=0;span<6;span++){
+        const a=at(span*.18),b=at((span+1)*.18);
+        const dx=b[0]-a[0],dy=b[1]-a[1],dz=b[2]-a[2],horizontal=Math.hypot(dx,dz);
+        instance('metal','box','#aab2b3',(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2,
+          Math.hypot(horizontal,dy)+.02,.13,.31,-Math.atan2(dz,dx),0,Math.atan2(dy,horizontal));
+      }
+    }
+    block('metal','#a9b2b1',x,3.79,z-d*.44,w*.39,.34,d*.104);
     return true;
   }
   if(shape==='office') {
@@ -90,7 +110,9 @@ export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
     }
     block('metal','#aabbbf',x,h-3,z,w0*.96,1.35,d0*.96);
     block('glass','#708d95',x,h-1.6,z,w0*.65,3.1,d0*.71);
-    block('metal','#bac3bf',x,9.2,z-d0*.51,w0*.81,.42,7.4);
+    block('concrete','#a5a6a0',x,5.1,z,w0*.92,10.2,d0*.86);
+    block('glass','#58777f',x,4.65,z-d0*.437,w0*.77,7.9,.26);
+    block('metal','#bac3bf',x,8.82,z-d0*.51,w0*.81,.42,7.4);
     for(const f of [-1,1]){
       block('grass','#769261',x+f*(w0/2+5),.18,z,8.2,.38,d0*.98);
       for(let i=0;i<5;i++){
@@ -109,8 +131,23 @@ export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
     block('metal','#ba503c',x+w*.21,17.75,z,w*.58,.22,.34);
     return true;
   }
-  if(shape==='datalab' || shape==='construction') {
-    const h=shape==='construction'?76:45;
+  if(shape==='datalab'){
+    block('concrete','#a29b89',x,3.5,z,w*.88,7,d*.85);
+    block('glass','#647d8b',x,3.7,z-d*.427,w*.71,4.85,.27);
+    block('metal','#a7a59b',x,5.8,z-d*.439,w*.80,.36,2.65);
+    for(let section=0;section<4;section++){
+      const span=w*(.61-section*.041),depth=d*(.86-section*.043);
+      const y=7+section*9.5;
+      block('glass',glass[(section+2)%4],x,y+4.75,z,span,9.5,depth);
+      block('metal','#a68a66',x,y+.16,z,span*1.012,.32,depth*1.012);
+      for(let floor=1;floor<7;floor++){
+        block('highglass',floor%3===0?'#6f7777':'#4e6571',x,y+floor*1.36,z,span*1.009,.085,depth*1.009);
+      }
+    }
+    return true;
+  }
+  if(shape==='construction') {
+    const h=76;
     for(let f=0;f<h;f+=3.6) {
       block('glass',glass[Math.floor(f/3.6)%4],x,f+1.8,z,w*.85,3.5,d*.8);
       block('metal','#a0aaa7',x,f+3.54,z,w*.89,.12,d*.83);
@@ -119,19 +156,43 @@ export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
       block('metal','#aab2a9',x+j*w*.121,h*.49,z-d*.41,.12,h,.13);
       block('metal','#aab2a9',x-w*.432,h*.49,z+j*d*.108,.13,h,.12);
     }
-    if(shape==='construction') {
-      block('dark','#726954',x,h-2,z,w*.9,4,d*.9);
-      const a=x+w*.41;
-      block('signal','#e3b749',a,h+5,z,.51,15,.52);
-      block('signal','#e3b749',a+7,h+11,z,22,.37,.47);
-      block('metal','#625745',a+15,h+6.6,z,.04,8,.06);
-      for(let i=0;i<6;i++) block('signal','#e3b749',a+1.2+i*2.8,h+10.8,z,2.72,.11,.35,0);
+    block('dark','#726954',x,h-2,z,w*.9,4,d*.9);
+    const a=x+w*.41;
+    block('signal','#e3b749',a,h+5,z,.51,15,.52);
+    block('signal','#e3b749',a+7,h+11,z,22,.37,.47);
+    block('metal','#625745',a+15,h+6.6,z,.04,8,.06);
+    for(let i=0;i<6;i++) block('signal','#e3b749',a+1.2+i*2.8,h+10.8,z,2.72,.11,.35,0);
+    return true;
+  }
+  if(shape==='studio'){
+    const h=7.8;
+    block('concrete','#c0a679',x,h/2,z,w*.91,h,d*.91);
+    block('concrete','#aeaa9c',x,h+.12,z,w*.96,.24,d*.96);
+    const alongX=w>d,span=alongX?w:d,depth=alongX?d:w;
+    const bays=Math.max(4,Math.round(span/3.8));
+    const step=span*.87/bays;
+    for(const side of [-1,1]){
+      const part=(kind,tint,u,y,v,ww,hh,dd)=>alongX
+        ?block(kind,tint,x+u,y,z+v,ww,hh,dd)
+        :block(kind,tint,x+v,y,z+u,dd,hh,ww);
+      part('concrete','#948572',0,3.65,side*depth*.463,span*.93,.38,.19);
+      for(let bay=0;bay<bays;bay++){
+        const u=(bay+.5-bays/2)*step;
+        part('glass',glass[bay%4],u,5.75,side*depth*.458,step*.76,2.48,.13);
+        part('glass','#566363',u,2.08,side*depth*.460,step*.64,2.53,.12);
+        for(const t of [-1,0,1]){
+          part('metal','#454b48',u+t*step*.25,5.75,side*depth*.47,.072,2.52,.10);
+        }
+        part('metal','#454b48',u,5.75,side*depth*.47,step*.76,.085,.10);
+        part('concrete','#787568',u-step*.45,1.89,side*depth*.473,.33,3.78,.31);
+        part('concrete',bay%3?'#af9670':'#9e8970',u+step*.41,5.01,side*depth*.456,.21,2.78,.065);
+      }
     }
     return true;
   }
-  if(shape==='memorial' || shape==='cityhall' || shape==='studio') {
-    const h=shape==='memorial'?7:shape==='cityhall'?15:5.4;
-    block('concrete',shape==='studio'?'#8e604d':stone,x,h/2,z,w*.93,h,d*.9);
+  if(shape==='memorial' || shape==='cityhall') {
+    const h=shape==='memorial'?7:15;
+    block('concrete',stone,x,h/2,z,w*.93,h,d*.9);
     for(let i=-4;i<=4;i++) {
       const xx=x+i*w*.098;
       block('concrete','#cfc8b8',xx,h*.45,z-d*.48,.48,h*.91,.49);
@@ -146,9 +207,6 @@ export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
     if(shape==='cityhall') {
       for(const s of [-1,1]) block('concrete','#b9a995',x+s*w*.36,h*.6,z,w*.26,h*1.22,d*.96);
       block('glass','#607d84',x,h*.65,z-d*.457,w*.52,h*.41,.14);
-    }
-    if(shape==='studio') for(let i=-2;i<=2;i++) {
-      block('metal','#65564d',x+i*w*.18,h+.35,z,w*.19,.85,d*.94);
     }
     return true;
   }

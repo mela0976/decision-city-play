@@ -22,7 +22,7 @@ function matrixAtOrigin() {
     0,0,0,1,
   );
 }
-export function createGoogleLayer(canvas,scene,camera,view,probe) {
+export function createGoogleLayer(canvas,scene,camera,view,probe,{movingCamera=false}={}) {
   const tiles=new TilesRenderer(rootURL);
   // Limits apply to the renderer's live working set, never to a disk cache.
   tiles.errorTarget=18;
@@ -97,7 +97,7 @@ export function createGoogleLayer(canvas,scene,camera,view,probe) {
       }
       tiles.setResolutionFromRenderer(camera,view);
       tiles.update();
-      if(performance.now()-started>21500&&!tiles.visibleTiles.size)fail='Google 圖磚載入逾時';
+      if(!movingCamera&&performance.now()-started>21500&&!tiles.visibleTiles.size)fail='Google 圖磚載入逾時';
       const visible=[...tiles.visibleTiles];
       const sources=copyrightStrings(visible.map(tile=>tile.engineData?.metadata?.asset?.copyright));
       const ready=!fail&&Boolean(tiles.visibleTiles.size)&&Boolean(sources)&&image.complete&&image.naturalWidth>0;

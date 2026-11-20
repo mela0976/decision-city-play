@@ -44,9 +44,9 @@
     <canvas id="city" width="960" height="540" tabindex="0" aria-label="決策區城市畫面"></canvas>
     <canvas id="map" width="170" height="110" aria-label="決策區小地圖"></canvas>
   </div>
-  <div id="state"><output id="entranceResult" aria-live="polite"></output><output id="controls">方向鍵移動 · 空白鍵動作 · G 自動前往</output></div>
+  <div id="state"><output id="entranceResult" aria-live="polite"></output><output id="controls">方向鍵移動 · T 飛行電動車 · 空白鍵動作 · G 自動前往</output></div>
 </section>
-<aside id="panel"><details><summary>示範控制</summary><div id="diagnostics"><output id="snapshot"></output> · <output id="renderer"></output></div><div class="row"><button id="switch">切換 2D</button><label>場景 <select id="sceneMode">
+<aside id="panel"><details><summary>示範控制</summary><div id="diagnostics"><output id="snapshot"></output> · <output id="renderer"></output></div><div class="row"><button id="flyingTesla" type="button" aria-pressed="false">飛行電動車</button><button id="switch">切換 2D</button><label>場景 <select id="sceneMode">
 <option value="">自動</option><option value="google">Google 真實場景</option><option value="stylized">程式化 3D</option><option value="2d">俯視 2D</option>
 </select></label><label>Google Maps 金鑰 <input id="gmkey" type="password" autocomplete="off" size="15"></label>
 <button id="saveKey">套用金鑰</button><output id="modeInfo"></output><button id="textures">切換寫實貼圖</button><select id="route"><option value="office">富幫 A25</option><option value="client">台北一洞么</option><option value="river">彩虹河濱公園</option></select><button id="autoRide">自動前往</button></div>
@@ -199,6 +199,8 @@ get('saveKey').onclick=()=>{
 };
 const explicit2d=new URLSearchParams(location.search).get('engine')==='2d';
 get('switch').textContent=explicit2d?'切換至 3D':'切換至 2D';
+// A22 keep the demo controls and live hint consistent with the game.
+get('flyingTesla').onclick=()=>{engine.setFlyingTesla(engine.player.vehicle!=='flyingTesla');canvas.focus();};
 get('switch').onclick=()=>{
   const url=new URL(location.href);
   if(explicit2d) url.searchParams.delete('engine');
@@ -215,9 +217,11 @@ if(preview&&locations.some(site=>site.id===preview)){
 }
 engine.start();
 function status() {
-  const {x,y,speed,mode,locationId}=engine.player;
-  get('snapshot').textContent=`${mode==='scooter'?'騎車':'步行'} · ${Math.round(speed*metersPerUnit*3.6)} km/h · (${Math.round(x)}, ${Math.round(y)}) · ${locationId??'街道'}`;
-  const hints=engine.inputMode==='touch'?'搖桿移動 · 大圓鍵動作 · 小箭頭自動前往':'方向鍵移動 · 空白鍵動作 · G 自動前往';
+  const {x,y,speed,mode,locationId,vehicle,altitude}=engine.player;
+  const flying=vehicle==='flyingTesla';
+  get('flyingTesla').setAttribute('aria-pressed',String(flying));
+  get('snapshot').textContent=`${flying?(altitude>.12?'飛行電動車 · '+altitude.toFixed(1)+' m':'飛行電動車'):mode==='scooter'?'騎車':'步行'} · ${Math.round(speed*metersPerUnit*3.6)} km/h · (${Math.round(x)}, ${Math.round(y)}) · ${locationId??'街道'}`;
+  const hints=engine.inputMode==='touch'?'搖桿移動 · 大圓鍵動作 · 小箭頭自動前往 · T 飛行電動車':'方向鍵移動 · T 飛行電動車 · 空白鍵動作 · G 自動前往';
   const action=cue.action==='talk'?`和${cue.targetName}說話`:cue.action==='enter'?`${cue.targetId==='office'?(engine.inputMode==='touch'?'大圓鍵 ':'空白鍵 '):''}進入${cue.targetName}`:'';
   canvas.dataset.aerial=String(engine.aerial);
   get('controls').textContent=engine.aerial?'空拍 · 動作鍵可跳過 · M 關閉地圖':engine.autoRide?'自動前往中 · 移動即可取消':[hints,action].filter(Boolean).join(' · ');

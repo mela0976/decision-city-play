@@ -68,14 +68,14 @@ export function createModelAssets(scene){
       assets.set(key,{template,animations:model.animations,dimensions,bottom,batches,pool:[],used:0});
     }catch{}finally{pending.delete(key);}
   }
-  for(const [key,[axis,length]] of Object.entries(catalog))load(key,axis,length);
-  fetch(new URL('../../../assets/manifest.json',import.meta.url))
-    .then(response=>response.ok?response.json():null).then(manifest=>{
-      for(const [key,length] of Object.entries(optionalVehicles)){
-        if(manifest?.models?.[key]&&!disposed)load(key,'length',length);
-      }
-    }).catch(()=>{});
+  const defaults=Object.entries(catalog).map(([key,[axis,length]])=>load(key,axis,length));
+  const optional=fetch(new URL('../../../assets/manifest.json',import.meta.url))
+    .then(response=>response.ok?response.json():null).then(manifest=>
+      Promise.all(Object.entries(optionalVehicles)
+        .filter(([key])=>manifest?.models?.[key]&&!disposed)
+        .map(([key,length])=>load(key,'length',length)))).catch(()=>{});
   return {
+    ready:Promise.all([...defaults,optional]),
     begin(){
       for(const asset of assets.values()){
         asset.used=0;

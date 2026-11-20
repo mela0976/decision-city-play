@@ -139,9 +139,11 @@ export function drawTouch(ctx,w,h,state) {
   const c=touchControls(w,h,state.insets,state.googleInset);
   dot(ctx,c.x,c.y,c.radius,'#14273195','#f9e7ba');
   dot(ctx,c.x+state.joy.x*c.radius*.68,c.y+state.joy.y*c.radius*.68,c.radius*.36,'#ecd8a8',ink);
+  dot(ctx,c.auto,c.flightY,c.small,state.player.vehicle==='flyingTesla'?'#13889bdb':'#142731d8','#f9e7ba');
   dot(ctx,c.auto,c.y,c.small,'#142731d8','#f9e7ba');
   dot(ctx,c.interact,c.y,c.big,'#142731d8','#f9e7ba');
   ctx.textAlign='center';
+  text(ctx,'T',c.auto,c.flightY,c.small*.9,paper);
   text(ctx,'➤',c.auto,c.y,c.small*.9,paper);
   text(ctx,'●',c.interact,c.y,c.big*.60,paper);
   ctx.textAlign='left';
@@ -151,5 +153,5 @@ export function touchControls(w,h,[,right=0,bottom=0,left=0]=[],extra=0) {
   const reserve=Math.max(extra, h>w?90:74);
   return {x:left+radius+20,y:h-bottom-reserve-radius-19,radius,
     auto:w-right-radius*2.45-30,interact:w-right-radius*.90-15,
-    small:radius*.55,big:radius*.90};
+    flightY:h-bottom-reserve-radius*2.45-26,small:radius*.55,big:radius*.90};
 }

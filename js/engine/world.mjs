@@ -1,4 +1,5 @@
 import osm from './data/xinyi-osm.json' with { type:'json' };
+import ecologyPond from './data/xinyi-ecology-pond.json' with { type:'json' };
 
 export const metersPerUnit=.105;
 export const geographicOrigin=osm.origin;
@@ -26,9 +27,13 @@ export const ways=[];
 export const roads=[];
 export const columns=[],rows=[],columnNames=[],rowNames=[];
 export const river=toWorld(25.055,west).y;
+// A19 terrain-landmarks water: retain an inaccessible island inside the pond collision perimeter.
 export const water=(osm.water??[]).filter(w=>w[1]==='基隆河'||w[2].length>24).map(([id,name,line])=>({
   id,name,points:line.map(p=>toWorld(...p)),
-}));
+})).concat({
+  id:ecologyPond.id,name:ecologyPond.name,points:ecologyPond.outer.map(p=>toWorld(...p)),
+  holes:[ecologyPond.island.map(p=>toWorld(...p))],
+});
 export const civicWalkway={...toWorld(25.038,121.56696),y0:toWorld(25.0395,121.56696).y,y1:toWorld(25.0348,121.56696).y,name:'香堤大道行人徒步區'};
 const nodesByKey=new Map();
 const widths={trunk:14,primary:13,secondary:12,tertiary:9,residential:6.5,unclassified:6,service:4,
@@ -132,16 +137,71 @@ const special=new Map([...locationDefs.filter(a=>a[6]).map(a=>[a[6],{id:a[0],nam
   ...scenicDefs.map(a=>[a[2],{shape:a[0],name:a[1]}])]);
 // Underground MRT station outlines do not represent a street-level obstruction.
 const undergroundStations=new Set([810557338,810557339,810653312]);
-export const buildings=osm.buildings.filter(b=>!undergroundStations.has(b[0])).map(([id,name,h,levels,points])=>{
+function oldStreetDistrict(lat,lon){
+  return (lat>=25.0258&&lat<=25.0319&&lon>=121.5605&&lon<=121.568)
+    ||(lat>=25.0276&&lat<=25.0311&&lon>=121.5535&&lon<121.5605)
+    ||(lat>=25.0338&&lat<=25.0397&&lon>=121.5764);
+}
+
+const residentialTowers=/世貿新城|信義之星|鴻禧花園|贊泰花園|首席公館|住宅|名廈|名宮|公館|華廈|華夏/;
+const otherLargeBuildings=/大樓|大廈|金融|經貿|商業|辦公|銀行|醫院|醫學|學校|國小|國中|大學|派出所/;
+// A19 landmarks elevated-roof: OSM building=roof, building:min_level=1, layer=2,
+// all verified against adjacent level-2 pedestrian ways.
+const elevatedRoofIds=new Set([
+  1339401633,1339401646,1339401647,1339401650,1339401654,
+  1339401655,1339401657,1339401658,1339401659,1340000486,
+]);
+export const elevatedRoofs=osm.buildings.filter(([id])=>elevatedRoofIds.has(id))
+  .map(([id,,,,points])=>({id,points:points.map(point=>toWorld(...point))}));
+export const buildings=osm.buildings.filter(([id])=>!undergroundStations.has(id)&&!elevatedRoofIds.has(id)).map(([id,name,h,levels,points])=>{
   const polygon=points.map(p=>toWorld(...p));
   const xs=polygon.map(p=>p.x),ys=polygon.map(p=>p.y);
   const x=Math.min(...xs),y=Math.min(...ys),w=Math.max(...xs)-x,d=Math.max(...ys)-y;
-  const floors=Math.max(1,parseFloat(levels)||2+Math.floor(random(id)*5));
-  const modern=x>toWorld(25,121.563).x&&y>toWorld(25.042,121).y&&y<toWorld(25.033,121).y;
-  const elevation=parseFloat(h)||floors*3.45;
-  return {osmId:id,x,y,w,h:d,z:elevation*2,elevation,floors,polygon,modern,
-    color:colors[id%colors.length],name:'',...special.get(id)};
-}).filter(b=>b.w>5 && b.h>5);
+  const {lat,lon}=toGeo(x+w/2,y+d/2);
+  const shape=special.get(id),district=oldStreetDistrict(lat,lon)&&!shape;
+  const largeResidence=residentialTowers.test(name);
+  const knownLarge=largeResidence||otherLargeBuildings.test(name);
+  // The mapped five-floor block north-west of the Fude Street temple reads as a single wall from the forecourt.
+  const templeEdgeBlock=id===588109922;
+  const narrow=w*d*metersPerUnit**2<=1250&&Math.max(w,d)*metersPerUnit<=50;
+  const taggedFloors=parseFloat(levels)||0,taggedHeight=parseFloat(h)||0;
+  const measuredFloors=Math.max(taggedFloors,taggedHeight/3.45);
+  // Without use tags, a narrow footprint alone cannot establish that a tall tower is a walk-up.
+  const walkup=district&&narrow&&!knownLarge&&measuredFloors<=9;
+  const inferredFloors=taggedFloors||2+Math.floor(random(id)*5);
+  const lowRiseFloors=4+Number(random(id+13)>.5);
+  const useWalkupHeight=walkup&&(measuredFloors>6||(!measuredFloors&&inferredFloors>=4));
+  const floors=Math.max(1,useWalkupHeight?lowRiseFloors:inferredFloors);
+  const elevation=useWalkupHeight?3.8+(floors-1)*3.15:taggedHeight||floors*3.45;
+  const wuxingNorthResidence=largeResidence&&lat>25.0319&&lat<25.033&&lon>=121.5605&&lon<=121.568;
+  const residential=(district&&(walkup||largeResidence||templeEdgeBlock||(!knownLarge&&measuredFloors>6)))
+    ||wuxingNorthResidence;
+  const modern=!residential&&x>toWorld(25,121.563).x&&y>toWorld(25.042,121).y&&y<toWorld(25.033,121).y;
+  return {osmId:id,x,y,w,h:d,z:elevation*2,elevation,floors,polygon,modern,walkup,residential,
+    color:colors[id%colors.length],name:'',...shape};
+}).filter(b=>b.w>5 && b.h>5 && (b.shape||!blocksRoad(b)));
+
+function blocksRoad(b){
+  const candidates=new Set();
+  for(let iy=Math.floor(b.y/cellSize);iy<=Math.floor((b.y+b.h)/cellSize);iy++){
+    for(let ix=Math.floor(b.x/cellSize);ix<=Math.floor((b.x+b.w)/cellSize);ix++){
+      for(const road of roadCells.get(key(ix,iy))??[])candidates.add(road);
+    }
+  }
+  for(const [ax,ay,bx,by,,edge] of candidates){
+    if(edge.way.layer!==0||edge.way.kind==='pedestrian'||edge.way.kind==='service'||!edge.way.name)continue;
+    if(Math.max(ax,bx)<b.x||Math.min(ax,bx)>b.x+b.w||Math.max(ay,by)<b.y||Math.min(ay,by)>b.y+b.h)continue;
+    const steps=Math.max(2,Math.ceil(edge.d*metersPerUnit/.75));
+    let consecutive=0;
+    for(let i=0;i<=steps;i++){
+      const t=i/steps;
+      if(contains(ax+(bx-ax)*t,ay+(by-ay)*t,b.polygon)){
+        if(++consecutive>=3)return true;
+      }else consecutive=0;
+    }
+  }
+  return false;
+}
 for(const b of buildings)insert(buildingCells,b,b.x,b.y,b.x+b.w,b.y+b.h);
 export const landmarks=buildings.filter(b=>b.shape && !b.id);
 function contains(x,y,polygon) {
@@ -206,6 +266,18 @@ export function worldContact(x,y,a,b=a,angle=0){
     }
   }
   return null;
+}
+export function buildingHeightAt(x,y,a,b,heading){
+  const r=Math.hypot(a,b);
+  let height=0;
+  for(let iy=Math.floor((y-r)/cellSize);iy<=Math.floor((y+r)/cellSize);iy++){
+    for(let ix=Math.floor((x-r)/cellSize);ix<=Math.floor((x+r)/cellSize);ix++){
+      for(const building of buildingCells.get(key(ix,iy))??[]){
+        if(building.elevation>height&&intersectsBody(x,y,a,b,heading,building.polygon))height=building.elevation;
+      }
+    }
+  }
+  return height;
 }
 export function inBuilding(x,y) {
   return (buildingCells.get(key(Math.floor(x/cellSize),Math.floor(y/cellSize)))??[])

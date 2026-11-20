@@ -1,6 +1,8 @@
 import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs';
+import {createFeaturedTraffic} from './featured-traffic.mjs'; // A22 featured traffic
 import {createImpact,impactTarget} from './impact.mjs';
 import {fixtureColliders} from './fixtures.mjs';
+import {neonDistrict} from './neon-districts.mjs'; // A22 shopping-street foot traffic
 import {streetCrowds} from './crowds.mjs';
 import {occupancy,radius,colliderRadius,sweep} from './collision.mjs';
 import {crossings,crossingForNode,signalGroup} from './street-crossings.mjs';
@@ -163,13 +165,14 @@ function nearbyStreetTraffic(player,peak=false){
   }
   return result.sort((a,b)=>a.score-b.score).slice(0,peak?360:95).map(item=>item.car);
 }
-function nearbySidewalks(player){
+function nearbySidewalks(player,evening=false){ // A22 keep short shopfront walks within the existing sidewalk system
   const paths=[];
   for(const [index,[ax,ay,bx,by,w,edge]] of roads.entries()){
     const length=edge.d*metersPerUnit;
     if(!edge.way.name||edge.way.layer!==0||length<5||Math.hypot((ax+bx)/2-player.x,(ay+by)/2-player.y)>105/metersPerUnit)continue;
     const ux=(bx-ax)/edge.d,uy=(by-ay)/edge.d,heading=Math.atan2(uy,ux);
-    const sections=Math.max(1,Math.floor(length/16));
+    const dense=evening&&neonDistrict((ax+bx)/2,(ay+by)/2); // A22 only split paths on commercial blocks
+    const sections=Math.max(1,Math.floor(length/(dense?9:16)));
     for(const side of [-1,1])for(let section=0;section<sections;section++){
       const start=(section+.18)/sections,span=.64/sections,phase=((index+section)%23)*1.83;
       const dx=(bx-ax)*span,dy=(by-ay)*span;
@@ -181,7 +184,7 @@ function nearbySidewalks(player){
         if(r<11||r>85||[0,.25,.5,.75,1].some(q=>worldContact(x+dx*q,y+dy*q,.26/metersPerUnit)||
           roadAt(x+dx*q,y+dy*q,-.16/metersPerUnit)))continue;
         const forward=(px-player.x)*Math.cos(player.heading)+(py-player.y)*Math.sin(player.heading);
-        paths.push({walker:{x:px,y:py,path,heading,phase,localId:index+':'+side+':'+section,
+        paths.push({walker:{x:px,y:py,path,heading,phase,localId:(dense?'evening:':'')+index+':'+side+':'+section, // A22 keep daytime identities stable
           skin:['npc_student','npc_colleague','npc_boss','npc_vendor'][(index+section)%4]},
           priority:Math.abs(r-26)+(forward<0?70:0)});
         break;
@@ -436,6 +439,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   let officeParking=false;
   let staticRegistry;
   // A14 impact
+  const featured=createFeaturedTraffic(); // A22 curb cars share A14 occupancy.
   const impact=createImpact(),parkedColliders=new Map();
 
   const params=new URLSearchParams(canvas.ownerDocument.defaultView?.location.search);
@@ -460,7 +464,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   const listeners=new Map();
   const reached=new Map();
   const joy={x:0,y:0};
-  const state={player,camera,joy,staticColliders:fixtures,npcs:[],markers:[],speech:new Map(),cars:[],walkers:[],target:null,
+  const state={featuredParked:featured.parked,player,camera,joy,staticColliders:fixtures,npcs:[],markers:[],speech:new Map(),cars:[],walkers:[],target:null,
     officeDoorProgress:0,time:17.35,viewRevision:0,weather:'clear',filter:'none',clock:0,shake:0,touch:matchMedia('(pointer: coarse)').matches,largeMap:false};
   state.impact=impact; // A14 impact
   let enabled=true,paused=false,running=false,frame=0,last=null,crashCooldown=0;
@@ -934,6 +938,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     }
     const outsideView=body=>distance(body,player)>165/metersPerUnit&&
       !state.inActorView?.(body,true);
+    featured.indexParked(state,space,staticSpace,radius,impact,outsideView); // A22
     for(const walker of state.walkers){
       walker.nearby=distance(walker,player)<300/metersPerUnit;
       walker.collider=space.put(walker,radius.foot,'person');
@@ -984,6 +989,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         presentCars.has(car.id)||car.laneWidth<serviceRoadWidth(car)||distance(car,player)>(local?315:275)/metersPerUnit||
         !(canSpawn(car)||quietSide)||worldContact(car.x,car.y,colliderRadius(car),(car.scooter?.37:car.service?1.02:.95)/metersPerUnit,car.heading)||
         npcTrafficSpace.hit(car.x,car.y,colliderRadius(car)+headway,car))return;
+      featured.dressArrival(car,state.clock); // A22 skin an admitted traffic body.
       presentCars.add(car.id);state.cars.push(car);
       activeCars.push([car,space.put(car,colliderRadius(car),'vehicle')]);
     };
@@ -1023,11 +1029,16 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       }
     }
     for(let attempts=0;attempts<32&&state.cars.length<target;attempts++)addCar(pool[spawnCursor++%pool.length],1.5*speedUnits);
-    if(density>=.40&&density<.95&&(priming?state.clock===0:state.clock>=nextPedestrianRefresh)){
+    const neonEvening=(state.time>=18||state.time<5)&&neonDistrict(player.x,player.y); // A22 night crowd
+    if(density>0)featured.approach(state,metersPerUnit); // A22 service the cadence in stable queues.
+    if(density>=.40&&(density<.95||neonEvening)&&(priming?state.clock===0:state.clock>=nextPedestrianRefresh)){
       nextPedestrianRefresh=state.clock+1.55;
       if(!priming&&state.inActorView){
-        state.walkers=state.walkers.filter(walker=>!walker.localId||distance(walker,player)<425/metersPerUnit||
-          state.inActorView(walker,true));
+        state.walkers=state.walkers.filter(walker=>{
+          // A22 retire extra evening routes after dawn or district exit once out of view.
+          if(!neonEvening&&walker.localId?.startsWith('evening:'))return state.inActorView(walker,true);
+          return !walker.localId||distance(walker,player)<425/metersPerUnit||state.inActorView(walker,true);
+        });
       }
       const focuses=priming?[0,52,105].map(m=>({
         x:player.x+Math.cos(player.heading)*m/metersPerUnit,
@@ -1035,9 +1046,10 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       })):route?[56,117,178,242].map(m=>trafficLookahead(m)).filter(Boolean):[player];
       const localIds=new Set(state.walkers.map(walker=>walker.localId));
       for(const focus of focuses){
-        let remaining=7-state.walkers.filter(walker=>distance(walker,focus)<41/metersPerUnit).length;
+        const target=neonEvening&&neonDistrict(focus.x,focus.y)?15:7; // A22 existing sidewalk and collision checks below
+        let remaining=target-state.walkers.filter(walker=>distance(walker,focus)<41/metersPerUnit).length;
         if(remaining<=0)continue;
-        for(const walker of nearbySidewalks(focus)){
+        for(const walker of nearbySidewalks(focus,neonEvening)){
           if(!remaining)break;
           if(localIds.has(walker.localId)||(!priming&&(distance(walker,player)<40/metersPerUnit||
               !state.inActorView||state.inActorView(walker,true)))||trafficSpace.hit(walker.x,walker.y,radius.foot+2,walker))continue;
@@ -1087,6 +1099,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       impactColliders.set(car,c);
       if(car.impact)indexImpact(car);
     }
+    for(const car of featured.parked)if(car.impact)impactColliders.set(car,car.collider); // A22
     for(const car of impact.parkedVehicles()){
       if(car.impact&&!impact.retire(car,outsideView(car)))indexImpact(car);
     }
@@ -1119,6 +1132,13 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     };
     for (const walker of state.walkers) {
       if(!walker.nearby)continue;
+      const photo=!walker.crossing&&featured.photoTarget(walker,state.clock,metersPerUnit); // A22
+      walker.takingPhoto=Boolean(photo);
+      if(photo){
+        walker.heading=Math.atan2(photo.y-walker.y,photo.x-walker.x);
+        walker.movingSpeed=0;
+        continue;
+      }
       if(walker.crossing) {
         const {x,y,dx,dy,width,crosswalk}=walker.crossing;
         const crossingClock=state.clock+((x*7+y*13)%15+15)%15;
@@ -1544,6 +1564,17 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     refresh();
   }
   const engine={
+    ...(options.capture ? {captureFrame(id,time,weather,traffic) {
+      engine.setTimeOfDay(time);
+      engine.setWeather(weather);
+      engine.setTrafficDensity(traffic);
+      engine.teleportTo(id);
+      priming=true;
+      if(traffic>=.40)streetTraffic=nearbyStreetTraffic(player,traffic>=.95);
+      for(let i=0;i<8;i++)update(0);
+      priming=false;
+      return state;
+    }} : {}),
     start() {
       if (running) return;
       if(!trafficConfigured)engine.setTrafficDensity(density);
@@ -1674,6 +1705,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           choices.push({x:x+dx*(crosswalk+1)/metersPerUnit+dy*side,y:y+dy*(crosswalk+1)/metersPerUnit-dx*side,
             crossing,heading:0,skin:'npc_student'});
         }
+        if(density>0)choices.push(...featured.photoWalkers(metersPerUnit)); // A22 use ordinary sidewalk walkers.
         pendingWalkers.push(...choices);
       }
       refresh();

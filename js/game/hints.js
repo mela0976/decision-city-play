@@ -32,11 +32,13 @@ export function hintFor(state, mode) {
         const what = state.work ? state.work : context.action === 'talk' && context.targetName ? HINT.talkTo(context.targetName) : context.action === 'enter' ? (isPlaceDoor(context) ? HINT.enterPlace(context.targetName) : HINT.enterMission) : HINT.interact;
         return { task, parts: [touch ? say(`${HINT.tapAction} ${what}`) : part(KEY.action, what)] };
       }
-      if (touch) return { task, parts: state.canAuto ? [say(`${HINT.stick} ${HINT.move}`), say(HINT.tapAuto)] : [say(`${HINT.stick} ${HINT.move}`)] };
+      // A22 featured vehicle hint
+      if (touch) return { task, parts: state.canAuto ? [say(`${HINT.stick} ${HINT.move}`), say(HINT.tapAuto), part('T', '飛行電動車')] : [say(`${HINT.stick} ${HINT.move}`), part('T', '飛行電動車')] };
       const move = part(KEY.arrows, HINT.move);
       const auto = part(KEY.auto, T.autoRide);
       const map = part(KEY.map, HINT.map);
-      return { task, parts: state.canAuto ? [move, auto, map] : [move, map] };
+      const tesla = part('T', '飛行電動車');
+      return { task, parts: state.canAuto ? [move, auto, map, tesla] : [move, map, tesla] };
     }
     case 'card':
       return { task: HINT.newMission, parts: touch ? [say(`${HINT.tap} ${T.acceptMission}`)] : [part(KEY.action, T.acceptMission), part(KEY.esc, HINT.menu)] };

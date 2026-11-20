@@ -152,13 +152,13 @@ export function createImpact({contact=worldContact}={}){
     }
   }
 
-  function avoid(car,dt,space){
-    if(!bodies.size||!car.end||dt<=0)return false;
-    const r=colliderRadius(car),existing=bypasses.get(car);
-    const angle=Math.atan2(car.end.y-car.y,car.end.x-car.x);
+  function avoid(car,dt,space,{target=car.end,guard=()=>true,manual=false}={}){
+    if(!bodies.size||!target||dt<=0)return false;
+    const r=manual?1.03/unit:colliderRadius(car),existing=bypasses.get(car);
+    const angle=existing?.angle??Math.atan2(target.y-car.y,target.x-car.x);
     const ux=Math.cos(angle),uy=Math.sin(angle);
-    const width=(car.scooter?.37:car.service==='bus'?1.25:1.03)/unit;
-    const legal=(x,y,heading)=>!contact(x,y,r,width,heading)&&
+    const width=(manual||car.scooter?.37:car.service==='bus'?1.25:1.03)/unit;
+    const legal=(x,y,heading)=>guard(x,y,r,width,heading)&&!contact(x,y,r,width,heading)&&
       !space.hit(x,y,r,{...car,heading,ignore:car});
     let route=existing;
     if(route&&!route.body.impact){
@@ -171,19 +171,23 @@ export function createImpact({contact=worldContact}={}){
         if(p.air>=1)continue;
         const dx=body.x-car.x,dy=body.y-car.y;
         const ahead=dx*ux+dy*uy,side=dy*ux-dx*uy,reach=colliderRadius(body);
-        if(ahead>0&&ahead<r+reach+5/unit&&Math.abs(side)<reach+width){
+        if(ahead>0&&ahead<r+reach+11/unit&&Math.abs(side)<reach+width){
           // Confirm the wreck actually intersects the forward lane.
-          const probe=space.hit(car.x+ux*Math.min(ahead,2.6/unit),car.y+uy*Math.min(ahead,2.6/unit),r,car);
+          const probe=space.hit(car.x+ux*ahead,car.y+uy*ahead,r,car);
           if(probe?.body===body||probe?.body?.body===body){wreck={body,ahead,side};break;}
         }
       }
       if(!wreck)return false;
-      for(const side of [wreck.side>=0?-1:1,wreck.side>=0?1:-1]){
-        const offset=side*(colliderRadius(wreck.body)*.64+width+1.35/unit);
+      plan: for(const side of [wreck.side>=0?-1:1,wreck.side>=0?1:-1])for(const extra of [0,1,2]){
+        const spec=wreck.body.impact.spec;
+        const relative=wreck.body.heading-angle;
+        const lateral=(Math.abs(Math.sin(relative))*spec.length+Math.abs(Math.cos(relative))*spec.width)/unit;
+        const offset=wreck.side+side*(lateral+width+(.74+extra)/unit);
         const entry=Math.min(wreck.ahead*.3,2/unit);
         const x=car.x-uy*offset+ux*entry,y=car.y+ux*offset+uy*entry;
         const forward=wreck.ahead+colliderRadius(wreck.body)+r;
-        const points=[{x,y},{x:x+ux*forward,y:y+uy*forward}];
+        const points=[{x,y},{x:x+ux*forward,y:y+uy*forward},
+          {x:car.x+ux*(entry+forward+2.5/unit),y:car.y+uy*(entry+forward+2.5/unit)}];
         let from=car;
         if(points.every(point=>{
           const dx=point.x-from.x,dy=point.y-from.y,heading=Math.atan2(dy,dx);
@@ -192,19 +196,25 @@ export function createImpact({contact=worldContact}={}){
           from=point;
           return true;
         })){
-          route={body:wreck.body,points};
+          route={body:wreck.body,points,angle,speed:Math.max(car.speed,3.6/unit)};
           bypasses.set(car,route);
-          break;
+          break plan;
         }
       }
     }
     if(!route)return false;
     const point=route.points[0],dx=point.x-car.x,dy=point.y-car.y,len=Math.hypot(dx,dy);
     if(len>.05){
-      const heading=Math.atan2(dy,dx),ratio=Math.min(1,Math.min(Math.max(car.speed,1.6/unit),4.2/unit)*dt/len);
+      const heading=Math.atan2(dy,dx);
+      const cruise=car.cruise||12/unit;
+      const cap=Math.min(10.5/unit,cruise);
+      route.speed=Math.min(cap,route.speed+4.5/unit*dt);
+      const ratio=Math.min(1,route.speed*dt/len);
       const x=car.x+dx*ratio,y=car.y+dy*ratio;
-      if(!legal(x,y,heading)){bypasses.delete(car);return false;}
-      Object.assign(car,{x,y,heading,stuck:0});
+      if(!legal(x,y,heading)||!legal((x+car.x)/2,(y+car.y)/2,heading)){
+        bypasses.delete(car);return false;
+      }
+      Object.assign(car,{x,y,heading,speed:route.speed,stuck:0});
     }else{
       route.points.shift();
       if(!route.points.length)bypasses.delete(car);
@@ -214,6 +224,8 @@ export function createImpact({contact=worldContact}={}){
 
   return {
     strike,avoid,
+    hasWrecks:()=>bodies.size>0,
+    cancelAvoid:car=>bypasses.delete(car),
     advance(dt,{hit,moveCollider}={}){
       const count=Math.max(1,Math.ceil(dt/(1/120)));
       for(const [car,p] of bodies){

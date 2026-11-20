@@ -1,12 +1,12 @@
 import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs';
-import {makeEnvironment,makePanoramas} from './pbr.js';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js';
 import * as T from '../vendor/three.module.min.js';
 import {createMapRenderer,drawTouch,surface} from '../overlay.js';
-import {buildings,landmarks,locations,random,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs';
-import {createBloom} from './bloom.js';
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs';
 import {createActors} from './actors.js';
 import {streetCrowds} from '../crowds.mjs';
 import {xinyiBusBay} from './street-life.js';
+import {createFarCity} from './far-city.js'; // A20 far-city
 import {createOsmCity} from './osm-city.js';
 import {metersPerUnit as unit} from '../world.mjs';
 import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js';
@@ -17,73 +17,6 @@ const coreView=toWorld(25.0405,121.5685);
 const coreFocus=toWorld(25.0355,121.5662);
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const diff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
-const palettes=[
-  // time, low sky, zenith, haze, sun color, sun strength, ambient, night, elevation
-  [0,'#171d39','#0d1429','#1b2240','#89a5ef',.45,1.21,1,.25],
-  [5,'#66566e','#26375c','#49445b','#a1b7f2',.45,.89,.66,.13],
-  [6.5,'#e5ae87','#6185ac','#b2a4a6','#ffc992',1.82,1.35,.13,.22],
-  [9,'#d8d9c6','#6b9ebf','#b9c2bf','#ffe9cb',2.8,1.63,0,.71],
-  [12,'#e3e4d6','#79abc9','#cad1c8','#fff4e4',3.17,1.74,0,1.17],
-  [15,'#e2c9ae','#759eb5','#c8baa9','#ffddb3',2.8,1.52,0,.69],
-  [17.35,'#df9365','#657e9e','#a38a7c','#ffb36f',2.5,1.24,.07,.19],
-  [19,'#88596f','#34385c','#614e64','#ffa979',.68,.83,.63,.08],
-  [21,'#1d2340','#111c34','#262746','#8098c3',.48,1.28,1,.19],
-  [24,'#171d39','#0d1429','#1b2240','#89a5ef',.45,1.21,1,.25],
-].map(([time,...values])=>[time,...values.map(v=>typeof v==='string'?new T.Color(v):v)]);
-
-function daylight(time,result) {
-  const hi=palettes.findIndex(p=>p[0]>time);
-  const a=palettes[hi<0?palettes.length-2:hi-1],b=palettes[hi<0?palettes.length-1:hi];
-  const t=T.MathUtils.smoothstep(time,a[0],b[0]);
-  for (let i=1;i<=4;i++) result[i-1].copy(a[i]).lerp(b[i],t);
-  for (let i=5;i<=8;i++) result[i-1]=T.MathUtils.lerp(a[i],b[i],t);
-}
-function skyMesh(scene) {
-  const uniforms={zenith:{value:new T.Color()},horizon:{value:new T.Color()},sun:{value:new T.Vector3()},light:{value:new T.Color()},
-    panoA:{value:null},panoB:{value:null},panoMix:{value:0},panoWeight:{value:0}};
-  const mesh=new T.Mesh(new T.SphereGeometry(820,22,14),new T.ShaderMaterial({
-    side:T.BackSide,depthWrite:false,fog:false,uniforms,
-    vertexShader:`varying vec3 ray;
-      void main(){ray=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
-    fragmentShader:`varying vec3 ray; uniform vec3 zenith; uniform vec3 horizon;
-      uniform vec3 sun;uniform vec3 light;
-      uniform sampler2D panoA,panoB;uniform float panoMix,panoWeight;
-      void main(){
-        vec3 d=normalize(ray),col=vec3(0.);
-        if(panoWeight<1.){
-          float k=pow(clamp(d.y*1.28,0.,1.),.58);
-          float s=max(0.,dot(d,sun));col=mix(horizon,zenith,k);
-          float layers=sin(d.x*12.+sin(d.z*9.))*sin(d.z*16.+d.y*82.);
-          float streaks=smoothstep(.30,.89,layers*.53+sin(d.x*27.+d.y*143.)*.25);
-          float lowCloud=sin(d.x*13.+sin(d.z*17.+d.y*64.))*sin(d.z*22.-d.y*112.);
-          float cloud=smoothstep(.18,.78,streaks*.58+lowCloud*.34)*smoothstep(.02,.24,d.y);
-          col=mix(col,col*.75+light*.34,cloud*.68);
-          col+=light*(pow(s,15.)*.44+smoothstep(.9991,.9996,s)*2.3+streaks*.14*k);
-        }
-        if(panoWeight>0.){
-          vec2 uv=vec2(atan(d.z,d.x)*.15915494+.5,asin(clamp(d.y,-1.,1.))*.31830989+.5);
-          col=mix(col,mix(texture2D(panoA,uv).rgb,texture2D(panoB,uv).rgb,panoMix),panoWeight);
-        }
-        float az=atan(d.z,d.x);
-        for(int i=0;i<3;i++){
-          float layer=float(i);
-          float south=pow(max(0.,sin(az)),3.),east=pow(max(0.,cos(az)),4.);
-          float north=pow(max(0.,-sin(az)),4.);
-          float ridge=(.044*south+.033*east+.028*north)*(1.+layer*.32);
-          ridge+=(sin(az*17.+layer*5.)*.006+sin(az*33.+layer*9.)*.003)*(south+east+north);
-          float mountain=step(0.,d.y)*(1.-smoothstep(ridge-.001,ridge+.001,d.y));
-          col=mix(col,mix(horizon,vec3(.104,.173,.177),.23+layer*.12),mountain*.8);
-        }
-        gl_FragColor=vec4(col,1.);
-        #include <tonemapping_fragment>
-        #include <colorspace_fragment>
-      }`,
-  }));
-  mesh.renderOrder=-100;
-  mesh.frustumCulled=false;
-  scene.add(mesh);
-  return {mesh,uniforms};
-}
 function tag(ctx,text,x,y,kind='site') {
   ctx.font=`600 ${kind==='speech'?15:12}px system-ui, sans-serif`;
   ctx.textAlign='center';
@@ -96,56 +29,14 @@ function tag(ctx,text,x,y,kind='site') {
   ctx.fillStyle=kind==='speech'?'#242029':kind==='marker'?'#f5c97f':kind==='side'?'#59e2cf':'#f6e8ce';
   ctx.fillText(text,x,y,w-13);
 }
-function rainFx(ctx,w,h,clock) {
-  ctx.lineWidth=.8;
-  ctx.strokeStyle='#e7e0e243';
-  ctx.beginPath();
-  for (let i=0;i<118;i++) {
-    const x=(random(i+6)*w+clock*196)%w,y=(random(i+93)*h+clock*515)%h;
-    const length=6+random(i+201)*20;
-    ctx.moveTo(x,y);
-    ctx.lineTo(x-length*.26,y+length);
-  }
-  ctx.stroke();
-  for(let i=0;i<28;i++) {
-    const phase=(clock*2+random(i)*12)%1;
-    if(phase>.42) continue;
-    const scale=phase/.42;
-    const x=w*(.14+random(i+Math.floor(clock*2+random(i)*12)*71)*.72);
-    const y=h*(.59+random(i+20)*.4);
-    ctx.strokeStyle=`rgba(213,222,227,${.35*(1-scale)})`;
-    ctx.beginPath();ctx.ellipse(x,y,1+scale*6,.6+scale*1.6,0,0,2*Math.PI);ctx.stroke();
-  }
-}
-
-export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogleLayer,forceGoogle=false) {
+export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogleLayer,forceGoogle=false,capture=null) {
   const view=new T.WebGLRenderer({canvas,context,alpha:false});
-  view.outputColorSpace=T.SRGBColorSpace;
-  view.toneMapping=T.ACESFilmicToneMapping;
-  view.toneMappingExposure=1.11;
-  view.shadowMap.enabled=true;
-  view.info.autoReset=false;
-  view.shadowMap.type=T.PCFShadowMap;
-  const bloom=context.getExtension('EXT_color_buffer_float')?createBloom(view):null;
-  const scene=new T.Scene();
-  const environment=makeEnvironment(canvas.ownerDocument,view);
-  const panoramas=makePanoramas(canvas.ownerDocument,view);
-  scene.environment=environment.texture;
-  scene.fog=new T.FogExp2('#a68973',.0094);
+  const has=capture?.has??(()=>true);
+  const atmosphere=createSkyLight(view,context,canvas.ownerDocument,has('sky-light'));
+  const {scene,sun,bloom,panoramas}=atmosphere;
   const camera=new T.PerspectiveCamera(66,1,.12,850);
-  const sky=skyMesh(scene);
-  const hemi=new T.HemisphereLight('#c2cbe1','#917467',1);
-  const sun=new T.DirectionalLight('#fff0df',2.32);
-  sun.castShadow=true;
-  sun.shadow.mapSize.set(1024,1024);
-  sun.shadow.camera.left=sun.shadow.camera.bottom=-28;
-  sun.shadow.camera.right=sun.shadow.camera.top=28;
-  sun.shadow.camera.near=1;
-  sun.shadow.camera.far=158;
-  sun.shadow.normalBias=.089;
-  sun.shadow.bias=-.0003;
-  scene.add(hemi,sun,sun.target);
-  const city=createOsmCity(scene,canvas.ownerDocument,view.capabilities.getMaxAnisotropy());
+  const city=createOsmCity(scene,canvas.ownerDocument,view.capabilities.getMaxAnisotropy(),has);
+  const farCity=has('far-city')?createFarCity(city.group,canvas.ownerDocument):null; // A20 far-city
   let tiles=null,sessionStarted=false,disposed=false;
   function loadTiles(){
     if(!createGoogleLayer||sessionStarted)return;
@@ -156,14 +47,14 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       tiles=layer;
     }).catch(()=>{canvas.dataset.engineReason='Google 圖磚載入器不可使用';});
   }
-  const actors=createActors(scene,city.glow,city.parkedScooters);
+  const actorLayer=capture?new T.Group():scene;
+  if(capture)scene.add(actorLayer);
+  const actors=createActors(actorLayer,city.glow,city.parkedScooters);
   const map=createMapRenderer(minimapCanvas);
   const ctx=overlay.getContext('2d');
-  const colors=[new T.Color(),new T.Color(),new T.Color(),new T.Color()];
   const projected=new T.Vector3(),base=new T.Vector3(),position=new T.Vector3(),aim=new T.Vector3(),offset=new T.Vector3(),arm=new T.Vector3(),desired=new T.Vector3();
-  const dark=new T.Color('#626780'),rainCloud=new T.Color('#6a7182'),ambientWhite=new T.Color('#d8d4cd');
   const spots=new Map(locations.map(site=>[site.id,site]));
-  let sizeW=0,sizeH=0,dpr=0,quality=2,pressure=0,meanFrame=1/60,lastClock=0,lastView=-1;
+  let sizeW=0,sizeH=0,dpr=0,quality=capture?.quality??2,pressure=0,meanFrame=1/60,lastClock=0,lastView=-1;
   let heading=0,roll=0,lastHeading=0,statsClock=-1;
   let frameWidth=0,frameHeight=0;
   function project(x,y,z) {
@@ -199,7 +90,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
   const draw=state=>{
     const {player,weather,clock,filter,time,viewRevision}=state;
     const aerial=Boolean(state.flyover||state.largeMap);
-    const useTiles=forceGoogle||aerial;
+    const useTiles=forceGoogle||aerial||Boolean(capture?.google);
     canvas.dataset.aerial=String(aerial);
     if(useTiles)loadTiles();
     if(!useTiles)tiles?.hide();
@@ -208,7 +99,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const {w,h}=dimensions;
     const snap=lastView!==viewRevision||Boolean(canvas.dataset.flyoverCamera)&&!state.flyover;
     const dt=clamp(clock-lastClock,0,.05);
-    if(!snap) adjustQuality(dt);
+    if(!snap&&!capture) adjustQuality(dt);
     lastClock=clock;
     const requestedDpr=Math.min(devicePixelRatio||1,quality===2?2:quality===1?1.25:.85);
     if (w!==sizeW||h!==sizeH||dpr!==requestedDpr) {
@@ -482,56 +373,30 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
         camera.position.z-=(depth+.4)*fz;
       }
     }
+    if(!aerial&&player.vehicle==='flyingTesla'){
+      const altitude=player.altitude??0;
+      camera.position.y+=altitude;
+      aim.y+=altitude+.55;
+    }
     camera.lookAt(aim);
     if(!showcase&&!core&&!aerial&&!officePortrait&&!evPortrait&&!walkerPortrait&&!queuePortrait&&!servicePortrait&&!xinyiPortrait)camera.rotateZ(-roll);
     camera.fov=state.flyover?orbit.fov+(w/h<1?10:0):(landmark?69:showcase?64:58)+viewSpeed*13+(narrow?13:w/h<1.15?8:0)+(state.rideBoost??0)*4;
+    if(capture){
+      const {pos,lookAt,fov}=capture.shot;
+      camera.position.set(...pos);
+      camera.lookAt(...lookAt);
+      camera.fov=fov;
+    }
     camera.aspect=w/h;
     camera.near=state.flyover?5:.12;
-    camera.far=state.flyover?2200:2500;
+    camera.far=farCity&&!forceGoogle&&!capture?.google&&canvas.dataset.engine!=='google'?5500:state.flyover?2200:2500; // A20 far-city
     camera.updateProjectionMatrix();
     camera.updateMatrixWorld();
     projected.set(x,riding?1.2:.92,z).project(camera);
     canvas.dataset.engineCamera=JSON.stringify({x:projected.x,y:projected.y,z:projected.z,
       clear:cameraFraction(bounds,arm,camera.position)===1,showcase});
 
-    daylight(time,colors);
-    const [horizon,zenith,haze,sunTint,sunPower,ambient,night,elevation]=colors;
-    const raining=weather==='rain';
-    if(raining) {
-      horizon.lerp(rainCloud,.35);zenith.lerp(dark,.23);haze.lerp(rainCloud,.44);
-    }
-    sky.mesh.position.copy(camera.position);
-    sky.uniforms.horizon.value.copy(horizon);
-    sky.uniforms.zenith.value.copy(zenith);
-    sky.uniforms.light.value.copy(sunTint).multiplyScalar((1-night)*(raining?.09:.34));
-    scene.fog.color.copy(haze);
-    scene.fog.density=state.flyover?(raining?.0023:.00085+night*.0011):raining?.0033:.0011+night*.0011;
-    const lamps=Math.max(night,time>16.25?clamp((time-16.25)/1.35,0,1)*.87:0);
-    const bearing=(18-time)*Math.PI/12;
-    const lightDir=sky.uniforms.sun.value.set(Math.cos(bearing)*Math.cos(elevation),Math.sin(elevation),-Math.sin(bearing)*Math.cos(elevation));
-    sun.target.position.set(x,0,z);
-    const shadowSpan=time>16&&time<19?64:34;
-    if(sun.shadow.camera.right!==shadowSpan){
-      sun.shadow.camera.left=sun.shadow.camera.bottom=-shadowSpan;
-      sun.shadow.camera.right=sun.shadow.camera.top=shadowSpan;
-      sun.shadow.camera.updateProjectionMatrix();
-    }
-    sun.position.copy(sun.target.position).addScaledVector(lightDir,61);
-    sun.color.copy(sunTint);
-    const golden=Math.max(0,1-Math.abs(time-17.65)/1.28);
-    sun.color.lerp(new T.Color('#ff9c57'),golden*.53);
-    sun.intensity=sunPower*(raining?.72:1)*(1+golden*.12);
-    hemi.color.copy(zenith).lerp(ambientWhite,.53+night*.26);
-    hemi.intensity=ambient*(raining?1.23:1.68)*(1-golden*.27);
-    // The texture transition is continuous in the sky and quantized for cached reflections.
-    const pano=panoramas.at(time);
-    sky.uniforms.panoWeight.value=pano?(raining?.48:1-golden*.43):0;
-    if(pano){
-      sky.uniforms.panoA.value=pano.a;sky.uniforms.panoB.value=pano.b;sky.uniforms.panoMix.value=pano.mix;
-    }
-    scene.environment=pano?.reflection??environment.texture;
-    scene.environmentIntensity=.54-night*.32;
-    view.toneMappingExposure=1.13-night*.08;
+    const {night,raining,lamps}=atmosphere.update(camera,x,z,time,weather,Boolean(state.flyover));
     const tileView=useTiles?tiles?.update(quality):null;
     if(!useTiles)canvas.dataset.engine='stylized';
     if(tileView?.fail) {
@@ -544,7 +409,11 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       canvas.dataset.engine='google';
       canvas.dataset.engineReason='Google Photorealistic 3D Tiles';
     }
-    city.group.visible=!tileView?.ready;
+    city.group.visible=!tileView?.ready&&!capture?.google;
+    if(capture){
+      city.replacements.visible=!capture.google;
+      actorLayer.visible=!capture.google&&(has('actors')||has('furniture'));
+    }
     canvas.dataset.tileCount=String(tileView?.count??0);
     if(tileView)canvas.dataset.googleDiagnostics=JSON.stringify({
       sources:tileView.sources,errorTarget:tileView.errorTarget,maxDepth:tileView.maxDepth,visibleDepth:tileView.visibleDepth,
@@ -557,13 +426,14 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const focus=state.flyover?.location??walkerPortrait??portraitFocus??player;
     city.updateOfficeDoor(state.officeDoorProgress);
     city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover),time);
+    farCity?.update(focus.x*unit,focus.y*unit,has('night')?night:0,quality,Boolean(state.flyover),w<650); // A20 far-city
     state.inActorView=(body,padded=false)=>{
       projected.set(body.x*unit,1,body.y*unit).project(camera);
       const margin=padded?1.32:1;
       return projected.z>=-1&&(padded||projected.z<=1)&&Math.abs(projected.x)<=margin&&Math.abs(projected.y)<=margin;
     };
     state.cameraInside=camera.position.y<.12||(!aerial&&cameraFraction(bounds,camera.position,camera.position)===0);
-    actors(state,unit,Math.max(night,lamps*.69),raining,turn,tileView?.ready,walkerPortrait,camera.position,previewBus,deliveryPortrait?xinyiBusBay(0,-1.66):null,scalePortrait);
+    if(!capture||actorLayer.visible)actors(state,unit,has('night')?Math.max(night,lamps*.69):0,raining,turn,tileView?.ready,walkerPortrait,camera.position,previewBus,deliveryPortrait?xinyiBusBay(0,-1.66):null,scalePortrait,!has('actors'));
     if(clock-statsClock>.5&&canvas.ownerDocument.location?.pathname?.endsWith('/engine/demo.html')){
       const near=actor=>Math.hypot(actor.x-player.x,actor.y-player.y)*unit<72&&state.inActorView(actor);
       canvas.dataset.streetActors=JSON.stringify({cars:state.cars.filter(near).length,
@@ -573,114 +443,90 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     canvas.dataset.avatarModel=state.avatarModel;
     if(!canvas.dataset.textUv)canvas.dataset.textUv=JSON.stringify(city.textUv);
     view.info.reset();
-    if(bloom && quality===2 && lamps>.10) bloom.render(scene,camera,lamps*.28);
+    if(bloom && has('night') && quality===2 && lamps>.10) bloom.render(scene,camera,lamps*.28);
     else view.render(scene,camera);
 
     ctx.clearRect(0,0,w,h);
-    if(time>15 && time<19) {
-      ctx.fillStyle=`rgba(203,117,65,${Math.sin((time-15)*Math.PI/4)*.055})`;
-      ctx.fillRect(0,0,w,h);
-    }
-    if(tileView?.ready){
-      const dusk=1-Math.min(1,Math.abs(time-17.8)/1.65);
-      if(dusk>0){
-        const tint=ctx.createLinearGradient(0,0,0,h);
-        tint.addColorStop(0,`rgba(208,115,68,${dusk*.17})`);
-        tint.addColorStop(1,`rgba(103,62,98,${dusk*.09})`);
-        ctx.fillStyle=tint;ctx.fillRect(0,0,w,h);
+    drawAtmosphereOverlay(ctx,canvas,{w,h,time,clock,filter,raining,night,googleReady:tileView?.ready,enabled:has('sky-light')});
+    if(!capture){
+      if(state.flyover){
+        const at=project(orbit.cx/unit,orbit.roof+8,orbit.cz/unit);
+        if(at)tag(ctx,state.flyover.location.name,...at);
       }
-      if(night>.02){ctx.fillStyle=`rgba(26,38,72,${night*.34})`;ctx.fillRect(0,0,w,h);}
-    }
-    if(raining) rainFx(ctx,w,h,clock);
-    const vignette=ctx.createRadialGradient(w*.5,h*.51,h*.12,w*.5,h*.51,Math.hypot(w,h)*.57);
-    vignette.addColorStop(0,'#120f1b00');
-    vignette.addColorStop(.63,'#120f1b0d');
-    vignette.addColorStop(1,filter==='flashback'?'#110c1bb6':'#140e2258');
-    ctx.fillStyle=vignette;ctx.fillRect(0,0,w,h);
-    if(filter==='grandma') {
-      ctx.fillStyle='#e6ab5525';ctx.fillRect(0,0,w,h);
-    } else if(filter==='flashback') {
-      ctx.fillStyle='#a9957939';ctx.fillRect(0,0,w,h);
-    }
-    const cssFilter=filter==='grandma'?'sepia(.17) saturate(.93) blur(.36px)':filter==='flashback'?'saturate(.52) contrast(.91)':'none';
-    if(canvas.style.filter!==cssFilter) canvas.style.filter=cssFilter;
-    if(state.flyover){
-      const at=project(orbit.cx/unit,orbit.roof+8,orbit.cz/unit);
-      if(at)tag(ctx,state.flyover.location.name,...at);
-    }
-    if(!state.flyover&&(aerial||tileView?.ready)) for (const site of locations) {
-      if(!aerial&&Math.hypot(site.x-player.x,site.y-player.y)>246) continue;
-      const at=project(site.x,aerial?11:2.95,site.y+20);
-      if(at) tag(ctx,site.name,...at);
-    }
-    if(!state.flyover&&tileView?.ready) for(const landmark of landmarks) {
-      const cx=landmark.x+landmark.w/2,cz=landmark.y+landmark.h/2;
-      const gap=Math.hypot(cx-player.x,cz-player.y);
-      if(gap>(landmark.shape==='twist'?3600:325))continue;
-      const at=project(cx,landmark.shape==='twist'?56:landmark.shape==='construction'?77:9.1,cz);
-      if(at)tag(ctx,landmark.name,...at);
-    }
-    if(!state.flyover&&detail==='skyline') {
-      const tower=spots.get('client_hq'),point=project(tower.x,129,tower.y-130);
-      if(point) tag(ctx,tower.name,...point);
-    }
-    if(aerial&&!state.flyover){
-      const here=project(player.x,6,player.y);
-      if(here)tag(ctx,'◆ 玩家',...here,'marker');
-    }
-    if(!state.flyover){
-      const sides=new Map();
-      const markerAnchor=(site,height,offset)=>project(site.x,height,site.y+18)??(
-        player.locationId===site.id?[w*.5,Math.max(56,h*.25)+offset]:null);
-      for(const marker of state.markers){
-        const site=spots.get(marker.locationId);
-        if(!site)continue;
-        const gap=Math.hypot(site.x-player.x,site.y-player.y)*unit;
-        const side=marker.kind==='side';
-        if(side){
-          if(gap>45)continue;
-          if(sides.has(site.id)){sides.get(site.id).count++;continue;}
-          sides.set(site.id,{site,label:marker.label,gap,count:1});
-        }else if(aerial||gap<54){
-          const at=markerAnchor(site,4.5,0);
-          if(at)tag(ctx,'◇ '+(marker.label||site.name),...at,'marker');
+      if(!state.flyover&&(aerial||tileView?.ready)) for (const site of locations) {
+        if(!aerial&&Math.hypot(site.x-player.x,site.y-player.y)>246) continue;
+        const at=project(site.x,aerial?11:2.95,site.y+20);
+        if(at) tag(ctx,site.name,...at);
+      }
+      if(!state.flyover&&tileView?.ready) for(const landmark of landmarks) {
+        const cx=landmark.x+landmark.w/2,cz=landmark.y+landmark.h/2;
+        const gap=Math.hypot(cx-player.x,cz-player.y);
+        if(gap>(landmark.shape==='twist'?3600:325))continue;
+        const at=project(cx,landmark.shape==='twist'?56:landmark.shape==='construction'?77:9.1,cz);
+        if(at)tag(ctx,landmark.name,...at);
+      }
+      if(!state.flyover&&detail==='skyline') {
+        const tower=spots.get('client_hq'),point=project(tower.x,129,tower.y-130);
+        if(point) tag(ctx,tower.name,...point);
+      }
+      if(aerial&&!state.flyover){
+        const here=project(player.x,6,player.y);
+        if(here)tag(ctx,'◆ 玩家',...here,'marker');
+      }
+      if(!state.flyover){
+        const sides=new Map();
+        const markerAnchor=(site,height,offset)=>project(site.x,height,site.y+18)??(
+          player.locationId===site.id?[w*.5,Math.max(56,h*.25)+offset]:null);
+        for(const marker of state.markers){
+          const site=spots.get(marker.locationId);
+          if(!site)continue;
+          const gap=Math.hypot(site.x-player.x,site.y-player.y)*unit;
+          const side=marker.kind==='side';
+          if(side){
+            if(gap>45)continue;
+            if(sides.has(site.id)){sides.get(site.id).count++;continue;}
+            sides.set(site.id,{site,label:marker.label,gap,count:1});
+          }else if(aerial||gap<54){
+            const at=markerAnchor(site,4.5,0);
+            if(at)tag(ctx,'◇ '+(marker.label||site.name),...at,'marker');
+          }
+        }
+        for(const {site,label,gap,count} of sides.values()){
+          const at=markerAnchor(site,3.25,27);
+          if(!at)continue;
+          ctx.globalAlpha=clamp((45-gap)/12,0,1);
+          const badge=count>1?'▲ '+count:'▲';
+          tag(ctx,gap<19?badge+' '+(label||site.name):badge,...at,'side');
+          ctx.globalAlpha=1;
         }
       }
-      for(const {site,label,gap,count} of sides.values()){
-        const at=markerAnchor(site,3.25,27);
-        if(!at)continue;
-        ctx.globalAlpha=clamp((45-gap)/12,0,1);
-        const badge=count>1?'▲ '+count:'▲';
-        tag(ctx,gap<19?badge+' '+(label||site.name):badge,...at,'side');
-        ctx.globalAlpha=1;
+      if(!state.flyover&&evPortrait){const at=project(evPortrait.x,1.98,evPortrait.y);if(at)tag(ctx,'自動駕駛中',...at);}
+      if(!aerial)for(const car of state.cars){
+        if(car.hidden||car.scooter||car.service||((car.node*13+Math.floor(clock*.25))%5)!==0)continue;
+        const gap=Math.hypot(car.x-player.x,car.y-player.y);
+        if(gap<24||gap>155)continue;
+        const at=project(car.x,1.91,car.y);
+        if(at)tag(ctx,'自動駕駛中',...at);
       }
-    }
-    if(!state.flyover&&evPortrait){const at=project(evPortrait.x,1.98,evPortrait.y);if(at)tag(ctx,'自動駕駛中',...at);}
-    if(!aerial)for(const car of state.cars){
-      if(car.hidden||car.scooter||car.service||((car.node*13+Math.floor(clock*.25))%5)!==0)continue;
-      const gap=Math.hypot(car.x-player.x,car.y-player.y);
-      if(gap<24||gap>155)continue;
-      const at=project(car.x,1.91,car.y);
-      if(at)tag(ctx,'自動駕駛中',...at);
-    }
-    if(!state.flyover)for (const npc of state.npcs) {
-      if(Math.hypot(npc.x-player.x,npc.y-player.y)>74) continue;
-      const at=project(npc.x,2.26,npc.y);
-      if(!at) continue;
-      tag(ctx,npc.name,...at);
-      const bubble=state.speech.get(npc.id);
-      if(bubble) tag(ctx,bubble.text,at[0],at[1]-29,'speech');
-    }
-    if(!state.flyover&&state.target && !project(state.target.x,3.4,state.target.y)) {
-      const direction=diff(Math.atan2(state.target.y-player.y,state.target.x-player.x),heading);
-      const edgeX=w*.5+Math.sin(direction)*(w*.5-38);
-      const edgeY=Math.cos(direction)<0?h-44:34;
-      ctx.save();
-      ctx.translate(edgeX,edgeY);
-      ctx.rotate(Math.cos(direction)<0?Math.PI-direction:direction);
-      ctx.fillStyle='#f1c77c';
-      ctx.beginPath();ctx.moveTo(0,-12);ctx.lineTo(9,9);ctx.lineTo(0,5);ctx.lineTo(-9,9);ctx.closePath();ctx.fill();
-      ctx.restore();
+      if(!state.flyover)for (const npc of state.npcs) {
+        if(Math.hypot(npc.x-player.x,npc.y-player.y)>74) continue;
+        const at=project(npc.x,2.26,npc.y);
+        if(!at) continue;
+        tag(ctx,npc.name,...at);
+        const bubble=state.speech.get(npc.id);
+        if(bubble) tag(ctx,bubble.text,at[0],at[1]-29,'speech');
+      }
+      if(!state.flyover&&state.target && !project(state.target.x,3.4,state.target.y)) {
+        const direction=diff(Math.atan2(state.target.y-player.y,state.target.x-player.x),heading);
+        const edgeX=w*.5+Math.sin(direction)*(w*.5-38);
+        const edgeY=Math.cos(direction)<0?h-44:34;
+        ctx.save();
+        ctx.translate(edgeX,edgeY);
+        ctx.rotate(Math.cos(direction)<0?Math.PI-direction:direction);
+        ctx.fillStyle='#f1c77c';
+        ctx.beginPath();ctx.moveTo(0,-12);ctx.lineTo(9,9);ctx.lineTo(0,5);ctx.lineTo(-9,9);ctx.closePath();ctx.fill();
+        ctx.restore();
+      }
     }
     const bottom=state.insets?.[2]??0,right=state.insets?.[1]??0;
     ctx.font='11px system-ui';
@@ -718,14 +564,14 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       ctx.fillStyle=`rgba(15,23,32,${state.flyover.retreat*.96})`;
       ctx.fillRect(0,0,w,h-(state.googleInset??0)-bottom);
     }
-    drawTouch(ctx,w,h,state);
-    map(state);
-    if(snap||clock-statsClock>.5) {
+    if(!capture){drawTouch(ctx,w,h,state);map(state);}
+    if(capture||snap||clock-statsClock>.5) {
       const {calls,triangles}=view.info.render;
       canvas.dataset.engineStats=JSON.stringify({calls,triangles,dpr,quality,textures:city.loadedTextures.length,panoramas:panoramas.keys(),ads:city.loadedAds,models:actors.loaded(),modelBounds:actors.bounds()});
       statsClock=clock;
     }
   };
-  draw.dispose=()=>{disposed=true;tiles?.dispose();actors.dispose();panoramas.dispose();environment.dispose();view.dispose();};
+  draw.ready=actors.ready;
+  draw.dispose=()=>{disposed=true;farCity?.dispose();tiles?.dispose();actors.dispose();atmosphere.dispose();view.dispose();};
   return draw;
 }

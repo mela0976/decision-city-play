@@ -1,5 +1,20 @@
 {
   "images": {
+    "featured-car-wraps": {
+      "src": "assets/tex/featured-car-wraps.webp",
+      "w": 1024,
+      "h": 768
+    },
+    "vegetation-near": {
+      "src": "assets/tex/vegetation-near.webp",
+      "w": 1024,
+      "h": 256
+    },
+    "vegetation-far": {
+      "src": "assets/tex/vegetation-far.webp",
+      "w": 384,
+      "h": 96
+    },
     "title_key": {
       "src": "assets/img/title_key.webp",
       "w": 1600,
@@ -489,6 +504,11 @@
       "src": "assets/img/avatar_data_kai.webp",
       "w": 512,
       "h": 512
+    },
+    "neon-shop-atlas": {
+      "src": "assets/tex/neon-shop-atlas.webp",
+      "w": 2048,
+      "h": 1536
     },
     "tex_shopfront_k": {
       "src": "assets/tex/tex_shopfront_k.webp",

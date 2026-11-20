@@ -1,3 +1,4 @@
+import {createFeaturedCars,skyTraffic} from './featured-cars.js'; // A22
 import {parkedKey} from '../impact.mjs';
 import {streetCrowds} from '../crowds.mjs';
 import {createModelAssets} from './model-assets.js';
@@ -65,7 +66,7 @@ function limb(color,a,b,w,d=w) {
   entry.pitch=Math.atan2(dz,Math.hypot(dx,dy));
   return entry;
 }
-function person(skin,phase,riding=false,seat=0) {
+function person(skin,phase,riding=false,seat=0,photo=false) { // A22 photo pose
   const grandma=skin.includes('grandma');
   const [shirt,pants,accessory]=profile[skin]??[outfits[skin]??'#536573',grandma?'#4b4146':'#3e4147',
     skin==='npc_student'?'backpack':skin==='npc_boss'?'briefcase':''];
@@ -95,8 +96,8 @@ function person(skin,phase,riding=false,seat=0) {
   for(const s of [-1,1]) {
     const knee=[riding?hip+.51:s*swing*.8,riding?.58:.48,s*.14];
     const ankle=[riding?hip+.52:s*swing,riding?.34:.14,s*.13];
-    const elbow=[riding?hip+.36:-s*swing*.64,shoulder-.205,s*.235];
-    const hand=[riding?(grandma?.29:.46):-s*swing*.9,riding?(grandma?.96:1.00):pelvis-.01,s*.255];
+    const elbow=photo?[.23,1.15,s*.21]:[riding?hip+.36:-s*swing*.64,shoulder-.205,s*.235];
+    const hand=photo?[.37,1.49,s*.08]:[riding?(grandma?.29:.46):-s*swing*.9,riding?(grandma?.96:1.00):pelvis-.01,s*.255];
     body.push(limb(pants,[hip,pelvis,s*.105],knee,.15),limb(pants,knee,ankle,.113),
       ball('#332e31',ankle[0]+.064,ankle[1]-.085,s*.13,.231,.115,.121),
       limb(shirt,[hip+.07,shoulder-.102,s*.178],elbow,.13),
@@ -199,6 +200,7 @@ const local=new T.Vector3();
 
 export function createActors(scene,glow,parkedScooters=[]) {
   const models=createModelAssets(scene);
+  const featured=createFeaturedCars(scene,glow); // A22
   const lookCache=new WeakMap();let nextLook=0;
   const geometries={box:cube,round,wheel,hat,cab,busShell,compactor};
   const material=new T.MeshStandardMaterial({roughness:.63});
@@ -230,7 +232,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
   const shadows=new T.InstancedMesh(new T.PlaneGeometry(1,1),shadowMat,265);
   shadows.frustumCulled=false;
   scene.add(shadows);
-  function stamp(descriptors,x,z,heading,lean,impact=null) {
+  function stamp(descriptors,x,z,heading,lean,impact=null,altitude=0) {
     if(impact)wreckRotation.setFromEuler(wreckEuler.set(impact.roll,-heading,impact.pitch,'YXZ'));
     const cos=Math.cos(heading),sin=Math.sin(heading);
     for (const d of descriptors) {
@@ -242,7 +244,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
         dummy.quaternion.setFromEuler(partRotation.set(d.pitch??0,d.yaw??0,d.roll,'YXZ')).premultiply(wreckRotation);
       }else{
         local.set(d.x,d.y,d.z).applyAxisAngle(axis,lean);
-        dummy.position.set(x+local.x*cos-local.z*sin,local.y+.07,z+local.x*sin+local.z*cos);
+        dummy.position.set(x+local.x*cos-local.z*sin,local.y+.07+altitude,z+local.x*sin+local.z*cos);
         dummy.rotation.set(lean+(d.pitch??0),-heading+(d.yaw??0),d.roll,'YXZ');
       }
       dummy.scale.set(d.w,d.h,d.d);
@@ -262,12 +264,31 @@ export function createActors(scene,glow,parkedScooters=[]) {
   }
   const axis=new T.Vector3(1,0,0);
   let last=0;
-  function updateActors(state,scale,night,rain,turn,photorealistic,walkerPortrait=null,eye=null,previewBus=null,previewDelivery=null,scalePortrait=null) {
+  function drawParked(x,z,missingParked){
+    for(const prop of parkedScooters){
+      if(Math.hypot(x-prop.x,z-prop.z)>43||missingParked?.has(parkedKey(prop.x,prop.z)))continue;
+      if(Math.hypot(x-prop.x,z-prop.z)>24||!models.draw('scooter_parked',prop.x,prop.z,prop.heading))
+        stamp(twoWheeler(false,'#788b91',0),prop.x,prop.z,prop.heading,0);
+    }
+  }
+  function uploadInstances(){
+    for (const mesh of Object.values(groups)) {
+      mesh.instanceMatrix.needsUpdate=true;
+      if (mesh.instanceColor) mesh.instanceColor.needsUpdate=true;
+    }
+  }
+  function updateActors(state,scale,night,rain,turn,photorealistic,walkerPortrait=null,eye=null,previewBus=null,previewDelivery=null,scalePortrait=null,parkedOnly=false) {
+    featured.begin(); // A22
     models.begin();
     for (const mesh of Object.values(groups)) mesh.count=0;
     headlights.count=shadows.count=tails.count=0;
     const {player,clock}=state;
     const x=player.x*scale,z=player.y*scale;
+    if(parkedOnly){
+      drawParked(x,z,state.impact?.missingParked);
+      uploadInstances();
+      return;
+    }
     const dt=Math.max(0,Math.min(.05,clock-last));last=clock;
     const riding=player.mode==='scooter',grandma=player.skin==='grandma';
     const lean=riding?turn*Math.min(.46,player.speed*scale*.045)*(grandma?.4:1):0;
@@ -276,32 +297,38 @@ export function createActors(scene,glow,parkedScooters=[]) {
     const stand=!riding&&player.speed<.5?state.standingPoint:null;
     const avatarX=stand?stand.x*scale:x,avatarZ=stand?stand.y*scale:z;
     const avatar=riding?(grandma?'grandma_scooter':'rider_scooter'):['creative','media','grandma'].includes(player.skin)?'walker_f':'walker_m';
-    const loadedAvatar=models.draw(avatar,avatarX,avatarZ,player.heading,{
-      dt,moving:player.speed>1,speed:player.speed*scale,ground,lean,pitch,tint:outfits[player.skin],
-    });
-    state.avatarModel=loadedAvatar?avatar:models.pending(avatar)?'loading':'procedural';
-    if(!loadedAvatar&&(riding||!models.pending(avatar))){
-      if(riding)stamp(twoWheeler(grandma,outfits[player.skin],turn,player.skin==='data'),x,z,player.heading,lean);
-      stamp(person(player.skin,clock*player.speed*.22,riding,grandma?.31:.51),avatarX,avatarZ,player.heading,lean);
+    const tesla=player.vehicle==='flyingTesla',altitude=player.altitude??0;
+    if(tesla){
+      featured.electric(x,z,player.heading,altitude,turn,clock,night,player.speed*scale); // A22
+      state.avatarModel='flyingTesla';
+    }else{
+      const loadedAvatar=models.draw(avatar,avatarX,avatarZ,player.heading,{
+        dt,moving:player.speed>1,speed:player.speed*scale,ground,lean,pitch,tint:outfits[player.skin],
+      });
+      state.avatarModel=loadedAvatar?avatar:models.pending(avatar)?'loading':'procedural';
+      if(!loadedAvatar&&(riding||!models.pending(avatar))){
+        if(riding)stamp(twoWheeler(grandma,outfits[player.skin],turn,player.skin==='data'),x,z,player.heading,lean);
+        stamp(person(player.skin,clock*player.speed*.22,riding,grandma?.31:.51),avatarX,avatarZ,player.heading,lean);
+      }
     }
     const missingParked=state.impact?.missingParked;
-    if(!photorealistic)for(const prop of parkedScooters){
-      if(Math.hypot(x-prop.x,z-prop.z)>43||missingParked?.has(parkedKey(prop.x,prop.z)))continue;
-      if(Math.hypot(x-prop.x,z-prop.z)>24||!models.draw('scooter_parked',prop.x,prop.z,prop.heading))
-        stamp(twoWheeler(false,'#788b91',0),prop.x,prop.z,prop.heading,0);
-    }
-    decal(shadows,avatarX,avatarZ,player.heading,riding?2.35:.93,.8,.47);
+    if(!photorealistic)drawParked(x,z,missingParked);
+    decal(shadows,avatarX,avatarZ,player.heading,tesla?4.55:riding?2.35:.93,tesla?1.75:.8,tesla?.35:.47);
     if (riding && night>.1) {
       decal(headlights,x+Math.cos(player.heading)*4,z+Math.sin(player.heading)*4,player.heading,7.7,2.45,.49);
     }
+    // A22 sky traffic follows surveyed lanes above the roofs.
+    for(const npc of skyTraffic(clock))featured.electric(npc.x,npc.z,npc.heading,npc.altitude,0,clock,night,24);
     const cars=missingParked?.size?[...state.cars,...state.impact.parkedVehicles()]:state.cars;
-    for (const item of cars) {
+    for (const item of [...cars,...(state.featuredParked??[])]) { // A22
       if(item.hidden)continue;
       const px=item.x*scale,pz=item.y*scale;
       const distance=Math.hypot(px-x,pz-z);
       if(distance>104&&!state.inActorView?.(item,true))continue;
       const impact=item.impact;
-      if(impact&&item.scooter){
+      if(item.featuredStyle!=null){ // A22 use the same rigid body as A14.
+        featured.street(item,px,pz);
+      }else if(impact&&item.scooter){
         const loaded=models.draw('scooter_parked',px,pz,item.heading,{impact});
         if(!loaded)stamp(parkedModel,px,pz,item.heading,0,impact);
       }else if(item.scooter) {
@@ -403,19 +430,22 @@ export function createActors(scene,glow,parkedScooters=[]) {
       if(item!==walkerPortrait&&Math.hypot(px-x,pz-z)>60&&!state.inActorView?.(item,true))continue;
       const named=item.id!=null||item.standing;
       const facing=item.heading??-Math.PI/2;
-      stampPerson(item.skin??'npc_vendor',px,pz,facing,look,!named&&(item.movingSpeed??0)>.05,item.movingSpeed,Boolean(item.standing));
+      if(item.takingPhoto){ // A22 raised arms and phone face the parked car.
+        const photographer=person(item.skin??'npc_student',0,false,0,true);
+        photographer.push(p('#29323c',.39,1.49,0,.032,.135,.19),p('#c5f0f4',.408,1.53,.06,.008,.028,.028));
+        stamp(photographer,px,pz,facing,0);
+      }else stampPerson(item.skin??'npc_vendor',px,pz,facing,look,!named&&(item.movingSpeed??0)>.05,item.movingSpeed,Boolean(item.standing));
       decal(shadows,px,pz,0,.87,.67,.455);
     }
-    for (const mesh of Object.values(groups)) {
-      mesh.instanceMatrix.needsUpdate=true;
-      if (mesh.instanceColor) mesh.instanceColor.needsUpdate=true;
-    }
+    featured.finish(); // A22
+    uploadInstances();
     shadows.instanceMatrix.needsUpdate=headlights.instanceMatrix.needsUpdate=true;
     headlightMat.opacity=night*(rain?.64:.4);
     tails.instanceMatrix.needsUpdate=true;tailMaterial.opacity=rain?night*.44:0;
   }
+  updateActors.ready=Promise.all([models.ready,featured.ready]); // A22
   updateActors.loaded=models.loaded;
   updateActors.bounds=models.bounds;
-  updateActors.dispose=models.dispose;
+  updateActors.dispose=()=>{featured.dispose();models.dispose();}; // A22
   return updateActors;
 }

@@ -1,4 +1,5 @@
 import * as T from '../vendor/three.module.min.js';
+import {toWorld,metersPerUnit as unit} from '../world.mjs';
 
 const noise=(x,y)=>{const v=Math.sin(x*127.1+y*311.7)*43758.5453;return v-Math.floor(v);};
 function valueNoise(x,y){
@@ -26,24 +27,29 @@ export function createBasin(width,depth) {
       vec3 f=forestPosition;
       float broad=.55+.45*sin(f.x*.021+sin(f.z*.075))*cos(f.z*.031-f.x*.062);
       float crowns=.57+.43*sin(f.x*.76+sin(f.z*.27))*cos(f.z*.61-f.x*.24);
-      diffuseColor.rgb*=mix(vec3(.56,.71,.57),vec3(1.25,1.21,.92),broad*.61+crowns*.39);
+      diffuseColor.rgb*=mix(vec3(.65,.77,.70),vec3(1.18,1.17,1.08),broad*.61+crowns*.39);
       `);
   };
-  function range(startX,startZ,span,run,altitude,orientation,phase){
-    const geometry=new T.PlaneGeometry(span,run,112,34);
+  function range(startX,startZ,span,run,altitude,orientation,phase,distant=false){
+    const geometry=new T.PlaneGeometry(span,run,distant?76:112,distant?16:25);
     geometry.rotateX(-Math.PI/2);
     const points=geometry.attributes.position,colors=[];
-    const low=new T.Color('#596846'),high=new T.Color('#223c32'),rock=new T.Color('#7b7a72'),farm=new T.Color('#7d8a58'),tone=new T.Color();
+    const low=new T.Color(distant?'#82979c':'#5d7359');
+    const high=new T.Color(distant?'#596e80':'#2e5147');
+    const rock=new T.Color('#829093'),farm=new T.Color('#7d8a61'),tone=new T.Color();
     for(let i=0;i<points.count;i++){
       const x=points.getX(i),z=points.getZ(i);
-      const along=x/span+.5,away=z/run+.5;
-      const ridge=.66+.15*Math.sin(along*19+phase)+.12*Math.sin(along*37+phase*.6)+.07*Math.cos(along*70+phase*1.7)
-        +.05*Math.sin(along*103+phase*2.3)+.16*(valueNoise(along*26+phase*5,away*5)-.5)+.06*(valueNoise(along*90,away*18+phase)-.5);
-      const envelope=Math.sin(Math.PI*away)**1.35*Math.sin(Math.PI*along)**.65;
-      const y=altitude*ridge*envelope+envelope*(Math.sin(along*115+away*47)*5+Math.sin(away*91)*3);
+      const along=T.MathUtils.clamp(x/span+.5,0,1),away=T.MathUtils.clamp(z/run+.5,0,1);
+      // Bend the crest across the range. Offset spurs descend at oblique angles into intervening gullies.
+      const crest=.44+.18*(valueNoise(along*9+phase,2)-.5);
+      const slope=away<crest?away/crest:(1-away)/(1-crest);
+      const crestHeight=.42+.39*valueNoise(along*13+phase,4)+.19*valueNoise(along*46+phase,6);
+      const spur=valueNoise(along*46+away*7+phase,away*8)-.5;
+      const envelope=Math.sin(Math.PI*along)**.62;
+      const y=altitude*envelope*(crestHeight*slope**1.22+spur*.18*Math.sin(Math.PI*slope));
       points.setXYZ(i,x*Math.cos(orientation)-z*Math.sin(orientation)+startX,
         y-.12,x*Math.sin(orientation)+z*Math.cos(orientation)+startZ);
-      const forest=.5+.28*Math.sin(along*147+away*66)*Math.sin(away*99-along*31);
+      const forest=.29+.48*valueNoise(along*39,away*15+phase);
       const level=Math.max(0,y/altitude);
       // Three bands by elevation: farmland and low buildings, forest, bare rock near the ridge.
       tone.copy(low).lerp(high,Math.min(.95,forest*.38+level*.68));
@@ -55,9 +61,20 @@ export function createBasin(width,depth) {
     geometry.computeVertexNormals();
     group.add(new T.Mesh(geometry,forestMaterial));
   }
-  range(width*.55,depth+370,width+1300,840,285,0,.85);
-  range(width*.75,depth+730,width+2500,980,365,0,2.4);
-  range(width+568,depth*.64,depth+1500,900,325,Math.PI/2,1.5);
-  range(width*.62,-590,width+3800,1150,370,0,2);
+  // Peak anchors from OSM nodes 274937904, 2355932530 and 1519026317.
+  // Place stylized profiles beyond the flat playable bounds. Datun is compressed
+  // towards the map to preserve its bearing and apparent height within the render distance.
+  const elephant=toWorld(25.0265411,121.5755420);
+  const tiger=toWorld(25.0313013,121.5836136);
+  const datun=toWorld(25.1787406,121.5221914);
+  const centerX=width*.47,centerZ=depth*.55;
+  const farZ=-1050;
+  const northScale=(centerZ-farZ)/(centerZ-datun.y*unit);
+  const farX=centerX+(datun.x*unit-centerX)*northScale;
+  range(elephant.x*unit,depth+325,width+620,760,264,0,.85);
+  range(width*.86,depth+750,width+2100,960,405,0,2.4,true);
+  range(width+478,tiger.y*unit,depth+650,870,314,Math.PI/2,1.5);
+  range(width*.65,-415,width+2050,784,189,0,2);
+  range(farX,farZ,width+950,790,1093*northScale,0,4.4,true);
   return group;
 }

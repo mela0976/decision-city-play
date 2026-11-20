@@ -8,16 +8,15 @@ export function createOfficeDoor(parent){
   const glass=new T.MeshStandardMaterial({color:'#b5d9dc',metalness:.28,roughness:.11,
     transparent:true,opacity:.42,depthWrite:false,envMapIntensity:1.25});
   const highlight=new T.MeshStandardMaterial({color:'#d6e9e5',metalness:.35,roughness:.25});
-  const leaves=[];
+  const leaves=[],transform=new T.Object3D();
   for(const side of [-1,1]){
     const leaf=new T.Group();
     leaf.rotation.y=-officeDoor.heading;
     const panel=2*officeDoor.halfLeaf;
+    const parts=new Map();
     function part(material,x,y,w,h,d){
-      const mesh=new T.Mesh(box,material);
-      mesh.scale.set(w,h,d);
-      mesh.position.set(x,y,0);
-      leaf.add(mesh);
+      if(!parts.has(material))parts.set(material,[]);
+      parts.get(material).push([x,y,w,h,d]);
     }
     part(glass,0,1.51,panel-.08,2.65,.05);
     for(const edge of [-1,1]){
@@ -26,6 +25,17 @@ export function createOfficeDoor(parent){
     }
     part(highlight,-side*(panel*.5-.15),1.15,.055,.37,.12);
     part(highlight,0,1.14,panel-.07,.024,.069);
+    for(const [material,pieces] of parts){
+      const mesh=new T.InstancedMesh(box,material,pieces.length);
+      pieces.forEach(([x,y,w,h,d],index)=>{
+        transform.position.set(x,y,0);
+        transform.scale.set(w,h,d);
+        transform.updateMatrix();
+        mesh.setMatrixAt(index,transform.matrix);
+      });
+      mesh.computeBoundingSphere();
+      leaf.add(mesh);
+    }
     parent.add(leaf);
     leaves.push({side,leaf});
   }

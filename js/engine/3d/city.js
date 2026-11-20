@@ -1,3 +1,5 @@
+import {canvasTexture} from './city-primitives.js';
+export {canvasTexture} from './city-primitives.js';
 import * as T from '../vendor/three.module.min.js';
 import {trafficGreen} from '../navigation.js';
 import {buildLandmark} from './xinyi.js';
@@ -13,14 +15,6 @@ const dome=new T.SphereGeometry(.5,28,12,0,Math.PI*2,0,Math.PI/2);
 const dummy=new T.Object3D();
 const tint=new T.Color();
 
-export function canvasTexture(doc,w,h,paint) {
-  const canvas=doc.createElement('canvas');
-  Object.assign(canvas,{width:w,height:h});
-  paint(canvas.getContext('2d'),w,h);
-  const texture=new T.CanvasTexture(canvas);
-  texture.colorSpace=T.SRGBColorSpace;
-  return texture;
-}
 function grit(doc) {
   const texture=canvasTexture(doc,128,128,(ctx,w,h)=>{
     const image=ctx.createImageData(w,h);
