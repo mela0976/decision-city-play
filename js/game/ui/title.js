@@ -1,7 +1,7 @@
 // 標題畫面：主視覺滿版，標誌是一支直式霓虹招牌；開始／繼續／年鑑。
 // 輸入阿嬤代碼（grandma.json 的 unlock.titleCode）或連點標誌七下會呼叫 onSecret。
 
-import { h } from '../dom.js';
+import { h, arrowFocus } from '../dom.js';
 import { T } from '../strings.js';
 
 const TAPS_NEEDED = 7;
@@ -36,6 +36,8 @@ export function showTitle({ screen, assets, canContinue, continueNote, grandmaOn
       h('button', { type: 'button', class: 'btn btn--big', id: 'title-proposal', onClick: onProposal, text: T.proposal }),
     );
   }
+
+  arrowFocus(actions, () => [...actions.querySelectorAll('button:not([disabled])')]);
 
   const root = h(
     'section',

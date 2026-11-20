@@ -83,12 +83,23 @@ export function createModelAssets(scene){
         for(const batch of asset.batches)batch.count=0;
       }
     },
-    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0}={}){
+    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0,impact=null}={}){
       const asset=assets.get(key);
       if(!asset)return false;
       if(asset.batches.length){
         if(asset.used>=180)return false;
-        matrix.position.set(x,ground,z);matrix.rotation.set(lean,-heading,pitch,'YXZ');matrix.updateMatrix();
+        matrix.position.set(x,impact?.center??ground,z);
+        matrix.rotation.set(impact?.roll??lean,-heading,impact?.pitch??pitch,'YXZ');
+        matrix.scale.set(1,1,1);
+        if(impact){
+          const {length,height,width}=impact.spec;
+          const [modelLength,modelHeight,modelWidth]=asset.dimensions;
+          const fit=Math.min(1,2*length/modelLength,2*height/modelHeight,2*width/modelWidth);
+          matrix.scale.setScalar(fit);
+          // Keep the model's normal ground origin at the underside of the body.
+          matrix.translateY(-height);
+        }
+        matrix.updateMatrix();
         for(const batch of asset.batches){
           const idx=batch.count++;
           batch.setMatrixAt(idx,matrix.matrix);batch.instanceMatrix.needsUpdate=true;

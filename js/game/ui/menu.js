@@ -1,6 +1,6 @@
 // 選單與二次確認，都用原生 <dialog>（焦點、Esc、背景失效由瀏覽器處理）。
 
-import { h, fill } from '../dom.js';
+import { h, fill, arrowFocus } from '../dom.js';
 import { T } from '../strings.js';
 
 /**
@@ -23,7 +23,28 @@ export function openMenu({ dialog, items, note, extra = null }) {
   });
   fill(dialog, h('h2', { id: 'menu-title', text: T.menu }), h('div', { class: 'menu-list' }, buttons), extra, note ? h('p', { class: 'menu-note', text: note }) : null);
   if (!dialog.open) dialog.showModal();
+  if (!dialog.dataset.menuArrows) {
+    dialog.dataset.menuArrows = '1';
+    menuArrows(dialog);
+  }
   buttons[0]?.focus({ preventScroll: true });
+}
+
+/** 選單方向鍵：上下左右在按鈕與滑桿之間循環；滑桿上的左右鍵留給滑桿本身調音量。 */
+function menuArrows(dialog) {
+  dialog.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0;
+    if (!step) return;
+    const onRange = e.target instanceof HTMLInputElement && e.target.type === 'range';
+    if (onRange && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) return;
+    const items = [...dialog.querySelectorAll('.menu-item, .menu-sound input[type="range"]')].filter((b) => !b.disabled && b.offsetParent !== null);
+    if (!items.length) return;
+    e.preventDefault();
+    const at = items.indexOf(document.activeElement);
+    const next = at < 0 ? (step > 0 ? 0 : items.length - 1) : (at + step + items.length) % items.length;
+    items[next].focus();
+  });
 }
 
 /** 聲音設定：音樂、語音、音效三條音量滑桿，加一顆全部靜音。 */
@@ -51,7 +72,8 @@ export function askConfirm({ dialog, question, yes, no }) {
   return new Promise((resolve) => {
     const keep = h('button', { type: 'submit', class: 'btn btn--primary', value: 'no', autofocus: true, text: no });
     const discard = h('button', { type: 'submit', class: 'btn btn--danger', value: 'yes', id: 'confirm-yes', text: yes });
-    dialog.replaceChildren(h('form', { method: 'dialog', class: 'confirm-form' }, h('h2', { id: 'confirm-title', text: question }), h('div', { class: 'confirm-actions' }, discard, keep)));
+    const form = h('form', { method: 'dialog', class: 'confirm-form' }, h('h2', { id: 'confirm-title', text: question }), h('div', { class: 'confirm-actions' }, discard, keep));
+    dialog.replaceChildren(form);
     dialog.returnValue = '';
     dialog.addEventListener(
       'close',
@@ -62,6 +84,7 @@ export function askConfirm({ dialog, question, yes, no }) {
       },
       { once: true },
     );
+    arrowFocus(form, () => [discard, keep]);
     dialog.showModal();
     keep.focus({ preventScroll: true });
   });

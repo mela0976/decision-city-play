@@ -1284,10 +1284,11 @@ body:has(dialog[open]) :is(.fx-marquee-track, .fx-rain, .fx-call-ring, .live-hea
   }
 
   .slide-slip .stamp {
-    inset-block-end: 0.6rem;
-    inline-size: 4.2rem;
-    block-size: 4.2rem;
-    font-size: 1.5rem;
+    inset-block-start: auto;
+    inset-block-end: 0.45rem;
+    inline-size: 3.2rem;
+    block-size: 3.2rem;
+    font-size: 1.2rem;
   }
 
   .fx-call-card {

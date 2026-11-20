@@ -31,7 +31,7 @@ export function pickWork({ layer, place, entries, signal, sfx }) {
       h('header', { class: 'pick-head' }, h('h2', { class: 'sign-plate', id: 'pick-title', text: place || '' }), h('span', { class: 'pick-count', text: T.pickCount(entries.length) }), cancel),
       h('div', { class: 'pick-list' }, buttons),
     );
-    arrowFocus(panel, () => buttons);
+    arrowFocus(panel, () => [...buttons, cancel]);
     const wrap = h('div', { class: 'pick-wrap' }, panel);
     layer.replaceChildren(wrap);
     buttons[0]?.focus({ preventScroll: true });

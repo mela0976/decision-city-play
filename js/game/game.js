@@ -1,7 +1,7 @@
 // 遊戲控制器：一天的推進、任務執行、數值、存檔、阿嬤模組、結局。
 // 任務、角色、題目的文字全部來自 content；這裡只有流程與規則。
 
-import { h, interaction, clockToHours, hoursToClock } from './dom.js';
+import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js';
 import { T, METER_IDS, METER_NAMES } from './strings.js';
 import { pickEnding, metersForEnding } from './endings.js';
 import { hintFor } from './hints.js';
@@ -21,7 +21,7 @@ import { showPlaceCard } from './ui/place-card.js';
 import { playCutscene } from './ui/cutscene.js';
 import { showEnding } from './ui/ending.js';
 import { openProposal } from './ui/proposal.js';
-import { playPrologue, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js';
+import { playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js';
 import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js';
 import { openElderCard } from './ui/elder-card.js';
 
@@ -37,7 +37,7 @@ const GOTO_ESTIMATE_FACTOR = 1.4;
 const START_CLOCK = '08:00';
 const HOURS_AFTER_MISSION = 0.5;
 const ENDING_HOUR = 22;
-const AE_CALM_EFFECTS = { trust: 5, liver: 2 };
+const AE_CALM_EFFECTS = { trust: 3, sales: 3 };
 const LOC = { home: 'home', final: 'rechao', temple: 'temple', grandma: 'gamadiam', office: 'office', nightMarket: 'night_market' };
 // 主角的語音：依職能用女聲或男聲（契約第 6 節）。
 const PLAYER_VOICE = { ae: 'player_f', media: 'player_f', creative: 'player_f', cx: 'player_f', planner: 'player_m', data: 'player_m' };
@@ -46,6 +46,8 @@ const EGG_TEMPLE = 'egg:temple';
 const EGG_GRANDMA = 'egg:gamadiam';
 const GOTO_MARKER = 'goto';
 const FINAL_MARKER = 'rechao';
+const MORNING_MARKER = 'morning';
+const OFFICE_REPLY_MS = 1200;
 
 const clamp = (n) => Math.max(0, Math.min(100, Math.round(n)));
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -66,6 +68,7 @@ function blankState() {
     bond: 0,
     interludesSeen: [],
     prologueSeen: false,
+    morningDone: false,
     side: {},
     sideGain: blankGain(),
   };
@@ -154,6 +157,7 @@ export class Game {
       bond: saved.bond,
       interludesSeen: saved.interludesSeen.filter((id) => content.missionById.has(id)),
       prologueSeen: saved.prologueSeen,
+      morningDone: saved.morningDone,
       side: Object.fromEntries(Object.entries(saved.side || {}).filter(([id]) => content.side.byId.has(id))),
       sideGain: { ...blankGain(), ...(saved.sideGain || {}) },
     };
@@ -527,7 +531,7 @@ export class Game {
       this.onEnterLocation(locationId);
       if (this.free) this.rideHint();
     });
-    engine.on('interact', ({ kind, id }) => this.onInteract(kind, id));
+    engine.on('interact', (payload) => this.onInteract(payload?.kind, payload?.id, payload));
     engine.on('location:leave', () => {
       if (!this.engineHasContext) this.context = null;
       if (this.free) this.rideHint();
@@ -555,6 +559,11 @@ export class Game {
     if (!target) return;
     const hit = markerId ? markerId === target.markerId : locationId === target.locationId;
     if (!hit) return;
+    // 晨會：舊引擎抵達標記（marker:reach）就開；新引擎也可能在門口按動作鍵才開（見 onInteract）。只開一次。
+    if (target.kind === 'morning') {
+      if (markerId) this.startMorning();
+      return;
+    }
     // 任務要按動作鍵才進入（見 onInteract）；限時前往與收工是到了就算。
     if (target.kind === 'goto') this.gotoArrive?.();
     else if (target.kind === 'final' && this.phase === 'rechao') {
@@ -570,10 +579,12 @@ export class Game {
   }
 
   /** 在任務地點按動作鍵（對著標記，或對著站在那裡的任何一位 NPC）就進入任務。 */
-  tryStartMission(kind, id) {
+  tryStartMission(kind, id, payload = null) {
     const target = this.objective;
     if (target?.kind !== 'mission' || this.phase !== 'roam') return false;
-    const atMarker = kind === 'marker' && id === target.markerId;
+    // 新引擎在建築門口按動作鍵：id 是該地點優先標記（或 null），entrance 為真，位置在這個任務的地點就算
+    const atEntrance = !!payload?.entrance && payload.locationId === target.locationId;
+    const atMarker = (kind === 'marker' && id === target.markerId) || atEntrance;
     const npc = kind === 'npc' ? this.content.npcById.get(id) : null;
     const atGiver = !!npc && npc.locationId === target.locationId && this.engine.player.locationId === target.locationId;
     if (!atMarker && !atGiver) return false;
@@ -657,6 +668,7 @@ export class Game {
     const side = this.sideGoal();
     const target = this.objective;
     if (side) this.hud.setTask(`${T.sideTag}　${side.title}`, this.placeName(side.locationId));
+    else if (target?.kind === 'morning') this.hud.setTask(T.morningTitle, `${this.morning.clock}　${this.placeName(target.locationId)}`);
     else if (target?.kind === 'mission') this.hud.setTask(target.mission.title, `${target.mission.clock}　${this.placeName(target.locationId)}`);
     else if (target?.kind === 'final') this.hud.setTask(this.placeName(LOC.final), T.rechaoHint);
   }
@@ -725,10 +737,12 @@ export class Game {
     if (npc) this.npcSays(npc);
   }
 
-  onInteract(kind, id) {
+  onInteract(kind, id, payload = null) {
     if (!this.free) return;
     if (this.tryLocationWork(kind, id)) return;
-    if (this.tryStartMission(kind, id)) return;
+    if (this.tryMorning(kind, id, payload)) return;
+    if (this.tryStartMission(kind, id, payload)) return;
+    if (this.officeReply(kind, payload)) return;
     if (kind === 'marker') {
       if (id === EGG_TEMPLE) this.visitTemple();
       else {
@@ -999,6 +1013,17 @@ export class Game {
       return;
     }
     this.phase = 'roam';
+    // 序幕之後、第一個任務之前：先去 A25 開晨會（內容沒有晨會就略過）
+    if (this.morningPending) {
+      this.objective = { kind: 'morning', markerId: MORNING_MARKER, locationId: LOC.office };
+      this.refreshMarkers();
+      this.engine.setWaypoint(MORNING_MARKER);
+      this.showTask();
+      this.tuneRadio(mission.year);
+      this.setFree(true);
+      this.focusCanvas();
+      return;
+    }
     this.objective = { kind: 'mission', mission, markerId: mission.id, locationId: mission.locationId };
     this.refreshMarkers();
     this.engine.setWaypoint(mission.id);
@@ -1024,7 +1049,8 @@ export class Game {
   refreshMarkers() {
     const markers = [];
     const target = this.objective;
-    if (target?.kind === 'mission') markers.push({ id: target.markerId, locationId: target.locationId, kind: 'mission', label: target.mission.title });
+    if (target?.kind === 'morning') markers.push({ id: MORNING_MARKER, locationId: target.locationId, kind: 'mission', label: T.morningTitle });
+    else if (target?.kind === 'mission') markers.push({ id: target.markerId, locationId: target.locationId, kind: 'mission', label: target.mission.title });
     else if (target?.kind === 'goto') markers.push({ id: GOTO_MARKER, locationId: target.locationId, kind: 'mission', label: this.placeName(target.locationId) });
     else if (target?.kind === 'final') markers.push({ id: FINAL_MARKER, locationId: LOC.final, kind: 'home', label: this.placeName(LOC.final) });
     const grandma = this.content.grandma;
@@ -1062,6 +1088,74 @@ export class Game {
   }
 
   // ── 任務 ───────────────────────────────────────────
+
+  // ── 晨會 ───────────────────────────────────────────
+
+  /** 晨會內容（story.json 的 morning）；沒有就是 null，整段略過。 */
+  get morning() {
+    const morning = this.content.story?.morning;
+    return Array.isArray(morning?.lines) && morning.lines.length ? morning : null;
+  }
+
+  get morningPending() {
+    return !!this.morning && !this.state.morningDone;
+  }
+
+  /** 在 A25：對著晨會標記、對著站在那裡的同事、或在門口（新引擎的 entrance）按動作鍵。 */
+  tryMorning(kind, id, payload) {
+    const target = this.objective;
+    if (target?.kind !== 'morning' || this.phase !== 'roam') return false;
+    const npc = kind === 'npc' ? this.content.npcById.get(id) : null;
+    const atGiver = !!npc && npc.locationId === target.locationId && this.engine.player.locationId === target.locationId;
+    const atMarker = kind === 'marker' && id === MORNING_MARKER;
+    const atEntrance = !!payload?.entrance && payload.locationId === target.locationId;
+    if (!atMarker && !atEntrance && !atGiver) return false;
+    this.startMorning();
+    return true;
+  }
+
+  /** 晨會：會議室劇照＋字幕，不給分、不計時、不動時鐘。播完記進存檔，標記換成第一個任務。 */
+  async startMorning() {
+    if (this.phase !== 'roam' || this.objective?.kind !== 'morning' || !this.free) return;
+    this.guardGhostClick();
+    this.phase = 'story';
+    this.setFree(false);
+    this.hud.show(false);
+    this.sfx.play('elevator');
+    const signal = this.newFlow();
+    try {
+      await playMorning(this, signal);
+    } catch (err) {
+      if (isAbort(err)) return;
+      throw err;
+    }
+    this.state.morningDone = true;
+    this.commit();
+    this.hud.show(true);
+    this.phase = 'roam';
+    this.nextObjective();
+  }
+
+  /** 晨會之後再到 A25 門口按動作鍵、那裡沒有任務也沒有支線：同事回一句，用小卡顯示，不能毫無反應。 */
+  officeReply(kind, payload) {
+    if (kind !== 'marker' || !payload?.entrance || payload.locationId !== LOC.office) return false;
+    if (this.phase !== 'roam' && this.phase !== 'rechao') return false;
+    const pool = this.content.story?.morning?.back;
+    if (!pool?.length) return false;
+    const now = performance.now();
+    if (now - (this.officeReplyAt || 0) < OFFICE_REPLY_MS) return true;
+    this.officeReplyAt = now;
+    // 同一句不連著出現
+    const choices = pool.length > 1 ? pool.filter((line) => line.text !== this.officeLast) : pool;
+    const line = sample(choices);
+    this.officeLast = line.text;
+    this.sfx.play('select');
+    const who = this.speakerOf(line.who);
+    const art = this.assets.imageSrc('loc_office') ? this.assets.art('loc_office', { kind: 'cover' }) : null;
+    if (art) this.toast(line.text, { tone: 'plain', ms: 3800, title: who.name, art });
+    else this.toast(`${who.name}　${line.text}`);
+    return true;
+  }
 
   async startMission(mission, { resume = false } = {}) {
     if (this.phase !== 'roam') return;
@@ -1215,12 +1309,12 @@ export class Game {
       };
     }
     this.setScene(mission.splash);
-    // 支線沒有錄語音：只出字幕，不去查語音檔
-    return this.talk(this.fillLines(step.lines), { extra, signal, fallbackName: this.content.npcById.get(mission.giver)?.name, mute: !!mission.isSide });
+    // 逐句查語音檔：有就播，沒有就只出字幕
+    return this.talk(this.fillLines(step.lines), { extra, signal, fallbackName: this.content.npcById.get(mission.giver)?.name });
   }
 
   /** 字幕式對話，提示列左段跟著說話的對象換（玩家自己說話時沿用上一位）。 */
-  talk(lines, { extra = null, signal, fallbackName = '', mute = false } = {}) {
+  talk(lines, { extra = null, signal, fallbackName = '' } = {}) {
     let partner = fallbackName || '';
     this.setHint('dialogue', { speaker: partner, menu: this.inGame });
     return runDialogue({
@@ -1231,12 +1325,10 @@ export class Game {
       extra,
       signal,
       sfx: this.sfx,
-      voice: mute
-        ? null
-        : {
-            play: (who, text) => this.sound.voice.play(this.voiceSpeaker(who), text),
-            preload: (who, text) => this.sound.voice.preload(this.voiceSpeaker(who), text),
-          },
+      voice: {
+        play: (who, text) => this.sound.voice.play(this.voiceSpeaker(who), text),
+        preload: (who, text) => this.sound.voice.preload(this.voiceSpeaker(who), text),
+      },
       onLine: (who) => {
         if (!who.isPlayer && who.name) partner = who.name;
         this.setHint('dialogue', { speaker: partner, menu: this.inGame });
@@ -1331,10 +1423,21 @@ export class Game {
     // 選項帶有這個職能的加成時先標出來。媒體、創意、CX 的專屬加成就是這個，用加成的名字；
     // 其餘三個職能的專屬加成是別的機制，這裡只標「職能加成」。
     const ownMechanic = ['ae', 'planner', 'data'].includes(role.id);
-    const options = step.options.map((option) => ({
+    const options = step.options.map((option, orig) => ({
       ...option,
+      orig,
       bonusLabel: option.roleBonus?.[role.id] ? (!ownMechanic && role.perk?.name) || T.roleBonus : '',
     }));
+    // 支線：選項順序依「支線＋職能」固定打散，免得會扣分的選項老是排在同一格。存檔記原本的索引。
+    if (mission.isSide) {
+      let seed = 2166136261;
+      for (const ch of `${mission.id}|${role.id}`) seed = Math.imul(seed ^ ch.codePointAt(0), 16777619) >>> 0;
+      for (let i = options.length - 1; i > 0; i -= 1) {
+        seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+        const j = seed % (i + 1);
+        [options[i], options[j]] = [options[j], options[i]];
+      }
+    }
 
     // 策略企劃：抉擇前先看到一句洞察提示（取對長期最有利那個選項的書中依據）。
     if (role.id === 'planner' && role.perk?.name) {
@@ -1362,7 +1465,7 @@ export class Game {
       onPick: (option) => {
         const { total, bonus } = merged(option);
         const applied = this.applyEffects(total);
-        if (ctx) ctx.option = options.indexOf(option);
+        if (ctx) ctx.option = option.orig ?? options.indexOf(option);
         // 支線顯示實際加上去的量（打折、受上限限制之後）
         return { deltas: mission.isSide ? applied : total, bonusLabel: bonus ? role.title : '' };
       },
@@ -1450,7 +1553,7 @@ export class Game {
     this.engine.setTimeOfDay(Math.max(clockToHours(this.state.clock), ENDING_HOUR));
     this.hud.setTask('', '');
     this.commit();
-    if (forced) this.toast(T.liverFull, { tone: 'bad', ms: 4000 });
+    // 結局文字本身已經寫了「肝指數滿了」，不再疊提示框
     this.sound.music.play('music_ending');
     try {
       await this.playVideo('ending', signal);
@@ -1536,6 +1639,7 @@ export class Game {
           h('div', { class: 'sub' }, h('header', { class: 'sub-who' }, h('strong', { class: 'sub-name', id: 'basket-title', text: perk?.name || T.grandmaName })), h('p', { class: 'sub-text', text: perk?.desc || '' })),
           h('div', { class: 'cine-actions' }, no, yes),
         );
+        arrowFocus(panel, () => [yes, no]);
         layer.replaceChildren(panel);
         yes.focus({ preventScroll: true });
         return () => panel.remove();
@@ -1758,6 +1862,7 @@ export class Game {
         this.state.doneMissionIds = earlier.map((m) => m.id);
         this.state.currentMissionId = null;
         this.state.prologueSeen = true;
+        this.state.morningDone = true;
         this.state.interludesSeen = earlier.map((m) => m.id).filter((id) => this.content.interludeByMission.has(id));
         this.state.books = earlier.map((m) => m.year).filter((year) => this.content.bookByYear.has(year));
         this.state.clock = earlier.length ? this.clockAfter(earlier[earlier.length - 1]) : START_CLOCK;
@@ -1821,11 +1926,14 @@ export class Game {
           if (this.content.interludeByMission.has(mission.id) && !this.state.interludesSeen.includes(mission.id)) this.state.interludesSeen.push(mission.id);
         }
         this.state.currentMissionId = null;
+        this.state.morningDone = true;
         this.commit();
         this.newFlow();
         this.refreshNpcs();
         this.enterWorld({ at: this.engine.player.locationId || LOC.home });
       },
+      /** 直接播晨會（只播畫面，不動存檔） */
+      playMorning: async () => preview(this.content.missions[0].id, async (mission, signal) => playMorning(this, signal)),
       playPrologue: async () => preview(this.content.missions[0].id, async (mission, signal) => playPrologue(this, signal)),
     };
   }

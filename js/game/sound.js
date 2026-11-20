@@ -155,6 +155,9 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
     if (nodes) ramp(nodes.duck.gain, on ? DUCK_LEVEL : 1, 0.25);
   };
 
+  // 配樂只在「有語音正在出聲」時壓低：選單暫停、語音音量 0 或靜音時都放開。
+  const syncDuck = () => setDuck(!!voice && pauseMode === 'none' && volumes.voice > 0 && !muted);
+
   // ── 語音 ──
   const stopVoice = (reason = 'stop') => {
     if (!voice) return;
@@ -215,7 +218,10 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
       waitingVoice = null;
       api.voice.play(again.speaker, again.text, { onEnd: again.onEnd });
     }
-    if (blockedNoted) api.onUnblocked?.();
+    if (blockedNoted) {
+      blockedNoted = false;
+      api.onUnblocked?.();
+    }
   };
 
   const unlock = () => {
@@ -266,12 +272,14 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
       if (!(bus in volumes)) return;
       volumes[bus] = Math.max(0, Math.min(1, Number(value) || 0));
       if (nodes) nodes.bus[bus].gain.value = volumes[bus];
+      if (bus === 'voice') syncDuck();
       record(bus, 'volume', '', { value: volumes[bus] });
       savePrefs();
     },
     setMuted(flag) {
       muted = !!flag;
       if (nodes) nodes.master.gain.value = muted ? 0 : 1;
+      syncDuck();
       record('system', muted ? 'mute' : 'unmute', '');
       savePrefs();
     },
@@ -329,6 +337,12 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
         if (!info || !unlocked || !nodes) return handle;
         const track = preloaded.get(key) || makeTrack(info, nodes.bus.voice);
         preloaded.delete(key);
+        // 預載時就已經載入失敗的檔案：靜默退回字幕，不要當成播放中
+        if (track.el.error) {
+          assets.markMissing('audio', `voice:${key}`);
+          track.stop();
+          return handle;
+        }
         const mine = { key, track, onEnd };
         voice = mine;
         track.el.addEventListener('ended', () => {
@@ -343,7 +357,7 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
           assets.markMissing('audio', `voice:${key}`);
           if (voice === mine) stopVoice('error');
         });
-        setDuck(true);
+        syncDuck();
         if (pauseMode === 'none') track.play();
         else track.wasPlaying = true;
         handle.stop = () => {
@@ -368,6 +382,10 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
           return handle;
         }
         if (info) {
+          if (pauseMode !== 'none') {
+            record('sfx', 'paused', key);
+            return handle;
+          }
           record('sfx', 'play', key);
           const track = makeTrack(info, nodes.bus.sfx);
           oneShots.add(track);
@@ -431,6 +449,7 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
         if (mode === 'all' || (mode === 'menu' && !isMusic)) pauseTrack(track);
         else resumeTrack(track);
       }
+      syncDuck();
       if (mode === 'all') ctx.suspend().catch(() => {});
       else if (unlocked) ctx.resume().catch(() => {});
     },

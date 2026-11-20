@@ -510,6 +510,166 @@
       "w": 512,
       "h": 512
     },
+    "avatar_n2018_fang": {
+      "src": "assets/img/avatar_n2018_fang.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2018_deng": {
+      "src": "assets/img/avatar_n2018_deng.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2018_ivy": {
+      "src": "assets/img/avatar_n2018_ivy.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2018_hao": {
+      "src": "assets/img/avatar_n2018_hao.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2019_lai": {
+      "src": "assets/img/avatar_n2019_lai.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2019_tsai": {
+      "src": "assets/img/avatar_n2019_tsai.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2019_lan": {
+      "src": "assets/img/avatar_n2019_lan.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2019_you": {
+      "src": "assets/img/avatar_n2019_you.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2020_ko": {
+      "src": "assets/img/avatar_n2020_ko.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2020_zhe": {
+      "src": "assets/img/avatar_n2020_zhe.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2020_chou": {
+      "src": "assets/img/avatar_n2020_chou.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2020_cheng": {
+      "src": "assets/img/avatar_n2020_cheng.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2021_ting": {
+      "src": "assets/img/avatar_n2021_ting.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2021_hao": {
+      "src": "assets/img/avatar_n2021_hao.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2021_wen": {
+      "src": "assets/img/avatar_n2021_wen.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2021_kun": {
+      "src": "assets/img/avatar_n2021_kun.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2022_meijun": {
+      "src": "assets/img/avatar_n2022_meijun.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2022_damu": {
+      "src": "assets/img/avatar_n2022_damu.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2022_fang": {
+      "src": "assets/img/avatar_n2022_fang.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2022_qiao": {
+      "src": "assets/img/avatar_n2022_qiao.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2023_lai": {
+      "src": "assets/img/avatar_n2023_lai.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2023_hua": {
+      "src": "assets/img/avatar_n2023_hua.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2023_gao": {
+      "src": "assets/img/avatar_n2023_gao.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2024_ken": {
+      "src": "assets/img/avatar_n2024_ken.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2024_joy": {
+      "src": "assets/img/avatar_n2024_joy.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2024_lulu": {
+      "src": "assets/img/avatar_n2024_lulu.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2024_wang": {
+      "src": "assets/img/avatar_n2024_wang.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2025_hsin": {
+      "src": "assets/img/avatar_n2025_hsin.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2025_pei": {
+      "src": "assets/img/avatar_n2025_pei.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2025_bong": {
+      "src": "assets/img/avatar_n2025_bong.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2026_ming": {
+      "src": "assets/img/avatar_n2026_ming.webp",
+      "w": 512,
+      "h": 512
+    },
+    "avatar_n2026_tim": {
+      "src": "assets/img/avatar_n2026_tim.webp",
+      "w": 512,
+      "h": 512
+    },
     "sky_dusk": {
       "src": "assets/tex/sky_dusk.webp",
       "w": 4096,
@@ -919,30 +1079,6 @@
         "src": "assets/audio/voice/client_chen/96d1bb69.mp3",
         "sec": 4.802042
       },
-      "rival_vicky/815995e7": {
-        "src": "assets/audio/voice/rival_vicky/815995e7.mp3",
-        "sec": 3.94075
-      },
-      "rival_vicky/3112e3a8": {
-        "src": "assets/audio/voice/rival_vicky/3112e3a8.mp3",
-        "sec": 6.419292
-      },
-      "rival_vicky/862357ec": {
-        "src": "assets/audio/voice/rival_vicky/862357ec.mp3",
-        "sec": 4.755667
-      },
-      "rival_vicky/a7e6d988": {
-        "src": "assets/audio/voice/rival_vicky/a7e6d988.mp3",
-        "sec": 4.864167
-      },
-      "rival_vicky/62cc6b29": {
-        "src": "assets/audio/voice/rival_vicky/62cc6b29.mp3",
-        "sec": 5.078167
-      },
-      "rival_vicky/61be3c7c": {
-        "src": "assets/audio/voice/rival_vicky/61be3c7c.mp3",
-        "sec": 5.066
-      },
       "player_f/2a81b536": {
         "src": "assets/audio/voice/player_f/2a81b536.mp3",
         "sec": 3.8205
@@ -1345,7 +1481,7 @@
       },
       "grandma/b0664754": {
         "src": "assets/audio/voice/grandma/b0664754.mp3",
-        "sec": 6.368667
+        "sec": 4.861
       },
       "player_f/2e6a67e6": {
         "src": "assets/audio/voice/player_f/2e6a67e6.mp3",
@@ -1389,7 +1525,7 @@
       },
       "grandma/1650d5db": {
         "src": "assets/audio/voice/grandma/1650d5db.mp3",
-        "sec": 8.774542
+        "sec": 6.863042
       },
       "clerk_ning/36519727": {
         "src": "assets/audio/voice/clerk_ning/36519727.mp3",
@@ -1401,11 +1537,7 @@
       },
       "grandma/bacf1607": {
         "src": "assets/audio/voice/grandma/bacf1607.mp3",
-        "sec": 14.754792
-      },
-      "client_chen/4f476325": {
-        "src": "assets/audio/voice/client_chen/4f476325.mp3",
-        "sec": 4.649208
+        "sec": 10.164
       },
       "data_kai/4ba1ed63": {
         "src": "assets/audio/voice/data_kai/4ba1ed63.mp3",
@@ -1413,15 +1545,11 @@
       },
       "grandma/5d15317e": {
         "src": "assets/audio/voice/grandma/5d15317e.mp3",
-        "sec": 8.263792
+        "sec": 10.413042
       },
       "cd_wei/e97cdf5d": {
         "src": "assets/audio/voice/cd_wei/e97cdf5d.mp3",
         "sec": 3.539083
-      },
-      "grandma/356722d3": {
-        "src": "assets/audio/voice/grandma/356722d3.mp3",
-        "sec": 7.971375
       },
       "client_hsu/71aff701": {
         "src": "assets/audio/voice/client_hsu/71aff701.mp3",
@@ -1433,7 +1561,7 @@
       },
       "grandma/510fdc7f": {
         "src": "assets/audio/voice/grandma/510fdc7f.mp3",
-        "sec": 11.793708
+        "sec": 9.219
       },
       "data_kai/3a719fdf": {
         "src": "assets/audio/voice/data_kai/3a719fdf.mp3",
@@ -1442,10 +1570,6 @@
       "data_kai/e0a364a1": {
         "src": "assets/audio/voice/data_kai/e0a364a1.mp3",
         "sec": 5.270667
-      },
-      "grandma/03742686": {
-        "src": "assets/audio/voice/grandma/03742686.mp3",
-        "sec": 10.690917
       },
       "vendor_cheng/9b048075": {
         "src": "assets/audio/voice/vendor_cheng/9b048075.mp3",
@@ -1457,7 +1581,7 @@
       },
       "grandma/7473ce9d": {
         "src": "assets/audio/voice/grandma/7473ce9d.mp3",
-        "sec": 12.969125
+        "sec": 8.424
       },
       "tv_su/ea12f04c": {
         "src": "assets/audio/voice/tv_su/ea12f04c.mp3",
@@ -1469,7 +1593,7 @@
       },
       "grandma/eead2002": {
         "src": "assets/audio/voice/grandma/eead2002.mp3",
-        "sec": 11.066333
+        "sec": 11.297
       },
       "boss_lin/11fe17a0": {
         "src": "assets/audio/voice/boss_lin/11fe17a0.mp3",
@@ -1481,7 +1605,7 @@
       },
       "grandma/3251a7f7": {
         "src": "assets/audio/voice/grandma/3251a7f7.mp3",
-        "sec": 10.987125
+        "sec": 12.039
       },
       "data_kai/1e18bf8b": {
         "src": "assets/audio/voice/data_kai/1e18bf8b.mp3",
@@ -1507,10 +1631,6 @@
         "src": "assets/audio/voice/rival_vicky/d13baf4d.mp3",
         "sec": 3.655958
       },
-      "grandma/9199bd73": {
-        "src": "assets/audio/voice/grandma/9199bd73.mp3",
-        "sec": 5.689958
-      },
       "data_kai/839ad3c0": {
         "src": "assets/audio/voice/data_kai/839ad3c0.mp3",
         "sec": 3.900833
@@ -1519,17 +1639,9 @@
         "src": "assets/audio/voice/rival_vicky/d72f8897.mp3",
         "sec": 2.98075
       },
-      "player_f/5f40f78b": {
-        "src": "assets/audio/voice/player_f/5f40f78b.mp3",
-        "sec": 4.009958
-      },
-      "player_m/90ebf186": {
-        "src": "assets/audio/voice/player_m/90ebf186.mp3",
-        "sec": 4.667792
-      },
       "grandma/9af99acf": {
         "src": "assets/audio/voice/grandma/9af99acf.mp3",
-        "sec": 5.992875
+        "sec": 3.783042
       },
       "cd_wei/0f4609b9": {
         "src": "assets/audio/voice/cd_wei/0f4609b9.mp3",
@@ -1538,6 +1650,126 @@
       "data_kai/4ba23621": {
         "src": "assets/audio/voice/data_kai/4ba23621.mp3",
         "sec": 4.0905
+      },
+      "grandma/e08e90f2": {
+        "src": "assets/audio/voice/grandma/e08e90f2.mp3",
+        "sec": 7.722
+      },
+      "grandma/0fb12bd5": {
+        "src": "assets/audio/voice/grandma/0fb12bd5.mp3",
+        "sec": 4.91
+      },
+      "grandma/f4e55341": {
+        "src": "assets/audio/voice/grandma/f4e55341.mp3",
+        "sec": 7.754
+      },
+      "grandma/76ffa55d": {
+        "src": "assets/audio/voice/grandma/76ffa55d.mp3",
+        "sec": 8.099042
+      },
+      "grandma/48f329a6": {
+        "src": "assets/audio/voice/grandma/48f329a6.mp3",
+        "sec": 5.895
+      },
+      "grandma/0ca93216": {
+        "src": "assets/audio/voice/grandma/0ca93216.mp3",
+        "sec": 6.725
+      },
+      "grandma/d3dccf1e": {
+        "src": "assets/audio/voice/grandma/d3dccf1e.mp3",
+        "sec": 9.036
+      },
+      "grandma/274383e3": {
+        "src": "assets/audio/voice/grandma/274383e3.mp3",
+        "sec": 4.77
+      },
+      "grandma/559097d6": {
+        "src": "assets/audio/voice/grandma/559097d6.mp3",
+        "sec": 7.954
+      },
+      "grandma/81f6169d": {
+        "src": "assets/audio/voice/grandma/81f6169d.mp3",
+        "sec": 5.343042
+      },
+      "grandma/cf110d66": {
+        "src": "assets/audio/voice/grandma/cf110d66.mp3",
+        "sec": 6.564
+      },
+      "grandma/95aa1ba2": {
+        "src": "assets/audio/voice/grandma/95aa1ba2.mp3",
+        "sec": 8.819
+      },
+      "grandma/747c6a86": {
+        "src": "assets/audio/voice/grandma/747c6a86.mp3",
+        "sec": 4.990458
+      },
+      "grandma/b19d74ec": {
+        "src": "assets/audio/voice/grandma/b19d74ec.mp3",
+        "sec": 7.992
+      },
+      "grandma/f1e3171e": {
+        "src": "assets/audio/voice/grandma/f1e3171e.mp3",
+        "sec": 6.573042
+      },
+      "grandma/24ffd992": {
+        "src": "assets/audio/voice/grandma/24ffd992.mp3",
+        "sec": 6.736
+      },
+      "grandma/2c00d9e4": {
+        "src": "assets/audio/voice/grandma/2c00d9e4.mp3",
+        "sec": 7.756
+      },
+      "grandma/cb81251d": {
+        "src": "assets/audio/voice/grandma/cb81251d.mp3",
+        "sec": 7.538
+      },
+      "rival_vicky/8ccf97a8": {
+        "src": "assets/audio/voice/rival_vicky/8ccf97a8.mp3",
+        "sec": 5.76
+      },
+      "rival_vicky/d4cbac5b": {
+        "src": "assets/audio/voice/rival_vicky/d4cbac5b.mp3",
+        "sec": 5.328
+      },
+      "rival_vicky/02b5d67f": {
+        "src": "assets/audio/voice/rival_vicky/02b5d67f.mp3",
+        "sec": 5.256
+      },
+      "rival_vicky/24bbc57b": {
+        "src": "assets/audio/voice/rival_vicky/24bbc57b.mp3",
+        "sec": 5.976
+      },
+      "rival_vicky/37b4a3de": {
+        "src": "assets/audio/voice/rival_vicky/37b4a3de.mp3",
+        "sec": 7.608
+      },
+      "rival_vicky/aedd044f": {
+        "src": "assets/audio/voice/rival_vicky/aedd044f.mp3",
+        "sec": 7.464
+      },
+      "client_chen/601cbed0": {
+        "src": "assets/audio/voice/client_chen/601cbed0.mp3",
+        "sec": 5.28
+      },
+      "player_f/f2bf73be": {
+        "src": "assets/audio/voice/player_f/f2bf73be.mp3",
+        "sec": 7.056
+      },
+      "player_m/2baae5bf": {
+        "src": "assets/audio/voice/player_m/2baae5bf.mp3",
+        "sec": 6.816
+      },
+      "grandma/34c3c00d": {
+        "src": "assets/audio/voice/grandma/34c3c00d.mp3",
+        "sec": 9.904667
+      },
+      "grandma/9a7751ad": {
+        "src": "assets/audio/voice/grandma/9a7751ad.mp3",
+        "sec": 9.071
+      },
+      "grandma/64dad7ea": {
+        "src": "assets/audio/voice/grandma/64dad7ea.mp3",
+        "sec": 5.894208
       }
     },
     "candidates": {

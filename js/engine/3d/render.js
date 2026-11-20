@@ -1,3 +1,4 @@
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs';
 import {makeEnvironment,makePanoramas} from './pbr.js';
 import * as T from '../vendor/three.module.min.js';
 import {createMapRenderer,drawTouch,surface} from '../overlay.js';
@@ -162,7 +163,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
   const projected=new T.Vector3(),base=new T.Vector3(),position=new T.Vector3(),aim=new T.Vector3(),offset=new T.Vector3(),arm=new T.Vector3(),desired=new T.Vector3();
   const dark=new T.Color('#626780'),rainCloud=new T.Color('#6a7182'),ambientWhite=new T.Color('#d8d4cd');
   const spots=new Map(locations.map(site=>[site.id,site]));
-  let sizeW=0,sizeH=0,dpr=0,quality=2,pressure=0,lastClock=0,lastView=-1;
+  let sizeW=0,sizeH=0,dpr=0,quality=2,pressure=0,meanFrame=1/60,lastClock=0,lastView=-1;
   let heading=0,roll=0,lastHeading=0,statsClock=-1;
   let frameWidth=0,frameHeight=0;
   function project(x,y,z) {
@@ -171,7 +172,10 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     return [(projected.x*.5+.5)*frameWidth,(.5-projected.y*.5)*frameHeight];
   }
   function adjustQuality(dt) {
-    if (dt>.0195) pressure+=dt;
+    // At 60 Hz, a few missed presentation slots can drop below 55 fps even
+    // while most individual frames still fit the previous per-frame threshold.
+    meanFrame+=(Math.min(dt,.05)-meanFrame)*Math.min(1,dt*4);
+    if(meanFrame>1/55)pressure+=dt;
     else pressure=Math.max(0,pressure-dt*.65);
     if (pressure<.9 || quality===0) return;
     quality--;pressure=0;
@@ -469,6 +473,15 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
         camera.position.copy(offset);break;
       }
     }
+    if(!showcase&&!aerial&&!officePortrait&&!state.largeMap&&nearOfficeDoor(player,4)){
+      const threshold=officePoint();
+      const fx=-Math.sin(officeDoor.heading),fz=Math.cos(officeDoor.heading);
+      const depth=(camera.position.x-threshold.x*unit)*fx+(camera.position.z-threshold.y*unit)*fz;
+      if(depth>-.4){
+        camera.position.x-=(depth+.4)*fx;
+        camera.position.z-=(depth+.4)*fz;
+      }
+    }
     camera.lookAt(aim);
     if(!showcase&&!core&&!aerial&&!officePortrait&&!evPortrait&&!walkerPortrait&&!queuePortrait&&!servicePortrait&&!xinyiPortrait)camera.rotateZ(-roll);
     camera.fov=state.flyover?orbit.fov+(w/h<1?10:0):(landmark?69:showcase?64:58)+viewSpeed*13+(narrow?13:w/h<1.15?8:0)+(state.rideBoost??0)*4;
@@ -542,7 +555,8 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const portrait=scalePortrait??(scenicRoad?{x:scenicRoad.x*unit,z:scenicRoad.y*unit}:null)??(wuxingPortrait?wuxingView:walkwayPortrait?{x:civicWalkway.x*unit,z:civicWalkway.y*unit}:roadPortrait||deliveryPortrait?xinyiBusBay():servicePortrait);
     const portraitFocus=portrait&&{x:portrait.x/unit,y:portrait.z/unit};
     const focus=state.flyover?.location??walkerPortrait??portraitFocus??player;
-    city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover));
+    city.updateOfficeDoor(state.officeDoorProgress);
+    city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover),time);
     state.inActorView=(body,padded=false)=>{
       projected.set(body.x*unit,1,body.y*unit).project(camera);
       const margin=padded?1.32:1;

@@ -30,6 +30,7 @@
   #events { margin:0; max-height:93px; overflow:auto; white-space:pre-wrap; color:#c9e3cd; font-size:10px }
   #state { position:fixed; bottom:max(3px,env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); z-index:2;
     max-width:min(96vw,840px); width:max-content; padding:3px 8px; text-align:center; background:#192024d9; font-size:clamp(10px,1.2vw,13px) }
+  #entranceResult:not(:empty) { display:block; color:#ffcf66 }
   #diagnostics, #modeInfo { font-size:11px; color:#c2d4c4 }
   #panel:not(:has(details[open])) { top:max(8px,env(safe-area-inset-top)); right:calc(clamp(112px,15vw,220px) + max(18px,env(safe-area-inset-right))) }
   @media (pointer:coarse) { #state { max-width:55vw } }
@@ -43,7 +44,7 @@
     <canvas id="city" width="960" height="540" tabindex="0" aria-label="決策區城市畫面"></canvas>
     <canvas id="map" width="170" height="110" aria-label="決策區小地圖"></canvas>
   </div>
-  <div id="state"><output id="controls">方向鍵移動 · 空白鍵動作 · G 自動前往</output></div>
+  <div id="state"><output id="entranceResult" aria-live="polite"></output><output id="controls">方向鍵移動 · 空白鍵動作 · G 自動前往</output></div>
 </section>
 <aside id="panel"><details><summary>示範控制</summary><div id="diagnostics"><output id="snapshot"></output> · <output id="renderer"></output></div><div class="row"><button id="switch">切換 2D</button><label>場景 <select id="sceneMode">
 <option value="">自動</option><option value="google">Google 真實場景</option><option value="stylized">程式化 3D</option><option value="2d">俯視 2D</option>
@@ -99,7 +100,9 @@ const names=['location:enter','location:leave','marker:reach','interact','crash'
 const handlers=new Map(names.map(name=>[name,payload=>{
   if(name==='context:change') cue=payload;
   const log=get('events');
-  log.textContent=(`${name} ${JSON.stringify(payload)}\n`+log.textContent).split('\n').slice(0,50).join('\n');
+  const message=name==='interact'&&payload.entrance?`進入富幫 A25：${markers.find(mark=>mark.id===payload.id)?.label??'晨會'}\n`:'';
+  if(message)get('entranceResult').textContent=message.trim();
+  log.textContent=(message+`${name} ${JSON.stringify(payload)}\n`+log.textContent).split('\n').slice(0,50).join('\n');
 }]));
 for (const [event,handler] of handlers) engine.on(event,handler);
 engine.setNpcs(npcs);
@@ -215,7 +218,7 @@ function status() {
   const {x,y,speed,mode,locationId}=engine.player;
   get('snapshot').textContent=`${mode==='scooter'?'騎車':'步行'} · ${Math.round(speed*metersPerUnit*3.6)} km/h · (${Math.round(x)}, ${Math.round(y)}) · ${locationId??'街道'}`;
   const hints=engine.inputMode==='touch'?'搖桿移動 · 大圓鍵動作 · 小箭頭自動前往':'方向鍵移動 · 空白鍵動作 · G 自動前往';
-  const action=cue.action==='talk'?`和${cue.targetName}說話`:cue.action==='enter'?`進入${cue.targetName}`:'';
+  const action=cue.action==='talk'?`和${cue.targetName}說話`:cue.action==='enter'?`${cue.targetId==='office'?(engine.inputMode==='touch'?'大圓鍵 ':'空白鍵 '):''}進入${cue.targetName}`:'';
   canvas.dataset.aerial=String(engine.aerial);
   get('controls').textContent=engine.aerial?'空拍 · 動作鍵可跳過 · M 關閉地圖':engine.autoRide?'自動前往中 · 移動即可取消':[hints,action].filter(Boolean).join(' · ');
   const renderMode=canvas.dataset.engine??'stylized';

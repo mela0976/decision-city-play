@@ -147,9 +147,13 @@ function findRide(origin,target,avoid=[]) {
 export function planRide(origin,target,avoid=[]){
   return findRide(origin,target,avoid);
 }
-export function trafficGreen(horizontal,time,x,y) {
-  const phase=(time+((x*7+y*13)%15+15)%15)%24;
-  return horizontal?phase<10:phase>=12&&phase<22;
+export const trafficFlashing=hour=>hour!=null&&(hour>=23||hour<6);
+
+export function trafficGreen(horizontal,time,x,y,hour) {
+  if(trafficFlashing(hour))return true; // Flashing-yellow operation uses junction priority.
+  const offset=x*metersPerUnit/15;
+  const phase=((time-offset)%48+48)%48;
+  return horizontal?phase<33:phase>=35&&phase<46;
 }
 
 // Leave headroom for easing into the destination and for dropped frames.

@@ -70,15 +70,22 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
     const office=p.id==='office';
     if(office){
       obj('concrete','box','#c5b6a1',0,.041,4.22,11.25,.077,5.35);
-      obj('glass','box','#627476',0,2.58,7.12,10.5,5.13,.14);
+      obj('glass','box','#627476',0,2.58,8.24,10.5,5.13,.14);
+      obj('lobbyTrim','box','#a89179',0,2.45,8.13,2.44,4.90,.14);
+      obj('lobbyTrim','box','#d0c2a8',0,.032,7.45,2.48,.06,2.0);
+      for(const side of [-1,1]){
+        obj('lobbyTrim','box','#c4b298',side*1.25,2.4,7.40,.10,4.8,1.55);
+        obj('lobbyLight','box','#ffe5ac',side*.86,4.50,7.32,.14,.085,1.83);
+        obj('lobbyLight','box','#ead1a1',side*.81,2.64,8.03,.072,2.25,.038);
+      }
+      obj('lobbyLight','box','#f8dda6',0,4.24,8.04,2.14,.09,.055);
       obj('window','box','#d9bd91',0,4.63,6.29,9.75,.16,.13);
       for(const t of [-3.8,-2.65,-1.5,1.5,2.65,3.8]){
         obj('window','box','#d0b188',t,3.83,6.28,.62,.11,.12);
         obj('lobbyGlass','box','#bdd6d1',t,2.57,6.17,1.13,4.97,.05);
       }
-      for(const t of [-1.26,0,1.26])obj('metal','box','#757f77',t,1.48,6.31,.052,2.84,.11);
+      for(const t of [-1.26,1.26])obj('metal','box','#757f77',t,1.48,6.31,.052,2.84,.11);
       obj('metal','box','#78817d',0,2.91,6.32,2.59,.12,.16);
-      for(const t of [-.65,.65])obj('lobbyGlass','box','#b9d3cd',t,1.52,6.17,1.23,2.75,.045);
       obj('lobbyGlass','box','#b9d3cd',0,3.95,6.17,2.50,1.88,.045);
       for(const t of [-3.58,3.58]){
         obj('concrete','box','#afa995',t,.24,4.21,1.07,.45,.61);
@@ -87,12 +94,12 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
     }
     if(!office)for(const t of [-3,-2,-1,0,1,2,3])
       obj('glass','box',t===0?'#90a5a2':'#719a97',t*1.35,2.37,6.5,1.28,4.67,.12);
-    for(const t of [-3.4,-2.5,-1.5,-.5,.5,1.5,2.5,3.4])
+    for(const t of [-3.4,-2.5,-1.5,-.5,.5,1.5,2.5,3.4].filter(t=>!office||Math.abs(t)>.5))
       obj('metal','box','#858c82',t*1.39,2.45,6.38,.079,4.90,.17);
     obj('metal','box','#85847a',0,4.95,5.28,10.9,.24,3.75);
     obj('glass','box','#b1b6a8',0,4.78,4.13,10.6,.12,.57);
     for(const t of [-4.56,4.56])obj('metal','box','#8d8577',t,2.44,4.85,.28,4.87,.30);
-    for(let i=0;i<3;i++)obj('concrete','box','#aaa394',0,.06+i*.077,4.05+i*.42,10.8,.10,.48);
+    for(let i=0;i<3;i++)obj('concrete','box','#aaa394',0,office?.068:.06+i*.077,4.05+i*.42,10.8,office?.015:.10,.48);
     const sideLength=p.id==='client_hq'?12.2:8.5;
     for(const side of [-1,1]){
       obj('concrete','box','#d0c9b7',side*sideLength,.04,6.93,8.0,.12,6.8);

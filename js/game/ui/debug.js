@@ -65,6 +65,7 @@ export function mountDebug({ game, content }) {
         'div',
         { class: 'debug-row' },
         h('button', { type: 'button', id: 'debug-prologue', text: T.debugPrologue, onClick: () => game.debug.playPrologue() }),
+        h('button', { type: 'button', id: 'debug-morning', text: T.debugMorning, onClick: () => game.debug.playMorning() }),
         h('button', { type: 'button', id: 'debug-feed', text: T.debugFeed, onClick: () => game.debug.playFeed(missionSelect.value) }),
         h('button', { type: 'button', id: 'debug-interlude', text: T.debugInterlude, onClick: () => game.debug.playInterlude(missionSelect.value) }),
       ),

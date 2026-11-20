@@ -3,14 +3,14 @@ import {metersPerUnit as unit} from './world.mjs';
 const cell=48;
 export const radius={rider:1.03/unit,foot:.29/unit,scooter:1.02/unit,car:2.45/unit,truck:2.9/unit};
 export function colliderRadius(car){
-  return car.scooter?radius.scooter:car.service==='bus'?5.2/unit:car.service&&car.service!=='taxi'?radius.truck:radius.car;
+  return car.parked?car.r:car.scooter?radius.scooter:car.service==='bus'?5.4/unit:car.service&&car.service!=='taxi'?radius.truck:radius.car;
 }
 function box(x,y,r,body){
   const angle=body?.mode==='foot'?0:body?.heading??0;
   const narrow=body?.mode==='scooter'||body?.scooter;
   const long=narrow||body?.scooter===false;
   if(body?.width)return {x,y,a:r,b:body.width,u:Math.cos(angle),v:Math.sin(angle)};
-  return {x,y,a:r,b:long?Math.min(r,(narrow?.37:body.service?1.02:.95)/unit):r,
+  return {x,y,a:r,b:long?Math.min(r,(narrow?.37:body.service==='bus'?1.25:body.service?1.02:.95)/unit):r,
     u:Math.cos(angle),v:Math.sin(angle)};
 }
 function overlap(a,b){

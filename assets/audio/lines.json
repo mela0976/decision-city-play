@@ -181,39 +181,39 @@
   },
   {
     "speaker": "rival_vicky",
-    "text": "業務 AE，好久不見。我們上週也提了一版：全部買流量，報表很漂亮。",
-    "hash": "815995e7",
-    "src": "assets/audio/voice/rival_vicky/815995e7.mp3"
+    "text": "業務 AE，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+    "hash": "8ccf97a8",
+    "src": "assets/audio/voice/rival_vicky/8ccf97a8.mp3"
   },
   {
     "speaker": "rival_vicky",
-    "text": "策略企劃，好久不見。我們上週也提了一版：全部買流量，報表很漂亮。",
-    "hash": "3112e3a8",
-    "src": "assets/audio/voice/rival_vicky/3112e3a8.mp3"
+    "text": "策略企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+    "hash": "d4cbac5b",
+    "src": "assets/audio/voice/rival_vicky/d4cbac5b.mp3"
   },
   {
     "speaker": "rival_vicky",
-    "text": "媒體企劃，好久不見。我們上週也提了一版：全部買流量，報表很漂亮。",
-    "hash": "862357ec",
-    "src": "assets/audio/voice/rival_vicky/862357ec.mp3"
+    "text": "媒體企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+    "hash": "02b5d67f",
+    "src": "assets/audio/voice/rival_vicky/02b5d67f.mp3"
   },
   {
     "speaker": "rival_vicky",
-    "text": "創意，好久不見。我們上週也提了一版：全部買流量，報表很漂亮。",
-    "hash": "a7e6d988",
-    "src": "assets/audio/voice/rival_vicky/a7e6d988.mp3"
+    "text": "創意，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+    "hash": "24bbc57b",
+    "src": "assets/audio/voice/rival_vicky/24bbc57b.mp3"
   },
   {
     "speaker": "rival_vicky",
-    "text": "數據分析師，好久不見。我們上週也提了一版：全部買流量，報表很漂亮。",
-    "hash": "62cc6b29",
-    "src": "assets/audio/voice/rival_vicky/62cc6b29.mp3"
+    "text": "數據分析師，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+    "hash": "37b4a3de",
+    "src": "assets/audio/voice/rival_vicky/37b4a3de.mp3"
   },
   {
     "speaker": "rival_vicky",
-    "text": "CX／電商顧問，好久不見。我們上週也提了一版：全部買流量，報表很漂亮。",
-    "hash": "61be3c7c",
-    "src": "assets/audio/voice/rival_vicky/61be3c7c.mp3"
+    "text": "CX／電商顧問，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+    "hash": "aedd044f",
+    "src": "assets/audio/voice/rival_vicky/aedd044f.mp3"
   },
   {
     "speaker": "player_f",
@@ -913,9 +913,9 @@
   },
   {
     "speaker": "client_chen",
-    "text": "疫情這半年，你是第一個叫我先別急著砍預算的人。",
-    "hash": "4f476325",
-    "src": "assets/audio/voice/client_chen/4f476325.mp3"
+    "text": "疫情這半年，你是第一個叫我先別把預算全押在流量上的人。",
+    "hash": "601cbed0",
+    "src": "assets/audio/voice/client_chen/601cbed0.mp3"
   },
   {
     "speaker": "data_kai",
@@ -943,9 +943,9 @@
   },
   {
     "speaker": "grandma",
-    "text": "電視那些廣告阿嬤都記不住，只記得講人的那幾支。你今天拍的，是講人的嗎？",
-    "hash": "356722d3",
-    "src": "assets/audio/voice/grandma/356722d3.mp3"
+    "text": "電視那些廣告的詞阿嬤都記不住，只記得講人的那幾支。你今天拍的，是講人的嗎？",
+    "hash": "34c3c00d",
+    "src": "assets/audio/voice/grandma/34c3c00d.mp3"
   },
   {
     "speaker": "client_hsu",
@@ -979,9 +979,9 @@
   },
   {
     "speaker": "grandma",
-    "text": "剛剛有人學你的聲音打來借錢。阿嬤問他，你小時候養的狗叫什麼，他就掛了。",
-    "hash": "03742686",
-    "src": "assets/audio/voice/grandma/03742686.mp3"
+    "text": "剛剛有人學表哥的聲音打來借錢。阿嬤問他，你小時候養的狗叫什麼，他就掛了。",
+    "hash": "9a7751ad",
+    "src": "assets/audio/voice/grandma/9a7751ad.mp3"
   },
   {
     "speaker": "vendor_cheng",
@@ -1075,9 +1075,9 @@
   },
   {
     "speaker": "grandma",
-    "text": "比完了沒？吃飽了沒？阿嬤幫你留了一碗湯。",
-    "hash": "9199bd73",
-    "src": "assets/audio/voice/grandma/9199bd73.mp3"
+    "text": "比完了沒？吃飽了沒？阿嬤想聽你今天怎麼講。",
+    "hash": "64dad7ea",
+    "src": "assets/audio/voice/grandma/64dad7ea.mp3"
   },
   {
     "speaker": "data_kai",
@@ -1093,20 +1093,128 @@
   },
   {
     "speaker": "player_f",
-    "text": "我滑開手機，阿嬤今天傳了好幾則訊息，我一則都還沒點開。",
-    "hash": "5f40f78b",
-    "src": "assets/audio/voice/player_f/5f40f78b.mp3"
+    "text": "我滑開手機，阿嬤今天傳了一整天的訊息，我每則都只隨手回了個已讀跟貼圖。",
+    "hash": "f2bf73be",
+    "src": "assets/audio/voice/player_f/f2bf73be.mp3"
   },
   {
     "speaker": "player_m",
-    "text": "我滑開手機，阿嬤今天傳了好幾則訊息，我一則都還沒點開。",
-    "hash": "90ebf186",
-    "src": "assets/audio/voice/player_m/90ebf186.mp3"
+    "text": "我滑開手機，阿嬤今天傳了一整天的訊息，我每則都只隨手回了個已讀跟貼圖。",
+    "hash": "2baae5bf",
+    "src": "assets/audio/voice/player_m/2baae5bf.mp3"
   },
   {
     "speaker": "grandma",
     "text": "孫仔，有空回阿嬤一下就好。",
     "hash": "9af99acf",
     "src": "assets/audio/voice/grandma/9af99acf.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "藍仔的醬我吃了三十年。降價做什麼，味道又沒變。",
+    "hash": "e08e90f2",
+    "src": "assets/audio/voice/grandma/e08e90f2.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "我每天走去市場就一萬步了，還要刷什麼環？",
+    "hash": "0fb12bd5",
+    "src": "assets/audio/voice/grandma/0fb12bd5.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "我是還好啦，我每天都有擦口紅。擦了心情好，走路也比較有力。",
+    "hash": "f4e55341",
+    "src": "assets/audio/voice/grandma/f4e55341.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "乖孫，你來得剛好，這個機器人一直叫我「請說出您的需求」。",
+    "hash": "76ffa55d",
+    "src": "assets/audio/voice/grandma/76ffa55d.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "我說我要改帳單地址，它給我推薦一個追劇方案。",
+    "hash": "48f329a6",
+    "src": "assets/audio/voice/grandma/48f329a6.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "什麼樂齡，我又不是不會用 LINE。我只是想跟一個人講話。",
+    "hash": "0ca93216",
+    "src": "assets/audio/voice/grandma/0ca93216.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "你們做廣告的，不是最會想像以後的事嗎？以後的人就不用講話了喔？",
+    "hash": "d3dccf1e",
+    "src": "assets/audio/voice/grandma/d3dccf1e.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "乖孫，你說那個電腦可以把我膝蓋的痛畫出來？",
+    "hash": "274383e3",
+    "src": "assets/audio/voice/grandma/274383e3.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "早上起來像有螞蟻在骨頭裡咬，下樓梯的時候像有人拿針在戳。",
+    "hash": "559097d6",
+    "src": "assets/audio/voice/grandma/559097d6.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "跟你媽講，她都說「老了都這樣」。我就不想講了。",
+    "hash": "81f6169d",
+    "src": "assets/audio/voice/grandma/81f6169d.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "如果畫出來，她看得懂，我就不用每次都解釋了。",
+    "hash": "cf110d66",
+    "src": "assets/audio/voice/grandma/cf110d66.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "你來得剛好。這個「每天一顆好精神」，我要改地址，手機一直叫我輸入。",
+    "hash": "95aa1ba2",
+    "src": "assets/audio/voice/grandma/95aa1ba2.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "這麼簡單的事，為什麼不能讓我打電話跟人講？",
+    "hash": "747c6a86",
+    "src": "assets/audio/voice/grandma/747c6a86.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "上次打去，客服說會員資料他看不到，要我去問網路那邊。",
+    "hash": "b19d74ec",
+    "src": "assets/audio/voice/grandma/b19d74ec.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "那個音箱今天問我：要不要每個月自動幫我買鈣片。",
+    "hash": "f1e3171e",
+    "src": "assets/audio/voice/grandma/f1e3171e.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "我說好啊，它就說要綁卡。我嚇一跳就把它關掉了。",
+    "hash": "24ffd992",
+    "src": "assets/audio/voice/grandma/24ffd992.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "隔壁林太太說好，我就買了。到底該吃多少，我也不知道。",
+    "hash": "2c00d9e4",
+    "src": "assets/audio/voice/grandma/2c00d9e4.mp3"
+  },
+  {
+    "speaker": "grandma",
+    "text": "機器會提醒很好啦。可是要買什麼，我想先問個人。",
+    "hash": "cb81251d",
+    "src": "assets/audio/voice/grandma/cb81251d.mp3"
   }
 ]

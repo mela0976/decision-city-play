@@ -3,12 +3,12 @@
 // 開放規則：某一年的主線任務過關後，那一年的支線全部開放，之後整局都能做，全部選做。
 // 數值規則：89 個支線全做、全選最有利的選項，原始加總是品牌力 +260～460、信任 +630～800、肝指數 +340～380，
 //   會讓三項全滿、肝指數必爆。所以支線帶來的增減一律只算三分之一，而且整局累計有上限：
-//   品牌力、業績、客戶信任各 +12（最多扣到 −8），肝指數 +15（最多降到 −10）。到了上限，支線只給章節卡。
+//   品牌力、業績、客戶信任各 +12（最多扣到 −8），肝指數 +5（最多降到 −10）。到了上限，支線只給章節卡。
 
 import { METER_IDS } from './strings.js';
 
 export const SIDE_SCALE = 1 / 3;
-export const SIDE_CAP = { brand: [-8, 12], sales: [-8, 12], trust: [-8, 12], liver: [-10, 15] };
+export const SIDE_CAP = { brand: [-8, 12], sales: [-8, 12], trust: [-8, 12], liver: [-10, 5] };
 
 export const blankGain = () => Object.fromEntries(METER_IDS.map((id) => [id, 0]));
 

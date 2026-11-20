@@ -9,7 +9,7 @@ export function fixtureColliders(){
   const result=[];
   const push=(x,y,r,width,heading,type)=>result.push({x:x/unit,y:y/unit,r:r/unit,width:width/unit,heading,type});
   function instance(kind,shape,color,x,y,z,w,h,d,turn=0){
-    if(!['box','cylinder'].includes(shape)||h<.045||y-h*.5>1.08||y+h*.5<.10||Math.min(w,d)<.035)return;
+    if(kind==='lobbyTrim'||kind==='lobbyLight'||!['box','cylinder'].includes(shape)||h<.045||y-h*.5>1.08||y+h*.5<.10||Math.min(w,d)<.035)return;
     const type=color==='#b8493a'?'chair':color==='#b09777'?'table':color==='#557760'?'utility':
       color==='#737a72'?'signal':color==='#796757'?'tree':kind==='glass'?'glass':shape==='cylinder'?'post':'fixture';
     push(x,z,w*.5,d*.5,-turn,type);

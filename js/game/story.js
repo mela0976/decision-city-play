@@ -10,6 +10,13 @@ import { showSlide, runSincere } from './ui/interlude.js';
 const PROLOGUE_SCENE = 'loc_home';
 const PROLOGUE_SCENE_FALLBACK = 'intro_poster';
 const FINALE_SCENE = 'loc_rechao';
+const MORNING_SCENE = 'loc_office';
+// 內容檔沒有寫 finale.unfinished 時的備用對白（肝指數中途滿了、任務沒做完）
+const FINALE_UNFINISHED = [
+  { who: 'data_kai', text: '今天先到這，簡報我來補。' },
+  { who: 'boss_lin', text: 'OK。' },
+  { who: 'grandma', text: '有吃飯沒？', via: 'line' },
+];
 
 /** 訊息畫面上的對象：名字、職稱、頭像。有 avatar_<id> 就用；沒有的話阿嬤與玩家自己用立繪，其他人用名字的第一個字。 */
 export function contactOf(game, who) {
@@ -70,6 +77,25 @@ export async function playPrologue(game, signal) {
   const lines = game.content.story.prologue || [];
   if (!lines.length) return;
   await playLines(game, lines, { sceneKey: game.assets.imageSrc(PROLOGUE_SCENE) ? PROLOGUE_SCENE : PROLOGUE_SCENE_FALLBACK, signal });
+  game.setScene(null);
+}
+
+/**
+ * 晨會：序幕之後、第一個任務之前，在富幫 A25 會議室。會議室劇照淡入，字幕對話；不給分、不計時、不動時鐘。
+ * 這些台詞沒有語音檔，缺檔時只出字幕。存檔由呼叫的人處理（除錯預覽不存）。
+ */
+export async function playMorning(game, signal) {
+  const lines = game.content.story.morning?.lines || [];
+  if (!lines.length) return;
+  const { scene } = game.els;
+  // 先把舊的劇照收掉，再放會議室的，淡入才看得到
+  game.setScene(null);
+  scene.dataset.fade = 'in';
+  try {
+    await playLines(game, lines, { sceneKey: game.assets.imageSrc(MORNING_SCENE) ? MORNING_SCENE : PROLOGUE_SCENE_FALLBACK, signal });
+  } finally {
+    delete scene.dataset.fade;
+  }
   game.setScene(null);
 }
 
@@ -161,11 +187,13 @@ export function grandmaWithUs(game) {
 export async function playFinale(game, signal) {
   const finale = game.content.story.finale;
   if (!finale) return null;
-  const withGrandma = grandmaWithUs(game);
-  const lines = (withGrandma ? finale.withGrandma : finale.withoutGrandma) || [];
+  // 肝指數中途滿了、任務沒做完：不能播「九頁簡報」那段，改播短的收工對白
+  const unfinished = game.state.doneMissionIds.length < game.content.missions.length;
+  const withGrandma = !unfinished && grandmaWithUs(game);
+  const lines = (unfinished ? finale.unfinished || FINALE_UNFINISHED : withGrandma ? finale.withGrandma : finale.withoutGrandma) || [];
   if (lines.length) await playLines(game, lines, { sceneKey: FINALE_SCENE, signal });
   game.setScene(null);
-  return withGrandma ? 'withGrandma' : 'withoutGrandma';
+  return unfinished ? 'unfinished' : withGrandma ? 'withGrandma' : 'withoutGrandma';
 }
 
 /** 「今晚的提案」的頁面：一個任務一頁；阿嬤線夠了、也收到她最後那則訊息之後，多一頁她的那一句。 */
@@ -185,7 +213,8 @@ export function proposalPages(game) {
     };
   });
   const last = content.story.interludes[content.story.interludes.length - 1];
-  if (last && grandmaWithUs(game) && state.interludesSeen.includes(last.after)) {
+  const allDone = state.doneMissionIds.length >= content.missions.length;
+  if (last && allDone && grandmaWithUs(game) && state.interludesSeen.includes(last.after)) {
     const grandma = contactOf(game, castNpc(game, 'grandma') || 'grandma');
     // 內容有寫 finale.grandmaSlide 就用它；沒有才退回她最後那則訊息
     const slide = content.story.finale?.grandmaSlide;

@@ -1,7 +1,7 @@
 // 手機裡的「支線任務」：按年份分組的清單。最上面是整體進度（章節已讀 n／總數）與每年的進度。
 // 每個支線：標題、地點、出題者、對應的書中章節、狀態（未開放／可做／完成）；可做的可以設為導航目標。
 
-import { h, fill } from '../dom.js';
+import { h, fill, arrowFocus } from '../dom.js';
 import { T } from '../strings.js';
 
 export function openSideList({ dialog, groups, progress, target, onNavigate, onClear }) {
@@ -54,6 +54,11 @@ export function openSideList({ dialog, groups, progress, target, onNavigate, onC
     years,
     h('div', { class: 'side-body' }, sections),
   );
+  if (!dialog.dataset.sideArrows) {
+    dialog.dataset.sideArrows = '1';
+    arrowFocus(dialog, () => [...dialog.querySelectorAll('.sheet-head button, summary, .side-go')]);
+    dialog.addEventListener('focusin', (e) => e.target.scrollIntoView?.({ block: 'nearest' }));
+  }
   if (!dialog.open) dialog.showModal();
   (dialog.querySelector('.side-go') || close).focus({ preventScroll: true });
 }

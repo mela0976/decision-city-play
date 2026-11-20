@@ -1,10 +1,12 @@
 import landuse from './data/xinyi-landuse.json' with {type:'json'};
 import {metersPerUnit as unit,toWorld,roadAt,worldContact,random,roads,locations} from './world.mjs';
 
+// Residential rings keep their original character; the wide ring covers every other gap in the map.
 const neighborhoods=[
   {center:toWorld(25.0300,121.5631),radius:322,civic:false},
   {center:toWorld(25.0368,121.5665),radius:395,civic:true},
   {center:toWorld(25.044,121.5596),radius:255,civic:false},
+  {center:toWorld(25.0335,121.5640),radius:1150,civic:false,sparse:true},
 ];
 import {occupancy} from './collision.mjs';
 let cached;
@@ -28,16 +30,20 @@ export function urbanInfill(){
   }
   const parcels=[],step=20/unit;
   const found=new Set();
-  for(const {center,radius,civic} of neighborhoods){
+  for(const {center,radius,civic,sparse} of neighborhoods){
     for(let iy=Math.floor((center.y-radius/unit)/step);iy*step<center.y+radius/unit;iy++){
       for(let ix=Math.floor((center.x-radius/unit)/step);ix*step<center.x+radius/unit;ix++){
         const x=(ix+.5)*step,y=(iy+.5)*step,id=iy*65536+ix;
         if(found.has(id)||Math.hypot(x-center.x,y-center.y)*unit>radius||designation(x,y))continue;
         if(roadAt(x,y,-13/unit)||worldContact(x,y,9/unit,9/unit))continue;
         found.add(id);
-        const sample=random(id),housing=!civic&&sample>.48;
-        parcels.push({x:x*unit,z:y*unit,housing,civic,tree:!housing&&sample>.20,
-          width:housing?9+sample*4:16,depth:housing?10+sample*4:16,height:housing?7+sample*8:4});
+        const sample=random(id),housing=!civic&&sample>(sparse?.58:.48);
+        const pick=random(id*3+11);
+        // Open ground gets a use: car park, fenced lot, pocket park or bare lot.
+        const lot=housing?null:civic?'park':pick<.28?'parking':pick<.46?'fence':pick<.74?'park':'bare';
+        parcels.push({x:x*unit,z:y*unit,housing,civic,tree:!housing&&(lot==='park'||(lot==='bare'&&sample>.3)),lot,
+          width:housing?9+sample*4:16,depth:housing?10+sample*4:16,height:housing?7+sample*8:4,
+          tin:housing&&!civic&&pick>.82});
       }
     }
   }
@@ -69,8 +75,10 @@ export function urbanInfill(){
       occupied.put(pose,span/2/unit,'parcel');
       const civic=Math.hypot(x-civicCenter.x,y-civicCenter.y)*unit<485;
       const sample=random(index*13+i+side*7);
-      parcels.push({x:x*unit,z:y*unit,width:span,depth,height:civic?5+sample*4:13.2+sample*3.3,
-        housing:true,civic,heading,streetSide:-side,shop:index%6,street:true});
+      const mix=random(index*31+i*5+side*3+2);
+      parcels.push({x:x*unit,z:y*unit,width:span,depth,height:civic?5+sample*4:16+sample*sample*14,
+        housing:true,civic,heading,streetSide:-side,shop:Math.floor(mix*12),street:true,
+        setback:!civic&&sample>.35?2+Math.floor(mix*2):0});
     }
   }
   return cached=parcels;

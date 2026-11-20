@@ -1,7 +1,7 @@
 // 存檔：照 docs/CONTRACTS.md 第 8 節，localStorage 鍵 decision-city-save-v1。
 //   { version, roleId, meters, clock, doneMissionIds, currentMissionId, books,
 //     quizSeen: { correct, asked, right }, grandma: { unlocked, on, templeVisits },
-//     relief, bond, interludesSeen, prologueSeen,
+//     relief, bond, interludesSeen, prologueSeen, morningDone,
 //     side: { <支線 id>: { option, quiz } }, sideGain: { <meter>: 支線累計帶來的增減 } }   ← 支線；舊存檔沒有就當成空的
 // 讀寫都包在 try/catch；讀不到、版本不符或欄位不齊（例如舊格式的存檔），一律當作沒有存檔。
 // 音效、提示列等偏好另存 decision-city-prefs-v1。
@@ -64,6 +64,8 @@ function normalize(data) {
     bond: Math.round(data.bond),
     interludesSeen: strings(data.interludesSeen),
     prologueSeen: data.prologueSeen,
+    // 晨會：舊存檔沒有這個欄位，已經有任務進度的就當作看過，免得回來又被擋在晨會
+    morningDone: typeof data.morningDone === 'boolean' ? data.morningDone : data.doneMissionIds.length > 0 || (data.prologueSeen && data.currentMissionId !== null),
     side: normalizeSide(data.side),
     sideGain: normalizeGain(data.sideGain),
   };

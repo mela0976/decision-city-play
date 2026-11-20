@@ -388,7 +388,7 @@
 /* 章節卡右上蓋「已讀」章：標題與那一句話讓出位置 */
 .ticket--chapter h2,
 .ticket--chapter .chapter-quote {
-  margin-inline-end: 7.5rem;
+  margin-inline-end: 10rem;
 }
 
 @media (max-width: 620px) {

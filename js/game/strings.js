@@ -187,6 +187,8 @@ export const T = {
   debugFeed: '看這一年的貼文',
   debugInterlude: '看這一關的過場',
   debugPrologue: '看序幕',
+  debugMorning: '晨會',
+  morningTitle: '晨會',
 };
 
 // 下方提示列的字：左段是現在要做什麼，右段是現在能按什麼。字要短。
@@ -197,6 +199,7 @@ export const HINT = {
   arrived: (place) => `到了 ${place}`,
   talkTo: (name) => `和 ${name} 說話`,
   enterMission: '進入任務',
+  enterPlace: (name) => `進入 ${name}`,
   interact: '互動',
   move: '移動',
   map: '地圖',
@@ -218,7 +221,9 @@ export const HINT = {
   next: '繼續',
   menu: '選單',
   choose: '選一個做法',
-  select: '選擇，或直接點選',
+  select: '選擇',
+  confirm: '確定',
+  seeExplain: '看解說',
   tapOption: '點一個做法',
   seeResult: '看結果',
   answer: '回答問題',

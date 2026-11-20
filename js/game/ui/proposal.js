@@ -1,7 +1,7 @@
 // 「今晚的提案」：每過一關拿到一頁。每頁是那一年的一句答案（slide 標題）、年鑑的三個重點與一句話；
 // 還沒拿到的是空白頁。阿嬤線累積夠了，最後多一頁阿嬤的那一句。
 
-import { h, fill } from '../dom.js';
+import { h, fill, arrowFocus } from '../dom.js';
 import { T } from '../strings.js';
 
 /**
@@ -27,6 +27,8 @@ export function openProposal({ dialog, pages, appendix = [] }) {
     open.addEventListener('click', () => showPage(page));
     return h('li', {}, open);
   };
+
+  arrowFocus(body, () => [...body.querySelectorAll('.page--owned, .slide-nav button')]);
 
   const showGrid = (focusNo) => {
     fill(
@@ -71,7 +73,9 @@ export function openProposal({ dialog, pages, appendix = [] }) {
     (at < ownedPages.length - 1 ? next : back).focus({ preventScroll: true });
   };
 
-  fill(dialog, h('header', { class: 'sheet-head' }, h('h2', { id: 'proposal-title', text: `${T.proposalTitle}　${owned}／${pages.length}` }), close), h('div', { class: 'ironwork', 'aria-hidden': 'true' }), body);
+  const head = h('header', { class: 'sheet-head' }, h('h2', { id: 'proposal-title', text: `${T.proposalTitle}　${owned}／${pages.length}` }), close);
+  arrowFocus(head, () => [close, ...body.querySelectorAll('.page--owned, .slide-nav button')]);
+  fill(dialog, head, h('div', { class: 'ironwork', 'aria-hidden': 'true' }), body);
   if (!dialog.open) dialog.showModal();
   showGrid();
 }

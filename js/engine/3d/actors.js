@@ -1,3 +1,4 @@
+import {parkedKey} from '../impact.mjs';
 import {streetCrowds} from '../crowds.mjs';
 import {createModelAssets} from './model-assets.js';
 import {byId,roadAt} from '../world.mjs';
@@ -198,6 +199,7 @@ const local=new T.Vector3();
 
 export function createActors(scene,glow,parkedScooters=[]) {
   const models=createModelAssets(scene);
+  const lookCache=new WeakMap();let nextLook=0;
   const geometries={box:cube,round,wheel,hat,cab,busShell,compactor};
   const material=new T.MeshStandardMaterial({roughness:.63});
   const groups=Object.fromEntries(Object.entries(geometries).map(([name,geo])=>{
@@ -210,6 +212,8 @@ export function createActors(scene,glow,parkedScooters=[]) {
     scene.add(mesh);
     return [name,mesh];
   }));
+  const wreckRotation=new T.Quaternion(),partRotation=new T.Euler(),wreckEuler=new T.Euler(0,0,0,'YXZ');
+  const parkedModel=twoWheeler(false,'#788b91',0);
   const farScooters=new Map();
   const carModels=new Map();
   const headlightMat=new T.MeshBasicMaterial({
@@ -226,14 +230,21 @@ export function createActors(scene,glow,parkedScooters=[]) {
   const shadows=new T.InstancedMesh(new T.PlaneGeometry(1,1),shadowMat,265);
   shadows.frustumCulled=false;
   scene.add(shadows);
-  function stamp(descriptors,x,z,heading,lean) {
+  function stamp(descriptors,x,z,heading,lean,impact=null) {
+    if(impact)wreckRotation.setFromEuler(wreckEuler.set(impact.roll,-heading,impact.pitch,'YXZ'));
     const cos=Math.cos(heading),sin=Math.sin(heading);
     for (const d of descriptors) {
       const mesh=groups[d.shape];
       if (mesh.count>=mesh.instanceMatrix.count) continue;
-      local.set(d.x,d.y,d.z).applyAxisAngle(axis,lean);
-      dummy.position.set(x+local.x*cos-local.z*sin,local.y+.07,z+local.x*sin+local.z*cos);
-      dummy.rotation.set(lean+(d.pitch??0),-heading+(d.yaw??0),d.roll,'YXZ');
+      if(impact){
+        local.set(d.x,d.y-impact.spec.height,d.z).applyQuaternion(wreckRotation);
+        dummy.position.set(x+local.x,impact.center+local.y+.07,z+local.z);
+        dummy.quaternion.setFromEuler(partRotation.set(d.pitch??0,d.yaw??0,d.roll,'YXZ')).premultiply(wreckRotation);
+      }else{
+        local.set(d.x,d.y,d.z).applyAxisAngle(axis,lean);
+        dummy.position.set(x+local.x*cos-local.z*sin,local.y+.07,z+local.x*sin+local.z*cos);
+        dummy.rotation.set(lean+(d.pitch??0),-heading+(d.yaw??0),d.roll,'YXZ');
+      }
       dummy.scale.set(d.w,d.h,d.d);
       dummy.updateMatrix();
       mesh.setMatrixAt(mesh.count,dummy.matrix);
@@ -273,8 +284,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
       if(riding)stamp(twoWheeler(grandma,outfits[player.skin],turn,player.skin==='data'),x,z,player.heading,lean);
       stamp(person(player.skin,clock*player.speed*.22,riding,grandma?.31:.51),avatarX,avatarZ,player.heading,lean);
     }
+    const missingParked=state.impact?.missingParked;
     if(!photorealistic)for(const prop of parkedScooters){
-      if(Math.hypot(x-prop.x,z-prop.z)>43)continue;
+      if(Math.hypot(x-prop.x,z-prop.z)>43||missingParked?.has(parkedKey(prop.x,prop.z)))continue;
       if(Math.hypot(x-prop.x,z-prop.z)>24||!models.draw('scooter_parked',prop.x,prop.z,prop.heading))
         stamp(twoWheeler(false,'#788b91',0),prop.x,prop.z,prop.heading,0);
     }
@@ -282,12 +294,17 @@ export function createActors(scene,glow,parkedScooters=[]) {
     if (riding && night>.1) {
       decal(headlights,x+Math.cos(player.heading)*4,z+Math.sin(player.heading)*4,player.heading,7.7,2.45,.49);
     }
-    for (const item of state.cars) {
+    const cars=missingParked?.size?[...state.cars,...state.impact.parkedVehicles()]:state.cars;
+    for (const item of cars) {
       if(item.hidden)continue;
       const px=item.x*scale,pz=item.y*scale;
       const distance=Math.hypot(px-x,pz-z);
       if(distance>104&&!state.inActorView?.(item,true))continue;
-      if(item.scooter) {
+      const impact=item.impact;
+      if(impact&&item.scooter){
+        const loaded=models.draw('scooter_parked',px,pz,item.heading,{impact});
+        if(!loaded)stamp(parkedModel,px,pz,item.heading,0,impact);
+      }else if(item.scooter) {
         if(!farScooters.has(item.color)) {
           farScooters.set(item.color,{
             close:[...twoWheeler(false,item.color,0),...person('npc_rider',0,true,.51)],
@@ -303,22 +320,40 @@ export function createActors(scene,glow,parkedScooters=[]) {
         const taxi=item.service==='taxi';
         const asset=item.service==='waste'?'garbage_truck':item.service==='bus'?'bus':!item.service||taxi?'car_ev':null;
         const loaded=asset&&Math.hypot(px-(eye?.x??x),pz-(eye?.z??z))<=60&&
-          models.draw(asset,px,pz,item.heading,{tint:asset==='car_ev'?(taxi?'#ffbf2c':item.color):undefined});
-        if(!loaded)stamp(truckModels[item.service]??carModels.get(item.color),px,pz,item.heading,0);
-        if(taxi)stamp([p('#ecd66b',-.08,1.57,0,.34,.12,.34),p('#fff2b2',.01,1.59,0,.041,.075,.26)],px,pz,item.heading,0);
-        if(item.signal&&item.signalUntil>clock&&Math.floor(clock*5)%2===0){
+          models.draw(asset,px,pz,item.heading,{tint:asset==='car_ev'?(taxi?'#ffbf2c':item.color):undefined,impact});
+        if(!loaded)stamp(truckModels[item.service]??carModels.get(item.color),px,pz,item.heading,0,impact);
+        if(taxi)stamp([p('#ecd66b',-.08,1.57,0,.34,.12,.34),p('#fff2b2',.01,1.59,0,.041,.075,.26)],px,pz,item.heading,0,impact);
+        if(!impact&&item.signal&&item.signalUntil>clock&&Math.floor(clock*5)%2===0){
           const front=item.service==='bus'?5.2:2.31;
           stamp([p('#ffaa39',front,.77,item.signal*.79,.053,.12,.19),p('#ffaa39',-front,.77,item.signal*.79,.053,.12,.19)],px,pz,item.heading,0);
         }
       }
       if(distance<57) decal(shadows,px,pz,item.heading,item.scooter?2.3:4.4,item.scooter?.8:1.9,.46);
-      if(night>.1) {
+      if(impact?.settled&&distance<65){
+        for(let i=0;i<4;i++){
+          const age=(clock*.9+i*.25)%1;
+          const size=.18+age*.39;
+          stamp([ball(i%2?'#687077':'#525960',age*.55,1.02+age*1.65,Math.sin(age*4+i)*.25,size,size,size)],px,pz,0,0);
+        }
+      }
+      if(!impact&&night>.1) {
         const length=rain?13:9.5;
         decal(headlights,px+Math.cos(item.heading)*length*.49,pz+Math.sin(item.heading)*length*.49,
           item.heading,length,rain?2.45:3.5,.088);
         if(rain)decal(tails,px-Math.cos(item.heading)*2.7,pz-Math.sin(item.heading)*2.7,
           item.heading,4.35,item.scooter?.45:1.2,.088);
       }
+    }
+    function lookOf(item,i){
+      if(item===walkerPortrait)return 0;
+      let look=lookCache.get(item);
+      if(look===undefined){
+        const key=item.localId??item.id;
+        if(key!=null){look=0;for(const ch of String(key))look=(look*31+ch.charCodeAt(0))>>>0;}
+        else look=nextLook++;
+        lookCache.set(item,look);
+      }
+      return look;
     }
     function stampPerson(skin,px,pz,facing,index,moving=false,speed=0,standing=false){
       const style=sidewalkWardrobe[index%sidewalkWardrobe.length];
@@ -361,13 +396,14 @@ export function createActors(scene,glow,parkedScooters=[]) {
     const persons=[...state.npcs,...streetCrowds,...state.walkers];
     if(walkerPortrait)persons.unshift(walkerPortrait);
     for (const [i,item] of persons.entries()) {
+      const look=lookOf(item,i);
       if(i>0&&item===walkerPortrait)continue;
       if(item.hidden)continue;
       const px=item.x*scale,pz=item.y*scale;
       if(item!==walkerPortrait&&Math.hypot(px-x,pz-z)>60&&!state.inActorView?.(item,true))continue;
       const named=item.id!=null||item.standing;
       const facing=item.heading??-Math.PI/2;
-      stampPerson(item.skin??'npc_vendor',px,pz,facing,i,!named&&(item.movingSpeed??0)>.05,item.movingSpeed,Boolean(item.standing));
+      stampPerson(item.skin??'npc_vendor',px,pz,facing,look,!named&&(item.movingSpeed??0)>.05,item.movingSpeed,Boolean(item.standing));
       decal(shadows,px,pz,0,.87,.67,.455);
     }
     for (const mesh of Object.values(groups)) {

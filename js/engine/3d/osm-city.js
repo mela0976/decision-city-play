@@ -1,4 +1,5 @@
-import {trafficGreen} from '../navigation.js';
+import {createOfficeDoor} from './office-door.js';
+import {trafficGreen,trafficFlashing} from '../navigation.js';
 import {surfaceMaps} from './pbr.js';
 import * as T from '../vendor/three.module.min.js';
 import {buildings,locations,roads,ways,water,riverWidthMeters,width,height,metersPerUnit as unit,roadAt,toWorld,roadNodes} from '../world.mjs';
@@ -16,6 +17,9 @@ const shapes={box,plane,cylinder,crown,dome};
 // The two mapped Songshan warehouses and the preservation block at Four Four South Village.
 const historicFootprints=new Map([[228920407,'studio'],[228920409,'studio'],[441377762,'village'],[1131522120,'museum']]);
 const matrix=new T.Object3D(),color=new T.Color();
+const hash=(a,b=0)=>{const v=Math.sin(a*127.1+b*311.7+17.3)*43758.5453;return v-Math.floor(v);};
+const wallSwatches=['#e6c6bd','#e8dcc2','#c6cbca','#c3d3bf','#d9cdb8','#cfc4c0'];
+const windowKinds=['old','oldB','oldC','new','towerB','towerC','office'];
 
 function meshBuffers(material) {
   const v=[],uv=[],rgb=[];
@@ -24,8 +28,8 @@ function meshBuffers(material) {
     color.set(tint);
     for(let i=0;i<3;i++)rgb.push(color.r,color.g,color.b);
   }
-  function quad(a,b,c,d,tint,u=1,w=1) {
-    triangle(a,b,c,tint,[0,0],[u,0],[u,w]);triangle(a,c,d,tint,[0,0],[u,w],[0,w]);
+  function quad(a,b,c,d,tint,u=1,w=1,uo=0) {
+    triangle(a,b,c,tint,[uo,0],[uo+u,0],[uo+u,w]);triangle(a,c,d,tint,[uo,0],[uo+u,w],[uo,w]);
   }
   return {triangle,quad,make(){
     const geometry=new T.BufferGeometry();
@@ -39,6 +43,8 @@ function meshBuffers(material) {
 
 export function createOsmCity(scene,doc,anisotropy) {
   const group=new T.Group();
+  const updateOfficeDoor=createOfficeDoor(group);
+  updateOfficeDoor(0);
   const replacements=new T.Group();
   scene.add(group,replacements);
   const glow=canvasTexture(doc,64,64,ctx=>{
@@ -47,13 +53,13 @@ export function createOsmCity(scene,doc,anisotropy) {
     ctx.fillStyle=g;ctx.fillRect(0,0,64,64);
   });
   const textUv={total:0,osm:0,infill:0,other:0,failed:0};
-  function textWall(buffer,a,b,c,d,nx,nz,tint,u,v,source='other'){
+  function textWall(buffer,a,b,c,d,nx,nz,tint,u,v,source='other',uo=0){
     const direction=(b[0]-a[0])*nz-(b[2]-a[2])*nx;
     const face=direction<0?[b,a,d,c]:[a,b,c,d];
     const du=(face[1][0]-face[0][0])*nz-(face[1][2]-face[0][2])*nx;
     textUv.total++;textUv[source]++;
     if(!(du>0&&u>0))textUv.failed++;
-    buffer.quad(...face,tint,u,v);
+    buffer.quad(...face,tint,u,v,uo);
   }
   const materials={}, loadedTextures=[];
   const types={
@@ -127,6 +133,25 @@ export function createOsmCity(scene,doc,anisotropy) {
         if(kind==='mall')fillMallPanels(texture,mask);
         material.emissive.set('#ffcb83');material.emissiveIntensity=0;
       }
+      if(windowKinds.includes(kind)){
+        // Lit windows: dark glazing cells are randomly switched on, warm or cool white.
+        const mask=canvasTexture(doc,256,256,(ctx,w,h)=>{
+          ctx.drawImage(texture.image,0,0,w,h);
+          const data=ctx.getImageData(0,0,w,h),lum=new Float32Array(w*h);
+          let mean=0;
+          for(let i=0;i<w*h;i++){lum[i]=data.data[i*4]*.28+data.data[i*4+1]*.58+data.data[i*4+2]*.14;mean+=lum[i];}
+          mean/=w*h;
+          for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+            const k=(y*w+x)*4,cell=hash(Math.floor(x/8),Math.floor(y/8)+kind.length*31);
+            const on=lum[y*w+x]<mean*.78&&cell<.32;
+            const warm=hash(Math.floor(x/8)+3,Math.floor(y/8))<.7;
+            data.data[k]=on?(warm?255:205):0;data.data[k+1]=on?(warm?214:228):0;data.data[k+2]=on?(warm?150:255):0;
+          }
+          ctx.putImageData(data,0,0);
+        });
+        mask.wrapS=mask.wrapT=T.RepeatWrapping;
+        material.emissiveMap=mask;material.emissive.set('#fff');material.emissiveIntensity=0;
+      }
       try{Object.assign(material,surfaceMaps(doc,texture.image,anisotropy,['new','office','towerB','towerC'].includes(kind)?.42:1.6));}catch{}
       if(['new','office','towerB','towerC'].includes(kind)){material.metalness=.32;material.roughness=.47;}
       material.color.set(kind==='road'?'#b3a8a0':kind==='paving'?'#d1c7b7':'#fff');
@@ -136,7 +161,8 @@ export function createOsmCity(scene,doc,anisotropy) {
       loadedTextures.push(tex);
       if(!variant)for(const [alias,[fallback]] of Object.entries(variants)){
         if(fallback!==kind||materials[alias].userData.authored||/^shop[a-l]$/.test(alias))continue;
-        for(const name of ['map','normalMap','roughnessMap'])materials[alias][name]=material[name];
+        for(const name of ['map','normalMap','roughnessMap','emissiveMap'])materials[alias][name]=material[name];
+        if(material.emissiveMap){materials[alias].emissive.set('#fff');materials[alias].emissiveIntensity=0;}
         materials[alias].color.copy(material.color);materials[alias].needsUpdate=true;
       }
     },undefined,()=>{});
@@ -153,9 +179,11 @@ export function createOsmCity(scene,doc,anisotropy) {
   for(const kind of ['luminous','signal','signalRed','signalGreen','towerLights','window','highglass']) {
     materials[kind]=kind==='highglass'?new T.MeshStandardMaterial({roughness:.42,fog:false}):new T.MeshBasicMaterial({fog:kind!=='towerLights'});
   }
+  materials.lobbyTrim=materials.concrete;
+  materials.lobbyLight=new T.MeshBasicMaterial();
   materials.lobbyGlass=new T.MeshStandardMaterial({metalness:.2,roughness:.16,transparent:true,opacity:.40,depthWrite:false});
   materials.reflection=new T.MeshBasicMaterial({map:glow,transparent:true,depthWrite:false,opacity:0,blending:T.AdditiveBlending});
-  const lampHalos=[],signalFaces=[],roadMarkMaterials=new Map(),chunks=new Map(),signs=[],signCache=new Map(),instanceMaterials=new Map();
+  const lampHalos=[],lampDecals=[],decalMaterial=new T.MeshBasicMaterial({map:glow,color:'#ffb866',transparent:true,depthWrite:false,blending:T.AdditiveBlending,opacity:0}),signalFaces=[],roadMarkMaterials=new Map(),chunks=new Map(),signs=[],signCache=new Map(),instanceMaterials=new Map();
   const groupOf=(x,z)=>{
     const ix=Math.floor(x/chunkSize),iz=Math.floor(z/chunkSize),key=ix+','+iz;
     if(!chunks.has(key))chunks.set(key,{x:(ix+.5)*chunkSize,z:(iz+.5)*chunkSize,meshes:new Map(),instances:new Map(),group:new T.Group(),detail:new T.Group()});
@@ -171,6 +199,7 @@ export function createOsmCity(scene,doc,anisotropy) {
     if(!c.instances.has(key))c.instances.set(key,[]);
     c.instances.get(key).push([tint,x,y,z,w,h,d,turn,rx,rz]);
   }
+  // Ground: a low-res tint mask (paving, verge, grass) multiplied by a tiling detail noise in world space.
   const cover=canvasTexture(doc,512,512,(ctx,w,h)=>{
     const designated=toWorld(25.038,121.566);
     for(let y=0;y<h;y+=2)for(let x=0;x<w;x+=2){
@@ -178,13 +207,33 @@ export function createOsmCity(scene,doc,anisotropy) {
       const civic=Math.hypot(gx-designated.x,gy-designated.y)*unit<550;
       const strip=roadAt(gx,gy,-92);
       const n=(x*13+y*47+(x*y)%29)%18;
-      ctx.fillStyle=civic||strip?`rgb(${141+n} ${135+n} ${118+n})`:
-        `rgb(${98+n} ${111+n} ${78+n})`;
+      ctx.fillStyle=civic?`rgb(${126+n} ${128+n} ${118+n})`:strip?`rgb(${110+n} ${108+n} ${84+n})`:
+        n>14?`rgb(${116+n} ${106+n} ${80+n})`:`rgb(${84+n} ${112+n} ${68+n})`;
       ctx.fillRect(x,h-y-2,2,2);
     }
   });
   cover.anisotropy=anisotropy;
-  const soil=new T.Mesh(new T.PlaneGeometry(width*unit,height*unit),new T.MeshStandardMaterial({map:cover,roughness:1}));
+  const detail=canvasTexture(doc,256,256,(ctx,w,h)=>{
+    const data=ctx.createImageData(w,h);
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+      const coarse=hash(Math.floor(x/16),Math.floor(y/16)),mid=hash(Math.floor(x/4),Math.floor(y/4)+9),fine=hash(x,y+33);
+      const v=Math.round(255*(.5+.22*(coarse-.5)+.28*(mid-.5)+.3*(fine-.5)));
+      const k=(y*w+x)*4;data.data[k]=data.data[k+1]=data.data[k+2]=v;data.data[k+3]=255;
+    }
+    ctx.putImageData(data,0,0);
+  });
+  detail.wrapS=detail.wrapT=T.RepeatWrapping;detail.anisotropy=anisotropy;
+  const soilMaterial=new T.MeshStandardMaterial({map:cover,roughness:1});
+  soilMaterial.onBeforeCompile=shader=>{
+    shader.uniforms.detailMap={value:detail};
+    shader.vertexShader=shader.vertexShader.replace('void main() {','varying vec2 groundXZ; void main() {')
+      .replace('#include <begin_vertex>','#include <begin_vertex>\n groundXZ=(modelMatrix*vec4(position,1.)).xz;');
+    shader.fragmentShader=shader.fragmentShader.replace('void main() {','uniform sampler2D detailMap; varying vec2 groundXZ; void main() {')
+      .replace('#include <map_fragment>',`#include <map_fragment>
+      float d1=texture2D(detailMap,groundXZ/7.).r,d2=texture2D(detailMap,groundXZ/1.9+.37).r;
+      diffuseColor.rgb*=.62+.52*mix(d1,d2,.45);`);
+  };
+  const soil=new T.Mesh(new T.PlaneGeometry(width*unit,height*unit),soilMaterial);
   soil.rotation.x=-Math.PI/2;soil.position.set(width*unit/2,-.11,height*unit/2);
   soil.receiveShadow=true;group.add(soil);
   const basin=createBasin(width*unit,height*unit);
@@ -238,7 +287,7 @@ export function createOsmCity(scene,doc,anisotropy) {
       strip(a,b,1.6,.050,'paving',side*(span/2+.77),'#fff',2.6);
       strip(a,b,.14,.059,'curb',side*(span/2+.06),'#eee7d9');
       if(d*unit>11&&way.name){
-        strip(a,b,.16,.028,'drain',side*(span/2-.10),'#999');
+        strip(a,b,.06,.028,'drain',side*(span/2-.05),'#999');
         const roadEdge=side*(span/2-.22);
         strip(at(d*.05),at(d*.95),.083,.039,'line',roadEdge,arterial?'#ee7b64':'#ecc467');
       }
@@ -255,6 +304,24 @@ export function createOsmCity(scene,doc,anisotropy) {
         }
       }
     }
+    if(way.name&&!arterial&&d*unit>25&&(span<9)){
+      // Concrete utility poles on one side, with crossarm, three sagging wires and the odd transformer.
+      const pitch=(28+hash(way.id,1)*8)/unit,heading=Math.atan2(by-ay,bx-ax);
+      const side=way.id%2?1:-1,nx=-Math.sin(heading),nz=Math.cos(heading);
+      let previous=null;
+      for(let pos=pitch*.5,k=0;pos<d-4/unit;pos+=pitch,k++){
+        const pt=at(pos),off=side*(span/2+1.45),x=pt[0]*unit+nx*off,z=pt[1]*unit+nz*off;
+        instance('concrete','cylinder','#a8a59d',x,4.25,z,.18,8.5,.18);
+        instance('dark','box','#3a3a3c',x,8.15,z,1.5,.08,.08,-Math.atan2(nz,nx));
+        if(k%4===1)instance('metal','box','#6d7168',x-nx*side*.32,6.6,z-nz*side*.32,.5,.8,.4,-heading);
+        if(previous){
+          const mx=(x+previous.x)/2,mz=(z+previous.z)/2,len=Math.hypot(x-previous.x,z-previous.z);
+          for(const lateral of [-.6,0,.6])
+            instance('dark','box','#26262a',mx+nx*lateral,7.95,mz+nz*lateral,len,.025,.025,-Math.atan2(z-previous.z,x-previous.x));
+        }
+        previous={x,z};
+      }
+    }
     if(d*unit>17&&way.name&&way.id%3===0){
       const pt=at(d*.56),x=pt[0]*unit,z=pt[1]*unit;
       const key=Math.floor(x/9)+','+Math.floor(z/9);
@@ -264,7 +331,9 @@ export function createOsmCity(scene,doc,anisotropy) {
         instance('metal','cylinder','#777677',x,.043,z,.57,.008,.57);
         for(const off of [-.17,-.08,.01,.10,.19])instance('metal','box','#515356',x+off,.050,z,.023,.006,.41);
       }
-      strip(at(d*.25),at(d*.43),.41,.029,'repair',span*.15,'#b6b2ae',.89);
+      const patchLen=(1.4+hash(way.id,2)*.8)/unit,patchAt=d*(.2+hash(way.id,5)*.5);
+      if(patchAt+patchLen<d)strip(at(patchAt),at(patchAt+patchLen),.8+hash(way.id,7)*.4,.029,'repair',(hash(way.id,9)-.5)*span*.3,
+        hash(way.id,4)>.5?'#a5a19d':'#c0bbb5',1.2);
       if(arterial&&way.id%7===0){
         const arrows=way.kind==='primary'&&span>10?'公車專用':'40';
         const heading=Math.atan2(by-ay,bx-ax),offset=span*.25;
@@ -285,6 +354,24 @@ export function createOsmCity(scene,doc,anisotropy) {
       buf.triangle([x,y,z],[x+bx,y,z+bz],[x+ax,y,z+az],'#f1efed',uv(0,0),uv(bx,bz),uv(ax,az));
     }
   }
+  // Stop lines, zebra crossings and approach arrows at junctions.
+  for(const n of roadNodes){
+    if(n.around.length<3||!n.out.length)continue;
+    const capRadius=Math.max(...n.out.map(e=>e.w))*unit*.49+1.1;
+    for(const e of n.out){
+      const to=roadNodes[e.to],dist=Math.hypot(to.x-n.x,to.y-n.y);
+      if(!e.way.name||!e.reverse||dist*unit<capRadius+9||e.w*unit<5||e.way.layer!==0)continue;
+      const dx=(to.x-n.x)/dist,dy=(to.y-n.y)/dist,span=e.w*unit;
+      const P=m=>[n.x+dx*m/unit,n.y+dy*m/unit];
+      const arterialEdge=['primary','secondary','tertiary'].includes(e.way.kind);
+      for(let lat=-span/2+.6;lat<span/2-.3;lat+=1)strip(P(capRadius),P(capRadius+3),.5,.046,'line',lat,'#f4efe2');
+      strip(P(capRadius+3.4),P(capRadius+3.8),span/2-.4,.046,'line',-span/4,'#f4efe2');
+      if(arterialEdge&&span>9&&hash(e.a,e.b)>.35){
+        const h=Math.atan2(-dy,-dx),at=P(capRadius+11),lane=-span/4;
+        addRoadMark('↑',at[0]*unit-dy*lane,at[1]*unit+dx*lane,h);
+      }
+    }
+  }
   for(const [,kind,,coordinates] of landuse.features){
     const ring=coordinates.map(([lat,lon])=>{const p=toWorld(lat,lon);return new T.Vector2(p.x*unit,p.y*unit);});
     const type=kind==='green'?'park':kind==='plaza'?'paving':'water';
@@ -298,7 +385,10 @@ export function createOsmCity(scene,doc,anisotropy) {
     const pts=object.points;
     const closed=pts.length>3&&Math.hypot(pts[0].x-pts.at(-1).x,pts[0].y-pts.at(-1).y)<2;
     if(!closed){
-      if(object.name==='基隆河')for(let i=1;i<pts.length;i++)strip([pts[i-1].x,pts[i-1].y],[pts[i].x,pts[i].y],riverWidthMeters,-.04,'water');
+      if(object.name==='基隆河')for(let i=1;i<pts.length;i++){
+        strip([pts[i-1].x,pts[i-1].y],[pts[i].x,pts[i].y],riverWidthMeters+9,-.052,'park',0,'#8c9a68');
+        strip([pts[i-1].x,pts[i-1].y],[pts[i].x,pts[i].y],riverWidthMeters,-.04,'water');
+      }
       continue;
     }
     const polygon=pts.slice(0,-1).map(p=>new T.Vector2(p.x*unit,p.y*unit));
@@ -395,12 +485,17 @@ export function createOsmCity(scene,doc,anisotropy) {
       roof.triangle(...corners.map(p=>[p.x,h,p.y]),'#c7c1b8',
         ...corners.map(p=>[(p.x-b.x*unit)/(b.w*unit),(p.y-b.y*unit)/(b.h*unit)]));
     }
-    const facadeVariant=b.osmId%3;
+    const facadeVariant=Math.min(2,Math.floor(hash(b.osmId,7)*3));
     const upper=batch(x,z,(b.modern?['new','towerB','towerC']:['old','oldB','oldC'])[facadeVariant]);
-    const [tileWidth,tileHeight]=b.modern?[[18,18.75],[18,18.75],[12,11.25]][facadeVariant]:[5.2,5.2];
-    const storeKind=b.modern?['shopi','shopj'][b.osmId%2]:storefrontAt(x,z);
+    const [baseW,baseH]=b.modern?[[18,18.75],[18,18.75],[12,11.25]][facadeVariant]:[5.2,5.2];
+    const jitter=.85+.3*hash(b.osmId,11),tileWidth=baseW*jitter,tileHeight=baseH*(.94+.12*hash(b.osmId,12));
+    const uOffset=hash(b.osmId,13),mirror=hash(b.osmId,17)>.5?-1:1;
+    const faceKinds=[];
     const podium=Math.min(3.5,h-.16);
     const tint=new T.Color(b.color).lerp(new T.Color('#ebe6dc'),.68);
+    if(b.modern)tint.offsetHSL(0,0,(hash(b.osmId,19)-.5)*.1);
+    else tint.lerp(new T.Color(wallSwatches[Math.floor(hash(b.osmId,23)*wallSwatches.length)]),.28+.3*hash(b.osmId,29))
+      .offsetHSL((hash(b.osmId,31)-.5)*.03,0,(hash(b.osmId,37)-.5)*.14);
     let frontage=null;
     const winding=Math.sign(points.reduce((sum,p,i)=>{
       const c=points[(i+1)%points.length];
@@ -420,23 +515,56 @@ export function createOsmCity(scene,doc,anisotropy) {
         const shift=new T.Vector2(nx*.024*sign,nz*.024*sign);
         const left=a.clone().add(shift),right=c.clone().add(shift);
         const beltHeight=b.modern?4.7:6.8,top=Math.min(h-.02,beltHeight);
-        textWall(batch(x,z,storeKind),p(left,.015),p(right,.015),p(right,top),p(left,top),
-          nx*sign,nz*sign,'#fff',length/(beltHeight*2),top/beltHeight,'osm');
+        // Every street face is cut into shopfront units, each picking its own sign.
+        const units=b.modern?1:Math.max(1,Math.round(length/6.5));
+        for(let k=0;k<units;k++){
+          const l0=left.clone().lerp(right,k/units),r0=left.clone().lerp(right,(k+1)/units);
+          const kind=b.modern?['shopi','shopj'][(b.osmId+i+k)%2]:storefrontAt((l0.x+r0.x)/2,(l0.y+r0.y)/2);
+          faceKinds[i]??=kind;
+          const uLen=length/units/(beltHeight*2);
+          textWall(batch(x,z,kind),p(l0,.015),p(r0,.015),p(r0,top),p(l0,top),
+            nx*sign,nz*sign,'#fff',units>1?uLen:length/(beltHeight*2),top/beltHeight,'osm',
+            units>1?hash(b.osmId+i*7,k+5)*Math.max(0,1-uLen):0);
+        }
         if(!b.modern)paveFront(a.x,a.y,c.x,c.y,nx*sign,nz*sign,length);
 
       }
-      upper.quad(p(a,podium),p(c,podium),p(c,h),p(a,h),tint,length/tileWidth,(h-podium)/tileHeight);
+      upper.quad(p(a,podium),p(c,podium),p(c,h),p(a,h),tint,mirror*length/tileWidth,(h-podium)/tileHeight,
+        mirror>0?uOffset:uOffset+length/tileWidth);
+      if(length>1&&h>6){
+        // Dark plinth, parapet cap and storey bands break up the flat wall.
+        const out=winding*.06,band=batch(x,z,'curb'),o=new T.Vector2(nx*out,nz*out);
+        const ring=(y0,y1,tintBand,push=1)=>band.quad(p(a.clone().addScaledVector(o,push),y0),p(c.clone().addScaledVector(o,push),y0),
+          p(c.clone().addScaledVector(o,push),y1),p(a.clone().addScaledVector(o,push),y1),tintBand,1,1);
+        if(!streetFace)ring(0,.25,'#6b665e');
+        ring(h-.5,h,'#bdb7aa',1.4);
+        if(!b.modern)for(let y=podium+34;y<h-5;y+=34)ring(y,y+.32,'#c9c2b2');
+        if(!b.modern&&h>12&&length>5){
+          // Air-conditioner condensers and balcony slabs, only built near the camera.
+          const count=Math.floor(hash(b.osmId+i,41)*3);
+          for(let k=0;k<count;k++){
+            const t=.15+.7*hash(b.osmId+i,43+k),floor=1+Math.floor(hash(b.osmId+i,47+k)*Math.min(7,(h-podium-1.5)/3.4));
+            const yy=podium+floor*3.4+.8,turnAngle=-Math.atan2(c.y-a.y,c.x-a.x);
+            const px=a.x+(c.x-a.x)*t+nx*winding*.2,pz=a.y+(c.y-a.y)*t+nz*winding*.2;
+            if(hash(b.osmId+i,53+k)>.4)instance('metal','box','#a7a9a6',px,yy,pz,.7,.5,.3,turnAngle);
+            else{
+              instance('concrete','box','#b9b4a8',px+nx*winding*.3,yy-.55,pz+nz*winding*.3,1.2,.1,.6,turnAngle);
+              instance('metal','box','#5d605f',px+nx*winding*.58,yy-.1,pz+nz*winding*.58,1.2,.9,.04,turnAngle);
+            }
+          }
+        }
+      }
       if((!b.modern&&(b.osmId%3!==0||h>50))||length<5||length<=(frontage?.length??0))continue;
       if(streetFace){
         const nx=(c.y-a.y)/length,nz=(a.x-c.x)/length;
         const side=(mx-x)*nx+(mz-z)*nz<0?-1:1;
-        frontage={a,c,length,face:[side*nx,side*nz]};
+        frontage={a,c,length,face:[side*nx,side*nz],kind:faceKinds[i]??(b.modern?'shopi':'shopa')};
       }
     }
     if(frontage){
       const storefrontSign=(...args)=>{
         const mark=sign(...args);
-        if(mark.userData.vertical)mark.userData.suppressWith=materials[storeKind];
+        if(mark.userData.vertical)mark.userData.suppressWith=materials[frontage.kind];
       };
       placeFrontage(b,frontage.a,frontage.c,frontage.face,{instance,sign:storefrontSign});
       if(b.modern){
@@ -464,42 +592,90 @@ export function createOsmCity(scene,doc,anisotropy) {
       placeRoof(b,x,z,instance);
     }
   }
-  for(const {x,z,width,depth,height,housing,civic,tree,heading=0,streetSide,shop,street} of urbanInfill()){
+  for(const {x,z,width,depth,height,housing,civic,tree,lot,tin,setback=0,heading=0,streetSide,shop,street} of urbanInfill()){
     const ux=Math.cos(heading),uz=Math.sin(heading);
     const p=(dx,dy,h)=>[x+ux*dx*width/2-uz*dy*depth/2,h,z+uz*dx*width/2+ux*dy*depth/2];
-    batch(x,z,civic?'paving':'park').quad(p(-1,-1,-.083),p(1,-1,-.083),
-      p(1,1,-.083),p(-1,1,-.083),civic?'#b3ab96':'#738759',width/3,depth/3);
+    const seed=Math.round(x*31+z);
+    const groundKind=civic?'paving':lot==='parking'?'paving':lot==='fence'||lot==='bare'?'earth':'park';
+    const groundTint=civic?'#a39f93':lot==='parking'?'#8d8a84':lot==='fence'||lot==='bare'?'#8c8266':'#738759';
+    batch(x,z,groundKind).quad(p(-1,-1,-.083),p(1,-1,-.083),p(1,1,-.083),p(-1,1,-.083),groundTint,width/3,depth/3);
     if(housing){
-      const walls=batch(x,z,civic?'new':'old'),roof=batch(x,z,'roofTop'),h=height;
-      for(const side of [-1,1]){
-        walls.quad(p(-1,side,0),p(1,side,0),p(1,side,h),p(-1,side,h),
-          '#c1b49e',width/(civic?18:5.2),h/(civic?18.75:4.4));
-        walls.quad(p(side,-1,0),p(side,1,0),p(side,1,h),p(side,-1,h),
-          '#b4a892',depth/(civic?18:5.2),h/(civic?18.75:4.4));
-      }
-      roof.quad(p(-1,-1,h),p(1,-1,h),p(1,1,h),p(-1,1,h),'#9d9181');
+      const walls=batch(x,z,civic?'new':'old'),roof=batch(x,z,'roofTop');
+      const top=tin?Math.min(height,5.4):height,cut=setback?top-setback*3.2:top;
+      const base=new T.Color(wallSwatches[Math.floor(hash(seed)*wallSwatches.length)]).lerp(new T.Color('#c1b49e'),.45);
+      const tintA=base.clone().offsetHSL(0,0,(hash(seed,3)-.5)*.1),tintB=tintA.clone().multiplyScalar(.93);
+      const scale=civic?18:5.2*(.88+.24*hash(seed,5)),vscale=civic?18.75:4.4;
+      const shell=(sx,sy,off,y0,y1,u0)=>{
+        const q=(dx,dy,h)=>p(dx*sx,dy*sy+off,h);
+        for(const side of [-1,1]){
+          walls.quad(q(-1,side,y0),q(1,side,y0),q(1,side,y1),q(-1,side,y1),tintA,width*sx/scale,(y1-y0)/vscale,u0);
+          walls.quad(q(side,-1,y0),q(side,1,y0),q(side,1,y1),q(side,-1,y1),tintB,depth*sy/scale,(y1-y0)/vscale,u0);
+        }
+        roof.quad(q(-1,-1,y1),q(1,-1,y1),q(1,1,y1),q(-1,1,y1),tin?'#7f8d93':'#9d9181');
+      };
+      shell(1,1,0,0,cut,hash(seed,7));
+      if(setback)shell(.78,.75,-(streetSide??0)*.25,cut,top,hash(seed,8));
       if(street){
         const y=streetSide*1.004;
         textWall(batch(x,z,'shop'),p(-1,y,.02),p(1,y,.02),p(1,y,3.6),p(-1,y,3.6),
           -uz*streetSide,ux*streetSide,'#fff',width/7,1,'infill');
         const left=p(-1,y*1.015,.025),right=p(1,y*1.015,.025),nx=-uz*streetSide,nz=ux*streetSide;
-        textWall(batch(x,z,'shop'+'abcdef'[shop]),left,right,
-          p(1,y*1.015,5.2),p(-1,y*1.015,5.2),nx,nz,'#fff',width/12,.82,'infill');
+        const sections=Math.max(1,Math.round(width/6.5));
+        for(let k=0;k<sections;k++){
+          const lerp=t=>left.map((v,i)=>v+(right[i]-v)*t),l0=lerp(k/sections),r0=lerp((k+1)/sections);
+          const kind='shop'+'abcdefghijkl'[Math.floor(hash(shop,seed+k*17+streetSide)*12)];
+          const uLen=width/sections/12;
+          textWall(batch(x,z,kind),l0,r0,[r0[0],5.2,r0[2]],[l0[0],5.2,l0[2]],nx,nz,'#fff',
+            sections>1?uLen:width/12,.82,'infill',sections>1?hash(seed,k+60)*Math.max(0,1-uLen):0);
+        }
         if(!civic)paveFront(left[0],left[2],right[0],right[2],nx,nz,width,4.0);
         const [cx,,cz]=p(0,streetSide*1.17,0);
-        instance('metal','box','#a39984',cx,2.93,cz,width,.16,1.12,-heading);
+        instance('metal','box','#a39984',cx,2.93,cz,width,.38,1.12,-heading);
         instance('glass','box','#8b9c90',cx,2.71,cz,width,.24,.13,-heading);
+        for(const side of [-.8,-.27,.27,.8]){
+          const [colX,,colZ]=p(side,streetSide*1.17,0);
+          instance('concrete','box','#bdb7a9',colX,1.4,colZ,.32,2.8,.32,-heading);
+        }
       }
-    }else if(tree){
-      placeTree(instance,x,z,Math.round(x*31+z),.32);
-      if(civic&&width>8&&depth>6){
+    }else if(lot==='parking'){
+      for(let k=0;k<=5;k++){
+        const dx=-1+2*k/5;
+        batch(x,z,'line').quad(p(dx-.012,-.85,-.07),p(dx+.012,-.85,-.07),p(dx+.012,.85,-.07),p(dx-.012,.85,-.07),'#e9e4d2');
+      }
+      for(let k=0;k<5;k++){
+        const roll=hash(seed,k+70);
+        if(roll>.62)continue;
+        const [cx,,cz]=p(-1+(2*k+1)/5,.15,0),paint=['#c9ccd0','#2f3236','#9a2e2e','#e8e6df','#3f5b7a'][Math.floor(roll*8)%5];
+        instance('metal','box',paint,cx,.55,cz,4.3,.7,1.75,-heading+Math.PI/2);
+        instance('dark','box','#33383d',cx,1.15,cz,2.2,.5,1.55,-heading+Math.PI/2);
+      }
+      const [sx,,sz]=p(.9,-.75,0);
+      instance('metal','box','#5d6d6a',sx,1.2,sz,.1,2.4,.1,0);
+    }else if(lot==='fence'){
+      const wallTint='#8aa29a';
+      instance('metal','box',wallTint,...[p(0,-1,0)[0],.95,p(0,-1,0)[2]],width,1.9,.08,-heading);
+      instance('metal','box',wallTint,...[p(0,1,0)[0],.95,p(0,1,0)[2]],width,1.9,.08,-heading);
+      instance('metal','box',wallTint,...[p(-1,0,0)[0],.95,p(-1,0,0)[2]],.08,1.9,depth,-heading);
+      instance('metal','box',wallTint,...[p(1,0,0)[0],.95,p(1,0,0)[2]],.08,1.9,depth,-heading);
+      const [mx,,mz]=p(.2,.1,0);
+      instance('concrete','box','#a9a396',mx,.4,mz,3.2,.8,2.4,-heading);
+    }else if(tree||lot==='park'){
+      placeTree(instance,x,z,seed,.32);
+      if(lot==='park'||civic){
+        const [tx,,tz]=p(-.55,.5,0),[ux2,,uz2]=p(.5,-.5,0);
+        placeTree(instance,tx,tz,seed+5,.26);
+        if(hash(seed,9)>.4)placeTree(instance,ux2,uz2,seed+9,.24);
+      }
+      if((civic||lot==='park')&&width>8&&depth>6){
         const [bx,,bz]=p(0,.62,0),[px,,pz]=p(.58,-.62,0);
         instance('metal','box','#81634d',bx,.48,bz,2.1,.12,.48,-heading);
         for(const offset of [-.61,.61]){
           instance('metal','box','#615e56',bx+ux*offset,.23,bz+uz*offset,.11,.46,.41,-heading);
         }
-        instance('concrete','box','#b8ad9a',px,.24,pz,1.72,.48,.92,-heading);
-        instance('grass','crown','#987467',px,.48,pz,1.60,.44,.85,-heading);
+        if(civic){
+          instance('concrete','box','#b8ad9a',px,.24,pz,1.72,.48,.92,-heading);
+          instance('grass','crown','#987467',px,.48,pz,1.60,.44,.85,-heading);
+        }
       }
     }
   }
@@ -510,6 +686,9 @@ export function createOsmCity(scene,doc,anisotropy) {
         blending:T.AdditiveBlending,opacity:0}));
       sprite.position.set(x,y,z);sprite.scale.set(2.8,2.8,1);
       group.add(sprite);lampHalos.push(sprite);
+      const pool=new T.Mesh(plane,decalMaterial);
+      pool.rotation.x=-Math.PI/2;pool.position.set(x,.09,z);pool.scale.set(9,9,1);pool.visible=false;
+      group.add(pool);lampDecals.push(pool);
     },
     signal:(crossing,x,z)=>{
       const faces=[];
@@ -631,8 +810,8 @@ export function createOsmCity(scene,doc,anisotropy) {
     sign(way.name,p.x*unit,4.0,p.y*unit-.06,Math.PI,'#235d46');
   }
   return {
-    group,replacements,collisionProps,parkedScooters,glow,loadedTextures,loadedAds,textUv,
-    update(x,z,night,rain,quality,clock,lamps=night,aerial=false){
+    group,replacements,updateOfficeDoor,collisionProps,parkedScooters,glow,loadedTextures,loadedAds,textUv,
+    update(x,z,night,rain,quality,clock,lamps=night,aerial=false,hour){
       materials.road.roughness=rain?.19:.94;
       materials.road.metalness=rain?.27:0;
       materials.towerLights.color.setScalar(.12+night*3.4);
@@ -646,6 +825,9 @@ export function createOsmCity(scene,doc,anisotropy) {
         sprite.visible=lamps>.06&&Math.hypot(sprite.position.x-x,sprite.position.z-z)<95;
         sprite.material.opacity=lamps*(rain?.52:.42);
       }
+      decalMaterial.opacity=lamps*(rain?.62:.3);
+      for(const pool of lampDecals)pool.visible=lamps>.06&&Math.hypot(pool.position.x-x,pool.position.z-z)<95;
+      for(const kind of windowKinds)if(materials[kind].emissiveMap)materials[kind].emissiveIntensity=night*.6;
       for(const material of signCache.values())material.color.setScalar(.9+lamps*1.25);
       for(const mat of adMaterials.values())mat.emissiveIntensity=lamps*1.25;
       for(const chunk of chunks.values()){
@@ -655,12 +837,15 @@ export function createOsmCity(scene,doc,anisotropy) {
         const shadow=d<77;
         for(const mesh of chunk.group.children)mesh.castShadow=shadow&&['old','shop','new','office','roof'].some(k=>materials[k]===mesh.material);
       }
+      const flashing=trafficFlashing(hour),flashOn=clock%1<.5;
       for(const item of signalFaces){
         const show=Math.hypot(item.x-x,item.z-z)<90;
-        const c=item.crossing,green=trafficGreen(Math.abs(c.dx)>.8,clock,c.x,c.y);
+        const c=item.crossing,green=trafficGreen(Math.abs(c.dx)>.8,clock,c.x,c.y,hour);
         for(const [i,face] of item.faces.entries()){
           face.visible=show;
-          face.material.color.copy(face.userData.base).multiplyScalar(Boolean(i)===green?1.4:.16);
+          if(!show)continue;
+          if(flashing&&i===0)face.material.color.set('#ffb638').multiplyScalar(flashOn?1.45:.12);
+          else face.material.color.copy(face.userData.base).multiplyScalar(!flashing&&Boolean(i)===green?1.4:.16);
         }
       }
       for(const sign of signs){

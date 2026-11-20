@@ -157,7 +157,7 @@
         "type": "goto",
         "locationId": "convenience",
         "hint": "去松壽路的巷口超商問問：最近誰在買腳癢退散？",
-        "timeLimitSec": 90
+        "timeLimitSec": 100
       },
       {
         "type": "dialogue",
@@ -280,7 +280,7 @@
           },
           {
             "who": "rival_vicky",
-            "text": "{role}，好久不見。我們上週也提了一版：全部買流量，報表很漂亮。"
+            "text": "{role}，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。"
           },
           {
             "who": "player",
@@ -922,7 +922,7 @@
         "type": "goto",
         "locationId": "breakfast",
         "hint": "騎去吳興街的巷口早餐店：電視開著時，大家在看什麼？",
-        "timeLimitSec": 90
+        "timeLimitSec": 100
       },
       {
         "type": "dialogue",

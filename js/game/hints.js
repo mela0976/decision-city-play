@@ -7,6 +7,9 @@ const part = (keys, text) => ({ keys: [].concat(keys || []), text: text || '' })
 const say = (text) => part([], text);
 const numbers = (count) => Array.from({ length: count }, (_, i) => String(i + 1));
 
+// 引擎在建築門口給的 enter：targetId 是地點本身（例如 office、targetName「富幫 A25」），不是某個任務標記
+const isPlaceDoor = (context) => !!context.targetName && (context.entrance || context.targetId === 'office');
+
 export function hintFor(state, mode) {
   const touch = mode === 'touch';
   switch (state?.kind) {
@@ -26,7 +29,7 @@ export function hintFor(state, mode) {
       if (state.remindAuto) return { task, parts: touch ? [say(HINT.tapAuto), say(`${HINT.stick} ${HINT.move}`)] : [part(KEY.auto, T.autoRide), part(KEY.arrows, HINT.move)] };
       const context = state.context;
       if (context?.action) {
-        const what = state.work ? state.work : context.action === 'talk' && context.targetName ? HINT.talkTo(context.targetName) : context.action === 'enter' ? HINT.enterMission : HINT.interact;
+        const what = state.work ? state.work : context.action === 'talk' && context.targetName ? HINT.talkTo(context.targetName) : context.action === 'enter' ? (isPlaceDoor(context) ? HINT.enterPlace(context.targetName) : HINT.enterMission) : HINT.interact;
         return { task, parts: [touch ? say(`${HINT.tapAction} ${what}`) : part(KEY.action, what)] };
       }
       if (touch) return { task, parts: state.canAuto ? [say(`${HINT.stick} ${HINT.move}`), say(HINT.tapAuto)] : [say(`${HINT.stick} ${HINT.move}`)] };
@@ -38,20 +41,20 @@ export function hintFor(state, mode) {
     case 'card':
       return { task: HINT.newMission, parts: touch ? [say(`${HINT.tap} ${T.acceptMission}`)] : [part(KEY.action, T.acceptMission), part(KEY.esc, HINT.menu)] };
     case 'pick':
-      return { task: state.place || '', parts: touch ? [say(HINT.tapOption)] : [part(numbers(Math.min(state.count || 2, 9)), HINT.select)] };
+      return { task: state.place || '', parts: touch ? [say(HINT.tapOption)] : [part(numbers(Math.min(state.count || 2, 9)), HINT.select), part(KEY.arrows, HINT.move), part(KEY.action, HINT.confirm)] };
     case 'place':
       return { task: state.place ? HINT.goTo(state.place) : '', parts: touch ? [say(`${HINT.tap} ${T.depart}`)] : [part(KEY.action, T.depart), part(KEY.esc, HINT.menu)] };
     case 'dialogue':
       // 序幕與收尾還沒有（或已經沒有）選單可開，就不提 Esc
       return { task: state.speaker ? HINT.talkTo(state.speaker) : '', parts: touch ? [say(`${HINT.tap} ${HINT.next}`)] : state.menu === false ? [part(KEY.action, HINT.next)] : [part(KEY.action, HINT.next), part(KEY.esc, HINT.menu)] };
     case 'choice':
-      return { task: HINT.choose, parts: touch ? [say(HINT.tapOption)] : [part(numbers(state.count || 3), HINT.select)] };
+      return { task: HINT.choose, parts: touch ? [say(HINT.tapOption)] : [part(numbers(state.count || 3), HINT.select), part(KEY.arrows, HINT.move), part(KEY.action, HINT.confirm)] };
     case 'result':
       return { task: HINT.seeResult, parts: touch ? [say(`${HINT.tap} ${HINT.next}`)] : [part(KEY.action, HINT.next)] };
     case 'quiz':
-      return { task: HINT.answer, parts: touch ? [say(HINT.tapAnswer)] : [part(numbers(state.count || 4), HINT.select)] };
+      return { task: HINT.answer, parts: touch ? [say(HINT.tapAnswer)] : [part(numbers(state.count || 4), HINT.select), part(KEY.arrows, HINT.move), part(KEY.action, HINT.confirm)] };
     case 'quiz-result':
-      return { task: HINT.answer, parts: touch ? [say(`${HINT.tap} ${HINT.next}`)] : [part(KEY.action, HINT.next)] };
+      return { task: HINT.seeExplain, parts: touch ? [say(`${HINT.tap} ${HINT.next}`)] : [part(KEY.action, HINT.next)] };
     case 'clear':
       return { task: HINT.missionDone, parts: touch ? [say(`${HINT.tap} ${HINT.next}`)] : [part(KEY.action, HINT.next)] };
     case 'cutscene':
@@ -65,7 +68,7 @@ export function hintFor(state, mode) {
     case 'message':
       return { task: [T.messages, state.name].filter(Boolean).join('　'), parts: touch ? [say(`${HINT.tap} ${HINT.next}`)] : [part(KEY.action, HINT.next)] };
     case 'reply':
-      return { task: HINT.reply, parts: touch ? [say(HINT.tapReply)] : [part(numbers(state.count || 3), HINT.replyKeys)] };
+      return { task: HINT.reply, parts: touch ? [say(HINT.tapReply)] : [part(numbers(state.count || 3), HINT.replyKeys), part(KEY.arrows, HINT.move), part(KEY.action, HINT.confirm)] };
     case 'ask':
       return { task: state.title || '', parts: touch ? [say(`${HINT.tap} ${T.takeBasket}`)] : [part(KEY.action, T.takeBasket)] };
     case 'ending':
