@@ -3,10 +3,11 @@
 // 預覽是一張 <img>（手機可長按存圖），另有一顆下載鈕。
 
 import { h } from '../dom.js';
-import { T } from '../strings.js';
+import { T, LANG } from '../strings.js';
 
 const SIZE = 1080;
-const FONT = '"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif';
+// i18n：日文把日文字型排前面；英文用粗的無襯線系統字
+const FONT = LANG === 'ja' ? '"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP","PingFang TC",sans-serif' : LANG === 'en' ? '"Arial Black","Helvetica Neue",Arial,"PingFang TC",sans-serif' : '"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif';
 const FALLBACKS = [
   { sky: ['#ff8a1f', '#ffd60a'], petal: '#ff6fa8', heart: '#d92a1c' },
   { sky: ['#2f7f9e', '#9fe3ff'], petal: '#ffd60a', heart: '#ff8a1f' },
@@ -53,9 +54,10 @@ function drawFallback(ctx, variant) {
   }
 }
 
-const NO_LINE_START = '，。！？、；：」』）';
+const NO_LINE_START = LANG === 'ja' ? '，。！？、；：」』）ー〜ぁぃぅぇぉっゃゅょァィゥェォッャュョ' : '，。！？、；：」』）';
 
 function greedyWrap(ctx, text, maxWidth) {
+  if (LANG === 'en') return wordWrap(ctx, text, maxWidth);
   const lines = [];
   let line = '';
   for (const ch of text) {
@@ -64,6 +66,23 @@ function greedyWrap(ctx, text, maxWidth) {
       line = ch;
     } else {
       line += ch;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+/** 英文版：以單字為單位斷行，不把字切開。 */
+function wordWrap(ctx, text, maxWidth) {
+  const lines = [];
+  let line = '';
+  for (const word of String(text).split(/\s+/).filter(Boolean)) {
+    const next = line ? `${line} ${word}` : word;
+    if (line && ctx.measureText(next).width > maxWidth) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = next;
     }
   }
   if (line) lines.push(line);
@@ -113,7 +132,10 @@ export function composeElderCard(canvas, { image, variant, caption }) {
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
-  ctx.font = `900 250px ${FONT}`;
+  // 大字放得下就用 250px；英文的 Good Morning! 比較長，縮到寬度內
+  let helloSize = 250;
+  do ctx.font = `900 ${helloSize}px ${FONT}`;
+  while (ctx.measureText(T.elderHello).width > SIZE - 110 && (helloSize -= 10) > 80);
   const hello = ctx.createLinearGradient(0, 110, 0, 390);
   hello.addColorStop(0, '#fff36b');
   hello.addColorStop(0.55, '#ffd60a');

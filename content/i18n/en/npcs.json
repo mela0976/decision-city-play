@@ -1,0 +1,240 @@
+[
+  {
+    "id": "boss_lin",
+    "name": "Director Lin",
+    "skin": "npc_boss",
+    "locationId": "office",
+    "title": "Chief Strategy Officer",
+    "lines": [
+      "Wrap reports take 2–3 weeks. By then the window's closed. We check consumers daily now.",
+      "Don't just ask which platform is hottest. Back to basics: what stage is the brand in?",
+      "Clients will always want to bring the work in-house. They should still need our judgment.",
+      "Big impressions, flat sales? Don't change the button color. Ask where customers hesitate.",
+      "Are the bentos here yet? Nobody goes hungry in the hour before a pitch."
+    ]
+  },
+  {
+    "id": "ae_mei",
+    "name": "Mei-ling",
+    "skin": "npc_colleague",
+    "locationId": "office",
+    "title": "Senior AE",
+    "lines": [
+      "Client says “Show us something first”? It means they don't know what they want either.",
+      "Contracts must say who uses AI and keep confidential data out. Or nobody owns the mess.",
+      "Third revision today. I'm grabbing coffee on Songgao Rd. Anyone want one?",
+      "The client wants overall growth, not just one ad.",
+      "I sent the meeting notes. Mark them read, or I'll keep asking."
+    ]
+  },
+  {
+    "id": "data_kai",
+    "name": "Ah-Kai",
+    "skin": "npc_colleague",
+    "locationId": "datalab",
+    "title": "Data Analyst",
+    "lines": [
+      "Everyone thinks we do magic. Really, 80% of our time goes to cleaning data.",
+      "Feed AI a mess and it hands you back a very confident mess.",
+      "A pretty Brand Lift means nothing if it only lit up people who already loved us.",
+      "A 0.89 correlation is not 89% accuracy. Don't tell the client that.",
+      "By the time you say “I think,” I've already opened the report.",
+      "The AC at Lanshan Plaza runs all night. The servers live better than I do."
+    ]
+  },
+  {
+    "id": "cd_wei",
+    "name": "Wei",
+    "skin": "npc_boss",
+    "locationId": "studio",
+    "title": "Creative Director",
+    "lines": [
+      "Prompt AI like you'd brief a camera or production crew: clearly. Or you get bland answers.",
+      "“Make it a bit younger.” I've been hearing that for 15 years.",
+      "Creative isn't gift-wrapping a selling point. It's making people want to keep watching.",
+      "Everyone can use AI. Clients come to us for that bit of human magic.",
+      "The Chillshan Creative Park studio goes back at four. One more take, and you apologize."
+    ]
+  },
+  {
+    "id": "breakfast_auntie",
+    "name": "Auntie Hsiu-chin",
+    "skin": "npc_vendor",
+    "locationId": "breakfast",
+    "title": "Breakfast Shop Owner",
+    "lines": [
+      "Hey there, good-looking! The usual? Egg crepe with chili, milk tea, no ice.",
+      "Folks say they love my egg crepes, then come twice a month. How's a survey get that right?",
+      "Forty-some regulars, toast and milk tea every day, I remember them all. First-party data?",
+      "Everyone's glued to their phones, but switch on the TV and they still look up.",
+      "I asked AI how many crepe wrappers to prep for tomorrow. It answered, just not very well."
+    ]
+  },
+  {
+    "id": "clerk_ning",
+    "name": "Ning",
+    "skin": "npc_student",
+    "locationId": "convenience",
+    "title": "Convenience Store Clerk",
+    "lines": [
+      "Welcome! Second coffee's half price.",
+      "Customers swipe through five deals, then tell me at the counter: just pick one for me.",
+      "Rainy days, umbrellas and raincoats always sell out. Better than the weather forecast.",
+      "We've got Southeast Asian language cards at the counter. No charades to ship a parcel.",
+      "Energy drinks again? That's your second can today.",
+      "The week of the New Year's Eve road closures, hot drinks and heat packs always sell out."
+    ]
+  },
+  {
+    "id": "client_wu",
+    "name": "Manager Wu",
+    "skin": "npc_client",
+    "locationId": "mrt",
+    "title": "Coffee Chain Marketing Manager",
+    "lines": [
+      "I don't know what to tell consumers either. You tell me: what screen is everyone watching?",
+      "We don't want a pile of billboards. When do morning crowds at City Hall Station notice us?",
+      "My boss asks one thing: does anyone even look at the billboard?",
+      "Five days to the hot Americano launch. I haven't slept well in three."
+    ]
+  },
+  {
+    "id": "client_chen",
+    "name": "Manager Chen",
+    "skin": "npc_client",
+    "locationId": "client_hq",
+    "title": "Supplement Brand Marketing Manager",
+    "lines": [
+      "With the pandemic, my boss says put the whole budget into traffic. Visible sales are real.",
+      "We have tons of LINE friends, but no idea who our regulars are.",
+      "Digital reports show conversions. Who's actually watching TV? My boss asks me every week.",
+      "Keep the deck short. My boss only reads the first page and the last.",
+      "The AC in the Taipei Wun-Zero-Wun meeting rooms is brutal. Bring a jacket."
+    ]
+  },
+  {
+    "id": "client_hsu",
+    "name": "Manager Hsu",
+    "skin": "npc_client",
+    "locationId": "department",
+    "title": "Cleaning Products Brand Manager",
+    "lines": [
+      "I know we need ESG, but customers only ask how much more the eco version costs.",
+      "The counter staff say you have to pour refill packs yourself. Customers call it a hassle.",
+      "Whatever happens, don't let anyone call us greenwashers. That's my boss's worst fear.",
+      "Anniversary sale season again. Every time, it's who has the bigger discount.",
+      "Once the buskers on Xiangti Avenue start singing, the crowd's gone and our counters empty."
+    ]
+  },
+  {
+    "id": "vendor_cheng",
+    "name": "Ah-Cheng",
+    "skin": "npc_vendor",
+    "locationId": "night_market",
+    "title": "Fried Chicken Stall Owner",
+    "lines": [
+      "Want it cut? Spicy?",
+      "New Year's road closures, everyone's stuck by City Hall. Business is better over here.",
+      "On this street, when one old shop closes, a whole stretch goes dark.",
+      "Now even my fried chicken needs LINE members. Where does all that data even end up?",
+      "Young folks eat at one night market stall and leave. Nobody goes down the alleys."
+    ]
+  },
+  {
+    "id": "tv_su",
+    "name": "Ms. Su",
+    "skin": "npc_colleague",
+    "locationId": "tvstation",
+    "title": "TV Ad Sales Manager",
+    "lines": [
+      "You can't just slash the TV budget. Lots of people still learn a brand from TV.",
+      "When the prime-time drama's on, the whole family's in the living room. Phones can't do it.",
+      "I'm not selling you anything. Just running the CPM for you.",
+      "Golden Melody Awards night, ratings spiked. People still gather around the TV together.",
+      "You young folks say you don't watch TV. What about your grandma?"
+    ]
+  },
+  {
+    "id": "temple_uncle",
+    "name": "Temple Uncle",
+    "skin": "npc_elder",
+    "locationId": "temple",
+    "title": "Temple Keeper",
+    "lines": [
+      "Young one, pray with a sincere heart. Pitch with one, too.",
+      "This Earth God shrine runs on neighbors, not ads.",
+      "Three prayers, eh? Ama comes every day. You might run into her.",
+      "Drawing fortune sticks is about peace of mind. Making decisions is too, isn't it?",
+      "The old shops on Fude St. know this area better than any map."
+    ]
+  },
+  {
+    "id": "grandma",
+    "name": "Ama",
+    "skin": "npc_grandma",
+    "locationId": "gamadiam",
+    "title": "Grandma at the General Store",
+    "lines": [
+      "Have you eaten? Look at those dark circles. Overtime again, huh?",
+      "That talking speaker reminds me to take my pills every day. More on time than my daughter.",
+      "Don't call me old! Ama uses LINE too!",
+      "Customer service keeps passing me around. I'd still rather talk to a real person.",
+      "When you buy things, don't just listen to the machine. Ask the neighbors too."
+    ]
+  },
+  {
+    "id": "rechao_boss",
+    "name": "Li-hua",
+    "skin": "npc_vendor",
+    "locationId": "rechao",
+    "title": "Stir-Fry Joint Owner",
+    "lines": [
+      "Done for the day? Three-cup squid, stir-fried water lily stems. Grab your own beer.",
+      "You ad agency folks badmouth your clients every time you come in.",
+      "Business is like stir-frying: when the heat's right, plate it. Don't keep waiting.",
+      "Who's paying for this table? Last time's guy already ran off.",
+      "Burning out? Then drink less and have a plate of greens."
+    ]
+  },
+  {
+    "id": "rider_jie",
+    "name": "Ah-Chieh",
+    "skin": "npc_rider",
+    "locationId": "riverside",
+    "title": "Delivery Rider",
+    "lines": [
+      "After a day of orders, nothing beats the breeze at Rainbow Riverside.",
+      "The app's dispatch algorithm is harder to figure out than any boss.",
+      "Clients chasing you around too? Catch your breath first.",
+      "One drop-off at a Xinyi District tower, and I wait ten minutes just for the elevator."
+    ]
+  },
+  {
+    "id": "roommate_yu",
+    "name": "Yu",
+    "skin": "npc_student",
+    "locationId": "home",
+    "title": "Roommate, Senior-Year Intern",
+    "lines": [
+      "Morning! You were up till three again. I heard you fixing your deck.",
+      "Rather than rushing big projects, I'd like a bit of progress every day.",
+      "I ask AI which brand is good, then check the forums for the downsides.",
+      "Wuxing St. to A25 is a ten-minute ride. Why are you late every day?",
+      "Bring me a fried chicken cutlet from Linginger Street on your way back!"
+    ]
+  },
+  {
+    "id": "rival_vicky",
+    "name": "Vicky",
+    "skin": "npc_colleague",
+    "locationId": "client_hq",
+    "title": "Rival Pitch Director (Ex-Colleague)",
+    "lines": [
+      "We meet again. Waiting on the same client?",
+      "Our AI laid out nine pages overnight. You're still doing it by hand?",
+      "I still remember the boba you bought me on my last day. Tonight I won't go easy.",
+      "Lose the pitch, you buy stir-fry. Win, you still buy. House rules.",
+      "The Wun-Zero-Wun elevators take two transfers. I almost run late every time."
+    ]
+  }
+]

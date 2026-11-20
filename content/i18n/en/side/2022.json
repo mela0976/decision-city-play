@@ -1,0 +1,1357 @@
+{
+  "year": 2022,
+  "chapters": [
+    {
+      "id": "c2022_01",
+      "title": "The Heads-Down Era Is Over: Look Up at the Road to Build Momentum for a Leap",
+      "by": "TIER Macroeconomic Forecasting Center",
+      "summary": "The pandemic's tail, the Russia-Ukraine war, and early rate hikes and QT shape the 2023 consumer market. Watching the outside world is now a core business skill.",
+      "coveredBy": "s2022_01"
+    },
+    {
+      "id": "c2022_02",
+      "title": "Learning from the Future as It Emerges",
+      "by": "Dentsu Marketing Communications Group, CDO",
+      "summary": "Past experience isn't enough. Brands should learn from the emerging future via four questions, as Nike shows with ESG, Nikeland, and supply-chain transparency.",
+      "coveredBy": "s2022_01"
+    },
+    {
+      "id": "c2022_03",
+      "title": "CX Drives the Next Wave of Growth: 4 Imperatives to Realize the Business Value of Digital Transformation",
+      "by": "Merkle Taiwan",
+      "summary": "CX spans marketing, sales, commerce, and service moments. Brands must gather data for customer value, sharpen measurement, build trust, and grasp what martech means.",
+      "coveredBy": "s2022_02"
+    },
+    {
+      "id": "c2022_04",
+      "title": "New Markets Driving New Future Value for Brands",
+      "by": "Dentsu Intelligence Center",
+      "summary": "CCS finds 40 is the watershed in how people see now and the future. Young workers value small daily wins and a steady, ordinary life, and care more what others think.",
+      "coveredBy": "s2022_03"
+    },
+    {
+      "id": "c2022_05",
+      "title": "New Assets, New Skills, New Traits: Mastering a Fragmented New World",
+      "by": "dentsu X",
+      "summary": "Media, journey, and market fragmentation outlast the pandemic. Brands gain flexibility via brand personality, a shift from acquisition to retention, and agility.",
+      "coveredBy": "s2022_04"
+    },
+    {
+      "id": "c2022_06",
+      "title": "Five Dilemmas for the CMO: Five Challenges of Brand Growth and Transformation",
+      "by": "Carat",
+      "summary": "CMOs must team up with the chiefs of comms, IT, tech, and community, make content with social value to win visibility, and become data-driven growth hackers.",
+      "coveredBy": "s2022_05"
+    },
+    {
+      "id": "c2022_07",
+      "title": "Data Multiplies Marketing Monetization: Win the Present, Invest in Sustainable Future Growth",
+      "by": "iProspect Taiwan",
+      "summary": "Unify online and offline data, predict purchase and churn with machine learning, and use four-step CRO (conversion rate optimization) so site content meets pain points.",
+      "coveredBy": "s2022_06"
+    },
+    {
+      "id": "c2022_08",
+      "title": "Modern Creativity: Differentiating Through Disruptive Innovation in Chaotic Times",
+      "by": "Isobar Taiwan",
+      "summary": "A creative scale sorts work into six types: harmful, ignored, solid, culture-making, society-changing, future-defining. Only the last three count as Modern Creativity.",
+      "coveredBy": "s2022_07"
+    },
+    {
+      "id": "c2022_09",
+      "title": "Modern Creativity: Creating a Business Multiplier Effect for Brands",
+      "by": "dentsu mb",
+      "summary": "OREO's Doomsday Vault, AB InBev's Pure Gold contract, and KFC's pocket fried chicken shop show how cultural tension plus smart tech multiplies business value.",
+      "coveredBy": "s2022_07"
+    },
+    {
+      "id": "c2022_10",
+      "title": "Modern Creativity: The Multiplier Power of the Unimagined",
+      "by": "Dentsu Kuohua",
+      "summary": "For young people, a gag beats a stance. KFC tapped “love it, fear losing it” to tease “No more egg tarts?”; Yahoo made features buzz with an exorcism launch.",
+      "coveredBy": "s2022_08"
+    },
+    {
+      "id": "c2022_11",
+      "title": "“Connected Creative Experiences” Accelerate Modern Creativity",
+      "by": "Isobar Taiwan",
+      "summary": "Real vs. virtual, ideals vs. deals: the lines blur. Pizza Hut Taiwan embraced local pride with “Together: Hot Taiwan Flavor” across social and set a sales record in 2021.",
+      "coveredBy": "s2022_09"
+    },
+    {
+      "id": "c2022_12",
+      "title": "The New Customer-Centric Experience Era: Welcoming Hyper-Personalization",
+      "by": "Merkle Taiwan",
+      "summary": "Mass marketing and basic segments fall short. Unify 360-degree profiles, predict members' dormancy and repurchase, and hyper-personalize with AI marketing's three arrows.",
+      "coveredBy": "s2022_02"
+    },
+    {
+      "id": "c2022_13",
+      "title": "Sustainable Transformation: Seize the Trends, Break New Ground",
+      "by": "",
+      "summary": "Policy, capital, nonprofits, consumers, and companies drive five sustainability trends, but consumers find it pricey, a hassle, and unclear, so actions lag attitudes.",
+      "coveredBy": "m2022"
+    },
+    {
+      "id": "c2022_14",
+      "title": "Growth through Good: Start with Good, Grow Sustainably",
+      "by": "dentsu good",
+      "summary": "With Think, Evaluate, Do, companies move through compliance, capability, and competitiveness. Cases like IKEA and TUNA SCOPE show how doing good drives growth.",
+      "coveredBy": "m2022"
+    },
+    {
+      "id": "c2022_15",
+      "title": "The Power of Web 3.0: Expanding How We Imagine the World",
+      "by": "Dentsu MC Group, Web3 Growth Consultant",
+      "summary": "Six NFT cases, including Dayungs' metaverse fruit-ice parlor and kidznft, show Web3's participatory commerce. An NFT can even be a membership card.",
+      "coveredBy": "s2022_09"
+    },
+    {
+      "id": "c2022_16",
+      "title": "The Innovation Engine Behind Leaps in Growth: Curiosity",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Efficiency poisons curiosity. Build a stage for sharing new things, let sharing spark anticipation, and make encouragement visible, so curiosity cushions the shocks.",
+      "coveredBy": "s2022_10"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2022_meijun",
+      "name": "Mei-chun",
+      "skin": "npc_client",
+      "locationId": "client_hq",
+      "title": "CMO, Itch Be Gone",
+      "lines": [
+        "Seven meetings today. Exactly one was about marketing.",
+        "The CIO says the system waits till next year. I said the market won't wait for me.",
+        "Who can help me explain “visibility” to the board in one sentence?",
+        "Day 100 on the job. First lesson I learned: take IT out to lunch."
+      ]
+    },
+    {
+      "id": "n2022_damu",
+      "name": "Big Eyes",
+      "skin": "npc_colleague",
+      "locationId": "studio",
+      "title": "Production House Director",
+      "lines": [
+        "Darker. Dark enough that the client can't tell it's version seven.",
+        "Hardest shot I've ever filmed? The client's smile.",
+        "Are the bentos here? Actors can wait. Bentos can't.",
+        "Gorgeous shot. I just don't know what it's saying yet."
+      ]
+    },
+    {
+      "id": "n2022_fang",
+      "name": "Fang-fang",
+      "skin": "npc_student",
+      "locationId": "office",
+      "title": "E-com Site Editor",
+      "lines": [
+        "HQ translated our site copy. It reads like a user manual.",
+        "More people fill a cart and walk away than actually buy.",
+        "I stare at heatmaps all day. Now I dream in red.",
+        "Can I just change one button first? Just one."
+      ]
+    },
+    {
+      "id": "n2022_qiao",
+      "name": "Chiao",
+      "skin": "npc_vendor",
+      "locationId": "temple",
+      "title": "Owner, Keep It Cool Tea Stand",
+      "lines": [
+        "Our winter melon tea's been sold on this temple square since my grandpa's day.",
+        "Someone said I should drop an NFT. I thought it was a new sweetness level.",
+        "My customers keep getting younger. My sign keeps getting older.",
+        "No ice, light sugar. Same goes for life."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2022_01",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_01",
+        "c2022_02"
+      ],
+      "title": "Cabbage Went Up Again",
+      "locationId": "rechao",
+      "giver": "rechao_boss",
+      "time": "noon",
+      "brief": "Veggies, oil, and gas are all up at Wuxing St. Stir-Fry, and Li-hua is thinking of raising the whole menu. “You marketing folks should see further than me, right?”",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "rechao_boss",
+              "text": "{role}, cabbage is up nearly 50% since last month. So what do I charge per plate?"
+            },
+            {
+              "who": "rechao_boss",
+              "text": "The place next door raised everything by twenty. People grumble, but they still go."
+            },
+            {
+              "who": "player",
+              "text": "Do you think the price hikes are temporary, or here to stay?"
+            },
+            {
+              "who": "rechao_boss",
+              "text": "How would I know? One day the news says war, the next it's rate hikes. I just see bills."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "My daughter wants to sell frozen meal kits online. Thirty years of stir-fry. Should I?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Li-hua wants one direction from you. What do you suggest?",
+          "options": [
+            {
+              "text": "Follow the market: raise the whole menu by NT$20 and post a handwritten notice about rising costs.",
+              "effects": {
+                "sales": 4,
+                "trust": -2,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "Revenue is back in week one; regulars grumble but order the same dishes. But Friday loses two company dinners, from a tech firm Li-hua says is laying people off.",
+              "insight": "The book traces inflation to three causes: the Russia-Ukraine war driving up raw materials, the pandemic scrambling supply chains, and, last, rising demand. Only demand can be cooled by rate hikes; supply-driven price rises are hard for policy to undo quickly.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Look closer: split the menu into cost-sensitive dishes and signatures. Raise only the first.",
+              "effects": {
+                "trust": 5,
+                "sales": 3,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "You and Li-hua run costs outside the shop all afternoon. The three-cup chicken holds, and the menu adds: “Signature prices stay. We're holding on.” Regulars post it.",
+              "insight": "The book says the pandemic, geopolitics, and the Fed's stance all move the economy together, and the EU's carbon border tax starts in 2023. Watching the outside world is now a core business skill.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Look further: first ask “What do we want to be?”, then decide on meal kits and who they're for.",
+              "effects": {
+                "brand": 5,
+                "trust": 3,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "You write four questions on an order pad; Li-hua and her daughter argue till closing. They pick one kit, “Mom's Three-Cup Chicken,” for old regulars' kids who moved out.",
+              "insight": "The book quotes Saint-Exupéry: your task is not to foresee the future, but to enable it. Brands can start from four questions: What do I want? What do my customers want? What can I do for them? What ecosystem can we shape together?",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "TIER names three main causes of inflation. Which one can rate hikes and balance-sheet cuts help cool?",
+            "options": [
+              "The Russia-Ukraine war pushing up raw material prices",
+              "The pandemic disrupting global supply chains",
+              "Rising consumer demand",
+              "The EU carbon border tax taking effect"
+            ],
+            "answer": 2,
+            "explain": "The book ranks the causes by impact: the Russia-Ukraine war, pandemic supply chains, then rising demand. Only demand can be cooled by rate hikes and tightening.",
+            "source": "The Heads-Down Era Is Over: Look Up at the Road to Build Momentum for a Leap"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "The Future Is Made",
+        "text": "When the economy is foggy, first answer what you want to become."
+      }
+    },
+    {
+      "id": "s2022_02",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_03",
+        "c2022_12"
+      ],
+      "title": "100K Coupons",
+      "locationId": "datalab",
+      "giver": "data_kai",
+      "time": "afternoon",
+      "brief": "Brunch chain “Egg Crepes Forever” has 100K members; half haven't visited in six months. Client wants coupons for all. At Lanshan Plaza's screens, Ah-Kai shakes his head.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "data_kai",
+              "text": "{role}, the client wants BOGO for all 100K members. The texts alone cost a fortune."
+            },
+            {
+              "who": "data_kai",
+              "text": "Last time I did that, everyone who came back was coming anyway. They just had a coupon."
+            },
+            {
+              "who": "player",
+              "text": "So who's actually about to drift away?"
+            },
+            {
+              "who": "data_kai",
+              "text": "The model can flag who'll lapse in three months. But app, POS, and LINE data don't match."
+            },
+            {
+              "who": "data_kai",
+              "text": "One more thing: the client hasn't even defined what “a member coming back” means."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "We owe the client a plan next week. What's your call?",
+          "options": [
+            {
+              "text": "Do what the client wants: coupons for all. Volume always works. Get foot traffic up first.",
+              "effects": {
+                "sales": 5,
+                "brand": -2,
+                "trust": -2,
+                "liver": 3
+              },
+              "feedback": "Coupon week brings lines out the door; the manager says the kitchen nearly burned. A month on, 70% of returners were already weekly regulars, now eating at half price.",
+              "insight": "The book says that with exploding touchpoints and information overload, mass marketing only leaves customers numb and annoyed, and simple segmentation no longer satisfies them.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Align data and metrics first, then model who's likeliest to lapse and wake them by channel.",
+              "effects": {
+                "trust": 6,
+                "sales": 3,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "Two weeks on data; the client's antsy. Wave one targets just 8,000 high-risk members via LINE or EDM. Return rate: triple the blanket blast, at under a tenth of the cost.",
+              "insight": "The book lays out hyper-personalization: unify 360-degree customer profiles, then move from basic segments to models that predict members' future dormancy and repurchase. Measurement has to come first, or the customer value in the data stays hidden.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Hold the coupons: call thirty dormant members and ask why they stopped coming.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "By call twelve, you see many just moved or changed jobs; they didn't dislike it. One says, “Your app makes me log in again every time.” The client fixes the app first.",
+              "insight": "The book says CX is often split among teams pulling different ways. Next-gen commerce means building trusted experiences around customer value, and asking yourself, “Why collect this data first?”",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Welcoming Hyper-Personalization” names three arrows for AI marketing. Which set is right?",
+            "options": [
+              "Social listening, influencer deals, ad buying",
+              "Member points, coupons, birthday gifts",
+              "Brand positioning, media mix, creative testing",
+              "Data management, intent analysis, purchase and opportunity prediction"
+            ],
+            "answer": 3,
+            "explain": "The book's three arrows for AI marketing are marketing data management, customer intent analysis, and purchase and opportunity prediction.",
+            "source": "The New Customer-Centric Experience Era: Welcoming Hyper-Personalization"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Not Everyone Needs a Coupon",
+        "text": "First figure out who's about to leave, then decide how and when to reach them."
+      }
+    },
+    {
+      "id": "s2022_03",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_04"
+      ],
+      "title": "A Little Each Day",
+      "locationId": "home",
+      "giver": "roommate_yu",
+      "time": "morning",
+      "brief": "A bank wants young people's first credit card; the key visual says “Buy a Home Before 30.” At the Wuxing St. Apartment, Yu takes one look and sets the coffee down.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "roommate_yu",
+              "text": "{role}, this is meant for people like me? Buy a home before thirty?"
+            },
+            {
+              "who": "roommate_yu",
+              "text": "My classmates' big dream: leave work on time, hike Elephant Mountain on weekends."
+            },
+            {
+              "who": "player",
+              "text": "The client's marketing head is 45. He thinks young people need goals."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "We have goals! Mine is crossing three things off my to-do list every day. Feels great."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "We check reviews before we swipe. Being called a sucker is worse than not owning a home."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The key visual is due this afternoon. How do you change it?",
+          "options": [
+            {
+              "text": "Keep “Buy a Home Before 30” and beef up the money-management copy so the boss feels safe.",
+              "effects": {
+                "trust": 3,
+                "sales": 2,
+                "brand": -3,
+                "liver": 2
+              },
+              "feedback": "The boss loves it: finally, some ambition. After launch, young users' CTR is the lowest on the site. One comment reads, “Let me afford rent first.”",
+              "insight": "The book says views of work are shifting: even senior workers now doubt a few years of hard work can buy a home. A steady, ordinary life is the dream most people share.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Pivot to little daily joys: every swipe saves a bit toward a weekend getaway.",
+              "effects": {
+                "brand": 5,
+                "sales": 3,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Twelve visuals and an all-nighter with the designer. The key one: a to-do list, three items crossed off. At the last one, the boss says, “My daughter's like this too.”",
+              "insight": "The book cites a survey: 89.5% agree with “finishing each day's work smoothly,” far more than the 10.5% for “nailing one huge project.” Young workers prefer concrete, immediate little joys.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Word of mouth first: have young users post honest unboxings so the card gets talked up on social.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "Three of twenty unboxings gripe about the app. The client wants them gone; you get them kept, with a reply on the fix timeline. Those replies get the most buzz.",
+              "insight": "CCS data in the book shows young workers who care what others think rose from 59% in 2018 to 63% in 2021. How they look on social media weighs heavily on what they buy.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In the survey the book cites, what share agreed with “finishing each day's work smoothly”?",
+            "options": [
+              "89.5%",
+              "63%",
+              "47%",
+              "10.5%"
+            ],
+            "answer": 0,
+            "explain": "89.5% agreed with “finishing each day's work smoothly,” far more than the 10.5% for “nailing one huge project.”",
+            "source": "New Markets Driving New Future Value for Brands"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "40 Is the Watershed",
+        "text": "Don't measure young people's dreams with a forty-year-old's ruler."
+      }
+    },
+    {
+      "id": "s2022_04",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_05"
+      ],
+      "title": "Three Generations, One Ad",
+      "locationId": "tvstation",
+      "giver": "tv_su",
+      "time": "afternoon",
+      "brief": "An appliance brand's new air fryer is for everyone, grandpa to middle schooler. Ms. Su has great TV slots; the client's social media editor wants it all in short video.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "tv_su",
+              "text": "{role}, client says this fryer's for “the whole family.” That's three generations!"
+            },
+            {
+              "who": "tv_su",
+              "text": "Grandpa watches news, Mom binges K-dramas, little brother scrolls short videos and games."
+            },
+            {
+              "who": "player",
+              "text": "What about the client's own members?"
+            },
+            {
+              "who": "tv_su",
+              "text": "Barely any. They've bought new customers with ads for years. Ads cost more, buyers vanish."
+            },
+            {
+              "who": "tv_su",
+              "text": "The editor wants a brand personality, but seven channels, seven voices. Who even is it?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Where should the client focus this quarter?",
+          "options": [
+            {
+              "text": "Content for each channel: Grandpa and little brother see totally different ads. Fully personalized.",
+              "effects": {
+                "sales": 4,
+                "brand": -3,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Seven sets of assets nearly break the team, and short-term clicks look fine. Three months later, a brand survey finds people recall “some air fryer,” but not the brand.",
+              "insight": "The book warns that pushing one-to-one personalization too far makes the brand itself look different to everyone, weakening consistency and leaving its image blurry.",
+              "roleBonus": {
+                "creative": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Set one brand personality, then vary tone by channel: trust on TV, fun on short video, same “it.”",
+              "effects": {
+                "brand": 6,
+                "trust": 2,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "You cast the fryer as “the family member who never fights.” On TV it heats Grandpa's bento; on short video it fries little brother's late snack. Fans start naming it.",
+              "insight": "The book says the first pillar of marketing flexibility is brand personality: with fragmented media and brands expected to act more human, owning the brand's personality is key to brand planning.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Buy fewer new customers: move some budget to members and a recipe community so buyers stick around.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "brand": 2,
+                "liver": 3
+              },
+              "feedback": "Ms. Su loses two weeks of slots and sulks. The recipe group hits 20,000 in three months, accessory reorders rise, and the client's next TV push: “the group's top dish.”",
+              "insight": "The book says the ad dividend is fading and digital ad costs keep climbing. Marketing must move from an acquisition-driven era of growth to a retention era built on first-party data and customer lifetime value.",
+              "roleBonus": {
+                "media": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Which three kinds of fragmentation does “Mastering a Fragmented New World” name?",
+            "options": [
+              "Price, channel, packaging",
+              "Media, customer journey, market",
+              "Brand, product, service",
+              "Creative, data, tech"
+            ],
+            "answer": 1,
+            "explain": "The book says media, the customer journey, and the overall market are all fragmenting, and that won't go away when the pandemic ends.",
+            "source": "New Assets, New Skills, New Traits: Mastering a Fragmented New World"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Three Kinds of Flexibility",
+        "text": "However scattered the channels, the brand must be one person. Once customers arrive, keep them."
+      }
+    },
+    {
+      "id": "s2022_05",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_06"
+      ],
+      "title": "The CMO's First 100 Days",
+      "locationId": "client_hq",
+      "giver": "n2022_meijun",
+      "time": "morning",
+      "brief": "Mei-chun, new CMO of itch cream “Itch Be Gone,” is 100 days in and owes the board a transformation update. She meets you at Taipei Wun-Zero-Wun; her coffee's gone cold.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2022_meijun",
+              "text": "{role}, 100 days in, and IT says the new system needs a six-month security review."
+            },
+            {
+              "who": "n2022_meijun",
+              "text": "Three posts a day, and reach falls every time. The board asks where the money went."
+            },
+            {
+              "who": "player",
+              "text": "Which one do you most want to fix first?"
+            },
+            {
+              "who": "n2022_meijun",
+              "text": "All of them. But I get one presentation. Ten minutes."
+            },
+            {
+              "who": "n2022_meijun",
+              "text": "Oh, and our product? People only search for it when their feet are really itchy."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Ten minutes. What should Mei-chun lead with?",
+          "options": [
+            {
+              "text": "Get IT on board: map a martech rollout with the CIO and CTO, and center the talk on infrastructure.",
+              "effects": {
+                "trust": 5,
+                "brand": 2,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "The board finds it solid, but someone asks, “So what about sales for these six months?” Mei-chun says at least the CIO invites her to lunch now.",
+              "insight": "The book says how fast martech rolls out often hinges on IT's capacity and security reviews; the CMO must work with the CTO to bring in martech that's also secure.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Post less, with social value: “what you really want to know when your feet itch,” easy to find.",
+              "effects": {
+                "brand": 5,
+                "trust": 3,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "Three daily posts become two a week. The first, “Athlete's Foot or Eczema?”, tops search in two weeks. A forum repost reads: “A drug company finally talks like a human.”",
+              "insight": "The book calls media a war for visibility: be found when people search with intent, and seen when they scroll without one. Content needs social value, the three Ys of relevance, value, and emotional pull, to be seen.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Let data talk: run three small tests first, and report only what worked and how to scale it.",
+              "effects": {
+                "sales": 4,
+                "trust": 3,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "You run three small-budget tests overnight. The winner: search ads on summer evenings. The deck is four pages. The chairman finishes it and asks, “What's the next test?”",
+              "insight": "The book says future CMOs with a growth-hacker spirit must shift from experience-driven marketing experts to data-driven growth hackers who find the breakthrough fast.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Five Dilemmas for the CMO” says content needs “social value” to be seen. What are the three Ys?",
+            "options": [
+              "Relevance, value, emotional pull",
+              "Fun, timeliness, interactivity",
+              "Impressions, CTR, conversion rate",
+              "Authority, expertise, credibility"
+            ],
+            "answer": 0,
+            "explain": "The book's three Ys are relevance (Relevancy), value (Worthy), and emotional pull (Emotionality).",
+            "source": "Five Dilemmas for the CMO: Five Challenges of Brand Growth and Transformation"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "A CMO Needs Allies",
+        "text": "Transformation isn't one department's job. Find your allies in IT and social first."
+      }
+    },
+    {
+      "id": "s2022_06",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_07"
+      ],
+      "title": "The Tumbler in the Cart",
+      "locationId": "office",
+      "giver": "n2022_fang",
+      "time": "afternoon",
+      "brief": "Tumbler brand “Hot Till Tomorrow” gets decent site traffic, but 80% of people who add to cart walk away. Fang-fang's screen shows a heatmap, solid red.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2022_fang",
+              "text": "{role}, look. Everyone lingers on the “hours of heat” section, then leaves."
+            },
+            {
+              "who": "n2022_fang",
+              "text": "HQ translated that part. It says “superior thermal performance.” No numbers."
+            },
+            {
+              "who": "player",
+              "text": "Is the tracking code set up right? Can we trust these numbers?"
+            },
+            {
+              "who": "n2022_fang",
+              "text": "…After the last redesign, I think two buttons never got tagged."
+            },
+            {
+              "who": "n2022_fang",
+              "text": "The boss says just copy a competitor's site and launch next week."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should we fix the site?",
+          "options": [
+            {
+              "text": "Do what the boss says: rewrite it modeled on the competitor's site and launch next week.",
+              "effects": {
+                "sales": 3,
+                "brand": -3,
+                "trust": -2,
+                "liver": 2
+              },
+              "feedback": "The new version ships fast, and conversion barely moves. Worse, search rankings drop: the two sites read so alike that search engines can't tell them apart.",
+              "insight": "The book says site content often comes from HQ, training, marketers' own writing, or competitors, all subjective calls. Content that's too similar also confuses search engines and hurts indexing.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Four CRO steps: audit tracking, form hypotheses, plan tests, ship only on significant results.",
+              "effects": {
+                "trust": 5,
+                "sales": 4,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "Fixing the tracking alone takes three days. In testing, swapping “superior thermal performance” for “Soup poured at 8 AM is still hot at 8 PM” clearly lifts add-ons.",
+              "insight": "The book's CRO process: audit and validate tracking, form hypotheses from qualitative and quantitative analysis, build a test plan, and ship on statistically significant results. Optimize the site with real user data.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Start with content: have design shoot an “opened after 12 hours” test video for the product page.",
+              "effects": {
+                "brand": 5,
+                "sales": 2,
+                "trust": 2,
+                "liver": 4
+              },
+              "feedback": "Big Eyes' crew shoots all day, waiting for soup to cool. Once it's up, time on page and conversion rise, but with tracking still broken, no one knows by how much.",
+              "insight": "Beyond the book: building on its case that data and content power fuel channel commerce, good content needs proper tracking, or you'll never know how much it helped.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "The book lays out a full CRO (conversion rate optimization) process. What should step one be?",
+            "options": [
+              "Write new product copy",
+              "Audit and validate site tracking",
+              "Redesign based on competitors' sites",
+              "Buy more search ads"
+            ],
+            "answer": 1,
+            "explain": "The book says CRO should start with site tracking tools: audit and validate that data tracking is accurate (Tag & Validate).",
+            "source": "Data Multiplies Marketing Monetization"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 2,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Check Tracking, Then Fix Pages",
+        "text": "If the numbers are wrong, every test after that is a guess."
+      }
+    },
+    {
+      "id": "s2022_07",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_08",
+        "c2022_09"
+      ],
+      "title": "Solid Work, Version Seven",
+      "locationId": "studio",
+      "giver": "n2022_damu",
+      "time": "afternoon",
+      "brief": "Snack brand “Crunch All Night” is on cut seven of its anniversary ad: pretty, clear, all thumbs up. At a Chillshan Creative Park studio, director Big Eyes can't let go.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2022_damu",
+              "text": "{role}, this cut has no problems. Great light, clear product, client nodded."
+            },
+            {
+              "who": "n2022_damu",
+              "text": "Problem is, I watched it myself and forgot it before dinner."
+            },
+            {
+              "who": "player",
+              "text": "What do you want to change it to?"
+            },
+            {
+              "who": "n2022_damu",
+              "text": "Yesterday someone commented, “If a typhoon empties the stores, who saves Crunch?”"
+            },
+            {
+              "who": "n2022_damu",
+              "text": "I'll answer him for real: a riverside Crunch shelter for check-ins. Client calls it play."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The final cut is due tomorrow. Which version do you back?",
+          "options": [
+            {
+              "text": "Deliver version seven. Polished, clear, and it sells. That's what the client wants.",
+              "effects": {
+                "sales": 4,
+                "trust": 3,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "The ad goes live on schedule and sales come in middling. Big Eyes files the shelter sketch in a drawer, saving it for a client with guts.",
+              "insight": "The book's creative scale files work that's “well produced and hits sales goals, but doesn't stick in memory” under solid work. It doesn't count as Modern Creativity.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Build the shelter: take the silly question seriously and make the brand a culture people riff on.",
+              "effects": {
+                "brand": 6,
+                "sales": 2,
+                "trust": -2,
+                "liver": 6
+              },
+              "feedback": "The shelter, built of containers at Rainbow Riverside, draws lines for “Crunch rations” pics. On typhoon eve, they get 10K+ shares. Client legal spends a week on permits.",
+              "insight": "A case from the book: OREO took a Twitter question, “Who'll save OREO when doomsday comes?”, seriously, built a Doomsday Vault on Norway's Svalbard, and published its coordinates, refreshing how people saw a century-old brand.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 4
+                }
+              }
+            },
+            {
+              "text": "Add a rational angle: a smaller shelter, scan to preorder typhoon kits, idea wired to sales.",
+              "effects": {
+                "brand": 4,
+                "sales": 4,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "The shelter shrinks to a convenience-store stand, and scan-to-preorder triples the forecast. Big Eyes says it's not what he pictured, but admits small is funny too.",
+              "insight": "The book says Modern Creativity chases multiplier effects and needs both emotional cultural tension and rational tech. AB InBev and KFC's pocket fried chicken shop both wire creativity straight into business.",
+              "roleBonus": {
+                "cx": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "What nearby facility inspired OREO's Doomsday Vault?",
+            "options": [
+              "Switzerland's underground gold vault",
+              "The U.S. national seed bank",
+              "Iceland's undersea data center",
+              "Norway's Svalbard Doomsday Seed Vault"
+            ],
+            "answer": 3,
+            "explain": "Inspired by Norway's Svalbard Doomsday Seed Vault, OREO built a concrete Doomsday Vault nearby and published its coordinates.",
+            "source": "Modern Creativity: Creating a Business Multiplier Effect for Brands"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 1,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "Solid Isn't Enough",
+        "text": "Well made and selling is the baseline. Getting people to riff until it becomes culture is the multiplier."
+      }
+    },
+    {
+      "id": "s2022_08",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_10"
+      ],
+      "title": "Chicken Stall, No Chicken?",
+      "locationId": "night_market",
+      "giver": "vendor_cheng",
+      "time": "evening",
+      "brief": "Ah-Cheng wants to launch cheesy sweet potato balls, but Linginger St. Night Market gets new stalls daily; new items fade in two days. He wants a gag like everyone else's.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "vendor_cheng",
+              "text": "{role}, my sweet potato balls are great, but the new stall swaps flavors daily."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "My nephew says to put “Ah-Cheng Quits Chicken” on the sign and give everyone a scare."
+            },
+            {
+              "who": "player",
+              "text": "What do your regulars love most?"
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "Chicken cutlets, of course. Some come every Wednesday and get mad if they miss out."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "But won't scaring people get me yelled at? My business runs on trust."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The balls launch next week. How do you promote them?",
+          "options": [
+            {
+              "text": "Play it straight: a how-it's-made video, “Ah-Cheng's New Item,” with ads around the market.",
+              "effects": {
+                "trust": 4,
+                "sales": 2,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "The video is clean and nice; views are so-so. Regulars add a bag of balls to their chicken order, and by week two sales are back to about twenty a day.",
+              "insight": "The book says new-product news gets buried within a day. For young people, a gag beats a stance; a brand that always brings a gag is easier to remember.",
+              "roleBonus": {
+                "media": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Tease it: “Ah-Cheng breaking up with chicken?” for three days. Day four: chicken got a partner.",
+              "effects": {
+                "brand": 6,
+                "sales": 4,
+                "trust": -2,
+                "liver": 5
+              },
+              "feedback": "By day two there's a forum thread; Wednesday regulars rush over asking if he's quitting. Day four's reveal draws rows of “You scared me!” Both sell out an hour early.",
+              "insight": "A case from the book: KFC tapped “the more you love it, the more you fear losing it,” sparked buzz with “KFC's dropping egg tarts?”, then launched a berry crumble tart. Reach hit nearly 100x, and the new tart sold well alongside the egg tarts.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Tell regulars first: let Wednesday regulars taste and name the new item, then announce it together.",
+              "effects": {
+                "trust": 5,
+                "brand": 3,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "The regulars name it “Sweet Potato Forever.” Sounds a bit odd, but they snap photos and spread the word themselves. Not loud, but the word of mouth is steady.",
+              "insight": "Beyond the book: building on its point that a gag should come from human insight, letting the people who care most join in first is another way to turn “fear of losing” into anticipation.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Multiplier Power of the Unimagined” says that for young people, “having a stance” matters less than what?",
+            "options": [
+              "Having a gag",
+              "Having discounts",
+              "Having a celebrity endorser",
+              "Having polish"
+            ],
+            "answer": 0,
+            "explain": "The book says brands once needed a stance, but for young people a gag beats a stance; a brand that always brings a gag gets talked about more.",
+            "source": "Modern Creativity: The Multiplier Power of the Unimagined"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 1,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "Love Breeds Fear of Loss",
+        "text": "A good gag doesn't scare people. It shows them how much they care."
+      }
+    },
+    {
+      "id": "s2022_09",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_11",
+        "c2022_15"
+      ],
+      "title": "Winter Melon Tea Goes NFT",
+      "locationId": "temple",
+      "giver": "n2022_qiao",
+      "time": "evening",
+      "brief": "Young customers tell “Keep It Cool,” an old drink stand on Fude St.'s temple square, to drop an NFT. Chiao is lost, but won't let Grandpa's legacy be mere nostalgia.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2022_qiao",
+              "text": "{role}, a college kid told me an NFT could make a quick buck. What do you think?"
+            },
+            {
+              "who": "temple_uncle",
+              "text": "All I know is his winter melon tea. A cup after prayers. Three generations now."
+            },
+            {
+              "who": "player",
+              "text": "Chiao, do you want a quick buck, or more regulars?"
+            },
+            {
+              "who": "n2022_qiao",
+              "text": "Regulars, obviously. Quick bucks? The hyped-up stalls at the night market all went under."
+            },
+            {
+              "who": "n2022_qiao",
+              "text": "But young people say the “Taiwanese vibe” is cool. Does an old shop like ours count?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Chiao?",
+          "options": [
+            {
+              "text": "Drop a limited digital collectible for collectors. Make a quick buck first.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "trust": -3,
+                "liver": 3
+              },
+              "feedback": "Batch one sells out fast and resale prices climb. Two months on, the hype fades; buyers post, “So what does this do?” Chiao can't answer, and no one comes for tea.",
+              "insight": "The book warns that Web3 is still early. It has real long-term potential, but should be approached with long-term trends in mind, not short-term thinking.",
+              "roleBonus": {
+                "data": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Make the collectible a membership card: one cup a month, plus a vote on the next seasonal flavor.",
+              "effects": {
+                "trust": 5,
+                "brand": 4,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "Wallets and redemption take three weeks. The first 300 holders pick “Roselle Winter Melon,” and on launch day the line runs from the temple to the Fude St. corner.",
+              "insight": "The book lists six NFT uses, one being “an NFT is a membership card.” Dayungs' metaverse fruit-ice parlor also uses NFTs to show the brand's heritage and turn holders into participants.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Go Taiwanese: film the temple story and Grandpa's recipe; host a “Winter Melon Fest” online and off.",
+              "effects": {
+                "brand": 6,
+                "trust": 2,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "Chiao recalls Grandpa sneaking back after closing to tend the pot—the most-shared part. On fest day, Temple Uncle says he's never seen so many young folks at the temple.",
+              "insight": "A case from the book: Pizza Hut Taiwan embraced local pride with “Together: Hot Taiwan Flavor,” built connected creative experiences across social, and in 2021 hit its best sales in 35 years.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Power of Web 3.0” says companies should build toward the metaverse with what mindset?",
+            "options": [
+              "Wait until the market fully matures",
+              "Ride the hype, cash in, then quit",
+              "Skip short-term thinking; follow long-term trends",
+              "Bet the whole marketing budget on NFTs"
+            ],
+            "answer": 2,
+            "explain": "The book calls Web3 early but promising; investing for the long term is a once-in-20-years shot for Taiwan brands. Yahoo found 46% had browsed NFTs; only 7% bought.",
+            "source": "The Power of Web 3.0: Expanding How We Imagine the World"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "An NFT Can Be a Member Card",
+        "text": "New tech should let more people share an old shop's story, not flip it for profit."
+      }
+    },
+    {
+      "id": "s2022_10",
+      "year": 2022,
+      "chapterIds": [
+        "c2022_16"
+      ],
+      "title": "What's This Even For?",
+      "locationId": "riverside",
+      "giver": "ae_mei",
+      "time": "evening",
+      "brief": "Mei-ling's team is busier than ever, yet no one pitches new ideas. She takes them all for a walk along Rainbow Riverside and asks you: how do we get them curious again?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "ae_mei",
+              "text": "{role}, a new hire wanted to try AI storyboards. I said, “What's this even for?”"
+            },
+            {
+              "who": "ae_mei",
+              "text": "I regretted it right away. He hasn't suggested a thing since."
+            },
+            {
+              "who": "player",
+              "text": "What were you rushing at the time?"
+            },
+            {
+              "who": "ae_mei",
+              "text": "A wrap report. We're the company's most efficient team, yet no new proposals this year."
+            },
+            {
+              "who": "ae_mei",
+              "text": "The boss says “encourage innovation,” then hands us a KPI we're not allowed to miss."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Mei-ling?",
+          "options": [
+            {
+              "text": "Put innovation in the KPIs too: one new idea per person per quarter, scored in performance reviews.",
+              "effects": {
+                "sales": 2,
+                "trust": -2,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "Quarter one brings twelve ideas; nine are old projects renamed. The new hire mutters that now even curiosity needs a report.",
+              "insight": "The book cautions that when people share new things, asking “How does this help the company?” or limiting it to work topics becomes one more pressure, and kills the joy of learning.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 2
+                }
+              }
+            },
+            {
+              "text": "A small stage: 30 minutes biweekly, five or six people share new obsessions. Purpose not required.",
+              "effects": {
+                "trust": 5,
+                "brand": 4,
+                "sales": -2,
+                "liver": 3
+              },
+              "feedback": "Talk one: pour-over coffee. Talk three: the new hire's AI storyboards, and soon everyone wants a go. Two months on, the team has its first unprompted proposal this year.",
+              "insight": "The book says efficiency poisons curiosity. It suggests a stage for “new things,” like a 30-minute session every two weeks for a team of 5–6. The key is sparking others' passion for a topic in limited time.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Change the feedback: comments don't just list fixes. Praise first, then add “What if…?”",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "sales": 2,
+                "liver": 2
+              },
+              "feedback": "Mei-ling rewrites her comments in the collab tool for a week; it feels weird. The new hire's storyboard gets “What if the hero were a cat?” Next day he turns in three.",
+              "insight": "The book says clear encouragement builds a positive loop for curiosity: make praise visible, and when commenting, affirm first and add a “What if,” nudging people to embrace more new ideas.",
+              "roleBonus": {
+                "creative": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "How does “The Innovation Engine Behind Leaps in Growth: Curiosity” describe efficiency and curiosity?",
+            "options": [
+              "Efficiency fuels curiosity",
+              "Efficiency and curiosity can both be maxed out",
+              "Efficiency is the poison of curiosity",
+              "Curiosity only slows efficiency down"
+            ],
+            "answer": 2,
+            "explain": "A subhead in the book reads “Redefining productivity: efficiency is the poison of curiosity.” One “What's this even for?” is enough to snuff out curiosity's spark.",
+            "source": "The Innovation Engine Behind Leaps in Growth: Curiosity"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Efficiency Poisons Curiosity",
+        "text": "Ask “What if…?” before you ask “What's this for?”"
+      }
+    }
+  ]
+}

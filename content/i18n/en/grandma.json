@@ -1,0 +1,173 @@
+{
+  "unlock": {
+    "titleCode": "AMA",
+    "templeVisits": 3
+  },
+  "intro": [
+    {
+      "who": "grandma",
+      "text": "Kiddo, you finally made it. Have you eaten?"
+    },
+    {
+      "who": "grandma",
+      "text": "Look at those dark circles. Overtime again, huh? It breaks Ama's heart."
+    },
+    {
+      "who": "grandma",
+      "text": "Ama's run the shop in Sisi South Village for decades and seen every kind of customer."
+    },
+    {
+      "who": "grandma",
+      "text": "Borrow this market basket. It's full of Ama's know-how. Better than any report."
+    },
+    {
+      "who": "grandma",
+      "text": "When you hit a tough one, ask Ama. Don't be shy now."
+    }
+  ],
+  "perk": {
+    "name": "Market-Basket Wisdom",
+    "desc": "Every choice gets an extra “Ama's Option.” The mobility scooter is slow, but traffic always lets you go first."
+  },
+  "greetings": [
+    "Hi, Ama! Where are you off to today? Please, go ahead.",
+    "Take it slow, Ama. No rush!",
+    "Ama, that basket must be heavy. Let me carry it for you.",
+    "Have you eaten, Ama? We've got hot soup inside. Come sit a while.",
+    "You look wonderful today, Ama! Been out dancing again?",
+    "Watch the step, Ama. It's a little slippery here.",
+    "Ama, that trick you told me last time really worked. Thank you!",
+    "Ama, would you like me to call you a cab?"
+  ],
+  "choiceOverrides": {
+    "m2018": {
+      "text": "Two chairs by the billboard for waiting elders. Have the talking speaker at home call out deals.",
+      "effects": {
+        "brand": 6,
+        "trust": 7,
+        "sales": 3,
+        "liver": 3
+      },
+      "feedback": "Ama sets two chairs at the City Hall Station exit; waiting seniors fill them at once. Next morning, smart speakers in several homes say: “Hot is kinder to your tummy.”",
+      "insight": "The 2018 book predicts Taiwan becomes a super-aged society after 2025, with over 20% aged 65+. It also cites Think with Google: 51% of US smart speaker users aged 55+ use them for instant answers and information."
+    },
+    "m2019": {
+      "text": "Rainy days mean more athlete's foot. Just ask us old folks. Who needs a report?",
+      "effects": {
+        "trust": 8,
+        "sales": 4,
+        "brand": 3,
+        "liver": 3
+      },
+      "feedback": "Ama glances at the sky: “That cream sells out this week.” Back at A25 you check: the Corner Convenience Store on Songshou Rd. is restocking. Ah-Kai quietly notes it.",
+      "insight": "Beyond the book: the 2019 book doesn't discuss seniors. But its nail fungus case shows exactly this: fewer people had symptoms because rainy days fell by nearly 30% from the year before. The report missed the weather."
+    },
+    "m2020": {
+      "text": "Have the pharmacist explain the supplements to folks, and make a Q&A you can search just by talking.",
+      "effects": {
+        "trust": 9,
+        "sales": 5,
+        "brand": 3,
+        "liver": 4
+      },
+      "feedback": "Ama drags you to the corner pharmacy, where the pharmacist wins over two old men in three minutes. She asks her phone, “What's this one for?” It reads out your new Q&A.",
+      "insight": "The 2020 book notes that people buying supplements at pharmacies go by the pharmacist's advice; no shelf display, however eye-catching, can compete. It adds that older people type slowly and see less clearly, so voice search is easier."
+    },
+    "m2021": {
+      "text": "Don't film old folks as pitiful. Film Ama house-hunting, dancing. She picked that home herself.",
+      "effects": {
+        "brand": 9,
+        "trust": 5,
+        "sales": 3,
+        "liver": 4
+      },
+      "feedback": "In the spot, Ama tours homes on her own, haggles on her own, and ends up line dancing on her new balcony. Seniors comment: “Now that's me.”",
+      "insight": "The 2021 book notes that seniors dislike being called “elderly” or “old people,” and labels like “for seniors only” put them off even more. Brands should speak to their lifestyles, interests, and life goals."
+    },
+    "m2022": {
+      "text": "Wash the bottle and refill it. We always did. Not “eco.” We just call it not wasting things.",
+      "effects": {
+        "brand": 6,
+        "trust": 6,
+        "sales": 4,
+        "liver": 3
+      },
+      "feedback": "At a Shin Kong Mitsuki counter, Ama shows how to empty a refill pack without losing a drop, and nearby moms laugh along. Manager Hsu puts “not wasting” in the new copy.",
+      "insight": "Beyond the book: the 2022 book doesn't focus on seniors. It cites a Kantar survey: 76% of people don't act because of convenience and cost. Framing green living as an everyday habit is the game's own extension."
+    },
+    "m2023": {
+      "text": "Six fingers? Make it redraw. Machines are like scammers. One question and they're found out.",
+      "effects": {
+        "trust": 8,
+        "brand": 5,
+        "sales": 3,
+        "liver": 5
+      },
+      "feedback": "Ama puts on her reading glasses, counts fingers image by image, and even catches a misspelled sign. “Machines are like scam rings,” she says. “Just ask clearly.”",
+      "insight": "Beyond the book: the 2023 book doesn't focus on seniors, but it warns not to trust voice and video calls too easily, since AI can fake voices and images. Scam-proofing for elders is the game's own extension."
+    },
+    "m2024": {
+      "text": "Set a table by the door. Teach anyone who can't scan the code. Print the help line bigger.",
+      "effects": {
+        "trust": 9,
+        "brand": 5,
+        "sales": 3,
+        "liver": 5
+      },
+      "feedback": "Ama sits at the flagship's door and spends the afternoon helping twenty-some seniors add it as a friend. The client doubles the help line on member cards. Ama's orders.",
+      "insight": "The 2024 book warns that customer experience shouldn't underestimate inclusive design, and quotes a customer complaint: “Something this simple, why can't I set it up on my phone instead of calling customer service?”"
+    },
+    "m2025": {
+      "text": "You can't drop TV. We watch it every day. We even sing the jingles.",
+      "effects": {
+        "brand": 8,
+        "sales": 5,
+        "trust": 3,
+        "liver": 3
+      },
+      "feedback": "In the meeting room, Ama hums a jingle from twenty years ago. The boss freezes, then sings the second half. The TV budget survives.",
+      "insight": "The 2025 book notes that TV reaches as much as 95% of mature audiences, and still carries authority among middle-aged and older viewers, homemakers, and news watchers."
+    },
+    "m2026": {
+      "text": "Machine can't explain? Hand it to a person. Ama hates a phone that repeats one line over and over.",
+      "effects": {
+        "trust": 9,
+        "brand": 5,
+        "sales": 3,
+        "liver": 4
+      },
+      "feedback": "Ama calls customer service to test it. When the bot says, “Let me have a colleague check that,” she nods: “Now that's polite.” You put that line in the handoff rules.",
+      "insight": "The 2026 book says Taiwan became a super-aged society in 2025, with one in five people 65 or older. Its returns case also shows that when things get complicated, an agent should stop and hand off to a human."
+    }
+  },
+  "elderCards": [
+    {
+      "image": "elder_card_1",
+      "caption": "Morning! Data isn't always the truth"
+    },
+    {
+      "image": "elder_card_2",
+      "caption": "Peace & joy! Ask people, then decide"
+    },
+    {
+      "image": "elder_card_3",
+      "caption": "Don't call me old. Call me a life pro"
+    },
+    {
+      "image": "elder_card_1",
+      "caption": "Afternoon! Count the fingers on AI hands"
+    },
+    {
+      "image": "elder_card_2",
+      "caption": "Good night. Bot stuck? Let a person talk"
+    },
+    {
+      "image": "elder_card_3",
+      "caption": "Not wasting is green. Be happy every day"
+    }
+  ],
+  "ending": {
+    "title": "Ama-Approved: Good Neighbor",
+    "text": "At Wuxing St. Stir-Fry, Ama has the head of the table; everyone serves her. Nine problems, solved with an eye honed by shopping, shopkeeping, and raising grandkids. Clients want her OK on their next pitch. Leaving, she returns the basket: “Kiddo, watch the numbers and the people. Bed early tonight.”"
+  }
+}

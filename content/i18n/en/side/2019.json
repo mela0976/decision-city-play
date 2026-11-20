@@ -1,0 +1,1399 @@
+{
+  "year": 2019,
+  "chapters": [
+    {
+      "id": "c2019_01",
+      "title": "Making Brand Management Clear and Contemporary",
+      "by": "Dentsu Aegis Network",
+      "summary": "A brand is a value promise customers can experience. First use Branding X to build internal consensus on the brand, then face the five big challenges of the digital age.",
+      "coveredBy": "s2019_02"
+    },
+    {
+      "id": "c2019_02",
+      "title": "The Key to Corporate Transformation: Change and Learning Agility",
+      "by": "Dentsu Aegis Network",
+      "summary": "In the VUCA era, transformation succeeds or fails on people: leaders' change agility and the organization's learning agility.",
+      "coveredBy": "s2019_01"
+    },
+    {
+      "id": "c2019_03",
+      "title": "Only Rigorous Data Governance Brings Business Applications to Life",
+      "by": "Dentsu Aegis Network",
+      "summary": "Data is a currency, and client trust comes from rigorous rules. Govern data on three fronts: organization, systems, and training.",
+      "coveredBy": "s2019_03"
+    },
+    {
+      "id": "c2019_04",
+      "title": "Why Internal Communication Matters in Digital Transformation",
+      "by": "Dentsu Aegis Network",
+      "summary": "If staff don't know what they're fighting for, transformation stalls. Two-way communication, top-down and bottom-up, turns them into LEGO bricks that can be rebuilt.",
+      "coveredBy": "s2019_01"
+    },
+    {
+      "id": "c2019_05",
+      "title": "Keys to Digital Transformation Success: Lessons from DBS Bank",
+      "by": "Dentsu Aegis Network",
+      "summary": "DBS's transformation was a total mindset shift: customer experience as the principle, metrics tied to rewards, and five years building tech foundations.",
+      "coveredBy": "s2019_01"
+    },
+    {
+      "id": "c2019_06",
+      "title": "Facing Digital Transformation: How Do You Hit the Mark?",
+      "by": "Isobar Taiwan",
+      "summary": "Break digital transformation into four dimensions: brand, commerce, innovation, and technology. Find the most painful entry point and deliver results there first.",
+      "coveredBy": "s2019_04"
+    },
+    {
+      "id": "c2019_07",
+      "title": "The Last “Have-To” for Agency Leaders",
+      "by": "Carat",
+      "summary": "Clients are taking work back in-house step by step. The agency's last way out is to become a consultant with absolute expertise.",
+      "coveredBy": "s2019_04"
+    },
+    {
+      "id": "c2019_08",
+      "title": "Design Thinking: Sparking Business Growth Through Design",
+      "by": "Isobar Taiwan",
+      "summary": "Design thinking turns creativity into a methodical process: human-centered, finding the right problem, prototyping, and learning from mistakes.",
+      "coveredBy": "s2019_05"
+    },
+    {
+      "id": "c2019_09",
+      "title": "From Creativity to Innovation: How Seeds of Innovation Drive Change for Clients",
+      "by": "Dentsu Taiwan",
+      "summary": "Dentsu Japan's “Seeds of Innovation” puts agencies at the very front of product development, turning communication producers into business-planning partners.",
+      "coveredBy": "s2019_05"
+    },
+    {
+      "id": "c2019_10",
+      "title": "Move Human Nature, Transform Business",
+      "by": "Dentsu Kuohua",
+      "summary": "Big data shows correlation; only small data digs out human nature. Insights from in-depth and home interviews lead to strategies that truly resonate.",
+      "coveredBy": "s2019_06"
+    },
+    {
+      "id": "c2019_11",
+      "title": "Unskippable, Unblockable, Unstoppable",
+      "by": "Amplifi Taiwan The Story Lab",
+      "summary": "Audiences keep getting better at skipping and blocking ads. Branded content is a long-term commitment, not a one-off campaign.",
+      "coveredBy": "s2019_07"
+    },
+    {
+      "id": "c2019_12",
+      "title": "How Can Brands Break Through a World Run by Algorithms?",
+      "by": "Vizeum",
+      "summary": "Smart assistants and ad-free models make interruptive ads hard to survive. Brands need real-world experiences, popular culture, and membership to get asked for by name.",
+      "coveredBy": "s2019_02"
+    },
+    {
+      "id": "c2019_13",
+      "title": "Blend Experience into Creativity and Brands Get Closer to Consumers",
+      "by": "dentsu X",
+      "summary": "Data and media put the message in front of people; only creativity and experience reach their hearts. Insight first, then pick the tech.",
+      "coveredBy": "s2019_08"
+    },
+    {
+      "id": "c2019_14",
+      "title": "Creative Imagination: Consumer Decisions Are “Directed”!",
+      "by": "Carat",
+      "summary": "Looking only at what people buy hides why they buy. Creativity should guide people's longing for a better self, not just trigger purchases.",
+      "coveredBy": "s2019_06"
+    },
+    {
+      "id": "c2019_15",
+      "title": "Data Helps You Understand Consumers, but Do You Really?",
+      "by": "dentsu X",
+      "summary": "Watch out for the caveman effect: big data isn't all data. Pair it with sample surveys and local context.",
+      "coveredBy": "m2019"
+    },
+    {
+      "id": "c2019_16",
+      "title": "Read Gen Z's Intentions to Win the Future Consumer Market",
+      "by": "Google Taiwan",
+      "summary": "Gen Z is mobile-first, loves video, and values authenticity and privacy. Brands should meet them with knowledge, diverse views, and transparent responses.",
+      "coveredBy": "s2019_08"
+    },
+    {
+      "id": "c2019_17",
+      "title": "Three Intelligences for Adapting to a Shifting Marketing Landscape",
+      "by": "Carat",
+      "summary": "Shifting times call for three intelligences: analytical, effective, and innovative. Brands and agencies should start from business problems, not just media optimization.",
+      "coveredBy": "s2019_09"
+    },
+    {
+      "id": "c2019_18",
+      "title": "Brand Content Marketing: The Way to Coexist and Thrive Together",
+      "by": "dentsu X",
+      "summary": "Good branded content placement is a win for advertisers, platforms, and viewers. It takes strong content, word of mouth, buzz, and your own IP.",
+      "coveredBy": "s2019_07"
+    },
+    {
+      "id": "c2019_19",
+      "title": "Media 3.0: The Lightning-Fast Media Martech War Is Here. Are You Ready?",
+      "by": "iProspect Taiwan",
+      "summary": "Performance marketing sees only last conversions on paid media. Media 3.0 integrates behavioral data, thinks beyond paid media, and escapes single-platform ecosystems.",
+      "coveredBy": "s2019_09"
+    },
+    {
+      "id": "c2019_20",
+      "title": "Digital Out-of-Home Networks: Boosting Reach Across the Entire Customer Journey",
+      "by": "X-Line",
+      "summary": "Link digital screens in transit, shopping districts, and malls into one network, using people, place, and connect/now to design continuous offline touchpoints.",
+      "coveredBy": "s2019_09"
+    },
+    {
+      "id": "c2019_21",
+      "title": "Real Skill Lies in the Prep Before AI",
+      "by": "Amnet Taiwan",
+      "summary": "AI is no cure-all. Before adopting it, get data quality, a usable app, data talent, and the right metrics in place.",
+      "coveredBy": "s2019_10"
+    },
+    {
+      "id": "c2019_22",
+      "title": "Simplifying Complexity: The Wisdom of Data Visualization",
+      "by": "Amplifi Taiwan",
+      "summary": "Data visualization has four stages: collect, clean, analyze, present. With automation, you spot changes faster and save manpower.",
+      "coveredBy": "s2019_10"
+    },
+    {
+      "id": "c2019_23",
+      "title": "Finding Treasure in the Sea of Search",
+      "by": "iProspect Taiwan",
+      "summary": "People are most honest when they search. Search intent research uncovers real desires and fears; then content and SEO get you found organically.",
+      "coveredBy": "s2019_06"
+    },
+    {
+      "id": "c2019_24",
+      "title": "Data Marketplaces: Imagining the Future of Digital Marketing and Blockchain",
+      "by": "BiiLabs",
+      "summary": "GDPR makes digital footprints harder to get, and opens up the idea of data marketplaces where users directly authorize and sell their own data.",
+      "coveredBy": "s2019_03"
+    },
+    {
+      "id": "c2019_25",
+      "title": "Master Data and Use Machine Learning to Mine New Opportunities",
+      "by": "Google Taiwan",
+      "summary": "The shopping journey is no longer a linear funnel. Integrate internal and external data, and use cloud and machine learning to predict intent and high-value customers.",
+      "coveredBy": "s2019_10"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2019_lai",
+      "name": "Director Lai",
+      "skin": "npc_client",
+      "locationId": "rechao",
+      "title": "Chief DX Officer, No-Fuss Insurance",
+      "lines": [
+        "We bought eight new systems. The sales reps still use paper.",
+        "We kept preaching change. Now everyone just wants to change jobs.",
+        "Boss asked how it's going. I said it's running. He asked, running where?"
+      ]
+    },
+    {
+      "id": "n2019_tsai",
+      "name": "Manager Tsai",
+      "skin": "npc_client",
+      "locationId": "client_hq",
+      "title": "Marketing Manager, Super-Soft Brush",
+      "lines": [
+        "Boss says we can just buy digital ads ourselves. What do you think?",
+        "We hired two ad buyers. One's still on probation.",
+        "I read every agency monthly report. I just don't really get them."
+      ]
+    },
+    {
+      "id": "n2019_lan",
+      "name": "Ms. Lan",
+      "skin": "npc_vendor",
+      "locationId": "gamadiam",
+      "title": "Owner, Homesick Hot Sauce",
+      "lines": [
+        "This sauce is my mom's recipe. Hasn't changed in fifty years.",
+        "Young folks say you can buy chili sauce anywhere. So why do they keep coming back?",
+        "Have a taste. Not spicy? It's free. Too spicy? No crying."
+      ]
+    },
+    {
+      "id": "n2019_you",
+      "name": "Pomelo",
+      "skin": "npc_student",
+      "locationId": "department",
+      "title": "Makeup Counter Part-Timer, Sophomore",
+      "lines": [
+        "I skip every ad, but I watch tutorials all the way through.",
+        "My classmates always watch three unboxings before they buy anything.",
+        "I don't go incognito for anything shady. I just don't want to be followed."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2019_01",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_02",
+        "c2019_04",
+        "c2019_05"
+      ],
+      "title": "Transform or Transfer Out",
+      "locationId": "rechao",
+      "giver": "n2019_lai",
+      "time": "evening",
+      "brief": "The insurer bought eight new systems, but its reps still use paper. Director Lai, the Chief DX Officer, drinks alone at the stir-fry joint and asks you what's next.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2019_lai",
+              "text": "{role}, sit. Today's change briefing: a hundred people, ninety on their phones."
+            },
+            {
+              "who": "n2019_lai",
+              "text": "We bought eight systems. Reps still handwrite applications. Say the new app's a hassle."
+            },
+            {
+              "who": "player",
+              "text": "Does everyone know why the company is transforming?"
+            },
+            {
+              "who": "n2019_lai",
+              "text": "It's in the memo, and I said it too. All they heard was: more work."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "Water lily stems! Transform what? Eat first. Nobody wants to change on an empty stomach."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Director Lai reports to the GM tomorrow. What do you suggest?",
+          "options": [
+            {
+              "text": "Draw the change as a map anyone can read, explain it in workshops, and share progress monthly.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "The map goes up in every floor's pantry, and the next day reps are writing questions under it. Six workshops, which means six of your Saturdays too.",
+              "insight": "“Why Internal Communication Matters” says an organization is like a stacked block tower: touch one piece and it all moves. Top-down, visualize the plan, run workshops, execute on schedule, and share progress publicly.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Not all at once. Split into squads of seven to ten, each led by someone willing to go first.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "liver": 3
+              },
+              "feedback": "Month one, only three squads use the new app, but they log the most cases. The other squads start asking: how'd they do it?",
+              "insight": "Following the 80/20 rule, the author argues for finding the 20% who back the change, splitting the org into units of 7 to 10 with one champion each, so staff become LEGO bricks that can be rebuilt.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Learn from DBS: set one CX metric, like claims paid in three days, and tie it to everyone's review.",
+              "effects": {
+                "brand": 4,
+                "sales": 3,
+                "trust": -2,
+                "liver": 5
+              },
+              "feedback": "The moment it's announced, the union calls a meeting. Six months later claim times really are cut in half, and reps finally see the new app saves them work.",
+              "insight": "DBS began transforming in 2009, improving service with R.E.D (Respectful, Easy to deal with, Dependable), tying digital metrics to individual performance and rewards, and spending five years building tech foundations.",
+              "roleBonus": {
+                "cx": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Key to Corporate Transformation” examines change with the Fogg Behavior Model. What are the model's three keys?",
+            "options": [
+              "Motivation, ability, trigger",
+              "Vision, budget, timeline",
+              "Talent, process, technology",
+              "Awareness, emotion, action"
+            ],
+            "answer": 0,
+            "explain": "The Fogg Model says behavior happens when Motivation, Ability, and Trigger all act at the same time.",
+            "source": "The Key to Corporate Transformation: Change and Learning Agility"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Change People Before Systems",
+        "text": "You can buy systems, but not a reason to fight. Tell people why first, then talk about how."
+      }
+    },
+    {
+      "id": "s2019_02",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_01",
+        "c2019_12"
+      ],
+      "title": "Five Bosses, Five Mattresses",
+      "locationId": "studio",
+      "giver": "cd_wei",
+      "time": "morning",
+      "brief": "The shoot for mattress brand “Too Comfy to Get Up” is on, and five client execs can't agree on what the brand is. Wei wants it sorted before the talent hits makeup.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "cd_wei",
+              "text": "{role}, Too Comfy to Get Up sent five execs. One says premium, one says affordable."
+            },
+            {
+              "who": "cd_wei",
+              "text": "Another says young, another says for seniors, and the last one says all of the above."
+            },
+            {
+              "who": "player",
+              "text": "Can any of them say what the brand is in one sentence?"
+            },
+            {
+              "who": "cd_wei",
+              "text": "No. Their big fear: people ask a smart speaker for a mattress, and it never names them."
+            },
+            {
+              "who": "cd_wei",
+              "text": "Makeup starts soon, studio's due back at four. Go to the meeting room. I'll get coffee."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Before the talent is in makeup, how do you handle it?",
+          "options": [
+            {
+              "text": "Pause the shoot half a day to define the brand with all five: vision, values, personality, promise.",
+              "effects": {
+                "brand": 5,
+                "trust": 3,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "Half a day of paid studio time wasted, and the production house is fuming. But by the end, all five execs finally say the same line: a bed you can trust to lie down in.",
+              "insight": "“Making Brand Management Clear and Contemporary” says ten people, ten answers means no consensus. A brand is a value promise customers can experience: Do the Right Thing first, then Do the Thing Right.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Shoot as planned, and add search and retargeting so the algorithms learn the brand name first.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 3
+              },
+              "feedback": "The shoot wraps on schedule, and retargeting costs look great. But someone complains online: looked at a mattress once, got chased for two weeks.",
+              "insight": "Vizeum warns that performance marketing works only on the time dimension. Smart assistants, subscriptions, and ad-free models will make interruptive ads hard to survive, so brands must get people to ask for them by name.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Keep shooting, and run a “Nap Test” at Shin Kong Mitsuki so people lie down and remember the name.",
+              "effects": {
+                "brand": 4,
+                "trust": 2,
+                "liver": 4
+              },
+              "feedback": "Office workers pack the test beds every lunch; one gets filmed snoring and posted online. Later, under “which mattress is comfiest” questions, the name starts showing up.",
+              "insight": "The book cites Starbucks offering a living-room experience, and The Balvenie's handcraft exhibition touring five cities and drawing 38,000-plus visitors. Being asked for by name takes a consistent promise, popular culture, and membership.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Making Brand Management Clear and Contemporary,” what is the author's favorite definition of a brand?",
+            "options": [
+              "A company's most valuable trademark",
+              "The sum of impressions in consumers' minds",
+              "A visual identity system",
+              "A value promise customers can experience"
+            ],
+            "answer": 3,
+            "explain": "The author's favorite definition: a brand is a value promise customers can experience. A promise creates expectations; keeping it builds trust.",
+            "source": "Making Brand Management Clear and Contemporary"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Say It in One Line",
+        "text": "If the execs can't say the same line, neither consumers nor algorithms will remember you."
+      }
+    },
+    {
+      "id": "s2019_03",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_03",
+        "c2019_24"
+      ],
+      "title": "100K Leads, On Sale",
+      "locationId": "home",
+      "giver": "roommate_yu",
+      "time": "night",
+      "brief": "Your roommate Yu's internship got an email: 100K “targeted leads” on clearance. Her boss wants her to upload the client's member file to a free online tool to match it.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "roommate_yu",
+              "text": "{role}, are you still busy? My boss asked me to do something, and it feels off."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "Someone's selling 100K leads with names, phones, and interests. On sale for NT$10,000."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "My boss wants me to upload the client's member file to a free site to find duplicates."
+            },
+            {
+              "who": "player",
+              "text": "Did the client say their member file could be used like that?"
+            },
+            {
+              "who": "roommate_yu",
+              "text": "No… He says everyone does it. He wants results by tomorrow morning."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Before tonight's over, what do you tell Yu?",
+          "options": [
+            {
+              "text": "Stop. Check the leads' source and the member file's consent. Take it straight to legal tomorrow.",
+              "effects": {
+                "trust": 6,
+                "sales": -2,
+                "liver": 3
+              },
+              "feedback": "Yu says she'll ask legal first; her boss scowls. A month later a rival is fined for buying shady lists. He posts it to the group, and list buys now go through legal.",
+              "insight": "“Only Rigorous Data Governance Brings Business Applications to Life” says data is a currency and client trust comes from rigorous rules. The group requires 100% of staff to pass a data protection test: ten questions, one miss allowed.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Skip the list. Do the matching in-house with de-identified fields only, and keep a log for legal.",
+              "effects": {
+                "trust": 4,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "You help Yu write up the process for two hours and sleep at three. Her boss calls it a hassle, but when the client audits them, that log gets them through first try.",
+              "insight": "The book says the group manages personal and non-personal data separately, logging personal data in one global system with each brand's data officer as gatekeeper. Beyond the book: de-identifying and logging are common internal practices.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Go permission-based: a “share your preferences, earn points” campaign that grows the list itself.",
+              "effects": {
+                "brand": 3,
+                "trust": 3,
+                "liver": 4
+              },
+              "feedback": "A month in, only three thousand sign-ups, way short of 100K. But every one of them said yes in person, and open rates are several times those of bought lists.",
+              "insight": "BiiLabs' “Data Marketplaces” notes a US user's data is worth US$240 on average in digital advertising, yet users get none of it. In the future, users may directly authorize and sell their own data.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Data Marketplaces” says one US user's data is worth about how much on average in digital advertising?",
+            "options": [
+              "US$24",
+              "US$240",
+              "US$2,400",
+              "US$2.4"
+            ],
+            "answer": 1,
+            "explain": "The book says a US user's data is worth about US$240 on average in digital ads, but most users never actually see that money.",
+            "source": "Data Marketplaces: Imagining the Future of Digital Marketing and Blockchain"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Leads Don't Grow on Trees",
+        "text": "Data is currency earned with trust. Whatever you save on a shady list, you'll pay back double in trust."
+      }
+    },
+    {
+      "id": "s2019_04",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_06",
+        "c2019_07"
+      ],
+      "title": "We'll Just Buy It Ourselves",
+      "locationId": "client_hq",
+      "giver": "n2019_tsai",
+      "time": "morning",
+      "brief": "The toothbrush brand's owner wants digital ads bought in-house. Manager Tsai invites you for coffee at Taipei Wun-Zero-Wun, and rival agency's Vicky is in the lobby.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2019_tsai",
+              "text": "{role}, I'll be blunt: the boss wants digital ad buying in-house to save on fees."
+            },
+            {
+              "who": "n2019_tsai",
+              "text": "We hired two ad buyers. One's still on probation. TV and outdoor stay with you for now."
+            },
+            {
+              "who": "rival_vicky",
+              "text": "We pitched last week: two people on-site to train your team, and 30% off our fees."
+            },
+            {
+              "who": "player",
+              "text": "Manager Tsai, where does it hurt most right now?"
+            },
+            {
+              "who": "n2019_tsai",
+              "text": "Honestly? People claim trial coupons on our site and never use them. Boss only sees fees."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Manager Tsai reports to the boss this afternoon. What's your proposal?",
+          "options": [
+            {
+              "text": "Offer to station people on-site and build up their in-house team. We switch to a consulting fee.",
+              "effects": {
+                "trust": 5,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "Every Tuesday and Thursday you sit in their office, teaching the new buyers to read reports. Media billings drop, but they start calling you into new-product meetings.",
+              "insight": "Carat's “The Last ‘Have-To’ for Agency Leaders” lists four stages of client in-housing: hazy, transparent, hybrid, and autonomous. The agency's last way out is becoming a consultant with absolute expertise.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Defend digital buying: use the group's scale and pre-bought rates to show DIY won't be cheaper.",
+              "effects": {
+                "sales": 4,
+                "trust": 2,
+                "liver": 3
+              },
+              "feedback": "The price sheet puts the idea on hold, and you keep the account this year. But he ends the meeting with: we'll take another look next year.",
+              "insight": "The book says platforms run lean service with no commissions and transparent accounts. Agencies' own ad products and pre-bought media can hold out a while, but bring high costs and sales pressure.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Forget who buys. Fix the worst pain point: getting from a claimed trial coupon to in-store use.",
+              "effects": {
+                "brand": 3,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "You cut redemption from five steps to two and add a reminder message. Redemptions double in a month. The boss doesn't bring up fees again, at least not this month.",
+              "insight": "Isobar argues for breaking transformation into four dimensions, brand, commerce, innovation, and technology, and hitting the most painful point first. Clarins' Beauty Chat grew coupon conversions 16x.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Last ‘Have-To’ for Agency Leaders” cites an “Ad Age” survey. What kind of groups were the three fastest growers of 2017?",
+            "options": [
+              "Social platforms",
+              "Media agencies",
+              "Consultancy-led groups",
+              "TV and video platforms"
+            ],
+            "answer": 2,
+            "explain": "The fastest growers in 2017 were Accenture (58%), PwC (169%), and Deloitte (43%), all consultancy-led groups.",
+            "source": "The Last “Have-To” for Agency Leaders"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Consult Before They Take It",
+        "text": "Clients will eventually take the work home. What keeps you around is the judgment they can't make themselves."
+      }
+    },
+    {
+      "id": "s2019_05",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_08",
+        "c2019_09"
+      ],
+      "title": "Nobody Claims the Sample",
+      "locationId": "convenience",
+      "giver": "clerk_ning",
+      "time": "noon",
+      "brief": "New drink “Wide Awake” is sampling at the Corner Convenience Store. The poster's been up a week, and coupon scans are in the single digits. Clerk Ning says she knows why.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "clerk_ning",
+              "text": "{role}, that Wide Awake sample coupon? Only seven people claimed it all week."
+            },
+            {
+              "who": "clerk_ning",
+              "text": "Scan, add us, enter a birthday, come back to me. Who has time in the lunch line?"
+            },
+            {
+              "who": "player",
+              "text": "Has anyone asked about the drink itself?"
+            },
+            {
+              "who": "clerk_ning",
+              "text": "Sure, lots ask if it's coffee or tea. You can't tell from the bottle."
+            },
+            {
+              "who": "clerk_ning",
+              "text": "The client wants to print more posters. I don't think posters are the problem."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The client decides next week: double down or pull it. What do you suggest?",
+          "options": [
+            {
+              "text": "Work the counter with Ning for a day, see where customers get stuck, and cut claiming to one step.",
+              "effects": {
+                "trust": 4,
+                "sales": 3,
+                "liver": 5
+              },
+              "feedback": "Eight hours on your feet, and your legs are about to give out. Now the clerk just asks at checkout, “Want a free sample?” Week two, four hundred bottles go out.",
+              "insight": "Isobar's “Design Thinking” says design thinking is human-centered and starts by finding the right problem, using shadowing, personas, and experience maps to understand people before acting.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Prototype a sampling vending machine in two weeks. Put it out front: one press, one mini bottle.",
+              "effects": {
+                "brand": 4,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "Day one, the prototype jams twice; by day three it's fixed. People press it while waiting at the light, and social media fills with “free Wide Awake” check-in pics.",
+              "insight": "The book's Isobar 4D process is Discover, Define, Design, Deploy, encouraging fast prototypes and learning from mistakes. The sampling vending machine prototype was built exactly this way.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Tell the client: the bottle doesn't say what it is. Let us join product meetings for the next batch.",
+              "effects": {
+                "brand": 3,
+                "trust": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "The client's R&D team is guarded at first and only loosens up after two workshops. The next batch says “TEA” in big letters, but this sampling run still has to be pulled.",
+              "insight": "Dentsu Taiwan introduced Dentsu Japan's “Seeds of Innovation”: agencies join at the very front of product development, alongside executives, R&D, and market research, going from communication producers to business-planning partners.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “From Creativity to Innovation,” how many new digital services did Dentsu Taiwan and its client co-create in a two-day Seeds of Innovation workshop?",
+            "options": [
+              "Nearly 30",
+              "Nearly 10",
+              "Over 100",
+              "5"
+            ],
+            "answer": 0,
+            "explain": "The workshop linked client and agency teams, who co-created nearly 30 new digital services in just two days.",
+            "source": "From Creativity to Innovation: How Seeds of Innovation Drive Change for Clients"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "It's Not the Poster",
+        "text": "Stand beside customers and see where they get stuck. Creativity starts at that step, not the next poster."
+      }
+    },
+    {
+      "id": "s2019_06",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_10",
+        "c2019_14",
+        "c2019_23"
+      ],
+      "title": "Homesick Hot Sauce",
+      "locationId": "gamadiam",
+      "giver": "n2019_lan",
+      "time": "afternoon",
+      "brief": "Sisi South Village's military village chili sauce is down three quarters straight. Ms. Lan wants a BOGO price cut. Her daughter says everyone online buys cheap.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2019_lan",
+              "text": "{role}, come, have a taste. Fifty years of this sauce, and this year it won't sell."
+            },
+            {
+              "who": "n2019_lan",
+              "text": "My daughter says ninety-nine-dollar jars are all over online. Says do buy one, get one."
+            },
+            {
+              "who": "player",
+              "text": "Who are the customers still buying it now?"
+            },
+            {
+              "who": "n2019_lan",
+              "text": "Military village kids who moved away. They buy three jars to mail to brothers out of town."
+            },
+            {
+              "who": "grandma",
+              "text": "Ama's had Lan's sauce for thirty years. Why cut the price? It tastes the same as ever."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Before Ms. Lan decides on next month's price cut, what should she do first?",
+          "options": [
+            {
+              "text": "Have dinner at five regulars' homes. See how they use the sauce and who they send it to.",
+              "effects": {
+                "brand": 4,
+                "trust": 3,
+                "liver": 5
+              },
+              "feedback": "Five dinners, one extra kilo. A customer says this sauce is the only taste of home he has in Taipei. Ms. Lan skips the price cut and pushes a “Send It Home” bundle.",
+              "insight": "Dentsu Kuohua's “Move Human Nature, Transform Business” cites the book “Small Data”: big data shows breadth, small data digs deep. A Honda CR-V case found owners cared about safety, rooted in guilt toward family.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Check search: what else do people look up with “chili sauce”? Write content around those questions.",
+              "effects": {
+                "sales": 4,
+                "brand": 2,
+                "liver": 3
+              },
+              "feedback": "“Military village recipes” and “Grandma's cooking” keep showing up. You write a military village recipe series; six months later the site's organic traffic is way up.",
+              "insight": "iProspect says people are most honest when they search. Australia's National Storage built content around search intent: in a year, organic traffic rose 655% and calls rose 650%.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Before any price cut, shoot a film: not about cheap, but about “mailing the taste of home.”",
+              "effects": {
+                "brand": 5,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "The film launches before Mid-Autumn, and commenters say they called their moms afterward. Orders don't explode, but almost no one asks about discounts anymore.",
+              "insight": "Carat's “Creative Imagination” says looking only at purchases hides motives. People long for a better self; for brands, consumer decisions are an infinite game, and creativity must “direct” the choice.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Move Human Nature, Transform Business,” a Honda CR-V case found SUV owners cared about safety. What was the real emotion behind it?",
+            "options": [
+              "Confidence in their driving",
+              "Chasing brand status",
+              "Anxiety over fuel costs",
+              "Love and guilt toward family"
+            ],
+            "answer": 3,
+            "explain": "In-depth interviews found the safety concern came from love and guilt toward family, which led to the film “Daughter's Little Love Song.”",
+            "source": "Move Human Nature, Transform Business"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Dinner Before Discounts",
+        "text": "Numbers tell you fewer people are buying. Only at their dinner table do you learn why they still do."
+      }
+    },
+    {
+      "id": "s2019_07",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_11",
+        "c2019_18"
+      ],
+      "title": "Shampoo's Screen Time",
+      "locationId": "tvstation",
+      "giver": "tv_su",
+      "time": "afternoon",
+      "brief": "“Under-Three Shampoo” bought placement in an idol drama and wants a bottle close-up plus a line every episode. The screenwriter is already fuming on the phone.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "tv_su",
+              "text": "{role}, Under-Three Shampoo wants a close-up each episode. The lead has to say it."
+            },
+            {
+              "who": "tv_su",
+              "text": "The writer just called. The lead's crying in a hospital, and you want her holding shampoo?"
+            },
+            {
+              "who": "player",
+              "text": "Why is the client so insistent?"
+            },
+            {
+              "who": "tv_su",
+              "text": "They say everyone skips ads now. The only thing you can't skip is the show itself."
+            },
+            {
+              "who": "tv_su",
+              "text": "They're not wrong. But the actress's agent says one more of these and she walks."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Episode three's script locks tomorrow. How do you handle it?",
+          "options": [
+            {
+              "text": "Do what the client asks: close-ups and lines every episode, with screen time guaranteed by contract.",
+              "effects": {
+                "sales": 3,
+                "brand": -3,
+                "liver": 3
+              },
+              "feedback": "Not a second of exposure missed, and the client's thrilled. After episode three, viewers cut a “lead actress selling stuff again” montage that outdraws the show itself.",
+              "insight": "Amplifi says branded integration has one iron rule: never change where the original story goes. A McCarthy Group survey found 84% of millennials dislike and distrust traditional marketing.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Partner long-term with the writer: make it the male lead's habit, no brand name, true to the story.",
+              "effects": {
+                "brand": 5,
+                "trust": 2,
+                "liver": 4
+              },
+              "feedback": "Three meetings with the writer, and the product becomes the male lead's rushed little morning ritual. After the finale, someone on a forum asks: which bottle does he use?",
+              "insight": "The book's ABCDE guidelines include building relationships with creators early and treating placement as a long-term plan. “House of Cards” season three placed over a hundred brands without viewer backlash.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Skip this fight: co-produce your own show with a producer, with the brand involved from day one.",
+              "effects": {
+                "brand": 4,
+                "sales": 2,
+                "liver": 6
+              },
+              "feedback": "Three months writing the show concept, eight versions of the pitch. Season one's ratings are so-so, but from season two, other brands start asking to join.",
+              "insight": "dentsu X's “Brand Content Marketing” says good placement needs strong content, word of mouth, and buzz; running your own content takes three things: IP, Producer, and Talent.",
+              "roleBonus": {
+                "media": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Brand Content Marketing” notes “House of Cards” season three placed the mobile game “Monument Valley.” How did its download rank change within a week?",
+            "options": [
+              "From 50-something into the top 3",
+              "From 300-something into the top 10",
+              "From 1,000-something into the top 100",
+              "From the top 20 up to No. 1"
+            ],
+            "answer": 1,
+            "explain": "Within a week, “Monument Valley” climbed from 300-something to the top 10 in downloads.",
+            "source": "Brand Content Marketing: The Way to Coexist and Thrive Together"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Follow the Story",
+        "text": "Viewers can skip ads, but not stories they love. Break the story, though, and they can skip you too."
+      }
+    },
+    {
+      "id": "s2019_08",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_13",
+        "c2019_16"
+      ],
+      "title": "Incognito Isn't Shady",
+      "locationId": "department",
+      "giver": "n2019_you",
+      "time": "afternoon",
+      "brief": "Brow pencil brand “Where'd My Brows Go” wants college students. Pomelo, a counter part-timer, says her classmates skip its ads and only watch tutorials before buying.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2019_you",
+              "text": "{role}, you work on Where'd My Brows Go? My classmates all say its ads are so loud."
+            },
+            {
+              "who": "n2019_you",
+              "text": "We skip most ads, some go incognito. But if we happen to want the thing, we still click."
+            },
+            {
+              "who": "player",
+              "text": "So what do you do before buying a brow pencil?"
+            },
+            {
+              "who": "n2019_you",
+              "text": "Watch tutorials. Someone draws it step by step, crooked bits and all, right on camera."
+            },
+            {
+              "who": "n2019_you",
+              "text": "And try it at the counter, but afterward we still don't know which shade suits us."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Where should the brand put next season's budget?",
+          "options": [
+            {
+              "text": "Shoot a brow tutorial series: different shapes, how to fix a crooked line, brand only at the end.",
+              "effects": {
+                "brand": 5,
+                "trust": 2,
+                "liver": 4
+              },
+              "feedback": "The “Clumsy Brow Rescue” episode is shared tens of thousands of times, comments full of brow-shape questions. The brand barely shows, yet shoppers ask for that pencil.",
+              "insight": "A Google and Ipsos study found video platforms are Gen Z's favorite, and they watch to learn skills. Brands should respect their hunger for knowledge and offer many perspectives.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Shade test at the counter: scan, shake your phone to vote today's brow color, results on screen.",
+              "effects": {
+                "brand": 3,
+                "sales": 3,
+                "liver": 5
+              },
+              "feedback": "So many people shake their phones there's a line, and Pomelo says hers is burning hot. More people try shades, but some just vote and leave.",
+              "insight": "dentsu X's “Blend Experience into Creativity” cites PwC: good customer experience can earn up to a 16% price premium. The book's interactive talk system also has audiences vote by shaking their phones.",
+              "roleBonus": {
+                "cx": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Target ages 16 to 21, retarget product page viewers, and hit this season's sales goal first.",
+              "effects": {
+                "sales": 4,
+                "trust": -3,
+                "liver": 2
+              },
+              "feedback": "Click numbers look great, and the weekly report is a breeze. Pomelo sends you a screenshot: a classmate's story says “this brow pencil follows me into my dreams.”",
+              "insight": "The book cites GlobalWebIndex: over 60% of 16-to-21-year-olds use incognito mode, half clear cookies monthly, and half use ad blockers. They want personalization, and privacy too.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Read Gen Z's Intentions” says half of Gen Z use ad blockers. What reasons does the book give?",
+            "options": [
+              "Fear of viruses, slowdowns, battery drain",
+              "Distrust of influencers, celebs, and spokespeople",
+              "Too many ads, irrelevant, and intrusive",
+              "Only watch paid subscriptions, not free platforms"
+            ],
+            "answer": 2,
+            "explain": "The book cites surveys: half of Gen Z use ad blockers because ads are too many, irrelevant, and intrusive; over 60% browse in incognito mode.",
+            "source": "Read Gen Z's Intentions to Win the Future Consumer Market"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 1,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "Teach Her, Don't Chase Her",
+        "text": "Young people don't ignore brands, just ones that bother them. Give them something useful; they'll come to you."
+      }
+    },
+    {
+      "id": "s2019_09",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_17",
+        "c2019_19",
+        "c2019_20"
+      ],
+      "title": "The Look-Don't-Buy Web Shop",
+      "locationId": "mrt",
+      "giver": "client_wu",
+      "time": "morning",
+      "brief": "The coffee chain's web store is three months old: lots of traffic, few orders. Manager Wu wants more ad spend and is asking about the screens at City Hall Station.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_wu",
+              "text": "{role}, me again. Our web store gets thousands of visits a day. Under twenty orders."
+            },
+            {
+              "who": "client_wu",
+              "text": "Last agency said targeting was off, spend more. Boss only watches traffic this quarter."
+            },
+            {
+              "who": "player",
+              "text": "Have you tried buying something yourself?"
+            },
+            {
+              "who": "client_wu",
+              "text": "…I have. Sign up, enter an address, pick a store, then wait for a text."
+            },
+            {
+              "who": "client_wu",
+              "text": "Boss asks if these screens can link to the web, so people pick up on their way out."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Manager Wu presents the budget next week. What do you suggest?",
+          "options": [
+            {
+              "text": "Pump performance ads to hit the quarter's traffic goal; retarget non-buyers with dynamic creative.",
+              "effects": {
+                "brand": 2,
+                "trust": -2,
+                "liver": 3
+              },
+              "feedback": "Traffic's up another 20%, and orders are still under twenty. The report looks gorgeous. Manager Wu forwards it to the boss with one line: orders still under twenty.",
+              "insight": "iProspect's “Media 3.0” says performance marketing only sees the last conversion on paid media and misses the full journey. With e-commerce traffic dividends shrinking, what's missing is behavioral data.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Hold off on ads and fix checkout: no sign-up, remember the store, five steps down to two.",
+              "effects": {
+                "sales": 5,
+                "trust": 3,
+                "liver": 4
+              },
+              "feedback": "Engineers spend three weeks on it, and orders triple on launch day. Manager Wu says the money was never for ads. It was for letting people actually buy.",
+              "insight": "Carat's “Three Intelligences” gives an example: a brand selling well in stores went online and blasted ads, only to get lookers, not buyers. The problem was the shopping experience, not media optimization.",
+              "roleBonus": {
+                "cx": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Link screens across MRT, shopping districts, and malls: pre-order in the morning, pick up on exit.",
+              "effects": {
+                "brand": 4,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "At 7:30 AM, the screens follow the crowd from the MRT to Songshou Rd. Pre-order pickups slowly grow, but the linked schedule keeps you glued to the back end every day.",
+              "insight": "X-Line's digital network links 600-plus screens across Taiwan, reaching over 100 million visits a month, and uses people, place, and connect/now to design continuous offline touchpoints.",
+              "roleBonus": {
+                "data": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Media 3.0” cites a DMA survey. In what year did Taiwan's digital media spend first overtake TV ads, starting Media 2.0?",
+            "options": [
+              "2016",
+              "2012",
+              "2014",
+              "2018"
+            ],
+            "answer": 0,
+            "explain": "The 1994 opening of cable TV was Media 1.0; in 2016 digital media spend first overtook TV ads, starting Media 2.0.",
+            "source": "Media 3.0: The Lightning-Fast Media Martech War Is Here. Are You Ready?"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 2,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "It's Not the Targeting",
+        "text": "Lots of traffic, few orders? Buy once yourself. The problem often isn't media but those five steps."
+      }
+    },
+    {
+      "id": "s2019_10",
+      "year": 2019,
+      "chapterIds": [
+        "c2019_21",
+        "c2019_22",
+        "c2019_25"
+      ],
+      "title": "Boss Wants AI to Spot Buyers",
+      "locationId": "datalab",
+      "giver": "data_kai",
+      "time": "any",
+      "brief": "The owner of scooter brand “First-Try Start” wants AI to predict buyers. Ah-Kai opens the data: one person, four records, and weekly reports still pasted by hand.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "data_kai",
+              "text": "{role}, First-Try Start's boss wants AI predicting scooter buyers by next month."
+            },
+            {
+              "who": "data_kai",
+              "text": "I opened the member file. Same guy, four records. One phone field says “call my wife.”"
+            },
+            {
+              "who": "player",
+              "text": "So how do they track results each week now?"
+            },
+            {
+              "who": "data_kai",
+              "text": "Three people, a whole day, pasting five back ends into Excel. Where would AI even start?"
+            },
+            {
+              "who": "data_kai",
+              "text": "Boss says other companies already use it. What he wants is a name: AI."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Something's due next month. Which piece do you tackle first?",
+          "options": [
+            {
+              "text": "Clean the data first. The list may halve, but every record is a real person with a real phone.",
+              "effects": {
+                "trust": 5,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "After cleaning, the list drops from 80K to 42K, and the boss is shocked. Text delivery rates jump, though. Ah-Kai calls it pouring out the water and keeping the fish.",
+              "insight": "Amnet's “Real Skill Lies in the Prep Before AI” says data cleaning can shrink customer data a lot but raises authenticity and contact rates. AI is no cure-all.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Automate reports: wire five back ends into one dashboard and free three people's day for strategy.",
+              "effects": {
+                "trust": 3,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "The dashboard goes live, and Monday morning the boss opens it himself and asks three questions nobody asked before. No AI yet, but he's stopped pushing so hard.",
+              "insight": "Amplifi's “Simplifying Complexity” says traditional performance reports rely on manual copy-paste; adding APIs and visualization software can save an estimated 50% of query and cut-and-paste time.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Go straight to cloud ML: use site behavior and test-ride records to predict thirty-day buyers.",
+              "effects": {
+                "sales": 4,
+                "brand": 2,
+                "liver": 6
+              },
+              "feedback": "The first model looks great: it learned “people who book test rides buy scooters.” After Ah-Kai's two weeks of late nights on duplicates, v2 finds real new prospects.",
+              "insight": "Google's “Master Data and Use Machine Learning” cites Sands China: over 200 features predicting bookings within 30 days at up to 92% accuracy, but only if internal data can be integrated.",
+              "roleBonus": {
+                "planner": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Master Data and Use Machine Learning to Mine New Opportunities,” how accurate was Sands China's model at predicting who'd book within 30 days?",
+            "options": [
+              "62%",
+              "75%",
+              "85%",
+              "92%"
+            ],
+            "answer": 3,
+            "explain": "Sands China built a model on 200-plus features, reaching 92% accuracy; conversion rate and bookings grew 1.5x and 2x.",
+            "source": "Master Data and Use Machine Learning to Mine New Opportunities"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Pour Out the Water Before AI",
+        "text": "The boss wants the word AI; the client wants accuracy. Accuracy starts with a clean list."
+      }
+    }
+  ]
+}

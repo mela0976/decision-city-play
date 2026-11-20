@@ -9,7 +9,7 @@ import { Game } from './game/game.js';
 import { showTitle } from './game/ui/title.js';
 import { createHint } from './game/ui/hint.js';
 import { hintFor } from './game/hints.js';
-import { T } from './game/strings.js';
+import { T, LANG } from './game/strings.js';
 import { createBootProgress } from './game/boot-progress.js';
 
 const params = new URLSearchParams(window.location.search);
@@ -20,6 +20,17 @@ const opts = {
 };
 
 const $ = (id) => document.getElementById(id);
+
+// i18n：index.html 寫的是中文；譯版在這裡換掉頁面標題、說明與無障礙標籤（<html lang> 由 lang.js 設定）
+if (LANG !== 'zh') {
+  document.title = T.metaTitle;
+  for (const sel of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) document.querySelector(sel)?.setAttribute('content', T.metaDesc);
+  for (const sel of ['meta[property="og:title"]', 'meta[property="og:site_name"]', 'meta[name="twitter:title"]']) document.querySelector(sel)?.setAttribute('content', T.metaTitle);
+  document.querySelector('meta[property="og:locale"]')?.setAttribute('content', LANG === 'ja' ? 'ja_JP' : 'en_US');
+  $('city')?.setAttribute('aria-label', T.a11yCity);
+  $('hud-clock')?.setAttribute('aria-label', T.a11yClock);
+  $('boot-plate').textContent = T.loading;
+}
 const els = {
   stage: $('stage'),
   world: $('world'),

@@ -1,0 +1,1341 @@
+{
+  "year": 2020,
+  "chapters": [
+    {
+      "id": "c2020_01",
+      "title": "The Super Salesperson's Secret Weapon",
+      "by": "Dentsu Aegis Network",
+      "summary": "Car buyers' journeys are long with many touchpoints. Look at online comparison volume and semantics to see your real rivals and the appeals to strengthen.",
+      "coveredBy": "s2020_01"
+    },
+    {
+      "id": "c2020_02",
+      "title": "From Black Swans to Gray Rhinos: The Adaptability Quotient Every Brand Needs",
+      "by": "Carat",
+      "summary": "Use a crisis-relevance and market-demand matrix to find where you stand, then turn crisis into opportunity with the five A.R.I.S.E. adaptability quotients.",
+      "coveredBy": "s2020_02"
+    },
+    {
+      "id": "c2020_03",
+      "title": "Data-Driven Marketing Through the Lens of COVID-19",
+      "by": "Amplifi Taiwan",
+      "summary": "Walled gardens and dying cookies leave marketers seeing fragments. Use different data sources at each journey stage, then link them with data fusion.",
+      "coveredBy": "s2020_03"
+    },
+    {
+      "id": "c2020_04",
+      "title": "Using Salesforce to Unify Brand Data, Improve Customer Experience, and Drive Growth",
+      "by": "Isobar Taiwan",
+      "summary": "Before adopting martech, set a customer relationship blueprint, then use five keys to connect everything from first-party data to reporting.",
+      "coveredBy": "m2020"
+    },
+    {
+      "id": "c2020_05",
+      "title": "Not Just a Better World but Client Results: Full-Funnel Creative That Proves Integrated Creative and Media",
+      "by": "Dentsu Taiwan",
+      "summary": "Use the funnel as a shared language to unite creative and performance: find the stuck layer, test on a small budget, then scale up.",
+      "coveredBy": "s2020_04"
+    },
+    {
+      "id": "c2020_06",
+      "title": "Outpacing Rivals in Digital: The New Era of the “Search 4V” Is Here",
+      "by": "iProspect Taiwan",
+      "summary": "Behind every search is a real person. Build organic search across four types: voice, image, vertical, and universal.",
+      "coveredBy": "s2020_05"
+    },
+    {
+      "id": "c2020_07",
+      "title": "How Media Performance Connects to Sales Targets",
+      "by": "Vizeum",
+      "summary": "Split goals into business, market, and communication layers, find the most valuable consumers, then use econometric models to estimate media's sales impact.",
+      "coveredBy": "s2020_06"
+    },
+    {
+      "id": "c2020_08",
+      "title": "Disruptive Innovation in Precision Marketing",
+      "by": "Amnet Taiwan",
+      "summary": "With third-party cookies gone, rebuild precision marketing with contextual targeting, a first-party CDP, and machine-learning auto-optimization.",
+      "coveredBy": "s2020_03"
+    },
+    {
+      "id": "c2020_09",
+      "title": "AI X Creativity",
+      "by": "Dentsu Kuohua",
+      "summary": "AI can churn out banners in seconds and predict performance; creatives' value shifts to refinement, strategy, and full-funnel creative.",
+      "coveredBy": "s2020_04"
+    },
+    {
+      "id": "c2020_10",
+      "title": "Marketing Measurement Decoded",
+      "by": "dentsu X",
+      "summary": "Data isn't truth. Martech favors short-term measurable metrics, so weigh data quality and quantity, plus human judgment and surveys. The main job cites its Adidas case.",
+      "coveredBy": "s2020_06"
+    },
+    {
+      "id": "c2020_11",
+      "title": "Tech-Empowered: The Big Health Wave Arrives",
+      "by": "Dentsu Aegis Network",
+      "summary": "Wearables and AI shift health toward prevention and personalization. Taiwan gains three markets: health data services, mental health, and community habit building.",
+      "coveredBy": "s2020_07"
+    },
+    {
+      "id": "c2020_12",
+      "title": "Report on Japan's Health Industry",
+      "by": "Dentsu Taiwan, Dentsu Kuohua, Isobar Taiwan",
+      "summary": "Japan shifted focus from average to healthy life expectancy; companies turn social issues into business via functional foods, channel shifts, and senior services.",
+      "coveredBy": "s2020_09"
+    },
+    {
+      "id": "c2020_13",
+      "title": "Taiwan's Health, Seen Through Data",
+      "by": "Dentsu Aegis Network",
+      "summary": "Taiwanese value health but don't prioritize spending on it. Knowing beats doing; they prefer low-barrier options and rely on channels where someone explains.",
+      "coveredBy": "s2020_08"
+    },
+    {
+      "id": "c2020_14",
+      "title": "Supplements and OTC Drugs: Breaking Down Market Dynamics",
+      "by": "Nielsen Taiwan",
+      "summary": "Broad health supplements and OTC drugs outgrow regular FMCG; the keys are diverse product formats and differentiated channel execution.",
+      "coveredBy": "s2020_08"
+    },
+    {
+      "id": "c2020_15",
+      "title": "Conclusion: Get Ahead of the Curve with Strategies to Ride the Big Health Wave",
+      "by": "Dentsu Aegis Network, Isobar Taiwan",
+      "summary": "Health is going personalized, smart, and prevention-first. Companies need cross-industry partners, health data, and service design to upgrade products.",
+      "coveredBy": "s2020_07"
+    },
+    {
+      "id": "c2020_16",
+      "title": "Media Genesis: Who Gets on the Ark?",
+      "by": "Carat",
+      "summary": "Audiences shift from aimless browsing to purposeful on-demand; social and search are the gateways. To be seen, brands must make content people need.",
+      "coveredBy": "s2020_05"
+    },
+    {
+      "id": "c2020_17",
+      "title": "An Unbalanced Media Ecosystem",
+      "by": "Carat",
+      "summary": "Self-media upended the balance of media, audiences, and advertisers. Hard sells fail, subscriptions and echo chambers rise; marketers need new roles and focus.",
+      "coveredBy": "s2020_10"
+    },
+    {
+      "id": "c2020_18",
+      "title": "The Death of Third-Party Cookie Marketing",
+      "by": "Carat",
+      "summary": "Chrome phasing out third-party cookies hits tracking, audiences, and retargeting; advertisers must shift to building first-party data and content.",
+      "coveredBy": "m2020"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2020_ko",
+      "name": "Asst. Mgr. Ko",
+      "skin": "npc_client",
+      "locationId": "mrt",
+      "title": "Asst. Marketing Mgr, No-Look Reverse",
+      "lines": [
+        "Everyone online is talking about our car, but nobody comes in for a test drive.",
+        "The demo car sits at City Hall Station. What people touch most is the side mirror.",
+        "The boss says being loudest online means we win. I'm not so sure."
+      ]
+    },
+    {
+      "id": "n2020_zhe",
+      "name": "Ah-Che",
+      "skin": "npc_student",
+      "locationId": "office",
+      "title": "Copywriter, Second Year",
+      "lines": [
+        "AI made 300 overnight. I haven't finished looking at even one.",
+        "Quick question: who came up with the name “Never Burn Out”?",
+        "AI scored my headline a 60. I'm genuinely hurt."
+      ]
+    },
+    {
+      "id": "n2020_chou",
+      "name": "Ms. Chou",
+      "skin": "npc_client",
+      "locationId": "gamadiam",
+      "title": "Founder, Walk & Earn Health App",
+      "lines": [
+        "We want seniors walking a thousand more steps a day, starting at the general store.",
+        "Data matters, but grandparents matter more than data.",
+        "Lots of downloads. Very few people still walking by week two."
+      ]
+    },
+    {
+      "id": "n2020_cheng",
+      "name": "Pharmacist Cheng",
+      "skin": "npc_vendor",
+      "locationId": "convenience",
+      "title": "Convenience Store Pharmacist",
+      "lines": [
+        "The first thing every customer asks: does this stuff actually work?",
+        "However many ads they see, they still end up at my counter asking me.",
+        "More supplements isn't better. It depends on what you're missing."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2020_01",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_01"
+      ],
+      "title": "Most Buzz, Fewest Test Drives",
+      "locationId": "mrt",
+      "giver": "n2020_ko",
+      "time": "morning",
+      "brief": "Car brand “No-Look Reverse” leads online buzz yet trails in test-drive bookings. Asst. Mgr. Ko waits by the City Hall Station demo car; his boss wants more buzz.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2020_ko",
+              "text": "{role}, look at this report. Our online buzz is number one in our class."
+            },
+            {
+              "who": "n2020_ko",
+              "text": "But test drives are near the bottom. Boss says buzz isn't enough; get more car reviewers."
+            },
+            {
+              "who": "player",
+              "text": "When people online mention you, who do they compare you to?"
+            },
+            {
+              "who": "n2020_ko",
+              "text": "We always assumed the two German brands. But nobody actually puts us in their comparisons."
+            },
+            {
+              "who": "n2020_ko",
+              "text": "Folks at the demo car keep asking if a stroller fits in back. Our ads all talk horsepower."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Asst. Mgr. Ko pitches next quarter's plan next week. What do you suggest?",
+          "options": [
+            {
+              "text": "Do what the boss says: get five car reviewers to do unboxings and push the buzz even higher.",
+              "effects": {
+                "brand": 4,
+                "sales": -2,
+                "liver": 3
+              },
+              "feedback": "Each unboxing video beats the last, and buzz breaks records again. Test-drive bookings tick up a few, mostly reviewers' fans coming to take photos.",
+              "insight": "The analysis in “The Super Salesperson's Secret Weapon” found a brand with the most mentions but the fewest comparisons; the cars consumers compare you to are your real rivals.",
+              "roleBonus": {
+                "ae": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Check comparison volume: on comparison sites, who are we lined up against, and on which specs?",
+              "effects": {
+                "trust": 4,
+                "sales": 3,
+                "liver": 5
+              },
+              "feedback": "Ah-Kai pulls three months of comparison data: the car most often compared isn't German, it's a domestic SUV. Asst. Mgr. Ko's competitor deck gets rebuilt from scratch.",
+              "insight": "The book finds Mercedes-Benz's top rival is itself, at 30% of its model comparisons; track mentions and comparison volume together, and how one converts into the other.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Use buyer psychology: space, parking, safety. Shift the ads from horsepower to “fits a stroller.”",
+              "effects": {
+                "sales": 5,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "The new creative runs a week at City Hall Station, and people start bringing strollers to test the fit. Within a month, test-drive bookings climb to mid-pack.",
+              "insight": "Drawing on “Automotive Psychology,” the book lays out seven psychological decision factors and scores each car's attributes from 178 hardware specs, scientifically finding the appeals a brand should strengthen.",
+              "roleBonus": {
+                "planner": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Per “The Super Salesperson's Secret Weapon,” at least how many information channels do car buyers use online when deciding?",
+            "options": [
+              "5 channels",
+              "24 channels",
+              "10 channels",
+              "50 channels"
+            ],
+            "answer": 1,
+            "explain": "Buyers' decisions take about 3 months, or 90 days, gathering info online from at least 24 different channels and browsing 10 or more models.",
+            "source": "The Super Salesperson's Secret Weapon"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 2,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Compared Means Competing",
+        "text": "Everyone talking about you isn't everyone wanting to buy you. First, find whose comparison chart you're in."
+      }
+    },
+    {
+      "id": "s2020_02",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_02"
+      ],
+      "title": "A Week of Rain, Higher Fees",
+      "locationId": "night_market",
+      "giver": "vendor_cheng",
+      "time": "evening",
+      "brief": "A week of plum rains halved the crowds on Linginger Street, and the delivery app raised its cut again. Ah-Cheng wants to hike prices; the next stall wants to team up.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "vendor_cheng",
+              "text": "{role}, a week of rain, half the customers, and the delivery app wants a bigger cut."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "They take over 30% of every chicken cutlet. If I don't raise prices, I'm working for free."
+            },
+            {
+              "who": "player",
+              "text": "Are the stalls next door in the same spot?"
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "The whole street is. The oyster omelet guy says we should just hire our own riders."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "My daughter says post memes riding the news. You're in advertising. What do you think?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How does Ah-Cheng get through this rainy season?",
+          "options": [
+            {
+              "text": "Team up with the street on night-market riders: order from several stalls on LINE, one trip home.",
+              "effects": {
+                "sales": 4,
+                "trust": 3,
+                "liver": 6
+              },
+              "feedback": "Week one has just two riders, and cutlets and oyster omelets bounce on one scooter until cold. By week three, with insulated boxes and a third rider, orders hold steady.",
+              "insight": "In “From Black Swans to Gray Rhinos,” Carat cites Taiwan night markets launching their own delivery riders: combined orders across stalls beat platform fees and solve two pain points, going out and waiting in line.",
+              "roleBonus": {
+                "cx": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Ride the news: post a “Rainy-Day Chicken Rescue Squad” meme while the downpour is trending.",
+              "effects": {
+                "brand": 4,
+                "sales": 2,
+                "liver": 3
+              },
+              "feedback": "The meme gets shared thousands of times, and a short line forms the day the rain stops. One comment: places are still cleaning up floods and you're selling chicken?",
+              "insight": "Relevance in A.R.I.S.E. means riding an issue to win mindshare; the book cites Sunflower's lutein ad pitted against bananas. Beyond the book: where riding an issue becomes exploiting it is your call.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Offer small rainy-day combos at unchanged prices, so ordering less from home still feels worth it.",
+              "effects": {
+                "sales": 3,
+                "trust": 4,
+                "liver": 3
+              },
+              "feedback": "A small cutlet plus black tea as a rainy-day combo sells out on day one. Ah-Cheng says margins are a bit thinner, but his regulars stuck around.",
+              "insight": "One of the book's three key mindsets is “opportunity survives, but demand changes”; answering new needs with agility and innovation weathers a crisis better than clinging to old ways.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "What does “From Black Swans to Gray Rhinos” advise brands in markets where demand surges during a crisis?",
+            "options": [
+              "Raise prices while demand is high",
+              "Pause all media spending",
+              "Hold prices so you don't look like a profiteer",
+              "Switch to brand-image ads"
+            ],
+            "answer": 2,
+            "explain": "The book advises against raising prices in surging markets, so consumers don't feel you're profiting from disaster.",
+            "source": "From Black Swans to Gray Rhinos: The Adaptability Quotient Every Brand Needs"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Needs Change, Opportunity Stays",
+        "text": "When crisis hits, first ask what your customers need now, not how much you can raise prices."
+      }
+    },
+    {
+      "id": "s2020_03",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_03",
+        "c2020_08"
+      ],
+      "title": "The Retargeting List Vanished",
+      "locationId": "datalab",
+      "giver": "client_chen",
+      "time": "noon",
+      "brief": "Browsers keep blocking third-party cookies, and Manager Chen's sleep supplement retargeting list is down to 20%. At Lanshan Plaza she asks who her ads can still find.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_chen",
+              "text": "{role}, our retargeting list for the new sleep aid is just 20% of last year's."
+            },
+            {
+              "who": "client_chen",
+              "text": "People who visited our site kept seeing us. Now it's like tossing ads into the sea."
+            },
+            {
+              "who": "data_kai",
+              "text": "Cookie blocking is killing cross-site tracking. But your members and LINE friends remain."
+            },
+            {
+              "who": "player",
+              "text": "When sleep-aid buyers can't sleep, what are they looking at?"
+            },
+            {
+              "who": "client_chen",
+              "text": "I wish I knew. People scrolling at 2 AM sure aren't looking at supplements."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should you replan the second-half digital budget?",
+          "options": [
+            {
+              "text": "Go contextual: let the system read articles and place ads next to ones on insomnia and stress.",
+              "effects": {
+                "sales": 4,
+                "trust": 2,
+                "liver": 3
+              },
+              "feedback": "Ads run beside “Waking up at night?” and out-click old retargeting. Once, one lands by a piece on sleeping-pill side effects, and you add exclusion terms overnight.",
+              "insight": "Amnet's “Disruptive Innovation in Precision Marketing” says that with cookies gone, NLP enables contextual targeting, turning unstructured articles into structured tags and serving by content, not individual tracking.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Build a first-party data platform: merge members, LINE, and e-com orders, then let ML optimize.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "sales": -2,
+                "liver": 6
+              },
+              "feedback": "Integration takes four months; Ah-Kai says he matches fields in his dreams. After launch, media costs drop a lot, but this quarter's sales report looks ugly.",
+              "insight": "The book says ads served by machine learning on owned traffic unified in a CDP cut CPA by over 50% and CPC by over 60% on average, and free marketers from reports.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Split the journey: survey and social data for awareness, your own members for purchase.",
+              "effects": {
+                "brand": 3,
+                "trust": 3,
+                "liver": 4
+              },
+              "feedback": "You find sleepless people mostly listen to podcasts at night, so awareness budget moves to audio; purchase-stage pushes go only to LINE friends. Less spend, sales hold.",
+              "insight": "Amplifi says walled gardens show marketers only fragments, so use different data sources at each journey stage and link them with data fusion; but fusion only works with respondent-level data.",
+              "roleBonus": {
+                "cx": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Data-Driven Marketing Through the Lens of COVID-19” says Dentsu Japan's 2005 AISAS model was revised in 2017 into what?",
+            "options": [
+              "Dual AISAS",
+              "AIDMA",
+              "AISCEAS",
+              "Reverse AISAS"
+            ],
+            "answer": 0,
+            "explain": "Dentsu Japan proposed AISAS in 2005 and revised it into Dual AISAS in 2017 to describe more complex customer journeys.",
+            "source": "Data-Driven Marketing Through the Lens of COVID-19"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Can't Track People? Read Context",
+        "text": "Tracking individuals is harder now; brands that know people's context and what they read can still find them."
+      }
+    },
+    {
+      "id": "s2020_04",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_05",
+        "c2020_09"
+      ],
+      "title": "AI Made 300 Overnight",
+      "locationId": "office",
+      "giver": "n2020_zhe",
+      "time": "morning",
+      "brief": "Players keep leaving the mobile game “Never Burn Out.” Overnight, AI generated 300 ad images and gave each a predicted score. Ah-Che, your junior, asks: run them all?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2020_zhe",
+              "text": "{role}, AI made 300 “Never Burn Out” banners overnight."
+            },
+            {
+              "who": "n2020_zhe",
+              "text": "Each has a predicted CTR. Mine scored 60 and ranked 240th."
+            },
+            {
+              "who": "player",
+              "text": "Does the client want new players, or to bring old ones back?"
+            },
+            {
+              "who": "n2020_zhe",
+              "text": "Both. It's been out two years. Everyone knows it; they just don't want to open it again."
+            },
+            {
+              "who": "n2020_zhe",
+              "text": "Director Lin wants a direction by ten. I'm getting coffee first. I need it."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What direction do you give these 300 by ten?",
+          "options": [
+            {
+              "text": "Run them all, let the system go for a week, and let CTR weed them out.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "Week one's top CTR is a “Free 10x Pull” banner, and downloads jump. Week two falls back to baseline; most returning players pull and leave.",
+              "insight": "Dentsu Kuohua's “AI X Creativity” presents ADAM, which makes a banner every five seconds; a prediction engine then estimates CTR and ranks them by brand or direct-response goals.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "AI makes the volume; people pick the top ten to polish and guard the brand's voice.",
+              "effects": {
+                "brand": 4,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "You and Ah-Che revise till 11:30, keep four of the top ten, and add two headlines he wrote by hand. Results beat average; the client says it finally feels like them.",
+              "insight": "The book quotes a Dentsu Japan leader: people will never be replaced by AI. AI handles mass output, and creatives' time shifts to refinement and strategy.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Skip the images: find where players drop in the funnel, then test the best appeal on a small budget.",
+              "effects": {
+                "trust": 4,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "Interviews show old players want to return, but their friends left. You switch to “Bring a friend back, both get rewards,” test small before scaling, and returns climb.",
+              "insight": "Dentsu Taiwan's full-funnel creative finds the stuck layer first; for a mobile game, it tests the strongest “appeal × character” combo on a small budget, then scales to outdoor and TV.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In the “ad co-creation” process in “AI X Creativity,” what is the last step after AI produces banners?",
+            "options": [
+              "Client picks one and it goes live",
+              "Media platform auto-reviews and serves it",
+              "Prediction engine picks the version alone",
+              "Creatives refine and sign off"
+            ],
+            "answer": 3,
+            "explain": "The book says that after AI produces banners, creatives refine and confirm them to finish the design; that's the new way of “ad co-creation.”",
+            "source": "AI X Creativity"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Volume to AI, Judgment to People",
+        "text": "AI makes 300 a night, but people still judge which funnel layer is broken and which one fits the brand."
+      }
+    },
+    {
+      "id": "s2020_05",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_06",
+        "c2020_16"
+      ],
+      "title": "Breakfast Near Me? Not Us",
+      "locationId": "breakfast",
+      "giver": "breakfast_auntie",
+      "time": "morning",
+      "brief": "Auntie Hsiu-chin's granddaughter asked her phone for “breakfast near me” and got only chains. This breakfast shop has run for twenty years, yet online it barely exists.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "breakfast_auntie",
+              "text": "{role}, my granddaughter asked her phone for “breakfast near me.” We didn't show up."
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "All chains popped up, plus one that only opened last month."
+            },
+            {
+              "who": "player",
+              "text": "Is our menu or any photos of the shop online?"
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "Customers posted some. The egg crepes look like rags. And it lists us closed Mondays."
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "The place next door says they bought ads. Should I buy some too?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Auntie Hsiu-chin will only spend a little each month. Your advice?",
+          "options": [
+            {
+              "text": "Buy map and keyword ads so “breakfast near me” finds the shop first.",
+              "effects": {
+                "sales": 4,
+                "trust": 2,
+                "liver": 2
+              },
+              "feedback": "The ads go live and new customers really do come. Every month Auntie Hsiu-chin frowns at the bill and asks if she has to keep paying forever.",
+              "insight": "iProspect says integrating SEO and SEM raises search quality scores, letting paid search win better spots at lower CPC; paid and organic search need tending together.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Write the shop info as Q&A: opening hours, vegetarian options, preorders. Add captions to photos.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "liver": 4
+              },
+              "feedback": "You and Auntie Hsiu-chin's granddaughter spend a weekend fixing hours and writing twelve Q&As. Two weeks on, ask a phone for “breakfast open at 6 AM” and they're first.",
+              "insight": "“Search 4V” says 27% of people worldwide regularly use voice search and voice queries lean toward questions, so use FAQ structure; images need good alt text so search engines can read them.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Shoot a 15-second griddle clip each morning: flipping crepes, regulars saying hi. Post on schedule.",
+              "effects": {
+                "brand": 5,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "Auntie Hsiu-chin starts out shy, but clip five, where she fumbles a crepe flip, gets the most views. One comment says it reminds them of the shop on their own corner.",
+              "insight": "Carat's “Media Genesis” says people have shifted from aimless browsing to purposeful on-demand, with social and search as the two gateways; the only way to be searchable and crawlable is content people need.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "What phrase does “Media Genesis” use for brands' future battle for visibility in media?",
+            "options": [
+              "Buy it with budget, borrow it without",
+              "Follow trends when there are some, make them when there aren't",
+              "Searchable with a purpose, crawlable without one",
+              "Keep members when you have them, win them back when you don't"
+            ],
+            "answer": 2,
+            "explain": "The book says brands' future media war is a visibility war: searchable when people have a purpose (search visibility), crawlable when they don't.",
+            "source": "Media Genesis: Who Gets on the Ark?"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Be Findable First",
+        "text": "People no longer wander aimlessly; they ask. Brands must be searchable the moment they ask."
+      }
+    },
+    {
+      "id": "s2020_06",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_07",
+        "c2020_10"
+      ],
+      "title": "Contract Demands 10% Growth",
+      "locationId": "rechao",
+      "giver": "client_hsu",
+      "time": "night",
+      "brief": "Over stir-fry, Manager Hsu of a cleaning brand says next year's contract needs “ads drive 10% sales growth,” or fees get docked. Her boss loves favorability reports.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_hsu",
+              "text": "{role}, bad news: next year's contract demands 10% sales growth, or fees get cut."
+            },
+            {
+              "who": "client_hsu",
+              "text": "My boss says, aren't you great with data? Then guarantee it with data."
+            },
+            {
+              "who": "player",
+              "text": "Is that 10% from new customers, or old ones buying more?"
+            },
+            {
+              "who": "client_hsu",
+              "text": "…I don't know either. I just know he loves reading that monthly favorability report."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "10% growth? If my stir-fry joint grew 10%, I'd go tour the whole island."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "You have to answer on the contract terms tomorrow. Your advice?",
+          "options": [
+            {
+              "text": "Accept, but first run an econometric model on sales data to split out price, channel, and media.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "liver": 6
+              },
+              "feedback": "After three weeks of modeling, media can carry about four points; distribution and price do the rest. Manager Hsu's chart sways her boss, and the clause becomes itemized.",
+              "insight": "Vizeum's “How Media Performance Connects to Sales Targets” uses the econometric tool Velocity with client sales data to estimate each medium's contribution to sales.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Don't promise sales: split goals into business, market, and communication tiers with metrics we own.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "Manager Hsu first thinks you're dodging, but when you get to “whose penetration has to grow,” she grabs a pen. The contract ends up with three layers of metrics.",
+              "insight": "Using 10% sales growth as its example, the book argues for splitting it into business, market, and communication goals, finding the most valuable consumers, then deciding media and messaging.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Lean on favorability and brand-lift reports next year. The boss loves them; the numbers look good.",
+              "effects": {
+                "brand": 3,
+                "trust": -2,
+                "liver": 2
+              },
+              "feedback": "Reports improve every quarter and the boss is pleased. At year-end, finance finds sales flat; only then do they see the reports and the register tell different stories.",
+              "insight": "dentsu X's “Marketing Measurement Decoded” warns data isn't truth: brand-lift studies require random, uncontaminated test and control groups, and over-optimizing short-term metrics erodes long-term value.",
+              "roleBonus": {
+                "ae": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Marketing Measurement Decoded” says there were about 150 martech companies in 2011. How many were there by 2019?",
+            "options": [
+              "About 1,000",
+              "Over 7,000",
+              "About 3,500",
+              "Over 20,000"
+            ],
+            "answer": 1,
+            "explain": "Martech companies numbered about 150 in 2011 and topped 7,000 by 2019; growth has only recently slowed.",
+            "source": "Marketing Measurement Decoded"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Split It to Carry It",
+        "text": "10% sales growth isn't one number but several layers of goals; split them up to see which layer ads can carry."
+      }
+    },
+    {
+      "id": "s2020_07",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_11",
+        "c2020_15"
+      ],
+      "title": "A Thousand Steps at the Store",
+      "locationId": "gamadiam",
+      "giver": "n2020_chou",
+      "time": "afternoon",
+      "brief": "A health app wants a step kiosk at the Sisi South Village general store: seniors trade steps for points while it collects health data. Ama sits at the door, unconvinced.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2020_chou",
+              "text": "{role}, we want a kiosk at the general store. Seniors tap a band daily for points."
+            },
+            {
+              "who": "n2020_chou",
+              "text": "Steps, sleep, heart rate all come in. Later we can give personalized health advice."
+            },
+            {
+              "who": "grandma",
+              "text": "I walk to the market every day. That's ten thousand steps already. Why tap some band?"
+            },
+            {
+              "who": "player",
+              "text": "Who gets to see this data later? Who keeps it safe?"
+            },
+            {
+              "who": "n2020_chou",
+              "text": "Us, partner clinics, maybe insurers… we're still working that out."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Ms. Chou meets the borough chief next week. What should she do first?",
+          "options": [
+            {
+              "text": "Cross-industry: store, borough chief, clinic. Steps earn store points; monthly blood pressure check.",
+              "effects": {
+                "trust": 4,
+                "sales": 3,
+                "liver": 5
+              },
+              "feedback": "Forty seniors join in month one; Ama gets dragged in too, “for the soy sauce points.” Data custody takes Ms. Chou three talks with the clinic to write into the contract.",
+              "insight": "The conclusion, “Get Ahead of the Curve,” raises three key ideas: cross-industry partnership, owning the value of health data, and upgrading products with service design. Beyond the book: settle first who owns and secures health data.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Personalize first: each senior sees their own steps and sleep tips; data shared only with consent.",
+              "effects": {
+                "brand": 3,
+                "trust": 3,
+                "liver": 4
+              },
+              "feedback": "The consent form takes two tries. The first has tiny print; one old lady says she'll go ask her grandson. Version two is read aloud, and sign-ups finally pick up.",
+              "insight": "“Tech-Empowered: The Big Health Wave Arrives” notes wearables ship over 200M units a year, but data is just the warm-up; what makes people healthier is the analysis and personalized service after.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "No data yet. A walking group at the store every Wednesday afternoon makes walking a reason to meet.",
+              "effects": {
+                "brand": 4,
+                "trust": 2,
+                "liver": 3
+              },
+              "feedback": "Only six come the first time; by week four it's thirty, all buying soda at the store afterward. App downloads barely move, but those who stay show up every week.",
+              "insight": "The book names three potential markets in Taiwan, one being community-driven habit building; Sports Administration data shows only 34% exercise regularly. The hard part is keeping people at it.",
+              "roleBonus": {
+                "cx": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "What three health-industry trends does “Conclusion: Get Ahead of the Curve with Strategies to Ride the Big Health Wave” name?",
+            "options": [
+              "Lower prices, channels, branding",
+              "Chains, automation, scale",
+              "Digital, entertainment, social",
+              "Personalized, smart, prevention over cure"
+            ],
+            "answer": 3,
+            "explain": "The conclusion centers on three trends, personalized, smart, and prevention over cure, and draws on Japan's experience to propose strategies.",
+            "source": "Conclusion: Get Ahead of the Curve with Strategies to Ride the Big Health Wave"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "People Before Data",
+        "text": "Collecting health data isn't hard. Getting people to keep walking daily, and trust you with their data, is."
+      }
+    },
+    {
+      "id": "s2020_08",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_13",
+        "c2020_14"
+      ],
+      "title": "Does This Stuff Work?",
+      "locationId": "convenience",
+      "giver": "n2020_cheng",
+      "time": "afternoon",
+      "brief": "Lutein brand “No More Dry Eyes” wants to go all-in on digital ads. Pharmacist Cheng at the Corner Convenience Store says customers still end up at her counter asking.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2020_cheng",
+              "text": "{role}, the “No More Dry Eyes” rep says this year's budget all goes to online ads."
+            },
+            {
+              "who": "n2020_cheng",
+              "text": "But after the ads, customers still come ask me: does this stuff actually work?"
+            },
+            {
+              "who": "player",
+              "text": "What do you usually tell them?"
+            },
+            {
+              "who": "n2020_cheng",
+              "text": "First I ask their daily screen hours, then what else they take. Some take five at once."
+            },
+            {
+              "who": "n2020_cheng",
+              "text": "Young people do ask if there's a drink version. They say capsules are hard to swallow."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should the brand split next quarter's budget?",
+          "options": [
+            {
+              "text": "Go with the rep: mostly digital ads, targeting people with long screen time.",
+              "effects": {
+                "sales": 4,
+                "brand": 2,
+                "liver": 2
+              },
+              "feedback": "Reach looks great and searches rise. More people ask at pharmacy counters, but no one trained pharmacists on this product, so some leave after asking.",
+              "insight": "“Taiwan's Health, Seen Through Data” notes digital channels matter more for health info every year, and by 2019 were on par with TV.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Put 30% into pharmacist training and counter info cards so the front line knows what to say.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "You run small sessions at thirty pharmacies and come home hoarse nightly. Two months on, Pharmacist Cheng says she now recommends it; she can explain how it's different.",
+              "insight": "Nielsen's analysis finds that at pharmacies, the key to purchase isn't visibility but the pharmacist's recommendation; at personal-care stores, shoppers care most about finding the product easily.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Change the format: launch a lutein drink and 7-day packs so young people can try it.",
+              "effects": {
+                "brand": 3,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "Factory scheduling delays the new packs a month. Once the lutein drink hits convenience store fridges, young office workers rebuy it far more than capsules.",
+              "insight": "Nielsen finds broad health growth comes from diverse product formats; lutein drinks only entered the market in 2016, gained share three years running, and grew fastest of any segment.",
+              "roleBonus": {
+                "creative": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Taiwan's Health, Seen Through Data” estimates the 2019 supplement market topped NT$145B. How much did it grow over ten years?",
+            "options": [
+              "82%",
+              "28%",
+              "45%",
+              "120%"
+            ],
+            "answer": 0,
+            "explain": "The book estimates the 2019 supplement market topped NT$145B, up 82% over ten years, with 75% penetration.",
+            "source": "Taiwan's Health, Seen Through Data"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "The Last Mile Is the Counter",
+        "text": "Health matters but isn't urgent spending; what gets people to pay is often one explanation at the counter."
+      }
+    },
+    {
+      "id": "s2020_09",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_12"
+      ],
+      "title": "Healthy Years at the Temple",
+      "locationId": "temple",
+      "giver": "temple_uncle",
+      "time": "morning",
+      "brief": "Skincare brand “Wrinkles Off Duty” wants a booth at the Fude St. Earth God Shrine's blessing festival. Temple Uncle says seniors come in droves, but no sales pitches.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "temple_uncle",
+              "text": "Young one, a skincare brand wants a blessing festival booth with free samples for seniors."
+            },
+            {
+              "who": "temple_uncle",
+              "text": "I'm not against it. But last time a mattress seller came, one old lady bought three."
+            },
+            {
+              "who": "player",
+              "text": "What do the seniors who come to pray worry about most?"
+            },
+            {
+              "who": "temple_uncle",
+              "text": "Weak legs, bad sleep, fear of falling. Some say they're old and avoid the mirror."
+            },
+            {
+              "who": "grandma",
+              "text": "I'm fine. I put on lipstick every day. It cheers me up, and I walk stronger too."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How do you suggest the brand join the blessing festival?",
+          "options": [
+            {
+              "text": "Set up a booth with samples: scan to join as a member for 10% off. Works best when it's crowded.",
+              "effects": {
+                "sales": 4,
+                "trust": -2,
+                "liver": 3
+              },
+              "feedback": "A long line forms and 300 members sign up in a day. The next week Temple Uncle calls: someone's son came to the temple asking who signed his dad up.",
+              "insight": "Beyond the book: Japan's Foods with Function Claims system, launched in 2015, has loose certification and fast launches and is the fastest-growing category; but the book's Japanese firms more often turn aging into long-term services.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Run a makeup and grooming class for seniors, taught by beauty advisors, not salespeople.",
+              "effects": {
+                "brand": 5,
+                "trust": 3,
+                "liver": 5
+              },
+              "feedback": "Twenty grandmas come to the first class; one says she hasn't drawn her brows in forty years. They end with a group photo out front; the brand gives each just a lip balm.",
+              "insight": "“Report on Japan's Health Industry” cites Shiseido: in 2013 it proposed “cosmetic therapy” as a new way to slow aging in an aging society, opening beauty classes and training caregivers.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Do it Japan's way: free body-fat and grip tests, retested quarterly at the temple to track change.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "After the first test, many seniors take their slips to Temple Uncle to ask what the numbers mean. At the next quarter's retest, half come back, bringing neighbors.",
+              "insight": "The book cites TANITA: it launched the world's first body-fat scale in 1992, then expanded from measurement to healthy meals and cafeterias. Japan has shifted from average to healthy life expectancy.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Per “Report on Japan's Health Industry,” how many years apart are average and healthy life expectancy for older Japanese?",
+            "options": [
+              "About 3 years",
+              "About 10 years",
+              "About 20 years",
+              "About 15 years"
+            ],
+            "answer": 1,
+            "explain": "For older Japanese, average and healthy life expectancy differ by about 10 years; attention has shifted from how long people live to how long they stay healthy.",
+            "source": "Report on Japan's Health Industry"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Live Long, Live Well",
+        "text": "The senior market doesn't need more sales pitches; it needs services that make the healthy years last longer."
+      }
+    },
+    {
+      "id": "s2020_10",
+      "year": 2020,
+      "chapterIds": [
+        "c2020_17"
+      ],
+      "title": "The Delivery Rider's Channel",
+      "locationId": "riverside",
+      "giver": "rider_jie",
+      "time": "evening",
+      "brief": "Delivery rider Ah-Chieh's “Rider's Daily” channel has 80K subs; helmet brand “Breathe Easy” wants him for live commerce. At Rainbow Riverside he asks: take it or not?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "rider_jie",
+              "text": "{role}, “Breathe Easy” wants a helmet livestream. One show outpays a week of runs."
+            },
+            {
+              "who": "rider_jie",
+              "text": "But my viewers are all riders. They hate sponsored posts. The comments will explode."
+            },
+            {
+              "who": "player",
+              "text": "Did the brand mention any other approach?"
+            },
+            {
+              "who": "rider_jie",
+              "text": "They're thinking of starting their own channel, but their page gets ten likes a post."
+            },
+            {
+              "who": "rider_jie",
+              "text": "And a rider group chat says, why don't we all design a helmet that doesn't get stuffy?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What would you suggest the brand do?",
+          "options": [
+            {
+              "text": "Have Ah-Chieh do live commerce, testing it for three hours in the rain. Add shows if it sells.",
+              "effects": {
+                "sales": 5,
+                "trust": -2,
+                "liver": 4
+              },
+              "feedback": "The livestream sells 800 helmets; comments split, haters vs. fans. The brand, thrilled, books three more influencers, but none of those viewers are the brand's own.",
+              "insight": "“An Unbalanced Media Ecosystem” cites a survey: global influencer budgets hit US$6.5B in 2019, and 63% of companies planned to spend more in 2020. Beyond the book: influencers persuade, but one-off exposure rarely builds the brand's own assets.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "The brand runs its own channel, posting rider lifestyle content every week, no rush to sell.",
+              "effects": {
+                "brand": 4,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Subs look grim for three months; the brand nearly quits. In month four, “My Head After 10 Hours in a Summer Helmet” blows up; now people wait for each week's video.",
+              "insight": "One new focus the book lists for marketers is regular, everyday brand content: going from four campaigns a year to 150 social posts.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Co-create with riders: collect design ideas in the group chat, then crowdfund a new model.",
+              "effects": {
+                "brand": 3,
+                "sales": 3,
+                "trust": 2,
+                "liver": 6
+              },
+              "feedback": "The group argues for two months, 300 messages on vents alone. The crowdfund hits its goal in the first hour; Ah-Chieh says it's the first helmet he's wanted to recommend.",
+              "insight": "The book mentions a Taiwanese creator's crowdfunding campaign that drew 26,980 backers in one day; self-media and social upended the old balance among media, audiences, and advertisers.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“An Unbalanced Media Ecosystem” says that when marketing goes from four campaigns a year to 150 posts, what do brands always lack?",
+            "options": [
+              "Budget",
+              "Data",
+              "Content",
+              "Channels"
+            ],
+            "answer": 2,
+            "explain": "The book says brands always lack content; finding a content angle and long-term content partners is the first step into consumers' lives.",
+            "source": "An Unbalanced Media Ecosystem"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Borrowed Audiences Leave",
+        "text": "Influencers can sell for you for a night; only an audience you grow yourself waits for your next video."
+      }
+    }
+  ]
+}

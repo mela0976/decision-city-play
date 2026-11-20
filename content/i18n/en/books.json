@@ -1,0 +1,128 @@
+[
+  {
+    "year": 2018,
+    "title": "Intelligent Decision",
+    "subtitle": "The Intelligence Shift",
+    "theme": "Marketing isn't a bet anymore: see it, measure it, fix it",
+    "keyPoints": [
+      "Omnichannel replaces multichannel: online and offline should be one experience. Start fixing with a small, workable MVP.",
+      "Wrap reports aren't enough: track constantly from consumers' daily lives. Every wave is a chance for the next.",
+      "Outdoor ads must clear three tests: measurement, automated trading, dynamic delivery. Add mobile ads, and recall hits 2.2x."
+    ],
+    "quote": "We used to judge marketing by the “rearview mirror.” AI lets us look ahead to the future more accurately.",
+    "locationId": "mrt",
+    "cover": "book_2018"
+  },
+  {
+    "year": 2019,
+    "title": "Intelligent Decision 2019",
+    "subtitle": "The Transformation Rush",
+    "theme": "Data shows the surface, not always the truth",
+    "keyPoints": [
+      "Caveman effect: analyzing only the data that survives misleads you. Add sample surveys, channel interviews, and small data.",
+      "A brand must say clearly what it is before talking reach. Transformation runs on people and internal talk, not just tools.",
+      "Before AI, nail five small things: data quality, a good app, data talent, the right metrics, and not treating forecasts as magic."
+    ],
+    "quote": "The word “Digital” is out of style. It's all “Data” now!",
+    "locationId": "office",
+    "cover": "book_2019"
+  },
+  {
+    "year": 2020,
+    "title": "Intelligent Decision 2020",
+    "subtitle": "The Post-Pandemic Era",
+    "theme": "Back to your own customers: first-party data and LTV",
+    "keyPoints": [
+      "Don't just cut back: weigh pandemic impact and demand elasticity, then sort markets: booming, emerging, potential, stagnating.",
+      "As third-party cookies exit and walled gardens fragment data, bridge pain points with first-party data and data fusion.",
+      "Don't split brand and performance: Adidas found 65% of sales came from brand activity and moved to 60% brand, 40% performance."
+    ],
+    "quote": "Observing a “phenomenon” doesn't mean grasping the “truth,” let alone understanding the “cause.”",
+    "locationId": "client_hq",
+    "cover": "book_2020"
+  },
+  {
+    "year": 2021,
+    "title": "Intelligent Decision 2021",
+    "subtitle": "Crossing",
+    "theme": "Only true stories earn trust",
+    "keyPoints": [
+      "Home becomes a business hub: brands need full digital operations and the ability to “deliver to the door.”",
+      "After third-party cookies, build your own first-party data and identity. Create value first; don't sink in a data swamp.",
+      "Authenticity and trust are the new edge: Sinyi Realty's “Trust and Happiness” ad sold nothing; positive post-test rose 70%."
+    ],
+    "quote": "Survive, win, or grow sustainably.",
+    "locationId": "studio",
+    "cover": "book_2021"
+  },
+  {
+    "year": 2022,
+    "title": "Intelligent Decision 2022",
+    "subtitle": "Compound Leap",
+    "theme": "From me to us: let customers pitch in",
+    "keyPoints": [
+      "Three kinds of fragmentation: media, the customer journey, and a market of five generations. The fix: marketing flexibility.",
+      "Sustainability is a must: 85% of people in Taiwan think eco products cost more; 71% feel they lack information.",
+      "Modern Creativity seeks work that creates culture, changes society, and defines the future."
+    ],
+    "quote": "As for the future, your task is not to foresee it, but to enable it.",
+    "locationId": "department",
+    "cover": "book_2022"
+  },
+  {
+    "year": 2023,
+    "title": "Intelligent Decision: Empowered Evolution",
+    "subtitle": "Co-Create the Unseen",
+    "theme": "AI is a good teammate. People still make the call",
+    "keyPoints": [
+      "First-party data is the foundation for monetizing AI: garbage in, garbage out.",
+      "Anyone can make images with prompts, but AI draws “six fingers” and pretends to know what it doesn't.",
+      "As content gets cheaper, fakes and infringement risks rise. Contracts must spell out AI use and disclosure."
+    ],
+    "quote": "AI is learning, and we're learning AI. This is an age of conversation.",
+    "locationId": "datalab",
+    "cover": "book_2023"
+  },
+  {
+    "year": 2024,
+    "title": "Innovating to Impact",
+    "subtitle": "INNOVATING TO IMPACT",
+    "theme": "Everyone uses AI. Core brand values make the difference",
+    "keyPoints": [
+      "A brand is where all marketing investment adds up. The more fragmented things get, the more you return to core values.",
+      "Resonate with society: UNIQLO's East District partnership grew foot traffic to 2.2x the year before.",
+      "Customer experience is now standard. Build brand values into it, while respecting privacy and inclusivity."
+    ],
+    "quote": "How good AI is depends mostly on how good you are.",
+    "locationId": "night_market",
+    "cover": "book_2024"
+  },
+  {
+    "year": 2025,
+    "title": "Intelligent Decision 2025",
+    "subtitle": "Building the Marketing Intelligence Chain for the Algorithm Era",
+    "theme": "Algorithms: efficiency. Brands: what can't be generated",
+    "keyPoints": [
+      "Data isn't truth: Brand Lift may only light up people who already supported you.",
+      "Traditional media isn't dead: targeting 30+, TV CPM is about 48; YouTube usually runs 80–250.",
+      "AI goes from tool to agent. Customers and brands each have agents, and the rules of search and shopping get rewritten."
+    ],
+    "quote": "When algorithms find audiences, make content, and place ads, brands must ask: what value “can't be generated”?",
+    "locationId": "tvstation",
+    "cover": "book_2025"
+  },
+  {
+    "year": 2026,
+    "title": "Intelligent Decision 2026",
+    "subtitle": "The Agentic Era: Reshaping the Real Distance Between Brands and People",
+    "theme": "AI helps brands understand people. That's real closeness",
+    "keyPoints": [
+      "Agent permissions have four levels: observe/understand, recommend, decide, act. More autonomy isn't always better.",
+      "People Model has a 0.89 correlation with real-person surveys, but correlation isn't accuracy.",
+      "Generation is a commodity; delivery is the moat. Human-in-the-loop projects beat full automation on ROI by 104%."
+    ],
+    "quote": "An agent's limits are designed in. They are not flaws.",
+    "locationId": "office",
+    "cover": "book_2026"
+  }
+]

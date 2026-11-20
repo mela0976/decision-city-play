@@ -1,0 +1,1432 @@
+{
+  "year": 2018,
+  "chapters": [
+    {
+      "id": "c2018_01",
+      "title": "The Customer Experience Era, Key to Digital Transformation and Growth: The Omnichannel Experience",
+      "by": "Isobar Taiwan",
+      "summary": "Customers won't return to one channel. Brands compete on seamless omnichannel experience: personas, journey maps, fixing pain points, starting with a small, doable MVP.",
+      "coveredBy": "s2018_01"
+    },
+    {
+      "id": "c2018_02",
+      "title": "Becoming an Agile Organization to Keep Pace with Tech Change: Are You Ready for Agile Working?",
+      "by": "Dentsu Aegis Network",
+      "summary": "Agile working frees teams from time and place and iterates on collective intelligence, but cloud and mobile also need identity management and multi-factor authentication.",
+      "coveredBy": "s2018_08"
+    },
+    {
+      "id": "c2018_03",
+      "title": "Neuromarketing: Do You Really Think Consumers Are Rational?",
+      "by": "dentsu X",
+      "summary": "What consumers say isn't what they do. Neuroscience tools fill gaps surveys leave, but lab settings are unnatural, so results still need cross-checking.",
+      "coveredBy": "s2018_02"
+    },
+    {
+      "id": "c2018_04",
+      "title": "Tech as a Catalyst: Change and the Foreseeable Future",
+      "by": "Google Taiwan",
+      "summary": "Voice search, machine learning, and intent signals are changing consumer behavior, and mobile site speed is the baseline of experience.",
+      "coveredBy": "s2018_03"
+    },
+    {
+      "id": "c2018_05",
+      "title": "A Fresh Start for OOH: Is Taiwan Ready?",
+      "by": "X-Line",
+      "summary": "Public transit ridership soared over ten years, yet OOH ad spend fell, stuck at three hurdles: measurement, trading, and digitization.",
+      "coveredBy": "m2018"
+    },
+    {
+      "id": "c2018_06",
+      "title": "2025 Business Inspiration Forecast",
+      "by": "Dentsu Kuohua",
+      "summary": "A Future Mandala maps 2025 Taiwan via population, economy, environment, and tech, yielding six mindsets and markets: speed, precision, crossover, fear, worry, solitude.",
+      "coveredBy": "s2018_03"
+    },
+    {
+      "id": "c2018_07",
+      "title": "Innovating Anew Through Creativity",
+      "by": "Dentsu Taiwan",
+      "summary": "Consumers only trust what they experience firsthand. Design experiences from pain points on the customer journey: the pain point is the creative point.",
+      "coveredBy": "s2018_04"
+    },
+    {
+      "id": "c2018_08",
+      "title": "When One Person Is a Market: Using Tech to Answer, Integrate, and Uncover Personal Consumer Needs",
+      "by": "Isobar Taiwan",
+      "summary": "Personalization is mainstream, but every touchpoint must link into one consistent ecosystem, not trail consumers like a stalker.",
+      "coveredBy": "s2018_01"
+    },
+    {
+      "id": "c2018_09",
+      "title": "Media x Content x Data: Three Tracks Built as One Take Creativity Straight to Business!",
+      "by": "Carat",
+      "summary": "Plan media, content, and data together, shifting from grading ad delivery to building up consumers' action paths.",
+      "coveredBy": "s2018_04"
+    },
+    {
+      "id": "c2018_10",
+      "title": "The Creative Future: Combining AI and Data for Limitless Possibilities",
+      "by": "Google Taiwan",
+      "summary": "Micro-moments, context signals, and short videos catch a distracted generation; dynamic creative can produce masses of personalized ads in real time.",
+      "coveredBy": "s2018_04"
+    },
+    {
+      "id": "c2018_11",
+      "title": "Precise Consumer Insight from Outside the Frame (Translation)",
+      "by": "Dentsu Kuohua",
+      "summary": "Ask consumers what they want and you'll get a faster horse. Find latent needs, treat everything as media, and start from the experience you want to give.",
+      "coveredBy": "s2018_02"
+    },
+    {
+      "id": "c2018_12",
+      "title": "Mapping What Drives Marketing Results Along the Consumer Decision Journey",
+      "by": "dentsu X",
+      "summary": "Review results across four stages (reach, act, convert, engage) with PDCA. Don't chase complete data; what you can't see still exists.",
+      "coveredBy": "s2018_05"
+    },
+    {
+      "id": "c2018_13",
+      "title": "Data Management Platforms: Old Secrets and New",
+      "by": "Amnet Taiwan",
+      "summary": "DMPs make ads ever more precise, but over time trap you in a performance cage. Recalibrate how you read data to serve new, loyal, and difficult customers alike.",
+      "coveredBy": "s2018_06"
+    },
+    {
+      "id": "c2018_14",
+      "title": "The Future Has No Wrap Reports",
+      "by": "Carat",
+      "summary": "A wrap report two or three weeks later only proves the media buy was cheap. Track continuously so each wave becomes the map for the next.",
+      "coveredBy": "s2018_05"
+    },
+    {
+      "id": "c2018_15",
+      "title": "The Evolution of the Single-Person Economy",
+      "by": "Dentsu Taiwan",
+      "summary": "Single-person households and seven types of singles keep growing, creating solo opportunities in food, housing, shopping, and companionship.",
+      "coveredBy": "s2018_07"
+    },
+    {
+      "id": "c2018_16",
+      "title": "Attribution Evolved: Seeing the Whole Consumer Journey",
+      "by": "Google",
+      "summary": "Last-click attribution ignores earlier touchpoints. Data-driven attribution only works if the organization and KPIs change with it.",
+      "coveredBy": "s2018_05"
+    },
+    {
+      "id": "c2018_17",
+      "title": "Hire a Machine Learning Guru and You'll Transform? Without Data, Forget It",
+      "by": "iProspect Taiwan",
+      "summary": "Algorithms are only as good as their data. Clean up first-party data and define the business question before talking machine learning.",
+      "coveredBy": "s2018_06"
+    },
+    {
+      "id": "c2018_18",
+      "title": "A New Take on CRM in the Big Data Era: CR-Marketing",
+      "by": "AAA",
+      "summary": "Turn defensive membership management into actively advancing relationships, from loosening, drifting, and dormant members all the way to prospects.",
+      "coveredBy": "s2018_07"
+    },
+    {
+      "id": "c2018_19",
+      "title": "From Programmatic Marketing to Marketing Made Programmatic",
+      "by": "Amnet Taiwan",
+      "summary": "Pool data in your own PDMP, and use AI to predict audiences and run dynamic creative. The keys are data quality and a consistent experience at every touchpoint.",
+      "coveredBy": "s2018_06"
+    },
+    {
+      "id": "c2018_20",
+      "title": "Smart Protection for Brand Safety",
+      "by": "Amplifi Taiwan",
+      "summary": "Invalid traffic and unsafe content hurt brands. Defend with private marketplaces, third-party monitoring, and AI together.",
+      "coveredBy": "s2018_06"
+    },
+    {
+      "id": "c2018_21",
+      "title": "People Don't Need Content; They Need a Culture to Belong To",
+      "by": "Vizeum",
+      "summary": "Brands trade cultural capital for consumers' economic capital. They can create culture or attach themselves to popular culture.",
+      "coveredBy": "s2018_09"
+    },
+    {
+      "id": "c2018_22",
+      "title": "Does Brand No Longer Matter? Brand Marketing in the Digital Age",
+      "by": "Dentsu Taiwan",
+      "summary": "Brand value has shifted from image to experience. Brand strategy means designing an experience world customers can walk into.",
+      "coveredBy": "s2018_09"
+    },
+    {
+      "id": "c2018_23",
+      "title": "Creating Spaces of Value to Unite Fragmented Communities",
+      "by": "Carat",
+      "summary": "Social media is a space of value to nurture, not ad inventory. Hand over the mic and give participants what they really want.",
+      "coveredBy": "s2018_10"
+    },
+    {
+      "id": "c2018_24",
+      "title": "The Experience Economy Starts from the Heart and Takes Off on Social",
+      "by": "PIXNET",
+      "summary": "Tech shortens the distance to experience, but the stage is social. Experiences people identify with get spread by consumers themselves.",
+      "coveredBy": "s2018_09"
+    },
+    {
+      "id": "c2018_25",
+      "title": "Building Social Media Analysis with Real Decision Value",
+      "by": "AAA",
+      "summary": "Social analysis should go from describing problems to playing offense, using composite metrics plus engagement and expertise factors to adjust KOL influence.",
+      "coveredBy": "s2018_10"
+    },
+    {
+      "id": "c2018_26",
+      "title": "Partners in Collaboration",
+      "by": "Dentsu Aegis Network",
+      "summary": "Agencies must go from vendor to business partner, offering end-to-end solutions from strategy to data.",
+      "coveredBy": "s2018_08"
+    },
+    {
+      "id": "c2018_27",
+      "title": "From Data Analyst to AI Analyst",
+      "by": "Amnet Taiwan",
+      "summary": "AI makes data-driven work nearly real-time; an analyst's value lies more in defining problems and interpreting results.",
+      "coveredBy": "s2018_08"
+    },
+    {
+      "id": "c2018_28",
+      "title": "The Data Scientist",
+      "by": "AAA",
+      "summary": "Data scientists spend 80% of their time cleaning data, then use models and A/B tests to answer business questions, like predicting member repurchases.",
+      "coveredBy": "s2018_07"
+    },
+    {
+      "id": "c2018_29",
+      "title": "To Strive, to Seek, to Find, and Not to Yield",
+      "by": "Dentsu Aegis Network",
+      "summary": "Lunch receipts and an Antarctic trek make the point: decisions can't rely on luck. People build decision models, machines collect data, and the earlier, the smarter.",
+      "coveredBy": "s2018_08"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2018_fang",
+      "name": "Manager Fang",
+      "skin": "npc_client",
+      "locationId": "department",
+      "title": "Counter Manager, Socks That Walk",
+      "lines": [
+        "A customer brought socks from our site to swap. System: “no such order.” He says we lied.",
+        "The day before the anniversary sale, my feet are more tired than the socks.",
+        "Customers all say they love us. Which pair they love, nobody can say."
+      ]
+    },
+    {
+      "id": "n2018_deng",
+      "name": "Teng",
+      "skin": "npc_colleague",
+      "locationId": "studio",
+      "title": "Production House PD",
+      "lines": [
+        "Cutting thirty seconds to six isn't as simple as losing twenty-four.",
+        "The bentos aren't here yet, and the actors are already asking to leave early.",
+        "Client wants a hundred versions of the assets. I said, a hundred budgets too, then?"
+      ]
+    },
+    {
+      "id": "n2018_ivy",
+      "name": "Ivy",
+      "skin": "npc_client",
+      "locationId": "datalab",
+      "title": "E-com Marketer, Clean Paws Litter",
+      "lines": [
+        "Our ads keep getting more precise, but sales won't budge. Does that make sense?",
+        "The boss wants a machine learning guru. Our member data is still in Excel.",
+        "Our customers are cat people. Cat people order the most at 3 AM."
+      ]
+    },
+    {
+      "id": "n2018_hao",
+      "name": "Coach Hao",
+      "skin": "npc_student",
+      "locationId": "riverside",
+      "title": "Riverside Night-Run Coach",
+      "lines": [
+        "You don't have to run fast. Being able to keep going is what matters.",
+        "The Rainbow Bridge stretch is the windiest, and the most photographed.",
+        "Our crew has no sponsor. Just a jug of sports drink and a bunch of good friends."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2018_01",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_01",
+        "c2018_08"
+      ],
+      "title": "Bought Online, Rejected In-Store",
+      "locationId": "department",
+      "giver": "n2018_fang",
+      "time": "afternoon",
+      "brief": "Shoppers order socks online, then try to swap sizes at the Shin Kong Mitsuki counter, but it can't find their orders. Manager Fang wants it all fixed. Budget: one thing.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2018_fang",
+              "text": "{role}, see this complaint? Bought online, came to swap sizes, and we can't find it."
+            },
+            {
+              "who": "n2018_fang",
+              "text": "The customer asked if we're even the same company. Honestly, I'd like to know too."
+            },
+            {
+              "who": "player",
+              "text": "Are online, in-store, and LINE members all separate?"
+            },
+            {
+              "who": "n2018_fang",
+              "text": "Three systems, built by three vendors. HQ says just build one app to connect them all."
+            },
+            {
+              "who": "n2018_fang",
+              "text": "But the anniversary sale is next month, and the money covers one thing. Which goes first?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The budget covers one thing first. What do you recommend?",
+          "options": [
+            {
+              "text": "Fix the worst step first: scan online orders' barcodes at the counter to swap. Live before the sale.",
+              "effects": {
+                "trust": 5,
+                "sales": 3,
+                "liver": 3
+              },
+              "feedback": "Two weeks later the counter has a scanner, and swaps drop from fifteen minutes to two. Manager Fang says complaints are down by half. HQ still asks when the app's coming.",
+              "insight": "The book cites McKinsey's four steps: explore personas, map the journey, design fixes for pain points, keep optimizing. It stresses that going omnichannel in one leap is nearly impossible. Start with a small, doable MVP.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Do what HQ wants: build one app that links online, in-store, and LINE members all at once.",
+              "effects": {
+                "trust": -2,
+                "liver": 6
+              },
+              "feedback": "The app spec runs forty pages, and three vendors meet six times and still fight over data formats. The sale arrives, and the counter still can't find online orders.",
+              "insight": "The book cites an IDC report: retailers that use cross-channel strategies well can grow profits by up to 35%. But the author says omnichannel in one leap is nearly impossible. First see where customers drop off, then start small.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Start with size tips: enter your shoe size, see which size people with similar feet kept.",
+              "effects": {
+                "sales": 5,
+                "trust": 2,
+                "liver": 4
+              },
+              "feedback": "Online returns drop noticeably the next month, and fewer people come to swap at the counter. But complaints already filed still mean Manager Fang apologizing one by one.",
+              "insight": "The book cites ASOS: enter your height and weight to get a size, plus what share of similar-bodied shoppers bought it without returning. The author also warns personalization can't turn into stalking.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Omnichannel Experience” cites McKinsey's four steps. What's the first step to building an omnichannel experience?",
+            "options": [
+              "Explore personas",
+              "Unify prices across channels",
+              "Launch a member app",
+              "Open a flagship store"
+            ],
+            "answer": 0,
+            "explain": "In order, the four steps are: explore personas, map the journey, design omnichannel fixes for pain points, and keep optimizing.",
+            "source": "The Customer Experience Era, Key to Digital Transformation and Growth: The Omnichannel Experience"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Fix One Pain Point First",
+        "text": "Omnichannel isn't linking every system at once. It's fixing the step that hurts customers most, first."
+      }
+    },
+    {
+      "id": "s2018_02",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_03",
+        "c2018_11"
+      ],
+      "title": "The Egg Crepe Survey Lied",
+      "locationId": "breakfast",
+      "giver": "breakfast_auntie",
+      "time": "morning",
+      "brief": "Auntie Hsiu-chin ran a survey: 90% of customers said they wanted a healthy oat egg crepe. A week on the menu, three sold. The signature cheese egg crepe still has a line.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "breakfast_auntie",
+              "text": "{role}, good timing. I ran a survey last week. Ninety percent want to eat healthier."
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "So I pushed an oat egg crepe. Three sold in a week, and my daughter bought all three."
+            },
+            {
+              "who": "player",
+              "text": "And the cheese egg crepe?"
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "Line out to the corner, as usual! The survey says healthy, the fingers point at cheese."
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "My grandson says we could test brain waves or something. What do you ad folks think?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Auntie Hsiu-chin changes her menu next month. How should she find out what customers want?",
+          "options": [
+            {
+              "text": "Have a lab fit twenty regulars with EEG headsets as they read the menu, and measure real reactions.",
+              "effects": {
+                "brand": 3,
+                "trust": 3,
+                "liver": 5
+              },
+              "feedback": "The lab's booked until next month. Results: customers light up most at the word “crispy.” But twenty people eating egg crepes in a lab all look a little stiff.",
+              "insight": "The book says neuromarketing bypasses the conscious mind to measure real reactions; SAPPE used an emotion analyzer to create its Happy Meter. But the author notes lab settings are unnatural, so results still need cross-checking.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Stop asking. For two weeks, log every order: what time, what they get, extra egg or not.",
+              "effects": {
+                "sales": 4,
+                "trust": 3,
+                "liver": 3
+              },
+              "feedback": "Two weeks of tickets: nearly everyone rushing to work before seven orders cheese plus egg; moms after nine go for oats. The oat egg crepe becomes an after-nine special.",
+              "insight": "The book cites a phone color survey: people said they liked bright orange and apple green, yet the basic colors still sold best. What consumers say isn't what they do. Watch how they actually choose.",
+              "roleBonus": {
+                "planner": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Don't ask what they want. Watch where they get stuck: slow service, no seats, hard to take out.",
+              "effects": {
+                "brand": 4,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "Office workers hate waiting most. Auntie Hsiu-chin starts “preorder on LINE at night, pick up in the morning,” and the oat crepe joins the set. Forty sold in a week.",
+              "insight": "“Precise Consumer Insight from Outside the Frame” quotes Ford's founder: ask customers what they want, and they'll say a faster horse. Find the latent needs no one has voiced yet.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Precise Consumer Insight from Outside the Frame” says the Mexican Red Cross changed its donation box to take only bills. By how much did donations reportedly rise?",
+            "options": [
+              "200%",
+              "2000%",
+              "20%",
+              "1000%"
+            ],
+            "answer": 1,
+            "explain": "The new box's slot only fit bills, so the box itself became the medium carrying the message. Donations reportedly rose 2000%.",
+            "source": "Precise Consumer Insight from Outside the Frame (Translation)"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Saying Isn't Doing",
+        "text": "A survey can tell you who customers want to be, not what they'll order tomorrow morning."
+      }
+    },
+    {
+      "id": "s2018_03",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_04",
+        "c2018_06"
+      ],
+      "title": "The Earth God's Lamp Page",
+      "locationId": "temple",
+      "giver": "temple_uncle",
+      "time": "morning",
+      "brief": "The Fude St. Earth God Shrine opened online blessing-lamp sign-ups, but the page spins forever, and everyone asking is a grandparent. Temple Uncle wants it prettier.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "temple_uncle",
+              "text": "Young one, the temple takes blessing-lamp sign-ups online this year. Take a look for me."
+            },
+            {
+              "who": "temple_uncle",
+              "text": "My nephew built it. The homepage has a three-meter Earth God that takes forever to load."
+            },
+            {
+              "who": "player",
+              "text": "Uncle, who's actually using it?"
+            },
+            {
+              "who": "temple_uncle",
+              "text": "Grandparents from the neighborhood. They don't type. They tell the phone, “Fude St. lamp.”"
+            },
+            {
+              "who": "temple_uncle",
+              "text": "My nephew wants animation and music, to make it more solemn. Should we?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The temple's budget is small. What should change first?",
+          "options": [
+            {
+              "text": "Drop the big homepage image, load in under three seconds, make buttons big enough for any grandma.",
+              "effects": {
+                "trust": 5,
+                "sales": 3,
+                "liver": 2
+              },
+              "feedback": "After the slimdown, sixty-some people light lamps on day one. The nephew grumbles that the Earth God got smaller. Temple Uncle says the Earth God won't mind.",
+              "insight": "The book cites Think with Google: if a mobile page doesn't load in three seconds, 53% of users give up, and 900K mobile sites worldwide average 22 seconds to load. Speed is the baseline of experience.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Make it voice-findable: write common phrasings as Q&As so “light a lamp” and “blessing lamp” match.",
+              "effects": {
+                "brand": 3,
+                "trust": 4,
+                "liver": 4
+              },
+              "feedback": "You add twenty ways grandparents might say it, one by one. Say “Earth God lamp” to a phone and it jumps to sign-up. The nephew says this is way harder than animation.",
+              "insight": "The book says 20% of searches on the Google app are already by voice, and 51% of smart speaker users 55 and up use them to get instant answers. Beyond the book: older folks don't type, but they do talk.",
+              "roleBonus": {
+                "media": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Go with the nephew's animated version, plus a temple-square class teaching elders to use it.",
+              "effects": {
+                "brand": 4,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Fifty people come and learn very earnestly, but at home they still get stuck on the animation page. The next week, Temple Uncle holds a second class.",
+              "insight": "“2025 Business Inspiration Forecast” projects that after 2025, people 65 and up will be over a fifth of Taiwan and may drive 80% of high-end spending. Beyond the book: seniors are a big market, but things must work smoothly for them first.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "The survey cited in “Tech as a Catalyst” found what share of consumers who had a bad mobile experience won't buy from that brand again?",
+            "options": [
+              "20%",
+              "45%",
+              "80%",
+              "62%"
+            ],
+            "answer": 3,
+            "explain": "The survey found that 62% of consumers who'd had a bad experience on mobile won't buy that brand's products again.",
+            "source": "Tech as a Catalyst: Change and the Foreseeable Future"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Fast Beats Pretty",
+        "text": "A page that won't load in three seconds goes unseen, however solemn. Older customers talk; brands must listen."
+      }
+    },
+    {
+      "id": "s2018_04",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_07",
+        "c2018_09",
+        "c2018_10"
+      ],
+      "title": "Thirty Seconds to Six",
+      "locationId": "studio",
+      "giver": "n2018_deng",
+      "time": "afternoon",
+      "brief": "“No-Tan Duck” sunscreen shot a thirty-second ad. Now the client says the platform only buys six. Production House PD Teng waits at the Chillshan Creative Park studio.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2018_deng",
+              "text": "{role}, the No-Tan Duck client called. The platform only buys six-second pre-rolls."
+            },
+            {
+              "who": "n2018_deng",
+              "text": "Thirty seconds of story: the duck walks from beach to shaved-ice shop. Cut that to six?"
+            },
+            {
+              "who": "cd_wei",
+              "text": "Cut it straight and you get a duck zoning out on a beach. I refuse."
+            },
+            {
+              "who": "player",
+              "text": "Did the client say anything else?"
+            },
+            {
+              "who": "n2018_deng",
+              "text": "Ideally different versions for rainy and sunny days, and they want to see if it sells."
+            },
+            {
+              "who": "n2018_deng",
+              "text": "We give the studio back at four. Give me a direction."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The studio's due back at four. How do you handle this spot?",
+          "options": [
+            {
+              "text": "Rewrite for six seconds: one pain point, a quick-burning arm, and the duck arrives with an umbrella.",
+              "effects": {
+                "brand": 5,
+                "liver": 5
+              },
+              "feedback": "Wei writes a new script in half an hour; the duck-with-umbrella frame later becomes a sticker. The six-second cut is memorable, but the thirty-second footage goes unused.",
+              "insight": "“Innovating Anew Through Creativity” argues that the Pain point is the Creative point; “The Creative Future” warns that hacking a long spot down to six seconds breaks the story, so rethink it for short formats.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Dynamic creative: visuals and copy shift with weather and UV. Sunny, sunscreen; rainy, waterproof.",
+              "effects": {
+                "sales": 5,
+                "brand": 2,
+                "liver": 6
+              },
+              "feedback": "Teng adds twelve shots, the studio runs till six, and you go apologize. Once live, cloudy days switch to “You tan on cloudy days too.” Clicks far beat the original.",
+              "insight": "“The Creative Future” says dynamic creative adjusted in real time by weather, gender, and more gets about three times the CTR of static banners; Campbell's used Director Mix to make 1,700 personalized ads.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "No cut yet. Plan media, content, and data with the client: where to buy, what to run, how to track.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "liver": 3
+              },
+              "feedback": "For the first time, the client puts media and production in one room. The six-second cut is a week late, but all agree how to track from impressions to drugstore shelf.",
+              "insight": "Carat's “three tracks built as one” plans media (paid, owned, earned), content (create, co-create, curate), and data together, shifting from grading ad delivery to building up consumers' action paths.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Creative Future” says dynamic creative adjusted to context in real time beats static banners' click-through rate by how much?",
+            "options": [
+              "About 30% higher",
+              "About double",
+              "About triple",
+              "About tenfold"
+            ],
+            "answer": 2,
+            "explain": "The book says dynamically adjusted creative far outperforms static image banners, with roughly three times the click-through rate.",
+            "source": "The Creative Future: Combining AI and Data for Limitless Possibilities"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Rethink for Six Seconds",
+        "text": "Short formats aren't long spots cut short. They tell the story fresh, starting from one pain point."
+      }
+    },
+    {
+      "id": "s2018_05",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_12",
+        "c2018_14",
+        "c2018_16"
+      ],
+      "title": "Last Click Takes the Credit",
+      "locationId": "tvstation",
+      "giver": "tv_su",
+      "time": "afternoon",
+      "brief": "No-Bend Sweep's new marketing head sees all orders come from search ads and plans to cut all TV. Ms. Su asks you to speak up fairly at the Big Dawn Dome Broadcast Center.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "tv_su",
+              "text": "{role}, No-Bend Sweep's new boss wants to cut all TV. His report shows no TV sales."
+            },
+            {
+              "who": "tv_su",
+              "text": "His report only counts the last click. People see TV, then search, and search gets credit."
+            },
+            {
+              "who": "player",
+              "text": "How often do they get wrap reports?"
+            },
+            {
+              "who": "tv_su",
+              "text": "Three weeks after a campaign ends. By then the next one's already live."
+            },
+            {
+              "who": "tv_su",
+              "text": "He decides at 3 PM. You go talk. He won't believe me. I sell TV."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Before the 3 PM decision, how do you approach the new head?",
+          "options": [
+            {
+              "text": "Suggest data-driven attribution: overlay search volume on TV flights to measure early-funnel impact.",
+              "effects": {
+                "trust": 5,
+                "sales": 3,
+                "liver": 5
+              },
+              "feedback": "Ah-Kai pulls an all-nighter laying three TV flights over the search curve. Every airing, search spikes. The head cuts only 20%, but wants a weekly update from you.",
+              "insight": "In “Attribution Evolved,” Google says last-click attribution on average ignores three-quarters of clicks and all display activity; HelloFresh lifted conversions 10% after switching to cross-channel attribution.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Keep some TV and run a blackout test in one region to see how much search and orders drop.",
+              "effects": {
+                "brand": 3,
+                "trust": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "TV goes dark in central Taiwan for a month. Search drops by over a tenth, and orders follow. The head adds TV back, but you get to explain that month's sales to finance.",
+              "insight": "“Mapping What Drives Marketing Results” warns that traditional media is hard to track, so it gets written off, but unseen doesn't mean nonexistent. Don't chase complete data; validate round by round with PDCA.",
+              "roleBonus": {
+                "media": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Skip the budget fight. Make wrap reports weekly tracking: how each touchpoint leads to purchase.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "liver": 3
+              },
+              "feedback": "This week TV gets cut as the head wants, but you start reviewing consumer behavior weekly. By week four the head notices on his own: search has dropped a chunk.",
+              "insight": "In “The Future Has No Wrap Reports,” Carat says wrap reports take two or three weeks and only prove the media buy was cheap. Switch to ongoing tracking so each wave becomes the behavior map for the next.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Attribution Evolved” says last-click-only attribution ignores, on average, how many clicks?",
+            "options": [
+              "One-quarter",
+              "Half",
+              "One-third",
+              "Three-quarters"
+            ],
+            "answer": 3,
+            "explain": "Last-click attribution on average ignores three-quarters of clicks and all display activity, missing the full consumer journey.",
+            "source": "Attribution Evolved: Seeing the Whole Consumer Journey"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Credit Isn't Just the Last Click",
+        "text": "Unseen doesn't mean nonexistent. Count only the last click and you cut everyone who came before."
+      }
+    },
+    {
+      "id": "s2018_06",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_13",
+        "c2018_17",
+        "c2018_19",
+        "c2018_20"
+      ],
+      "title": "The Precision Cage",
+      "locationId": "datalab",
+      "giver": "n2018_ivy",
+      "time": "any",
+      "brief": "A cat litter e-shop's ads get ever more precise, yet sales are flat for six months. The boss wants a pricey machine learning guru. Last night an ad ran by a scam clip.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2018_ivy",
+              "text": "{role}, our cost per conversion looks great, but sales haven't moved in six months."
+            },
+            {
+              "who": "data_kai",
+              "text": "Because you keep targeting cat people who already bought. Precise, sure. Just no new ones."
+            },
+            {
+              "who": "n2018_ivy",
+              "text": "The boss wants to poach a machine learning guru. I won't even say the salary."
+            },
+            {
+              "who": "data_kai",
+              "text": "Your member data is in three Excel files. A guru would start by reconciling your sheets."
+            },
+            {
+              "who": "n2018_ivy",
+              "text": "Also, last night a customer sent a screenshot: our ad ran next to a scam investment video."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Ivy reports next steps to her boss today. What do you suggest?",
+          "options": [
+            {
+              "text": "Shift 20% of budget to new buyers, from “repeat-buyer deal” to “first bag for new cat owners.”",
+              "effects": {
+                "brand": 4,
+                "sales": -2,
+                "liver": 3
+              },
+              "feedback": "Cost per conversion looks ugly the first month; the boss frowns. By month three, new members are up 30%, many of them people who just adopted their first cat.",
+              "insight": "In “Data Management Platforms: Old Secrets and New,” Amnet says long-running DMP buys fall into a “performance cage”: past a certain KPI level, reach can't grow. Serve new, loyal, and difficult customers alike.",
+              "roleBonus": {
+                "media": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Skip the guru. Spend three months cleaning first-party data: members, orders, products, as one.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "After three months of reconciling, Ah-Kai and Ivy find 10% of members are one person on three phones. With clean data, the recommendation model finally gets accurate.",
+              "insight": "iProspect: algorithms are only as good as their data, so clean first-party data and define the business question. Eurostar's Core lifted conversion 26% in five weeks. Amnet's “From Programmatic Marketing to Marketing Made Programmatic”: data quality decides.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Tackle brand safety first: buy private marketplace placements and add third-party monitoring.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "No more litter ads beside scam videos, but placements cost more and volume shrinks. Ivy says at least she can sleep tonight instead of refreshing comments.",
+              "insight": "“Smart Protection for Brand Safety” lists invalid traffic like bot clicks, ghost sites, and hidden ads, cites Juniper's forecast of US$44B in losses by 2022, and recommends PMPs and third-party monitoring.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "What does the “performance cage” in “Data Management Platforms: Old Secrets and New” describe?",
+            "options": [
+              "Too little budget to buy enough ad impressions",
+              "After hitting targets, fear of hurting the numbers blocks growth",
+              "Data so messy the system can't reach any conclusion",
+              "Ads beside unsafe content, hurting the brand image"
+            ],
+            "answer": 1,
+            "explain": "The book says once costs hit a certain level, brands enter a performance cage: scaling up or changing messages risks current results, trapping them in an echo chamber.",
+            "source": "Data Management Platforms: Old Secrets and New"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Clean Data Before a Guru",
+        "text": "More precise isn't bigger. Without clean first-party data, the best algorithm just runs in place, precisely."
+      }
+    },
+    {
+      "id": "s2018_07",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_15",
+        "c2018_18",
+        "c2018_28"
+      ],
+      "title": "Stir-Fry for One",
+      "locationId": "rechao",
+      "giver": "rechao_boss",
+      "time": "evening",
+      "brief": "Wuxing St. Stir-Fry has two thousand LINE members, but fewer keep coming, and solo diners say the plates are too big. Li-hua wants to send everyone a discount coupon.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "rechao_boss",
+              "text": "{role}, look. Two thousand LINE members, and under two hundred came last month."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "More come alone, too. A plate of three-cup squid is too much, and takeout costs extra."
+            },
+            {
+              "who": "player",
+              "text": "Which members haven't been back in a long time?"
+            },
+            {
+              "who": "rechao_boss",
+              "text": "How would I know? The list is just a bunch of phone numbers. I'll send everyone 10% off."
+            },
+            {
+              "who": "data_kai",
+              "text": "Give me the list. I'll find who's likeliest to return. But first, clean the numbers."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Li-hua's budget covers one thing. What do you suggest?",
+          "options": [
+            {
+              "text": "Launch small single-portion plates and solo set meals, so stir-fry works for one.",
+              "effects": {
+                "sales": 4,
+                "brand": 3,
+                "liver": 4
+              },
+              "feedback": "Once the small three-cup squid hits the menu, more office workers come in alone after work. The kitchen has twice the plates to wash, and the old cook wants a raise.",
+              "insight": "“The Evolution of the Single-Person Economy” notes nearly 2.81M single-person households, 32.5% of all, and seven types of singles with different needs. Citibank changed a card perk from “buy one, get one” to 40% off.",
+              "roleBonus": {
+                "planner": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Split members into loosening, drifting, and dormant groups, each with its own message, not 10% off.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "Three-month absentees get “Long time no see, water lily stems on us”; six-month ones, the new menu. Few return, but more than with coupons, and they don't wait for deals.",
+              "insight": "AAA's CR-Marketing splits churn into four stages (loosening, drifting, dormant, lost) and argues for actively advancing relationships. Trading on discounts is betting against your customers' dependence on you.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Have Ah-Kai build a repurchase model and contact only the two hundred likeliest to return.",
+              "effects": {
+                "sales": 5,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Just clearing duplicate numbers takes two days. Once the list is out, 30% of the top two hundred actually come back to eat. Li-hua says it beats her own guesses.",
+              "insight": "In “The Data Scientist,” interviewees say 80% of their time goes to cleaning data, 15% to analysis, and just 5% to modeling. Repurchase models let brands talk first to the members likeliest to return.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Evolution of the Single-Person Economy” says Citibank changed its “buy one, get one” card perk at customers' request to what?",
+            "options": [
+              "40% off",
+              "Double reward points",
+              "Buy two, get one free",
+              "No annual fee"
+            ],
+            "answer": 0,
+            "explain": "The book says Citibank's buy-one-get-one deal became 40% off at customers' request, matching the needs of a growing number of singles.",
+            "source": "The Evolution of the Single-Person Economy"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 2,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "One Diner Is a Table",
+        "text": "Members aren't a list of numbers but people at different stages. A solo diner deserves a table too."
+      }
+    },
+    {
+      "id": "s2018_08",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_02",
+        "c2018_26",
+        "c2018_27",
+        "c2018_29"
+      ],
+      "title": "Forty Lunch Receipts",
+      "locationId": "office",
+      "giver": "ae_mei",
+      "time": "noon",
+      "brief": "Longtime client “No-Queue Bento” wants a partner to carry three years of sales together, not pitch after pitch. Mei-ling asks you: can we handle it?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "ae_mei",
+              "text": "{role}, No-Queue Bento's GM is done with pitches. He wants a three-year partner."
+            },
+            {
+              "who": "ae_mei",
+              "text": "The catch: our fees are tied to their sales. They earn, we earn."
+            },
+            {
+              "who": "player",
+              "text": "What do we have that'll make him trust us?"
+            },
+            {
+              "who": "ae_mei",
+              "text": "You tell me. We still wait for them to email an Excel just to see last month's sales."
+            },
+            {
+              "who": "ae_mei",
+              "text": "Someone next door predicts tomorrow's lunch from forty receipts. Now that's dedication."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Mei-ling has to reply to the GM. What do you suggest?",
+          "options": [
+            {
+              "text": "Take the deal, tie fees to sales, and form a cross-team squad spanning strategy, media, and data.",
+              "effects": {
+                "trust": 6,
+                "sales": 3,
+                "liver": 6
+              },
+              "feedback": "Month one, you spend three days at the client's office just to get store sales data. The GM starts calling you by name in weekly meetings. Your weekends are gone.",
+              "insight": "“Partners in Collaboration” says agencies must go from vendor to business partner, from a single specialty to end-to-end integrated solutions, aiming at mutual trust and solving business problems.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "No revenue share yet. Co-build a decision model for three months: daily sales, weather, delivery.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "The GM's a little let down but agrees to three months. In week six, the model nails the typhoon-day delivery surge, and he brings up renewal himself.",
+              "insight": "The book's closing uses an Antarctic expedition: decisions can't rely on luck. People build decision models and data architecture, machines collect and integrate data, and the earlier you start, the smarter you get.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Decline the tie-in and stay project-based, but go agile, shipping a usable version every two weeks.",
+              "effects": {
+                "brand": 3,
+                "trust": 2,
+                "liver": 3
+              },
+              "feedback": "The GM understands, but the next campaign is still a pitch. Your two-week cycles are fast, but now and then he asks: do you guys actually get our business?",
+              "insight": "“Becoming an Agile Organization” cites MIT research: a team's collective intelligence affects performance more than individual intelligence. “From Data Analyst to AI Analyst” adds that analysis earns its value by defining the problem.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "The closing chapter, “To Strive, to Seek, to Find, and Not to Yield,” uses lunch receipts and an Antarctic expedition to make what point?",
+            "options": [
+              "Exploring and marketing both run on nerve and gut",
+              "The more data you collect, the more accurate predictions get",
+              "Business decisions can't rely on luck; they need preparation",
+              "Machines will eventually replace human judgment and insight"
+            ],
+            "answer": 2,
+            "explain": "The book says predicting lunch from 40 receipts is like gambling; companies can't rely on luck. People build decision models, and machines gather and integrate data.",
+            "source": "To Strive, to Seek, to Find, and Not to Yield"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Decide Without Luck",
+        "text": "To be a partner, an agency first needs a decision system that doesn't rely on luck and gets smarter with use."
+      }
+    },
+    {
+      "id": "s2018_09",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_21",
+        "c2018_22",
+        "c2018_24"
+      ],
+      "title": "The Run Club Wants No Stars",
+      "locationId": "riverside",
+      "giver": "n2018_hao",
+      "time": "evening",
+      "brief": "Shoe brand “Give Me My Knees Back” wants to sponsor the Rainbow Riverside night-run club. Budget covers one: a celebrity ad shoot, or running with the runners all year.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2018_hao",
+              "text": "{role}, Give Me My Knees Back wants to sponsor our club. They asked what we want."
+            },
+            {
+              "who": "n2018_hao",
+              "text": "Their marketing people say get a celebrity to run once and shoot a video for online."
+            },
+            {
+              "who": "player",
+              "text": "So what does your club need most?"
+            },
+            {
+              "who": "n2018_hao",
+              "text": "Somewhere to stash bags, a rinse after the run, and newbies too scared they can't keep up."
+            },
+            {
+              "who": "n2018_hao",
+              "text": "We've got two hundred people running every Wednesday. No celebrity can film that."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How do you suggest Give Me My Knees Back spend the money?",
+          "options": [
+            {
+              "text": "Get a celebrity to run one night and shoot a big spot that lifts the brand image in one go.",
+              "effects": {
+                "brand": 5,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "That night the riverside is packed with raised phones, and the video's views look great. A month later the club's still two hundred, and newbies still won't come.",
+              "insight": "“Does Brand No Longer Matter?” says brand value in the digital age has shifted from image to experience, and communication has moved from starting with products to starting with events.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Run with them all year: pacers for newbies, lockers and rinse stations, a monthly post-run hangout.",
+              "effects": {
+                "trust": 5,
+                "brand": 3,
+                "liver": 5
+              },
+              "feedback": "By month three the club hits four hundred, half newbies. Someone posts: for once, running didn't feel solo. The brand gets lots of mentions; nobody calls it sponsored.",
+              "insight": "The book cites NIKE RUN CLUB: dropping the hero image, training by level, pro coaches and pacers running alongside, plus lockers, showers, and new-shoe try-ons. The brand is designing an experience world.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Grow the club's own culture: “The Hardest Kilometer I've Run,” stories on a riverside chalkboard.",
+              "effects": {
+                "brand": 4,
+                "trust": 3,
+                "liver": 3
+              },
+              "feedback": "The chalkboard fills in week one; someone writes of a first three kilometers after chemo. The photo is shared tens of thousands of times; the logo is tiny in a corner.",
+              "insight": "“People Don't Need Content” says brands trade cultural capital for economic capital; “The Experience Economy Starts from the Heart” cites Lean Cuisine's #WeighThis, whose video got 6.5M views in its first week.",
+              "roleBonus": {
+                "ae": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“People Don't Need Content” says the best time to shape brand culture was ten years ago. When's the second-best time?",
+            "options": [
+              "The brand's tenth anniversary",
+              "Now",
+              "When the budget allows",
+              "After a rival makes a move"
+            ],
+            "answer": 1,
+            "explain": "The author says the best time to shape culture was ten years ago, and the second-best time is now.",
+            "source": "People Don't Need Content; They Need a Culture to Belong To"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Run Alongside, Don't Endorse",
+        "text": "People don't want an ad. They want a culture they can join and belong to."
+      }
+    },
+    {
+      "id": "s2018_10",
+      "year": 2018,
+      "chapterIds": [
+        "c2018_23",
+        "c2018_25"
+      ],
+      "title": "Grad Season at the Chicken Stall",
+      "locationId": "night_market",
+      "giver": "vendor_cheng",
+      "time": "evening",
+      "brief": "Ah-Cheng wants an influencer for grad season. Picks: one with 200K followers, one with 20K but long comments. Someone suggests letting the grads run it themselves.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "vendor_cheng",
+              "text": "{role}, grad season's coming. I want an influencer to eat my chicken. Help me pick."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "One has 200K followers, sponsors anything. One has 20K, does night markets, long comments."
+            },
+            {
+              "who": "player",
+              "text": "Who do you most want buying?"
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "Kids from the high school nearby. Once they graduate they stop coming. I'll miss 'em."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "My daughter says let the grads host a night at the stall. I don't really get it."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Ah-Cheng's budget covers one plan. What do you suggest?",
+          "options": [
+            {
+              "text": "Go with the 200K one. One video and all of Linginger Street sees it.",
+              "effects": {
+                "sales": 4,
+                "brand": 2,
+                "liver": 2
+              },
+              "feedback": "Launch day, the line reaches the corner, mostly out-of-towners there for photos. A week later the crowd's gone, and the high schoolers still don't know who Ah-Cheng is.",
+              "insight": "AAA's “Building Social Media Analysis with Real Decision Value” warns that counting only buzz and post volume is defensive analysis; the same hundred posts differ hugely in influence by depth of engagement and expertise.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Go with the 20K one, after checking the comments really discuss what to eat at night markets.",
+              "effects": {
+                "trust": 4,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "You spend a night reading three hundred of his comments; most really ask which stall is good. Few come after the post, but many return a second time the next week.",
+              "insight": "The book adjusts KOL influence with engagement and expertise factors, and proposes a composite brand social score: visibility × search intent × advocacy.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Let grads from the nearby high school host a “Last Chicken Cutlet” night and decorate the stall.",
+              "effects": {
+                "brand": 5,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Students cover the stall in grad photos, then shoot and post it all themselves. Ah-Cheng fries three hundred cutlets; his hands shake at closing, but he's all smiles.",
+              "insight": "Carat's “Creating Spaces of Value” cites Uni-President Mai Hsiang's grad party: rallying people instead of hand-picking, handing over the mic, and giving participants what they want grew engagement tenfold year over year.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "AAA's “composite brand social score” multiplies which three metrics?",
+            "options": [
+              "Reach × frequency × viewability",
+              "Followers × engagement rate × comments",
+              "Visibility × search intent × advocacy",
+              "Buzz × positive rate × conversion rate"
+            ],
+            "answer": 2,
+            "explain": "Composite brand social score = brand social visibility index × brand search intent index × brand advocacy index.",
+            "source": "Building Social Media Analysis with Real Decision Value"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 1,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "Hand Over the Mic",
+        "text": "Social isn't ad inventory but a space to nurture. Give participants the stage, and they'll speak for you."
+      }
+    }
+  ]
+}

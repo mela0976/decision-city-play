@@ -1,0 +1,46 @@
+[
+  {
+    "id": "S",
+    "min": {
+      "brand": 88,
+      "sales": 76,
+      "trust": 97
+    },
+    "maxLiver": 72,
+    "title": "Partners of the Year",
+    "text": "10:30 PM. Wuxing St. Stir-Fry's round table is packed. Director Lin raises a glass: nine clients today, none called to yell. Manager Wu texts: next year's job goes straight to you. You finish your beer. Today wasn't so tiring. Riding home, you look up. Elephant Mountain's trail lights are still on.",
+    "image": "ending_s"
+  },
+  {
+    "id": "A",
+    "min": {
+      "brand": 52,
+      "sales": 55,
+      "trust": 85
+    },
+    "maxLiver": 86,
+    "title": "Wrapped in Style",
+    "text": "The three-cup squid just hit the table at Wuxing St. Stir-Fry, and Mei-ling has already posted today's wins in the group chat. Two jobs still need revisions, but the clients all said “right direction.” You take a big bite of stir-fried water lily stems and think: tomorrow's problem.",
+    "image": "ending_a"
+  },
+  {
+    "id": "B",
+    "min": {
+      "brand": 45,
+      "sales": 45,
+      "trust": 75
+    },
+    "maxLiver": 93,
+    "title": "Scraped Through",
+    "text": "By the time you ride up to Wuxing St. Stir-Fry, everyone's on round two. Every job went out today, but a few clients have only left you on read. Li-hua brings you an extra bowl of soup, on the house: “Eat first. Worry when you're full.”",
+    "image": "ending_b"
+  },
+  {
+    "id": "C",
+    "min": {},
+    "maxLiver": 100,
+    "title": "Survived the Day",
+    "text": "You sit on a red plastic stool at Wuxing St. Stir-Fry, phone still buzzing. Nine years of problems crammed into one day, not one job wrapped up cleanly, and you're too tired to talk. Li-hua pushes a plate of greens your way: “Go home and sleep. Try again tomorrow.”",
+    "image": "ending_c"
+  }
+]

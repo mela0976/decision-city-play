@@ -2,7 +2,7 @@
 // 任務、角色、題目的文字全部來自 content；這裡只有流程與規則。
 
 import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js';
-import { T, METER_IDS, METER_NAMES } from './strings.js';
+import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js';
 import { pickEnding, metersForEnding } from './endings.js';
 import { hintFor, curbHint } from './hints.js';
 import { voiceKey } from './sound.js';
@@ -24,6 +24,7 @@ import { openProposal } from './ui/proposal.js';
 import { playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js';
 import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js';
 import { openElderCard } from './ui/elder-card.js';
+import { langControls } from './ui/lang-switch.js';
 
 // 固定規則：docs/CONTRACTS.md 第 3.4 節。
 const QUIZ_RIGHT = { trust: 3 };
@@ -100,6 +101,10 @@ export class Game {
     this.flying = false;
     this.radio = { index: 0, off: false };
     this.locations = new Map(engine.getLocations().map((loc) => [loc.id, loc]));
+    // i18n：地圖上的地點、地標與「玩家」標籤換成譯名（引擎的世界資料與 3D 招牌維持中文）
+    if (LANG !== 'zh') engine.setLabels?.({ places: PLACES, landmarks: LANDMARKS, player: `◆ ${T.mapYou}` });
+    // i18n：語音照中文原句找檔
+    sound.voice.setTextSource?.((text) => this.voiceText(text));
 
     this.state = this.loadState();
     this.committed = clone(this.state);
@@ -201,7 +206,7 @@ export class Game {
   }
 
   placeName(locationId) {
-    return this.locations.get(locationId)?.name || '';
+    return PLACES[locationId] || this.locations.get(locationId)?.name || '';
   }
 
   nextMission() {
@@ -244,10 +249,33 @@ export class Game {
   }
 
   /** 給訊息與真心話用：綁定一個說話者的語音。 */
+  /**
+   * 算語音 key 用的文字：英日版畫面上是譯文，語音檔用中文原句（content.voiceTexts 記下的對照）。
+   * {role} 已經代入，所以依目前職能把「譯文＋譯名」對到「中文＋中文職稱」；中文版原樣回傳。
+   */
+  voiceText(text) {
+    const source = this.content.voiceTexts;
+    if (!source) return text;
+    const roleId = this.state.roleId || '';
+    if (this.voiceMapRole !== roleId) {
+      const shown = this.role?.title || '';
+      const zh = source.zhRoleTitle.get(roleId) ?? shown;
+      const map = new Map();
+      if (shown !== zh) for (const line of source.roleTemplates) map.set(line.replaceAll('{role}', shown), line.replaceAll('{role}', zh));
+      for (const [tr, line] of source.pairs) {
+        const key = tr.replaceAll('{role}', shown);
+        if (!map.has(key)) map.set(key, line.replaceAll('{role}', zh));
+      }
+      this.voiceMap = map;
+      this.voiceMapRole = roleId;
+    }
+    return this.voiceMap.get(String(text)) ?? text;
+  }
+
   voiceFor(who) {
     const speaker = this.voiceSpeaker(who);
     return {
-      info: (text) => this.assets.audio('voice', voiceKey(speaker, text)),
+      info: (text) => this.assets.audio('voice', voiceKey(speaker, this.voiceText(text))),
       play: (text, options) => this.sound.voice.play(speaker, text, options),
       preload: (text) => this.sound.voice.preload(speaker, text),
     };
@@ -1787,7 +1815,7 @@ export class Game {
     });
     items.push({ id: 'unstuck', label: () => T.menuUnstuck, onSelect: () => this.unstuck() });
     items.push({ id: 'restart', label: () => T.menuRestart, danger: true, onSelect: () => this.restart() });
-    openMenu({ dialog: this.els.menu, items, extra: soundControls(this.sound), note: this.store.available ? '' : T.noSaving });
+    openMenu({ dialog: this.els.menu, items, extra: [soundControls(this.sound), langControls()], note: this.store.available ? '' : T.noSaving });
     this.syncWorld();
   }
 
@@ -1806,7 +1834,7 @@ export class Game {
     }
     if (!nearest) return;
     this.engine.teleportTo(nearest.loc.id);
-    this.toast(T.unstuckDone(nearest.loc.name));
+    this.toast(T.unstuckDone(this.placeName(nearest.loc.id)));
   }
 
   async restart() {

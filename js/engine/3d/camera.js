@@ -1,3 +1,4 @@
+import {headerBounds} from '../entry-courts.mjs'; // A23 night: elevated entrance fixtures share their rendered dimensions.
 import {buildings} from '../world.mjs';
 
 const topByShape={spire:160,twist:78,office:266,datalab:47,dome:15,construction:90,memorial:13,
@@ -11,10 +12,11 @@ export function cameraObstacles(x,z,unit,radius=39) {
     const footprint=b.polygon?.map(p=>[p.x*unit,p.y*unit]);
     bounds.push({id:b.osmId,minX,minZ,maxX,maxZ,top,footprint});
   }
+  for(const b of headerBounds)if(b.minX<=x+radius&&b.maxX>=x-radius&&b.minZ<=z+radius&&b.maxZ>=z-radius)bounds.push(b);
   return bounds;
 }
 function solid(b,x,y,z,padding) {
-  if(y>b.top+padding||x<b.minX-padding||x>b.maxX+padding||z<b.minZ-padding||z>b.maxZ+padding)return false;
+  if(y<(b.bottom??-Infinity)-padding||y>b.top+padding||x<b.minX-padding||x>b.maxX+padding||z<b.minZ-padding||z>b.maxZ+padding)return false;
   const points=b.footprint;
   if(!points)return true;
   let inside=false;

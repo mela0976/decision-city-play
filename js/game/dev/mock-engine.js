@@ -25,6 +25,9 @@ const LOCATIONS = [
   ['rechao', '吳興街熱炒', 560, 780],
 ].map(([id, name, x, y]) => ({ id, name, x, y }));
 
+let placeLabels = null;
+const labelOf = (loc) => placeLabels?.[loc.id] || loc.name;
+
 const TONES = ['#d92a1c', '#2f7f9e', '#ff8a1f', '#ffd60a', '#22e07a'];
 const SPEED = { foot: 150, scooter: 340, grandma: 136 };
 
@@ -142,7 +145,7 @@ export async function createEngine({ canvas, minimapCanvas }) {
     else {
       const here = locationAt(state.x, state.y);
       const marker = here && state.markers.find((m) => m.locationId === here.id);
-      if (marker) next = { action: 'enter', targetId: marker.id, targetName: marker.label || here.name };
+      if (marker) next = { action: 'enter', targetId: marker.id, targetName: marker.label || labelOf(here) };
     }
     const key = next ? `${next.action}:${next.targetId}` : '';
     if (key === (state.context || '')) return;
@@ -308,7 +311,7 @@ export async function createEngine({ canvas, minimapCanvas }) {
         c.fillStyle = '#0a0a0a';
         c.font = '700 22px "PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif';
         c.textAlign = 'center';
-        c.fillText(loc.name, loc.x, loc.y - RADIUS - 10);
+        c.fillText(labelOf(loc), loc.x, loc.y - RADIUS - 10);
       }
     });
 
@@ -586,6 +589,10 @@ export async function createEngine({ canvas, minimapCanvas }) {
     },
     shake(strength) {
       state.shake = Math.max(0, Math.min(1, Number(strength) || 0));
+    },
+    /** i18n：地點標籤的譯名（真引擎同名方法的最小版） */
+    setLabels(next) {
+      placeLabels = next?.places && typeof next.places === 'object' ? { ...next.places } : null;
     },
     getLocations() {
       return LOCATIONS.map((l) => ({ ...l }));

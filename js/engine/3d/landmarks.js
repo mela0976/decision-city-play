@@ -227,7 +227,8 @@ export function addEntrances({instance,sign,batch,textWall,foliage}) {
       continue;
     }
     // The generic projecting board is untextured at the close rechao camera.
-    placeEntrance(p,{instance:p.id==='rechao'?()=>{}:instance,sign,windowBand:(a,b,h)=>{
+    // A23 night: the entrance paving and planted bays share the existing landmark batches.
+    placeEntrance(p,{instance:p.id==='rechao'?()=>{}:instance,sign,paving:batch,treeInstance:foliage?instance:()=>{},windowBand:(a,b,h)=>{
       const m=batch((a[0]+b[0])*.5,(a[1]+b[1])*.5,'mall');
       textWall(m,[a[0],.10,a[1]],[b[0],.10,b[1]],[b[0],h,b[1]],[a[0],h,a[1]],
         -Math.cos(p.viewHeading),-Math.sin(p.viewHeading),'#fff',1,.49);

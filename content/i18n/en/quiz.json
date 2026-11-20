@@ -1,0 +1,1514 @@
+[
+  {
+    "id": "q2018_01",
+    "year": 2018,
+    "q": "According to the IDC retail report cited in the book, how much can profits grow for retailers that use cross-channel strategies well?",
+    "options": [
+      "15%",
+      "35%",
+      "50%",
+      "89%"
+    ],
+    "answer": 1,
+    "explain": "IDC Retail Insights predicts retailers that use cross-channel strategies well can grow profits by up to 35% and lift customer loyalty by 10%.",
+    "source": "Ch. 1: The Customer Experience Era: The Omnichannel Experience"
+  },
+  {
+    "id": "q2018_02",
+    "year": 2018,
+    "q": "Citing Verizon's 2017 Data Breach Investigations Report, what share of breaches does the book say came from weak or stolen logins/credentials?",
+    "options": [
+      "41%",
+      "81%",
+      "58%",
+      "95%"
+    ],
+    "answer": 1,
+    "explain": "The report found 81% of breaches stemmed from login or credential problems, so it recommends enterprise identity management and multi-factor authentication.",
+    "source": "Ch. 1: Becoming an Agile Organization"
+  },
+  {
+    "id": "q2018_03",
+    "year": 2018,
+    "q": "A Google study found that 53% of users abandon a mobile site if it doesn't load within how many seconds?",
+    "options": [
+      "Five seconds",
+      "Eight seconds",
+      "Ten seconds",
+      "Three seconds"
+    ],
+    "answer": 3,
+    "explain": "The book says 53% of users leave a mobile page that doesn't load in three seconds; across 900K mobile sites worldwide, average load time is 22 seconds.",
+    "source": "Ch. 1: Tech as a Catalyst: Change and the Foreseeable Future"
+  },
+  {
+    "id": "q2018_04",
+    "year": 2018,
+    "q": "Dentsu Japan found that compared with “mobile ads alone,” “OOH plus mobile ads” raised ad recall by how many times?",
+    "options": [
+      "2.2x",
+      "1.6x",
+      "3x",
+      "5x"
+    ],
+    "answer": 0,
+    "explain": "The study showed ad recall rose 2.2x, and click performance also improved 1.6x.",
+    "source": "Ch. 1: A Fresh Start for OOH"
+  },
+  {
+    "id": "q2018_05",
+    "year": 2018,
+    "q": "How much did total ridership on Taiwan's major public transit systems grow in 2017 versus ten years earlier (2007)?",
+    "options": [
+      "86%",
+      "37%",
+      "54%",
+      "289%"
+    ],
+    "answer": 0,
+    "explain": "The book notes total ridership jumped 86% over ten years, yet OOH's share of ad volume actually fell 1%.",
+    "source": "Ch. 1: A Fresh Start for OOH"
+  },
+  {
+    "id": "q2018_06",
+    "year": 2018,
+    "q": "How many personalized ads did Campbell's make in Australia using Director Mix?",
+    "options": [
+      "170 ads",
+      "700 ads",
+      "1,700 ads",
+      "17,000 ads"
+    ],
+    "answer": 2,
+    "explain": "Campbell's used Director Mix to make 1,700 personalized ads, and sales of its Simply Soup line rose 55.6%.",
+    "source": "Ch. 2: The Creative Future: Combining Machine Learning"
+  },
+  {
+    "id": "q2018_07",
+    "year": 2018,
+    "q": "Carat's “three tracks built as one” refers to which three dimensions?",
+    "options": [
+      "Brand, channel, price",
+      "Creative, budget, PR",
+      "Search, social, e-commerce",
+      "Media, content, data"
+    ],
+    "answer": 3,
+    "explain": "The three tracks are media, content, and data, working together to take creativity straight to business.",
+    "source": "Ch. 2: Media x Content x Data: Three Tracks Built as One Take Creativity Straight to Business"
+  },
+  {
+    "id": "q2018_08",
+    "year": 2018,
+    "q": "Per 2017 Ministry of the Interior data, roughly how many single-person households did Taiwan have, and what share of all households?",
+    "options": [
+      "About 2.81M, 32.5%",
+      "About 1M, 12.1%",
+      "About 4M, 46.3%",
+      "About 10M, 60%"
+    ],
+    "answer": 0,
+    "explain": "The book says single-person households number nearly 2.81M, 32.5% of all households in Taiwan; two-person households make up another 19.9%.",
+    "source": "Ch. 3: The Evolution of the Single-Person Economy"
+  },
+  {
+    "id": "q2018_09",
+    "year": 2018,
+    "q": "In AAA's interview with a data scientist, roughly what share of their time goes to cleaning data?",
+    "options": [
+      "20%",
+      "50%",
+      "95%",
+      "80%"
+    ],
+    "answer": 3,
+    "explain": "The interviewee spends about 80% of the time cleaning data, 15% analyzing, and just 5% modeling, and jokes about being a “data grease monkey.”",
+    "source": "Ch. 6: The Data Scientist"
+  },
+  {
+    "id": "q2018_10",
+    "year": 2018,
+    "q": "Dentsu ScienceJam helped Thailand's SAPPE BEAUTI DRINK grow its market share from what to what within a month?",
+    "options": [
+      "23% to 27%",
+      "33% to 37%",
+      "43% to 47%",
+      "53% to 57%"
+    ],
+    "answer": 2,
+    "explain": "The book says the campaign grew market share from 43% to 47% in one month.",
+    "source": "Ch. 1: Neuromarketing: Do You Really Think Consumers Are Rational?"
+  },
+  {
+    "id": "q2018_11",
+    "year": 2018,
+    "q": "In the CR-Marketing member lifecycle, what order does the book give for the “churn ladder”?",
+    "options": [
+      "New, active, loyal, churned",
+      "First buy, repeat, return, churned",
+      "Wavering, distant, dormant, churned",
+      "Dormant, distant, wavering, churned"
+    ],
+    "answer": 2,
+    "explain": "The chart says to keep members off the churn ladder: wavering > distant > dormant > churned.",
+    "source": "Ch. 4: A New Take on CRM in the Big Data Era: CR-Marketing"
+  },
+  {
+    "id": "q2018_12",
+    "year": 2018,
+    "q": "Dentsu Aegis Network's 2025 Business Inspiration Forecast says Taiwan becomes a super-aged society after 2025. People 65+ will exceed what share?",
+    "options": [
+      "10%",
+      "20%",
+      "15%",
+      "30%"
+    ],
+    "answer": 1,
+    "explain": "The book says over 20% of people will be 65 or older, and by the 80/20 rule, they may account for 80% of high-end spending.",
+    "source": "Ch. 2: 2025 Business Inspiration Forecast"
+  },
+  {
+    "id": "q2019_01",
+    "year": 2019,
+    "q": "Per the 2018 MIT Sloan Management Review, what share of CEOs worldwide see digital transformation as most important and most urgent?",
+    "options": [
+      "50%",
+      "75%",
+      "25%",
+      "90%"
+    ],
+    "answer": 3,
+    "explain": "The book says 90% of CEOs worldwide see digital transformation as the most important and urgent issue, but only 25% have a clear plan.",
+    "source": "CEO's Talk: Flying Has Never Been a Choice"
+  },
+  {
+    "id": "q2019_02",
+    "year": 2019,
+    "q": "DBS Bank cut outsourcing's share of its tech costs from 85% to what?",
+    "options": [
+      "50%",
+      "30%",
+      "25%",
+      "15%"
+    ],
+    "answer": 3,
+    "explain": "DBS spent five years, from 2009 to 2014, building its tech foundation, cutting outsourcing's share of costs from 85% to 15%.",
+    "source": "Keys to Digital Transformation Success: Lessons from DBS Bank"
+  },
+  {
+    "id": "q2019_03",
+    "year": 2019,
+    "q": "In the “building blocks vs. LEGO” metaphor, what kind of person is a “LEGO-type employee”?",
+    "options": [
+      "Only looks out for themselves, not the company",
+      "Knows the vision and transformation timeline; helps others",
+      "Handles tech outsourcing and system upkeep",
+      "Just follows orders, never asks questions"
+    ],
+    "answer": 1,
+    "explain": "LEGO-type employees understand the vision and goals and can quickly regroup during transformation; block-type employees only look out for themselves.",
+    "source": "Why Internal Communication Matters in Digital Transformation"
+  },
+  {
+    "id": "q2019_04",
+    "year": 2019,
+    "q": "“The Last ‘Have-To’ for Agency Leaders” describes four stages of clients building in-house teams. What's the order?",
+    "options": [
+      "Transparent, Misty, In-house, Hybrid",
+      "Hybrid, In-house, Misty, Transparent",
+      "In-house, Hybrid, Transparent, Misty",
+      "Misty, Transparent, Hybrid, In-house"
+    ],
+    "answer": 3,
+    "explain": "In order: Misty, Transparent, Hybrid, and Build in-house.",
+    "source": "The Last “Have-To” for Agency Leaders"
+  },
+  {
+    "id": "q2019_05",
+    "year": 2019,
+    "q": "Isobar built a digital experience platform for German knife brand Zwilling. How much did total sales rise within three months?",
+    "options": [
+      "16%",
+      "51%",
+      "188%",
+      "400%"
+    ],
+    "answer": 1,
+    "explain": "The book says total sales rose 51% in three months, with over 50,000 new users.",
+    "source": "Facing Digital Transformation: How Do You Hit the Mark?"
+  },
+  {
+    "id": "q2019_06",
+    "year": 2019,
+    "q": "Dentsu Kuohua served media agencies with the “Oath Mobile Coffee Pop-up.” How many days was it open?",
+    "options": [
+      "9 days",
+      "3 days",
+      "5 days",
+      "30 days"
+    ],
+    "answer": 0,
+    "explain": "The pop-up ran 9 days, reached nearly 2,000 media planners and buyers, and created 15,000+ business opportunities.",
+    "source": "Move Human Nature, Transform Business"
+  },
+  {
+    "id": "q2019_07",
+    "year": 2019,
+    "q": "In “Move Human Nature, Transform Business,” the PlayStation campaign pitched gamers directly, but who else did it make a special appeal to?",
+    "options": [
+      "Gamers' parents",
+      "Game store clerks",
+      "Gamers' girlfriends",
+      "Gaming KOLs"
+    ],
+    "answer": 2,
+    "explain": "Spotting partner pushback, it pitched girlfriends “the trick to keeping your boyfriend happily at home” and hit its one-month sales goal in under a week.",
+    "source": "Move Human Nature, Transform Business"
+  },
+  {
+    "id": "q2019_08",
+    "year": 2019,
+    "q": "According to eMarketer, what share of US users had ad blockers installed in 2017?",
+    "options": [
+      "27%",
+      "7%",
+      "17%",
+      "47%"
+    ],
+    "answer": 0,
+    "explain": "The book says 27% of US users had installed ad blockers by 2017.",
+    "source": "Unskippable, Unblockable, Unstoppable"
+  },
+  {
+    "id": "q2019_09",
+    "year": 2019,
+    "q": "“How Can Brands Break Through a World Run by Algorithms?” urges brands to win in the physical world. Which event in Taiwan does it cite?",
+    "options": [
+      "The Balvenie single malt handcrafted tour",
+      "Starbucks music app",
+      "Harley-Davidson test rides",
+      "FamilyMart prepaid coffee"
+    ],
+    "answer": 0,
+    "explain": "In 2018, The Balvenie toured five cities across Taiwan, drawing 38,000+ participants and 19,000+ tastings.",
+    "source": "How Can Brands Break Through a World Run by Algorithms?"
+  },
+  {
+    "id": "q2019_10",
+    "year": 2019,
+    "q": "“Read Gen Z's Intentions” finds which platform Gen Z loves and visits most?",
+    "options": [
+      "Facebook",
+      "LINE",
+      "YouTube",
+      "PTT"
+    ],
+    "answer": 2,
+    "explain": "Citing several research firms, the book says YouTube is Gen Z's favorite and most-visited platform.",
+    "source": "Read Gen Z's Intentions to Win the Future Consumer Market"
+  },
+  {
+    "id": "q2019_11",
+    "year": 2019,
+    "q": "“Data Helps You Understand Consumers, but Do You Really?” uses a nail-fungus drug case to warn marketers about what?",
+    "options": [
+      "Echo chambers from algorithm recommendations",
+      "Faked data from influencers and KOLs",
+      "Only analyzing data that survived (caveman effect)",
+      "Ad overexposure causing backlash"
+    ],
+    "answer": 2,
+    "explain": "Rainy days that year fell nearly 30% from the year before, so fewer symptoms were weather-related; the consultants' report missed local conditions.",
+    "source": "Data Helps You Understand Consumers, but Do You Really?"
+  },
+  {
+    "id": "q2019_12",
+    "year": 2019,
+    "q": "After E.SUN Bank adopted data-driven attribution (DDA), nearly 60% of conversion credit came from which keywords, lifting conversion rate 42%?",
+    "options": [
+      "Brand terms",
+      "Non-brand (generic) terms",
+      "Competitor terms",
+      "Location terms"
+    ],
+    "answer": 1,
+    "explain": "The book says early generic searches shape which brand consumers choose next; nearly 60% of conversions came from non-brand terms.",
+    "source": "Master Data and Use Machine Learning to Mine New Opportunities"
+  },
+  {
+    "id": "q2020_01",
+    "year": 2020,
+    "q": "In Carat's “crisis relevance vs. market demand matrix,” which market is labeled “panic economy/hoarding economy”?",
+    "options": [
+      "Emerging market",
+      "Surge market",
+      "Potential market",
+      "Stagnant market"
+    ],
+    "answer": 1,
+    "explain": "In the matrix, the surge market is the panic/hoarding economy, while the emerging market is the stay-at-home/care economy.",
+    "source": "From Black Swans to Gray Rhinos: The Adaptability Quotient Every Brand Needs"
+  },
+  {
+    "id": "q2020_02",
+    "year": 2020,
+    "q": "Which is NOT one of Carat's five adaptability quotients, A.R.I.S.E.?",
+    "options": [
+      "Agility",
+      "Association",
+      "Loyalty",
+      "Experience"
+    ],
+    "answer": 2,
+    "explain": "The five are agility, association, innovation, share of heart, and experience. Loyalty isn't one.",
+    "source": "From Black Swans to Gray Rhinos: The Adaptability Quotient Every Brand Needs"
+  },
+  {
+    "id": "q2020_03",
+    "year": 2020,
+    "q": "Drawing on “Car Psychology,” the book lists seven decision factors for Taiwan car buyers. Which is NOT one?",
+    "options": [
+      "Status symbol",
+      "Parking",
+      "Fuel efficiency",
+      "Price"
+    ],
+    "answer": 3,
+    "explain": "The seven are status symbol, passenger comfort, safety, speed, space, parking, and fuel efficiency. Price isn't one.",
+    "source": "The Super Salesperson's Secret Weapon"
+  },
+  {
+    "id": "q2020_04",
+    "year": 2020,
+    "q": "In the super salesperson chapter's car brand comparison, which brand does the book suggest Mercedes-Benz marketers study?",
+    "options": [
+      "Lexus",
+      "BMW",
+      "Audi",
+      "Toyota"
+    ],
+    "answer": 0,
+    "explain": "BMW had the most digital mentions but ranked last in comparisons; the book suggests Mercedes-Benz marketers study why Lexus converts so well.",
+    "source": "The Super Salesperson's Secret Weapon"
+  },
+  {
+    "id": "q2020_05",
+    "year": 2020,
+    "q": "Per Salesforce's customer research, what share of customers say a brand's content, interactions, and service at every touchpoint matter as much as the product?",
+    "options": [
+      "64%",
+      "74%",
+      "84%",
+      "94%"
+    ],
+    "answer": 2,
+    "explain": "The book states 84% of customers say content, interactions, and service at touchpoints matter as much as the product itself.",
+    "source": "Using Salesforce to Unify Brand Data, Improve Customer Experience, and Drive Growth"
+  },
+  {
+    "id": "q2020_06",
+    "year": 2020,
+    "q": "After Isobar launched a new membership program for 10/10, how many LINE friends did it reach in the first week?",
+    "options": [
+      "888",
+      "8,880",
+      "88,800",
+      "18,880"
+    ],
+    "answer": 1,
+    "explain": "The book says the new program hit 8,880 LINE friends in week one, and Q1 2020 sales rose 30% over the same period in 2019.",
+    "source": "Using Salesforce to Unify Brand Data, Improve Customer Experience, and Drive Growth"
+  },
+  {
+    "id": "q2020_07",
+    "year": 2020,
+    "q": "Which is NOT one of iProspect's “Search 4V”?",
+    "options": [
+      "Voice Search",
+      "Visual Search",
+      "Vertical Search",
+      "Virtual Search"
+    ],
+    "answer": 3,
+    "explain": "The 4Vs are Voice, Visual, Vertical, and Various (blended search). There's no Virtual.",
+    "source": "Outpacing Rivals in Digital: The New Era of the “Search 4V” Is Here"
+  },
+  {
+    "id": "q2020_08",
+    "year": 2020,
+    "q": "Using an all-in-one cat parasite drop as its example, Vizeum cites client research: how deadly is mosquito-borne heartworm in cats?",
+    "options": [
+      "99%",
+      "59%",
+      "79%",
+      "89%"
+    ],
+    "answer": 0,
+    "explain": "The book says mosquito-borne heartworm is 99% fatal in cats, which inspired a contextual, dynamic video intro.",
+    "source": "How Media Performance Connects to Sales Targets"
+  },
+  {
+    "id": "q2020_09",
+    "year": 2020,
+    "q": "In the “ACM” platform Dentsu Kuohua brought in, how long does AI creative ADAM take to produce one banner?",
+    "options": [
+      "Five minutes",
+      "Thirty minutes",
+      "Five seconds",
+      "One day"
+    ],
+    "answer": 2,
+    "explain": "The book says ADAM runs inside the ACM system and turns out banners at stunning speed: one every five seconds.",
+    "source": "AI X Creativity"
+  },
+  {
+    "id": "q2020_10",
+    "year": 2020,
+    "q": "In early 2020, Google announced Chrome would phase out third-party cookies by what year?",
+    "options": [
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "answer": 1,
+    "explain": "The book says Google announced Chrome would phase out third-party cookies within two years, by 2022.",
+    "source": "The Death of Third-Party Cookie Marketing"
+  },
+  {
+    "id": "q2020_11",
+    "year": 2020,
+    "q": "According to the book, in what year did Taiwan officially become an aged society?",
+    "options": [
+      "2016",
+      "2017",
+      "2019",
+      "2018"
+    ],
+    "answer": 3,
+    "explain": "The book says Taiwan officially became an aged society in 2018; three major chronic diseases alone take 15% of national health insurance spending.",
+    "source": "Tech-Empowered: The Big Health Wave Arrives"
+  },
+  {
+    "id": "q2020_12",
+    "year": 2020,
+    "q": "In a Dentsu Japan survey with an e-commerce partner, what were the top three foods health-conscious people actually bought online?",
+    "options": [
+      "Instant noodles, energy drinks, beer",
+      "Salad, yogurt, coffee",
+      "Rice, veggie juice, milk",
+      "Bread, tea drinks, chocolate"
+    ],
+    "answer": 0,
+    "explain": "The top three were instant noodles, energy drinks, and beer, all high-calorie, showing how data reveals the gap between behavior and self-image.",
+    "source": "Marketing Measurement Decoded"
+  },
+  {
+    "id": "q2021_01",
+    "year": 2021,
+    "q": "After Taiwan declared a nationwide Level 3 alert on May 19, 2021, how much had public transit use dropped a week later (5/26)?",
+    "options": [
+      "26%",
+      "36%",
+      "56%",
+      "76%"
+    ],
+    "answer": 2,
+    "explain": "Citing Google mobility data, the book says public transit use fell 56% on 5/26.",
+    "source": "Consumer Resources and Opportunities Hidden in the Pandemic"
+  },
+  {
+    "id": "q2021_02",
+    "year": 2021,
+    "q": "In Dentsu's CCS survey, what share of consumers agreed they're “willing to save up to buy what they want” in 2020?",
+    "options": [
+      "67.2%",
+      "66.1%",
+      "49.0%",
+      "64.2%"
+    ],
+    "answer": 3,
+    "explain": "The share slid from 67.2% in 2018 and 66.1% in 2019 to 64.2% in 2020, showing a turn toward instant gratification.",
+    "source": "Consumer Resources and Opportunities Hidden in the Pandemic (Instant Gratification)"
+  },
+  {
+    "id": "q2021_03",
+    "year": 2021,
+    "q": "In Consumer Vision 2030, what share of consumers think corporate reputations will rest on climate action by 2030?",
+    "options": [
+      "46%",
+      "66%",
+      "57%",
+      "29%"
+    ],
+    "answer": 1,
+    "explain": "The book says 66% of consumers worldwide believe that by 2030, corporate reputations will rest on efforts against climate change.",
+    "source": "Crossing 2030: Climate Change, Brand Upgrade"
+  },
+  {
+    "id": "q2021_04",
+    "year": 2021,
+    "q": "In the Digital Society Index Survey 2020, about what share of people worry they'll have less control over their data in 2030 than now?",
+    "options": [
+      "About 29%",
+      "About 69%",
+      "About 46%",
+      "About 57%"
+    ],
+    "answer": 1,
+    "explain": "Nearly seven in ten (69%) consumers agree they'll have less control over their data in the future than they do now.",
+    "source": "Crossing 2030: A New Paradigm for Data Governance"
+  },
+  {
+    "id": "q2021_05",
+    "year": 2021,
+    "q": "What did Dentsu's four-year “Take Off, Xiaomei!” project ultimately create?",
+    "options": [
+      "Taiwan's first AR night market",
+      "Taiwan's first multimedia storybook town",
+      "Northern Taiwan's largest ocean education center",
+      "A livestream e-commerce base for rural areas"
+    ],
+    "answer": 1,
+    "explain": "Starting from picture books by Laomei Elementary students, the project painted murals on many walls to build Taiwan's first multimedia storybook town.",
+    "source": "Building Social Impact"
+  },
+  {
+    "id": "q2021_06",
+    "year": 2021,
+    "q": "According to “Digital 2020,” how long does the average person in Taiwan spend online each day?",
+    "options": [
+      "6 hr 43 min",
+      "9 hr 45 min",
+      "5 hr 20 min",
+      "7 hr 57 min"
+    ],
+    "answer": 3,
+    "explain": "Taiwan averages 7 hr 57 min, 1 hr 14 min more than the global average of 6 hr 43 min.",
+    "source": "The Last Mile into the New Normal"
+  },
+  {
+    "id": "q2021_07",
+    "year": 2021,
+    "q": "In post-tests of Sinyi Realty's “Trust and Happiness” ad, what share of viewers had a better view of the brand?",
+    "options": [
+      "The old KPI: 20–30%",
+      "About 50%",
+      "90%",
+      "70%"
+    ],
+    "answer": 3,
+    "explain": "Sinyi's chief strategy officer said past KPIs were 20–30%; this ad hit 70%, making it the most successful ad in the company's history.",
+    "source": "Crossing Hearts: How a Story About “Trust” Won the Cannes Grand Prix"
+  },
+  {
+    "id": "q2021_08",
+    "year": 2021,
+    "q": "In the ISRPE consumer journey model, what stage does the “R” stand for?",
+    "options": [
+      "Retention",
+      "Revenue",
+      "Research",
+      "Reward"
+    ],
+    "answer": 2,
+    "explain": "ISRPE stands for Interest, Search, Research, Purchase, Experience.",
+    "source": "Deconstructing the Consumer Journey with Search Data"
+  },
+  {
+    "id": "q2021_09",
+    "year": 2021,
+    "q": "Per Dentsu CCS 2020, what share of Taiwan consumers like buying from or using brands that reward loyal customers?",
+    "options": [
+      "72.9%",
+      "49.0%",
+      "36.8%",
+      "64.2%"
+    ],
+    "answer": 0,
+    "explain": "The book says 72.9% of consumers like buying from or using brands that reward loyal customers.",
+    "source": "Crossing 2030: The Star-Rating System"
+  },
+  {
+    "id": "q2021_10",
+    "year": 2021,
+    "q": "Which correctly describes the visual order of Red Bull's website, as the book tells it?",
+    "options": [
+      "Red Bull TV, then events and athletes, then products",
+      "Products, then events, then Red Bull TV",
+      "Athletes, then products, then events",
+      "Can design, then promos, then content"
+    ],
+    "answer": 0,
+    "explain": "The site leads with Red Bull TV, then events and athletes, and only then products, showing it sees itself as a culture company.",
+    "source": "Deconstructing the Kaleidoscope of Motives to Give Brand Value Concrete Form"
+  },
+  {
+    "id": "q2021_11",
+    "year": 2021,
+    "q": "Data cited in the book puts Tesla's average ad spend per car at about how much?",
+    "options": [
+      "US$92",
+      "US$926",
+      "US$6",
+      "US$9,260"
+    ],
+    "answer": 2,
+    "explain": "Tesla spends an average of US$6 on ads per car, versus US$926 for Mercedes-Benz.",
+    "source": "Media Tech Always Comes from Human Nature"
+  },
+  {
+    "id": "q2021_12",
+    "year": 2021,
+    "q": "The book says seniors especially dislike which kind of product positioning?",
+    "options": [
+      "Products labeled “for the elderly only”",
+      "Products stressing health and wellness",
+      "Products with online customer service",
+      "Products built around hobbies"
+    ],
+    "answer": 0,
+    "explain": "Seniors don't like being called “elders” or “old people,” and products labeled “for the elderly only” put them off even more.",
+    "source": "Crossing 2030: Super Humans"
+  },
+  {
+    "id": "q2022_01",
+    "year": 2022,
+    "q": "Half a year after Apple's ATT policy took effect, roughly how much did advertisers' iOS mobile ad spend drop?",
+    "options": [
+      "About 13%",
+      "About 23%",
+      "About 43%",
+      "About 33%"
+    ],
+    "answer": 3,
+    "explain": "Citing the WSJ, the book says iOS mobile ad spend fell about 33%, while Android grew over 10% in the same period.",
+    "source": "New Assets, New Skills, New Traits: Mastering a Fragmented New World"
+  },
+  {
+    "id": "q2022_02",
+    "year": 2022,
+    "q": "AB InBev's “Pure Gold Contract” guaranteed three years of buying from farmers going organic at what premium over the original price?",
+    "options": [
+      "25%",
+      "5%",
+      "15%",
+      "35%"
+    ],
+    "answer": 0,
+    "explain": "The contract guaranteed buying at 25% above the original price for three years, securing farmers' livelihoods during the organic transition.",
+    "source": "Modern Creativity: Creating a Business Multiplier Effect for Brands"
+  },
+  {
+    "id": "q2022_03",
+    "year": 2022,
+    "q": "KFC's “Pocket Store” in China hit what unprecedented share of that year's revenue target?",
+    "options": [
+      "120%",
+      "900%",
+      "300%",
+      "1,500%"
+    ],
+    "answer": 1,
+    "explain": "The book says the campaign hit an unprecedented 900% of that year's revenue target.",
+    "source": "Modern Creativity: Creating a Business Multiplier Effect for Brands"
+  },
+  {
+    "id": "q2022_04",
+    "year": 2022,
+    "q": "Which of these was NOT one of the four demons in Yahoo's exorcism launch event?",
+    "options": [
+      "Hidden Princess",
+      "Amnesia Ghost",
+      "Face-Blind Fiend",
+      "Layout-Lock Demon"
+    ],
+    "answer": 1,
+    "explain": "The four demons were the Hidden Princess, the Mad Hacker, the Face-Blind Fiend, and the Layout-Lock Demon. No Amnesia Ghost.",
+    "source": "Modern Creativity: The Multiplier Power of the Unimagined"
+  },
+  {
+    "id": "q2022_05",
+    "year": 2022,
+    "q": "Per Dentsu CCS data, how did quality-of-life satisfaction among workers 40+ change from 2018 to 2021?",
+    "options": [
+      "Fell from 47% to 43%",
+      "Rose from 43% to 47%",
+      "Rose from 47% to 53%",
+      "Held at 47%"
+    ],
+    "answer": 0,
+    "explain": "Workers 40+ fell from 47% to 43%; those 39 and under actually rose from 43% to 47%.",
+    "source": "New Markets Driving New Future Value for Brands"
+  },
+  {
+    "id": "q2022_06",
+    "year": 2022,
+    "q": "In Kantar's sustainability survey of 500 people in Taiwan, what share of consumers think eco-friendly products cost more?",
+    "options": [
+      "85%",
+      "57%",
+      "71%",
+      "76%"
+    ],
+    "answer": 0,
+    "explain": "85% think eco-friendly products cost more; 71% think companies don't give enough information.",
+    "source": "Sustainable Transformation: Seize the Trends, Break New Ground"
+  },
+  {
+    "id": "q2022_07",
+    "year": 2022,
+    "q": "Of the six creative scale categories, which is NOT part of Modern Creativity?",
+    "options": [
+      "Creates culture",
+      "Changes society",
+      "Good work",
+      "Defines the future"
+    ],
+    "answer": 2,
+    "explain": "The book says only creating culture, changing society, and defining the future count as Modern Creativity; good work doesn't.",
+    "source": "Modern Creativity: Differentiating Through Disruptive Innovation in Chaotic Times"
+  },
+  {
+    "id": "q2022_08",
+    "year": 2022,
+    "q": "dentsu good describes three stages of corporate sustainability. Which word anchors the mature stage?",
+    "options": [
+      "Compliance",
+      "Competency",
+      "Competitiveness",
+      "Convenience"
+    ],
+    "answer": 2,
+    "explain": "Intro stage: Compliance. Growth stage: Competency. Mature stage: Competitiveness (building a competitive edge).",
+    "source": "Growth through Good: Start with Good, Grow Sustainably"
+  },
+  {
+    "id": "q2022_09",
+    "year": 2022,
+    "q": "In Dentsu Japan's TUNA SCOPE case, how long does it take at minimum to train a professional tuna inspector?",
+    "options": [
+      "1 year",
+      "3 years",
+      "5 years",
+      "10 years"
+    ],
+    "answer": 3,
+    "explain": "Japan's rapid aging has caused an inspector shortage, and training one takes at least 10 years, so AI was used to build an inspection database.",
+    "source": "Growth through Good: Start with Good, Grow Sustainably"
+  },
+  {
+    "id": "q2022_10",
+    "year": 2022,
+    "q": "Per Christie's, which generation made up the largest share of bidders on Beeple's “Everydays: The First 5000 Days”?",
+    "options": [
+      "Gen X",
+      "Gen Z",
+      "Millennials",
+      "Baby Boomers"
+    ],
+    "answer": 2,
+    "explain": "Millennials made up 58%, Gen X 33%, Gen Z 6%, and Baby Boomers 3%.",
+    "source": "The Power of Web 3.0: Expanding How We Imagine the World"
+  },
+  {
+    "id": "q2022_11",
+    "year": 2022,
+    "q": "Pizza Hut Taiwan's Taiwanese-flavor NFT blind boxes traded briskly before opening. What premium does the book cite?",
+    "options": [
+      "390%",
+      "900%",
+      "39000%",
+      "3900%"
+    ],
+    "answer": 3,
+    "explain": "The book says the blind boxes traded briskly before opening, at premiums as high as 3,900%.",
+    "source": "“Connected Creative Experiences” Accelerate Modern Creativity"
+  },
+  {
+    "id": "q2022_12",
+    "year": 2022,
+    "q": "“Five Dilemmas for the CMO” says one of the scarcest new marketing roles in the search and social visibility war will be what?",
+    "options": [
+      "Chief Growth Hacker",
+      "Visibility Manager",
+      "Brand Avatar Manager",
+      "Chief Data Partner"
+    ],
+    "answer": 1,
+    "explain": "The book calls people who can create the content audiences need “Visibility Managers.”",
+    "source": "Five Dilemmas for the CMO"
+  },
+  {
+    "id": "q2023_01",
+    "year": 2023,
+    "q": "Per Similarweb, after Bing, with a 3% share, added ChatGPT, how much did its visits briefly rise?",
+    "options": [
+      "15%",
+      "5%",
+      "30%",
+      "3x"
+    ],
+    "answer": 0,
+    "explain": "The book says Bing had a 3% share, and after adding ChatGPT, its visits briefly rose 15%.",
+    "source": "The AI Shift from Content to Communication"
+  },
+  {
+    "id": "q2023_02",
+    "year": 2023,
+    "q": "Electric Theatre Collective animated Coca-Cola's “Masterpiece” ad. How long did they say it took?",
+    "options": [
+      "Three months",
+      "Eight weeks",
+      "Two weeks",
+      "One year"
+    ],
+    "answer": 1,
+    "explain": "The book says it took just eight weeks; without AI, it might have taken five times as long.",
+    "source": "Only People Strive for Excellence"
+  },
+  {
+    "id": "q2023_03",
+    "year": 2023,
+    "q": "Using the history of the steam engine, which period does the book say truly decided whether organizations survived?",
+    "options": [
+      "The last 50 years of a century of evolution",
+      "The first few years after its invention",
+      "The year the first factory was built",
+      "After the tech became obsolete"
+    ],
+    "answer": 0,
+    "explain": "Over roughly 100 years of evolution, the last 50 decided survival: after capital poured in and steam became the core of production.",
+    "source": "Phenomenal Trends Reshaping Future Supply and Demand"
+  },
+  {
+    "id": "q2023_04",
+    "year": 2023,
+    "q": "The book says tech on the consumer side removes friction costs in four main consumer resources. Which four?",
+    "options": [
+      "Money, time, connections, taste",
+      "Time, physical energy, skills, emotion",
+      "Money, time, physical energy, mental energy",
+      "Money, physical energy, knowledge, trust"
+    ],
+    "answer": 2,
+    "explain": "The book names consumers' four main resources as money, time, physical energy, and mental energy.",
+    "source": "Phenomenal Trends Reshaping Future Supply and Demand"
+  },
+  {
+    "id": "q2023_05",
+    "year": 2023,
+    "q": "Which is NOT one of the three factors the book lists for companies “wanting to profit from AI”?",
+    "options": [
+      "A first-party database that keeps updating",
+      "More influencer partnerships",
+      "Where AI is applied to create value",
+      "Investment strength (amount and speed)"
+    ],
+    "answer": 1,
+    "explain": "The three factors are a first-party database, where AI creates value, and investment strength. Influencer partnerships aren't one.",
+    "source": "Phenomenal Trends Reshaping Future Supply and Demand"
+  },
+  {
+    "id": "q2023_06",
+    "year": 2023,
+    "q": "How many large LED screens make up the AI digital mural at Gucci's Chengdu flagship?",
+    "options": [
+      "13",
+      "23",
+      "63",
+      "33"
+    ],
+    "answer": 3,
+    "explain": "The book says the wall is three meters tall and made of 33 large LED screens.",
+    "source": "Human-Machine Collaboration Defines New Value"
+  },
+  {
+    "id": "q2023_07",
+    "year": 2023,
+    "q": "On Vivo and DDB's “Autism Journey” site, after users fill in three fields, how many cards appear to choose from?",
+    "options": [
+      "One",
+      "Five",
+      "Ten",
+      "Three"
+    ],
+    "answer": 3,
+    "explain": "After filling in the card name, the character, and what the character is doing, three cards appear for the user to pick.",
+    "source": "Human-Machine Collaboration Defines New Value"
+  },
+  {
+    "id": "q2023_08",
+    "year": 2023,
+    "q": "In the E-E-A-T content guidelines, what does the A stand for?",
+    "options": [
+      "Authority",
+      "Accuracy",
+      "Attention",
+      "Automation"
+    ],
+    "answer": 0,
+    "explain": "E-E-A-T stands for Experience, Expertise, Authority, Trust; the A is Authority.",
+    "source": "The AI Shift from Content to Communication"
+  },
+  {
+    "id": "q2023_09",
+    "year": 2023,
+    "q": "The book notes Italy's data protection authority suspended ChatGPT on March 31, 2023. What was the main reason?",
+    "options": [
+      "Subscription fees were too high and unfair",
+      "Generated images infringed copyright",
+      "It couldn't support Italian",
+      "Privacy concerns and unclear age controls"
+    ],
+    "answer": 3,
+    "explain": "The authority cited privacy concerns and questioned unclear age controls; access resumed April 28 after OpenAI introduced new rules.",
+    "source": "Letting Ideas Soar Within the Rules"
+  },
+  {
+    "id": "q2023_10",
+    "year": 2023,
+    "q": "Per the book's summary, how long does the UK protect copyright for generative AI works with human involvement, counted from completion?",
+    "options": [
+      "10 years",
+      "25 years",
+      "50 years",
+      "70 years"
+    ],
+    "answer": 2,
+    "explain": "The book says the UK grants copyright if human involvement can be shown, with 50 years of protection from completion.",
+    "source": "Letting Ideas Soar Within the Rules"
+  },
+  {
+    "id": "q2023_11",
+    "year": 2023,
+    "q": "Getty Images sued Stability AI, claiming it copied how many images without permission or compensation?",
+    "options": [
+      "1.2M",
+      "100M",
+      "12M",
+      "1.2B"
+    ],
+    "answer": 2,
+    "explain": "Citing Bloomberg Law, the book says the suit alleges 12M images were copied.",
+    "source": "Letting Ideas Soar Within the Rules"
+  },
+  {
+    "id": "q2023_12",
+    "year": 2023,
+    "q": "What does the book mean by “AIQ,” or Dentsu Intelligence?",
+    "options": [
+      "How fast a company's AI hardware computes",
+      "People's ability to get along and communicate with AI",
+      "AI's score on standardized tests",
+      "Employees' ability to write code"
+    ],
+    "answer": 1,
+    "explain": "The book defines AIQ as our ability to get along with AI, and as building a new kind of communication skill.",
+    "source": "The Metamorphosis of Dentsu Intelligence: AIQ"
+  },
+  {
+    "id": "q2024_01",
+    "year": 2024,
+    "q": "At Walmart's August 15, 2024 earnings call, the CEO said generative AI improved what by 100x?",
+    "options": [
+      "Store checkout speed",
+      "Efficiency of updating product info online",
+      "Shipping distance",
+      "Average employee pay"
+    ],
+    "answer": 1,
+    "explain": "The book lists three 100x gains: product info updates online, attribute expansion speed, and less staffing needed for catalog work.",
+    "source": "Seeing 100 Times the Hope"
+  },
+  {
+    "id": "q2024_02",
+    "year": 2024,
+    "q": "Per 18 years of Kantar BrandZ 2024 data, how much did the top 10 strongest brands' stock prices rise versus 2006?",
+    "options": [
+      "88%",
+      "200%",
+      "129%",
+      "50%"
+    ],
+    "answer": 2,
+    "explain": "The book says strong brands overall beat the S&P 500 by 88%, and the top 10 by as much as 129%.",
+    "source": "Bringing Brand Marketing Up to Date"
+  },
+  {
+    "id": "q2024_03",
+    "year": 2024,
+    "q": "In UNIQLO's East District campaign, how many times last year's foot traffic did the flagship see after opening?",
+    "options": [
+      "2.2x",
+      "1.2x",
+      "1.8x",
+      "3.5x"
+    ],
+    "answer": 0,
+    "explain": "The book says the store hit 105% of its sales target, sales grew 166% year over year, and foot traffic reached 2.2x last year's.",
+    "source": "Resonating with Society's Pulse: Building Socially Conscious Brand Impact"
+  },
+  {
+    "id": "q2024_04",
+    "year": 2024,
+    "q": "Per Merkle's 2024 white paper, roughly what share of companies say their organization can't fully support data-driven CX?",
+    "options": [
+      "17%",
+      "57%",
+      "27%",
+      "42%"
+    ],
+    "answer": 1,
+    "explain": "The book says about 57% say their current structure can't fully support it; only 42% make CRM or CX the core of cross-team work.",
+    "source": "Member Data Asset Management and Trends in CX-Led Organizational Design"
+  },
+  {
+    "id": "q2024_05",
+    "year": 2024,
+    "q": "Dentsu Taiwan's media carbon accounting program, verified by TUV Rheinland, made it the first marketing communications group certified to which standard?",
+    "options": [
+      "ISO 9001 quality management",
+      "ISO 14064-1 GHG inventory",
+      "ISO 27001 information security",
+      "ISO 45001 occupational safety"
+    ],
+    "answer": 1,
+    "explain": "The book says Dentsu Taiwan became the first marketing communications group certified to ISO 14064-1 for greenhouse gas inventories.",
+    "source": "Unlocking the Secrets of Media Carbon Accounting"
+  },
+  {
+    "id": "q2024_06",
+    "year": 2024,
+    "q": "In Dentsu Intelligence Center's “Make Your Own Model” idea, which proprietary Dentsu data builds custom AI models for clients?",
+    "options": [
+      "POS + CRM",
+      "GA4 + LINE",
+      "IAB + BCG",
+      "CCS + DAC"
+    ],
+    "answer": 3,
+    "explain": "The book says it uses CCS (consumer lifestyle and values data) and DAC (web browsing behavior data) to build custom AI models.",
+    "source": "Seeing 100 Times the Hope"
+  },
+  {
+    "id": "q2024_07",
+    "year": 2024,
+    "q": "Per the Ministry of Education's Sports Administration, which category of public sports spending grew the most in 2022?",
+    "options": [
+      "Esports",
+      "Sports gear",
+      "Participatory sports",
+      "Sports events and media"
+    ],
+    "answer": 2,
+    "explain": "The book says the total reached NT$100.52B, up 15.6%, with participatory sports growing the most, up 30.7%.",
+    "source": "Sports Marketing or Marketing Sports?"
+  },
+  {
+    "id": "q2024_08",
+    "year": 2024,
+    "q": "What did Google announce about third-party cookies on July 22, 2024?",
+    "options": [
+      "It dropped the phaseout and kept support",
+      "Full phaseout in 2025",
+      "Immediate full phaseout",
+      "Phaseout in the EU only"
+    ],
+    "answer": 0,
+    "explain": "Google said Chrome would drop its plan to phase out third-party cookies, but brands should still prep for a low-cookie era.",
+    "source": "Digital Twins: The Hybrid Edge of Brand Power and Data Power"
+  },
+  {
+    "id": "q2024_09",
+    "year": 2024,
+    "q": "Dentsu Kuohua's Honda CR-V “Veteran Drivers Recommend” campaign drove how much sales growth in just eight weeks?",
+    "options": [
+      "27%",
+      "7%",
+      "17%",
+      "37%"
+    ],
+    "answer": 0,
+    "explain": "The book says the campaign drew over 130K participants and 668 prospect test drives, and drove 27% sales growth.",
+    "source": "Next-Level Imaging Power That Multiplies Creative Possibilities"
+  },
+  {
+    "id": "q2024_10",
+    "year": 2024,
+    "q": "Per BCG data, what's the rough gross margin on on-site ads in retail media networks (RMN)?",
+    "options": [
+      "20% to 40%",
+      "50% to 60%",
+      "70% to 90%",
+      "Under 10%"
+    ],
+    "answer": 2,
+    "explain": "The book's chart shows on-site ad margins of 70% to 90% and off-site ad margins of 20% to 40%.",
+    "source": "Reaching the Summit of the Retail Media Kingdom"
+  },
+  {
+    "id": "q2024_11",
+    "year": 2024,
+    "q": "In the book's LEGO example of “infinite game” thinking, what share of total sales do adult LEGO sets make up?",
+    "options": [
+      "One-tenth",
+      "One-third",
+      "Half",
+      "One-fifth"
+    ],
+    "answer": 3,
+    "explain": "The book says adult LEGO now accounts for one-fifth of its total sales.",
+    "source": "Turning the Tide with Grit Amid Endless Change"
+  },
+  {
+    "id": "q2024_12",
+    "year": 2024,
+    "q": "Which three campuses hosted the debut of HeySong's “Voice Beasts” vending machine game?",
+    "options": [
+      "NTU, NCCU, NCKU",
+      "NTPU, NCHU, NSYSU",
+      "NTHU, NCTU, NCU",
+      "NTU, FCU, NKUST"
+    ],
+    "answer": 3,
+    "explain": "The book says it debuted at NTU, FCU, and NKUST only, drawing nearly 30,000 messages and 50,000+ shares.",
+    "source": "Combining AI and Gen Z Insight to Strengthen Brands' Emotional Connection"
+  },
+  {
+    "id": "q2025_01",
+    "year": 2025,
+    "q": "How many impressions did Nutter Butter's Nutterverse on TikTok earn with zero budget?",
+    "options": [
+      "330M",
+      "600M",
+      "15M",
+      "249M"
+    ],
+    "answer": 3,
+    "explain": "The book says the zero-budget campaign earned 249M impressions and 15M engagements.",
+    "source": "“From Division to Convergence, the Evolution of Creativity”: Nutter Butter, “Are You OK?”"
+  },
+  {
+    "id": "q2025_02",
+    "year": 2025,
+    "q": "Per Dentsu Japan's “SATO 2531” case, Japanese law requires married couples to share a surname. About what share of women take their husband's name?",
+    "options": [
+      "65%",
+      "80%",
+      "99%",
+      "95%"
+    ],
+    "answer": 3,
+    "explain": "95% of Japanese women take their husband's surname; the book predicts that if nothing changes, everyone in Japan will be named Sato by 2531.",
+    "source": "“From Division to Convergence, the Evolution of Creativity”: Dentsu Japan, “SATO 2531”"
+  },
+  {
+    "id": "q2025_03",
+    "year": 2025,
+    "q": "By Dentsu Group's estimate, what's the rough TV ad CPM when targeting people 30 and older?",
+    "options": [
+      "About 160",
+      "About 247",
+      "About 300",
+      "About 48"
+    ],
+    "answer": 3,
+    "explain": "Targeting 30+, TV CPM is only about 48, below YouTube's 80–250; narrowing to ages 30–39 raises it to about 247.",
+    "source": "“Cracking the Data Traps of Video Ads”: TV's Five Myths, Myth 2"
+  },
+  {
+    "id": "q2025_04",
+    "year": 2025,
+    "q": "Per “Unfreeze My Rights,” what share of Taiwanese women who froze their eggs ever used them?",
+    "options": [
+      "18%",
+      "8%",
+      "28%",
+      "48%"
+    ],
+    "answer": 1,
+    "explain": "Only 8% used their own eggs, because the Assisted Reproduction Act requires single women to marry and get their husband's consent first.",
+    "source": "“From Division to Convergence, the Evolution of Creativity”: Dentsu Taiwan, “Unfreeze My Rights”"
+  },
+  {
+    "id": "q2025_05",
+    "year": 2025,
+    "q": "Adidas shifted its budget starting in 2019. Which brand-to-performance media split did it move to?",
+    "options": [
+      "23% Branding / 77% Performance",
+      "50% Branding / 50% Performance",
+      "60% Branding / 40% Performance",
+      "77% Branding / 23% Performance"
+    ],
+    "answer": 2,
+    "explain": "Adidas shifted its brand-to-performance budget split from 23%/77% to 60%/40%.",
+    "source": "“Cracking the Data Traps of Video Ads”: The New Reality of Media Buying"
+  },
+  {
+    "id": "q2025_06",
+    "year": 2025,
+    "q": "Merkle proposes upgrading GA to XGA. What does the X stand for?",
+    "options": [
+      "Experience",
+      "Extra",
+      "Express",
+      "Extend"
+    ],
+    "answer": 0,
+    "explain": "The book upgrades GA to Experience GA (XGA), shifting focus from conversion rates to the quality of experience flows and value interactions.",
+    "source": "“The Customer Journey in the XGA Era”"
+  },
+  {
+    "id": "q2025_07",
+    "year": 2025,
+    "q": "In LEGO's scenario planning, which priority covers issues that are “unlikely but fast-moving, needing a contingency plan”?",
+    "options": [
+      "ACT",
+      "PREPARE",
+      "ADAPT",
+      "PARK"
+    ],
+    "answer": 1,
+    "explain": "The book's four priorities: ACT (likely, fast), ADAPT (likely, slow), PREPARE (unlikely, fast), PARK (unlikely, slow).",
+    "source": "Editor's Letter: “Opportunity Favors the Prepared ‘Super Brain’”"
+  },
+  {
+    "id": "q2025_08",
+    "year": 2025,
+    "q": "In “From the Open Web to Walled Gardens,” 91APP says which D2C site page matters most to brands in the AI era?",
+    "options": [
+      "Product page",
+      "Homepage",
+      "Navigation page",
+      "Membership terms page"
+    ],
+    "answer": 0,
+    "explain": "The book says “ads are traffic” has given way to “products are traffic”: the product page is the battleground and a source of first-party data.",
+    "source": "“From the Open Web to Walled Gardens: A New Internet Reshaped by AI”"
+  },
+  {
+    "id": "q2025_09",
+    "year": 2025,
+    "q": "Per the 2024 CMO REPORT, what share of companies say the siloed agency model no longer meets their needs?",
+    "options": [
+      "58%",
+      "68%",
+      "78%",
+      "88%"
+    ],
+    "answer": 2,
+    "explain": "The book says 78% of companies find the siloed agency model no longer enough, and 82% expect agencies to integrate all capabilities seamlessly.",
+    "source": "“Creativity ++: Transformational Creativity Builds Ecosystems for Brands”"
+  },
+  {
+    "id": "q2025_10",
+    "year": 2025,
+    "q": "Citing Ministry of Finance data, “The Beauty Experience Era” says which beauty category's sales grew 15.6% in 2024?",
+    "options": [
+      "Makeup and skincare",
+      "Hair care",
+      "Face and body cleansers",
+      "Fragrance"
+    ],
+    "answer": 2,
+    "explain": "The book says cleansers grew 15.6% in 2024 and fragrance 9.2%, while beauty overall grew only 0.1% in 2023–24.",
+    "source": "“The Beauty Experience Era: Beauty Brands' Strategy Within the Beauty Ecosystem”"
+  },
+  {
+    "id": "q2025_11",
+    "year": 2025,
+    "q": "dentsu SPECTRUM has five ad types. Besides Premium, Video, DOOH, and Performance, what's the fifth?",
+    "options": [
+      "CTV",
+      "Podcast",
+      "OTT e-commerce",
+      "LINE Official Account"
+    ],
+    "answer": 0,
+    "explain": "The five types are Premium, Video, CTV, DOOH, and Performance, combined with DAC data.",
+    "source": "“The Quality and Trends of the Digital Ad Ecosystem, Through SPECTRUM”"
+  },
+  {
+    "id": "q2025_12",
+    "year": 2025,
+    "q": "The book says strong Brand Lift numbers don't mean real results. What's one reason?",
+    "options": [
+      "Platforms never randomize groups",
+      "Ads often go first to people who already like the brand",
+      "The control group always sees more ads",
+      "The data can always be compared across platforms"
+    ],
+    "answer": 1,
+    "explain": "Ad systems favor people likely to watch in full, so lift may just “light up people who already support you,” and it only reflects in-platform comparisons.",
+    "source": "“Cracking the Data Traps of Video Ads,” Observation 2: Good Brand Lift Numbers Don't Mean Real Results"
+  },
+  {
+    "id": "q2026_01",
+    "year": 2026,
+    "q": "What's the correlation coefficient between People Model's AI Personas and real-person survey results?",
+    "options": [
+      "0.62",
+      "0.75",
+      "0.89",
+      "0.97"
+    ],
+    "answer": 2,
+    "explain": "Backtested on a held-out human test set, the correlation is 0.89, but a correlation coefficient isn't accuracy.",
+    "source": "The Agentic Era: The Real Distance Between Brands and People / [Special Feature] People Model"
+  },
+  {
+    "id": "q2026_02",
+    "year": 2026,
+    "q": "How many valid responses are in the Dentsu CCS consumer survey that People Model is built on?",
+    "options": [
+      "5,045",
+      "3,012",
+      "8,000",
+      "10,000"
+    ],
+    "answer": 0,
+    "explain": "CCS is a large annual survey of people in Taiwan aged 15 to 74, with 5,045 valid responses.",
+    "source": "[Special Feature] People Model"
+  },
+  {
+    "id": "q2026_03",
+    "year": 2026,
+    "q": "The 37th Golden Melody Awards (2026) averaged a 3.37 TV rating, up from 2.31 for the 36th. By how many rating points?",
+    "options": [
+      "0.46",
+      "1.06",
+      "2.31",
+      "3.37"
+    ],
+    "answer": 1,
+    "explain": "It rose 1.06 rating points, about 46% in relative terms.",
+    "source": "From the Golden Melody Awards to Empresses in the Palace: The Brand Value of Shared Memories"
+  },
+  {
+    "id": "q2026_04",
+    "year": 2026,
+    "q": "In the “2025 CMO Report,” what share of CMOs agree agentic AI will have a major impact on business?",
+    "options": [
+      "67%",
+      "50%",
+      "32%",
+      "89%"
+    ],
+    "answer": 3,
+    "explain": "The report spans 14 countries and regions and over 1,950 CMOs; 89% agree.",
+    "source": "Agents of Growth: Growth Drivers in the Age of AI Agents"
+  },
+  {
+    "id": "q2026_05",
+    "year": 2026,
+    "q": "What are the three pillars of Dentsu Creative's “Growth Triangle”?",
+    "options": [
+      "Win traffic, win conversions, win members",
+      "Win the algorithm, win hearts, win culture",
+      "Win media, win creative, win data",
+      "Win brand, win channels, win price"
+    ],
+    "answer": 1,
+    "explain": "The Growth Triangle is win the algorithm, win hearts, and win culture.",
+    "source": "Agents of Growth: Growth Drivers in the Age of AI Agents"
+  },
+  {
+    "id": "q2026_06",
+    "year": 2026,
+    "q": "Which set is Carat's three core People Intelligence capabilities?",
+    "options": [
+      "Search, Convert, Judge",
+      "Sense, Connect, Judge",
+      "Plan, Buy, Measure",
+      "Sense, Create, Scale"
+    ],
+    "answer": 1,
+    "explain": "The three are Sense (perception and insight), Connect (integration and value creation), and Judge (judgment and decisions).",
+    "source": "“Judgment” Will Be the Scarcest Edge"
+  },
+  {
+    "id": "q2026_07",
+    "year": 2026,
+    "q": "What do the four letters of Dentsu Taiwan's SLIP framework stand for, in order?",
+    "options": [
+      "Strategy, Link, Insight, Plan",
+      "Speed, Launch, Iterate, Profit",
+      "Story, Layout, Image, Print",
+      "Spec, Line, Inspection, Pattern"
+    ],
+    "answer": 3,
+    "explain": "SLIP is Spec for standardizing, Line for production lines, Inspection for checks, and Pattern for repeatable models.",
+    "source": "Defining “Asset Output Standards”: Turning AI's Generative Power into a Brand's Delivery Power"
+  },
+  {
+    "id": "q2026_08",
+    "year": 2026,
+    "q": "As consumer behavior shifts from AISAS to AICAS, what does AICAS start with, actively initiated by the consumer?",
+    "options": [
+      "Ask",
+      "Attention",
+      "Action (purchase)",
+      "Share"
+    ],
+    "answer": 0,
+    "explain": "Consumers first ask AI “Which brand is right for me?”, so the starting point shifts from passive Attention to active Ask.",
+    "source": "Stop Buying Impressions, Start Buying Attention"
+  },
+  {
+    "id": "q2026_09",
+    "year": 2026,
+    "q": "Nan Shan Life's “Centenarian Life” project says Taiwan entered a super-aged era in 2025. One in how many people is 65+?",
+    "options": [
+      "One in five",
+      "One in three",
+      "One in seven",
+      "One in ten"
+    ],
+    "answer": 0,
+    "explain": "The book says “one in every five people is 65 or older.”",
+    "source": "The Power of Authenticity, Being Redefined"
+  },
+  {
+    "id": "q2026_10",
+    "year": 2026,
+    "q": "In the Apple Daily era, how many sources did the reporters' rule require to cross-check every news story?",
+    "options": [
+      "One",
+      "Two",
+      "Three",
+      "Five"
+    ],
+    "answer": 2,
+    "explain": "The author notes one source may have an agenda and two may be biased; credibility only starts when a third independent source points to the same fact.",
+    "source": "Why Trust Is the Hardest Edge to Copy in the AI Era"
+  },
+  {
+    "id": "q2026_11",
+    "year": 2026,
+    "q": "In Dentsu Japan's ORANGE RANGE “Ikenai Taiyou (Reiwa ver.)” MV, how many “Heisei references” did viewers find and catalog on their own?",
+    "options": [
+      "12",
+      "36",
+      "100",
+      "72"
+    ],
+    "answer": 3,
+    "explain": "The MV packs 72 Heisei references; viewers hunted for and cataloged them on their own, turning nostalgia into participation.",
+    "source": "From the Golden Melody Awards to Empresses in the Palace: The Brand Value of Shared Memories"
+  },
+  {
+    "id": "q2026_12",
+    "year": 2026,
+    "q": "Dentsu Intelligence Center's four-layer permission framework for agents goes in which order?",
+    "options": [
+      "Search, compare, pay, after-sales",
+      "Read, delete, edit, back up",
+      "Observe/understand, recommend, decide, act",
+      "Awareness, interest, desire, memory"
+    ],
+    "answer": 2,
+    "explain": "Companies should open permissions step by step by risk: observe/understand, recommend, decide, act. More autonomy isn't always better.",
+    "source": "AI Agents Enter the Consumer Journey: How Health, Beauty, and Retail Turn AI into Action"
+  }
+]

@@ -197,6 +197,33 @@
   letter-spacing: 0.12em;
 }
 
+/* 語言切換：右上角一排，目前的語言亮起 */
+.lang-switch {
+  position: absolute;
+  inset-block-start: var(--top);
+  inset-inline-end: var(--edge);
+  display: flex;
+}
+
+.title-badge ~ .lang-switch {
+  inset-block-start: calc(var(--top) + 2.4rem);
+}
+
+.lang-btn {
+  padding-inline: 0.7rem;
+  letter-spacing: 0;
+  background: rgb(4 6 9 / 0.55);
+}
+
+.lang-switch .lang-btn + .lang-btn {
+  margin-inline-start: -1px;
+}
+
+.lang-btn[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* 直向：招牌在上、按鈕整排在下 */
 @media (orientation: portrait) {
   .title-scrim {
@@ -767,4 +794,31 @@
     block-size: 3.6rem;
     font-size: 2rem;
   }
+}
+
+/* 英文的標語字距收窄（中文的寬字距放到英文會散掉） */
+:root:lang(en) .title-hook {
+  letter-spacing: 0.08em;
+}
+
+/* 譯版的直向手機：英日文句子較長，選角說明太長時在框內捲動（確認鈕不被擠進提示列）；成績單收緊一點 */
+@media (orientation: portrait), (max-width: 700px) {
+  :root:is(:lang(en), :lang(ja)) .role-detail {
+    max-block-size: 30dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  :root:is(:lang(en), :lang(ja)) .ending {
+    gap: 0.6rem;
+  }
+
+  :root:is(:lang(en), :lang(ja)) .report {
+    gap: 0.5rem;
+  }
+}
+
+:root:lang(ja) .roles-head .btn {
+  white-space: nowrap;
 }

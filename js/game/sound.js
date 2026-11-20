@@ -58,6 +58,8 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
   const want = { music: null, loops: new Map() };
   const music = { key: null, track: null };
   let voice = null;
+  // i18n：英日版字幕是譯文，語音檔仍用中文原句算 key；遊戲層傳入「畫面文字 → 中文原句」的對照
+  let voiceText = (text) => text;
   const loops = new Map();
   const oneShots = new Set();
   const preloaded = new Map();
@@ -306,7 +308,7 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
       /** 先把下一句載起來。 */
       preload(speaker, text) {
         if (!unlocked || !nodes) return;
-        const key = voiceKey(speaker, text);
+        const key = voiceKey(speaker, voiceText(text));
         const info = assets.audio('voice', key);
         if (!info || preloaded.has(key)) return;
         for (const [oldKey, track] of preloaded) {
@@ -319,7 +321,7 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
       /** 播一句語音。回傳的 handle 可以 stop()；找不到檔案就什麼都不播（只顯示字幕）。 */
       play(speaker, text, { onEnd } = {}) {
         stopVoice('cut');
-        const key = voiceKey(speaker, text);
+        const key = voiceKey(speaker, voiceText(text));
         const info = assets.audio('voice', key);
         record('voice', info ? 'play' : 'missing', key);
         const handle = { key, found: !!info, stop: () => {} };
@@ -367,6 +369,10 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
       },
       stop() {
         stopVoice('stop');
+      },
+      /** i18n：設定「畫面文字 → 算語音 key 用的中文原句」。 */
+      setTextSource(fn) {
+        voiceText = typeof fn === 'function' ? fn : (text) => text;
       },
     },
 

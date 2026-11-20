@@ -1,6 +1,7 @@
 // Seasonal lighting follows existing plaza trees, facade polygons and elevated footways.
 import * as T from '../vendor/three.module.min.js';
-import {buildings,civicWalkway,metersPerUnit as unit,toWorld} from '../world.mjs';
+import {courtPlanters,courtPoint} from '../entry-courts.mjs';
+import {buildings,byId,civicWalkway,metersPerUnit as unit,toWorld} from '../world.mjs';
 import {marketCarts,nightMarketOpen} from '../night-market.mjs';
 import {visitLandscapeTrees} from './vegetation.js';
 import {skywalks} from './landmarks.js';
@@ -56,6 +57,27 @@ function batchBuilder(){
 function plazaLights(batch,has){
   const {bulb,piece}=batch;
   const focal=toWorld(25.03661,121.56696);
+  if(has('landmarks')&&has('vegetation')){
+    const mall=byId.get('department'),{sides,depth}=courtPlanters.department;
+    for(const side of sides){
+      const [x,z]=courtPoint(mall,side,depth);
+      const conical=side===2,count=conical?170:74;
+      for(let i=0;i<count;i++){
+        const t=i/count,angle=t*(conical?27:12)*Math.PI,r=conical?1.15*(1-t)+.04:.15+.72*t;
+        bulb(x+r*Math.cos(angle),.66+3.55*t,z+r*Math.sin(angle),i%5?'#eeb86a':'#ffebbd');
+      }
+      if(conical)for(let i=0;i<40;i++){
+        const k=Math.floor(i/4),t=(i%4)/4;
+        const star=j=>[Math.sin(j*Math.PI/5)*(j%2?.13:.29),Math.cos(j*Math.PI/5)*(j%2?.13:.29)];
+        const a=star(k),b=star(k+1);
+        bulb(x,4.48+a[1]*(1-t)+b[1]*t,z+a[0]*(1-t)+b[0]*t,'#ffe7ac');
+      }
+    }
+    for(let span=1;span<sides.length;span++)for(let i=0;i<=38;i++){
+      const t=i/38,[x,z]=courtPoint(mall,sides[span-1]*(1-t)+sides[span]*t,depth);
+      bulb(x,4.35-.73*Math.sin(Math.PI*t),z,i%7?'#ffdc95':'#fff5d0');
+    }
+  }
   if(has('vegetation'))visitLandscapeTrees(({x,z,avenue,seed})=>{
     if(!avenue||Math.abs(x-civicWalkway.x*unit)>6||Math.abs(z-focal.y*unit)>115)return;
     const centerpiece=x<civicWalkway.x*unit&&Math.abs(z-focal.y*unit)<3.6;

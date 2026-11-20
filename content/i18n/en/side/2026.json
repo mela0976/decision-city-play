@@ -1,0 +1,1342 @@
+{
+  "year": 2026,
+  "chapters": [
+    {
+      "id": "c2026_01",
+      "title": "The Agentic Era: The Real Distance Between Brands and People",
+      "by": "Dentsu Marketing Communications Group",
+      "summary": "Research's biggest cost is now the wait, not the research. Use AI Personas to talk with simulated consumers before deciding; AI should help brands understand people.",
+      "coveredBy": "s2026_01"
+    },
+    {
+      "id": "c2026_02",
+      "title": "The Power of Authenticity, Being Redefined",
+      "by": "Dentsu Creative, Dentsu Taiwan",
+      "summary": "AI blurs real and fake, making authenticity a scarce asset. Brands need creativity that resists optimization, shifting from fighting for Attention to building Affection.",
+      "coveredBy": "s2026_02"
+    },
+    {
+      "id": "c2026_03",
+      "title": "Agents of Growth: Growth Drivers in the Age of AI Agents",
+      "by": "Dentsu Creative",
+      "summary": "AI agents search, compare, and buy for consumers. A growth triangle wins algorithms, hearts, and culture at once, balancing short-term revenue and long-term change.",
+      "coveredBy": "s2026_03"
+    },
+    {
+      "id": "c2026_04",
+      "title": "Growth Architects for the Age of AI Agents",
+      "by": "Isobar Taiwan",
+      "summary": "From a pretty line to growth architecture: start with the growth challenge, then link goals, insight, journey, and results. AI expands information; people bring judgment.",
+      "coveredBy": "s2026_03"
+    },
+    {
+      "id": "c2026_05",
+      "title": "Why Trust Is the Hardest Edge to Copy in the AI Era",
+      "by": "Isobar Taiwan",
+      "summary": "AI crashes the cost of making content; what vanishes is verification. Brands move from the attention economy to the trust economy, and PR must become trust engineers.",
+      "coveredBy": "s2026_02"
+    },
+    {
+      "id": "c2026_06",
+      "title": "AI Can Buy Things for People, but Brands Must Make People Want to Buy",
+      "by": "Isobar Taiwan",
+      "summary": "Conversational commerce answers needs; social must spark desire before AI compares prices. Upgrade from need-based segments to emotion-and-context segments.",
+      "coveredBy": "s2026_04"
+    },
+    {
+      "id": "c2026_07",
+      "title": "When Attention Is Scarce: How Entertainment and Sports Build Brand Mental Assets",
+      "by": "Dentsu Entertainment",
+      "summary": "Brands can buy exposure but not memory; entertainment and sports are the core of emotional consumption. Competition shifts from share of voice to share of culture.",
+      "coveredBy": "s2026_05"
+    },
+    {
+      "id": "c2026_08",
+      "title": "Pleasing the Algorithm or Moving People? Don't Let Efficiency Logic Cut Down Social",
+      "by": "Carat",
+      "summary": "AI reads what others say about you, so social must speak to people and AI at once. The key: real people talking about you on their own, in specifics.",
+      "coveredBy": "s2026_04"
+    },
+    {
+      "id": "c2026_09",
+      "title": "Stop Buying Impressions, Start Buying Attention—Make Media an Experience That Builds “Unscrollable” Memory",
+      "by": "iProspect",
+      "summary": "Viewable impressions are just the ticket; attention is the asset. Re-measure media by attention quality and make media an experience people choose to join.",
+      "coveredBy": "s2026_06"
+    },
+    {
+      "id": "c2026_10",
+      "title": "From the Golden Melody Awards to Empresses in the Palace: The Brand Value of Shared Memories",
+      "by": "dentsu X Media Lab",
+      "summary": "Endless content and algorithmic silos make “watched it together” moments rare. Bring memory codes into the present, adding share of memory to share of voice.",
+      "coveredBy": "s2026_05"
+    },
+    {
+      "id": "c2026_11",
+      "title": "[Special Feature] People Model: Turning Consumer Research into a Conversation You Can Start Anytime",
+      "by": "Dentsu Intelligence Center",
+      "summary": "AI digital twins fine-tuned on CCS survey data let teams simulate before deciding. For early exploration, not a substitute for real research, with clear usage limits.",
+      "coveredBy": "s2026_01"
+    },
+    {
+      "id": "c2026_12",
+      "title": "Rebuilding SOV: Holding the Key Arenas Where Brands Get Chosen as AI Dilutes Attention",
+      "by": "dentsu X Media Lab",
+      "summary": "SOV now gets diluted by algorithms and AI summaries too. Upgrade to owning choice arenas, run them in three layers, and pick your own main battlefield.",
+      "coveredBy": "s2026_06"
+    },
+    {
+      "id": "c2026_13",
+      "title": "In an Algorithm Generation Steeped in AI, “Judgment” Will Be the Scarcest Edge",
+      "by": "Carat",
+      "summary": "Same models for all; the edge is better judgment. AI generates well but verifies poorly. Judgment grows from perception, data, trends, experience, and collaboration.",
+      "coveredBy": "s2026_07"
+    },
+    {
+      "id": "c2026_14",
+      "title": "Generative Experience Is Here: Who Can Grasp the Customer's Next Step?",
+      "by": "Isobar Taiwan",
+      "summary": "Once AI agents step in, customers stop following designed journeys. Move from journey maps to decision maps, and from personalized picks to trustworthy decision support.",
+      "coveredBy": "s2026_08"
+    },
+    {
+      "id": "c2026_15",
+      "title": "Winning AI's Invisible Battlefield: See the “Cultural Undercurrent” to Unlock Real Transformation",
+      "by": "Dentsu Business Consulting",
+      "summary": "AI transformation often stalls at tools, ignoring staff fears and middle-manager anxiety. Tackle the cultural undercurrent in three steps: check, connect, cultivate.",
+      "coveredBy": "s2026_07"
+    },
+    {
+      "id": "c2026_16",
+      "title": "Why Do Customers Stop? Experience Optimization from Insight to Governance",
+      "by": "Merkle Taiwan",
+      "summary": "To optimize conversion, see why customers hesitate. Close the loop with behavioral data, human insight, and experiments, plus risk metrics so costs don't land downstream.",
+      "coveredBy": "s2026_08"
+    },
+    {
+      "id": "c2026_17",
+      "title": "On Experience, We've Only Ever Asked Half the Question",
+      "by": "Merkle Taiwan",
+      "summary": "AI agents are users to design for too. Agent trust comes from design such as intent previews, explainability, and escalation paths, plus governance.",
+      "coveredBy": "m2026"
+    },
+    {
+      "id": "c2026_18",
+      "title": "In the GEO Era, Being Seen by AI Is Technique; Being Remembered by Consumers Is True Skill",
+      "by": "iProspect",
+      "summary": "When everyone does GEO, content turns generic. Brands should claim life moments through category entry points, build AI trust, and keep measuring.",
+      "coveredBy": "s2026_10"
+    },
+    {
+      "id": "c2026_19",
+      "title": "Defining “Asset Output Standards”: Turning AI's “Generative Power” into a Brand's “Delivery Power”",
+      "by": "Dentsu Taiwan",
+      "summary": "AI makes generation a commodity; the risk is mediocrity. SLIP turns production hubs into brand delivery systems, with separate gates against blandness and errors.",
+      "coveredBy": "s2026_09"
+    },
+    {
+      "id": "c2026_20",
+      "title": "Beyond Efficiency: Decoding the AI-Native Creative Agency",
+      "by": "Tag",
+      "summary": "Split the big idea from production scale. With AI producers, a local content engine, and performance data, scale up while keeping creative craft.",
+      "coveredBy": "s2026_09"
+    },
+    {
+      "id": "c2026_21",
+      "title": "AI Agents Enter the Consumer Journey: How Health, Beauty, and Retail Turn AI into Action",
+      "by": "Dentsu Intelligence Center",
+      "summary": "It's not whether to adopt agents, but which tasks go to AI and how far its authority goes. A four-tier permission framework keeps human sign-off on high-risk tasks.",
+      "coveredBy": "m2026"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2026_ming",
+      "name": "Uncle Ming",
+      "skin": "npc_vendor",
+      "locationId": "night_market",
+      "title": "Owner, See-Clear Optical",
+      "lines": [
+        "Thirty years as an optometrist, and AI calls my shop “average value for money.”",
+        "First thing customers say walking in: “I already asked AI.”",
+        "Glasses need a try-on. A screen can't tell you if they suit you.",
+        "The night market's packed, but only a handful a night sit down for an eye exam."
+      ]
+    },
+    {
+      "id": "n2026_tim",
+      "name": "Tim",
+      "skin": "npc_colleague",
+      "locationId": "department",
+      "title": "Shin Kong Mitsuki Online PM",
+      "lines": [
+        "Checkout rate's up, and so are support calls. Not sure if I should be happy or sad.",
+        "The boss wants an AI shopping assistant and asked if it can be ready next week.",
+        "Returns show up more on time than orders do.",
+        "Before the anniversary sale, I check my reports eight times a day."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2026_01",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_01",
+        "c2026_11"
+      ],
+      "title": "Keep One of Three New Flavors",
+      "locationId": "datalab",
+      "giver": "data_kai",
+      "time": "afternoon",
+      "brief": "Drink stand client “Shake It Hard” launches a new flavor next week, and the owner decides tomorrow. A full survey takes a month. Ah-Kai says: ask AI consumers first.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "data_kai",
+              "text": "{role}, Shake It Hard has three new flavors. The owner picks one tomorrow morning."
+            },
+            {
+              "who": "data_kai",
+              "text": "A full survey takes a month. By the time the report's out, summer's over."
+            },
+            {
+              "who": "player",
+              "text": "So you want to ask simulated consumers first?"
+            },
+            {
+              "who": "data_kai",
+              "text": "Yeah, but one's sparkling gooseberry. Almost nobody in the data has had anything like it."
+            },
+            {
+              "who": "data_kai",
+              "text": "The model's great at answering. It's bad at saying “I don't know.” That's what worries me."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Before tomorrow morning, how do you suggest deciding?",
+          "options": [
+            {
+              "text": "Run all three flavors and prices through simulated consumers and decide on the results.",
+              "effects": {
+                "sales": 4,
+                "trust": -2,
+                "liver": 2
+              },
+              "feedback": "Results come in by midnight and the owner loves them. After launch, lychee sells close to forecast, but the sparkling gooseberry is nothing like the model said.",
+              "insight": "“People Model” spells out its limits: brand-new categories with nothing in the data are the most likely to miss. It suggests simulating to screen, then handing one or two directions to real people to verify.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Simulate to cut one, then have real customers taste the other two at the store tomorrow.",
+              "effects": {
+                "trust": 5,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "You pull an all-nighter and arrive at 6 AM with two jugs of samples. Tastings mostly match the model, but customers call the gooseberry “too sour, yet I'd sip again.”",
+              "insight": "“People Model” is built to simulate before deciding: the model handles early exploration and doesn't replace real research. When the stakes are high or emotion and culture are involved, pair it with real-people research.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Ask the owner to wait a month for a full consumer survey before launching.",
+              "effects": {
+                "trust": 3,
+                "sales": -3,
+                "liver": 3
+              },
+              "feedback": "The survey is thorough, with an eighty-page report. On launch day, a rival already has a similar flavor out, and the line is across the street.",
+              "insight": "“The Agentic Era” notes market research's biggest cost has shifted from the research itself to the wait. Traditional validation takes 8 to 12 teams, 30+ meetings, and months to settle.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In the robot vacuum simulation from “People Model,” what share of people might pass on buying over privacy concerns?",
+            "options": [
+              "19%",
+              "49%",
+              "73%",
+              "89%"
+            ],
+            "answer": 1,
+            "explain": "The simulation ranked worry-free after-sales and care first at 73%, while 49% might pass on buying over privacy concerns.",
+            "source": "[Special Feature] People Model: Turning Consumer Research into a Conversation You Can Start Anytime"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Simulate, Then Ask People",
+        "text": "Models bring speed, people bring accuracy. You need both."
+      }
+    },
+    {
+      "id": "s2026_02",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_02",
+        "c2026_05"
+      ],
+      "title": "We Really Did Shoot It",
+      "locationId": "tvstation",
+      "giver": "tv_su",
+      "time": "afternoon",
+      "brief": "A client's TV spot, shot on location over three days with fifty people, got called AI-made the night it aired. Ms. Su asks you: how do you prove something real is real?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "tv_su",
+              "text": "{role}, your “Heritage Sesame Oil” spot got called AI-made on social last night."
+            },
+            {
+              "who": "tv_su",
+              "text": "Comments say the elder's hands look too pretty, the light too perfect. Must be generated."
+            },
+            {
+              "who": "player",
+              "text": "We shot that for three days in an old house in Yilan, with a 50-person crew!"
+            },
+            {
+              "who": "tv_su",
+              "text": "I know. But these days, people's first reaction to anything too beautiful is disbelief."
+            },
+            {
+              "who": "tv_su",
+              "text": "The client's asking if they should put out a statement tonight. Your call?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How do you suggest the client respond?",
+          "options": [
+            {
+              "text": "Issue a clarification tonight with the call sheet and BTS photos, point by point.",
+              "effects": {
+                "trust": 3,
+                "brand": 2,
+                "liver": 3
+              },
+              "feedback": "The clarification is thorough. Some believe it; others comment, “BTS photos can be AI too.” The debate burns for two more days.",
+              "insight": "“The Power of Authenticity” notes Prada's brand ad was called AI, and the brand clarified it was shot on location by a crew of nearly 50. The book says when real and fake blur, anything easy to copy loses value.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Next spot, leave the human traces in on purpose: bloopers, flubbed lines, Grandma Kuei cracking up.",
+              "effects": {
+                "brand": 5,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "You cut Grandma Kuei botching her line and laughing nonstop into a bonus clip. Nobody calls this one AI. Someone says it makes them want to go home for dinner.",
+              "insight": "“The Power of Authenticity” says AI agents are optimizers at heart and flatten everything, so brands need creativity that can't be optimized, shifting from Attention to Affection. LEGO's World Cup ad even had to state “This video is not AI.”",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Don't argue. Have Grandma Kuei and the crew go live and take everyone back to the old house.",
+              "effects": {
+                "trust": 5,
+                "brand": 3,
+                "liver": 6
+              },
+              "feedback": "That night you're in Yilan rigging lights, and Grandma Kuei whips up sesame oil chicken on camera. Comments go from “AI, right?” to “Is Grandma Kuei taking apprentices?”",
+              "insight": "“Why Trust Is the Hardest Edge to Copy” says ads create attention; PR creates credibility. The book cites the World Masters Games: unscripted real stories are more powerful than any persuasion.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Why Trust Is the Hardest Edge to Copy in the AI Era” cites the 2025 Taipei World Masters Games. How old was the grandpa who won javelin gold?",
+            "options": [
+              "Age 88",
+              "Age 95",
+              "Age 105",
+              "Age 110"
+            ],
+            "answer": 2,
+            "explain": "The book cites a 105-year-old grandpa winning javelin gold and an 88-year-old grandma first across the line in the 100m. No script, and not made by AI.",
+            "source": "Why Trust Is the Hardest Edge to Copy in the AI Era"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Real Is a Scarce Asset",
+        "text": "The more that can be generated, the more the bit that can't is worth."
+      }
+    },
+    {
+      "id": "s2026_03",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_03",
+        "c2026_04"
+      ],
+      "title": "Budget Cut 20%, Still Go AI",
+      "locationId": "client_hq",
+      "giver": "client_chen",
+      "time": "morning",
+      "brief": "Manager Chen's budget got cut 20%, but the boss wants “growth next year, plus an AI transformation.” Bet on short-term conversions, or long-term preference?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_chen",
+              "text": "{role}, budget's down 20%. The boss wants sales up, plus an AI transformation."
+            },
+            {
+              "who": "client_chen",
+              "text": "He also asked: if consumers now have AI compare prices, who's watching our ads?"
+            },
+            {
+              "who": "player",
+              "text": "How do your customers find you these days?"
+            },
+            {
+              "who": "client_chen",
+              "text": "Regulars just reorder. New ones… I'm not sure. Reports only show the last click."
+            },
+            {
+              "who": "client_chen",
+              "text": "Board meeting next week. I need an answer that isn't “give me a bit more budget.”"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should Manager Chen split this smaller budget?",
+          "options": [
+            {
+              "text": "Go all-in on short-term conversions, pause brand campaigns, and show the board numbers.",
+              "effects": {
+                "sales": 5,
+                "brand": -3,
+                "liver": 2
+              },
+              "feedback": "Q1 looks great and the board applauds. By Q3, new customers dry up, because your name comes up less and less when consumers ask AI for picks.",
+              "insight": "“Agents of Growth” cites the “2025 CMO Report”: 90% of CMOs believe strong brand preference is key to winning. As AI agents search, compare, and buy for consumers, the old funnel can't explain decisions anymore.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Start from the growth challenge and draw a growth blueprint: insight, journey, content, results.",
+              "effects": {
+                "brand": 4,
+                "trust": 3,
+                "liver": 6
+              },
+              "feedback": "You interview twenty lapsed customers. Not price: they don't know how to take it right. Page one of the blueprint is a single sentence. The board debates it for an hour.",
+              "insight": "“Growth Architects for the Age of AI Agents” says strategy must move from a pretty line to a growth architecture linking goals, insight, journey, and results. In its words: data decides how precisely we arrive; human insight decides why we truly move people.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Get the brand into AI agents' decision context: organize product data so AI can read and explain it.",
+              "effects": {
+                "sales": 3,
+                "trust": 2,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "You rebuild ingredients, use cases, and FAQs into one clean dataset. A month later they show up in AI picks, though the reason is still “great value for money.”",
+              "insight": "The growth triangle in “Agents of Growth” means winning algorithms, hearts, and culture at once. The book says conversational answer engines push product discovery into zero-click experiences, so brands must first get AI to understand them.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Agents of Growth,” what are the four stages of the “AI-driven customer journey,” in order?",
+            "options": [
+              "Awareness, Interest & Desire, Compare & Act, Share & Repurchase",
+              "Reach, Explore & Connect, Act & Convert, Advocate & Spread",
+              "Search, Compare & Evaluate, Pay & Pick Up, After-Sales & Service",
+              "Exposure, Click & Browse, Add to Cart & Checkout, Repurchase & Refer"
+            ],
+            "answer": 1,
+            "explain": "The four stages are Reach (Activate), Explore & Connect (Inspire), Act & Convert (Convert), and Advocate & Spread (Advocate).",
+            "source": "Agents of Growth: Growth Drivers in the Age of AI Agents"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Win Algorithms and Hearts",
+        "text": "Make AI understand you, and give people a reason to favor you."
+      }
+    },
+    {
+      "id": "s2026_04",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_06",
+        "c2026_08"
+      ],
+      "title": "AI Says My Value's Just Average",
+      "locationId": "night_market",
+      "giver": "n2026_ming",
+      "time": "evening",
+      "brief": "At an old optical shop off Linginger Street, customers open with “I already asked AI.” A consultant tells Uncle Ming to drop social and make his site a spec table for AI.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2026_ming",
+              "text": "Young one, take a look. AI says my shop is “average value, compare prices.”"
+            },
+            {
+              "who": "n2026_ming",
+              "text": "The consultant says social's useless. Says turn my site into a lens spec comparison table."
+            },
+            {
+              "who": "player",
+              "text": "How did your regulars find you?"
+            },
+            {
+              "who": "n2026_ming",
+              "text": "Referrals. An old guy says I fit his mom with readers and she could read the paper again."
+            },
+            {
+              "who": "n2026_ming",
+              "text": "But AI doesn't know stuff like that."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Uncle Ming?",
+          "options": [
+            {
+              "text": "Do as the consultant says: turn the site into a clear spec comparison table AI can easily cite.",
+              "effects": {
+                "sales": 3,
+                "brand": -2,
+                "liver": 3
+              },
+              "feedback": "“See-Clear Optical” starts showing up in AI picks, price attached, lined up against the chains. More customers come in, and so do more hagglers.",
+              "insight": "“Pleasing the Algorithm or Moving People?” notes that the specific, structured content AI loves isn't the emotion and story people love. When AI answers “which is better,” it reads what others say about you, not what you say about yourself.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Run a scenario series, “Mom and Dad's First Readers,” so people favor you before comparing prices.",
+              "effects": {
+                "brand": 5,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "The first video shows the old guy bringing his mom in for an eye exam; she puts on the glasses and reads a headline aloud. A comment: “Taking my dad tomorrow.”",
+              "insight": "“AI Can Buy Things for People, but Brands Must Make People Want to Buy” argues for moving from need-based to emotion-and-context segments. Zespri has long owned the “breakfast” moment, and its 2026 AI raising game drew over 8,800 players.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Ask real regulars to write specific accounts of getting their glasses, in reviews and on forums.",
+              "effects": {
+                "trust": 5,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "You call regulars one by one; three in ten agree to write. All three posts are long. One mentions Uncle Ming waiting an extra twenty minutes for him during the eye exam.",
+              "insight": "“Pleasing the Algorithm or Moving People?” says for high-trust categories like eyewear, real word of mouth is about quality over quantity: one specific review beats a hundred vague raves. Manage the meaning, not the star rating.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "According to “AI Can Buy Things for People, but Brands Must Make People Want to Buy,” when should social commerce do its work?",
+            "options": [
+              "After checkout, handling complaints",
+              "Before AI steps in, sparking desire",
+              "While AI compares prices, offering the lowest",
+              "In launch week, chasing buzz"
+            ],
+            "answer": 1,
+            "explain": "Agents intercept the sale; brands create the reason to buy, so social should spark true desire before AI steps in. Also: Zespri's breakfast focus grew Top of Mind 17.4%.",
+            "source": "AI Can Buy Things for People, but Brands Must Make People Want to Buy"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Win Favor Before Price Checks",
+        "text": "AI reads what others say about you, so get real people to say it, specifically."
+      }
+    },
+    {
+      "id": "s2026_05",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_07",
+        "c2026_10"
+      ],
+      "title": "All Eyes on the Stir-Fry TV",
+      "locationId": "rechao",
+      "giver": "rechao_boss",
+      "time": "night",
+      "brief": "The stir-fry joint's TV replays an awards show; three tables sing along. “No-Fuss Popcorn Chicken” wants in on this “watching together” moment. How, without the cringe?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "rechao_boss",
+              "text": "Look, three tables of strangers singing along together. Haven't seen that in ages."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "That next table's No-Fuss Popcorn Chicken. Heard they want ads in moments like this."
+            },
+            {
+              "who": "player",
+              "text": "How do they want to do it?"
+            },
+            {
+              "who": "rechao_boss",
+              "text": "They'd buy stream ad breaks, logo huge. Me, I think cutting in mid-song kills the mood."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "Don't you young folks play with memes in the chat? That sounds more fun."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should “No-Fuss Popcorn Chicken” join this moment?",
+          "options": [
+            {
+              "text": "Buy mid-roll breaks and a corner logo on the livestream to max out brand exposure.",
+              "effects": {
+                "sales": 3,
+                "brand": -2,
+                "liver": 3
+              },
+              "feedback": "Impressions look great. The chat spams “another ad,” and the brand name turns into a meme, just not the kind they wanted.",
+              "insight": "“From the Golden Melody Awards to Empresses in the Palace” separates two approaches: Sponsorship puts the brand in the content; Memory Partnership means the brand gets the community's memes, language, and rituals, and becomes part of them.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Join the chat ritual: at each iconic scene, the brand account spams the same meme as everyone.",
+              "effects": {
+                "brand": 6,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "You and the editor watch the stream three nights, posting only once, at the most iconic scene. By night two, viewers ask, “Is the popcorn chicken account coming today?”",
+              "insight": "The book argues for bringing memory codes into the present (Bring It Forward), not straight retro. The power of the “Empresses in the Palace” Lunar New Year livestream marathon came from chat rituals and co-creation.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Go offline: “watch together” nights at stir-fry joints and night markets, led by cheerleaders.",
+              "effects": {
+                "sales": 4,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Eighty people pack Wuxing St. Stir-Fry for the first one; Li-hua says her arms gave out frying three-cup squid. The brand sticks: everyone sang the same lyric wrong.",
+              "insight": "“When Attention Is Scarce” says brands can buy exposure but not memory; competition shifts from Share of Voice to Share of Culture. The 2026 Taipei International Comics & Animation Festival drew over 505K visits, proof people pay to be there together.",
+              "roleBonus": {
+                "planner": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“When Attention Is Scarce” cites research that average time on a single screen fell from about 150 seconds in 2004 to roughly what?",
+            "options": [
+              "About 12 seconds",
+              "About 90 seconds",
+              "About 47 seconds",
+              "About 75 seconds"
+            ],
+            "answer": 2,
+            "explain": "The book cites UC Irvine research: average time on a single screen fell from about 150 seconds in 2004 to about 47 seconds.",
+            "source": "When Attention Is Scarce: How Entertainment and Sports Build Brand Mental Assets"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Share of Memory",
+        "text": "Being seen isn't enough. Ask what everyone remembers together."
+      }
+    },
+    {
+      "id": "s2026_06",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_09",
+        "c2026_12"
+      ],
+      "title": "92% Viewable, Nobody Remembers",
+      "locationId": "mrt",
+      "giver": "client_wu",
+      "time": "morning",
+      "brief": "Coffee chain digital report: 92% viewable, record CTR. Yet brand recall fell three straight quarters. At the MRT City Hall Station billboard, Manager Wu asks: buy what?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_wu",
+              "text": "{role}, the report says 92% viewability and record click-through."
+            },
+            {
+              "who": "client_wu",
+              "text": "But fewer people remember us, three quarters running. Boss asks where the money went."
+            },
+            {
+              "who": "player",
+              "text": "In those seconds we were “seen,” was anyone actually looking?"
+            },
+            {
+              "who": "client_wu",
+              "text": "No idea. I just know every morning here, everyone's scrolling, surrounded by coffee ads."
+            },
+            {
+              "who": "client_wu",
+              "text": "Next quarter's media plan is due this week."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should next quarter's media plan change?",
+          "options": [
+            {
+              "text": "Keep optimizing viewability and clicks, and pour more into the best-performing slots.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "Next quarter's report looks just as good, and recall slips again. Manager Wu says it's like running faster and faster on a treadmill without going anywhere.",
+              "insight": "“Stop Buying Impressions” cites WARC's Doom Loop: when results plateau, budgets shift to performance formats, then get optimized on flawed metrics. Eye-tracking research by dentsu and Lumen found viewability and brand recall barely related.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Judge media by attention quality, and first pick one “choice arena” to defend.",
+              "effects": {
+                "brand": 3,
+                "trust": 4,
+                "liver": 5
+              },
+              "feedback": "You decide to own just “the ten minutes before the commute” and cut half the scattered performance slots. Q2 recall stops falling, and the boss finally gets the chart.",
+              "insight": "“Rebuilding SOV” upgrades SOV to owning choice arenas in three layers: system, consumers and community, attention and memory. No brand can fill the whole funnel; pick a main battlefield. CPC converted to CPM terms often costs five to ten times CPM or more.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Make the station an experience: hang sample coupons from train hand straps, right within reach.",
+              "effects": {
+                "brand": 5,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "At 7 AM, you and your coworkers hang 3,000 sample coupons on the platform. They're gone in under two hours, and social fills with photos of the hand straps.",
+              "insight": "A case from the book: CeraVe hung tens of thousands of trial bottles from hand straps on the Tamsui-Xinyi Line. The author says the most valuable attention is the kind that's designed, and given willingly by consumers.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Stop Buying Impressions,” how many social posts did CeraVe's “10,000-Person Summer Cleansing Experience” spark in a single day?",
+            "options": [
+              "2,400 posts",
+              "12,000 posts",
+              "24,000 posts",
+              "240K posts"
+            ],
+            "answer": 2,
+            "explain": "CeraVe hung tens of thousands of 30ml trial bottles from train hand straps on the Tamsui-Xinyi Line, sparking 24,000 social posts in a single day.",
+            "source": "Stop Buying Impressions, Start Buying Attention"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Buy Attention, Not Impressions",
+        "text": "Being seen is the ticket. Being remembered is the asset."
+      }
+    },
+    {
+      "id": "s2026_07",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_13",
+        "c2026_15"
+      ],
+      "title": "The Day You Saved",
+      "locationId": "home",
+      "giver": "roommate_yu",
+      "time": "night",
+      "brief": "Your roommate Yu's internship company gave everyone AI. She saves a full day a week, but nobody says what it's for, and senior staff don't say a word in meetings.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "roommate_yu",
+              "text": "You know what? The company gave everyone AI, and I save almost a day a week."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "But nobody said what to do with the time. So I picked up other people's reports."
+            },
+            {
+              "who": "player",
+              "text": "What about everyone else?"
+            },
+            {
+              "who": "roommate_yu",
+              "text": "Seniors skip it and stay silent in meetings. My boss says the transformation's a success."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "I'm kind of scared. If AI gets better than me someday, what's left for me?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Yu?",
+          "options": [
+            {
+              "text": "Ask your manager for AI usage rules and KPIs. Following the playbook is safest.",
+              "effects": {
+                "sales": 3,
+                "trust": -2,
+                "liver": 2
+              },
+              "feedback": "A week later the manager sends out twenty pages of rules. Everyone follows them. Meetings stay just as quiet; reports just get turned in faster.",
+              "insight": "“Winning AI's Invisible Battlefield” notes that AI transformation at Taiwan companies mostly stalls at the tool layer. The book cites McKinsey: about 70% of digital transformation projects worldwide miss their goals.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Use the saved time to train judgment: each week, pick one AI output and write what's wrong and why.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "liver": 5
+              },
+              "feedback": "In week three, Yu catches AI swapping two brands' numbers, and her manager fixes the client deck on the spot. She says what she has over AI is the instinct to doubt.",
+              "insight": "“Judgment” says everyone uses the same models; the edge is who judges better. AI is good at generating, not verifying. The book defines Judge as judgment, built through perception, data, trends, experience, and collaboration.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Start a weekly 15-minute team share: “What I did with the time I saved.”",
+              "effects": {
+                "trust": 5,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "Only three people show up the first time. By the fourth, a senior who never speaks shares how he used the saved time to visit clients, and tells it better than anyone.",
+              "insight": "The book's three steps for the cultural undercurrent: Check, Connect culture to business results, and Cultivate symbolic actions staff can feel. A BCG survey shows 42% of frontline users say AI saves them at least a day a week.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Winning AI's Invisible Battlefield” cites a 2026 BCG survey. What share of frontline users got no guidance from management on using the time saved?",
+            "options": [
+              "28%",
+              "45%",
+              "66%",
+              "83%"
+            ],
+            "answer": 2,
+            "explain": "BCG 2026 survey: 42% of frontline users say AI saves them at least a day a week, and 66% say they got no guidance at all from management.",
+            "source": "Winning AI's Invisible Battlefield: See the “Cultural Undercurrent”"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "What People Keep Is Judgment",
+        "text": "AI saves time. Culture decides where that time goes."
+      }
+    },
+    {
+      "id": "s2026_08",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_14",
+        "c2026_16"
+      ],
+      "title": "Checkouts Up, Support Calls Up",
+      "locationId": "department",
+      "giver": "n2026_tim",
+      "time": "afternoon",
+      "brief": "After Shin Kong Mitsuki's online store redesign, checkouts rose 15%. Two weeks on, support calls and returns rose too. The boss wants an AI shopping assistant next week.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2026_tim",
+              "text": "{role}, after the checkout redesign, our checkout rate went up 15%."
+            },
+            {
+              "who": "n2026_tim",
+              "text": "But two weeks later, support calls are up 30%, and returned shipments are up too."
+            },
+            {
+              "who": "player",
+              "text": "What did the redesign take out?"
+            },
+            {
+              "who": "n2026_tim",
+              "text": "The size check. Said it made people hesitate. Now people buy the wrong size, then call."
+            },
+            {
+              "who": "n2026_tim",
+              "text": "The boss says just launch an AI shopping assistant next week to decide for customers."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What should Tim do next?",
+          "options": [
+            {
+              "text": "Checkout rate is the KPI. It hit target, so roll out sitewide and hire more support staff.",
+              "effects": {
+                "sales": 2,
+                "trust": -3,
+                "liver": 2
+              },
+              "feedback": "Sales look great the week it goes sitewide, but only that week. At month-end, finance adds in return shipping and finds the redesign lost money.",
+              "insight": "“Why Do Customers Stop?” warns that watching only conversion rate pushes costs onto support and logistics. Pair checkout rate with risk metrics like refund rate, cancellation rate, support volume, and delivery error rate.",
+              "roleBonus": {
+                "data": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Design for where customers stall: comparisons where they hesitate, plus a path to a real person.",
+              "effects": {
+                "trust": 5,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "You turn the size check into a size chart with “Ask Staff” beside it. The checkout gain dips to 10%, returns drop by half, and the boss says the AI assistant can wait.",
+              "insight": "“Generative Experience Is Here” argues for moving from journey maps to decision maps, and from personalized recommendations to decision support. The book cites Mastercard's conclusion: transactions can be automated; trust can't.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Pause for A/B tests and heatmaps to see why customers hesitate, then log it in the knowledge base.",
+              "effects": {
+                "trust": 3,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "The heatmap shows customers clicking the size step again and again. You log it in the knowledge base, and next month's kids' section redesign uses it right away.",
+              "insight": "The closed loop in “Why Do Customers Stop?” has four steps: see the problem, understand it, validate the decision, capture the learning. In the book, a beauty e-tailer split-tested recommendations by page and lifted engagement over 132%.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Generative Experience Is Here,” what do customers most need from a brand when they hesitate before buying?",
+            "options": [
+              "More product choices and recommendations",
+              "Clearer comparisons and credible explanations",
+              "Bigger flash discounts and freebies",
+              "More frequent push and text reminders"
+            ],
+            "answer": 1,
+            "explain": "Hesitant customers need not more choices but clearer comparisons, more credible explanations, and an easier next step. Also: global cart abandonment averages about 70.2%.",
+            "source": "Generative Experience Is Here: Who Can Grasp the Customer's Next Step?"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Read Hesitation, Then Automate",
+        "text": "Where customers stop is where you need to think things through first."
+      }
+    },
+    {
+      "id": "s2026_09",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_19",
+        "c2026_20"
+      ],
+      "title": "500 Assets, All the Same",
+      "locationId": "studio",
+      "giver": "cd_wei",
+      "time": "afternoon",
+      "brief": "The client wants 500 asset sets across LINE, Dcard, Threads, and more, live next Monday. AI can make them overnight. Wei's worry: all five hundred are just average.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "cd_wei",
+              "text": "{role}, the client wants 500 asset sets on five platforms, live next Monday."
+            },
+            {
+              "who": "cd_wei",
+              "text": "AI can crank them out overnight. But I spot-checked twenty yesterday. All “average.”"
+            },
+            {
+              "who": "player",
+              "text": "What's wrong with average?"
+            },
+            {
+              "who": "cd_wei",
+              "text": "Average means forgettable. One even got the client's logo color wrong. Almost sent it."
+            },
+            {
+              "who": "cd_wei",
+              "text": "The client wants our approach this afternoon. So how do we do these 500?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How do you suggest handling these 500 asset sets?",
+          "options": [
+            {
+              "text": "Let AI mass-produce them all, spot-check 10% by hand, and ship when time's up.",
+              "effects": {
+                "sales": 4,
+                "brand": -3,
+                "liver": 2
+              },
+              "feedback": "It launches on time. A week later the client sends a screenshot: someone on Threads says “this brand's ads look like canned AI.”",
+              "insight": "“Defining ‘Asset Output Standards’” says AI makes generation a commodity; the risk isn't errors but mediocrity (AI Slop). Without standards, each AI error takes over two hours to fix on average.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Spec, line, inspect: modularize brand elements; every asset clears consistency and compliance gates.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "liver": 6
+              },
+              "feedback": "You spend two nights building a module library and checklist. The first batch is just 200 sets, but no color is off, and the client's legal team signs off in one pass.",
+              "insight": "The book's SLIP framework: Spec, Line, Inspection, Pattern. It cites research on 200+ B2B AI projects: those with a human in the loop saw 104% higher ROI than fully automated ones.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Humans craft the big idea, AI workflows handle production scale, and one AI producer owns quality.",
+              "effects": {
+                "brand": 5,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "Wei spends an afternoon on one idea; Pei, the AI producer, extends it to five platforms. The Dcard version gets shared around: “This brand finally talks like a human.”",
+              "insight": "“Beyond Efficiency” argues for splitting the big idea from production scale, using AI producers and a local content engine to scale while keeping creative craft. It says 31.8% of Taiwan's workers already use generative AI at work.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Defining ‘Asset Output Standards,’” Vanguard cut social content time from brief to delivery from 5.5 days to about how long?",
+            "options": [
+              "About 6 hours",
+              "About 1 day",
+              "About 2 days",
+              "About 3 days"
+            ],
+            "answer": 0,
+            "explain": "Vanguard went from 5.5 days to 0.25 days (about 6 hours) while keeping near-100% brand and regulatory compliance.",
+            "source": "Defining “Asset Output Standards”: Turning AI's “Generative Power” into a Brand's “Delivery Power”"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "From Generating to Delivering",
+        "text": "AI can afford the volume. A system keeps the brand looking like itself."
+      }
+    },
+    {
+      "id": "s2026_10",
+      "year": 2026,
+      "chapterIds": [
+        "c2026_18"
+      ],
+      "title": "AI Picked Ten Breakfast Shops",
+      "locationId": "breakfast",
+      "giver": "breakfast_auntie",
+      "time": "morning",
+      "brief": "Auntie Hsiu-chin's breakfast shop finally made AI's picks, but its blurb reads just like the other nine. Young customers still check Threads for real reviews.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "breakfast_auntie",
+              "text": "My nephew says AI finally recommends us! Look: “Affordable and tasty, great value.”"
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "But the other nine shops all say “Affordable and tasty, great value” too."
+            },
+            {
+              "who": "player",
+              "text": "So how do customers end up choosing?"
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "That student just now said after AI, he still checks Threads for what real people say."
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "Exam days, tons of students buy egg crepes with extra egg. Say it means a perfect score."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Auntie Hsiu-chin's nephew?",
+          "options": [
+            {
+              "text": "Follow a GEO tutorial and fill out the shop data: menu, prices, hours, all structured.",
+              "effects": {
+                "sales": 3,
+                "brand": -2,
+                "liver": 3
+              },
+              "feedback": "AI's blurb gets longer, now with the menu and hours. The other nine shops' blurbs get longer too, and still look the same.",
+              "insight": "“In the GEO Era, Being Seen by AI Is Technique” notes that when everyone does GEO, content turns generic and cold, and after reading AI answers, consumers turn to Dcard, Threads, and PTT for real reviews.",
+              "roleBonus": {
+                "cx": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Own a life moment, “breakfast on exam day,” so students and parents think of this shop first.",
+              "effects": {
+                "brand": 5,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "The nephew posts an “Exam Luck Egg” sign; students share photos on Threads. Two months on, someone asks AI “what to eat before an exam,” and Auntie Hsiu-chin comes up.",
+              "insight": "The book argues for claiming life moments with category entry points (CEPs), using seven Ws such as Why, When, For whom, and While to find when customers think of the category, building mental availability.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Log weekly: does AI mention the shop, which sources it cites, how long until it's cited.",
+              "effects": {
+                "trust": 3,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "You make the nephew a small tracker. Three weeks in, you find AI cites an old blog post most. He tracks down the blogger and invites her back for another meal.",
+              "insight": "The book suggests measuring with AI ecosystem metrics: share of AI citations, citation source mix, and Time-to-Citation. The author predicts that within two years, showing up in AI answers will be table stakes.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Per “In the GEO Era,” which concept should brands use to claim consumers' life moments, not just keywords?",
+            "options": [
+              "Page load speed",
+              "Number of backlinks",
+              "Ad click-through rate",
+              "Category entry points (CEPs)"
+            ],
+            "answer": 3,
+            "explain": "The book cites the Ehrenberg-Bass Institute: use the seven Ws of category entry points (CEPs) to claim life moments, so the brand comes to mind when needed.",
+            "source": "In the GEO Era, Being Seen by AI Is Technique; Being Remembered by Consumers Is True Skill"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 1,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "Be Seen, and Be Remembered",
+        "text": "AI gets you into the answer. Life moments get you remembered."
+      }
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import {createMapRenderer,drawTouch} from '../overlay.js';
+import {placeLabel} from '../labels.mjs'; // i18n
 import { buildings, byId, columns, height, locations, random, river, roads, rows, water, width } from '../world.mjs';
 
 const ink='#242b30';
@@ -423,7 +424,7 @@ export function createRenderer(canvas,minimapCanvas) {
 
     for (const loc of locations) if (visible(loc.x,loc.y)&&(!state.flyover||loc.id===target.id)) {
       const close=Math.hypot(loc.x-player.x,loc.y-player.y)<58;
-      label(ctx,loc.name,loc.x,loc.y+17,close?'#ffd765':paper);
+      label(ctx,placeLabel(loc),loc.x,loc.y+17,close?'#ffd765':paper); // i18n
     }
     const sideSites=new Set();
     if(!state.flyover)for (const marker of state.markers) {

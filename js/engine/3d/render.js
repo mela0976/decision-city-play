@@ -2,6 +2,7 @@ import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs';
 import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js';
 import * as T from '../vendor/three.module.min.js';
 import {createMapRenderer,drawTouch,surface} from '../overlay.js';
+import {placeLabel,landmarkLabel,playerLabel} from '../labels.mjs'; // i18n
 import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs';
 import {createActors} from './actors.js';
 import {streetCrowds} from '../crowds.mjs';
@@ -453,27 +454,27 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     if(!capture){
       if(state.flyover){
         const at=project(orbit.cx/unit,orbit.roof+8,orbit.cz/unit);
-        if(at)tag(ctx,state.flyover.location.name,...at);
+        if(at)tag(ctx,placeLabel(state.flyover.location),...at); // i18n
       }
       if(!state.flyover&&(aerial||tileView?.ready)) for (const site of locations) {
         if(!aerial&&Math.hypot(site.x-player.x,site.y-player.y)>246) continue;
         const at=project(site.x,aerial?11:2.95,site.y+20);
-        if(at) tag(ctx,site.name,...at);
+        if(at) tag(ctx,placeLabel(site),...at); // i18n
       }
       if(!state.flyover&&tileView?.ready) for(const landmark of landmarks) {
         const cx=landmark.x+landmark.w/2,cz=landmark.y+landmark.h/2;
         const gap=Math.hypot(cx-player.x,cz-player.y);
         if(gap>(landmark.shape==='twist'?3600:325))continue;
         const at=project(cx,landmark.shape==='twist'?56:landmark.shape==='construction'?77:9.1,cz);
-        if(at)tag(ctx,landmark.name,...at);
+        if(at)tag(ctx,landmarkLabel(landmark),...at); // i18n
       }
       if(!state.flyover&&detail==='skyline') {
         const tower=spots.get('client_hq'),point=project(tower.x,129,tower.y-130);
-        if(point) tag(ctx,tower.name,...point);
+        if(point) tag(ctx,placeLabel(tower),...point); // i18n
       }
       if(aerial&&!state.flyover){
         const here=project(player.x,6,player.y);
-        if(here)tag(ctx,'◆ 玩家',...here,'marker');
+        if(here)tag(ctx,playerLabel(),...here,'marker'); // i18n
       }
       if(!state.flyover){
         const sides=new Map();
@@ -490,7 +491,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
             sides.set(site.id,{site,label:marker.label,gap,count:1});
           }else if(aerial||gap<54){
             const at=markerAnchor(site,4.5,0);
-            if(at)tag(ctx,'◇ '+(marker.label||site.name),...at,'marker');
+            if(at)tag(ctx,'◇ '+(marker.label||placeLabel(site)),...at,'marker'); // i18n
           }
         }
         for(const {site,label,gap,count} of sides.values()){
@@ -498,7 +499,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
           if(!at)continue;
           ctx.globalAlpha=clamp((45-gap)/12,0,1);
           const badge=count>1?'▲ '+count:'▲';
-          tag(ctx,gap<19?badge+' '+(label||site.name):badge,...at,'side');
+          tag(ctx,gap<19?badge+' '+(label||placeLabel(site)):badge,...at,'side'); // i18n
           ctx.globalAlpha=1;
         }
       }

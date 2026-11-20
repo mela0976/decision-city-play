@@ -90,7 +90,7 @@ export function createHud({ root, assets, onMenu, onRadio, onAutoRide }) {
       const s = Math.max(0, Math.ceil(seconds));
       els.timer.hidden = false;
       els.timer.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
-      els.timer.setAttribute('aria-label', `${T.timeLeft} ${s} 秒`);
+      els.timer.setAttribute('aria-label', `${T.timeLeft} ${T.seconds(s)}`);
       els.timer.classList.toggle('is-urgent', s <= 10);
     },
     setRadio(station) {

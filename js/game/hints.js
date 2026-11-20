@@ -39,11 +39,11 @@ export function hintFor(state, mode) {
         return { task, parts: [touch ? say(`${HINT.tapAction} ${what}`) : part(KEY.action, what)] };
       }
       // A22 featured vehicle hint
-      if (touch) return { task, parts: state.canAuto ? [say(`${HINT.stick} ${HINT.move}`), say(HINT.tapAuto), part('T', '飛行電動車')] : [say(`${HINT.stick} ${HINT.move}`), part('T', '飛行電動車')] };
+      if (touch) return { task, parts: state.canAuto ? [say(`${HINT.stick} ${HINT.move}`), say(HINT.tapAuto), part('T', HINT.flyCar)] : [say(`${HINT.stick} ${HINT.move}`), part('T', HINT.flyCar)] };
       const move = part(KEY.arrows, HINT.move);
       const auto = part(KEY.auto, T.autoRide);
       const map = part(KEY.map, HINT.map);
-      const tesla = part('T', '飛行電動車');
+      const tesla = part('T', HINT.flyCar);
       return { task, parts: state.canAuto ? [move, auto, map, tesla] : [move, map, tesla] };
     }
     case 'card':

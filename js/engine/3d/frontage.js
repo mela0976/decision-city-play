@@ -1,4 +1,7 @@
+import {courtPlanters,courtPoint,entranceHeaders} from '../entry-courts.mjs'; // A23 night: visible entrances
+import {placeTree} from './vegetation.js';
 import {placeOfficeReception} from './office-door.js'; // A23 landmarks2
+import {surfaceAt} from '../sidewalks.mjs';
 import {placeStudioEntrance} from './songshan-heritage.js'; // A23 landmarks2
 import {inBuilding,roadAt,toWorld,metersPerUnit as unit} from '../world.mjs';
 // Facades are visual detail only. OSM remains authoritative for building collisions.
@@ -84,13 +87,42 @@ export function placeRoof(b,x,z,instance) {
   for(let i=-2;i<=2;i++)instance('metal','box','#919b97',x+.62+i*.26,top+1.16,z+.52,.053,.079,2.31);
 }
 
-export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
-  const angle=p.viewHeading,x=p.x*.105,z=p.y*.105;
+function stationPaving(site,stone){
+  const tones=['#c2bfb7','#d7d2c6','#b7b5b1','#d4cdc0'];
+  const vertex=(along,inward)=>{
+    const [x,z]=courtPoint(site,along,inward),surface=surfaceAt(x/unit,z/unit);
+    if(inBuilding(x/unit,z/unit)||surface?.slab.kind==='ramp')return null;
+    return [x,(surface?.height??.065)+.004,z];
+  };
+  for(let row=0;row<5;row++)for(let column=-13;column<13;column++){
+    const s=column*1.52+(row%2)*.76,d=3.38+row*.82;
+    // Leave the stair aperture and the existing tactile strip in front of it open.
+    if(s<1.10&&s+1.49>-1.10&&d+.80>4.15)continue;
+    const corners=[vertex(s,d),vertex(s+1.49,d),vertex(s+1.49,d+.80),vertex(s,d+.80)];
+    if(corners.every(Boolean))stone.quad(...corners,tones[Math.abs(column+row*3)%tones.length],.78,.42);
+  }
+}
+
+export function placeEntrance(p,{instance,sign,windowBand=()=>{},paving,treeInstance=instance}) {
+  const angle=p.viewHeading,x=p.x*unit,z=p.y*unit;
   const scale=p.id==='client_hq'?1.65:p.id==='office'?1.35:1;
   const at=(s,d)=>[x+s*Math.sin(angle)+d*Math.cos(angle),z-s*Math.cos(angle)+d*Math.sin(angle)];
   function obj(kind,shape,color,t,y,dist,w,h,d,rot=0){
     const [xx,zz]=at(t*scale,dist);
     instance(kind,shape,color,xx,y,zz,w*scale,h,d,Math.PI/2-angle+rot);
+  }
+  const header=entranceHeaders[p.id];
+  if(header){
+    obj('metal','box',header.tint,0,header.y,header.depth,header.w,header.h,header.d);
+    const {sides,depth}=courtPlanters[p.id];
+    for(const [i,side] of sides.entries()){
+      obj('concrete','box','#aaa294',side,.29,depth,1.68,.43,1.18);
+      obj('concrete','box','#c2bcb0',side,.51,depth,1.75,.10,1.25);
+      obj('earth','box','#584d41',side,.568,depth,1.52,.025,1.03);
+      for(const offset of [-.48,.48])obj('grass','crown','#647648',side+offset,.62,depth,.68,.29,.77);
+      const [tx,tz]=courtPoint(p,side,depth);
+      placeTree(treeInstance,tx,tz,510+i,.23);
+    }
   }
   const isTower=['client_hq','office','datalab'].includes(p.id);
   if(isTower){
@@ -220,13 +252,21 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
   }
   if(p.shape==='temple')return true; // A23 landmarks2: temple-court supplies solids and the dedicated sign.
   if(p.shape==='mrt'){
-    obj('glass','box','#567d78',-.94,1.07,5.4,.19,2.13,2.25);
-    obj('glass','box','#567d78',.94,1.07,5.4,.19,2.13,2.25);
-    obj('metal','box','#727f77',0,2.42,5.4,2.21,.19,2.96);
+    for(const side of [-1,1]){
+      obj('lobbyGlass','box','#87b4b5',side*.94,1.07,5.4,.09,2.13,2.25);
+      obj('metal','box','#547174',side*.94,1.13,5.4,.09,.063,2.27);
+      for(const post of [4.29,6.51])obj('metal','box','#607777',side*.94,1.13,post,.08,2.28,.08);
+    }
+    if(paving)stationPaving(p,paving(x,z,'paving'));
     for(let i=0;i<5;i++)obj('concrete','box','#9c9588',0,-.02-i*.065,4.9+i*.30,1.59,.10,.33);
     for(const side of [-1,1])obj('metal','box','#40657a',side*.94,1.23,4.38,.10,.24,.70);
     const [mx,mz]=at(0,3.58);
     sign('捷運 市府站',mx,2.66,mz,-Math.PI/2-angle,'#325875',false,2.15,.43);
+    return true;
+  }
+  if(p.id==='department'){
+    const [sx,sz]=at(0,header.depth-.075);
+    sign(p.name,sx,header.y,sz,-Math.PI/2-angle,'#3b5451',false,4.16,.48);
     return true;
   }
   if(p.shape==='studio')return placeStudioEntrance(p,{instance,sign}); // A23 landmarks2

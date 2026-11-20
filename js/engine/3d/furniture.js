@@ -261,7 +261,11 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
       for(const d of [2.08,2.94])box('#343d39',5.4+i*.62,.31,d,.061,.62,.56);
     }
     box('#687b72',-5.1,2.53,2.9,3.7,.14,1.42);
-    box('#a0aaa0',-5.1,1.26,3.52,3.6,2.23,.063);
+    if(id==='mrt'||id==='department'){ // A23 night: retain sight lines through the shelter on both pedestrian forecourts.
+      const [px,pz]=at(-5.1,3.52);
+      instance('lobbyGlass','box','#abc3bc',px,1.26,pz,3.6,2.23,.063,Math.PI/2-angle);
+      box('#73847c',-5.1,1.13,3.56,3.58,.048,.045);
+    }else box('#a0aaa0',-5.1,1.26,3.52,3.6,2.23,.063);
     box('#8d795e',-5.1,.55,3.18,1.93,.11,.30);
     for(const s of [-6.85,-3.45])box('#66796f',s,1.22,3.47,.091,2.44,.10);
     const [x,z]=at(-5.1,2.16);

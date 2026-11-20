@@ -1,0 +1,1436 @@
+{
+  "year": 2024,
+  "chapters": [
+    {
+      "id": "c2024_01",
+      "title": "Seeing 100 Times the Hope",
+      "by": "Dentsu Marketing Communications Group",
+      "summary": "Walmart, AI glasses and the metaverse introduce the Dentsu Intelligence Center's five Ms: do first, fix later, and build your own model on brand-owned data.",
+      "coveredBy": "s2024_07"
+    },
+    {
+      "id": "c2024_02",
+      "title": "Modern Branding & Marketing: Bringing Brand Marketing Up to Date",
+      "by": "Dentsu Marketing Communications Group",
+      "summary": "Back to basics: as marketing fragments and goes short-term, make the brand the platform where all spend accumulates, and use Canopy to work back from five years out.",
+      "coveredBy": "s2024_01"
+    },
+    {
+      "id": "c2024_03",
+      "title": "Changing Times, Transforming Creativity",
+      "by": "Dentsu Creative",
+      "summary": "AI levels execution for everyone, making creativity the key arena. Transforming creativity means amplifying impact across people, business and society.",
+      "coveredBy": "s2024_01"
+    },
+    {
+      "id": "c2024_04",
+      "title": "Resonating with Society's Pulse: Building Socially Conscious Brand Impact",
+      "by": "dentsu mb",
+      "summary": "UNIQLO's East District link-up project and New Taipei's urban renewal film “Stories of Change” turn a store opening and policy outreach into actions tied to society.",
+      "coveredBy": "m2024"
+    },
+    {
+      "id": "c2024_05",
+      "title": "Turning the Tide with Grit Amid Endless Change!",
+      "by": "dentsu mb",
+      "summary": "Amid change, anchor core brand values first, redefine rivals and winning via the infinite game, and use MasterBranding to find the category story's turning point.",
+      "coveredBy": "s2024_01"
+    },
+    {
+      "id": "c2024_06",
+      "title": "Building Sustainable Corporate Competitiveness and Strong Brand Resilience",
+      "by": "Dentsu Business Consulting",
+      "summary": "Sustainability can't be a bolt-on; integration, culture and innovation must fuse it into strategy. Cases: Signify, Hotel Royal Chiaohsi, FamilyMart's reusable cups.",
+      "coveredBy": "s2024_02"
+    },
+    {
+      "id": "c2024_07",
+      "title": "Unlocking the Secrets of Media Carbon Accounting to Drive Green Change in the Industry",
+      "by": "dentsu X Media Lab",
+      "summary": "Ad placement is Scope 3, the hardest emissions to measure. Dentsu built a media carbon calculator, and its Taiwan carbon inventory passed ISO 14064-1 verification.",
+      "coveredBy": "s2024_02"
+    },
+    {
+      "id": "c2024_08",
+      "title": "Member Data Asset Management and Trends in CX-Led Organizational Design",
+      "by": "Merkle Taiwan",
+      "summary": "Functional silos can't support member data and CX. Based on a white paper, it proposes three CX-led org designs and stresses adding talent, not just buying tools.",
+      "coveredBy": "s2024_03"
+    },
+    {
+      "id": "c2024_09",
+      "title": "When Customer Experience Is Standard Equipment, How Do Brands Stand Out?",
+      "by": "Isobar Taiwan",
+      "summary": "Same CX tools mean look-alike experiences. Put brand value into the experience and avoid blind spots: ignoring privacy, over-relying on tech, underrating inclusivity.",
+      "coveredBy": "s2024_03"
+    },
+    {
+      "id": "c2024_10",
+      "title": "Youth Research Club: Foresight Planning for Brand Resilience",
+      "by": "dentsu mb",
+      "summary": "Wakamon and foresight planning dig beneath the iceberg of Gen Z's future signals for shifting values: consumption moves from buying things, to experiences, to meaning.",
+      "coveredBy": "s2024_04"
+    },
+    {
+      "id": "c2024_11",
+      "title": "Social Commerce: The Revolutionary Force Reshaping Brand Shopping Experiences",
+      "by": "Isobar Taiwan",
+      "summary": "With no dominant social platform in Taiwan, shopping journeys break between platforms. Build social commerce in three circles: fan buzz, shopping, member repurchase.",
+      "coveredBy": "s2024_05"
+    },
+    {
+      "id": "c2024_12",
+      "title": "Seamless Branded Entertainment to Win Consumer Mindshare",
+      "by": "Dentsu Entertainment",
+      "summary": "Attention lasts just 8.25 seconds. Weave the brand's core spirit seamlessly into content; manage it long-term with find, draw in, hold, plus an evaluation system.",
+      "coveredBy": "s2024_06"
+    },
+    {
+      "id": "c2024_13",
+      "title": "Beyond the Brand: Why Companies Also Need IP",
+      "by": "Dentsu Kuohua",
+      "summary": "Look-alike products and shorter cycles leave brands with only transactions. IP uses characters, stories and values to build emotional bonds that don't depend on products.",
+      "coveredBy": "s2024_06"
+    },
+    {
+      "id": "c2024_14",
+      "title": "Sports Marketing or Marketing Sports? Does AI Put You on the Crest of the Trend or Back at Square One?",
+      "by": "dentsu mb",
+      "summary": "Before entering sports, brands need a clear purpose. Use data to focus on key behaviors beyond the win-loss myth, then go further and grow a sport of their own.",
+      "coveredBy": "s2024_06"
+    },
+    {
+      "id": "c2024_15",
+      "title": "Transforming in the AI Frenzy: How an Agency Understands and Applies AI",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Dentsu rolls out generative AI in a controlled setting in three stages: Adopt, Accelerate, Activate. It weighs efficiency against security, copyright and hallucinations.",
+      "coveredBy": "s2024_07"
+    },
+    {
+      "id": "c2024_16",
+      "title": "AI-Driven Experience and Value Conversion Optimization",
+      "by": "Merkle Taiwan",
+      "summary": "Using udn.com and a retail brand as examples, AI prediction models decide who to talk to, when and about what, turning experience into business value.",
+      "coveredBy": "s2024_08"
+    },
+    {
+      "id": "c2024_17",
+      "title": "Digital Twins: The Hybrid Edge of Brand Power and Data Power",
+      "by": "Merkle Taiwan",
+      "summary": "Cookies weren't killed, but it's still a low-cookie era. Brands should build digital twins from owned data and A/B test on a dual core of behavioral and member data.",
+      "coveredBy": "s2024_08"
+    },
+    {
+      "id": "c2024_18",
+      "title": "The New Era of AI SEO: Meeting User Needs Is Still the Foundation",
+      "by": "iProspect",
+      "summary": "AI Overviews bring three challenges: opaque citations, no standalone data and zero-click search. Brands still rely on good content, topic structure and technical SEO.",
+      "coveredBy": "s2024_08"
+    },
+    {
+      "id": "c2024_19",
+      "title": "Is AI Driving Performance or Anxiety?",
+      "by": "iProspect",
+      "summary": "AI now runs through every part of digital advertising, but first align with business needs, manage data sources and monitor results to avoid “AI feel-good.”",
+      "coveredBy": "s2024_07"
+    },
+    {
+      "id": "c2024_20",
+      "title": "Combining AI and Gen Z Insight to Strengthen Brands' Emotional Connection",
+      "by": "Isobar Taiwan",
+      "summary": "When everyone has AI, the difference is the emotional bond of “I get you.” HeySong's Heart-Voice Beasts used AI to catch what Gen Z had on their minds.",
+      "coveredBy": "s2024_04"
+    },
+    {
+      "id": "c2024_21",
+      "title": "Next-Level Imaging Power That Multiplies Creative Possibilities",
+      "by": "Dentsu Kuohua",
+      "summary": "AI Visual Studio links creativity, AI and production: what you imagine is what you get. Cases: Honda CR-V's veteran-driver referrals and AI ambassador Ou Hsueh-li.",
+      "coveredBy": "s2024_09"
+    },
+    {
+      "id": "c2024_22",
+      "title": "The AI Video Revolution: How Sora Is Reshaping the Future of Advertising",
+      "by": "dentsu mb",
+      "summary": "Sora lets shelved ideas be visualized fast and suits storyboards and prototypes, but detail and consistency still fall short. It assists rather than replaces.",
+      "coveredBy": "s2024_09"
+    },
+    {
+      "id": "c2024_23",
+      "title": "Virtual Era, Real Experience: Pioneering the “AI Virtual Studio”",
+      "by": "Dentsu Kuohua",
+      "summary": "Design real-time virtual humans from the brand's personality to win over young fans and avoid the risks and limits of human endorsers.",
+      "coveredBy": "s2024_09"
+    },
+    {
+      "id": "c2024_24",
+      "title": "Reaching the Summit of the Retail Media Kingdom",
+      "by": "Dentsu Business Consulting",
+      "summary": "With first-party data and closed-loop measurement, retail media is the fastest-growing digital media. Walmart Connect shows three paths: onsite, offsite and in-store.",
+      "coveredBy": "s2024_05"
+    },
+    {
+      "id": "c2024_25",
+      "title": "RMN Is Here: Miracle Cure or Poisoned Apple for Taiwan's Marketing Market?",
+      "by": "dentsu X",
+      "summary": "Taiwan's retailers rush into RMNs amid fragmented data, thin talent and silos. Brands must guard against concentrated spend and brand-building turning into performance.",
+      "coveredBy": "s2024_05"
+    },
+    {
+      "id": "c2024_26",
+      "title": "Using Data to Pinpoint the Beautiful Audience Driven by Brand Value",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Beauty info sources have gone M-shaped, and media investment hasn't kept up. Segment by values instead of age, then reallocate all media by segment.",
+      "coveredBy": "s2024_04"
+    },
+    {
+      "id": "c2024_27",
+      "title": "Tech-Driven Change: Consumer Journey Innovation as a Brand Growth Engine",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Car buying is high-involvement; going fully digital isn't always what buyers want. Showrooms should host experience and community, linking buyer and owner journeys.",
+      "coveredBy": "s2024_10"
+    },
+    {
+      "id": "c2024_28",
+      "title": "From Steel Helmet to Golden Bell Armor: Consumers on the Road to Total Wellness",
+      "by": "Dentsu Intelligence Center",
+      "summary": "As supplements mature, consumers shift from boosting immunity to balanced prevention. Brands must go from single products to total-wellness lifestyle solutions.",
+      "coveredBy": "s2024_10"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2024_ken",
+      "name": "Ken Ko",
+      "skin": "npc_client",
+      "locationId": "mrt",
+      "title": "Brand Manager, Bedtime Fizz",
+      "lines": [
+        "Our audience is 18 to 24. Boss said so.",
+        "Hundreds of thousands pass City Hall Station every day. Some of them must be ours, right?",
+        "What do young people want? I asked my nephew. He said, “Whatever.”",
+        "A can of fizz is NT$25. People on overtime drink three."
+      ]
+    },
+    {
+      "id": "n2024_joy",
+      "name": "Joy",
+      "skin": "npc_client",
+      "locationId": "department",
+      "title": "E-com Manager, Bare-Faced Brave",
+      "lines": [
+        "Department stores, convenience stores, delivery apps. They all say they have retail media.",
+        "Seen on IG, searched on Google, bought on LINE. The report says that's three people.",
+        "Our counter lady outsells any influencer. Too bad she can't edit video.",
+        "The month before the anniversary sale, my calendar is solid red."
+      ]
+    },
+    {
+      "id": "n2024_lulu",
+      "name": "Lulu",
+      "skin": "npc_colleague",
+      "locationId": "tvstation",
+      "title": "Pro Baseball Team Marketing Lead",
+      "lines": [
+        "When the cheer squad dances, even people who don't watch baseball show up.",
+        "What sponsors ask most: what about the days we lose?",
+        "Big Dawn Dome sells out on weekends. Weekdays are on us to figure out.",
+        "Two hours in line for player autographs. Three for a mascot photo."
+      ]
+    },
+    {
+      "id": "n2024_wang",
+      "name": "Manager Wang",
+      "skin": "npc_client",
+      "locationId": "riverside",
+      "title": "Showroom Manager, Uphill No Sweat EVs",
+      "lines": [
+        "People buy cars on their phones now. The only thing running in my showroom is the AC.",
+        "I run five kilometers by the river every morning. Sales won't move, but I still have to.",
+        "Customers hate haggling with salespeople. So do I.",
+        "The owners' group chat is livelier than my showroom."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2024_01",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_02",
+        "c2024_03",
+        "c2024_05"
+      ],
+      "title": "Gone When the Campaign Ends",
+      "locationId": "client_hq",
+      "giver": "client_chen",
+      "time": "morning",
+      "brief": "Manager Chen's boss wants to move the whole brand-film budget into performance ads. Every campaign converts, but when each one ends, nothing seems to be left.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_chen",
+              "text": "{role}, the boss just killed the brand film. All money goes to performance ads."
+            },
+            {
+              "who": "client_chen",
+              "text": "He says he can see every campaign's ROAS. He can't see a brand film's."
+            },
+            {
+              "who": "player",
+              "text": "But last year, once the performance pushes ended, search fell right back to square one."
+            },
+            {
+              "who": "client_chen",
+              "text": "I know. Influencers, platforms, group buys all did their own thing, then it scattered."
+            },
+            {
+              "who": "client_chen",
+              "text": "I report back to him this afternoon. Help me find a pitch he'll actually listen to."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should Manager Chen answer the boss?",
+          "options": [
+            {
+              "text": "Go along with the boss: all performance ads, but stretch the campaigns and swap creatives faster.",
+              "effects": {
+                "sales": 5,
+                "brand": -3,
+                "trust": 2,
+                "liver": 2
+              },
+              "feedback": "The boss loves it; this quarter's conversion report looks great. By Q3 the same budget buys fewer orders each round, and Manager Chen gets “Creative fatigue?” messages.",
+              "insight": "“Modern Branding & Marketing” notes that marketing fronts are fragmenting and performance is going short-term, so each campaign's results vanish when it ends. The book argues the brand should be the platform where all marketing investment accumulates.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Back to brand roots: find the category story's turning point, then decide how to split the money.",
+              "effects": {
+                "brand": 6,
+                "trust": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "After two weeks on category, consumers, cultural headwinds and ambition, the boss asks, “So who's our real rival?” Performance budget drops 20%. He isn't angry.",
+              "insight": "“Turning the Tide with Grit Amid Endless Change!” says to Root Down and anchor core values first, not rush to Ladder Up after trends. MasterBranding finds the story's turning point in four areas: category, consumers, cultural headwinds, corporate ambition.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 4
+                }
+              }
+            },
+            {
+              "text": "Do both: keep the brand film, add one-to-one member messaging, and give both the same message.",
+              "effects": {
+                "brand": 4,
+                "sales": 3,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "You turn the film's message into 20 member messages, LINE welcome text included. Double the work. The boss reads it twice: ads and messages finally say the same thing.",
+              "insight": "“Modern Branding & Marketing” quotes McDonald's CMO: modern marketing must play big with brand power while playing small with one-to-one connection. Citing Kantar BrandZ, strong brand portfolios beat the S&P 500's share price growth by 88%.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Per “Changing Times, Transforming Creativity,” a song stayed on the Billboard Hot 100 for 20 weeks 20 years ago. How long now?",
+            "options": [
+              "Two weeks",
+              "Five weeks",
+              "Eight weeks",
+              "Twelve weeks"
+            ],
+            "answer": 0,
+            "explain": "The book uses this to show how short attention has become: 20 years ago a song stayed on the Hot 100 for 20 weeks; now it's just two.",
+            "source": "Changing Times, Transforming Creativity"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "The Brand Is Where It Adds Up",
+        "text": "Every campaign ends. Only the brand stays."
+      }
+    },
+    {
+      "id": "s2024_02",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_06",
+        "c2024_07"
+      ],
+      "title": "Should We Buy Eco-Cup Ads?",
+      "locationId": "convenience",
+      "giver": "clerk_ning",
+      "time": "noon",
+      "brief": "Drink-stand client “No Lonely Cups” wants an eco image film and a big impressions buy. But Ning at the convenience store says customers want to return cups elsewhere.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "clerk_ning",
+              "text": "You with the agency for “No Lonely Cups”? Their owner just used our counter for photos."
+            },
+            {
+              "who": "clerk_ning",
+              "text": "He says the sustainability film needs sea turtles, forests and drone shots."
+            },
+            {
+              "who": "player",
+              "text": "And what do customers say?"
+            },
+            {
+              "who": "clerk_ning",
+              "text": "Customers ask one thing: if I borrow a cup here, can I return it at the shop by my office?"
+            },
+            {
+              "who": "clerk_ning",
+              "text": "Also, all those ads you buy. Don't the ads themselves use electricity?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How will you pitch the “No Lonely Cups” owner?",
+          "options": [
+            {
+              "text": "Shoot the image film the owner wants, then blast “we're green” with heavy impressions.",
+              "effects": {
+                "brand": 5,
+                "trust": -3,
+                "liver": 3
+              },
+              "feedback": "The film is gorgeous; the turtles swim slowly. In week two, someone online asks, “So how many plastic cups do you use a day?” The social media editor has no answer.",
+              "insight": "“Building Sustainable Corporate Competitiveness” warns sustainability can't be a bolt-on project; it must be built into strategy. “Unlocking the Secrets of Media Carbon Accounting” notes ad placement itself is Scope 3, the hardest emissions to calculate.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Hold the film. Get drink shops and convenience stores on a “borrow here, return there” cup loop.",
+              "effects": {
+                "trust": 5,
+                "brand": 4,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "You go with the owner to four rival shops and get turned down twice. The day the third says yes, Ning tapes a handwritten “Cups can be returned here” sign on the counter.",
+              "insight": "From the book: in 2023 FamilyMart launched a reusable cup alliance with Hi-Life, OK Mart, TKK Fried Chicken and others, so you borrow at one store and return at another. Unilever's former CEO is quoted: a good partnership is 1+1=11.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Audit this campaign's media emissions, cut low-performing slots, then clearly report what you saved.",
+              "effects": {
+                "trust": 4,
+                "sales": 2,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "You go through the media plan line by line and cut three slots nobody watches. The owner gets a sheet of carbon saved and says it's an easier story than sea turtles.",
+              "insight": "Dentsu and the UK's University of Bristol built a media carbon calculator, and Dentsu Taiwan's carbon inventory passed ISO 14064-1 verification. Dentsu research: 73.55% of US and Canadian consumers expect sustainable companies to cut carbon now.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Building Sustainable Corporate Competitiveness,” Signify shifted to leasing lighting. Which airport signed a 15-year deal with it?",
+            "options": [
+              "Singapore Changi Airport",
+              "Tokyo Haneda Airport",
+              "Amsterdam Airport Schiphol",
+              "Hong Kong International Airport"
+            ],
+            "answer": 2,
+            "explain": "Signify sells lighting as a service instead of light fixtures. Its 15-year deal with Schiphol in the Netherlands cuts power use by at least half.",
+            "source": "Building Sustainable Corporate Competitiveness and Strong Brand Resilience"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Sustainability Isn't a Bolt-On",
+        "text": "Change how you work, then shoot the film. Ads have a carbon footprint too."
+      }
+    },
+    {
+      "id": "s2024_03",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_08",
+        "c2024_09"
+      ],
+      "title": "Ama Can't Find the Hotline",
+      "locationId": "gamadiam",
+      "giver": "grandma",
+      "time": "afternoon",
+      "brief": "Ama needs a new delivery address for her supplements, but the app only lets her type, with no phone number. The brand says phones are customer service, the app is e-com.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "grandma",
+              "text": "Good timing. My “One-a-Day Pep” needs a new address, and the phone keeps saying to type."
+            },
+            {
+              "who": "grandma",
+              "text": "Something this simple. Why can't I just call and talk to a person?"
+            },
+            {
+              "who": "player",
+              "text": "Let me see. The phone number's buried four menus deep, and the text is tiny."
+            },
+            {
+              "who": "grandma",
+              "text": "Last time I called, they couldn't see my member info. Told me to ask the internet people."
+            },
+            {
+              "who": "player",
+              "text": "This brand happens to be our client. Ama, I'll ask them when I get back."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How will you pitch “One-a-Day Pep”?",
+          "options": [
+            {
+              "text": "Fix the interface first: big text, high contrast, and a “Talk to a Person” button on the home page.",
+              "effects": {
+                "trust": 5,
+                "brand": 3,
+                "liver": 3
+              },
+              "feedback": "The week it launches, Ama changes her address herself and sends you a screenshot. But member data still sits in three departments, and the hotline can't see orders.",
+              "insight": "“When Customer Experience Is Standard Equipment” lists four blind spots, one being underrating inclusive design. The book cites the WHO: about 16% of the world's population lives with some form of disability.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Push for a cross-department CX team with unified member data anyone answering a call can see.",
+              "effects": {
+                "trust": 4,
+                "sales": 3,
+                "liver": 6
+              },
+              "feedback": "You run five cross-department meetings; e-com and customer service share a table for the first time. Three months later, the hotline greets Ama by name.",
+              "insight": "“Member Data Asset Management” notes traditional functional splits create silos. In a Merkle survey, about 57% of companies said their org can't support data-driven CX. The book proposes three designs: centralized, federated and autonomous.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Launch an AI chatbot first. It answers 24/7, and the staff you save can do other work.",
+              "effects": {
+                "sales": 4,
+                "trust": -3,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "The AI bot replies fast and politely. Ama asks three times, “I want a person.” Three times it replies, “Would you like to check an order?”",
+              "insight": "Another blind spot the book flags: over-relying on tech and ignoring feelings. A Zendesk survey shows 70% of CX leaders plan to adopt generative AI within two years, but everyone has the tools; what matters is whether the experience carries the brand's values.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“When Customer Experience Is Standard Equipment” says that besides usability, an experience needs which two qualities?",
+            "options": [
+              "Differentiation and desirability",
+              "Cheap and fast",
+              "Automation and scale",
+              "Impressions and click-through rate"
+            ],
+            "answer": 0,
+            "explain": "The book's framework requires usability, differentiation and desirability together. Otherwise experiences end up “easy to use, but all the same.”",
+            "source": "When Customer Experience Is Standard Equipment, How Do Brands Stand Out?"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Easy to Use Isn't Enough",
+        "text": "Everyone has the tools. Leave a door open for people who want a real person."
+      }
+    },
+    {
+      "id": "s2024_04",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_10",
+        "c2024_20",
+        "c2024_26"
+      ],
+      "title": "Who Is 18 to 24?",
+      "locationId": "mrt",
+      "giver": "n2024_ken",
+      "time": "morning",
+      "brief": "A fizzy drink brand wants an interactive vending machine at MRT City Hall Station; the boss says the audience is 18 to 24. Can an age range capture what someone wants?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2024_ken",
+              "text": "{role}, the vending machine goes in next week. Boss says the audience is 18 to 24."
+            },
+            {
+              "who": "player",
+              "text": "So what's been bugging these people lately?"
+            },
+            {
+              "who": "n2024_ken",
+              "text": "I asked our intern. She says everyone's exhausted, but nobody's very close with friends."
+            },
+            {
+              "who": "n2024_ken",
+              "text": "She also said she and her mom buy the same skincare. Does age even mean anything anymore?"
+            },
+            {
+              "who": "n2024_ken",
+              "text": "We need to lock in the vending machine's interaction today."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What will you do with this vending machine?",
+          "options": [
+            {
+              "text": "Stick to the boss's age target: a scan-to-win draw on the machine, plus more short-video spend.",
+              "effects": {
+                "sales": 5,
+                "brand": 2,
+                "liver": 2
+              },
+              "feedback": "The draw is a hit, with over 10,000 scans in a week. Half the winners are middle-aged office workers, and nobody in the comments remembers the brand.",
+              "insight": "“Using Data to Pinpoint the Beautiful Audience” cites an NCCU professor: the trend toward age-agnostic consumers keeps growing, and biological age can't reflect state of mind.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "People tell their phone one true feeling; an AI creature “eats” it and grows as they interact.",
+              "effects": {
+                "brand": 6,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Day one brings in hundreds of confessions; the most common is “drifting apart from friends.” Some people come feed it every day after work and show it to their friends.",
+              "insight": "In “Combining AI and Gen Z Insight,” HeySong's Heart-Voice Beasts collected nearly 30,000 confessions and over 50,000 voluntary shares. The book cites Gallup: 70% of decisions are driven by emotion.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Drop age for now. Segment by values and see who really needs “no late nights.”",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "The biggest segment: people who “want to take good care of themselves,” aged 20 to 50. The machine goes in a week late; the boss grumbles but goes with the new message.",
+              "insight": "The book demonstrates values-based segmentation: map brand values to consumer values, then use K-means to find segments like Fashion Socialites and Hardworking Dreamers. “Youth Research Club” notes consumption has moved from things, to experiences, to meaning.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Dentsu's “Future Signs of Friendship” study in seven Asian countries found young people's friendships shifting how?",
+            "options": [
+              "From online back to mostly offline",
+              "From group chats to one-on-one",
+              "From lifelong to school years only",
+              "From solid to highly fluid"
+            ],
+            "answer": 3,
+            "explain": "The book says friendship is shifting from Solid to Fluid: built on shared interests, virtual and fast, moving from deep, sticky bonds to low-key, light check-ins.",
+            "source": "Youth Research Club: Foresight Planning for Brand Resilience"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "People Aren't Age Labels",
+        "text": "Look at their values, and at the one thing they leave unsaid."
+      }
+    },
+    {
+      "id": "s2024_05",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_11",
+        "c2024_24",
+        "c2024_25"
+      ],
+      "title": "Everyone's Got Retail Media",
+      "locationId": "department",
+      "giver": "n2024_joy",
+      "time": "afternoon",
+      "brief": "Shin Kong Mitsuki is selling a skincare brand retail media: in-store screens plus app ads. But the brand's own IG, LINE and online store still aren't connected.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2024_joy",
+              "text": "{role}, the store quoted screens plus app push, guaranteed to reach members."
+            },
+            {
+              "who": "n2024_joy",
+              "text": "Last week a convenience chain pitched, then a delivery app. All say they're retail media."
+            },
+            {
+              "who": "player",
+              "text": "Can our own IG and LINE even connect to that yet?"
+            },
+            {
+              "who": "n2024_joy",
+              "text": "Nope. Seen on IG, searched on Google, bought on LINE. That's three people on the report."
+            },
+            {
+              "who": "n2024_joy",
+              "text": "We have to sign before the anniversary sale. Is this money worth spending?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise on the store's retail media package?",
+          "options": [
+            {
+              "text": "Sign it. Members are right there in the store, closest to checkout. Grab the anniversary sale first.",
+              "effects": {
+                "sales": 5,
+                "trust": -2,
+                "brand": -2,
+                "liver": 3
+              },
+              "feedback": "Anniversary sales look great. When the campaign ends, the store quotes the next one 20% higher and offers just one screenshot as a report.",
+              "insight": "“RMN Is Here” warns brands of two risks: concentrated spend and brand-building turning into performance. Retailers lure brands in with low prices, which can easily drag them into price wars.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "First connect IG, LINE and e-commerce into one path, then decide whose retail media to buy.",
+              "effects": {
+                "brand": 3,
+                "trust": 4,
+                "liver": 6
+              },
+              "feedback": "A month of resetting tags and cleaning member data costs you the early-bird price. Next round, Joy has her own data, and the store's sales rep is much more polite.",
+              "insight": "“Social Commerce” proposes running a brand social commerce ecosystem in three circles: fan buzz, consumer shopping and member repurchase. First find which platform breaks the shopping journey.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Buy in, but require member ID matching and closed-loop measurement. Pay only for what you can see.",
+              "effects": {
+                "trust": 3,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "The store's rep takes three days to check, then agrees to a de-identified conversion report. Not every retailer can do that; your shortlist loses two names.",
+              "insight": "“Reaching the Summit of the Retail Media Kingdom” says an RMN's value lies in first-party data and closed-loop measurement. The book also cites IAB: 69% of ad buyers rank buying complexity as their top challenge.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Reaching the Summit of the Retail Media Kingdom” compares ad growth rates. How long did retail media take to hit US$30B in revenue?",
+            "options": [
+              "3 years",
+              "5 years",
+              "11 years",
+              "14 years"
+            ],
+            "answer": 1,
+            "explain": "Retail media took just 5 years, from 2016 to 2021, to reach US$30B. Social ads took 11 years, and search ads took 14.",
+            "source": "Reaching the Summit of the Retail Media Kingdom"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Connect Before You Buy",
+        "text": "Retail media is a new road. Connect your own roads first."
+      }
+    },
+    {
+      "id": "s2024_06",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_12",
+        "c2024_13",
+        "c2024_14"
+      ],
+      "title": "What About the Days We Lose?",
+      "locationId": "tvstation",
+      "giver": "n2024_lulu",
+      "time": "evening",
+      "brief": "Snack brand “Seeds, No Squabbles” wants to sponsor a ball club's home games at Big Dawn Dome. Team marketer Lulu dreads one question: what if they lose all season?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2024_lulu",
+              "text": "{role}, the “Seeds, No Squabbles” owner just saw a game. Wants the naming rights."
+            },
+            {
+              "who": "n2024_lulu",
+              "text": "He asked one thing: we lost 11 straight last year. Will his brand go down with us?"
+            },
+            {
+              "who": "player",
+              "text": "Does he want buzz, or does he want people to remember him?"
+            },
+            {
+              "who": "n2024_lulu",
+              "text": "Both. He also wants a mascot, and a spin-off show with the broadcaster."
+            },
+            {
+              "who": "n2024_lulu",
+              "text": "The budget covers one big thing. Help us pick."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should “Seeds, No Squabbles” get into the ballpark?",
+          "options": [
+            {
+              "text": "Take the naming rights: boards and broadcast exposure, the works, plus extra discounts on win days.",
+              "effects": {
+                "brand": 4,
+                "sales": 3,
+                "trust": -2,
+                "liver": 3
+              },
+              "feedback": "Three straight wins open the season, and the discount code crashes the site. In May the team hits a losing streak, and the brand trends right alongside “lost again.”",
+              "insight": "“Sports Marketing or Marketing Sports?” urges focusing on key numbers and behaviors to escape the win-loss myth. The book cites the Sports Administration: sports spending hit NT$100.52B in 2022, up 15.6%.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Create a mascot with personality: quietly cracks seeds by day, only squabbles at games.",
+              "effects": {
+                "brand": 6,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "The mascot goes meme at its first game. On losing days it sits courtside quietly cracking seeds, and that gets shared most. Its figurines outsell the seeds.",
+              "insight": "“Beyond the Brand: Why Companies Also Need IP” says IP is built from characters, stories and values, creating emotional bonds that don't depend on products. Examples: Sanrio's Aggretsuko and Japan's “The Crocodile Who Will Die in 100 Days.”",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Score the broadcaster's spin-off show with an evaluation system; put the brand into fans' stories.",
+              "effects": {
+                "brand": 3,
+                "trust": 4,
+                "liver": 4
+              },
+              "feedback": "The show follows old fans who crack seeds, squabble and make up in the stands. The brand just sits on the table. Comments: “Now I want to call my old game buddies.”",
+              "insight": "“Seamless Branded Entertainment” says attention lasts just 8.25 seconds, so brand spirit must blend seamlessly into content. Dentsu Entertainment scores deals on qualitative and quantitative parts and recommends only those scoring 80 or above.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "When Dentsu Entertainment evaluates a branded entertainment deal, how are qualitative and quantitative weighted?",
+            "options": [
+              "Qualitative 40%, quantitative 60%",
+              "Qualitative 50%, quantitative 50%",
+              "Qualitative 60%, quantitative 40%",
+              "Qualitative 70%, quantitative 30%"
+            ],
+            "answer": 2,
+            "explain": "Qualitative (60%) covers brand fit, content theme and buzz potential; quantitative (40%) covers the deal's brand value and ROI.",
+            "source": "Seamless Branded Entertainment to Win Consumer Mindshare"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Don't Let Wins Define the Brand",
+        "text": "Scores change. Characters and stories stay."
+      }
+    },
+    {
+      "id": "s2024_07",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_01",
+        "c2024_15",
+        "c2024_19"
+      ],
+      "title": "The Junior Fed AI the Report",
+      "locationId": "datalab",
+      "giver": "data_kai",
+      "time": "afternoon",
+      "brief": "A new junior pasted a client's unreleased sales figures into a free chatbot just to get a summary faster. Ah-Kai asks you: what should the company's AI rules actually be?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "data_kai",
+              "text": "{role}, sit. Our intern just pasted the client's quarterly report into a free AI."
+            },
+            {
+              "who": "data_kai",
+              "text": "Unreleased numbers. She says she just wanted a quick summary."
+            },
+            {
+              "who": "player",
+              "text": "Does the client know?"
+            },
+            {
+              "who": "data_kai",
+              "text": "Not yet. Director Lin wants rules set today: ban it, allow it, or manage it somehow."
+            },
+            {
+              "who": "data_kai",
+              "text": "Honestly, everyone's using it. Some are way too scared, some way too bold."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What AI rules will you push for?",
+          "options": [
+            {
+              "text": "Ban it outright until legal and security finish writing the policy.",
+              "effects": {
+                "trust": -2,
+                "sales": -3,
+                "liver": 2
+              },
+              "feedback": "From the next day, nobody dares open AI at work. A month later you find everyone sneaking it on their own phones. The risk hasn't shrunk one bit.",
+              "insight": "The first of the five Ms in “Seeing 100 Times the Hope” is Make It Real: do first, fix later. The book cites Walmart's CEO: generative AI made product info updates 100 times more efficient.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Move to in-house AI: data stays inside, isn't used for training, and every use is logged.",
+              "effects": {
+                "trust": 5,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "You and Ah-Kai spend a week writing usage guidelines and moving three common tools in-house. The intern learns first and even makes a tutorial for everyone.",
+              "insight": "“Transforming in the AI Frenzy” says Dentsu deploys AI tools and stores data inside its group environment, logs every prompt, output, user and timestamp, and makes sure data isn't used to train models.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "First ask what this is supposed to solve: pilot one use tied to a KPI, and decide the rest later.",
+              "effects": {
+                "sales": 4,
+                "trust": 2,
+                "liver": 4
+              },
+              "feedback": "You pilot a weekly competitor summary first, and the time saved is measurable. Director Lin sees the numbers and approves the next use case.",
+              "insight": "“Is AI Driving Performance or Anxiety?” advises aligning with business needs, managing data sources and monitoring results to avoid “AI feel-good.” Citing an AIF survey, only 16% of Taiwan companies have put AI into operation.",
+              "roleBonus": {
+                "planner": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Which of these is NOT one of the Dentsu Intelligence Center's “five Ms”?",
+            "options": [
+              "Make It Real",
+              "Make Your Own Model",
+              "Make Me Feel Special",
+              "Make It Cheaper"
+            ],
+            "answer": 3,
+            "explain": "The five Ms are Make It Real, Make Your Own Model, Make Me Feel Special, Meaningful Experience and Make Differently. Make It Cheaper isn't one.",
+            "source": "Seeing 100 Times the Hope"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Go Bold Inside the Fence",
+        "text": "Put AI to work, but know where your data goes."
+      }
+    },
+    {
+      "id": "s2024_08",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_16",
+        "c2024_17",
+        "c2024_18"
+      ],
+      "title": "Egg Crepe Skins, Online",
+      "locationId": "breakfast",
+      "giver": "breakfast_auntie",
+      "time": "morning",
+      "brief": "Auntie Hsiu-chin's nephew set up a web store for her frozen egg crepe skins. Search traffic is down, backend numbers don't match, and someone's pushing a pricey new tool.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "breakfast_auntie",
+              "text": "You know the internet, huh? My nephew sells my frozen crepe skins online. Nobody comes."
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "He says when people search now, an AI answer pops up on top, and nobody clicks through."
+            },
+            {
+              "who": "player",
+              "text": "What about the backend numbers?"
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "He says GA doesn't match the orders, and LINE and site buyers seem like different people."
+            },
+            {
+              "who": "breakfast_auntie",
+              "text": "Someone wants to sell him a NT$30,000 tool. Should he buy it?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Auntie Hsiu-chin's nephew?",
+          "options": [
+            {
+              "text": "Boost search ads first to buy back the lost traffic. Worry about tools later.",
+              "effects": {
+                "sales": 5,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "Traffic comes back fast, and the ad budget runs out just as fast. At month's end, every pack of crepe skins sold costs NT$5 in ads.",
+              "insight": "“The New Era of AI SEO” notes AI Overviews bring three challenges: opaque citations, no standalone AIO data in Search Console, and zero-click search. The book's advice is back to basics: good content, full topic structure and technical SEO.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Start with a GA4 health check, and match site, LINE and order customers to the same person.",
+              "effects": {
+                "trust": 4,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "You and the nephew spend a night behind the breakfast shop checking events: the buy button was tracked twice. Fixed, it shows half the orders come from the same regulars.",
+              "insight": "“Digital Twins” notes GA4 health checks often show brands don't know what they're tracking. The book unifies behavioral data in three steps: map touchpoints, plan events, and match across platforms to member IDs.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Use orders to predict who's running low, and send LINE reorder reminders only on those days.",
+              "effects": {
+                "sales": 4,
+                "trust": 2,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "The first reminders beat mass blasts on repurchase, and nobody blocks the account. Auntie Hsiu-chin says it's like remembering when her regulars come in for egg crepes.",
+              "insight": "The retail case in “AI-Driven Experience and Value Conversion Optimization” uses a single customer view and prediction models to pick each campaign's audience on four factors: category preference, purchase odds, coupon use, and whether they're flyer-driven.",
+              "roleBonus": {
+                "cx": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Per “The New Era of AI SEO,” now that AI Overviews exist, what core principle should brands hold onto most in search?",
+            "options": [
+              "Quality content and user intent",
+              "Buy more keyword ads",
+              "Mass-produce new articles with AI",
+              "Give up search and go all in on social"
+            ],
+            "answer": 0,
+            "explain": "Generative search still draws on indexed content, so keep SEO's core: quality content and user intent. In July 2024, AIO appeared in about 8% to 15% of searches.",
+            "source": "The New Era of AI SEO: Meeting User Needs Is Still the Foundation"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 2,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Know Your Own Data",
+        "text": "Cookies are unreliable and search won't send clicks. Learn to recognize your own customers."
+      }
+    },
+    {
+      "id": "s2024_09",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_21",
+        "c2024_22",
+        "c2024_23"
+      ],
+      "title": "Spokesperson in the News Again",
+      "locationId": "studio",
+      "giver": "cd_wei",
+      "time": "afternoon",
+      "brief": "The spokesperson for sauce brand “Saucy Good” is in the scandal headlines again, with the shoot half done. Wei says they have to decide today how to find the next one.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "cd_wei",
+              "text": "{role}, the “Saucy Good” star hit the news again last night. Half the spot's shot."
+            },
+            {
+              "who": "cd_wei",
+              "text": "Client's done with real people. Asks if we can just make the whole spot with AI."
+            },
+            {
+              "who": "player",
+              "text": "Can we?"
+            },
+            {
+              "who": "cd_wei",
+              "text": "We can make the visuals. Not the face after that first bite. Not yet, anyway."
+            },
+            {
+              "who": "cd_wei",
+              "text": "The Chillshan Creative Park studio goes back at four. So what's the next move?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you suggest for “Saucy Good” and its next spokesperson?",
+          "options": [
+            {
+              "text": "Generate the whole ad with AI video tools. Fast, cheap, and live this week.",
+              "effects": {
+                "sales": 3,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "In three days you have a bright, glossy spot. Zoomed-in screenshots show the noodle chopsticks turning into three at second six. The comments are spicier than the sauce.",
+              "insight": "“The AI Video Revolution” says Sora pushed AI video from about 4 seconds to a full minute in 1080p, but clips still need heavy post-production to meet commercial standards. For now it's best for storyboards and concept pitches.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Design the brand's own virtual spokesperson from its personality, one who livestreams and replies.",
+              "effects": {
+                "brand": 6,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "You name her “Little Saucy”: great cook, hates doing dishes. Asked her favorite late-night snack on her first livestream, she answers more naturally than a human.",
+              "insight": "“Virtual Era, Real Experience” says real-time virtual humans offer close everyday interaction, potentially endless content and no scandal risk. The book cites HypeAuditor: VTubers average three times the engagement rate of human influencers.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Skip the stars. Cast real customers, and use AI to “seat” their loved ones at their dinner table.",
+              "effects": {
+                "trust": 4,
+                "sales": 4,
+                "liver": 4
+              },
+              "feedback": "Week one brings 2,000+ family photos. The crew face-swaps late into the night till their eyes sting, and support gets “Can my family be in the ad too?” emails.",
+              "insight": "In “Next-Level Imaging Power,” the Honda CR-V veteran-driver referral campaign built on the insight that 51% of car purchases come from friends' and family's advice. Owners used AI face-swap to seat loved ones in a CR-V; 130K people joined in eight weeks.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Per “The AI Video Revolution,” before Sora, about how long could the most advanced AI video clips run?",
+            "options": [
+              "About 4 seconds",
+              "About 15 seconds",
+              "About 30 seconds",
+              "About 1 minute"
+            ],
+            "answer": 0,
+            "explain": "The book says the most advanced AI could once make only about 4 seconds of low-res video. Sora pushed that to a full minute in 1080p.",
+            "source": "The AI Video Revolution: How Sora Is Reshaping the Future of Advertising"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "New Tools, Old Taste",
+        "text": "AI can make the picture. A spokesperson's personality has to come from people."
+      }
+    },
+    {
+      "id": "s2024_10",
+      "year": 2024,
+      "chapterIds": [
+        "c2024_27",
+        "c2024_28"
+      ],
+      "title": "Only the AC Is Running",
+      "locationId": "riverside",
+      "giver": "n2024_wang",
+      "time": "morning",
+      "brief": "Manager Wang, who runs an EV showroom, vents on a run at Rainbow Riverside: customers buy cars online now. Head office wants to know if the showroom stays.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2024_wang",
+              "text": "You run too? Let me tell you, my showroom gets two groups of customers all day."
+            },
+            {
+              "who": "n2024_wang",
+              "text": "Everyone browses and compares prices on their phone. They even book test drives online."
+            },
+            {
+              "who": "player",
+              "text": "So what do those two groups do in the showroom?"
+            },
+            {
+              "who": "n2024_wang",
+              "text": "One borrowed the restroom. The other, an old owner, asked if anyone wanted to go cycling."
+            },
+            {
+              "who": "n2024_wang",
+              "text": "Head office wants an answer next month on whether to keep the showroom."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Manager Wang?",
+          "options": [
+            {
+              "text": "Close the showroom, go all-in on online direct sales, and put the rent savings into lower prices.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "trust": -2,
+                "liver": 2
+              },
+              "feedback": "Prices drop and online inquiries rise. But customers stall at the last step and often leave mid-chat to see a real car somewhere else.",
+              "insight": "“Tech-Driven Change” cites Dentsu CCS: 30% of Taiwanese bought cars or scooters online in 2023, up 19 points in five years. But the book warns car buying is high-involvement and emotional, and going fully digital isn't always what buyers want.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Turn the showroom into the owners' living room: a weekend riverside run club, with coffee after.",
+              "effects": {
+                "brand": 5,
+                "trust": 4,
+                "liver": 5
+              },
+              "feedback": "The first run draws just seven people; by week three it's 40, some bringing friends for test drives. Manager Wang says sales still aren't running, but his people are.",
+              "insight": "The book cites NIO: NIO House has a gallery, forum, lounge, cafe and family space, linking the buyer and owner journeys into a lifelong relationship.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Partner with a supplement brand on an “Owner Total Wellness Plan” for the car and your life.",
+              "effects": {
+                "sales": 3,
+                "brand": 2,
+                "trust": 2,
+                "liver": 4
+              },
+              "feedback": "The plan sounds great, but the deal takes a month to close. Some owners love it; others ask why buying a car gets them probiotics.",
+              "insight": "“From Steel Helmet to Golden Bell Armor” says the supplement market has matured, so brands must move from single products to total-wellness lifestyle solutions. Examples: Yakult and Holland & Barrett.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Per “Tech-Driven Change,” once people can buy cars online, what should a brand's physical showroom become?",
+            "options": [
+              "A base just for delivery and service",
+              "An interactive space that draws people in and sparks imagination",
+              "A big warehouse for stock cars",
+              "A desk just for haggling and contracts"
+            ],
+            "answer": 1,
+            "explain": "A showroom that only sells and services loses value, the book warns. It should draw people in and spark imagination; buying a car still takes emotion and human contact.",
+            "source": "Tech-Driven Change: Consumer Journey Innovation as a Brand Growth Engine"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "From One Sale to a Lifetime",
+        "text": "A showroom isn't just where deals close. It's where owners come back."
+      }
+    }
+  ]
+}

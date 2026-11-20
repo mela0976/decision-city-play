@@ -2,7 +2,7 @@
 // 過關時蓋上朱紅印章。年份是一塊壓克力燈箱招牌。
 
 import { h, interaction, formatDelta } from '../dom.js';
-import { T, METER_IDS, METER_NAMES } from '../strings.js';
+import { T, METER_IDS, METER_NAMES, chapterQuote } from '../strings.js';
 
 const field = (label, value, className = '') => (value ? h('div', { class: `ticket-field ${className}`.trim() }, h('dt', { text: label }), h('dd', { text: value })) : null);
 
@@ -26,7 +26,7 @@ export function showMissionCard({ layer, mission, place, giver, signal, sfx, kin
         { class: 'ticket-body' },
         h('h2', { id: 'mission-title', text: mission.title }),
         h('p', { class: 'ticket-brief', text: mission.brief || '' }),
-        chapters.length ? h('ul', { class: 'ticket-chapters', 'aria-label': T.field.chapter }, chapters.map((title) => h('li', { text: `〈${title}〉` }))) : null,
+        chapters.length ? h('ul', { class: 'ticket-chapters', 'aria-label': T.field.chapter }, chapters.map((title) => h('li', { text: chapterQuote(title) }))) : null,
         h('dl', { class: 'ticket-fields' }, field(T.field.time, mission.clock, 'is-mono'), field(T.field.place, place), field(T.field.client, giver ? [giver.name, giver.title].filter(Boolean).join('　') : '')),
       ),
     );
@@ -108,7 +108,7 @@ export function showChapterCard({ layer, side, card, chapters, deltas, capped, s
         { class: 'ticket-body' },
         h('h2', { id: 'clear-title', text: card?.title || side.title }),
         h('blockquote', { class: 'chapter-quote', text: card?.text || '' }),
-        chapters.length ? h('ul', { class: 'ticket-chapters' }, chapters.map((title) => h('li', { text: `〈${title}〉` }))) : null,
+        chapters.length ? h('ul', { class: 'ticket-chapters' }, chapters.map((title) => h('li', { text: chapterQuote(title) }))) : null,
         chips.length ? h('ul', { class: 'chapter-deltas' }, chips) : null,
         capped ? h('p', { class: 'chapter-capped', text: T.sideCapped }) : null,
       ),

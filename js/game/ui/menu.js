@@ -38,7 +38,7 @@ function menuArrows(dialog) {
     if (!step) return;
     const onRange = e.target instanceof HTMLInputElement && e.target.type === 'range';
     if (onRange && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) return;
-    const items = [...dialog.querySelectorAll('.menu-item, .menu-sound input[type="range"]')].filter((b) => !b.disabled && b.offsetParent !== null);
+    const items = [...dialog.querySelectorAll('.menu-item, .menu-sound input[type="range"], .menu-lang .lang-btn')].filter((b) => !b.disabled && b.offsetParent !== null);
     if (!items.length) return;
     e.preventDefault();
     const at = items.indexOf(document.activeElement);

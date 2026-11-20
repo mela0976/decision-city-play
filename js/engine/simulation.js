@@ -14,6 +14,7 @@ import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead
 import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs';
 import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js';
 import { touchControls } from './overlay.js';
+import {setLabels,placeLabel} from './labels.mjs'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -945,7 +946,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   function updateContext() {
     let next={action:null,targetId:null,targetName:null}, gap=67;
     if(player.mode==='foot'&&nearOfficeDoor(player,3)){
-      next={action:'enter',targetId:'office',targetName:byId.get('office').name};
+      next={action:'enter',targetId:'office',targetName:placeLabel(byId.get('office'))}; // i18n
     }
     for (const npc of next.action?[]:state.npcs) {
       const d=distance(player,npc);
@@ -953,7 +954,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     }
     if(!next.action) {
       const mark=state.markers.find(m=>m.locationId===player.locationId);
-      if(mark) next={action:'enter',targetId:mark.id,targetName:mark.label??byId.get(mark.locationId).name};
+      if(mark) next={action:'enter',targetId:mark.id,targetName:mark.label??placeLabel(byId.get(mark.locationId))}; // i18n
     }
     if(next.action!==context.action || next.targetId!==context.targetId || next.targetName!==context.targetName) {
       context=next;
@@ -2081,7 +2082,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     },
     teleportTo(id) {
       const location=byId.get(id);
-      if(location)relocate(location,facing(id));
+      if(!location)return;
+      // A23 night: step onto the pedestrian entrance facing the shopfront or station. Keep the driving waypoint on its OSM road.
+      if(id==='department'||id==='mrt'){
+        relocate(entrances.get(id)??location,location.viewHeading+(id==='department'?.87:.70));
+      }else relocate(location,facing(id));
     },
     setTimeOfDay(hours) {
       if (Number.isFinite(hours)){
@@ -2168,6 +2173,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       if (Number.isFinite(strength)) state.shake=clamp(strength,0,1);
     },
     getLocations() {return locations.map(location=>({...location}));},
+    /** i18n：地圖標籤的譯名 { places:{locationId:名}, landmarks:{shape:名}, player:'◆ …' }；世界資料不變。 */
+    setLabels(next) {setLabels(next);refresh();}, // i18n
     on(event,handler) {
       if (!listeners.has(event)) listeners.set(event,new Set());
       listeners.get(event).add(handler);

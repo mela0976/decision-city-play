@@ -5,6 +5,7 @@
 import { showMessages } from './ui/phone.js';
 import { playFeed } from './ui/feed.js';
 import { showSlide, runSincere } from './ui/interlude.js';
+import { T, LANG } from './strings.js';
 
 // 序幕在吳興街租屋處；清單裡沒有那張圖就退回開場海報
 const PROLOGUE_SCENE = 'loc_home';
@@ -13,9 +14,9 @@ const FINALE_SCENE = 'loc_rechao';
 const MORNING_SCENE = 'loc_office';
 // 內容檔沒有寫 finale.unfinished 時的備用對白（肝指數中途滿了、任務沒做完）
 const FINALE_UNFINISHED = [
-  { who: 'data_kai', text: '今天先到這，簡報我來補。' },
-  { who: 'boss_lin', text: 'OK。' },
-  { who: 'grandma', text: '有吃飯沒？', via: 'line' },
+  { who: 'data_kai', text: T.fallbackKai },
+  { who: 'boss_lin', text: LANG === 'en' ? 'OK.' : 'OK。' },
+  { who: 'grandma', text: T.fallbackGrandma, via: 'line' },
 ];
 
 /** 訊息畫面上的對象：名字、職稱、頭像。有 avatar_<id> 就用；沒有的話阿嬤與玩家自己用立繪，其他人用名字的第一個字。 */

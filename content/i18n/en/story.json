@@ -1,0 +1,510 @@
+{
+  "premise": "A big pitch at nine tonight: how brands get closer to people over the next ten years. Hit nine sites across Xinyi District and earn one pitch page at each.",
+  "prologue": [
+    {
+      "who": "grandma",
+      "text": "[Good morning] Being safe is a blessing. Wear a jacket when you go out.",
+      "via": "line"
+    },
+    {
+      "who": "player",
+      "text": "The breakfast griddle below beats any alarm. Scooter stalled again. Third kick did it."
+    },
+    {
+      "who": "breakfast_auntie",
+      "text": "The usual? Egg crepe with chili, milk tea, no ice. I'll call you when it's ready."
+    },
+    {
+      "who": "boss_lin",
+      "text": "Pitch at nine tonight. Topic: over the next ten years, how do brands get closer to people?",
+      "via": "line"
+    },
+    {
+      "who": "boss_lin",
+      "text": "Deck so far: zero pages.",
+      "via": "line"
+    },
+    {
+      "who": "data_kai",
+      "text": "Saw it. Nine sites today, right? Send me a page after each one. I'll lay it out.",
+      "via": "line"
+    },
+    {
+      "who": "rival_vicky",
+      "text": "Heard you got this pitch too? See you tonight. I'm not going easy on you this time.",
+      "via": "line"
+    },
+    {
+      "who": "breakfast_auntie",
+      "text": "A pitch, huh? Extra egg in your crepe, on me. You can't fight on an empty stomach."
+    }
+  ],
+  "morning": {
+    "clock": "08:10",
+    "title": "Morning Meeting",
+    "lines": [
+      {
+        "who": "boss_lin",
+        "text": "Everyone's here. Pitch is at nine tonight. That doesn't move."
+      },
+      {
+        "who": "boss_lin",
+        "text": "You've seen the brief. What the client wants is ten years of Intelligent Decision."
+      },
+      {
+        "who": "player",
+        "text": "Zero pages in the deck, I know. Nine sites. Where do I start?"
+      },
+      {
+        "who": "ae_mei",
+        "text": "Start at MRT City Hall Station, Manager Wu's billboard job. Crowds thin by nine. Hurry."
+      },
+      {
+        "who": "ae_mei",
+        "text": "Back here at ten. Director Lin wants to check numbers. I'll send the next stops as you go."
+      },
+      {
+        "who": "ae_mei",
+        "text": "Vicky's on the same pitch. If you run into her, don't let her pump you for info."
+      },
+      {
+        "who": "data_kai",
+        "text": "After each stop, send me whatever you found. I'll build the pages."
+      },
+      {
+        "who": "data_kai",
+        "text": "Screenshots, photos, audio, all fine. But numbers need a source, or I won't take them."
+      },
+      {
+        "who": "player",
+        "text": "Got it. One stop, one page. Nine pages by nine."
+      },
+      {
+        "who": "boss_lin",
+        "text": "Go."
+      },
+      {
+        "who": "boss_lin",
+        "text": "Back by nine."
+      }
+    ],
+    "back": [
+      {
+        "who": "ae_mei",
+        "text": "Still out running around? Director Lin says back by nine."
+      },
+      {
+        "who": "ae_mei",
+        "text": "I saved you a coffee. Go do your thing."
+      },
+      {
+        "who": "data_kai",
+        "text": "Send data and I'll lay it out. No data, I'll assume you're still on your scooter."
+      },
+      {
+        "who": "data_kai",
+        "text": "Quit spacing out at the door. Numbers don't walk into the deck by themselves."
+      },
+      {
+        "who": "boss_lin",
+        "text": "Nine o'clock. Don't be late."
+      },
+      {
+        "who": "ae_mei",
+        "text": "Vicky's out there too. We can't fall behind her."
+      },
+      {
+        "who": "data_kai",
+        "text": "No one in the meeting room, no deck either. You'll get further out in the field."
+      }
+    ]
+  },
+  "cast": [
+    {
+      "id": "partner",
+      "npcId": "data_kai",
+      "role": "Partner",
+      "blurb": "Started the same year as you. Sharp tongue, but always the first to cover for you when things go wrong."
+    },
+    {
+      "id": "boss",
+      "npcId": "boss_lin",
+      "role": "Boss",
+      "blurb": "Few words in person. On LINE, mostly “?” and “OK”; types only for orders. Speaks from the heart once a year."
+    },
+    {
+      "id": "rival",
+      "npcId": "rival_vicky",
+      "role": "Old Rival",
+      "blurb": "Ex-colleague who jumped to a rival agency. Tonight she's pitching against you."
+    },
+    {
+      "id": "grandma",
+      "npcId": "grandma",
+      "role": "Ama",
+      "blurb": "Has run Sisi South Village Shop for decades. Sends several good-morning images a day."
+    }
+  ],
+  "interludes": [
+    {
+      "after": "m2018",
+      "slide": "Marketing isn't a bet anymore: see it, measure it, fix it",
+      "sincere": {
+        "who": "client_wu",
+        "text": "Honestly, you're the first to think it through for me, not rush to sell me ad slots."
+      },
+      "interrupt": {
+        "kind": "campaign_truck",
+        "text": "A campaign truck rolls up Shifu Rd. “Please, please, vote for us!” drowns out the rest."
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page one's in. Whatever you picked, Manager Wu left smiling. I'll call that a pass."
+      },
+      "grandma": {
+        "text": "Good morning! 30% chance of rain today. Is your raincoat under the seat?",
+        "replies": [
+          {
+            "text": "Leave it on read and ride",
+            "bond": 0
+          },
+          {
+            "text": "Send a “Good morning” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “Yep, it's in there.”",
+            "bond": 2
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2019",
+      "slide": "Data shows the surface, not always the truth",
+      "sincere": {
+        "who": "clerk_ning",
+        "text": "Honestly, if you want to know about the store, just ask us at the counter."
+      },
+      "interrupt": {
+        "kind": "boss_line",
+        "text": "Director Lin sends a single “?”. You know he means page two."
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page two's in. I'll roast your call later, but you asked people on site. Beats the report."
+      },
+      "grandma": {
+        "text": "Eat a real lunch, not just coffee again. Ama saw your story. Three days, all coffee.",
+        "replies": [
+          {
+            "text": "Leave it on read for now",
+            "bond": 0
+          },
+          {
+            "text": "Send a “bento” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “Ama, I'll go eat soon.”",
+            "bond": 2
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2020",
+      "slide": "Back to your own customers: first-party data and LTV",
+      "sincere": {
+        "who": "client_chen",
+        "text": "Six months of pandemic, and you're the first to tell me not to bet it all on traffic."
+      },
+      "interrupt": {
+        "kind": "delivery_call",
+        "text": "Phone rings: “Hi, your chicken-leg bento's at Wun-Zero-Wun. Security won't let me up.”"
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page three's in. Who cares if Manager Chen's boss smiled? Cookies wait for no one."
+      },
+      "grandma": {
+        "text": "Ama orders by phone now! The noodle shop knows I'm a regular. No cilantro, he remembers.",
+        "replies": [
+          {
+            "text": "Leave it on read",
+            "bond": 0
+          },
+          {
+            "text": "Send a “Go, Ama!” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her over bento; hear about the noodle shop",
+            "bond": 2,
+            "effects": {
+              "liver": -3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2021",
+      "slide": "Only true stories earn trust",
+      "sincere": {
+        "who": "cd_wei",
+        "text": "Twenty years shooting ads, and this is the one I want to show my mom."
+      },
+      "interrupt": {
+        "kind": "alert",
+        "text": "Every phone in the studio shrieks at once: National Alert. Everyone looks. Pandemic text."
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page four's in. Wei's face in the set photos is… complicated. What did you two shoot?"
+      },
+      "grandma": {
+        "text": "Ama can't remember TV ad lines, only the ones about people. Was today's about people?",
+        "replies": [
+          {
+            "text": "Leave it on read till wrap",
+            "bond": 0
+          },
+          {
+            "text": "Send a “thumbs-up” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “It's about people. I'll show you.”",
+            "bond": 2
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2022",
+      "slide": "From me to us: let customers pitch in",
+      "sincere": {
+        "who": "client_hsu",
+        "text": "I want to do the right thing too. I'm just scared nobody will buy it."
+      },
+      "interrupt": {
+        "kind": "thunder",
+        "text": "Thunder rolls. An afternoon storm herds Xiangti Avenue's buskers onto the arcade sidewalk."
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page five. Green never gets full marks, but nobody's calling her greenwashing… probably."
+      },
+      "grandma": {
+        "text": "Rain! The store got three empty bottles for soy sauce refills. Even young folks do it.",
+        "replies": [
+          {
+            "text": "Leave it on read",
+            "bond": 0
+          },
+          {
+            "text": "Send a “rainy day” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “Ama, this belongs in the deck.”",
+            "bond": 2
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2023",
+      "slide": "AI is a good teammate. People still make the call",
+      "sincere": {
+        "who": "data_kai",
+        "text": "Honestly, the better AI gets, the more I value the person beside it counting fingers."
+      },
+      "interrupt": {
+        "kind": "boss_line",
+        "text": "Director Lin: “Page six?”"
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page six. I checked: every hand in the deck has five fingers. Good job."
+      },
+      "grandma": {
+        "text": "Someone faked your cousin's voice for cash. Ama asked about his childhood dog. He hung up.",
+        "replies": [
+          {
+            "text": "Leave it on read",
+            "bond": 0
+          },
+          {
+            "text": "Send an “Ama rocks” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “Ama, you're amazing. Teach me that.”",
+            "bond": 2
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2024",
+      "slide": "Everyone uses AI. Core brand values make the difference",
+      "sincere": {
+        "who": "vendor_cheng",
+        "text": "If folks like you still walk into these alleys, this block's got a chance."
+      },
+      "interrupt": {
+        "kind": "garbage_truck",
+        "text": "“A Maiden's Prayer” plays. Ah-Cheng drops his spatula and dashes out with two trash bags."
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page seven. Bring me a chicken cutlet from Linginger Street. That's favor number seven."
+      },
+      "grandma": {
+        "text": "Kids came to Sisi South Village for photos. One taught me to go live; I taught her zongzi.",
+        "replies": [
+          {
+            "text": "Leave it on read",
+            "bond": 0
+          },
+          {
+            "text": "Send a “zongzi” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “Ama, I'll watch every stream.”",
+            "bond": 2
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2025",
+      "slide": "Algorithms: efficiency. Brands: what can't be generated",
+      "sincere": {
+        "who": "tv_su",
+        "text": "Twenty years in TV. Budget cuts don't scare me. Nobody watching together does."
+      },
+      "interrupt": {
+        "kind": "campaign_truck",
+        "text": "A campaign truck crawls along Zhongxiao E. Rd. Its loudspeaker eats her whole sentence."
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "Page eight. Keep TV or not, I back you. The boss will still ask: what about short video?"
+      },
+      "grandma": {
+        "text": "You're at the TV station? Ama saw your story. I know those jingles better than you do.",
+        "replies": [
+          {
+            "text": "Leave it on read, meeting soon",
+            "bond": 0
+          },
+          {
+            "text": "Send a “microphone” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “Ama, sing me a line.”",
+            "bond": 2,
+            "effects": {
+              "liver": -3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "after": "m2026",
+      "slide": "AI helps brands understand people. That's real closeness",
+      "sincere": {
+        "who": "boss_lin",
+        "text": "These nine pages, you earned one site at a time. Honestly, I…"
+      },
+      "interrupt": {
+        "kind": "delivery_call",
+        "text": "The elevator doors cut him off. Your phone rings too: delivery's downstairs at A25."
+      },
+      "partner": {
+        "who": "data_kai",
+        "text": "All nine are in. But AI made three takes on the last page. Each looks like someone else's."
+      },
+      "grandma": {
+        "text": "Ama doesn't get AI, but you met people. Understand people first. Then make your case.",
+        "replies": [
+          {
+            "text": "Leave it on read, go on stage",
+            "bond": 0
+          },
+          {
+            "text": "Send a “Thanks, Ama” sticker",
+            "bond": 1
+          },
+          {
+            "text": "Call her: “Ama, this goes on the last page.”",
+            "bond": 2
+          }
+        ]
+      }
+    }
+  ],
+  "finale": {
+    "bondThreshold": 6,
+    "grandmaSlide": {
+      "title": "Last Page: Ama's Words",
+      "text": "Understand people first. Then make your case."
+    },
+    "withGrandma": [
+      {
+        "who": "data_kai",
+        "text": "Still thinking about it. That last page went up, and the client went dead quiet."
+      },
+      {
+        "who": "boss_lin",
+        "text": "“Understand people first. Then make your case.” Who wrote that?"
+      },
+      {
+        "who": "player",
+        "text": "My Ama."
+      },
+      {
+        "who": "boss_lin",
+        "text": "OK."
+      },
+      {
+        "who": "rival_vicky",
+        "text": "Ours had nine pages too, but not that one. This drink's for you."
+      },
+      {
+        "who": "grandma",
+        "text": "Pitch over? Eaten yet? Ama wants to hear how you told it today.",
+        "via": "line"
+      }
+    ],
+    "withoutGrandma": [
+      {
+        "who": "data_kai",
+        "text": "Nine pages, beautifully laid out. Just as beautiful as theirs. That's the problem."
+      },
+      {
+        "who": "rival_vicky",
+        "text": "Our conclusions were nearly identical. The client says they'll think it over."
+      },
+      {
+        "who": "boss_lin",
+        "text": "OK."
+      },
+      {
+        "who": "player",
+        "text": "I check my phone. Ama wrote all day. Each one got a read receipt and a sticker. That's it."
+      },
+      {
+        "who": "grandma",
+        "text": "Kiddo, just reply to Ama when you have a minute.",
+        "via": "line"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1187 @@
+{
+  "year": 2023,
+  "chapters": [
+    {
+      "id": "c2023_01",
+      "title": "Is There AI in Your Pocket?",
+      "by": "Dentsu Marketing Communications Group, CDO",
+      "summary": "IKEA's outside lab SPACE10 made an “envelope couch” with generative AI—AI as idea helper. Chat search and plugins change how people find info; the key: the right AI bets.",
+      "coveredBy": "s2023_01"
+    },
+    {
+      "id": "c2023_02",
+      "title": "Phenomenal Trends Reshaping Future Supply and Demand",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Like steam, power, and the web, AI is won in the mature build-out. Tech cuts four frictions: money, time, effort, focus. Profit needs first-party data, uses, investment.",
+      "coveredBy": "s2023_02"
+    },
+    {
+      "id": "c2023_03",
+      "title": "Only People Strive for Excellence",
+      "by": "Dentsu Intelligence Center Think Tank",
+      "summary": "Non-artists can sketch with prompts, but AI draws six fingers and bluffs. Taste and quality control still take humans; only people hold themselves to excellence.",
+      "coveredBy": "m2023"
+    },
+    {
+      "id": "c2023_04",
+      "title": "The Metamorphosis of Dentsu Intelligence: AIQ",
+      "by": "Dentsu MC Group, Web3 Growth Partner",
+      "summary": "Generative AI is a paradigm shift. Consumers may reach brands through AI assistants rather than directly, so brands need AIQ, their own digital humans, and plugins.",
+      "coveredBy": "s2023_03"
+    },
+    {
+      "id": "c2023_05",
+      "title": "Reading the Future, Responding to Opportunity",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Generative AI's first-order effect: cheap content; second-order: spam, so consumers' filters block by default. Brands need human- and machine-friendly info and feedback.",
+      "coveredBy": "s2023_04"
+    },
+    {
+      "id": "c2023_06",
+      "title": "The New AI Shopper",
+      "by": "Dentsu Intelligence Center Think Tank",
+      "summary": "Per the 12 trends of “Consumer Vision 2030,” AI makes shopping entertainment and self-expression. Brands must keep core values and adapt fast for AI-assisted retail.",
+      "coveredBy": "s2023_05"
+    },
+    {
+      "id": "c2023_07",
+      "title": "Human-Machine Collaboration Defines New Value",
+      "by": "Dentsu Intelligence Center Think Tank",
+      "summary": "Gucci's AI mural in Chengdu, Coca-Cola's “Masterpiece,” Horizon turning gout patients' words to images, Vivo's “Journey of Autism”: human ideas, aided by AI, move people.",
+      "coveredBy": "s2023_06"
+    },
+    {
+      "id": "c2023_08",
+      "title": "On the Industry Front Line: New Takes on Generative AI",
+      "by": "Dentsu Intelligence Center Think Tank",
+      "summary": "Generative AI in five industries: cleaning goods, autos, retail, dining, apparel. It bridges expertise gaps and lowers risk, but data privacy and quality data come first.",
+      "coveredBy": "s2023_07"
+    },
+    {
+      "id": "c2023_09",
+      "title": "The AI Shift from Content to Communication",
+      "by": "Dentsu Intelligence Center Think Tank",
+      "summary": "Chat search changes how content gets seen. Brands need E-E-A-T content, better social listening, PR rules for AI misuse, and must not let AI dull how they communicate.",
+      "coveredBy": "s2023_08"
+    },
+    {
+      "id": "c2023_10",
+      "title": "Letting Ideas Soar Within the Rules",
+      "by": "Dentsu Intelligence Center Think Tank",
+      "summary": "Surveys AI laws, copyright, and lawsuits worldwide (e.g., Getty Images v. Stability AI); advises avoiding infringement and adding AI disclosure clauses to contracts.",
+      "coveredBy": "m2023"
+    },
+    {
+      "id": "c2023_11",
+      "title": "Humans and Machines, Hand in Hand Toward a New Future",
+      "by": "Dentsu MC Group, Web3 Growth Partner",
+      "summary": "AI's top threats: fake news and info inflation that send verification costs soaring. For decades, motive sets us apart from AI; empathy and strange beauty stay human.",
+      "coveredBy": "s2023_09"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2023_lai",
+      "name": "Manager Lai",
+      "skin": "npc_client",
+      "locationId": "convenience",
+      "title": "Convenience Chain Area Manager",
+      "lines": [
+        "HQ says we're going AI. My first question: can it restock?",
+        "Twelve stores in this area, and each one has different best-sellers.",
+        "Can AI tell how well the tea eggs are selling?",
+        "Member data? Spread over three systems, each doing its own thing."
+      ]
+    },
+    {
+      "id": "n2023_hua",
+      "name": "Big Sis Hua",
+      "skin": "npc_vendor",
+      "locationId": "night_market",
+      "title": "Night Market Livestream Seller",
+      "lines": [
+        "Come on, friends behind the screen, just comment “+1”!",
+        "Ten years of livestreaming. The camera knows me better than my husband does.",
+        "An AI host never gets tired, but it can't banter with customers.",
+        "Today's joke is someone else's tomorrow."
+      ]
+    },
+    {
+      "id": "n2023_gao",
+      "name": "Dr. Kao",
+      "skin": "npc_client",
+      "locationId": "client_hq",
+      "title": "R&D Manager, Bubbles Be Gone",
+      "lines": [
+        "A formula isn't poetry. One gram short and it's wrong.",
+        "Half our lab records are still handwritten.",
+        "AI says it can give me a new formula in three days. I said, give me data first.",
+        "Raw materials are out of stock again. Third time this month."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2023_01",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_01"
+      ],
+      "title": "Refills in an Envelope",
+      "locationId": "department",
+      "giver": "client_hsu",
+      "time": "afternoon",
+      "brief": "Manager Hsu wants an “on the go” cleaning product; R&D has been stuck three months. Told AI has ideas, she opens a laptop behind a Shin Kong Mitsuki counter: want to try?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_hsu",
+              "text": "{role}, boss wants a “take-along cleaning product.” R&D's one reply: carry it how?"
+            },
+            {
+              "who": "client_hsu",
+              "text": "Yesterday I typed “cleaning product” into AI. It gave me a bottle of cleaner. Boring."
+            },
+            {
+              "who": "player",
+              "text": "Have you tried being more specific? Foldable, no tools, one person can carry it?"
+            },
+            {
+              "who": "client_hsu",
+              "text": "…No. I figured it would just get it."
+            },
+            {
+              "who": "client_hsu",
+              "text": "The boss also wants to buy a whole AI system. I haven't even figured out what it's for."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "You're briefing the boss this afternoon. How should she use AI?",
+          "options": [
+            {
+              "text": "Idea helper: feed AI the requirements one by one, make twenty concepts, pick three for R&D.",
+              "effects": {
+                "brand": 5,
+                "trust": 2,
+                "sales": 2,
+                "liver": 5
+              },
+              "feedback": "Image No. 14 is a wet-wipe holder that folds into an envelope. The R&D lead says, “We can make this.” Manager Hsu sets it as her phone wallpaper.",
+              "insight": "The book cites SPACE10 and a design studio using ChatGPT to refine prompts, then Midjourney to generate a couch that folds into an envelope; the experiment also showed AI can't fully replace human creativity—experts still judge.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Buy the system now: unused budget gets clawed back. Get the full AI platform; R&D finds uses later.",
+              "effects": {
+                "sales": 2,
+                "trust": -3,
+                "brand": -2,
+                "liver": 3
+              },
+              "feedback": "Budget saved; sales wins an extra campaign window with “AI-powered.” Live in three weeks, the system gets two R&D logins: “one more form.” The product's still stuck.",
+              "insight": "The book says innovation's value lies in seeing market demand and making the right AI investments; figure out what problem you're solving first, and you'll know where AI can drive innovation.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Start with customers: trial a chat AI as customer service for a week; log real on-the-go messes.",
+              "effects": {
+                "trust": 5,
+                "brand": 2,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "A week brings 400-plus chats. Top issue: “Ate out, got soy sauce on my shirt.” Manager Hsu gets it: customers don't want a bottle of cleaner. They want to save a shirt.",
+              "insight": "The book names three effects of conversational search: AI becomes the gatekeeper of information, what grabs attention shifts, and back-and-forth Q&A reveals real needs more deeply.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “Is There AI in Your Pocket?”, what future furniture did SPACE10 design with generative AI?",
+            "options": [
+              "A couch that folds to envelope size",
+              "A desk that adjusts its own height",
+              "A chair printed from recycled plastic",
+              "A wardrobe that turns into a bed"
+            ],
+            "answer": 0,
+            "explain": "SPACE10 and a design studio used ChatGPT and Midjourney to create a couch that folds into an envelope, needs no screws, and one person can carry (Couch in an Envelope).",
+            "source": "Is There AI in Your Pocket?"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "AI Is an Idea Helper",
+        "text": "The clearer your requirements, the more it can offer. Picking one is still up to people."
+      }
+    },
+    {
+      "id": "s2023_02",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_02"
+      ],
+      "title": "Tea Eggs at Twelve Stores",
+      "locationId": "convenience",
+      "giver": "n2023_lai",
+      "time": "morning",
+      "brief": "The chain's HQ approved an AI budget, and Manager Lai's Songshou Rd. area goes first. His member data sits in three systems, and tea-egg sales differ at every store.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2023_lai",
+              "text": "{role}, HQ says AI is the future. They want our area to set up an “AI demo store.”"
+            },
+            {
+              "who": "clerk_ning",
+              "text": "Demo what? We still add member points by hand."
+            },
+            {
+              "who": "player",
+              "text": "Where's the data right now?"
+            },
+            {
+              "who": "n2023_lai",
+              "text": "One set in POS, one in the app, one on the delivery app. None of them match."
+            },
+            {
+              "who": "n2023_lai",
+              "text": "The vendor suggests an AI clerk robot by the door. Looks great in photos."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "Where should this budget go first?",
+          "options": [
+            {
+              "text": "Put an AI clerk robot at the door so everyone sees we have AI.",
+              "effects": {
+                "brand": 4,
+                "sales": -2,
+                "trust": -2,
+                "liver": 3
+              },
+              "feedback": "The robot makes the local news and kids line up for photos. Two months on, its top line is “Sorry, I don't quite understand.” It ends up by the stockroom door.",
+              "insight": "The book says breakthrough tech isn't won by whoever builds the first prototype but when funding and infrastructure arrive after it matures, just as the steam engine only took off once railways and coal mines were ready.",
+              "roleBonus": {
+                "media": {
+                  "brand": 2
+                }
+              }
+            },
+            {
+              "text": "First merge the three data sets into one live-updated member database, then decide what AI does.",
+              "effects": {
+                "trust": 6,
+                "sales": 2,
+                "brand": -2,
+                "liver": 5
+              },
+              "feedback": "Matching data is soul-crushing; HQ calls it slow. Three months in, they first see one shopper's morning coffee and evening bento delivery. Manager Lai: “Beats a robot.”",
+              "insight": "The book says profiting from AI depends on three factors: first, a continuously updated first-party database; then the ways AI is applied to create value; and how much you invest.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Ease mental load: AI suggests each store's fresh food and tea-egg stock by weather and time of day.",
+              "effects": {
+                "sales": 5,
+                "trust": 3,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "On rainy days, hot food stock goes up 20% and waste drops 10%. Ning says that at 10 PM she finally doesn't have to tell customers, “We're out of oden.”",
+              "insight": "The book says on the consumer side, tech removes friction across four resources—money, time, physical effort, and mental effort; generative AI is especially good at saving consumers “mental effort.”",
+              "roleBonus": {
+                "planner": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Looking back at electricity and the light bulb, what key outside factor does “Phenomenal Trends” say brought nighttime productivity?",
+            "options": [
+              "A breakthrough in the bulb itself",
+              "The inventor's personal fame",
+              "Consumers' electricity habits",
+              "A leading body providing a stable grid"
+            ],
+            "answer": 3,
+            "explain": "The key wasn't the tech but the leading body (the government) providing a stable grid. Its table dates the internet's key period 2015–2020, AI's after 2022 to 2025.",
+            "source": "Phenomenal Trends Reshaping Future Supply and Demand"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "AI Runs on Your Own Data",
+        "text": "Steam engines need coal; AI needs first-party data that keeps updating."
+      }
+    },
+    {
+      "id": "s2023_03",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_04"
+      ],
+      "title": "AI Didn't Recommend Us",
+      "locationId": "mrt",
+      "giver": "client_wu",
+      "time": "morning",
+      "brief": "At MRT City Hall Station, Manager Wu asks her phone's AI for “good coffee nearby.” Five places, none from her chain. At the exit, she looks colder than an iced Americano.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_wu",
+              "text": "{role}, look. Five places, and none are us. We have two stores at this very exit!"
+            },
+            {
+              "who": "client_wu",
+              "text": "We pay so much for keywords and influencers every month, and AI skips us in one sentence."
+            },
+            {
+              "who": "player",
+              "text": "Do you know what it bases its picks on?"
+            },
+            {
+              "who": "client_wu",
+              "text": "No idea. It's a black box. The boss wants me to “make AI like us.”"
+            },
+            {
+              "who": "client_wu",
+              "text": "And young people even have AI order their coffee now. Our staff never get a word in."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Manager Wu?",
+          "options": [
+            {
+              "text": "Spend more on influencers and keywords. With enough buzz, AI will pick us up eventually.",
+              "effects": {
+                "sales": 3,
+                "brand": -2,
+                "trust": -2,
+                "liver": 3
+              },
+              "feedback": "Influencer deals double this quarter and social buzz looks great. At month's end you ask the AI again: same five places, one of them run by an influencer's friend.",
+              "insight": "The book warns that once AI bots “screen out” the connections built through ads, keywords, and influencers, a company's marketing effort no longer delivers matching value.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Brand avatar: a personable barista digital human who chats, takes orders, links to AI assistants.",
+              "effects": {
+                "brand": 5,
+                "trust": 2,
+                "sales": 2,
+                "liver": 6
+              },
+              "feedback": "Digital barista “Ah-Fei” launches; week one's top question: “How are you today?” It ate three weeks of your evenings, but Manager Wu says the AI era will remember it.",
+              "insight": "The book says companies should set up their own “digital humans”—not just chatbots, but with a human look, since people respond more to humanlike things; with an avatar, a brand can interact better with consumers.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Make data AI-readable: publish stores, hours, menus, reviews in structured form, as a plugin.",
+              "effects": {
+                "trust": 5,
+                "sales": 3,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "You and an engineer turn 40 stores' data into one clean list. A month later, asked about “near City Hall Station,” the AI assistant lists them for the first time.",
+              "insight": "The book says to watch third parties like plugins, little helpers built into the AI's brain; when consumers may not deal with brands directly, plan early for how to deal with the bots.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Citing “Harvard Business Review” (Chinese edition), why does “The Metamorphosis of Dentsu Intelligence: AIQ” urge firms to set up “digital humans”?",
+            "options": [
+              "Digital humans don't need salaries",
+              "People respond more to things that look human",
+              "Digital humans can speak many languages",
+              "Digital humans make fewer mistakes"
+            ],
+            "answer": 1,
+            "explain": "The book says digital humans need more than conversation—they need a human look, because people respond more to humanlike things, which reach people's hearts more easily.",
+            "source": "The Metamorphosis of Dentsu Intelligence: AIQ"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Their AI Is Your Customer Too",
+        "text": "Soon the first to talk to you may be a customer's bot. Brands need an avatar that can talk back."
+      }
+    },
+    {
+      "id": "s2023_04",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_05"
+      ],
+      "title": "The Newsletter That Got Blocked",
+      "locationId": "home",
+      "giver": "roommate_yu",
+      "time": "night",
+      "brief": "Yu installed an AI inbox assistant that blocks all promos by default and sends her one daily summary. She says smugly, “Your ads can't get in anymore. Starting today.”",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "roommate_yu",
+              "text": "{role}, my AI assistant blocked 137 ad emails for me today."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "It keeps three kinds: my subscriptions, stuff friends send, things I'm buying this week."
+            },
+            {
+              "who": "player",
+              "text": "So what are you buying lately?"
+            },
+            {
+              "who": "roommate_yu",
+              "text": "Running shoes. But it said five brands' emails were fake discounts and binned them."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "Your client's running shoes? All I saw was one line: “No relevant deals this week.” Ouch."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "The running-shoe client asks: what if AI blocks our messages?",
+          "options": [
+            {
+              "text": "Save this campaign: the anniversary sale ends in ten days. Send more, test subject lines, get in.",
+              "effects": {
+                "sales": 2,
+                "trust": -4,
+                "brand": -2,
+                "liver": 4
+              },
+              "feedback": "Open rates recover for a week; the sale barely hits target and the client exhales. Then more assistants blacklist the domain; Yu's summary adds: “Likely spam sender.”",
+              "insight": "The book predicts that once content gets cheap, spam and deepfakes flood in, consumers lean harder on AI filtering services, and every message is blocked by default.",
+              "roleBonus": {
+                "media": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Human- and machine-friendly info: clear specs, prices, and stock that assistants get and let in.",
+              "effects": {
+                "trust": 5,
+                "sales": 3,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "You turn weekly deals into one clean table with live prices and stock. Next week Yu's summary has a new line: “Shoes you follow: your size, 20% off this week.”",
+              "insight": "The book suggests brands build human- and machine-friendly information structures and welcome automated indexing; how accurate and current brand info is greatly affects how it shows up through AI.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Earn her subscription: content she wants, like shoe-swap alerts by mileage—a reason to share data.",
+              "effects": {
+                "trust": 4,
+                "brand": 4,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "An email saying “Your shoes have run 600 km” sails past Yu's assistant, flagged important. She reads it, mutters “Creepy accurate,” then goes to measure her feet.",
+              "insight": "The book says brands should better grasp members' preferences, create content consumers seek out, and trade data with consumers' AI assistants through permission management and rewards.",
+              "roleBonus": {
+                "cx": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“Reading the Future, Responding to Opportunity” says generative AI makes content easy to produce. What order of effect is this?",
+            "options": [
+              "Second-order effect",
+              "First-order effect",
+              "Third-order effect",
+              "Long-tail effect"
+            ],
+            "answer": 1,
+            "explain": "The book calls fast production of posts and images the most obvious first-order effect; spam floods and consumers turning to filtering agents are the second-order effect.",
+            "source": "Reading the Future, Responding to Opportunity"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Get Past the Assistant First",
+        "text": "When messages are blocked by default, your info must be clear enough for a bot to pass along."
+      }
+    },
+    {
+      "id": "s2023_05",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_06"
+      ],
+      "title": "An AI Host Takes the Stall",
+      "locationId": "night_market",
+      "giver": "n2023_hua",
+      "time": "night",
+      "brief": "An e-commerce firm wants Big Sis Hua, a Linginger St. Night Market livestream seller, as the face of a 24/7 AI host. Counting mics behind her stall, she weighs signing.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2023_hua",
+              "text": "{role}, they say AI me won't get tired or hoarse, and can sell pots at 3 AM."
+            },
+            {
+              "who": "n2023_hua",
+              "text": "They'd give me a 10% cut. The catch: I go live less, so I don't steal the AI's customers."
+            },
+            {
+              "who": "player",
+              "text": "Do your regulars come to buy, or to chat with you?"
+            },
+            {
+              "who": "n2023_hua",
+              "text": "Both. One auntie buys the same loofah sponge every time, just to banter for ten minutes."
+            },
+            {
+              "who": "n2023_hua",
+              "text": "But I'm fifty now. My throat really does hurt."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should Big Sis Hua answer the e-commerce firm?",
+          "options": [
+            {
+              "text": "Sign: the AI host streams 24/7, Big Sis Hua takes the cut and goes live less.",
+              "effects": {
+                "sales": 5,
+                "trust": -3,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "Month one, revenue doubles, mostly after midnight. The loofah auntie comments, “Big Sis Hua, why don't you answer me anymore?” The AI replies with a heart.",
+              "insight": "The book says that by 2030, more real “human-made” commercial value will be prized by consumers amid massive data. Beyond the book: AI's convenience won't replace the warmth people seek in interaction.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Split it: AI covers late-night product info and orders; Big Sis Hua still hosts and chats at 8 PM.",
+              "effects": {
+                "sales": 4,
+                "trust": 4,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "The contract takes three rewrites. AI takes overnight orders; 8 PM is still Big Sis Hua, who opens with: “It's really me, not AI!” The chat fills with LOLs.",
+              "insight": "The book cites “Built to Last”: visionary companies preserve the core and stimulate progress. Facing AI, core values stay, but strategy, structure, and division of work must adapt.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Don't sign, but make the stream more of a show: a surprise every night so people come for the fun.",
+              "effects": {
+                "brand": 5,
+                "trust": 3,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "Each night Big Sis Hua has one viewer “pick what we sell today”; one night it's a used bike. Revenue doesn't double, but viewers climb steadily.",
+              "insight": "The book says shopping is more than buying; it's entertainment too. Brands that break from the best-fit recommendation with well-placed surprises feel more human than algorithms.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Citing “Built to Last,” what does “The New AI Shopper” call the fundamental trait of visionary companies?",
+            "options": [
+              "Pursue scale and cut costs",
+              "Focus on perfecting one product",
+              "Preserve the core and stimulate progress",
+              "Quickly follow market leaders"
+            ],
+            "answer": 2,
+            "explain": "Visionary companies' fundamental trait is to “preserve the core and stimulate progress”: core values hold against trends, while strategy and structure must change.",
+            "source": "The New AI Shopper"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Keep the Core, Push Progress",
+        "text": "AI can take the late-night orders, but the person customers come for still has to be there."
+      }
+    },
+    {
+      "id": "s2023_06",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_07"
+      ],
+      "title": "Like Ants Biting My Bones",
+      "locationId": "gamadiam",
+      "giver": "grandma",
+      "time": "afternoon",
+      "brief": "A joint-health brand wants AI health videos to show the young how much elders' knees hurt. Rubbing her knee outside the general store, Ama says her pain can't be drawn.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "grandma",
+              "text": "Kiddo, you're saying that computer can draw how my knee hurts?"
+            },
+            {
+              "who": "player",
+              "text": "We can try. Ama, what does the pain feel like?"
+            },
+            {
+              "who": "grandma",
+              "text": "Mornings, it's like ants biting inside the bone. Going downstairs, like a needle poking."
+            },
+            {
+              "who": "grandma",
+              "text": "I tell your mom, and she just says, “That's getting old.” So I stopped telling her."
+            },
+            {
+              "who": "grandma",
+              "text": "If it's drawn out and she gets it, I won't have to explain every time."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should the health video be made?",
+          "options": [
+            {
+              "text": "Have AI generate a slick 3D animation of the joint, with a doctor narrating.",
+              "effects": {
+                "brand": 3,
+                "sales": 2,
+                "trust": -2,
+                "liver": 3
+              },
+              "feedback": "The animation is polished and the medical terms are correct. Ama watches and says, “That's somebody else's knee.” Completion rate: under 20%.",
+              "insight": "Beyond the book: its cases all start from real people. AI can make visuals fast and beautiful, but without patients' own words, it's just a textbook.",
+              "roleBonus": {
+                "media": {
+                  "brand": 2
+                }
+              }
+            },
+            {
+              "text": "Real words: ask fifty elders to describe their pain; turn their phrases into AI prompts and images.",
+              "effects": {
+                "trust": 6,
+                "brand": 4,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "You visit three community centers and collect “like ants biting,” “like a rusty door,” “like walking in wet socks.” Each segment shows its quote; Ama's comes first.",
+              "insight": "From the book: Horizon Therapeutics used social listening to gather gout patients' real descriptions, then had AI turn them into images. It won a Silver Lion at Cannes 2023, letting others see that pain.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Let elders use it: a simple app where Ama types a few words and AI makes a card for the family.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "sales": 2,
+                "liver": 6
+              },
+              "feedback": "The app takes a month, with text at max size. Ama's first card reads, “My knee is raining today.” Your mom calls, and they talk for forty minutes.",
+              "insight": "The book cites Vivo's “Journey of Autism”: people on the autism spectrum type simple words to generate personal cards that voice their thoughts—AI speaking for those who struggle to express themselves.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Horizon Therapeutics' work turning gout patients' descriptions into images won what at the 2023 Cannes Lions?",
+            "options": [
+              "Silver Lion",
+              "Grand Prix",
+              "Gold Lion",
+              "Bronze Lion"
+            ],
+            "answer": 0,
+            "explain": "The book says this work, “The Outside Trial: Wasp,” won a Silver Lion at Cannes Lions 2023.",
+            "source": "Human-Machine Collaboration Defines New Value"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "AI Speaks for the Unheard",
+        "text": "In good human-AI teamwork, real people are the material; AI makes them seen."
+      }
+    },
+    {
+      "id": "s2023_07",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_08"
+      ],
+      "title": "Third Fragrance Shortage",
+      "locationId": "client_hq",
+      "giver": "n2023_gao",
+      "time": "afternoon",
+      "brief": "Bubbles Be Gone's lemon fragrance is out of stock again, third time this month. In his Taipei Wun-Zero-Wun lab, R&D manager Dr. Kao reads an AI vendor's deck, frowning.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2023_gao",
+              "text": "{role}, the fragrance is out. I need a substitute without blowing cost or foam."
+            },
+            {
+              "who": "n2023_gao",
+              "text": "The vendor says AI can give me a new formula in three days. We used to need a month."
+            },
+            {
+              "who": "player",
+              "text": "What data will it use?"
+            },
+            {
+              "who": "n2023_gao",
+              "text": "Good question. Twenty years of lab records: half handwritten, half on ex-colleagues' PCs."
+            },
+            {
+              "who": "n2023_gao",
+              "text": "Also, marketing wants to train it on what customers told support. Can we use that?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What should Dr. Kao do first?",
+          "options": [
+            {
+              "text": "Run substitute formulas through AI now, get results in three days, and fix the shortage first.",
+              "effects": {
+                "sales": 4,
+                "trust": -2,
+                "brand": -2,
+                "liver": 4
+              },
+              "feedback": "AI really does deliver five formulas in three days, but two have the costs wrong—it read raw material prices from ten years ago. Fighting one fire starts another.",
+              "insight": "The book notes that whether analysis is done by people or AI, it faces “garbage in, garbage out”; only quality data lets an AI system keep giving experts insight.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Data first: digitize lab records; decide if support data can be used and how to tell customers.",
+              "effects": {
+                "trust": 6,
+                "brand": 2,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "This shortage gets patched the old way. Three months on the data's done; next shortage, AI finds a workable substitute in an afternoon. Dr. Kao tapes it to the lab door.",
+              "insight": "The book warns to manage data privacy and prepare quality data before using generative AI. One luxury brand reportedly spent €15M on a data campus in Portugal, staffed by 250.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Seat R&D with marketing: AI puts formula changes in plain words so marketing knows what to pitch.",
+              "effects": {
+                "brand": 4,
+                "trust": 3,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "At the first joint meeting, marketing finally gets “surfactant ratio adjustment” and coins “New formula: less scent, more clean.” Dr. Kao: “Marketing actually listened.”",
+              "insight": "The book says one plus of generative AI is bridging expertise gaps: hard-to-read data and formulas become plain text and dialogue, speeding up configuration and testing.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "Using household cleaning as an example, “On the Industry Front Line” says generative AI can “lower risk.” What does that mean?",
+            "options": [
+              "R&D staff can all be laid off",
+              "No need to manage data and privacy",
+              "New formulas will launch first try",
+              "Suggesting substitutes when materials run short"
+            ],
+            "answer": 3,
+            "explain": "Formulas get tweaked and tested fast; when materials run short, AI suggests substitutes to cut shortage risk. Data first: one luxury brand spent €15M on a data campus.",
+            "source": "On the Industry Front Line: New Takes on Generative AI"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Garbage In, Garbage Out",
+        "text": "However fast AI computes, feed it messy data and it just gets things wrong faster."
+      }
+    },
+    {
+      "id": "s2023_08",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_09"
+      ],
+      "title": "Fake Meme at the Stir-Fry Table",
+      "locationId": "rechao",
+      "giver": "ae_mei",
+      "time": "night",
+      "brief": "At an after-work dinner, Mei-ling's phone won't stop buzzing: a viral AI image shows the client's sparkling water making drinkers “glow.” Some laugh; some believe it.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "ae_mei",
+              "text": "{role}, look at this. Our sparkling water, and the drinker's whole face is glowing."
+            },
+            {
+              "who": "ae_mei",
+              "text": "Over 20,000 shares. Half are laughing, half are asking if we add fluorescent dye."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "Eat first? The clams with loofah are no good cold."
+            },
+            {
+              "who": "player",
+              "text": "What does the client say?"
+            },
+            {
+              "who": "ae_mei",
+              "text": "The boss wants AI to write a statement and post it tonight. Says that's fastest."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How do you respond tonight?",
+          "options": [
+            {
+              "text": "Run with the meme: repost from the official account with “We glow because we're in a good mood.”",
+              "effects": {
+                "brand": 5,
+                "sales": 2,
+                "trust": -3,
+                "liver": 4
+              },
+              "feedback": "The comments go wild and buzz spikes again. Next day a parent calls support about ingredients, and the rep can't answer: nobody told her the brand was joking.",
+              "insight": "The book cites the meme of the Pope in a puffer jacket, which happened to benefit a luxury brand, but notes it shows brands have less and less control over how their products are portrayed.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Trace the source; post a human-written note with test results and real photos; set reply rules.",
+              "effects": {
+                "trust": 6,
+                "brand": 3,
+                "sales": -2,
+                "liver": 6
+              },
+              "feedback": "You rework the draft outside the stir-fry joint until 11. The clams really do go cold. The top comment: “Most human-sounding brand statement I've ever seen.”",
+              "insight": "The book advises stronger social listening and online monitoring to catch crises early, plus a PR plan for when generative AI misuses or abuses your product; quality content is the most basic line of defense.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Do what the boss says: have AI generate a statement and post it within five minutes.",
+              "effects": {
+                "sales": 2,
+                "trust": -4,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "The statement is fast and tidy, ending “Thank you for your valuable feedback.” People screenshot it: “Even the apology is AI?” The second wave beats the first.",
+              "insight": "The book notes a university that used ChatGPT to write a condolence letter after a campus tragedy, striking a nerve; whoever makes the content, a company must keep its ability to communicate and judge what to say.",
+              "roleBonus": {
+                "media": {
+                  "sales": 2
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "When generative AI misuses or abuses a product, what does “The AI Shift from Content to Communication” advise companies to do?",
+            "options": [
+              "Boost social listening and monitoring; set PR rules",
+              "Ban staff from AI and close social comments",
+              "Outspend the buzz with ads and wait it out",
+              "Sue every remixer and demand takedowns"
+            ],
+            "answer": 0,
+            "explain": "Step up social listening and monitoring to catch crises; set PR rules for misuse to cut uncertainty. The chapter adds that chatting with Bing AI tripled search time.",
+            "source": "The AI Shift from Content to Communication"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Crises Need a Human Reply",
+        "text": "AI makes rumors cheap, so a brand's reply must clearly read as human-written."
+      }
+    },
+    {
+      "id": "s2023_09",
+      "year": 2023,
+      "chapterIds": [
+        "c2023_11"
+      ],
+      "title": "That Voice Isn't Me",
+      "locationId": "studio",
+      "giver": "cd_wei",
+      "time": "evening",
+      "brief": "A voice actor finds a client cloned her voice with AI to cut a second ad without paying. Wei takes her call at the studio, then turns to ask you how to handle it.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "cd_wei",
+              "text": "{role}, Fang says she never recorded last week's narration. But it's her voice."
+            },
+            {
+              "who": "cd_wei",
+              "text": "The client says they bought “voice rights,” and AI takes don't count as new work."
+            },
+            {
+              "who": "player",
+              "text": "What does the contract say?"
+            },
+            {
+              "who": "cd_wei",
+              "text": "It's three years old. Back then, who'd have guessed a voice could be cloned?"
+            },
+            {
+              "who": "cd_wei",
+              "text": "Worse, someone online is already using her voice for scam calls."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you advise Wei to do?",
+          "options": [
+            {
+              "text": "Protect the client relationship: quietly pay the voice actor extra and keep it from blowing up.",
+              "effects": {
+                "trust": -2,
+                "sales": 3,
+                "brand": -3,
+                "liver": 3
+              },
+              "feedback": "She takes the money and says nothing. Three months later she posts a long piece online. No names, but the industry knows. Two voice actors then turn down your jobs.",
+              "insight": "The book names misinformation and “information inflation” among the AI era's biggest threats. Beyond the book: when voices and faces are easy to fake, trust becomes the scarcest resource.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 2
+                }
+              }
+            },
+            {
+              "text": "Change the rules: AI disclosure clauses in all contracts, traceable voices, cloning paid separately.",
+              "effects": {
+                "trust": 6,
+                "brand": 3,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "Legal reworks contracts through the weekend, and the client grumbles it's slower. But after the first new contract is signed, three voice actors ask to work with you.",
+              "insight": "The book argues the key to information inflation is giving information a trading platform and shared value—e.g., blockchain signing, verification, and payment—so real messages can be traced.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Have her re-record it herself, and end the spot with “Narrated by a real human” as a brand stance.",
+              "effects": {
+                "brand": 5,
+                "trust": 4,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "After the session, she stays to review the new contract with Wei line by line. The end card gets screenshotted and shared; one comment: “These days, human is a label.”",
+              "insight": "The book says that for decades to come, motive is the main difference between humans and AI, and AI's empathy will never surpass ours.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "According to “Humans and Machines, Hand in Hand Toward a New Future,” what is the main difference between humans and AI for decades to come?",
+            "options": [
+              "Computing speed",
+              "Memory capacity",
+              "Language ability",
+              "Motive"
+            ],
+            "answer": 3,
+            "explain": "The author believes that for at least the foreseeable decades, our main difference from AI is “motive,” so people should reflect harder on their own motives and passions.",
+            "source": "Humans and Machines, Hand in Hand Toward a New Future"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Being Human Is a Label Now",
+        "text": "When anything can be synthesized, traceable truth is worth the most."
+      }
+    }
+  ]
+}

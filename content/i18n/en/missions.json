@@ -1,0 +1,1139 @@
+[
+  {
+    "id": "m2018",
+    "year": 2018,
+    "order": 1,
+    "clock": "08:30",
+    "title": "The Last-Mile Station Billboard",
+    "locationId": "mrt",
+    "giver": "client_wu",
+    "brief": "A coffee chain's new hot Americano launches next week, and the owner wants the MRT City Hall Station billboard. Three quotes, three prices. Does anyone even look at it?",
+    "splash": "book_2018",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "client_wu",
+            "text": "Morning, {role}! Our hot Americano drops next week. Boss wants City Hall Station."
+          },
+          {
+            "who": "client_wu",
+            "text": "Three vendors, three quotes, and I'm still waiting to hear back about open slots."
+          },
+          {
+            "who": "player",
+            "text": "Let's figure out where people actually look in the morning, then decide how big to go."
+          },
+          {
+            "who": "client_wu",
+            "text": "My boss only wants to know one thing: does anyone actually look at billboards?"
+          },
+          {
+            "who": "client_wu",
+            "text": "City Hall Bus Terminal empties out by nine. Walk the station and tell me how to spend it."
+          },
+          {
+            "who": "data_kai",
+            "text": "I'm at A25 waiting on your first page. The City Hall crowd's gone by nine, so move."
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "The budget only covers one month. How do we spend it at City Hall Station?",
+        "options": [
+          {
+            "text": "Take the whole wall in the passage to City Hall Bus Terminal for one big, photo-worthy visual.",
+            "effects": {
+              "brand": 10,
+              "sales": 3,
+              "trust": 3,
+              "liver": 6
+            },
+            "feedback": "The day after it goes up, the wall is all over text-post apps and Manager Wu's boss is thrilled. Store visits barely budge, and finance asks how the wall pays off.",
+            "insight": "The 2018 book notes that Taiwan's public transit ridership grew 86% in ten years, yet OOH's share of ad spend fell. The bottlenecks: measurement, automated trading, and dynamic delivery.",
+            "roleBonus": {
+              "creative": {
+                "brand": 5
+              },
+              "planner": {
+                "brand": 3
+              }
+            }
+          },
+          {
+            "text": "Go digital and use foot-traffic data to pick slots: hot coffee at dawn, takeout when it rains.",
+            "effects": {
+              "brand": 3,
+              "sales": 9,
+              "trust": 4,
+              "liver": 5
+            },
+            "feedback": "At 7:30 the screens show hot Americano; when afternoon rain hits, they flip to a takeout deal. Daily reports, but you babysit the schedule and eat breakfast at ten.",
+            "insight": "The book names three keys for Taiwan's outdoor ads to evolve: measurement, automated trading, and dynamic delivery. Dentsu Japan found digital already makes up nearly 40% of OOH worldwide.",
+            "roleBonus": {
+              "media": {
+                "sales": 5
+              },
+              "data": {
+                "trust": 4
+              }
+            }
+          },
+          {
+            "text": "Buy one billboard: scan to add us on LINE for a coffee coupon, then steer them to a nearby store.",
+            "effects": {
+              "brand": 4,
+              "sales": 7,
+              "trust": 6,
+              "liver": 3
+            },
+            "feedback": "The board is small, but the scan line runs from the City Hall Station exit to the store. Three days on, Manager Wu texts: 1,000+ new friends. The next campaign's yours.",
+            "insight": "Dentsu Japan research: OOH plus mobile ads gets 2.2 times the ad recall of mobile alone. Posterscope research also finds 83% of shoppers saw an OOH ad in the 30 minutes before shopping.",
+            "roleBonus": {
+              "cx": {
+                "sales": 4
+              },
+              "ae": {
+                "trust": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2018_04",
+          "q2018_05"
+        ]
+      }
+    ],
+    "reward": {
+      "brand": 1,
+      "sales": 2,
+      "trust": 1,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2019",
+    "year": 2019,
+    "order": 2,
+    "clock": "10:00",
+    "title": "The Data Says Sales Dropped",
+    "locationId": "office",
+    "giver": "boss_lin",
+    "brief": "A third-party report says searches for the client's foot cream have plunged, and HQ wants to boost ad spend right now. But is the report seeing the whole picture?",
+    "splash": "book_2019",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "boss_lin",
+            "text": "{role}, HQ at “Itch Be Gone” is on the phone, and they're in a hurry."
+          },
+          {
+            "who": "boss_lin",
+            "text": "A third-party report says search and online buzz both dropped. It says boost ads now."
+          },
+          {
+            "who": "data_kai",
+            "text": "The report only sees searches dropping. It's been sunny. Maybe nobody has athlete's foot?"
+          },
+          {
+            "who": "boss_lin",
+            "text": "Big data shows what's on the surface, not always the truth. Give me an answer by noon."
+          },
+          {
+            "who": "boss_lin",
+            "text": "The Corner Convenience Store on Songshou Rd. sells it. Ask the clerk who's buying lately."
+          }
+        ]
+      },
+      {
+        "type": "goto",
+        "locationId": "convenience",
+        "hint": "Songshou Rd. Corner Convenience Store: who's buying Itch Be Gone?",
+        "timeLimitSec": 100
+      },
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "clerk_ning",
+            "text": "“Itch Be Gone”? Barely anyone bought it last month, then this week a whole shelf sold out."
+          },
+          {
+            "who": "player",
+            "text": "Why's it suddenly selling so well this week?"
+          },
+          {
+            "who": "clerk_ning",
+            "text": "Five days of rain! Everyone's shoes are soaked. One uncle says his stuffy rain boots itch."
+          },
+          {
+            "who": "clerk_ning",
+            "text": "And lots of the older folks just come in and grab it. They never look anything up online."
+          },
+          {
+            "who": "clerk_ning",
+            "text": "A woman in a suit asked the same thing earlier, too. Said she was from another agency."
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "Before heading back to A25, what do you tell HQ?",
+        "options": [
+          {
+            "text": "Follow the report: boost search and social ads and win the buzz back first.",
+            "effects": {
+              "sales": 8,
+              "brand": 3,
+              "trust": -3,
+              "liver": 3
+            },
+            "feedback": "Ads go up, searches bounce back fast, and HQ breathes easier. Two weeks later the rain stops, the extra spend never brings matching sales, and finance starts asking.",
+            "insight": "The book warns of the “caveman effect”: draw conclusions only from the data that survives, and it's easy to mistake the surface for the truth. Big data isn't all the data.",
+            "roleBonus": {
+              "media": {
+                "sales": 4
+              }
+            }
+          },
+          {
+            "text": "Add weather data, rerun the model, and prove searches move with the number of rainy days.",
+            "effects": {
+              "sales": 4,
+              "trust": 8,
+              "brand": 3,
+              "liver": 5
+            },
+            "feedback": "Ah-Kai lays three years of rainy days over the search curve, and the lines nearly match. HQ drops the extra spend and asks about prepping for next year's rainy season.",
+            "insight": "In the book's nail-fungus drug case, a consultant's report said fewer people had symptoms. That year simply had nearly 30% fewer rainy days than the last. The report missed the local environment.",
+            "roleBonus": {
+              "data": {
+                "trust": 5
+              }
+            }
+          },
+          {
+            "text": "Hit ten stores for exit interviews and a short survey, so buyers who never go online count too.",
+            "effects": {
+              "trust": 6,
+              "brand": 6,
+              "sales": 3,
+              "liver": 8
+            },
+            "feedback": "You and a coworker split ten stores; your shoes end up as wet as their feet. Many buyers never search online. For the first time, HQ sees its customers clearly.",
+            "insight": "The book argues big data has to be paired with sample surveys, retail interviews, and small data to see the people who leave no footprint online.",
+            "roleBonus": {
+              "planner": {
+                "brand": 4
+              },
+              "ae": {
+                "trust": 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2019_11",
+          "q2019_12"
+        ]
+      }
+    ],
+    "reward": {
+      "brand": 1,
+      "sales": 2,
+      "trust": 1,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2020",
+    "year": 2020,
+    "order": 3,
+    "clock": "11:30",
+    "title": "Cookie Countdown",
+    "locationId": "client_hq",
+    "giver": "client_chen",
+    "brief": "Third-party cookies die within two years, but your pandemic-hit client wants the whole year's budget on traffic. At the budget meeting before noon, who do you win over?",
+    "splash": "book_2020",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "client_chen",
+            "text": "With the pandemic, my boss says put it all into traffic. Sales you can see are what count."
+          },
+          {
+            "who": "client_chen",
+            "text": "But I hear cookies are going away? Will we still find the audiences we're buying now?"
+          },
+          {
+            "who": "rival_vicky",
+            "text": "{role}, us again. We pitched one last week too: all traffic, beautiful reports."
+          },
+          {
+            "who": "player",
+            "text": "They'll keep getting harder to find. How much of your own member data do you have?"
+          },
+          {
+            "who": "client_chen",
+            "text": "30,000+ LINE friends, but the data's split across stores, online, and support. Unmatched."
+          },
+          {
+            "who": "client_chen",
+            "text": "Last year's orders are at the Lanshan Plaza data lab. {role}, want a look first?"
+          }
+        ]
+      },
+      {
+        "type": "goto",
+        "locationId": "datalab",
+        "hint": "Go to Lanshan Plaza Data Lab and see if the client's data is usable"
+      },
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "data_kai",
+            "text": "Checked the order files. One person has three IDs: in store, on the site, on LINE."
+          },
+          {
+            "who": "data_kai",
+            "text": "I spend three days a week cleaning data. Barely any time left for actual modeling."
+          },
+          {
+            "who": "data_kai",
+            "text": "Matching them isn't impossible, but it's a real project, not something a tool fixes."
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "The budget meeting starts in ten minutes. What's your proposal?",
+        "options": [
+          {
+            "text": "Go along with the boss: all traffic ads, and prop up this quarter's sales first.",
+            "effects": {
+              "sales": 10,
+              "brand": -4,
+              "trust": 3,
+              "liver": 3
+            },
+            "feedback": "Sales hold up this quarter, and the boss thanks you by name in the meeting. But audiences get pricier every month, and you know this trick won't work next year.",
+            "insight": "The book notes that in early 2020, Google announced Chrome, with nearly 70% share in Taiwan, would phase out third-party cookies. Buying traffic on third-party audiences is a road that keeps narrowing.",
+            "roleBonus": {
+              "media": {
+                "sales": 4
+              }
+            }
+          },
+          {
+            "text": "Put 30% into LINE tagging and member linking, so stores and e-commerce see the same person.",
+            "effects": {
+              "sales": 5,
+              "trust": 7,
+              "brand": 4,
+              "liver": 5
+            },
+            "feedback": "Stores start asking shoppers to link LINE, and in week one people complain it's too many steps. You switch to a free sample at checkout, and the link rate slowly climbs.",
+            "insight": "A case from the book: isobar brought Salesforce and a new membership program to 10/10. First week: 8,880 LINE friends and a 74.61% member link rate.",
+            "roleBonus": {
+              "cx": {
+                "trust": 5
+              }
+            }
+          },
+          {
+            "text": "Propose a CDP, make customer lifetime value the yearly goal, and count brand and performance apart.",
+            "effects": {
+              "brand": 8,
+              "trust": 4,
+              "sales": -3,
+              "liver": 8
+            },
+            "feedback": "The boss's face falls at “sales won't improve right away this year,” but the lifetime value math wins out. You spend the next three months in cross-department meetings.",
+            "insight": "The book cites Adidas: after finding 65% of sales came from brand campaigns, it shifted its brand-to-performance budget from 23:77 to 60:40. Don't let short-term, visible results lead you around.",
+            "roleBonus": {
+              "data": {
+                "brand": 4
+              },
+              "planner": {
+                "brand": 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2020_05",
+          "q2020_10"
+        ]
+      },
+      {
+        "type": "cutscene",
+        "video": "to_noon"
+      }
+    ],
+    "reward": {
+      "brand": 1,
+      "sales": 2,
+      "trust": 1,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2021",
+    "year": 2021,
+    "order": 4,
+    "clock": "13:00",
+    "title": "An Ad That Doesn't Sell the Product",
+    "locationId": "studio",
+    "giver": "cd_wei",
+    "brief": "A realty client wants a pandemic brand film; its sales team wants every service perk in 30 seconds. The Chillshan Creative Park studio is only ours until 4 PM.",
+    "splash": "book_2021",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "cd_wei",
+            "text": "Perfect timing, {role}. “Elephant Mountain View Realty” changed the script again."
+          },
+          {
+            "who": "cd_wei",
+            "text": "They want seven service promises in 30 seconds, plus the hotline number at the end."
+          },
+          {
+            "who": "player",
+            "text": "Which one will viewers actually remember?"
+          },
+          {
+            "who": "cd_wei",
+            "text": "None. I want newlyweds outside the registry office. The house is on screen for one second."
+          },
+          {
+            "who": "cd_wei",
+            "text": "But the client asks: how do they explain an ad that doesn't sell the product to the boss?"
+          },
+          {
+            "who": "cd_wei",
+            "text": "Nail this and page four of tonight's pitch is done. Your call."
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "The studio goes back at four. Which version do we shoot today?",
+        "options": [
+          {
+            "text": "Use the sales team's script: all seven service promises spelled out, hotline at the end.",
+            "effects": {
+              "sales": 6,
+              "trust": 6,
+              "brand": -4,
+              "liver": 3
+            },
+            "feedback": "The client signs off on the spot and you wrap early. The film lands as perfectly average; the top comment asks what hours the hotline is staffed.",
+            "insight": "The book says that after the pandemic, consumers hold brands to “higher expectations,” and authenticity and trust are the new edge. A list of selling points is hard to remember.",
+            "roleBonus": {
+              "ae": {
+                "trust": 4
+              }
+            }
+          },
+          {
+            "text": "Tell a consumer story: shoot the couple, keep the house in the background, brand only at the end.",
+            "effects": {
+              "brand": 12,
+              "trust": 3,
+              "sales": -3,
+              "liver": 6
+            },
+            "feedback": "When the director calls cut, even the lighting crew is wiping their eyes. A week in, viewers say they only knew it was a realty ad at the end, and shares keep climbing.",
+            "insight": "A case from the book: Sinyi Realty's “Trust and Happiness” deliberately sold nothing. Positive post-test lift hit 70%, versus past KPIs of 20 to 30%. It also won Taiwan's first Cannes Grand Prix.",
+            "roleBonus": {
+              "creative": {
+                "brand": 5
+              },
+              "planner": {
+                "brand": 3
+              }
+            }
+          },
+          {
+            "text": "Shoot both, cut one of each, run a small test, and let the data pick the hero spot.",
+            "effects": {
+              "brand": 5,
+              "sales": 5,
+              "trust": 4,
+              "liver": 9
+            },
+            "feedback": "You and the editor work past midnight on two cuts. The story cut wins on likability, the selling-point cut on clicks. After the report, the client lets the story lead.",
+            "insight": "The book warns against mistaking “the surface” in data for “the truth”: high clicks don't mean high trust. What matters is whether viewers feel differently about the brand.",
+            "roleBonus": {
+              "data": {
+                "trust": 4
+              },
+              "media": {
+                "sales": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2021_07",
+          "q2021_10"
+        ]
+      }
+    ],
+    "reward": {
+      "brand": 2,
+      "sales": 1,
+      "trust": 1,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2022",
+    "year": 2022,
+    "order": 5,
+    "clock": "14:30",
+    "title": "Are Green Products Really Pricier?",
+    "locationId": "department",
+    "giver": "client_hsu",
+    "brief": "Your client's eco refills are out, but the Shin Kong Mitsuki counter says shoppers only see price. How do you get people to pay a bit more without cries of greenwashing?",
+    "splash": "book_2022",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "client_hsu",
+            "text": "Look, {role}. In a whole week, the refills sold less than half what the bottles did."
+          },
+          {
+            "who": "client_hsu",
+            "text": "I know we need ESG, but shoppers only ask how much more the green one costs."
+          },
+          {
+            "who": "player",
+            "text": "Do shoppers think it's too pricey, or too much hassle?"
+          },
+          {
+            "who": "client_hsu",
+            "text": "Both, I guess. What the counter hears most: refills mean pouring it yourself. What a pain."
+          },
+          {
+            "who": "client_hsu",
+            "text": "My boss wants a plan next week. And don't let anyone say we're greenwashing. Please."
+          },
+          {
+            "who": "rival_vicky",
+            "text": "Manager Hsu, our proposal comes tomorrow. {role}, see you at the pitch tonight."
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "The plan is due next week. Which path do you lead with?",
+        "options": [
+          {
+            "text": "Let price do the talking: second refill half off, plus a limited-time online discount.",
+            "effects": {
+              "sales": 10,
+              "brand": -3,
+              "trust": 3,
+              "liver": 3
+            },
+            "feedback": "Refills sell out over the weekend and Manager Hsu is delighted. Once the promo ends, sales drop right back, and someone on social asks: does green only count on sale?",
+            "insight": "The book cites a Kantar survey: 85% of Taiwanese think eco products cost more, and 76% don't act because of convenience and cost. Price is a barrier, but not the whole story.",
+            "roleBonus": {
+              "media": {
+                "sales": 4
+              }
+            }
+          },
+          {
+            "text": "Do the math for shoppers: plastic and money saved per refill, printed on the shelf and the pack.",
+            "effects": {
+              "brand": 6,
+              "trust": 9,
+              "sales": 3,
+              "liver": 5
+            },
+            "feedback": "Three days of number-crunching, and the new pack hits shelves by month's end. Shoppers read it closely. At last, says the counter, someone asks about more than discounts.",
+            "insight": "In the same survey, 71% said brands don't give them enough information. The book cites secondhand fashion site ThredUp, which says buying one pair of used jeans saves 638 days of drinking water.",
+            "roleBonus": {
+              "planner": {
+                "brand": 4
+              },
+              "data": {
+                "trust": 4
+              }
+            }
+          },
+          {
+            "text": "Get shoppers involved: return empties at the counter for points, and host a refill station monthly.",
+            "effects": {
+              "brand": 9,
+              "trust": 5,
+              "sales": 3,
+              "liver": 7
+            },
+            "feedback": "The first refill day's line runs from the counter to Xiangti Avenue, kids racing to help moms pour. But staffing it monthly stretches the counter and your weekends thin.",
+            "insight": "The book cites IKEA, which encourages customers to resell and recycle instead of buying, so they live out the brand's sustainability stance together.",
+            "roleBonus": {
+              "cx": {
+                "trust": 4
+              },
+              "creative": {
+                "brand": 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2022_06",
+          "q2022_08"
+        ]
+      }
+    ],
+    "reward": {
+      "brand": 1,
+      "sales": 1,
+      "trust": 2,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2023",
+    "year": 2023,
+    "order": 6,
+    "clock": "16:00",
+    "title": "Spot the Sixth Finger",
+    "locationId": "datalab",
+    "giver": "data_kai",
+    "brief": "A drink stand's posters for a new drink are all AI-generated and go live at 8 AM tomorrow. Today at Lanshan Plaza, you're the last checkpoint.",
+    "splash": "book_2023",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "data_kai",
+            "text": "{role}, AI made the “No-Overtime Milk Tea” posters. Forty, live 8 AM tomorrow."
+          },
+          {
+            "who": "cd_wei",
+            "text": "Three in, I had a headache. The hand next to the milk tea: count the fingers."
+          },
+          {
+            "who": "player",
+            "text": "…Six."
+          },
+          {
+            "who": "cd_wei",
+            "text": "One has a sign for a shop that doesn't exist. One looks a lot like a certain illustrator."
+          },
+          {
+            "who": "data_kai",
+            "text": "Their boss says AI is fast, so don't stall. With good prompts, a rerun takes half an hour."
+          },
+          {
+            "who": "cd_wei",
+            "text": "Word is the rival's nine pages tonight are all AI. We at least can't have six fingers."
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "Sixteen hours to launch. What do you do with these posters?",
+        "options": [
+          {
+            "text": "Reject them all and have the designers redraw. Not one AI poster goes live.",
+            "effects": {
+              "brand": 8,
+              "trust": 4,
+              "sales": -4,
+              "liver": 9
+            },
+            "feedback": "The designers pull an all-nighter and the posters go live on time, clean and fully on-brand. The client's boss grumbles: so we bought AI tools just for the heartache?",
+            "insight": "The book says people with no art background can sketch with prompts, but AI makes “six fingers” and fakes what it doesn't know. Taste and quality control still take people.",
+            "roleBonus": {
+              "creative": {
+                "brand": 5
+              }
+            }
+          },
+          {
+            "text": "Three human checks: fingers and text, shop names, infringement. Only what passes goes live.",
+            "effects": {
+              "trust": 9,
+              "brand": 5,
+              "sales": 3,
+              "liver": 5
+            },
+            "feedback": "Eleven of the forty get cut; the rest are fixed and go live on time. Ah-Kai saves the checklist as a template and says next time you just reuse it.",
+            "insight": "The book warns that fake content and infringement can badly hurt a brand. Tighten review and add AI disclosure clauses to contracts. Getty Images sued Stability AI for copying 12 million images.",
+            "roleBonus": {
+              "data": {
+                "trust": 4
+              },
+              "ae": {
+                "trust": 4
+              }
+            }
+          },
+          {
+            "text": "Post the twenty clean ones, use social listening to catch errors, and swap if anyone complains.",
+            "effects": {
+              "sales": 8,
+              "brand": -4,
+              "trust": -3,
+              "liver": 6
+            },
+            "feedback": "The drink launches on time to great first-day sales. At 10 PM someone circles the sixth finger by the cup, the comments turn into memes, and you reply all night.",
+            "insight": "The book warns that once content gets cheap, verification costs explode: telling real from fake used to take a second; in the AI era it may take a minute, even an hour.",
+            "roleBonus": {
+              "media": {
+                "sales": 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2023_11",
+          "q2023_12"
+        ]
+      },
+      {
+        "type": "cutscene",
+        "video": "to_evening"
+      }
+    ],
+    "reward": {
+      "brand": 1,
+      "sales": 1,
+      "trust": 2,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2024",
+    "year": 2024,
+    "order": 7,
+    "clock": "18:00",
+    "title": "Old Neighborhood Walking Map",
+    "locationId": "night_market",
+    "giver": "ae_mei",
+    "brief": "A clothing brand opens a flagship in the old streets by Linginger St. Night Market, with budget for one opening. Will the street come alive, or just for three days?",
+    "splash": "book_2024",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "ae_mei",
+            "text": "{role}, “One Less Piece” opens on Linginger Street next week. Budget for one launch."
+          },
+          {
+            "who": "vendor_cheng",
+            "text": "Another big store, huh? The last one had lines for three days. Day four, nobody."
+          },
+          {
+            "who": "ae_mei",
+            "text": "Ah-Cheng's with the business association. He knows who's close with who on this street."
+          },
+          {
+            "who": "vendor_cheng",
+            "text": "Walk to the Earth God shrine on Fude St. first. The old alley shops are this area's soul."
+          },
+          {
+            "who": "ae_mei",
+            "text": "Tonight's pitch needs a local page. Take care of the client and the neighbors both."
+          }
+        ]
+      },
+      {
+        "type": "goto",
+        "locationId": "temple",
+        "hint": "Walk the alleys to Fude St. Earth God Shrine. Note the old shops",
+        "timeLimitSec": 120
+      },
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "temple_uncle",
+            "text": "Young one, you made the walk. What did you see?"
+          },
+          {
+            "who": "player",
+            "text": "An ice shop, a watch shop, a 40-year-old fabric store, and afternoon-only tofu pudding."
+          },
+          {
+            "who": "temple_uncle",
+            "text": "These shops used to serve hundreds a night. Now young folks hit one stall and leave."
+          },
+          {
+            "who": "temple_uncle",
+            "text": "A big store here: will it pull people away, or bring the whole street some life?"
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "Back at the flagship. How do you spend the opening budget?",
+        "options": [
+          {
+            "text": "Go all in on the in-store launch: limited collab items and influencer livestreams for week one.",
+            "effects": {
+              "sales": 10,
+              "brand": 3,
+              "trust": -4,
+              "liver": 4
+            },
+            "feedback": "Opening day, the line reaches the Keelung Rd. corner and week-one sales break records. By week two the crowd's gone. The ice shop owner says the line blocked his door.",
+            "insight": "The book warns against chasing only short-term traffic and performance. A brand is the platform where all marketing investment accumulates, so do things that keep adding up.",
+            "roleBonus": {
+              "media": {
+                "sales": 4
+              }
+            }
+          },
+          {
+            "text": "Map the old alley shops, collab with the fabric store, and give a tofu pudding coupon with purchase.",
+            "effects": {
+              "brand": 11,
+              "trust": 5,
+              "sales": 3,
+              "liver": 7
+            },
+            "feedback": "You and Mei-ling go door to door; the watch shop owner lectures you 30 minutes. Once it's printed, someone walks it from the flagship to the Earth God shrine on Fude St.",
+            "insight": "A case from the book: UNIQLO's East District program teamed up with nearby shops, hit 105% of its sales target, and drew 2.2 times the prior year's visitors. 91% said the store would bring them to the area more.",
+            "roleBonus": {
+              "planner": {
+                "brand": 4
+              },
+              "creative": {
+                "brand": 4
+              }
+            }
+          },
+          {
+            "text": "Run a LINE stamp rally: visit five old shops for a discount, and build member data along the way.",
+            "effects": {
+              "sales": 6,
+              "trust": 6,
+              "brand": 4,
+              "liver": 5
+            },
+            "feedback": "Over a thousand join in week one, and the member list grows. But many older folks can't scan, so every day someone at an old shop is teaching seniors to add friends.",
+            "insight": "The book calls first-party and member data the core of the low-cookie era, and reminds you customer experience must be inclusive, looking after older customers and those with set shopping habits.",
+            "roleBonus": {
+              "cx": {
+                "trust": 4
+              },
+              "data": {
+                "sales": 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2024_02",
+          "q2024_03"
+        ]
+      }
+    ],
+    "reward": {
+      "brand": 2,
+      "sales": 1,
+      "trust": 1,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2025",
+    "year": 2025,
+    "order": 8,
+    "clock": "19:30",
+    "title": "Is TV Really Too Expensive?",
+    "locationId": "tvstation",
+    "giver": "tv_su",
+    "brief": "A food client's boss says TV costs too much and wants next year's budget all digital. The meeting is upstairs at Big Dawn Dome Broadcast Center in twenty minutes.",
+    "splash": "book_2025",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "tv_su",
+            "text": "{role}! Your client's boss is upstairs. He just said zero TV next year. Not a cent."
+          },
+          {
+            "who": "tv_su",
+            "text": "I'm not selling here, but half their customers are moms and elders cooking at home!"
+          },
+          {
+            "who": "player",
+            "text": "What's the boss's reasoning?"
+          },
+          {
+            "who": "tv_su",
+            "text": "He says digital reports show conversions, but with TV, nobody knows who's watching."
+          },
+          {
+            "who": "rival_vicky",
+            "text": "I just came down from upstairs. The boss is pretty set. Good luck, {role}."
+          },
+          {
+            "who": "tv_su",
+            "text": "20 minutes left. The Wuxing St. breakfast shop does late-night food. Ride over and look."
+          }
+        ]
+      },
+      {
+        "type": "goto",
+        "locationId": "breakfast",
+        "hint": "Wuxing St. Corner Breakfast Shop: what's everyone watching on TV?",
+        "timeLimitSec": 100
+      },
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "breakfast_auntie",
+            "text": "Everyone's glued to their phones now, but switch on the TV and they still look up."
+          },
+          {
+            "who": "breakfast_auntie",
+            "text": "That soy sauce ad just now? Three tables sang along together."
+          },
+          {
+            "who": "player",
+            "text": "Auntie, when you buy soy sauce, is it the phone or the TV that sways you?"
+          },
+          {
+            "who": "breakfast_auntie",
+            "text": "Who has time to scroll? I buy all the soy sauce at home. My grandson just eats!"
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "Before you head up, what proposal do you take into the room?",
+        "options": [
+          {
+            "text": "Go all digital like the boss wants, let conversion reports talk, and put the savings into promos.",
+            "effects": {
+              "sales": 9,
+              "trust": 4,
+              "brand": -5,
+              "liver": 3
+            },
+            "feedback": "The boss is pleased; the meeting's over in ten minutes. Six months on, new-product awareness stalls, and most conversions come from regulars who'd have bought anyway.",
+            "insight": "The book warns that digital ads aimed only at target groups miss people like “the elders who do the family shopping,” and algorithms favor whoever is easiest to convert.",
+            "roleBonus": {
+              "ae": {
+                "trust": 4
+              }
+            }
+          },
+          {
+            "text": "Keep broad-reach TV for the brand, use digital for younger groups, and show the boss the CPM math.",
+            "effects": {
+              "brand": 9,
+              "sales": 5,
+              "trust": 4,
+              "liver": 5
+            },
+            "feedback": "You write 48 and 80~250 on the whiteboard, and the boss stares at the numbers a long time. He says TV can stay, but results get reviewed every quarter.",
+            "insight": "Dentsu Group estimates that for audiences 30 and up, TV CPM runs about 48, while YouTube is usually 80~250. The book says the broader TV's reach, the lower its unit cost.",
+            "roleBonus": {
+              "media": {
+                "sales": 4
+              },
+              "planner": {
+                "brand": 4
+              }
+            }
+          },
+          {
+            "text": "Hold off. Run a brand study with a control group to see how many new customers TV really brings.",
+            "effects": {
+              "trust": 8,
+              "brand": 4,
+              "sales": -3,
+              "liver": 7
+            },
+            "feedback": "The boss gives you one quarter to test. Until results come in, the whole quarter's sales pressure sits in your weekly reports.",
+            "insight": "The book warns a good Brand Lift doesn't prove real impact. It may just “light up the people who already liked you.” Tell apart the ones who'd have bought anyway.",
+            "roleBonus": {
+              "data": {
+                "trust": 4
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2025_03",
+          "q2025_05"
+        ]
+      },
+      {
+        "type": "cutscene",
+        "video": "to_night"
+      }
+    ],
+    "reward": {
+      "brand": 1,
+      "sales": 2,
+      "trust": 1,
+      "liver": 0
+    }
+  },
+  {
+    "id": "m2026",
+    "year": 2026,
+    "order": 9,
+    "clock": "21:00",
+    "title": "Overtime Night in the Agentic Era",
+    "locationId": "office",
+    "giver": "boss_lin",
+    "brief": "A client's AI returns agent made a customer angrier and angrier; screenshots are already on social. How far can an agent decide alone, and when should a human take over?",
+    "splash": "book_2026",
+    "steps": [
+      {
+        "type": "dialogue",
+        "lines": [
+          {
+            "who": "boss_lin",
+            "text": "{role}, still at A25? Support at “Buy First Select” just called, voice shaking."
+          },
+          {
+            "who": "boss_lin",
+            "text": "A customer's bag is defective, two days past the return window. And it's cross-border."
+          },
+          {
+            "who": "ae_mei",
+            "text": "The agent cited general policy, then flipped to the defect clause. It contradicted itself."
+          },
+          {
+            "who": "ae_mei",
+            "text": "Finally the customer typed: “So can I return it or not?” The screenshot's on social now."
+          },
+          {
+            "who": "boss_lin",
+            "text": "The client wants to know by 9 AM: where the agent's authority ends, when a human steps in."
+          },
+          {
+            "who": "data_kai",
+            "text": "The pitch client's already seated, and page nine is still blank. Handle this first."
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "prompt": "Send your recommendation before you pitch. How do you set the agent's permissions?",
+        "options": [
+          {
+            "text": "Loosen it: under a set amount, the agent approves refunds itself. No waiting.",
+            "effects": {
+              "sales": 8,
+              "brand": 3,
+              "trust": -4,
+              "liver": 3
+            },
+            "feedback": "Refunds speed up and support volume halves that week. At month's end, finance finds a batch of refunds gaming a loophole. The client wonders who the agent works for.",
+            "insight": "The book splits agent permissions into four levels: observe/understand, recommend, decide, act. It warns more autonomy isn't always better; open it up step by step based on risk.",
+            "roleBonus": {
+              "data": {
+                "sales": 4
+              }
+            }
+          },
+          {
+            "text": "Handoff rule: when two or more policies collide, the agent stops, sums up, and passes to a human.",
+            "effects": {
+              "trust": 10,
+              "brand": 5,
+              "sales": 3,
+              "liver": 6
+            },
+            "feedback": "You and Ah-Kai finish the rules just before you go on. Tricky cases now go straight to support staff, who see the three conflicts at a glance. No starting over.",
+            "insight": "A case from the book: after an update, a returns agent pauses and hands off whenever two or more policies collide, and satisfaction on those cases stopped falling off a cliff. The book says an agent's limits are designed, not defects.",
+            "roleBonus": {
+              "cx": {
+                "trust": 5
+              },
+              "ae": {
+                "trust": 3
+              }
+            }
+          },
+          {
+            "text": "Scale the agent back to lookups and suggestions, rewrite its tone, and send all returns to humans.",
+            "effects": {
+              "trust": 6,
+              "brand": 6,
+              "sales": -4,
+              "liver": 5
+            },
+            "feedback": "No more contradictory replies; the screenshots sink from view. But support is booked through next month. The support lead wants to buy you a late snack, and hit you.",
+            "insight": "The book cites an analysis of 200 B2B AI projects. Those with a human in the loop beat full automation on ROI by 104%, with 4.3 times fewer major errors.",
+            "roleBonus": {
+              "planner": {
+                "brand": 4
+              },
+              "creative": {
+                "brand": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "quiz",
+        "ids": [
+          "q2026_12",
+          "q2026_01"
+        ]
+      }
+    ],
+    "reward": {
+      "brand": 1,
+      "sales": 1,
+      "trust": 2,
+      "liver": 0
+    }
+  }
+]

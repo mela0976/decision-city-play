@@ -29,7 +29,7 @@ export function runDialogue({ layer, lines, speakerOf, assets, extra, signal, sf
 
     const box = h(
       'section',
-      { class: 'dlg', 'aria-label': '對話' },
+      { class: 'dlg', 'aria-label': T.a11yDialogue },
       h('div', { class: 'sub' }, h('header', { class: 'sub-who' }, face, name, role), text),
       h('div', { class: 'cine-actions' }, extraBtn, nextBtn),
     );

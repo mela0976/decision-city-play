@@ -1,0 +1,116 @@
+[
+  {
+    "id": "ae",
+    "title": "Account Executive",
+    "team": "Dentsu Taiwan",
+    "tagline": "Client-team switchboard. You take every call.",
+    "intro": "8 AM: three missed client calls. You ride from Wuxing St. to A25 answering LINE at red lights, planning which drafts to chase from creative, media, and data. When the client says “Show us something first,” you're the one who catches it.",
+    "strength": "trust",
+    "perk": {
+      "name": "Client Whisperer",
+      "desc": "One extra chance to calm the client. Client Trust bonus on options about client talks and owning problems."
+    },
+    "start": {
+      "brand": 40,
+      "sales": 40,
+      "trust": 50,
+      "liver": 20
+    },
+    "portrait": "role_ae"
+  },
+  {
+    "id": "planner",
+    "title": "Strategic Planner",
+    "team": "isobar",
+    "tagline": "Finds what the brand should say, from insight",
+    "intro": "Your desk always has three reports and a pad of sticky notes spread out. When others ask “What do we do?” you ask “Why?” The night before a pitch, you rewrite the first line of the deck until version twelve.",
+    "strength": "brand",
+    "perk": {
+      "name": "Insight Sticky Notes",
+      "desc": "Before each choice, see an insight hint from that year's book."
+    },
+    "start": {
+      "brand": 50,
+      "sales": 35,
+      "trust": 45,
+      "liver": 20
+    },
+    "portrait": "role_planner"
+  },
+  {
+    "id": "media",
+    "title": "Media Planner",
+    "team": "Carat",
+    "tagline": "Decides where the budget goes and when it shows",
+    "intro": "Your Excel holds TV, MRT, YouTube, LINE, and 100-plus ad slots. Where the client's money goes, which day it runs, how many times: it all gets worked out to two decimal places. Media rate cards are your breakfast side dish.",
+    "strength": "sales",
+    "perk": {
+      "name": "Slot Math",
+      "desc": "Sales bonus on options about budget, ad slots, and media mix."
+    },
+    "start": {
+      "brand": 40,
+      "sales": 50,
+      "trust": 40,
+      "liver": 20
+    },
+    "portrait": "role_media"
+  },
+  {
+    "id": "creative",
+    "title": "Creative",
+    "team": "Dentsu Creative",
+    "tagline": "Turns strategy into something people want to see",
+    "intro": "Your day starts with screening footage and ends with revisions, with two pitches and one bento fight with the director in between. When the client says “Make it a bit younger,” only you know what that means.",
+    "strength": "brand",
+    "perk": {
+      "name": "Good Story",
+      "desc": "Brand Power bonus on options about content, story, and visuals."
+    },
+    "start": {
+      "brand": 50,
+      "sales": 40,
+      "trust": 40,
+      "liver": 20
+    },
+    "portrait": "role_creative"
+  },
+  {
+    "id": "data",
+    "title": "Data Analyst",
+    "team": "Dentsu Intelligence Center",
+    "tagline": "Proves or busts everyone's gut feeling with data",
+    "intro": "Everyone thinks you do magic, but 80% of your time goes to cleaning data. When someone in a meeting says “I think,” you quietly open the report. Your most-used line: “Where did this number come from?”",
+    "strength": "sales",
+    "perk": {
+      "name": "Process of Elimination",
+      "desc": "In quizzes, you can rule out one wrong answer first."
+    },
+    "start": {
+      "brand": 35,
+      "sales": 50,
+      "trust": 45,
+      "liver": 20
+    },
+    "portrait": "role_data"
+  },
+  {
+    "id": "cx",
+    "title": "CX & E-com Consultant",
+    "team": "Merkle Taiwan",
+    "tagline": "Customer journeys, members, and conversion",
+    "intro": "You watch where customers come in, where they get stuck, and why they don't check out. Lay member data, carts, and service logs side by side, and you see the problem. Client says “Conversion's low”? You ask: “Where do customers hesitate?”",
+    "strength": "trust",
+    "perk": {
+      "name": "Journey Map",
+      "desc": "Client Trust bonus on options about members, customer experience, and customer service."
+    },
+    "start": {
+      "brand": 45,
+      "sales": 35,
+      "trust": 50,
+      "liver": 20
+    },
+    "portrait": "role_cx"
+  }
+]

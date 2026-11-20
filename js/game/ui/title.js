@@ -2,13 +2,15 @@
 // 輸入阿嬤代碼（grandma.json 的 unlock.titleCode）或連點標誌七下會呼叫 onSecret。
 
 import { h, arrowFocus } from '../dom.js';
-import { T } from '../strings.js';
+import { T, ZH_T } from '../strings.js';
+import { langSwitch } from './lang-switch.js';
 
 const TAPS_NEEDED = 7;
 const TAP_WINDOW_MS = 4000;
 
 export function showTitle({ screen, assets, canContinue, continueNote, grandmaOn, secretCode, badge, error, onStart, onContinue, onProposal, onSecret, onRetry, onFixtures }) {
-  const signs = [...T.name].map((ch, i) => h('span', { class: `sign sign--${i + 1}`, 'aria-hidden': 'true', text: ch }));
+  // 霓虹招牌是街景的一部分，各語言都掛中文原名；讀屏念目前語言的名字
+  const signs = [...ZH_T.name].map((ch, i) => h('span', { class: `sign sign--${i + 1}`, 'aria-hidden': 'true', text: ch }));
   const logo = h('h1', { class: 'logo', 'aria-label': T.name }, signs, h('span', { class: 'logo-en', 'aria-hidden': 'true', text: T.nameEn }));
 
   let actions;
@@ -47,6 +49,7 @@ export function showTitle({ screen, assets, canContinue, continueNote, grandmaOn
     h('div', { class: 'title-main' }, logo, h('p', { class: 'title-hook', text: T.hook })),
     actions,
     badge ? h('p', { class: 'title-badge', text: badge }) : null,
+    langSwitch(),
   );
 
   let taps = [];

@@ -1485,3 +1485,23 @@ body:has(dialog[open]) .scene-art img {
 .hint-note[hidden] {
   display: none;
 }
+
+/* 譯版的直向手機：鍵名與提示字比中文長，提示列收緊間距，免得排成三行 */
+@media (max-width: 620px) {
+  :root:is(:lang(en), :lang(ja)) #hint {
+    column-gap: 0.45rem;
+    padding-inline: 0.45rem;
+  }
+
+  :root:is(:lang(en), :lang(ja)) #hint-keys,
+  :root:is(:lang(en), :lang(ja)) .hint-part {
+    column-gap: 0.25rem;
+  }
+}
+
+/* i18n：英文數值名較長，縮小字距與字級讓它完整顯示，不截斷 */
+html[lang="en"] .hud-meters .m-name {
+  font-size: 0.72rem;
+  letter-spacing: -0.01em;
+  text-overflow: clip;
+}

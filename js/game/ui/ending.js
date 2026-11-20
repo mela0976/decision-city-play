@@ -18,7 +18,7 @@ export function showEnding({ screen, assets, ending, stamp, meters, missionsDone
       'div',
       { class: 'ending-story' },
       assets.art(ending.image, { kind: 'wide', className: 'ending-art' }),
-      h('div', { class: 'stamp stamp--grade', 'aria-hidden': 'true' }, h('span', { text: stamp })),
+      h('div', { class: `stamp stamp--grade${[...String(stamp)].length > 2 ? ' stamp--long' : ''}`, 'aria-hidden': 'true' }, h('span', { text: stamp })),
       h('h2', { id: 'ending-title', text: ending.title || '' }),
       h('p', { class: 'ending-text', text: ending.text || '' }),
       note ? h('p', { class: 'ending-note', text: note }) : null,

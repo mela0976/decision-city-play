@@ -3,7 +3,7 @@
 // 不模仿任何真實平台的標誌、配色與版面。有圖的貼文用 9:16 直式圖置中，兩側用同一張圖模糊放大鋪滿。
 
 import { h, interaction, reducedMotion } from '../dom.js';
-import { T } from '../strings.js';
+import { T, ZH_T } from '../strings.js';
 import { icon } from './icons.js';
 
 const BASE_MS = 2200;
@@ -14,7 +14,10 @@ const speaker = (text) => {
   const match = String(text).match(/^([^：:]{1,8})[：:]\s*(.+)$/);
   return match ? { name: match[1], text: match[2] } : { name: '', text: String(text) };
 };
-const isSelf = (name) => ['我', '本人', '自己'].includes(name);
+const isSelf = (name) => T.feedSelf.includes(name) || ZH_T.feedSelf.includes(name);
+const escapeRe = (text) => String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// 論壇留言的前綴（推／噓／→ 或譯版的 ▲／▼／→）；譯檔還沒到、退回中文內容時也認得中文前綴
+const FORUM_TAG = new RegExp(`^(${[...new Set([...Object.values(T.forumTags), ...Object.values(ZH_T.forumTags)])].map(escapeRe).join('|')})\\s*(.*)$`);
 
 /** 行車紀錄器畫面上的車速讀數：資料裡沒有，從貼文 id 算一個固定的數字。 */
 const speedOf = (id) => 28 + ([...String(id)].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % 22);
@@ -93,8 +96,8 @@ const FRAMES = {
           'ul',
           { class: 'forum-replies' },
           (post.comments || []).map((raw, i) => {
-            const match = String(raw).match(/^(推|噓|→)\s*(.*)$/);
-            return h('li', { vars: { '--i': String(i) } }, h('b', { text: match ? match[1] : '→' }), h('span', { text: match ? match[2] : raw }));
+            const match = String(raw).match(FORUM_TAG);
+            return h('li', { vars: { '--i': String(i) } }, h('b', { text: match ? match[1] : T.forumTags.arrow }), h('span', { text: match ? match[2] : raw }));
           }),
         ),
       ),

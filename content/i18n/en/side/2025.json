@@ -1,0 +1,1398 @@
+{
+  "year": 2025,
+  "chapters": [
+    {
+      "id": "c2025_01",
+      "title": "Opportunity Favors the Prepared “Super Brain”",
+      "by": "Dentsu Marketing Communications Group",
+      "summary": "The costliest mistake is betting attention on the wrong direction. Scenario planning builds preparedness, pairing human experience with AI reasoning into a “Super Brain.”",
+      "coveredBy": "s2025_01"
+    },
+    {
+      "id": "c2025_02",
+      "title": "Creativity for Business Strategy: Why Dentsu Is the Top Choice for Sustainable Corporate Growth",
+      "by": "Dentsu Japan BX Team",
+      "summary": "Creativity that maps the core of a business into a clear structure, multiplied by ad creativity. Seven key shifts move transformation from the meeting room into reality.",
+      "coveredBy": "s2025_01"
+    },
+    {
+      "id": "c2025_03",
+      "title": "Creativity ++: Transformational Creativity Builds Ecosystems for Brands",
+      "by": "Dentsu Creative",
+      "summary": "The algorithm era lacks not exposure but systems that shape culture. Starting from strategy plus original ideas, six specialties turn creativity into an ecosystem.",
+      "coveredBy": "s2025_02"
+    },
+    {
+      "id": "c2025_04",
+      "title": "Beat an Enemy Stronger Than You: From Division to Convergence, the Evolution of Creativity",
+      "by": "Dentsu Creative, Dentsu Taiwan",
+      "summary": "In a divided age, creativity must unite differences, emotions, and stances. Eight cases show going beyond the product, reframing shared values, and building consensus.",
+      "coveredBy": "s2025_02"
+    },
+    {
+      "id": "c2025_05",
+      "title": "Building and Upending Culture in the AI Era: Brand Marketing's Current Bind and Next Step",
+      "by": "Carat",
+      "summary": "Algorithms flatten culture and make it superficial. Brands and media must shift from traffic executors to cultural guides.",
+      "coveredBy": "s2025_02"
+    },
+    {
+      "id": "c2025_06",
+      "title": "From Data Illusion to Brand Truth: Cracking the Data Traps of Video Ads",
+      "by": "dentsu X",
+      "summary": "Ten observations expose biases in digital video data, five misconceptions are answered in TV's defense, and media should be mixed flexibly by brand stage.",
+      "coveredBy": "m2025"
+    },
+    {
+      "id": "c2025_07",
+      "title": "The Rise of A2A: The Next Customer Experience Revolution Has Quietly Begun",
+      "by": "Merkle Taiwan",
+      "summary": "Choice overload traps customers in FOBO, and interactions become A to A, each side sending its own agent. Brands must move their focus from checkout up to check-in.",
+      "coveredBy": "s2025_03"
+    },
+    {
+      "id": "c2025_08",
+      "title": "The AI Empathy Revolution: Brand Interaction Enters a New Era",
+      "by": "Dentsu Creative",
+      "summary": "An empathy gap lies between behavioral data and human nature. Multimodal and emotion AI let brands empathize in real time, turning one-way scripts into co-performance.",
+      "coveredBy": "s2025_04"
+    },
+    {
+      "id": "c2025_09",
+      "title": "Marketing's Generative Revolution: Crea-Mind AI Takes Creative Production to the Next Level",
+      "by": "Dentsu Creative",
+      "summary": "Content volume is exploding while budgets stay flat. Crea-Mind AI spans insight, generation, and performance prediction, so people co-create with AI, not get replaced.",
+      "coveredBy": "s2025_04"
+    },
+    {
+      "id": "c2025_10",
+      "title": "From Creative Executor to Strategic Co-Builder: The Agency's Evolving Role in Unified Brand Strategy",
+      "by": "Dentsu Taiwan",
+      "summary": "Japan's Kao, Ajinomoto, Asahi, and Shiseido restructured around consumer insight as a shared language. Agencies must go from executing creative to co-drafting strategy.",
+      "coveredBy": "s2025_05"
+    },
+    {
+      "id": "c2025_11",
+      "title": "CPG Marketing Now and Next: 6 Key Moves in the Algorithm Era",
+      "by": "Carat",
+      "summary": "CPG's focus is shifting from exposure and recall to algorithmic visibility. Brands must avoid platform-average sameness and rework six things with people at the core.",
+      "coveredBy": "s2025_05"
+    },
+    {
+      "id": "c2025_12",
+      "title": "Digital Advertising Reshaped by the AI Wave: Current Challenges and Rebuilt Work Habits",
+      "by": "iProspect",
+      "summary": "AI takes over finding customers, winning ad slots, and optimizing assets, but it's a black box and lacks strategic depth. Ad people must go from operators to commanders.",
+      "coveredBy": "s2025_06"
+    },
+    {
+      "id": "c2025_13",
+      "title": "Marketing Warfare in the Algorithm Era: Let AI Fight on Autopilot",
+      "by": "Carat",
+      "summary": "Standardize data, modularize tools, systematize workflows. Let AI handle routine work and anomaly monitoring while people focus on strategy and creativity.",
+      "coveredBy": "s2025_06"
+    },
+    {
+      "id": "c2025_14",
+      "title": "The Customer Journey in the XGA Era: Have You Found the Decision Pain Points?",
+      "by": "Merkle Taiwan",
+      "summary": "Upgrade GA into a command center that integrates CRM and CDP, then find three kinds of pain points: rhythm mismatch, message drift, and task interruption.",
+      "coveredBy": "s2025_03"
+    },
+    {
+      "id": "c2025_15",
+      "title": "From the Open Web to Walled Gardens: A New Internet Reshaped by AI",
+      "by": "91APP",
+      "summary": "Search is becoming an answer engine, wrapping consumers in AI's walls. Brands must build D2C outposts and first-party data; the product page is the real battleground.",
+      "coveredBy": "s2025_07"
+    },
+    {
+      "id": "c2025_16",
+      "title": "The Every-Screen Era: Driving Business Growth with a Content Ecosystem",
+      "by": "tag Studio",
+      "summary": "Content is everywhere. Brands use cultural insight, algorithmic targeting, and co-creation to build a native, consistent content ecosystem: culture over discounts.",
+      "coveredBy": "s2025_08"
+    },
+    {
+      "id": "c2025_17",
+      "title": "Breaking Out of the Bubble: The Brand Code of Sports and Entertainment",
+      "by": "Dentsu Entertainment",
+      "summary": "Sports and entertainment reach people, culture, and content: emotional frosting, minimal cultural units, micro-dramas, and group workouts become lasting brand assets.",
+      "coveredBy": "s2025_08"
+    },
+    {
+      "id": "c2025_18",
+      "title": "Short Video Builds a Social Commerce Loop from Discovery to Conversion",
+      "by": "Isobar Taiwan",
+      "summary": "Short-video platforms are now hybrids of content and shopping. Brands should validate content first, then amplify it with ads, going from announcer to participant.",
+      "coveredBy": "s2025_07"
+    },
+    {
+      "id": "c2025_19",
+      "title": "2025's Big Search Shift: Not Which Platform's SEO, but a Cross-Platform Search Ecosystem",
+      "by": "iProspect",
+      "summary": "SEO must shift from chasing rankings to chasing meaning, uniting SEO, AEO, and GEO with citable content at every node: social, video, Google, and AI.",
+      "coveredBy": "s2025_07"
+    },
+    {
+      "id": "c2025_20",
+      "title": "The Quality and Trends of the Digital Ad Ecosystem, Through SPECTRUM",
+      "by": "Amplifi",
+      "summary": "Programmatic buying brings brand safety and ad fraud problems. SPECTRUM pairs private marketplaces with third-party verification to build ad products that win on quality.",
+      "coveredBy": "s2025_09"
+    },
+    {
+      "id": "c2025_21",
+      "title": "iP intelligent platform: Human. Work. Intelligence. A New Chapter for Planning",
+      "by": "iProspect",
+      "summary": "An AI dashboard combines search trends, news summaries, and social sentiment, so planners move from sorting data to thinking strategy and predicting ahead.",
+      "coveredBy": "s2025_06"
+    },
+    {
+      "id": "c2025_22",
+      "title": "AI Reshapes Retail Interaction: From Understanding to Embodying Humanity",
+      "by": "Dentsu Intelligence Center",
+      "summary": "AI moves from automation into shopping: six scenarios in three layers of understanding, enhancing, and embodying humanity. Brands face consumers and their AI agents.",
+      "coveredBy": "s2025_10"
+    },
+    {
+      "id": "c2025_23",
+      "title": "Starting the AI Engine: How Can Car Brands Deepen Emotional Resonance?",
+      "by": "Dentsu Intelligence Center",
+      "summary": "With long replacement cycles and few touchpoints, AI lowers the bar for co-creation, taking car brands from attention to interactive, cultural, and social resonance.",
+      "coveredBy": "s2025_04"
+    },
+    {
+      "id": "c2025_24",
+      "title": "The Total Wellness Era: A New Brand Mission Empowered by AI",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Consumers are turning to systematic total wellness. Supplement brands must transform from product suppliers into health advisors and take data governance seriously.",
+      "coveredBy": "s2025_10"
+    },
+    {
+      "id": "c2025_25",
+      "title": "In an Accelerating AI Era, Brands Must Be Not Just Fast but Close",
+      "by": "Dentsu Intelligence Center",
+      "summary": "AI can generate and place ads at near-zero cost, so brands must keep what can't be generated: understanding, empathy, companionship. Cases: Nutter Butter and IKEA Sleep.",
+      "coveredBy": "s2025_09"
+    },
+    {
+      "id": "c2025_26",
+      "title": "The Beauty Experience Era: Beauty Brands' Strategy Within the Beauty Ecosystem",
+      "by": "Dentsu Intelligence Center",
+      "summary": "Consumers pursue all-round beauty, channels shift to e-commerce and drugstores, and entertainment and cross-brand collaborations carry beauty brands' emotional appeal.",
+      "coveredBy": "s2025_08"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "n2025_hsin",
+      "name": "Ah-Hsin",
+      "skin": "npc_vendor",
+      "locationId": "temple",
+      "title": "Third-Gen Heir, Lucky Turn Cakes",
+      "lines": [
+        "Grandpa bakes by the weather. I say business runs on data. We've argued for three years.",
+        "Fewer people are getting married, but no fewer people want to give gifts.",
+        "I'm not drawing fortune sticks out of superstition. I just want to calm myself down.",
+        "The old regulars on Fude St. still order their cakes by phone."
+      ]
+    },
+    {
+      "id": "n2025_pei",
+      "name": "Pei",
+      "skin": "npc_colleague",
+      "locationId": "office",
+      "title": "Junior Designer",
+      "lines": [
+        "We need 130 banners this month. I'm already dreaming about CTA buttons.",
+        "AI makes them fast, but they all look alike.",
+        "So how much more is “make it pop more,” exactly?",
+        "I changed the font three times. The client says the first version was best."
+      ]
+    },
+    {
+      "id": "n2025_bong",
+      "name": "Bong-Bong",
+      "skin": "npc_student",
+      "locationId": "mrt",
+      "title": "Short-Video Creator",
+      "lines": [
+        "The sponsored script says “limited-time discount” four times. My followers will bail.",
+        "The algorithm loves me today and won't know me tomorrow.",
+        "Step out of the MRT and there are screens everywhere. My face is on them too.",
+        "I shot thirty videos and only one went viral. But that one was worth it."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "s2025_01",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_01",
+        "c2025_02"
+      ],
+      "title": "Open a Branch in Taichung?",
+      "locationId": "temple",
+      "giver": "n2025_hsin",
+      "time": "morning",
+      "brief": "At the Earth God shrine, cake shop heir Ah-Hsin draws fortune sticks: open in Taichung or go all in online? Temple Uncle: sticks ease the mind; the road is yours to see.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2025_hsin",
+              "text": "{role}? Here to pray too? I'm waiting on a fortune stick: should I open in Taichung?"
+            },
+            {
+              "who": "temple_uncle",
+              "text": "Young one, this is her third stick, and all three said something different."
+            },
+            {
+              "who": "n2025_hsin",
+              "text": "Fewer weddings, more online shoppers. But Grandpa says people must taste wedding cakes."
+            },
+            {
+              "who": "player",
+              "text": "What worries you most?"
+            },
+            {
+              "who": "n2025_hsin",
+              "text": "All of it. If I bet on the wrong side, the whole shop is gone."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should Ah-Hsin decide?",
+          "options": [
+            {
+              "text": "Don't overthink it. Pick the surest path and go all in: move everything online.",
+              "effects": {
+                "sales": 4,
+                "trust": -2,
+                "liver": 2
+              },
+              "feedback": "The online shop goes live in three weeks and orders come in. Before Lunar New Year, shipping jams and 30 boxes arrive two days late. One was for an engagement.",
+              "insight": "“Opportunity Favors the Prepared ‘Super Brain’” says markets move fast, and a brand's costliest expense is betting its attention on the wrong direction. The author argues for building preparedness, not predicting the future.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "List the three changes you fear most, sort them by likelihood and speed, and prep a backup for each.",
+              "effects": {
+                "trust": 5,
+                "brand": 2,
+                "liver": 5
+              },
+              "feedback": "On a temple square bench, you draw a four-box grid. “Shipping jams” goes under prepare, “fewer weddings” under adjust slowly. Ah-Hsin says it beats a fortune poem.",
+              "insight": "The book cites LEGO's scenario planning, sorting issues by likelihood and speed of change into ACT, PREPARE, ADAPT, and PARK. LEGO held 23 meetings on its Asia plant, affecting 21 three-year plans; 18 were adjusted.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Hold off on the store. Post a mock catalog and concept video online and see if anyone really orders.",
+              "effects": {
+                "brand": 3,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "Pei rushes out a “Taichung Exclusive Gift Box” catalog: 80-some inquiries in two days, half from Taichung. Ah-Hsin decides on a tasting pop-up there first, then a store.",
+              "insight": "One of the seven key shifts in “Creativity for Business Strategy” is prototyping experience value: using concept videos, catalogs, posters, even mock purchase tests to validate it before investing.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "What combination does “Opportunity Favors the Prepared ‘Super Brain’” mean by a “Super Brain”?",
+            "options": [
+              "The newest model plus the biggest database",
+              "A senior CSO plus a team of outside consultants",
+              "Human experience and wisdom plus AI reasoning",
+              "A huge budget plus the fastest execution"
+            ],
+            "answer": 2,
+            "explain": "The book defines the Super Brain as “human experience and wisdom + AI reasoning,” using simulation to help brands find the right direction and, more so, avoid wrong ones.",
+            "source": "Opportunity Favors the Prepared “Super Brain”"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Prepare, Don't Predict",
+        "text": "Figure out where you'd go under, then don't go there."
+      }
+    },
+    {
+      "id": "s2025_02",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_03",
+        "c2025_04",
+        "c2025_05"
+      ],
+      "title": "Chain Chicken on the Corner",
+      "locationId": "night_market",
+      "giver": "vendor_cheng",
+      "time": "evening",
+      "brief": "A fried chicken chain opened on the Linginger Street corner; its ad budget tops Ah-Cheng's lifetime earnings. He wants a viral video. How can a stall beat a big brand?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "vendor_cheng",
+              "text": "{role}, see that place on the corner? Their billboard's bigger than my whole stall."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "My son says copy the hottest videos: transitions, music, big bites. Then it'll blow up."
+            },
+            {
+              "who": "player",
+              "text": "How many videos like that do you scroll past a day?"
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "Dozens. They all look the same. I can't even remember whose is whose."
+            },
+            {
+              "who": "vendor_cheng",
+              "text": "But I can't outspend them on ads. I can't just sit here and wait to close up."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you tell Ah-Cheng?",
+          "options": [
+            {
+              "text": "Use the platform's hottest template, chase trending music, and post three a day.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 3
+              },
+              "feedback": "One video hits 100K views, and sales jump 20% that week. Then a comment says it looks just like the place on the corner. Ah-Cheng isn't thrilled.",
+              "insight": "“Building and Upending Culture in the AI Era” notes that algorithms flatten culture: styles, headlines, and thumbnails look more alike on every platform. Brands and media must go from traffic executors to cultural guides.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Speak to something everyone shares: give Linginger Street's night shift a reason to call it a night.",
+              "effects": {
+                "brand": 6,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "You film a nurse, a delivery rider, and a store clerk off work in the small hours, each ending at Ah-Cheng's stall. No discount, yet shares hit ten times the usual.",
+              "insight": "“Beat an Enemy Stronger Than You” says creativity must move from division to convergence. One case: HeySong Wayne Coffee's “Can't Wake Up” uses 20 tough dance moves to act out morning struggles, against Taiwan's work hours, the second-longest in Asia.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Team up with the street's vendors and local creators on a “Linginger Street Late-Night Map” account.",
+              "effects": {
+                "brand": 4,
+                "trust": 3,
+                "liver": 4
+              },
+              "feedback": "Only three stalls sign on the first month; by the third, it's twelve. Creators take turns filming, and Ah-Cheng's chicken cutlets are the map's first stop.",
+              "insight": "“Creativity ++” cites the “2024 CMO Report”: 77% of CMOs agree brands, platforms, and creators build brands together. Creativity should become a scalable ecosystem, moving from share of ads to share of culture.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “The Evolution of Creativity,” Motorola's “Deep Connection” served more than how many coal miners in India?",
+            "options": [
+              "130K",
+              "330K",
+              "530K",
+              "830K"
+            ],
+            "answer": 1,
+            "explain": "Motorola turned walkie-talkie signals into phone voice calls, serving over 330K coal miners who work underground more than 10 hours a day.",
+            "source": "Beat an Enemy Stronger Than You: From Division to Convergence, the Evolution of Creativity"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Small Beats Big",
+        "text": "Can't outspend them? Then be the one who brings people together."
+      }
+    },
+    {
+      "id": "s2025_03",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_07",
+        "c2025_14"
+      ],
+      "title": "Just Pick One for Me",
+      "locationId": "convenience",
+      "giver": "clerk_ning",
+      "time": "noon",
+      "brief": "Store app “Corner Picks” wants three more coupon types to boost sales. Clerk Ning says customers scroll five deals at the counter, then just say: pick one for me.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "clerk_ning",
+              "text": "The rush is over. {role}, are you guys adding more coupons again?"
+            },
+            {
+              "who": "clerk_ning",
+              "text": "A guy just scrolled for five minutes, then said, “Just pick one for me.”"
+            },
+            {
+              "who": "player",
+              "text": "The app data says lots of people open the coupon page and never check out."
+            },
+            {
+              "who": "clerk_ning",
+              "text": "Because there are too many! And the AI assistant on his phone was comparing prices too."
+            },
+            {
+              "who": "clerk_ning",
+              "text": "Someday, will our AI and the customer's AI just work it out themselves?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What should “Corner Picks” do next?",
+          "options": [
+            {
+              "text": "Stick to the plan: add three coupon types and send push notifications more often.",
+              "effects": {
+                "sales": 3,
+                "trust": -3,
+                "liver": 2
+              },
+              "feedback": "Clicks rise the first week, but checkouts don't follow. In week two, notification opt-outs hit a record high.",
+              "insight": "“The Rise of A2A” notes that piling on deals and choices traps customers in FOBO, the fear of missing a better option. The book cites “The Paradox of Choice”: the more options, the harder the decision.",
+              "roleBonus": {
+                "ae": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Design a “regulars' script”: when a member's AI assistant checks in, the app preps a fitting bundle.",
+              "effects": {
+                "trust": 5,
+                "brand": 3,
+                "liver": 6
+              },
+              "feedback": "Three late nights with the engineers turn regulars' usual buys into scripts. At pilot stores, people tap “Same as last time,” and Ning says the counter's finally clear.",
+              "insight": "“The Rise of A2A” argues the focus should move from checkout up to Agent Check-In: once a member's agent logs in, brand and customer match value three ways, aiming for a regulars' script with 0% edits and 100% purchase.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "First use XGA to find the step where customers drop off. Fix that step, then go from there.",
+              "effects": {
+                "trust": 3,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "Data shows most people stall on the “pick a coupon” page for over a minute, then leave. You cut it to the two best-fit coupons, and checkouts climb back a good chunk.",
+              "insight": "“The Customer Journey in the XGA Era” sorts pain points into three kinds: rhythm mismatch, message drift, and task interruption. The book cites PwC: 73% of consumers say good experience is key to buying decisions.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“The Rise of A2A” describes FOBO, how customers feel when facing too many options. What does it stand for?",
+            "options": [
+              "Fear of Being Offline",
+              "Fear of Buying Online",
+              "Fear of Brand Overload",
+              "Fear of Better Options"
+            ],
+            "answer": 3,
+            "explain": "FOBO is Fear of Better Options: afraid of missing a better choice, the more people compare, the less they can decide.",
+            "source": "The Rise of A2A: The Next Customer Experience Revolution Has Quietly Begun"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 1,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Offer Fewer Choices",
+        "text": "Thinking ahead for customers beats making them choose one more time."
+      }
+    },
+    {
+      "id": "s2025_04",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_08",
+        "c2025_09",
+        "c2025_23"
+      ],
+      "title": "130 Banners",
+      "locationId": "office",
+      "giver": "n2025_pei",
+      "time": "afternoon",
+      "brief": "E-scooter brand “Tireless E-Donkey” needs 130 assets this month on last year's budget. Your junior, Pei, asks: hand it all to AI, or is there another way?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2025_pei",
+              "text": "{role}, Tireless E-Donkey wants 130 banners this month. No extra budget."
+            },
+            {
+              "who": "n2025_pei",
+              "text": "I ran a round through AI. Super fast, but every single one says “longer range.”"
+            },
+            {
+              "who": "player",
+              "text": "How do the owners themselves talk about the scooter?"
+            },
+            {
+              "who": "n2025_pei",
+              "text": "On the forums: “No more hunting for gas stations” and “Quiet on the school run.”"
+            },
+            {
+              "who": "n2025_pei",
+              "text": "The client also wants something people will remember, not just assets."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How should Pei handle these 130?",
+          "options": [
+            {
+              "text": "Let AI mass-produce them, auto-cull by click-through rate after launch, and keep the best.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "The assets ship on time, and CTR ticks up slightly. The client's boss flips through them and says they all look like some other brand's scooter.",
+              "insight": "“Crea-Mind AI” says when content explodes and budgets stay flat, marketers need systems, but the goal is people co-creating with AI, not being replaced. Mugen AI's performance prediction lifts asset CTR by about 0.01–0.03% on average.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "First use semantic analysis to turn owners' own words into message pillars, then let AI generate.",
+              "effects": {
+                "brand": 4,
+                "sales": 3,
+                "liver": 5
+              },
+              "feedback": "You and Pei sort 3,000 forum comments into five pillars, and “quiet with the kids” performs best. Pei says AI needs the right input first.",
+              "insight": "Crea-Mind's Appeal Axis Discovery method uses semantic analysis to find message pillars. The book's example: consumers say “I catch colds so easily lately” or “Got hit again,” not “boost immunity.”",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Build an experience only AI can: owners enter a dream route and get an animation of a family trip.",
+              "effects": {
+                "brand": 6,
+                "trust": 2,
+                "sales": -2,
+                "liver": 5
+              },
+              "feedback": "Launch week, one about taking Grandpa home to Hualien gets shared tens of thousands of times. You make 50 fewer banners, and the client doesn't ask.",
+              "insight": "“Starting the AI Engine” says long replacement cycles and few touchpoints make AI a way to lower the bar for co-creation. Honda Dream Generator lets users pick driver, passengers, pets, and scenery for a roughly 2-minute animation.",
+              "roleBonus": {
+                "ae": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “The AI Empathy Revolution,” 50% of the dogs shown in Pedigree New Zealand's “Adoptable” found homes within how long?",
+            "options": [
+              "Within two days",
+              "Within two weeks",
+              "Within two months",
+              "Within six months"
+            ],
+            "answer": 1,
+            "explain": "Generative AI turned shelter snapshots into pro ads, pulled in real time once a dog was adopted. 50% of the dogs shown found new homes within two weeks.",
+            "source": "The AI Empathy Revolution: Brand Interaction Enters a New Era"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "Ask People, Then AI",
+        "text": "AI is fast, but feed it what customers actually say first."
+      }
+    },
+    {
+      "id": "s2025_05",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_10",
+        "c2025_11"
+      ],
+      "title": "R&D Says This, Marketing That",
+      "locationId": "department",
+      "giver": "client_hsu",
+      "time": "afternoon",
+      "brief": "A detergent refill is coming. R&D says sell the concentrated formula, marketing says no-spill pouring, sales wants retail slots. Manager Hsu: can the agency align them?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "client_hsu",
+              "text": "{role}, the new refill launches next month. We've been fighting for three weeks."
+            },
+            {
+              "who": "client_hsu",
+              "text": "R&D says concentrated, marketing says no spills, sales just wants retail ad slots."
+            },
+            {
+              "who": "player",
+              "text": "So what do shoppers ask about most at the counter?"
+            },
+            {
+              "who": "client_hsu",
+              "text": "The counter staff say customers all complain the refill spills when they pour it."
+            },
+            {
+              "who": "client_hsu",
+              "text": "But search on the platforms, and every brand's page looks the same."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you suggest to Manager Hsu?",
+          "options": [
+            {
+              "text": "Write selling points from R&D's specs and put the budget into retail platform slots for month one.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "First-month rankings shoot up, but the page looks almost identical to three others, all saying “2x concentrated.” In month two, the slots stop and the ranking drops.",
+              "insight": "“CPG Marketing Now and Next” warns that under platform algorithms, brands easily fall into the sameness trap of the “platform average.” The book suggests moving from buying slots from retailers to co-creating for mutual benefit.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Make the no-spill insight the shared language. Test at one retailer, get feedback, then go wide.",
+              "effects": {
+                "trust": 4,
+                "brand": 3,
+                "liver": 6
+              },
+              "feedback": "You run a meeting with R&D, marketing, and sales, and all three finally nod at the same line. After two weeks of test sales, feedback changes the spout design.",
+              "insight": "“From Creative Executor to Strategic Co-Builder” cites Kao's Bioré: it built a spray sunscreen from insight, sold it in one channel first for feedback, then went national. Successful organizations use consumer insight as a shared language.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Find communities bound by passion, like pet parents, and rewrite the selling points for them.",
+              "effects": {
+                "brand": 4,
+                "sales": 2,
+                "liver": 4
+              },
+              "feedback": "Pet-parent groups go wild for “no spills, no fragrance” and write up their own reviews. The volume is small, but repurchase is double that of other groups.",
+              "insight": "The book's Growth Mapping combines interest graphs and propensity scores to find cultural communities bound by passion, such as sustainable-living fans, fitness fans, and mom groups.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "In “From Creative Executor to Strategic Co-Builder,” what framework did Ajinomoto use to merge its owned media, PR, and ad teams into a “Communication Design Dept.”?",
+            "options": [
+              "AIDMA",
+              "STP",
+              "4P",
+              "PESO"
+            ],
+            "answer": 3,
+            "explain": "Ajinomoto reorganized its teams by PESO (Paid, Earned, Shared, Owned Media), creating the Communication Design Department.",
+            "source": "From Creative Executor to Strategic Co-Builder"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Insight Is the Shared Language",
+        "text": "When R&D, marketing, and sales can't stop arguing, go back to what the customer said."
+      }
+    },
+    {
+      "id": "s2025_06",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_12",
+        "c2025_13",
+        "c2025_21"
+      ],
+      "title": "The 2 AM Report",
+      "locationId": "home",
+      "giver": "roommate_yu",
+      "time": "night",
+      "brief": "Roommate Yu, a media agency intern, is up past midnight watching a fully automated ad report. Results dropped, she can't say why, and her boss just says: let the AI run.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "roommate_yu",
+              "text": "You're back. I'm checking the auto-ads report. ROAS fell from five to two."
+            },
+            {
+              "who": "roommate_yu",
+              "text": "But I can't see where it's spending the money. The system just says “Optimized.”"
+            },
+            {
+              "who": "player",
+              "text": "What does your boss say?"
+            },
+            {
+              "who": "roommate_yu",
+              "text": "He says let the AI run and don't touch it. But it's the client's money!"
+            },
+            {
+              "who": "roommate_yu",
+              "text": "I get up at three every night to check the account. I think I'm more tired than the AI."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you tell Yu?",
+          "options": [
+            {
+              "text": "Trust the system, fold the rest of the budget into automation, and stop stepping in every day.",
+              "effects": {
+                "sales": 4,
+                "trust": -2,
+                "liver": 2
+              },
+              "feedback": "Two weeks later, ROAS is back to three, and Yu still can't say why. When the client asks, all she can do is translate the system's notes into Chinese for him.",
+              "insight": "“Digital Advertising Reshaped by the AI Wave” says AI has taken over finding customers, winning slots, and optimizing assets, but has four limits: shallow strategy and creativity, the black box, data privacy and ethics, and bias.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Build an auto-check that pings you when budget burns too fast or CPC spikes. No more midnight watch.",
+              "effects": {
+                "trust": 3,
+                "sales": 3,
+                "liver": 5
+              },
+              "feedback": "You write rules over a weekend and hook them to a chat app. Night three, it fires: an asset set was pulled and budget piled onto one audience. Yu sleeps through at last.",
+              "insight": "The Auto Responder in “Marketing Warfare in the Algorithm Era” links Google, Meta, and LINE by API, flags anomalies with a rules engine plus AI prediction, then has GPT write alerts for the team. Standard data, modular tools, systematic workflows.",
+              "roleBonus": {
+                "data": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Each morning, check a dashboard of search, news, and social sentiment to see what's going on.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "liver": 4
+              },
+              "feedback": "The dashboard shows a rival's sale that week and social posts slamming the client's shipping. The ads weren't the problem. Yu walks into that day's meeting with answers.",
+              "insight": "The AI dashboard in “iP intelligent platform” combines search trends, news summaries, and social posts, sorting sentiment into positive, neutral, and negative, so planners move from sorting data to strategic thinking.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "According to “Digital Advertising Reshaped by the AI Wave,” smart bidding weighs all its signals and bids within how long in each auction?",
+            "options": [
+              "Within 0.01 seconds",
+              "Within 1 second",
+              "Within 10 seconds",
+              "Within 1 minute"
+            ],
+            "answer": 0,
+            "explain": "The book says AI weighs signals and bids within 0.01 seconds of each auction, a speed no human operator can match.",
+            "source": "Digital Advertising Reshaped by the AI Wave: Current Challenges and Rebuilt Work Habits"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 0,
+        "sales": 1,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "From Operator to Commander",
+        "text": "Let AI run the routine. People go find the reasons it can't see."
+      }
+    },
+    {
+      "id": "s2025_07",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_15",
+        "c2025_18",
+        "c2025_19"
+      ],
+      "title": "AI Didn't Mention Us",
+      "locationId": "riverside",
+      "giver": "rider_jie",
+      "time": "any",
+      "brief": "Rider Ah-Chieh asked AI for the best rain gear, and your client “Dry Under Rain” wasn't in the answer. Site traffic is down 30%; the client wants more search ads.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "rider_jie",
+              "text": "Hey, you guys do Dry Under Rain, right? I just asked AI which raincoat holds up best."
+            },
+            {
+              "who": "rider_jie",
+              "text": "It suggested three brands. Not yours. And I'm literally wearing yours."
+            },
+            {
+              "who": "player",
+              "text": "How did you first hear about it?"
+            },
+            {
+              "who": "rider_jie",
+              "text": "Someone in my rider group posted a video: an hour in heavy rain, still dry inside."
+            },
+            {
+              "who": "rider_jie",
+              "text": "Then I watched tests on YouTube and compared prices online before buying."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How do you win back traffic for “Dry Under Rain”?",
+          "options": [
+            {
+              "text": "Pour more into search ads and grab the site traffic back first.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "Traffic comes back fast once the ads run. But people asking AI still don't see the brand, and the week the ads stop, traffic drops again.",
+              "insight": "“From the Open Web to Walled Gardens” notes search is becoming an answer engine, wrapping consumers inside AI's walls, with more and more zero-click searches. As the book puts it: “If AI doesn't remember you, you don't exist.”",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Cover each stop of the search journey: forum tests, Q&A videos, an FAQ comparison, the product page.",
+              "effects": {
+                "brand": 4,
+                "trust": 3,
+                "liver": 6
+              },
+              "feedback": "You rewrite the product page as Q&A (Waterproof how long? Breathable? Weight?) plus a comparison table. Two months later, a screenshot: Dry Under Rain is on AI's picks.",
+              "insight": "“2025's Big Search Shift” says SEO must move from chasing rankings to chasing meaning, uniting SEO, AEO, and GEO. In a beauty case, a cross-platform search strategy grew organic search revenue 22% year over year.",
+              "roleBonus": {
+                "planner": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Have riders shoot a month of heavy-rain tests, then put ad money behind the best organic performers.",
+              "effects": {
+                "brand": 3,
+                "sales": 3,
+                "liver": 4
+              },
+              "feedback": "Ah-Chieh and three coworkers take turns filming. On day 12, “Riding Through a Flooded Intersection” blows up. You back the top three organic hits, and orders spike.",
+              "insight": "A beauty case in “Short Video Builds a Social Commerce Loop”: 30 straight days of short videos testing themes, then focused spend on the three with the most organic engagement. Brands must go from announcer to participant.",
+              "roleBonus": {
+                "creative": {
+                  "sales": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“2025's Big Search Shift” says that in the AI search era, what is the key shift for SEO?",
+            "options": [
+              "From chasing rankings to chasing meaning",
+              "From making content to buying ads",
+              "From running a website to doing only social",
+              "From long-term plans to chasing trending searches"
+            ],
+            "answer": 0,
+            "explain": "AI reads user intent, then merges sources into a summary, so content must be easy for AI to grasp and cite. Also: the beauty case's SEM CTR rose from 3.11% to 7.95%.",
+            "source": "2025's Big Search Shift"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 1,
+        "trust": 0,
+        "liver": 0
+      },
+      "card": {
+        "title": "Be Remembered by AI",
+        "text": "At every stop people check, leave an answer that's easy to understand."
+      }
+    },
+    {
+      "id": "s2025_08",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_16",
+        "c2025_17",
+        "c2025_26"
+      ],
+      "title": "Four Discounts in One Script",
+      "locationId": "mrt",
+      "giver": "n2025_bong",
+      "time": "evening",
+      "brief": "“Bare-Faced Brave” skincare hired creator Bong-Bong, and the script says “limited-time discount” four times. Under a big MRT screen, Bong-Bong asks: who'd watch this?",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "n2025_bong",
+              "text": "{role}, see that screen up there? That's me saying “limited-time discount.”"
+            },
+            {
+              "who": "n2025_bong",
+              "text": "The script has the discount code four times. My followers swipe away by the second one."
+            },
+            {
+              "who": "player",
+              "text": "What do your followers love watching most?"
+            },
+            {
+              "who": "n2025_bong",
+              "text": "Run club! I lead a weekly night run, then we all do skincare. That one gets the most hits."
+            },
+            {
+              "who": "n2025_bong",
+              "text": "But the brand says this campaign has to show sales."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How do you suggest shooting this sponsored post?",
+          "options": [
+            {
+              "text": "Shoot the brand's script and keep all four codes. The sales will show.",
+              "effects": {
+                "sales": 4,
+                "brand": -2,
+                "liver": 2
+              },
+              "feedback": "The code gets used over a thousand times that week. On Bong-Bong's next video, someone in the comments asks, “Did you turn into an ad account too?”",
+              "insight": "“The Every-Screen Era” argues for building long-term supporters through social issues and values, not discounts. The book cites a survey: algorithms influence 72% of consumers' purchase choices.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Partner with the run club: “Run to a Healthy Glow,” with sunscreen and skincare samples right after.",
+              "effects": {
+                "brand": 5,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "Two hundred people join the first night run, from City Hall Station to the riverside. Samples run out, and some runners buy a bottle at a convenience store right after.",
+              "insight": "A case in “The Beauty Experience Era”: La Roche-Posay teamed with New Balance on “Run Up Soft Power, No Fear of Summer Sun.” “Breaking Out of the Bubble” also notes over 68% of young people join friend-organized group workouts.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            },
+            {
+              "text": "Land a six-month series. The creator shoots their own way; the brand keeps the message consistent.",
+              "effects": {
+                "brand": 3,
+                "trust": 4,
+                "liver": 4
+              },
+              "feedback": "The brand takes three meetings to say yes. The first two episodes sell so-so; from episode four, followers start posting their own three-month results in the comments.",
+              "insight": "“The Every-Screen Era” says content must be native yet consistent: budgets shift from big TV ads to creator partnerships while investing in owned content and brand management, as in 7-Eleven Singapore's 40th-anniversary campaign.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "When “Breaking Out of the Bubble” discusses trends in people, it describes “emotional frosting.” What is it?",
+            "options": [
+              "Promo messages tacked onto the end of an ad",
+              "High awareness from a sports star endorsement",
+              "Short-term sales bought with flash discounts",
+              "A sweet layer of comfort over a dreary daily life"
+            ],
+            "answer": 3,
+            "explain": "Life's cake can be dull and bitter, so people learn to coat it in sweet frosting. Comfort-style IP is one example: LINE users in Taiwan send nearly 60M stickers a day.",
+            "source": "Breaking Out of the Bubble: The Brand Code of Sports and Entertainment"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Culture over Discounts",
+        "text": "People come back for what they do together, not for a discount code."
+      }
+    },
+    {
+      "id": "s2025_09",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_20",
+        "c2025_25"
+      ],
+      "title": "Beer Ads at the Stir-Fry Joint",
+      "locationId": "rechao",
+      "giver": "rechao_boss",
+      "time": "night",
+      "brief": "Li-hua's nephew's beer “Cheers, No Blackouts” runs ads on sketchy sites and pushes alerts hourly. Stir-fry joint customers grumble: ads chase you even while you drink.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "rechao_boss",
+              "text": "You ad people, settle this. My nephew's beer ad just got customers yelling."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "A customer saw it on some weird website, right next to a gambling ad."
+            },
+            {
+              "who": "player",
+              "text": "How did he buy the ads?"
+            },
+            {
+              "who": "rechao_boss",
+              "text": "He buys wherever's cheap, and set it to push “It's Cheers Time!” every single hour."
+            },
+            {
+              "who": "rechao_boss",
+              "text": "Way I see it, drinkers hate being rushed. Don't you think?"
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "What do you tell “Cheers, No Blackouts”?",
+          "options": [
+            {
+              "text": "Keep buying cheap traffic, since volume is what counts. Just make the push copy funnier.",
+              "effects": {
+                "sales": 4,
+                "brand": -3,
+                "liver": 2
+              },
+              "feedback": "Impressions look great, and the CPM is low enough to please the boss. A week later, someone posts a screenshot: a Cheers, No Blackouts ad in the middle of a scam article.",
+              "insight": "“The Quality and Trends of the Digital Ad Ecosystem, Through SPECTRUM” notes that programmatic buying and tracking tech dilute brand value and bring ad fraud and brand safety problems.",
+              "roleBonus": {
+                "media": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Buy private marketplace slots on curated media, with third-party verification, to see where ads run.",
+              "effects": {
+                "brand": 4,
+                "trust": 3,
+                "sales": -2,
+                "liver": 4
+              },
+              "feedback": "CPM doubles and impressions halve. But every ad shows which site it ran on, and the nephew says he finally dares to show the report to his dad.",
+              "insight": "Dentsu launched SPECTRUM in Taiwan in 2015, pairing private marketplaces with third-party verification to build ad products that win on quality. In 2024, over 200 major brands ran 1,000+ campaigns on it.",
+              "roleBonus": {
+                "ae": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "Flip it: no pushes after 11 PM. Instead, send just one: “You've had enough. Time to head home.”",
+              "effects": {
+                "brand": 6,
+                "trust": 2,
+                "liver": 5
+              },
+              "feedback": "The first night's push is screenshotted and shared thousands of times: “First time an ad ever cared about me.” Li-hua prints it and tapes it to the joint's fridge.",
+              "insight": "In “Brands Must Be Not Just Fast but Close,” IKEA's “Sleep” went the other way, reminding viewers to go to bed during breaks in hit shows. Brands must keep the understanding, empathy, and companionship that can't be generated.",
+              "roleBonus": {
+                "creative": {
+                  "brand": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "When SPECTRUM launched its video product in 2017, what pricing model did it use?",
+            "options": [
+              "Cost per thousand impressions (CPM)",
+              "Cost per click (CPC)",
+              "Cost per 30-second completed view (CPCV)",
+              "Cost per action (CPA)"
+            ],
+            "answer": 2,
+            "explain": "The Video product launched in 2017 was priced per 30-second completed view (CPCV), focusing on whether ads were actually watched to the end.",
+            "source": "The Quality and Trends of the Digital Ad Ecosystem, Through SPECTRUM"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 2,
+        "sales": 0,
+        "trust": 1,
+        "liver": 0
+      },
+      "card": {
+        "title": "Not Just Fast, but Close",
+        "text": "Where and when an ad shows up is part of the brand, too."
+      }
+    },
+    {
+      "id": "s2025_10",
+      "year": 2025,
+      "chapterIds": [
+        "c2025_22",
+        "c2025_24"
+      ],
+      "title": "The Speaker Orders for Ama",
+      "locationId": "gamadiam",
+      "giver": "grandma",
+      "time": "afternoon",
+      "brief": "A supplement brand wants Ama's smart speaker to auto-renew and auto-pay for her calcium pills. Ama says it's good at reminders, but for buying, she'd rather ask a person.",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lines": [
+            {
+              "who": "grandma",
+              "text": "That speaker asked me today if it should buy my calcium pills every month."
+            },
+            {
+              "who": "grandma",
+              "text": "I said sure, and then it wanted my card. Gave me such a fright, I switched it off."
+            },
+            {
+              "who": "player",
+              "text": "Ama, did a doctor tell you to take calcium?"
+            },
+            {
+              "who": "grandma",
+              "text": "Mrs. Lin next door said they're good, so I bought some. How much to take? Ama has no idea."
+            },
+            {
+              "who": "grandma",
+              "text": "Reminders from the machine are nice. But when it comes to buying, I'd rather ask a person."
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "prompt": "How would you design this supplement brand's AI service?",
+          "options": [
+            {
+              "text": "Let the AI agent auto-renew and auto-charge: easy for seniors, steady for the brand.",
+              "effects": {
+                "sales": 5,
+                "trust": -3,
+                "liver": 2
+              },
+              "feedback": "Renewal rates look great. Three months later, customer service gets calls from grown children: Mom's house has six months of calcium piled up.",
+              "insight": "“AI Reshapes Retail Interaction” says AI now takes part in the shopping journey directly, and a third of consumers would let a shopping assistant handle the whole process. Brands must face both consumers and their AI agents.",
+              "roleBonus": {
+                "data": {
+                  "sales": 3
+                }
+              }
+            },
+            {
+              "text": "Have AI ask about health and meds first, handing off to a real pharmacist or dietitian if needed.",
+              "effects": {
+                "trust": 5,
+                "brand": 3,
+                "liver": 5
+              },
+              "feedback": "On the first call, the pharmacist hears Ama's medications and tells her to take half as much. Afterward, Ama tells everyone: this brand told me to buy less.",
+              "insight": "“The Total Wellness Era” says supplement brands must turn from product suppliers into health advisors. Citing NIQ, over 52% of consumers want expert health advice; a Taiwan case teams up five kinds of pros, including doctors, pharmacists, and dietitians.",
+              "roleBonus": {
+                "planner": {
+                  "trust": 3
+                }
+              }
+            },
+            {
+              "text": "First build a simple interface so Ama decides what data to share, and with whom.",
+              "effects": {
+                "trust": 4,
+                "brand": 2,
+                "sales": -2,
+                "liver": 3
+              },
+              "feedback": "The interface has just three big buttons, and Ama picks “Let my daughter see too.” Launch slips a month behind plan, and sales grumbles for two weeks.",
+              "insight": "“The Total Wellness Era” cites a survey: 71% of consumers worldwide want more control over the personal data they give companies, and 74% want a single interface to manage data sharing.",
+              "roleBonus": {
+                "cx": {
+                  "trust": 3
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "inline": {
+            "q": "“AI Reshapes Retail Interaction” divides AI's role in retail into three layers. Which set is in the right order?",
+            "options": [
+              "Understand, enhance, then embody humanity",
+              "Collect, analyze, then sell data",
+              "Auto-list, auto-price, then auto-ship",
+              "Grab attention, drive clicks, then close checkout"
+            ],
+            "answer": 0,
+            "explain": "AI goes from understanding to enhancing to embodying humanity, as a buying agent. In a 2025 Walmart survey, 47% of US shoppers would let AI buy home goods within budget.",
+            "source": "AI Reshapes Retail Interaction: From Understanding to Embodying Humanity"
+          }
+        }
+      ],
+      "reward": {
+        "brand": 1,
+        "sales": 0,
+        "trust": 2,
+        "liver": 0
+      },
+      "card": {
+        "title": "Be an Advisor, Not a Seller",
+        "text": "AI can order for people, but it has to look out for them first."
+      }
+    }
+  ]
+}

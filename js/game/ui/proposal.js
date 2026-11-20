@@ -2,11 +2,14 @@
 // 還沒拿到的是空白頁。阿嬤線累積夠了，最後多一頁阿嬤的那一句。
 
 import { h, fill, arrowFocus } from '../dom.js';
-import { T } from '../strings.js';
+import { T, chapterQuote } from '../strings.js';
 
 /**
  * pages：[{ no, year, title, points, quote, source, owned, grandma }]
  */
+// 英日版：書名與章節名是譯名，頁尾註明一行（中文版是空字串，不顯示）
+const translatedNote = () => (T.translatedNote ? h('p', { class: 'translated-note', text: T.translatedNote }) : null);
+
 export function openProposal({ dialog, pages, appendix = [] }) {
   const body = h('div', { class: 'proposal-body' });
   const close = h('button', { type: 'button', class: 'btn btn--small', text: T.close, onClick: () => dialog.close() });
@@ -43,10 +46,11 @@ export function openProposal({ dialog, pages, appendix = [] }) {
             h(
               'ol',
               { class: 'appendix-list' },
-              appendix.map((card) => h('li', { class: 'appendix-card', dataset: { side: card.id } }, h('span', { class: 'lightbox lightbox--small', text: String(card.year) }), h('strong', { text: card.title }), h('p', { text: card.text }), card.chapters.map((title) => h('span', { class: 'side-chapter', text: `〈${title}〉` })))),
+              appendix.map((card) => h('li', { class: 'appendix-card', dataset: { side: card.id } }, h('span', { class: 'lightbox lightbox--small', text: String(card.year) }), h('strong', { text: card.title }), h('p', { text: card.text }), card.chapters.map((title) => h('span', { class: 'side-chapter', text: chapterQuote(title) })))),
             ),
           )
         : null,
+      translatedNote(),
     );
     const target = focusNo ? body.querySelector(`[data-page="${focusNo}"]`) : body.querySelector('.page--owned');
     (target || close).focus({ preventScroll: true });
@@ -68,6 +72,7 @@ export function openProposal({ dialog, pages, appendix = [] }) {
         page.points?.length ? h('ul', { class: 'slide-points' }, page.points.map((point) => h('li', { text: point }))) : null,
         page.quote ? h('blockquote', { class: 'slide-quote', text: page.quote }) : null,
       ),
+      page.source ? translatedNote() : null,
       h('div', { class: 'slide-nav' }, back, prev, next),
     );
     (at < ownedPages.length - 1 ? next : back).focus({ preventScroll: true });
