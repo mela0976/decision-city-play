@@ -12,6 +12,9 @@ const PATHS = {
   speaker: 'M4 9.5h3.5L12 5.500v13l-4.500-4H4z',
   play: 'M8 5l11 7-11 7z',
   stop: 'M7 7h10v10H7z',
+  // 收音機：喇叭加兩道聲波（窄螢幕的電台鈕）；選單：三條線（窄螢幕的選單鈕）
+  radio: 'M4 9.5h3.5L12 5.500v13l-4.500-4H4zM15.500 9a4 4 0 010 6M18 6.500a7.500 7.500 0 010 11',
+  menu: 'M4 7h16M4 12h16M4 17h16',
 };
 
 export function icon(name, { filled = false, className = '' } = {}) {

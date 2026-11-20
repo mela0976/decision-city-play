@@ -1,44 +1,20 @@
 import * as T from '../vendor/three.module.min.js';
-import {roads,roadNodes,roadAt,metersPerUnit as unit} from '../world.mjs';
+import {roads,roadNodes,roadAt,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs';
 import {crossingForNode} from '../street-crossings.mjs';
 import {canvasTexture,hash,shapes} from './city-primitives.js';
 import {xinyiBusBay,addUtilityPoles} from './furniture.js';
+import {paintJunctions} from './junction-markings.js'; // A24
+
+import {drawSidewalks} from './sidewalks.js'; // A24
 const {plane}=shapes;
-// Ground markings for known junctions below the signal generator's
-// side-street width threshold. Each entry lists a side street and the
-// intersecting OSM ways that receive markings.
-const localCrossings=[
-  [51797018,[268569312]], // 忠孝東路五段71巷 × 忠孝東路五段
-  [1312735559,[289004414]], // 松壽路20巷 × 松廉路
-  [323005092,[1335559363,1335559364]], // 松高路20巷 × 松壽路
-];
-
-function localCrossingNodes(){
-  const keys=new Set(localCrossings.flatMap(([side,main])=>[side,...main]));
-  const nodes=new Map([...keys].map(id=>[id,new Set()]));
-  for(const [,,,,,{a,b,way}] of roads){
-    const wayNodes=nodes.get(way.id);
-    if(wayNodes){wayNodes.add(a);wayNodes.add(b);}
-  }
-  const result=new Map();
-  for(const [side,main] of localCrossings){
-    for(const id of main){
-      for(const node of nodes.get(id)){
-        if(!nodes.get(side).has(node))continue;
-        if(!result.has(node))result.set(node,new Set());
-        result.get(node).add(id);
-      }
-    }
-  }
-  return result;
-}
-
 export function createRoads({batch,furnitureInstance,doc,group,signs,enabled}) {
-  const roadMarkMaterials=new Map();
+  const roadMarkMaterials=new Map(),symbols=new Map(); // A24
   const strip=(a,b,span,y,kind,off=0,tint='#fff',uvScale=3,minLength=.1)=>{
     const ax=a[0]*unit,az=a[1]*unit,bx=b[0]*unit,bz=b[1]*unit;
     const len=Math.hypot(bx-ax,bz-az);
     if(len<minLength)return;
+    // A23 alleys: the asphalt surface at .02 m wins where a parking pad or footway crosses a driveway.
+    if(kind==='paving'&&inWuxing((a[0]+b[0])/2,(a[1]+b[1])/2))y=Math.min(y,.015);
     const nx=-(bz-az)/len,nz=(bx-ax)/len,half=span/2;
     const p=(x,z,side)=>[x+nx*(side*half+off),y,z+nz*(side*half+off)];
     batch((ax+bx)*.5,(az+bz)*.5,kind).quad(p(ax,az,-1),p(bx,bz,-1),p(bx,bz,1),p(ax,az,1),tint,len/uvScale,span/uvScale);
@@ -61,9 +37,14 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled}) {
     const mark=new T.Mesh(plane,roadMarkMaterials.get(arrows));
     mark.position.set(x,.078,z);mark.rotation.set(-Math.PI/2,0,-heading-Math.PI/2,'YXZ');
     mark.scale.set(arrows==='scooter'?1.4:2.25,arrows==='↑'?2.0:1.30,1);
+    if(arrows==='scooter'||arrows==='慢'){
+      if(!symbols.has(arrows))symbols.set(arrows,[]);
+      mark.updateMatrix();symbols.get(arrows).push(mark.matrix);return;
+    }
     mark.userData.roadMark=true;group.add(mark);signs.push(mark);
   }
   return {strip,addRoadMark, build(){
+    if(enabled)drawSidewalks(batch); // A24 raised street and arcade decks
     const busMark=xinyiBusBay(10,-1.66);
     addRoadMark('公車專用',busMark.x,busMark.z,busMark.heading);
     const reverseBusMark=xinyiBusBay(10,-1.66,true);
@@ -78,71 +59,75 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled}) {
         addRoadMark(label,point.x,point.z,point.heading);
       }
     }
-    const covers=new Set(),localNodes=localCrossingNodes();
+    // Stop each apron at the edge of its intersecting carriageway, including one-way incoming edges.
+    const joints=new Map();
+    for(const [ax,ay,bx,by,w,{a,b,way}] of roads){
+      if(way.layer!==0||!inWuxing((ax+bx)/2,(ay+by)/2))continue;
+      const length=Math.hypot(bx-ax,by-ay);
+      for(const node of [a,b]){
+        if(!joints.has(node))joints.set(node,[]);
+        joints.get(node).push({dx:(bx-ax)/length,dy:(by-ay)/length,half:w*unit/2});
+      }
+    }
+    const convenience=toWorld(25.035928,121.567773);
+    const covers=new Set();
+    paintJunctions(strip,addRoadMark); // A24
+    for(const [name,matrices] of symbols){
+      const mesh=new T.InstancedMesh(plane,roadMarkMaterials.get(name),matrices.length);
+      matrices.forEach((matrix,i)=>mesh.setMatrixAt(i,matrix));
+      mesh.computeBoundingSphere();group.add(mesh);
+    }
     for(const [ax,ay,bx,by,w,{a:from,b:to,way,forward,reverse}] of roads) {
       const a=[ax,ay],b=[bx,by],span=w*unit;
-      if(way.kind==='pedestrian') {strip(a,b,span,.07,'paving');continue;}
+      if(way.kind==='pedestrian') {strip(a,b,span,-.008,'paving'); // A24 footways pass below intersecting asphalt
+        continue;}
       const d=Math.hypot(bx-ax,by-ay),length=d*unit;
       const at=t=>[ax+(bx-ax)*t/d,ay+(by-ay)*t/d];
       const paint=(start,end,width,y,kind,offset,tint,uvScale)=>{
         if(end>start+.01)strip(at(start/unit),at(end/unit),width,y,kind,offset,tint,uvScale,.01);
       };
+      const local=inWuxing((ax+bx)/2,(ay+by)/2)&&way.layer===0;
+      const narrow=local&&span<=8;
+      const shopFront=way.id===1335559363&&Math.hypot((ax+bx)/2-convenience.x,(ay+by)/2-convenience.y)*unit<38;
       const arterial=['primary','secondary','tertiary'].includes(way.kind);
       const asphalt=hash(way.id,31)>.55?'#dedcda':'#f3efeb';
       strip(a,b,span,.02,'road',0,asphalt,4.2);
-      const crossingFrom=crossingForNode.get(from)?.approaches.find(arm=>arm.to===to);
-      const crossingTo=crossingForNode.get(to)?.approaches.find(arm=>arm.to===from);
-      const localFrom=!crossingFrom&&localNodes.get(from)?.has(way.id);
-      const localTo=!crossingTo&&localNodes.get(to)?.has(way.id);
-      const start=crossingFrom?.arrow??(localFrom?Math.min(length,forward&&!reverse?7:13):0);
-      const end=length-(crossingTo?.arrow??(localTo?Math.min(length,13):0));
+      const crossingFrom=crossingForNode.get(from)?.approaches.find(arm=>arm.from===from&&arm.to===to);
+      const crossingTo=crossingForNode.get(to)?.approaches.find(arm=>arm.from===to&&arm.to===from);
+      const start=crossingFrom?.arrow??0,end=length-(crossingTo?.arrow??0);
       const twoWay=forward&&reverse;
       const laneCount=Math.max(1,Math.round(span/(twoWay?6.2:3.1)));
-      for(const [local,inbound,atStart] of [[localFrom,reverse,true],[localTo,forward,false]]){
-        if(!local||length<7)continue;
-        const across=(near,far,width,offset,tint)=>{
-          const range=atStart?[near,far]:[length-far,length-near];
-          paint(...range,width,.073,'line',offset,tint);
-        };
-        const crossingStart=4.9,crossingEnd=6.9;
-        const stripes=Math.floor((span-.68)/1.6);
-        for(let n=-stripes;n<=stripes;n++){
-          across(crossingStart,crossingEnd,.40,n*.80,hash(from,n+80)>.24?'#f3ecdb':'#d0c9ba');
+      const clearance=node=>{
+        const arms=joints.get(node);
+        if(!arms||arms.length<3)return 0;
+        let stop=0;
+        for(const arm of arms){
+          const cross=Math.abs((bx-ax)/d*arm.dy-(by-ay)/d*arm.dx);
+          if(cross>.4)stop=Math.max(stop,arm.half/cross);
         }
-        if(!inbound)continue;
-        const offset=twoWay?span*.25*(atStart?-1:1):0;
-        const approachWidth=(twoWay?span/2:span)-.28;
-        const waitForScooters=arterial&&span>=8;
-        const stop=waitForScooters?11.2:8.5;
-        if(length<stop+.7)continue;
-        across(stop,stop+.34,approachWidth,offset,'#f4eddf');
-        if(!waitForScooters)continue;
-        const boxStart=8.3,boxEnd=10.9,boxWidth=Math.min(approachWidth,span*.48);
-        for(const side of [-1,1]){
-          across(boxStart,boxEnd,.11,offset+side*boxWidth/2,'#e5dfd1');
-        }
-        for(const t of [boxStart,boxEnd])across(t,t+.11,boxWidth,offset,'#e5dfd1');
-        const heading=Math.atan2(by-ay,bx-ax);
-        const [px,pz]=at((atStart?9.6:length-9.6)/unit);
-        addRoadMark('scooter',px*unit-Math.sin(heading)*offset,pz*unit+Math.cos(heading)*offset,
-          heading+(atStart?Math.PI:0));
-        if(length>=17){
-          const [x,z]=at((atStart?14.5:length-14.5)/unit);
-          addRoadMark('↑',x*unit-Math.sin(heading)*offset,z*unit+Math.cos(heading)*offset,
-            heading+(atStart?Math.PI:0));
-        }
-      }
-      const tactile=way.name==='松壽路'||way.name==='菸廠路';
+        return stop;
+      };
+      const kerbStart=local?clearance(from):0,kerbEnd=local?length-clearance(to):length;
+      // A24 raised paving and curb profiles are submitted by drawSidewalks.
       for(const side of [-1,1]){
-        strip(a,b,1.6,.050,'paving',side*(span/2+.77),'#fff',2.6);
-        strip(a,b,.14,.059,'curb',side*(span/2+.06),'#eee7d9');
-        if(tactile&&length>5){
-          paint(.4,length-.4,.28,.055,'paving',side*(span/2+.91),'#dcc17c',.56);
+        // The Songshou convenience store faces a paved forecourt. Wuxing alleys share the lane with pedestrians.
+        if(shopFront&&side===-1)strip(a,b,7.6,.012,'paving',side*(span/2+3.8),'#d2ccc0',2.8);
+        if(local){
+          if(narrow||way.name==='吳興街'){
+            // Flush scooter apron below the road, with parallel bays behind the drainage channel.
+            paint(kerbStart,kerbEnd,3.2,-.040,'road',side*(span/2+1.6),'#b6ada2',4.2);
+            for(let t=kerbStart+2;t+5<kerbEnd;t+=9){
+              const [px,py]=at((t+2.4)/unit),off=side*(span/2+1.7)/unit;
+              if(roadAt(px-(by-ay)/d*off,py+(bx-ax)/d*off))continue;
+              paint(t,t+4.8,.065,-.024,'line',side*(span/2+.67),'#dcd6c6');
+              for(let k=0;k<=4;k++)paint(t+k*1.18,t+k*1.18+.062,1.64,-.024,'line',side*(span/2+1.49),'#dcd6c6');
+            }
+          }
         }
         if(length<=11||!way.name)continue;
         const roadEdge=side*(span/2-.22);
         strip(a,b,.06,.028,'curb',side*(span/2-.05),'#55595a');
-        const fromJunction=crossingFrom||localFrom,toJunction=crossingTo||localTo;
+        const fromJunction=crossingFrom,toJunction=crossingTo;
         if(arterial&&way.kind!=='tertiary'&&way.name!=='忠孝東路五段'){
           paint(.45,length-.45,.10,.039,'line',roadEdge,'#d86c5d');
         }else{
@@ -158,7 +143,7 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled}) {
           }
         }
       }
-      if(span>4.8&&twoWay){
+      if(span>4.8&&twoWay&&!narrow){
         if(arterial&&span>9){
           for(const offset of [-.125,.125])paint(start,end,.10,.035,'line',offset,'#d4ae53');
         }else for(let t=start+.4;t<end-.2;t+=8){
@@ -236,15 +221,4 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled}) {
       }
     }
   }};
-}
-
-export function paveFront(batch,ax,az,bx,bz,nx,nz,length,maxDepth=10) {
-  const mx=(ax+bx)/2,mz=(az+bz)/2;
-  for(let d=.5;d<=maxDepth;d+=.25){
-    if(!roadAt((mx+nx*d)/unit,(mz+nz*d)/unit,-.25/unit))continue;
-    const edge=Math.max(.15,d-.37);
-    batch(mx,mz,'paving').quad([ax,.047,az],[bx,.047,bz],
-      [bx+nx*edge,.047,bz+nz*edge],[ax+nx*edge,.047,az+nz*edge],'#e7dfd1',length/3,edge/3);
-    break;
-  }
 }

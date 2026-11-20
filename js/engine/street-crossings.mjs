@@ -1,51 +1,265 @@
-import {roads,roadNodes,metersPerUnit as unit} from './world.mjs';
+// A24. Coordinates use world units; crosswalk, stop and box distances are metres
+// from the OSM arm's anchor, including on divided carriageways.
+import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs';
+import tagged from './data/xinyi-signals.json' with {type:'json'};
 
-export const crossings=[];
-const seen=new Set(), approachesByNode=new Map();
-export const crossingForNode=new Map();
-export const signalGroup=(crossing,dx,dy)=>crossing.diagonalPhases?
-  Math.abs(crossing.dx*dx+crossing.dy*dy)>=Math.SQRT1_2:Math.abs(dx)>.8;
-for(const [,,,,,edge] of roads){
-  if(edge.w*unit<7||edge.way.kind==='pedestrian'||edge.way.layer!==0)continue;
-  for(const [from,to,forward,reverse] of [[edge.a,edge.b,edge.forward,edge.reverse],[edge.b,edge.a,edge.reverse,edge.forward]]){
-    const a=roadNodes[from],b=roadNodes[to];
-    if(!approachesByNode.has(from))approachesByNode.set(from,[]);
-    approachesByNode.get(from).push({dx:(b.x-a.x)/edge.d,dy:(b.y-a.y)/edge.d,
-      width:edge.w,length:edge.d,forward,reverse,to});
+const rank={primary:3,secondary:2,tertiary:1};
+const arms=roadNodes.map(()=>[]);
+for(const [,,,,,e] of roads){
+  if(e.way.kind==='pedestrian'||e.way.layer!==0)continue;
+  for(const [from,to,forward,reverse] of [[e.a,e.b,e.forward,e.reverse],[e.b,e.a,e.reverse,e.forward]]){
+    if(arms[from].some(a=>a.to===to))continue;
+    const p=roadNodes[from],q=roadNodes[to];
+    arms[from].push({from,to,x:p.x,y:p.y,dx:(q.x-p.x)/e.d,dy:(q.y-p.y)/e.d,width:e.w,
+      length:e.d,way:e.way,forward,reverse});
   }
 }
-for(const node of roadNodes){
-  const entries=node.out.filter(edge=>edge.w*unit>=7);
-  if(new Set(entries.map(edge=>edge.way.id)).size<2)continue;
-  const approaches=approachesByNode.get(node.index);
-  // Two differently tagged arms on a bend do not make an intersection.
-  if(!approaches.some(a=>approaches.some(b=>Math.abs(a.dx*b.dy-a.dy*b.dx)>.48)))continue;
-  const key=Math.floor(node.x*unit/20)+','+Math.floor(node.y*unit/20);
-  if(seen.has(key))continue;
-  seen.add(key);
-  const edge=entries.find(edge=>edge.d*unit>=10)??entries[0];
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)*unit;
+const intersect=(a,b)=>Math.abs(a.dx*b.dy-a.dy*b.dx)>.42;
+const roadName=way=>(way.name??'').replace(/[一二三四五六七八九十]+段$/,'');
+function arterialIntersection(approaches){
+  return approaches.some(a=>rank[a.way.kind]&&approaches.some(b=>rank[b.way.kind]&&
+    a.way.id!==b.way.id&&(!a.way.name||!b.way.name||roadName(a.way)!==roadName(b.way))&&intersect(a,b)));
+}
+const nodes=roadNodes.filter(n=>arms[n.index].length>=3);
+const major=new Set(nodes.filter(n=>arterialIntersection(arms[n.index])).map(n=>n.index));
+const candidates=new Set(major),ids=new Map();
+const coordKey=p=>Math.round(p.x*100)+','+Math.round(p.y*100);
+const byCoordinate=new Map(roadNodes.map(n=>[coordKey(n),n]));
+export const skippedSignals=[];
+for(const [id,lat,lon,ped] of tagged.nodes){
+  const p=toWorld(lat,lon),exact=byCoordinate.get(coordKey(p));
+  // OSM commonly places heads on the incoming way, before the graph junction.
+  let nearest=null,best=25;
+  for(const n of nodes){
+    if(exact&&!arms[n.index].some(a=>arms[exact.index].some(b=>a.way.id===b.way.id)))continue;
+    const d=dist(n,p);
+    if(d<best){best=d;nearest=n;}
+  }
+  if(!nearest&&ped&&exact&&arms[exact.index].length===2)nearest=exact;
+  if(!nearest){skippedSignals.push(id);continue;}
+  candidates.add(nearest.index);
+  if(!ids.has(nearest.index))ids.set(nearest.index,[]);
+  ids.get(nearest.index).push(id);
+}
+
+export const crossings=[],crossingForNode=new Map(),junctionById=new Map(),alleyStops=[];
+export const signalGroup=(j,dx,dy)=>Math.abs(j.dx*dx+j.dy*dy)>=Math.SQRT1_2;
+const pending=new Set([...candidates].sort((a,b)=>a-b));
+while(pending.size){
+  const first=pending.values().next().value,members=[first];
+  pending.delete(first);
+  for(const i of members)for(const k of pending)if(dist(roadNodes[i],roadNodes[k])<25){
+    members.push(k);pending.delete(k);
+  }
+  const inside=new Set(members);
+  // Absorb geometry vertices along short internal links between the merged nodes.
+  for(const i of members)for(const a of arms[i]){
+    let prev=i,next=a.to,length=a.length*unit;
+    const path=[];
+    while(!inside.has(next)&&arms[next].length===2&&length<30&&!path.includes(next)){
+      path.push(next);
+      const out=arms[next].find(b=>b.to!==prev);
+      if(!out)break;
+      prev=next;next=out.to;length+=out.length*unit;
+    }
+    if(inside.has(next))for(const k of path)inside.add(k);
+  }
+  const approaches=members.flatMap(i=>arms[i].filter(a=>!inside.has(a.to)));
+  if(!approaches.length)continue;
+  const axis=[...approaches].sort((a,b)=>(rank[b.way.kind]??0)-(rank[a.way.kind]??0)||b.width-a.width||a.way.id-b.way.id)[0];
+  const center={x:0,y:0};
+  for(const i of members){center.x+=roadNodes[i].x/members.length;center.y+=roadNodes[i].y/members.length;}
+  const id='j'+first,hash=Math.imul(first+1,2654435761)>>>0,cycle=60,greenA=Math.round((cycle-10)*.6);
+  const j={...center,id,node:first,members,osmIds:members.flatMap(i=>ids.get(i)??[]),twoStage:arterialIntersection(approaches),
+    dx:axis.dx,dy:axis.dy,width:axis.width,cycle,greenA,greenB:cycle-10-greenA,
+    offset:0,approaches,poles:[]};
+  // A common cycle prevents neighboring heads from drifting apart over long games.
+  // Follow the major corridor, with bounded ID-based variation at each intersection.
+  // Keep the east-west green window aligned even where the north-south road
+  // has priority (its east-west movement is group B instead of group A).
+  const vertical=Math.abs(axis.dy)>Math.abs(axis.dx);
+  const along=(center.x+center.y)*unit;
+  const axisStart=vertical?greenA+5:0;
+  const nearOffsets=new Set(crossings.filter(other=>dist(j,other)<150).map(other=>other.offset));
+  j.offset=(cycle+axisStart-Math.round(along/55)%cycle+(hash>>>16)%5)%cycle;
+  while(nearOffsets.has(j.offset))j.offset=(j.offset+1)%cycle;
   for(const a of approaches){
-    const clearance=approaches.reduce((max,b)=>{
-      const sine=Math.abs(a.dx*b.dy-a.dy*b.dx);
-      return sine<.55?max:Math.max(max,b.width*unit/(2*sine)+.35);
-    },3.6);
-    a.crosswalk=Math.ceil(clearance*4)/4;
-    a.stop=a.crosswalk+2.6;
-    a.box=a.stop+.6;
-    a.arrow=a.box+4.2;
+    const clearance=approaches.reduce((max,b)=>!intersect(a,b)?max:Math.max(max,
+      b.width*unit/(2*Math.max(.7,Math.abs(a.dx*b.dy-a.dy*b.dx)))+.4),3);
+    a.crosswalk=Math.min(13.2,clearance);
+    a.stop=a.crosswalk+3.6;a.box=a.crosswalk+2.78;a.arrow=a.stop+3;
+    a.paintLength=a.length*unit;a.group=signalGroup(j,a.dx,a.dy);a.junctionId=id;
+    a.laneWidth=a.width*unit/(a.forward&&a.reverse?2:1);
+    a.offset=a.forward&&a.reverse?-a.laneWidth/2:0;
+    a.groupName=a.group?'a':'b';
   }
-  const direction=approaches.find(a=>a.to===edge.to);
-  const crossing={node:node.index,x:node.x,y:node.y,dx:direction.dx,dy:direction.dy,width:edge.w,
-    crosswalk:direction.crosswalk,diagonalPhases:!approaches.some(a=>Math.abs(a.dx)>.8),approaches};
-  crossingForNode.set(node.index,crossing);
-  crossings.push(crossing);
+  j.crosswalk=axis.crosswalk;
+  // Four inbound-facing heads even at a T. Pick the arm nearest each bearing.
+  const base=Math.atan2(axis.dy,axis.dx);
+  for(let k=0;k<4;k++){
+    const angle=base+k*Math.PI/2,dx=Math.cos(angle),dy=Math.sin(angle);
+    const a=[...approaches].sort((a,b)=>(b.dx-a.dx)*dx+(b.dy-a.dy)*dy)[0];
+    const aligned=a.dx*dx+a.dy*dy>.65;
+    const ux=aligned?a.dx:dx,uy=aligned?a.dy:dy;
+    const origin=aligned?a:center;
+    let side=a.width*unit/2+.55;
+    let x,y;
+    for(let i=0;i<16;i++,side+=.45){
+      x=origin.x*unit+ux*(a.crosswalk+.7)+uy*side;
+      y=origin.y*unit+uy*(a.crosswalk+.7)-ux*side;
+      if(!roadAt(x/unit,y/unit,-.1/unit))break;
+    }
+    const street=approaches.find(b=>b.group!==a.group&&b.way.name)?.way.name||a.way.name;
+    j.poles.push({x,y,dx:ux,dy:uy,group:signalGroup(j,ux,uy),name:street,en:tagged.english[street]??'',junction:j});
+  }
+  crossings.push(j);junctionById.set(id,j);
+  for(const i of inside)crossingForNode.set(i,j);
+}
+for(const n of nodes){
+  if(crossingForNode.has(n.index)||!arms[n.index].some(a=>rank[a.way.kind]))continue;
+  for(const a of arms[n.index])if(a.reverse&&!rank[a.way.kind]&&arms[n.index].some(b=>rank[b.way.kind]&&intersect(a,b))){
+    alleyStops.push({...a,stop:Math.max(...arms[n.index].map(b=>b.width*unit))/2+1.25});
+  }
+}
+export const invalidSignalGroups=new Set();
+export function signalState(j,clock,hour){
+  const invalid=!(j.greenA>0&&j.greenB>0&&j.greenA+j.greenB+10===j.cycle);
+  if(invalid)invalidSignalGroups.add(j.id);
+  const flashing=invalid||hour>=23||hour<6;
+  if(flashing)return {a:'flashing-yellow',b:'flashing-yellow',countdown:null,flashing:true};
+  const t=((clock+j.offset)%j.cycle+j.cycle)%j.cycle;
+  const bStart=j.greenA+5,bEnd=bStart+j.greenB;
+  const a=t<j.greenA?'green':t<j.greenA+3?'yellow':'red';
+  const b=t<bStart?'red':t<bEnd?'green':t<bEnd+3?'yellow':'red';
+  return {a,b,countdown:a==='green'?Math.ceil(j.greenA-t):b==='green'?Math.ceil(bEnd-t):0,flashing:false};
+}
+export function waitSeconds(j,group,clock,hour){
+  const s=signalState(j,clock,hour);
+  if(s.flashing||s[group?'a':'b']==='green')return 0;
+  const t=((clock+j.offset)%j.cycle+j.cycle)%j.cycle;
+  return ((group?0:j.greenA+5)-t+j.cycle)%j.cycle;
 }
 
-for(const crossing of crossings){
-  for(const approach of crossing.approaches){
-    const opposite=crossingForNode.get(approach.to);
-    // Reserve a half-length on links between two independently painted intersections.
-    approach.paintLength=approach.length*(opposite?.approaches.some(a=>
-      a.to===crossing.node)? .5:1)*unit;
+// The occupancy test uses the actual painted rectangle (separating-axis theorem).
+export function overlaps(a,b){
+  for(const [ux,uy] of [[a.dx,a.dy],[-a.dy,a.dx],[b.dx,b.dy],[-b.dy,b.dx]]){
+    const reach=p=>Math.abs(p.dx*ux+p.dy*uy)*p.depth/2+Math.abs(p.dx*uy-p.dy*ux)*p.span/2;
+    if(Math.abs((a.x-b.x)*ux+(a.y-b.y)*uy)>=reach(a)+reach(b)-.001)return false;
   }
+  return true;
+}
+// Intersect a transverse line with the ground-road capsules, including round
+// OSM segment ends. A median less than 1.5 m wide cannot receive a ramp.
+const roadBins=new Map(),binSize=48;
+for(const [x0,y0,x1,y1,width,edge] of roads){
+  if(edge.way.layer!==0||edge.way.kind==='pedestrian')continue;
+  const r=width*unit/2,x=x0*unit,y=y0*unit,ex=x1*unit,ey=y1*unit,len=edge.d*unit;
+  const segment={x,y,ex,ey,r,len,ux:(ex-x)/len,uy:(ey-y)/len};
+  for(let i=Math.floor((Math.min(x,ex)-r)/binSize);i<=Math.floor((Math.max(x,ex)+r)/binSize);i++)
+    for(let k=Math.floor((Math.min(y,ey)-r)/binSize);k<=Math.floor((Math.max(y,ey)+r)/binSize);k++){
+      const key=i+','+k;
+      if(!roadBins.has(key))roadBins.set(key,[]);
+      roadBins.get(key).push(segment);
+    }
+}
+function curbSpan(x,y,dx,dy,half){
+  const reach=half+18,near=new Set(),intervals=[];
+  for(let i=Math.floor((x-reach)/binSize);i<=Math.floor((x+reach)/binSize);i++)
+    for(let k=Math.floor((y-reach)/binSize);k<=Math.floor((y+reach)/binSize);k++)
+      for(const s of roadBins.get(i+','+k)??[])near.add(s);
+  for(const s of near){
+    for(const [px,py] of [[s.x,s.y],[s.ex,s.ey]]){
+      const ex=px-x,ey=py-y,perp=ex*dy-ey*dx;
+      if(Math.abs(perp)>s.r)continue;
+      const along=ex*dx+ey*dy,delta=Math.sqrt(Math.max(0,s.r*s.r-perp*perp));
+      intervals.push([along-delta,along+delta]);
+    }
+    let lo=-Infinity,hi=Infinity;
+    for(const [ex,ey,min,max] of [[s.ux,s.uy,0,s.len],[-s.uy,s.ux,-s.r,s.r]]){
+      const v=dx*ex+dy*ey,w=(x-s.x)*ex+(y-s.y)*ey;
+      if(Math.abs(v)<1e-8){if(w<min||w>max){hi=-Infinity;break;}continue;}
+      const a=(min-w)/v,b=(max-w)/v;
+      lo=Math.max(lo,Math.min(a,b));hi=Math.min(hi,Math.max(a,b));
+    }
+    if(lo<=hi&&Number.isFinite(hi))intervals.push([lo,hi]);
+  }
+  intervals.sort((a,b)=>a[0]-b[0]);
+  const merged=[];
+  for(const [lo,hi] of intervals){
+    const last=merged.at(-1);
+    if(last&&lo<=last[1]+1.55)last[1]=Math.max(last[1],hi);
+    else merged.push([lo,hi]);
+  }
+  const result=merged.find(([lo,hi])=>lo<=0&&hi>=0);
+  if(!result||result[0]<-reach||result[1]>reach)return null;
+  return result;
+}
+export const crosswalks=[],skippedCrosswalks=[];
+for(const j of crossings)for(const a of j.approaches.filter(a=>a.reverse)){
+  const span=a.width*unit,depth=1.8;
+  const rect={dx:a.dx,dy:a.dy,span,depth,junctionId:j.id,roadId:a.way.id,from:a.from};
+  const local=crosswalks.filter(p=>Math.hypot(p.x-a.x*unit,p.y-a.y*unit)<55);
+  const preferred=a.crosswalk;
+  const choices=Array.from({length:46},(_,i)=>3+i*.24).sort((x,y)=>Math.abs(x-preferred)-Math.abs(y-preferred));
+  for(const start of choices){
+    const x=a.x*unit+a.dx*(start+depth/2),y=a.y*unit+a.dy*(start+depth/2);
+    const edges=curbSpan(x,y,-a.dy,a.dx,span/2);
+    if(!edges)continue;
+    const offset=(edges[0]+edges[1])/2;
+    rect.x=x-a.dy*offset;rect.y=y+a.dx*offset;rect.span=edges[1]-edges[0];
+    if(j.members.every(i=>Math.hypot(roadNodes[i].x*unit-rect.x,roadNodes[i].y*unit-rect.y)>15))continue;
+    const shared=local.find(p=>overlaps(p,rect));
+    if(shared){
+      if(shared.junctionId===j.id&&Math.abs(shared.dx*a.dx+shared.dy*a.dy)>.99&&
+        Math.abs((shared.x-x)*a.dx+(shared.y-y)*a.dy)<1&&
+        Math.abs((shared.y-y)*a.dx-(shared.x-x)*a.dy)<shared.span/2){
+        a.crosswalk=start+(shared.x-x)*a.dx+(shared.y-y)*a.dy;
+        a.walk=shared;break;
+      }
+      continue;
+    }
+    a.crosswalk=start;a.walk=rect;crosswalks.push(rect);break;
+  }
+  if(!a.walk)skippedCrosswalks.push({junctionId:j.id,roadId:a.way.id,from:a.from,to:a.to,reason:'no clear pair of curbs'});
+  a.stop=a.crosswalk+depth+1.65;a.box=a.crosswalk+depth+.825;a.arrow=a.stop+3;
+  if(j.twoStage){
+    // Far-right corner for the first leg; the pocket faces the second green.
+    const far=j.approaches.filter(b=>b!==a).sort((b,c)=>(b.dx-c.dx)*a.dx+(b.dy-c.dy)*a.dy)[0];
+    const ux=far&&far.dx*a.dx+far.dy*a.dy<-.65?far.dx:-a.dx;
+    const uy=far&&far.dx*a.dx+far.dy*a.dy<-.65?far.dy:-a.dy;
+    const side=(far?.width??a.width)*unit/2-.85;
+    const origin=far&&far.dx*a.dx+far.dy*a.dy<-.65?far:a;
+    a.turnBox={x:origin.x*unit+ux*(a.crosswalk-1.2)-uy*side,
+      y:origin.y*unit+uy*(a.crosswalk-1.2)+ux*side};
+  }
+}
+
+const cellSize=48,gateCells=new Map();
+for(const j of crossings)for(const a of j.approaches.filter(a=>a.reverse)){
+  const x=a.x*unit+a.dx*a.stop-a.dy*a.offset,y=a.y*unit+a.dy*a.stop+a.dx*a.offset;
+  const r=a.laneWidth/2+3;
+  for(let i=Math.floor((x-r)/cellSize);i<=Math.floor((x+r)/cellSize);i++)
+    for(let k=Math.floor((y-r)/cellSize);k<=Math.floor((y+r)/cellSize);k++){
+      const key=i+','+k;
+      if(!gateCells.has(key))gateCells.set(key,[]);
+      gateCells.get(key).push({a,j,x,y});
+    }
+}
+// Ray/stop-line intersection, measured from the front of the moving vehicle.
+export function gateAhead(p,ux,uy,reach,front=0){
+  const x=p.x*unit+ux*front,y=p.y*unit+uy*front;
+  let best=null;
+  const endX=x+reach*ux,endY=y+reach*uy;
+  for(let i=Math.floor(Math.min(x,endX)/cellSize);i<=Math.floor(Math.max(x,endX)/cellSize);i++)
+    for(let k=Math.floor(Math.min(y,endY)/cellSize);k<=Math.floor(Math.max(y,endY)/cellSize);k++)
+      for(const g of gateCells.get(i+','+k)??[]){
+        const {a}=g,facing=-(ux*a.dx+uy*a.dy);
+        if(facing<.64)continue;
+        const dx=x-g.x,dy=y-g.y,d=(dx*a.dx+dy*a.dy)/facing;
+        if(d<-.02||d>reach||best&&best.distance<=d)continue;
+        if(Math.abs((dy+uy*d)*a.dx-(dx+ux*d)*a.dy)>a.laneWidth*.5+.20)continue;
+        best={...g,distance:Math.max(0,d)};
+      }
+  return best;
 }

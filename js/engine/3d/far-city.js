@@ -1,6 +1,8 @@
 import * as T from '../vendor/three.module.min.js';
 import data from '../data/far-city.json' with {type:'json'};
 import {buildings,toWorld,metersPerUnit as unit} from '../world.mjs';
+import {isTowerBlock} from '../tower-structures.mjs'; // A23 towers
+import {shellHeight} from './buildings-tower.js'; // A23 towers
 import {urbanInfill} from '../infill.mjs';
 
 const origin=toWorld(...data.origin),ox=origin.x*unit,oz=origin.y*unit;
@@ -97,19 +99,19 @@ export function createFarCity(group,doc){
   const plane=new T.Mesh(new T.PlaneGeometry(2*data.radius,2*data.radius),floor);
   plane.rotation.x=-Math.PI/2;plane.position.set(ox,-.072,oz);
   group.add(plane);
-  function add(ring,h,owned,seed,coarse=false){
+  function add(ring,h,owned,seed,coarse=false,curtain=false){
     if(ring.length<3)return;
     const box=new T.Box2().setFromPoints(ring),center=box.getCenter(new T.Vector2());
     const {x,y:z}=center;
     const ix=Math.floor((x-ox)/1500),iz=Math.floor((z-oz)/1500),key=ix+','+iz;
     if(!chunks.has(key))chunks.set(key,[]);
     const modern=x-ox>-160&&x-ox<1050&&z-oz>-750&&z-oz<520;
-    chunks.get(key).push({ring,h,x,z,owned,modern,seed,coarse,
+    chunks.get(key).push({ring,h,x,z,owned,modern,seed,coarse,curtain,
       primary:owned||h>=25||seed%3===0});
   }
   for(const b of buildings){
     if(b.shape||[228920407,228920409,441377762,1131522120].includes(b.osmId))continue;
-    add(b.polygon.map(p=>new T.Vector2(p.x*unit,p.y*unit)),Math.min(198,b.elevation),true,b.osmId);
+    add(b.polygon.map(p=>new T.Vector2(p.x*unit,p.y*unit)),shellHeight(b,0),true,b.osmId,false,isTowerBlock(b));
   }
   for(const q of urbanInfill())if(q.housing){
     add(rectangle(q.x,q.z,q.width,q.depth,q.heading),q.tin?Math.min(q.height,5.4):q.height,true,Math.abs(Math.round(q.x*31+q.z)));
@@ -142,6 +144,7 @@ export function createFarCity(group,doc){
     for(const item of items.sort((a,b)=>Number(b.primary)-Number(a.primary))){
       const {ring,h,x,z,owned,seed,modern,coarse}=item;
       tone.set((modern?['#8199a5','#a0aeb1','#8e9ca5','#9caaa9']:['#c2b6a8','#c4bbae','#bab6ac','#b7ada2'])[seed%4]);
+      if(item.curtain)tone.set(['#667d87','#70838c','#788b91','#647b84'][seed%4]); // A23 towers
       const start=pos.length;
       shell(ring,0,h,false,seed);
       if(!coarse&&seed%4===0&&ring.length>=4&&ring[0].distanceTo(ring[1])>8){

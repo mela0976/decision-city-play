@@ -10,6 +10,7 @@ import { showTitle } from './game/ui/title.js';
 import { createHint } from './game/ui/hint.js';
 import { hintFor } from './game/hints.js';
 import { T } from './game/strings.js';
+import { createBootProgress } from './game/boot-progress.js';
 
 const params = new URLSearchParams(window.location.search);
 const opts = {
@@ -39,7 +40,7 @@ const els = {
 };
 els.dialogs = [els.menu, els.proposal, els.sidelist, els.elder, els.confirm];
 
-$('boot-plate').textContent = T.loading;
+const progress = createBootProgress($('boot-plate'));
 els.pause.textContent = T.paused;
 
 /** 換一張全新的 canvas：真引擎初始化到一半失敗時，舊 canvas 可能已經被綁了別種 context。 */
@@ -54,8 +55,12 @@ function freshCanvas(key) {
 async function loadEngine() {
   if (!opts.mock) {
     try {
+      progress.start('code');
       const mod = await import('./engine/index.js');
+      progress.done('code');
+      progress.start('city');
       const engine = await mod.createEngine({ canvas: els.canvas, minimapCanvas: els.minimap });
+      progress.done('city');
       return { engine, kind: 'real' };
     } catch (err) {
       console.warn('[決策之城] 真引擎載入失敗，改用假引擎。', err);
@@ -66,12 +71,15 @@ async function loadEngine() {
   }
   const mock = await import('./game/dev/mock-engine.js');
   const engine = await mock.createEngine({ canvas: els.canvas, minimapCanvas: els.minimap });
+  progress.done('code');
+  progress.done('city');
   return { engine, kind: 'mock' };
 }
 
 async function boot() {
   const store = createStore();
-  const [assets, engineInfo] = await Promise.all([loadAssets(), loadEngine()]);
+  progress.start('assets');
+  const [assets, engineInfo] = await Promise.all([loadAssets().then((a) => { progress.done('assets'); return a; }), loadEngine()]);
   const prefs = store.readPrefs();
   // 聲音：第一次使用者操作之後才啟動，檔案用到才載，所以不會拖慢標題畫面。
   const sound = createSound({
@@ -96,7 +104,9 @@ async function boot() {
   const startWith = async (useFixtures) => {
     let content;
     try {
+      progress.start('content');
       content = await loadContent({ useFixtures });
+      progress.done('content');
     } catch (err) {
       // PRD 第 10 節：內容載入失敗時留在標題畫面，顯示可重試的錯誤，不進入遊戲。
       els.stage.dataset.phase = 'title';
@@ -114,6 +124,7 @@ async function boot() {
           startWith(true);
         },
       });
+      progress.finish();
       return;
     }
     if (content.source === 'fixtures') {
@@ -127,6 +138,7 @@ async function boot() {
       mountDebug({ game, content });
       window.__DC_GAME__ = game;
     }
+    progress.finish();
     game.showTitle();
   };
 
@@ -135,5 +147,6 @@ async function boot() {
 
 boot().catch((err) => {
   console.error('[決策之城] 啟動失敗', err);
+  progress.fail();
   $('boot-plate').textContent = `${T.contentFailed} ${err?.message || ''}`;
 });

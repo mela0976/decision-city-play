@@ -1,10 +1,12 @@
+import {placeOfficeReception} from './office-door.js'; // A23 landmarks2
+import {placeStudioEntrance} from './songshan-heritage.js'; // A23 landmarks2
 import {inBuilding,roadAt,toWorld,metersPerUnit as unit} from '../world.mjs';
 // Facades are visual detail only. OSM remains authoritative for building collisions.
 const shops=['牛肉麵','茶飲','五金','藥局','早餐','鐘錶','機車行','便當','自助洗衣','文具'];
 const plates=['#426352','#963f37','#76513b','#36556b','#a57a39'];
 const shutters=['#777e79','#a19b8b','#77868c'];
 
-export function placeFrontage(b,a,c,face,{instance,sign}) {
+export function placeFrontage(b,a,c,face,{instance,sign,managed=false}) {
   const length=a.distanceTo(c);
   if(length<4.5)return;
   const dx=(c.x-a.x)/length,dz=(c.y-a.y)/length,angle=-Math.atan2(dz,dx);
@@ -51,7 +53,7 @@ export function placeFrontage(b,a,c,face,{instance,sign}) {
   }
   const breadth=Math.min(length,27);
   box('metal',length*.5,3.24,.65,breadth,.14,1.55,b.modern?'#778786':'#6f695d');
-  if(!b.modern){
+  if(!b.modern&&!managed){ // A24c Printed cases replace the legacy blade and its backing.
     const k=b.osmId%shops.length;
     const hue=plates[k%plates.length],blade=angle+Math.PI/2;
     const tall=k%3===0;
@@ -103,6 +105,7 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
         obj('lobbyLight','box','#ffe5ac',side*.86,4.50,7.32,.14,.085,1.83);
         obj('lobbyLight','box','#ead1a1',side*.81,2.64,8.03,.072,2.25,.038);
       }
+      placeOfficeReception(obj); // A23 landmarks2
       obj('lobbyLight','box','#f8dda6',0,4.24,8.04,2.14,.09,.055);
       obj('window','box','#d9bd91',0,4.63,6.29,9.75,.16,.13);
       for(const t of [-3.8,-2.65,-1.5,1.5,2.65,3.8]){
@@ -215,17 +218,7 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
     }
     return true;
   }
-  if(p.shape==='temple'){
-    for(const s of [-2.45,2.45]){
-      obj('luminous','cylinder','#a74634',s,1.48,4.1,.28,2.98,.28);
-      obj('concrete','box','#978b70',s,.22,4.1,.73,.43,.66);
-    }
-    for(let i=-8;i<=8;i++){
-      const x=i*.34,y=3.02+Math.abs(i/8)**4*.65;
-      obj('metal','box','#994f3d',x,y,4.1,.365,.16,1.20);
-      obj('luminous','box','#be8354',x,y-.17,3.46,.365,.071,.094);
-    }
-  }
+  if(p.shape==='temple')return true; // A23 landmarks2: temple-court supplies solids and the dedicated sign.
   if(p.shape==='mrt'){
     obj('glass','box','#567d78',-.94,1.07,5.4,.19,2.13,2.25);
     obj('glass','box','#567d78',.94,1.07,5.4,.19,2.13,2.25);
@@ -236,13 +229,14 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
     sign('捷運 市府站',mx,2.66,mz,-Math.PI/2-angle,'#325875',false,2.15,.43);
     return true;
   }
-  if(p.shape==='village'||p.shape==='studio'){
-    const red=p.shape==='studio'?'#795141':'#aa836f';
+  if(p.shape==='studio')return placeStudioEntrance(p,{instance,sign}); // A23 landmarks2
+  if(p.shape==='village'){
+    const red='#aa836f';
     for(const i of [-1,1])obj('concrete','box',red,i*1.42,1.27,5.8,2.70,2.51,.14);
     for(let i=-6;i<=6;i++)obj('metal','box','#746754',i*.38,2.65+Math.abs(i)*.032,5.38,.37,.13,1.37);
   }
   const [sx,sz]=at(0,3.65);
-  const signHeight=p.shape==='temple'?2.72:p.shape==='mrt'?2.65:p.shape==='studio'||p.shape==='village'?2.49:2.89;
+  const signHeight=p.shape==='mrt'?2.65:p.shape==='village'?2.49:2.89;
   obj('metal','box','#66706b',0,signHeight,3.73,4.20,.51,.11);
   sign(p.name,sx,signHeight,sz,-Math.PI/2-angle,'#3b5451',false,4.16,.48);
   return true;

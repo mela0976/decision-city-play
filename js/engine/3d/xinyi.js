@@ -2,10 +2,31 @@ const jade=['#4f8781','#517a7a','#628d89','#355d63'];
 const glass=['#638489','#7d9ca3','#496b78','#88abb0'];
 const stone='#a79884';
 
-export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
+export function buildLandmark(b,{x,z,w,d,block,pole,instance,curtain='glass'}) {
   const shape=b.shape;
   if(shape==='spire') {
-    block('concrete','#9c9b8e',x,3,z,w*.75,6,d*.76);
+    // A two-storey glazed podium recessed between stone piers on all four fronts.
+    // Keep every ground-level pier inside the mapped collision footprint and its east notch.
+    block('glass','#425e61',x,3,z,w*.548,6,d*.548);
+    for(const side of [-1,1]){
+      for(const alongX of [true,false]){
+        const span=(alongX?w:d)*.56,edge=(alongX?d:w)*.275;
+        const face=(kind,tint,u,y,out,width,height,depth)=>{
+          if(alongX)block(kind,tint,x+u,y,z+side*(edge+out),width,height,depth);
+          else block(kind,tint,x+side*(edge+out),y,z+u,depth,height,width);
+        };
+        for(let bay=-8;bay<=8;bay++){
+          const u=bay*span/17;
+          face('glass',bay%3?'#5e7a79':'#74918d',u,3.06,.16,span/17-.22,5.70,.22);
+          face('metal','#a49c8c',u,3.04,.32,.14,5.8,.28);
+          if(bay%3===0)face('concrete','#c0b5a2',u,4.32,1.37,1.13,8.64,1.48);
+        }
+        face('metal','#8c9387',0,4.25,.42,span,.17,.30);
+        face('concrete','#aba390',0,6.14,1.16,span+.8,.41,3.26);
+        face('metal','#8eaaa5',0,6.50,1.93,span*.51,.22,6.10);
+        for(let k=-4;k<=4;k++)face('metal','#586f70',k*span*.056,6.32,2.08,.13,.20,5.85);
+      }
+    }
     for(let floor=0;floor<6;floor++){
       const y=7.5+floor*1.2;
       block('highglass',glass[floor%4],x,y,z,w*.69,1.18,d*.70);
@@ -84,25 +105,11 @@ export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
   }
   if(shape==='office') {
     const h=266,w0=w*.93,d0=d*.93;
-    block('glass','#b9cdda',x,137,z,w0-.60,252,d0-.60);
+    block(curtain,'#eceef0',x,137,z,w0-.60,252,d0-.60);
     block('glass','#9db3bb',x,5.1,z,w0*.88,10.2,d0*.85);
     block('window','#d5bd90',x,3.9,z-d0*.433,w0*.69,5.7,.09);
     for(const s of [-1,1]){
-      for(let floor=0;floor<54;floor++){
-        const y=12+floor*4.65;
-        const tint=glass[floor%4];
-        block('highglass',tint,x,y,z+s*d0*.503,w0,.25,.36);
-        block('highglass',tint,x+s*w0*.503,y,z,.36,.25,d0);
-        if(floor%4!==2){
-          block('glass','#a3b8c0',x,y+.67,z+s*d0*.497,w0*.98,1.22,.16);
-          block('glass','#a3b8c0',x+s*w0*.497,y+.67,z,.16,1.22,d0*.98);
-        }
-      }
-      for(let bay=-8;bay<=8;bay++){
-        const u=bay/17;
-        block('metal','#c4ccce',x+u*w0,135,z+s*d0*.505,.10,246,.22);
-        block('metal','#c4ccce',x+s*w0*.505,135,z+u*d0,.22,246,.10);
-      }
+      // A23 towers: metric mullions and floor bands are drawn by the curtain material.
       for(const t of [-1,1]){
         block('metal','#d6dedb',x+t*w0*.46,136,z+s*d0*.51,.58,248,.64);
         block('metal','#b3bfc1',x+t*w0*.35,6,z+s*d0*.48,.57,12,.53);
@@ -138,11 +145,9 @@ export function buildLandmark(b,{x,z,w,d,block,pole,instance}) {
     for(let section=0;section<4;section++){
       const span=w*(.61-section*.041),depth=d*(.86-section*.043);
       const y=7+section*9.5;
-      block('glass',glass[(section+2)%4],x,y+4.75,z,span,9.5,depth);
+      block(curtain,'#e2e6e4',x,y+4.75,z,span,9.5,depth);
       block('metal','#a68a66',x,y+.16,z,span*1.012,.32,depth*1.012);
-      for(let floor=1;floor<7;floor++){
-        block('highglass',floor%3===0?'#6f7777':'#4e6571',x,y+floor*1.36,z,span*1.009,.085,depth*1.009);
-      }
+      // A23 towers: the tier-wide material keeps its metre scale after landmark scaling.
     }
     return true;
   }

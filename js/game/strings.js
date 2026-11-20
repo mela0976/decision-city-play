@@ -10,6 +10,7 @@ export const METER_NAMES = {
 };
 
 export const T = {
+  curbParked: '已停車，步行前往', curbRoad: '先回到車道', curbWalk: '按 F 下車步行', // A24
   name: '決策之城',
   nameEn: 'Decision City',
   hook: '一天，走過九年',
@@ -18,6 +19,7 @@ export const T = {
   resume: '繼續上次進度',
   proposal: '看今晚的提案',
   loading: '載入中',
+  bootStep: { assets: '讀取素材清單', code: '下載城市資料', city: '建立城市', content: '讀取今天的行程', title: '準備標題畫面' },
 
   contentFailed: '遊戲內容沒有載入成功。',
   retryContent: '再載入一次',
@@ -195,6 +197,7 @@ export const T = {
 export const KEY = { action: '空白鍵', arrows: '方向鍵', esc: 'Esc', auto: 'G', map: 'M', left: '←', right: '→' };
 
 export const HINT = {
+  signalWait: '紅燈停等', // A24
   goTo: (place) => `前往 ${place}`,
   arrived: (place) => `到了 ${place}`,
   talkTo: (name) => `和 ${name} 說話`,

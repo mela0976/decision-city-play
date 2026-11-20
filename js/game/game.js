@@ -4,7 +4,7 @@
 import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js';
 import { T, METER_IDS, METER_NAMES } from './strings.js';
 import { pickEnding, metersForEnding } from './endings.js';
-import { hintFor } from './hints.js';
+import { hintFor, curbHint } from './hints.js';
 import { voiceKey } from './sound.js';
 import { createHud } from './ui/hud.js';
 import { createToasts } from './ui/toast.js';
@@ -540,6 +540,12 @@ export class Game {
       this.engineHasContext = true;
       this.context = context?.action ? context : null;
       if (this.free) this.rideHint();
+    });
+    let curbTimer; // A24 briefly show parking and mounting feedback in the hint bar
+    engine.on('curb:hint', ({kind}) => {
+      clearTimeout(curbTimer);
+      this.hint.setNote(curbHint(kind));
+      curbTimer=setTimeout(()=>this.hint.setNote(null),3000);
     });
     engine.on('autoride:change', ({ on }) => {
       this.autoOn = !!on;

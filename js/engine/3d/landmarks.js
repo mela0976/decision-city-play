@@ -1,5 +1,9 @@
 import * as T from '../vendor/three.module.min.js';
 import {metersPerUnit as unit,locations,toWorld,elevatedRoofs} from '../world.mjs';
+import {towerSkywalks} from './buildings-tower.js'; // A23 towers
+import {addFactoryFront,addPondWalk} from './songshan-heritage.js';
+import {addTemple} from './temple-court.js';
+export {placeTempleCourt} from './temple-court.js';
 import {buildLandmark} from './xinyi.js';
 import {placeEntrance} from './frontage.js';
 import {createOfficeDoor} from './office-door.js';
@@ -50,13 +54,13 @@ function addFixedStructure(group,materials,place){
   addInstanceBatches(group,materials,parts);
 }
 
-export function createLandmarks({group,replacements,batch,materials,textWall,enabled}) {
+export function createLandmarks({group,replacements,batch,materials,textWall,obstacle,enabled,towerDetail}) {
   const updateOfficeDoor=enabled?createOfficeDoor(group):()=>{};
   updateOfficeDoor(0);
   if(enabled){
     addFixedStructure(group,materials,addRiverBridge);
-    addFixedStructure(group,materials,addSkywalks);
   }
+  if(enabled||towerDetail)addFixedStructure(group,materials,base=>towerSkywalks(base,towerDetail)); // A23 towers
   const shadowLandmarks=new Map(),sunlitLandmarks=new Map(),replacedLandmarks=new Map();
   function landmark(b) {
     const shape=b.shape,x=(b.x+b.w/2)*unit,z=(b.y+b.h/2)*unit;
@@ -78,11 +82,12 @@ export function createLandmarks({group,replacements,batch,materials,textWall,ena
       if(!batches.has(k))batches.set(k,[]);
       const elevation=n=>n<=6?n:6+(n-6)*sy;
       const low=elevation(y-h/2),high=elevation(y+h/2);
+      if(!rx&&!rz)obstacle?.(kind,geo,tint,a,(low+high)/2,c,ww,high-low,dd,turn); // A24c
       batches.get(k).push([tint,a,(low+high)/2,c,ww,high-low,dd,turn,rx,rz]);
     };
     const block=(kind,tint,a,y,c,ww,h,dd,turn=0)=>instance(kind,'box',tint,a,y,c,ww,h,dd,turn);
     const pole=(kind,tint,a,y,c,ww,h)=>instance(kind,'cylinder',tint,a,y,c,ww,h,ww);
-    if(!buildLandmark(b,{x,z,w,d,instance,block,pole}))return false;
+    if(!buildLandmark(b,{x,z,w,d,instance,block,pole,curtain:'landmarkCurtain'}))return false;
     if(shape==='mall'){
       const h=12,y0=.04,y1=y0+h,w0=w*.943,d0=d*.914;
       for(const side of [-1,1]){
@@ -104,7 +109,7 @@ export function createLandmarks({group,replacements,batch,materials,textWall,ena
 }
 
 // OpenStreetMap level-2 footways. The deck is overhead scenery and has no ground supports.
-const skywalks=[
+export const skywalks=[ // A23 night: mount lighting on the same OSM spans.
   [ // OSM way 310909564
     [25.0394975,121.5670195],[25.0394937,121.5672215],
   ],
@@ -212,72 +217,20 @@ function addRiverBridge(instance){
   }
 }
 
-const templePoint=(p,u,y,d)=>{
-  const a=p.viewHeading;
-  return [p.x*unit+u*Math.sin(a)+d*Math.cos(a),y,p.y*unit-u*Math.cos(a)+d*Math.sin(a)];
-};
-
-export function placeTempleCourt(p,instance){
-  const turn=Math.PI/2-p.viewHeading;
-  const part=(kind,shape,tint,u,y,d,w,h,depth)=>instance(kind,shape,tint,...templePoint(p,u,y,d),w,h,depth,turn);
-  part('concrete','box','#906151',-2.22,.59,3.50,.73,1.18,.65);
-  part('dark','box','#382d27',-2.22,.68,3.832,.40,.35,.03);
-  part('luminous','box','#ad6542',-2.22,.56,3.853,.32,.062,.028);
-  part('metal','cylinder','#77634d',2.04,.28,3.50,.37,.56,.37);
-  part('metal','cylinder','#80704f',2.04,.67,3.50,.59,.28,.59);
-  for(const offset of [-.12,0,.12]){
-    part('metal','cylinder','#996646',2.04+offset,.86,3.50,.022,.26,.022);
-  }
-}
-
-function addTempleRoof(p,instance,batch){
-  const a=p.viewHeading,x=p.x*unit,z=p.y*unit,turn=Math.PI/2-a;
-  const at=(u,y,d)=>[x+u*Math.sin(a)+d*Math.cos(a),y,z-u*Math.cos(a)+d*Math.sin(a)];
-  const roof=batch(x,z,'metal');
-  const lift=u=>.74*(Math.abs(u)/3.13)**4;
-  for(let i=0;i<18;i++){
-    const u=(i-9)*.348,v=u+.348,lo=lift(u),hi=lift(v);
-    for(const side of [-1,1]){
-      const end=4.06+side*1.24;
-      roof.quad(at(u,3.85+lo,4.06),at(v,3.85+hi,4.06),
-        at(v,3.14+hi,end),at(u,3.14+lo,end),i%4?'#464643':'#514a42');
-      instance('metal','box','#89564a',...at((u+v)/2,3.14+(lo+hi)/2,end),.36,.12,.15,turn);
-    }
-    instance('metal','box',i%3?'#55766e':'#b58a53',...at((u+v)/2,3.93+(lo+hi)/2,4.06),.36,.18,.15,turn);
-  }
-  for(const side of [-1,1]){
-    for(let i=0;i<4;i++)instance('metal','box',i%2?'#a66b4a':'#56827b',
-      ...at(side*(2.43+i*.20),4.22+i*.11,4.06),.24,.15,.21,turn);
-  }
-  for(const u of [-2.1,-1.05,0,1.05,2.1]){
-    instance('luminous','crown','#ad4334',...at(u,2.83,4.95),.34,.32,.34,turn);
-    instance('metal','cylinder','#b69263',...at(u,3.04,4.95),.09,.16,.09,turn);
-  }
-  const court=batch(x,z,'paving');
-  for(let i=0;i<8;i++){
-    for(let j=0;j<5;j++){
-      const u=(i-4)*.64,d=4.7+j*.54;
-      court.quad(at(u,.030,d),at(u+.62,.030,d),at(u+.62,.030,d+.52),at(u,.030,d+.52),
-        (i+j)%3?'#ae8d76':'#a28c7c',.32,.28);
-    }
-  }
-}
-
-export function addEntrances({instance,sign,batch,textWall}) {
+export function addEntrances({instance,sign,batch,textWall,foliage}) {
   addElevatedRoofs(batch);
+  addFactoryFront(instance,batch);
+  addPondWalk(batch);
   for(const p of locations){
+    if(p.shape==='temple'){
+      addTemple(p,{instance,batch,sign,foliage});
+      continue;
+    }
     // The generic projecting board is untextured at the close rechao camera.
     placeEntrance(p,{instance:p.id==='rechao'?()=>{}:instance,sign,windowBand:(a,b,h)=>{
       const m=batch((a[0]+b[0])*.5,(a[1]+b[1])*.5,'mall');
       textWall(m,[a[0],.10,a[1]],[b[0],.10,b[1]],[b[0],h,b[1]],[a[0],h,a[1]],
         -Math.cos(p.viewHeading),-Math.sin(p.viewHeading),'#fff',1,.49);
     }});
-    if(p.shape!=='temple')continue;
-    addTempleRoof(p,instance,batch);
-    placeTempleCourt(p,instance);
-    const a=p.viewHeading,x=p.x*unit+Math.cos(a)*4.12,z=p.y*unit+Math.sin(a)*4.12;
-    const dx=Math.sin(a)*2.56,dz=-Math.cos(a)*2.56;
-    textWall(batch(x,z,'temple'),[x-dx,.36,z-dz],[x+dx,.36,z+dz],
-      [x+dx,2.92,z+dz],[x-dx,2.92,z-dz],-Math.cos(a),-Math.sin(a),'#fff',1,1);
   }
 }

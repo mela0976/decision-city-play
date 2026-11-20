@@ -181,9 +181,11 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     arm.set(x,riding?1.35:1.26,z);
     const bounds=cameraObstacles(x,z,unit,forceGoogle?56:39);
     if(!aerial){
-      for(const object of [...state.cars,...(state.staticColliders??[])]){
-        if(object.hidden||Math.hypot(object.x*unit-x,object.y*unit-z)>15)continue;
-        const xx=object.x*unit,zz=object.y*unit,r=object.r?object.r*unit:object.scooter?.58:1.42;
+      // A23 alleys: scan the same 15 m camera range without copying thousands of posts on every frame.
+      for(const objects of [state.cars,state.staticColliders??[]])for(const object of objects){
+        const xx=object.x*unit,zz=object.y*unit,dx=xx-x,dz=zz-z;
+        if(object.hidden||dx*dx+dz*dz>225)continue;
+        const r=object.r?object.r*unit:object.scooter?.58:1.42;
         const width=object.width?object.width*unit:r,h=object.heading??0;
         const halfX=r*Math.abs(Math.cos(h))+width*Math.abs(Math.sin(h));
         const halfZ=r*Math.abs(Math.sin(h))+width*Math.abs(Math.cos(h));

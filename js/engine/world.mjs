@@ -38,6 +38,12 @@ export const civicWalkway={...toWorld(25.038,121.56696),y0:toWorld(25.0395,121.5
 const nodesByKey=new Map();
 const widths={trunk:14,primary:13,secondary:12,tertiary:9,residential:6.5,unclassified:6,service:4,
   living_street:5,pedestrian:5,primary_link:7,secondary_link:6,tertiary_link:5};
+// A23 alleys: the Wuxing street blocks south of Xinyi Road (excluding the market and civic core).
+export const wuxingBounds={nw:toWorld(25.0318,121.5594),se:toWorld(25.0258,121.5668)};
+export function inWuxing(x,y){
+  const {nw,se}=wuxingBounds;
+  return x>=nw.x&&x<=se.x&&y>=nw.y&&y<=se.y;
+}
 function nodeFor(p) {
   const key=p.join(',');
   if(nodesByKey.has(key))return nodesByKey.get(key);
@@ -49,13 +55,23 @@ function nodeFor(p) {
 for(const [id,name,kind,oneway,layer,points,widthTag,lanes] of osm.roads) {
   if(parseFloat(layer)<0||kind==='trunk') continue;
   const declared=parseFloat(widthTag),laneCount=parseInt(lanes,10);
-  const w=(declared>2&&declared<45?declared:laneCount>0&&laneCount<10?Math.max(3.4,laneCount*3.1):widths[kind]??5)/metersPerUnit;
+  const widthMeters=(declared>2&&declared<45?declared:laneCount>0&&laneCount<10?Math.max(3.4,laneCount*3.1):widths[kind]??5);
   const way={id,name,kind,oneway,layer:parseFloat(layer)||0,points:points.map(pt=>toWorld(...pt))};
   ways.push(way);
   for(let j=0;j<points.length-1;j++) {
     const a=roadNodes[nodeFor(points[j])],b=roadNodes[nodeFor(points[j+1])];
     const d=Math.hypot(a.x-b.x,a.y-b.y);
     if(d<.1)continue;
+    // A23 alleys: preserve the graph and OSM widths elsewhere, including the rest of a boundary-crossing way.
+    const wuxing=way.layer===0&&inWuxing((a.x+b.x)/2,(a.y+b.y)/2);
+    const alley=wuxing&&(/^(residential|service|living_street)$/.test(kind)||/[巷弄]/.test(name));
+    let metres=widthMeters;
+    if(wuxing&&name==='吳興街')metres=Math.min(15,Math.max(12,widthMeters));
+    else if(alley){
+      const inferred=declared>2||laneCount>0?widthMeters:kind==='service'?4:kind==='living_street'?4.5:5.4;
+      metres=Math.min(8,Math.max(4,inferred));
+    }
+    const w=metres/metersPerUnit;
     const edge={a:a.index,b:b.index,d,w,way,forward:oneway!=='-1',reverse:!['yes','1','true'].includes(oneway)};
     roads.push([a.x,a.y,b.x,b.y,w,edge]);
     if(kind!=='pedestrian'&&way.layer===0) {
@@ -137,7 +153,7 @@ const special=new Map([...locationDefs.filter(a=>a[6]).map(a=>[a[6],{id:a[0],nam
   ...scenicDefs.map(a=>[a[2],{shape:a[0],name:a[1]}])]);
 // Underground MRT station outlines do not represent a street-level obstruction.
 const undergroundStations=new Set([810557338,810557339,810653312]);
-function oldStreetDistrict(lat,lon){
+export function oldStreetDistrict(lat,lon){ // A24 shared street classification
   return (lat>=25.0258&&lat<=25.0319&&lon>=121.5605&&lon<=121.568)
     ||(lat>=25.0276&&lat<=25.0311&&lon>=121.5535&&lon<121.5605)
     ||(lat>=25.0338&&lat<=25.0397&&lon>=121.5764);
@@ -267,13 +283,13 @@ export function worldContact(x,y,a,b=a,angle=0){
   }
   return null;
 }
-export function buildingHeightAt(x,y,a,b,heading){
+export function buildingHeightAt(x,y,a,b,heading,except){
   const r=Math.hypot(a,b);
   let height=0;
   for(let iy=Math.floor((y-r)/cellSize);iy<=Math.floor((y+r)/cellSize);iy++){
     for(let ix=Math.floor((x-r)/cellSize);ix<=Math.floor((x+r)/cellSize);ix++){
       for(const building of buildingCells.get(key(ix,iy))??[]){
-        if(building.elevation>height&&intersectsBody(x,y,a,b,heading,building.polygon))height=building.elevation;
+        if(building!==except&&building.elevation>height&&intersectsBody(x,y,a,b,heading,building.polygon))height=building.elevation;
       }
     }
   }

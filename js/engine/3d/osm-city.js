@@ -1,14 +1,16 @@
+import {createSignalLayer,signalReflections} from './traffic-signals.js'; // A24
 import {createNeonStreet} from './neon-street.js'; // A22 street signs
 import {surfaceMaps} from './pbr.js';
 import * as T from '../vendor/three.module.min.js';
 import {canvasTexture,hash,shapes,color} from './city-primitives.js';
 import {addGround,addWaterAndParks} from './terrain.js';
-import {createRoads,paveFront} from './roads.js';
+import {createRoads} from './roads.js'; // A24 decks are owned by roads
 import {createLandmarks,addEntrances} from './landmarks.js';
+import {curtainMaterial} from './buildings-tower.js'; // A23 towers
 import {addBuildings} from './buildings.js';
 import {addInfill,apartmentWindowMask} from './buildings-old.js';
 import {createStorefront,addBillboards,addStreetNames,updateSigns} from './storefront.js';
-import {addSignalFaces,placeStreetLife,updateSignalFaces} from './furniture.js';
+import {placeStreetLife} from './furniture.js';
 import {createNight,updateNight,windowKinds} from './night.js';
 import {placeGroundVegetation} from './vegetation.js';
 import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} from './vegetation-cards.js';
@@ -40,11 +42,13 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
   const group=new T.Group();
   const replacements=new T.Group();
   scene.add(group,replacements);
-  const lighting=createNight({doc,group,enabled:has('night')});
+  const lighting=createNight({doc,group,has,enabled:has('night')}); // A23 night
   const {glow}=lighting;
   const {plane}=shapes;
   const textUv={total:0,osm:0,infill:0,other:0,failed:0};
   function textWall(buffer,a,b,c,d,nx,nz,tint,u,v,source='other',uo=0){
+    // A23 night: the baked street-facing display shares its source position with the wet asphalt.
+    if(buffer.shopKind)lighting.optics?.windowLight(a,b,nx,nz,buffer.shopKind);
     const direction=(b[0]-a[0])*nz-(b[2]-a[2])*nx;
     const face=direction<0?[b,a,d,c]:[a,b,c,d];
     const du=(face[1][0]-face[0][0])*nz-(face[1][2]-face[0][2])*nx;
@@ -170,23 +174,34 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
   for(const kind of ['luminous','signal','signalRed','signalGreen','towerLights','window','highglass']) {
     materials[kind]=kind==='highglass'?new T.MeshStandardMaterial({roughness:.42,fog:false}):new T.MeshBasicMaterial({fog:kind!=='towerLights'});
   }
+  // A23 towers: OSM meshes carry vertex tints, landmark batches carry instance tints.
+  materials.curtain=curtainMaterial(doc,anisotropy,enabled);
+  materials.landmarkCurtain=materials.curtain.clone();
+  materials.landmarkCurtain.vertexColors=false;
+  materials.landmarkCurtain.onBeforeCompile=materials.curtain.onBeforeCompile;
   materials.lobbyTrim=materials.concrete;
   materials.lobbyLight=new T.MeshBasicMaterial();
   materials.lobbyGlass=new T.MeshStandardMaterial({metalness:.2,roughness:.16,transparent:true,opacity:.40,depthWrite:false});
   materials.reflection=new T.MeshBasicMaterial({map:glow,transparent:true,depthWrite:false,opacity:0,blending:T.AdditiveBlending});
   const foliageMaterials=has('vegetation')?vegetationMaterials(doc,available,anisotropy):null;
-  const signalFaces=[],chunks=new Map(),signs=[],instanceMaterials=new Map();
-  const shadowMaterials=new Set(['old','shop','new','office','roof']);
+  const updateSignals=has('furniture')?createSignalLayer(scene,doc):null; // A24
+  const chunks=new Map(),signs=[],instanceMaterials=new Map();
+  const shadowMaterials=new Set(['old','shop','new','office','roof','curtain']);
   const groupOf=(x,z)=>{
     const ix=Math.floor(x/chunkSize),iz=Math.floor(z/chunkSize),key=ix+','+iz;
     if(!chunks.has(key))chunks.set(key,{x:(ix+.5)*chunkSize,z:(iz+.5)*chunkSize,meshes:new Map(),instances:new Map(),roofMeshes:new Map(),storeMeshes:new Map(),shadowMeshes:[],group:new T.Group(),detail:new T.Group(),storeDetail:new T.Group(),vegetation:new T.Group()});
     return chunks.get(key);
   };
   function bufferFor(meshes,kind){
-    if(!meshes.has(kind))meshes.set(kind,meshBuffers(materials[kind]));
+    if(!meshes.has(kind)){
+      const buffer=meshBuffers(materials[kind]);
+      if(/^shop[a-l]$/.test(kind))buffer.shopKind=kind; // A23 night
+      meshes.set(kind,buffer);
+    }
     return meshes.get(kind);
   }
   const batch=(x,z,kind)=>bufferFor(groupOf(x,z).meshes,kind);
+  let neon; // A24c Reserve the actual facade fixtures before packing sign slots.
   function instance(kind,shape,tint,x,y,z,w,h,d,turn=0,rx=0,rz=0,atlasSlot) {
     const c=groupOf(x,z),key=kind+'/'+shape;
     if(!c.instances.has(key))c.instances.set(key,[]);
@@ -195,20 +210,23 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
   const emptyBatch={quad(){},triangle(){}};
   const batchFor=module=>has(module)?batch:()=>emptyBatch;
   const instanceFor=module=>has(module)?instance:()=>{};
-  const signLayer=createStorefront({doc,anisotropy,group,signs,loadAd,nightEnabled:has('night')});
+  const signLayer=createStorefront({doc,anisotropy,group,signs,loadAd,nightEnabled:false}); // A23 night: fixture footprints replace mirrored lettering.
   const {loadedAds,storefrontAt}=signLayer;
   const signFor=module=>(...args)=>signLayer.sign(has(module),...args);
   const sign=signFor('storefront');
   const roadBatch=batchFor('roads'),furnitureInstance=instanceFor('furniture');
   const terrainBatch=batchFor('terrain'),treeInstance=instanceFor('vegetation');
-  const storeBatch=batchFor('storefront'),storeInstance=instanceFor('storefront');
+  // A24c Register actual building fixtures in the same coordinates used for rendering.
+  const fixtureFor=module=>has(module)?(...args)=>{neon?.obstacle(...args);instance(...args);}:()=>{};
+  const storeBatch=batchFor('storefront'),storeInstance=fixtureFor('storefront');
   const towerBatch=batchFor('buildings-tower'),oldBatch=batchFor('buildings-old');
   const oldRoofDetailBatch=has('buildings-old')?(x,z,kind)=>bufferFor(groupOf(x,z).roofMeshes,kind):()=>emptyBatch;
   const oldStoreDetailBatch=has('storefront')?(x,z,kind)=>bufferFor(groupOf(x,z).storeMeshes,kind):()=>emptyBatch;
-  const towerInstance=instanceFor('buildings-tower'),oldInstance=instanceFor('buildings-old');
+  const towerInstance=fixtureFor('buildings-tower'),oldInstance=fixtureFor('buildings-old');
   const nightInstance=instanceFor('night');
   const landmarkBatch=batchFor('landmarks');
-  const {updateOfficeDoor,landmark}=createLandmarks({group,replacements,batch:landmarkBatch,materials,textWall,enabled:has('landmarks')});
+  neon=has('storefront')&&enabled?createNeonStreet({group,scene,groupOf,available,anisotropy,instance,nightEnabled:has('night')}):null; // A24c Reuse the metal fixture batch for roof uprights.
+  const {updateOfficeDoor,landmark}=createLandmarks({group,replacements,batch:landmarkBatch,materials,textWall,obstacle:neon?.obstacle,enabled:has('landmarks'),towerDetail:has('buildings-tower')?towerInstance:null});
   const localPave=(...args)=>paveFront(roadBatch,...args);
   if(has('terrain'))addGround(group,doc,anisotropy);
   const road=createRoads({
@@ -219,19 +237,16 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
     batch:terrainBatch,doc,group,signs,enabled:false,
   }).strip);
   // A22 storefront geometry and night lighting share the existing chunk and material pools.
-  const neon=has('storefront')&&enabled?createNeonStreet({group,groupOf,available,anisotropy,instance:storeInstance,nightEnabled:has('night')}):null;
+
   addBuildings({neon,oldBatch,oldInstance,oldRoofDetailBatch,oldStoreDetailBatch,towerBatch,towerInstance,storeBatch,storeInstance,nightInstance,
-    textWall,paveFront:localPave,storefrontAt,sign,materials,landmark});
+    textWall,storefrontAt,sign,materials,landmark});
   addInfill({neon, // A22 street-facing infill
+    oldInstance, // A23 alleys: covered frontage belongs to the old-building module.
     batch:oldBatch,oldRoofDetailBatch,oldStoreDetailBatch,towerBatch,terrainBatch,storeBatch,storeInstance,roadBatch,furnitureInstance,treeInstance,
     textWall,paveFront:localPave});
-  neon?.finish(); // A22 complete all instance batches
   const collisionProps=[],parkedScooters=[];
   placeStreetLife({instance:furnitureInstance,paint:road.strip,roadMark:road.addRoadMark,sign:signFor('furniture'),treeInstance,nightInstance,
-    lampGlow:lighting.lampGlow,
-    signal:(crossing,x,z)=>{
-      if(has('furniture'))addSignalFaces({crossing,x,z,group,signalFaces});
-    },
+    lampGlow:has('furniture')?lighting.lampGlow:undefined,vendorLight:has('furniture')?lighting.optics?.vendorLight:undefined, // A23 night
     obstacle:(x,z,r,top)=>collisionProps.push({x:x/unit,y:z/unit,r:r/unit,top}),
     parked:(x,z,heading)=>{
       if(has('furniture'))parkedScooters.push({x,z,heading});
@@ -239,7 +254,8 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
     },
   });
   if(has('vegetation'))placeGroundVegetation(treeInstance); // A19 vegetation hook
-  addEntrances({instance:instanceFor('landmarks'),sign,batch:landmarkBatch,textWall});
+  addEntrances({instance:fixtureFor('landmarks'),sign,batch:landmarkBatch,textWall,foliage:has('vegetation')}); // A23 landmarks2: reuse leaf atlas on the old banyan.
+  neon?.finish(); // A24c All awnings and storefront fixtures are available now.
   for(const c of chunks.values()){
     for(const [key,items] of c.instances){
       const [kind,shape]=key.split('/');
@@ -289,17 +305,18 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
   if(has('storefront'))addBillboards(signLayer.billboard);
   if(has('roads'))addStreetNames(signFor('roads'));
   const cityChunks=[...chunks.values()];
-  const lightState={...lighting,...signLayer,materials};
+  const lightState={...lighting,...signLayer,materials,signalFaces:has('furniture')?signalReflections:[],signs}; // A24 share lamps with A23 night
   return {
     group,replacements,updateOfficeDoor,collisionProps,parkedScooters,glow,loadedTextures,loadedAds,textUv,
     update(x,z,night,rain,quality,clock,lamps=night,aerial=false,hour){
       materials.road.roughness=rain?.19:.94;
       materials.road.metalness=rain?.27:0;
-      neon?.update(x,z,has('night')?lamps:0,clock,rain); // A22 local neon spill
-      updateNight(lightState,x,z,has('night')?night:0,rain,clock,has('night')?lamps:0);
+      updateNight(lightState,x,z,has('night')?night:0,rain,clock,has('night')?lamps:0,hour); // A23 night
+      materials.curtain.emissiveIntensity=materials.landmarkCurtain.emissiveIntensity=has('night')?night*.65:0; // A23 towers
       const radius=aerial?535:quality===2?340:265;
       const detailRadius=quality===2?117:88;
       const storeRadius=quality===2?186:145;
+      neon?.update(x,z,has('night')?lamps:0,aerial?0:storeRadius,clock); // A24c Also visible over live tiles.
       const leafRadius=quality===2?97:76;
       const corridorRadius=quality===2?230:154;
       for(const chunk of cityChunks){
@@ -316,7 +333,7 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
           chunk.shadow=shadow;
         }
       }
-      updateSignalFaces(signalFaces,x,z,clock,hour);
+      updateSignals?.(x,z,clock,hour); // A24
       updateSigns(signs,x,z,rain,has('night')?night:0);
     },
   };

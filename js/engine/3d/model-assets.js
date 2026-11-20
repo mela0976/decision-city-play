@@ -27,7 +27,7 @@ export function createModelAssets(scene){
   decoder.setDecoderPath(new URL('../vendor/three-examples/libs/draco/gltf/',import.meta.url).href);
   loader.setDRACOLoader(decoder);
   const assets=new Map(),pending=new Set(),matrix=new T.Object3D(),instanceTint=new T.Color();
-  const idleSway=new T.Quaternion(),vertical=new T.Vector3(0,1,0);
+  const idleSway=new T.Quaternion(),vertical=new T.Vector3(0,1,0),sideAxis=new T.Vector3(0,0,1);
   let disposed=false;
   async function load(key,axis,length){
     const url=new URL('../../../assets/models/'+key+'.glb',import.meta.url);
@@ -83,7 +83,7 @@ export function createModelAssets(scene){
         for(const batch of asset.batches)batch.count=0;
       }
     },
-    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0,impact=null}={}){
+    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0,impact=null,idlePose=0}={}){
       const asset=assets.get(key);
       if(!asset)return false;
       if(asset.batches.length){
@@ -152,7 +152,10 @@ export function createModelAssets(scene){
           o.material=Array.isArray(o.material)?o.material.map(tintMaterial):tintMaterial(o.material);
           o.castShadow=true;
         });
-        scene.add(object);asset.pool.push({object,mixer,active:undefined,paint,colored,skinTone,pants,pantsEnabled,standingPose});
+        const chest=standingPose.find(([joint])=>/spine|chest/i.test(joint.name));
+        const head=standingPose.find(([joint])=>joint.name==='Head');
+        const forearms=standingPose.filter(([joint])=>/^(Left|Right)ForeArm$/.test(joint.name));
+        scene.add(object);asset.pool.push({object,mixer,active:undefined,paint,colored,skinTone,pants,pantsEnabled,standingPose,chest,head,forearms});
       }
       const item=asset.pool[slot];
       const walk=asset.animations.find(c=>/walk|run|move/i.test(c.name));
@@ -167,8 +170,14 @@ export function createModelAssets(scene){
       }
       if(!moving&&key.startsWith('walker_')){
         item.idleClock=(item.idleClock??0)+dt;
-        const chest=item.standingPose.find(([joint])=>/spine|chest/i.test(joint.name));
-        if(chest)chest[0].quaternion.copy(chest[2]).multiply(idleSway.setFromAxisAngle(vertical,Math.sin(item.idleClock*1.7)*.018));
+        const {chest,head,forearms}=item;
+        if(chest)chest[0].quaternion.copy(chest[2]).multiply(idleSway.setFromAxisAngle(vertical,(idlePose-2)*.07+Math.sin(item.idleClock*1.7+idlePose)*.018));
+        if(head)head[0].quaternion.copy(head[2]).multiply(idleSway.setFromAxisAngle(vertical,(2-idlePose)*.105));
+        for(const [joint,,rest] of forearms){
+          const side=joint.name==='LeftForeArm'?1:-1;
+          const bend=idlePose===1&&side===1?.80:idlePose===2&&side===-1?.64:idlePose===3?.40:.08;
+          joint.quaternion.copy(rest).multiply(idleSway.setFromAxisAngle(sideAxis,side*bend));
+        }
       }
       if(item.action){
         item.action.timeScale=Math.max(.24,Math.min(1.8,speed/1.28));

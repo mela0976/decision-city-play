@@ -1,8 +1,6 @@
 import {placeTree} from './vegetation.js';
-import {hash,shapes} from './city-primitives.js';
-import * as T from '../vendor/three.module.min.js';
-import {trafficGreen,trafficFlashing} from '../navigation.js';
-import {crossings,signalGroup} from '../street-crossings.mjs';
+import {hash} from './city-primitives.js';
+import {crossings} from '../street-crossings.mjs';
 import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs';
 
 const marketApproach=toWorld(25.02960,121.55408);
@@ -25,10 +23,10 @@ export function xinyiBusBay(along=0,offset=0,reverse=false){
   };
 }
 
-export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>{},lampGlow=()=>{},obstacle:register=()=>{},parked=()=>false,treeInstance=instance,nightInstance=instance}) {
+export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>{},vendorLight,lampGlow=()=>{},obstacle:register=()=>{},parked=()=>false,treeInstance=instance,nightInstance=instance}) {
   // Fixture footprints crossing the OSM travel strip stay decorative.
   // Props fully on the pavement still block normal movement and riding.
-  const obstacle=(x,z,r,h)=>{if(!roadAt(x/unit,z/unit,-r/unit*.55))register(x,z,r,h);};
+  const obstacle=(x,z,r,h,kind)=>{if(!roadAt(x/unit,z/unit,-r/unit*.55))register(x,z,r,h,kind);};
   const block=(color,x,y,z,w,h,d,turn=0)=>instance('metal','box',color,x,y,z,w,h,d,turn);
   const pole=(color,x,y,z,w,h)=>instance('metal','cylinder',color,x,y,z,w,h,w);
   const glow=(color,x,y,z,w,h,d)=>nightInstance('luminous','box',color,x,y,z,w,h,d);
@@ -174,48 +172,8 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
       scooter(px*unit,pz*unit,heading+((i+j)%3-1)*.095,i+j);
     }
   }
-  for(const crossing of crossings){
-    const x=crossing.x*unit,z=crossing.y*unit;
-    for(const approach of crossing.approaches){
-      const {dx,dy:dz}=approach,span=approach.width*unit;
-      const forward=t=>[(x+dx*t)/unit,(z+dz*t)/unit];
-      const {forward:outbound,reverse:inbound,crosswalk,stop,box:waiting,arrow}=approach;
-      const laneWidth=outbound&&inbound?span/2:span;
-      const heading=Math.atan2(dz,dx),length=approach.paintLength;
-      const incomingOffset=outbound?-laneWidth/2:0;
-      const stripes=Math.floor((span-.53)/1.62);
-      if(length>=crosswalk+2.3)for(let j=-stripes;j<=stripes;j++){
-        paint(forward(crosswalk),forward(crosswalk+2),.39,.074,'line',j*.81,'#eee1c9');
-      }
-      if(inbound){
-        const post=Math.min(stop,Math.max(1.4,approach.length*unit*.75));
-        const sx=x+dx*post+dz*(span/2+.62),sz=z+dz*post-dx*(span/2+.62);
-        if(!roadAt(sx/unit,sz/unit)){
-          pole('#737a72',sx,2.32,sz,.16,4.64);
-          instance('metal','box','#373e3b',sx,4.23,sz,.26,.84,.22,Math.PI/2-heading);
-          signal({x:crossing.x,y:crossing.y,dx,dy:dz,group:signalGroup(crossing,dx,dz)},sx,sz);
-        }else{
-          const hx=x+dx*post-dz*incomingOffset,hz=z+dz*post+dx*incomingOffset;
-          instance('metal','box','#373e3b',hx,4.23,hz,.26,.84,.22,Math.PI/2-heading);
-          signal({x:crossing.x,y:crossing.y,dx,dy:dz,group:signalGroup(crossing,dx,dz)},hx,hz);
-        }
-        if(length>=stop+.55)paint(forward(stop),forward(stop+.22),laneWidth-.24,.075,'line',incomingOffset,'#ece1c9');
-        if(length>=waiting+3){
-          const boxWidth=Math.min(1.72,laneWidth-.40);
-          for(const side of [-1,1])paint(forward(waiting),forward(waiting+2.35),.085,.076,'line',incomingOffset+side*boxWidth/2,'#ded2bb');
-          for(const t of [waiting,waiting+2.35])paint(forward(t),forward(t+.09),boxWidth,.076,'line',incomingOffset,'#ded2bb');
-          roadMark('scooter',x+dx*(waiting+1.15)-dz*incomingOffset,z+dz*(waiting+1.15)+dx*incomingOffset,heading+Math.PI);
-        }
-      }
-      if(length>=arrow+1.5){
-        if(outbound){
-          const offset=inbound?laneWidth/2:0;
-          roadMark('↑',x+dx*arrow-dz*offset,z+dz*arrow+dx*offset,heading);
-        }
-        if(inbound)roadMark('↑',x+dx*arrow-dz*incomingOffset,z+dz*arrow+dx*incomingOffset,heading+Math.PI);
-      }
-    }
-  }
+  // A24 physical signal posts are rendered by the instanced signal layer.
+  for(const j of crossings)for(const p of j.poles)obstacle(p.x,p.y,.11,5.4,'signal');
   const byId=new Map(locations.map(p=>[p.id,p]));
   const placement=(id,fn)=>{
     const p=byId.get(id),angle=p.viewHeading,x=p.x*unit,z=p.y*unit;
@@ -225,6 +183,7 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
   };
   function stall({at,box,angle},s,d,color='#a7493b',name='茶飲') {
     const [sx,sz]=at(s,d);obstacle(sx,sz,1.08,2.35);
+    vendorLight?.(at,s,d,name); // A23 night: bulbs follow the physical cart counter.
     for(const x of [-1,1])for(const z of [-.56,.55])box('#5b5b54',s+x,1.13,d+z,.075,2.25,.075);
     for(let n=0;n<9;n++)box(n%2?color:'#e0ccb0',s+(n-4)*.247,2.31,d,.244,.11,1.55);
     box('#736a55',s,.78,d,1.7,.18,.62);
@@ -319,13 +278,7 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
   }
   const bayLabel=xinyiBusBay(6.4,.53);
   sign('公車候車區',bayLabel.x,2.40,bayLabel.z,-bay.heading,'#506a65',false,3.5,.30);
-  placement('temple',({at})=>{
-    for(let i=0;i<8;i++){
-      const [x,z]=at((i-3.5)*1.03,4.75);
-      nightInstance('luminous','crown','#ee6840',x,2.86,z,.40,.45,.40);
-      pole('#c8a758',x,2.59,z,.065,.18);
-    }
-  });
+  // A23 landmarks2: temple lanterns now hang directly from the shrine eaves.
 }
 
 export function addUtilityPoles({instance,way,by,ay,bx,ax,span,d,at}) {
@@ -353,31 +306,5 @@ export function addUtilityPoles({instance,way,by,ay,bx,ax,span,d,at}) {
       }
     }
     previous={x,z};
-  }
-}
-
-export function addSignalFaces({crossing,x,z,group,signalFaces}) {
-  const faces=[];
-  for(const [y,tint] of [[4.46,'#ef8267'],[3.99,'#79c997']]){
-    const bulb=new T.Mesh(shapes.box,new T.MeshBasicMaterial({color:tint}));
-    bulb.position.set(x+.14*crossing.dx,y,z+.14*crossing.dy);
-    bulb.rotation.y=Math.atan2(crossing.dx,crossing.dy);bulb.scale.set(.15,.12,.014);
-    bulb.userData.base=new T.Color(tint);
-    group.add(bulb);faces.push(bulb);
-  }
-  signalFaces.push({crossing,faces,x,z});
-}
-
-export function updateSignalFaces(signalFaces,x,z,clock,hour) {
-  const flashing=trafficFlashing(hour),flashOn=clock%1<.5;
-  for(const item of signalFaces){
-    const show=Math.hypot(item.x-x,item.z-z)<165;
-    const c=item.crossing,green=trafficGreen(c.group,clock,c.x,c.y,hour);
-    for(const [i,face] of item.faces.entries()){
-      face.visible=show;
-      if(!show)continue;
-      if(flashing&&i===0)face.material.color.set('#ffb638').multiplyScalar(flashOn?1.45:.12);
-      else face.material.color.copy(face.userData.base).multiplyScalar(!flashing&&Boolean(i)===green?1.4:.16);
-    }
   }
 }

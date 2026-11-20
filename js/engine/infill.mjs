@@ -1,5 +1,5 @@
 import landuse from './data/xinyi-landuse.json' with {type:'json'};
-import {metersPerUnit as unit,toWorld,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs';
+import {metersPerUnit as unit,toWorld,inWuxing,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs';
 
 // Residential rings keep their original character; the wide ring covers every other gap in the map.
 const neighborhoods=[
@@ -48,7 +48,11 @@ export function urbanInfill(){
         const sample=random(id),housing=!civic&&sample>(sparse?.58:.48);
         const pick=random(id*3+11);
         // Open ground gets a use: car park, fenced lot, pocket park or bare lot.
-        const lot=housing?null:civic?'park':pick<.28?'parking':pick<.46?'fence':pick<.74?'park':'bare';
+        let lot=null;
+        if(!housing){
+          lot=civic?'park':pick<.28?'parking':pick<.46?'fence':pick<.74?'park':'bare';
+          if(inWuxing(x,y))lot='motorcycleBay';
+        }
         parcels.push({x:x*unit,z:y*unit,housing,civic,tree:!housing&&(lot==='park'||(lot==='bare'&&sample>.3)),lot,
           width:housing?9+sample*4:16,depth:housing?10+sample*4:16,height:housing?7+sample*8:4,
           tin:housing&&!civic&&pick>.82});
@@ -61,16 +65,18 @@ export function urbanInfill(){
     else if(q.tree)occupied.put({x:q.x/unit,y:q.z/unit,width:.20/unit},.20/unit,'tree');
   }
   for(const [index,[ax,ay,bx,by,w,e]] of roads.entries()){
-    if(!e.way.name||e.way.layer!==0||e.d*unit<8)continue;
+    const local=inWuxing((ax+bx)/2,(ay+by)/2);
+    if(e.way.layer!==0||e.d*unit<8)continue;
+    if(local?e.way.kind==='pedestrian':!e.way.name)continue;
     const length=e.d*unit,heading=Math.atan2(by-ay,bx-ax),dx=Math.cos(heading),dz=Math.sin(heading);
     const count=Math.max(1,Math.floor(length/13)),segment=length/count;
-    const span=Math.min(14,segment-.65),depth=9;
+    const span=local?segment-.34:Math.min(14,segment-.65),depth=local?6:9;
     const halfX=(Math.abs(dx)*span+Math.abs(dz)*depth)/2/unit;
     const halfY=(Math.abs(dz)*span+Math.abs(dx)*depth)/2/unit;
     const arterial=['primary','secondary'].includes(e.way.kind)||(e.way.kind==='tertiary'&&w*unit>=11);
     for(const side of [-1,1])for(let i=0;i<count;i++){
       const along=(i+.5)*segment;
-      const setback=w*unit/2+3.7,offset=side*(setback+depth/2);
+      const setback=w*unit/2+(local?1.65:3.7),offset=side*(setback+depth/2);
       const x=ax+(dx*along-dz*offset)/unit,y=ay+(dz*along+dx*offset)/unit;
       if(overlapsWalkway(x,y,halfX,halfY)||locations.some(p=>Math.hypot(x-p.x,y-p.y)*unit<16))continue;
       if(worldContact(x,y,(span/2+.45)/unit,(depth/2+.55)/unit,heading)||designation(x,y))continue;
@@ -79,7 +85,7 @@ export function urbanInfill(){
       let clear=true;
       for(const t of [-.5,0,.5])for(const d of [-.5,0,.5]){
         const px=x+(dx*span*t-dz*depth*d)/unit,py=y+(dz*span*t+dx*depth*d)/unit;
-        if(roadAt(px,py,-2.3/unit)||designation(px,py))clear=false;
+        if(roadAt(px,py,-(local?1.1:2.3)/unit)||designation(px,py))clear=false;
       }
       if(!clear)continue;
       occupied.put(pose,span/2/unit,'parcel');

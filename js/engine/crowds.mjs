@@ -1,24 +1,39 @@
+import {obstructsEntrance} from './actor-entrances.mjs'; // A23 actors
+import {occupancy,radius} from './collision.mjs'; // A23 actors test the actual oriented pavement fixtures.
 import {fixtureColliders} from './fixtures.mjs';
-import {byId,inBuilding,metersPerUnit as unit,roadAt,roads,worldContact} from './world.mjs';
+import {byId,random,metersPerUnit as unit,roadAt,roads,worldContact} from './world.mjs';
 
-const wardrobe=['npc_student','npc_colleague','npc_vendor','npc_elder','npc_client','npc_grandma','media','creative'];
+// A23 actors: fixed neighbours use distinct pavement pockets, headings and stable identities.
+const neighbours={
+  home:['npc_elder','npc_colleague','creative','npc_student'],
+  night_market:['npc_vendor','npc_grandma','media','npc_student','creative'],
+  client_hq:['npc_client','planner','media','ae','creative'],
+};
+const props=fixtureColliders(),pedestrianReach=radius.foot*Math.SQRT2;
 export const streetCrowds=[];
-for(const id of ['home','night_market','client_hq']){
-  const site=byId.get(id),a=site.viewHeading;
-  for(const [i,skin] of wardrobe.entries()){
-    const side=(i-3.5)*.84;
-    for(const distance of [2.3,2.8,3.35,3.9,4.5,5.15]){
-      const x=site.x+(Math.sin(a)*side+Math.cos(a)*distance)/unit;
-      const y=site.y+(-Math.cos(a)*side+Math.sin(a)*distance)/unit;
-      if(inBuilding(x,y)||roadAt(x,y,-.34/unit)||streetCrowds.some(p=>Math.hypot(p.x-x,p.y-y)<.72/unit))continue;
-      streetCrowds.push({x,y,skin,heading:a+Math.PI/2,standing:true});
+for(const [district,skins] of Object.entries(neighbours)){
+  const site=byId.get(district),a=site.viewHeading;
+  const nearby=occupancy();
+  for(const prop of props)if(Math.hypot(prop.x-site.x,prop.y-site.y)<32/unit+Math.hypot(prop.r,prop.width??prop.r))nearby.put(prop,prop.r,'static');
+  for(const [i,skin] of skins.entries()){
+    for(let tryNo=0;tryNo<96;tryNo++){
+      const seed=i*137+tryNo*31+district.length*11;
+      const spread=tryNo<32?1:1.65;
+      const side=(random(seed+1)-.5)*26*spread;
+      const depth=(i%3===0||tryNo%4===3?-1:1)*(2.1+random(seed+3)*10.5)*spread;
+      const x=site.x+(Math.sin(a)*side+Math.cos(a)*depth)/unit;
+      const y=site.y+(-Math.cos(a)*side+Math.sin(a)*depth)/unit;
+      if(obstructsEntrance(x,y,pedestrianReach)||worldContact(x,y,.34/unit)||roadAt(x,y,-.34/unit)||
+        nearby.hit(x,y,.37/unit,{})||
+        streetCrowds.some(p=>Math.hypot(p.x-x,p.y-y)<1.7/unit))continue;
+      streetCrowds.push({x,y,skin,district,heading:a+Math.PI*(random(seed+7)*1.85-.93),
+        standing:true,localId:'neighbour:'+district+':'+i});
       break;
     }
   }
 }
 
 // Residents on the two quieter lanes, including the forecourt at 忠孝東路五段236巷.
-const props=fixtureColliders();
 const residentialLanes=new Set(['忠孝東路五段236巷','信義路五段91巷15弄']);
 for(const [ax,ay,bx,by,w,edge] of roads){
   if(!residentialLanes.has(edge.way.name)||edge.way.layer!==0||edge.d*unit<11)continue;
@@ -27,7 +42,7 @@ for(const [ax,ay,bx,by,w,edge] of roads){
     const lateral=side*(w*.5+1.1/unit);
     const t=side===1?.25:.67;
     const x=ax+(bx-ax)*t-dy*lateral,y=ay+(by-ay)*t+dx*lateral;
-    if(worldContact(x,y,.35/unit)||roadAt(x,y,-.35/unit)||streetCrowds.some(p=>Math.hypot(p.x-x,p.y-y)<.9/unit)||
+    if(obstructsEntrance(x,y,pedestrianReach)||worldContact(x,y,.35/unit)||roadAt(x,y,-.35/unit)||streetCrowds.some(p=>Math.hypot(p.x-x,p.y-y)<.9/unit)||
       props.some(p=>Math.hypot(p.x-x,p.y-y)<Math.max(p.r,p.width)+.35/unit))continue;
     streetCrowds.push({x,y,skin:side===1?'npc_elder':'npc_colleague',
       heading:Math.atan2(-dx*side,dy*side),standing:true});

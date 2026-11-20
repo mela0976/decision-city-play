@@ -1,10 +1,10 @@
 import * as T from '../vendor/three.module.min.js';
-import {water,riverWidthMeters,width,height,metersPerUnit as unit,roadAt,toWorld} from '../world.mjs';
+import {water,riverWidthMeters,width,height,metersPerUnit as unit,roadAt,wuxingBounds,toWorld} from '../world.mjs';
 import {createBasin} from './basin.js';
 import {canvasTexture,hash,matrix,color,shapes} from './city-primitives.js';
 import landuse from '../data/xinyi-landuse.json' with { type:'json' };
 
-const riversideCycleways=[
+export const riversideCycleways=[ // A23 actors share the rendered OSM cycle paths.
   [ // OSM way 1073045446
     [25.0545683,121.5703135],[25.0540326,121.5704149],[25.0536073,121.5704906],[25.0533,121.570557],
     [25.0529379,121.5706408],[25.0528137,121.5706602],[25.0527683,121.5706834],[25.0525855,121.5707293],
@@ -140,11 +140,10 @@ export function addGround(group,doc,anisotropy) {
     }
     // Paint mapped vegetation on the existing ground plane, keeping water and
     // authored plaza materials in the higher-resolution geometry pass.
-    for(const [id,kind,,coordinates] of landuse.features){
-      if(kind!=='green')continue;
+    function greenRing(id,coordinates,local){
       ctx.beginPath();
       coordinates.forEach(([lat,lon],index)=>{
-        const p=toWorld(lat,lon),x=p.x*w/width,y=h-p.y*h/height;
+        const p=toWorld(lat,lon),x=p.x*w/width,y=local?p.y*h/height:h-p.y*h/height;
         if(index===0)ctx.moveTo(x,y);
         else ctx.lineTo(x,y);
       });
@@ -153,6 +152,17 @@ export function addGround(group,doc,anisotropy) {
       ctx.fillStyle=parkTints.get(id)??`rgb(${84+34*shade} ${107+27*shade} ${68+20*shade})`;
       ctx.fill();
     }
+    for(const [id,kind,,ring] of landuse.features)if(kind==='green')greenRing(id,ring,false);
+    // On the rotated ground plane canvas row zero is north. Clip the correction to these blocks.
+    const {nw,se}=wuxingBounds;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(nw.x*w/width,nw.y*h/height,(se.x-nw.x)*w/width,(se.y-nw.y)*h/height);
+    ctx.clip();
+    ctx.fillStyle='#898178';
+    ctx.fillRect(0,0,w,h);
+    for(const [id,kind,,ring] of landuse.features)if(kind==='green')greenRing(id,ring,true);
+    ctx.restore();
   });
   cover.anisotropy=anisotropy;
   const detail=canvasTexture(doc,256,256,(ctx,w,h)=>{

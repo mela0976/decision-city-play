@@ -264,6 +264,40 @@ html.grandma #stage::after {
   }
 }
 
+/* 載入百分比、進度條、目前步驟 */
+#boot-plate .boot-pct {
+  font: 600 clamp(2.4rem, 7vw, 3.6rem) / 1 var(--font-num, ui-monospace, "SFMono-Regular", Menlo, monospace);
+  letter-spacing: 0.04em;
+  color: var(--paper, #f3efe6);
+  font-variant-numeric: tabular-nums;
+}
+
+#boot-plate .boot-bar {
+  inline-size: min(22rem, 72vw);
+  block-size: 6px;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.12);
+  overflow: hidden;
+}
+
+#boot-plate .boot-bar i {
+  display: block;
+  block-size: 100%;
+  inline-size: 0;
+  background: var(--accent, #2fbf71);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  #boot-plate .boot-bar i {
+    transition: inline-size 0.35s ease-out;
+  }
+}
+
+#boot-plate .boot-step {
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+}
+
 #stage:not([data-phase="boot"]) #boot-plate {
   display: none;
 }

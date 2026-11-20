@@ -3,6 +3,7 @@
 
 import { h, formatDelta, reducedMotion } from '../dom.js';
 import { T, METER_IDS, METER_NAMES } from '../strings.js';
+import { icon } from './icons.js';
 
 export function createHud({ root, assets, onMenu, onRadio, onAutoRide }) {
   const $ = (id) => root.querySelector(`#${id}`);
@@ -33,12 +34,16 @@ export function createHud({ root, assets, onMenu, onRadio, onAutoRide }) {
     els.meters.append(row);
   }
 
-  els.menu.textContent = T.menu;
+  // 選單鈕：窄螢幕只留三條線的圖示（字仍給螢幕報讀），寬螢幕照舊寫「選單」
+  els.menu.replaceChildren(icon('menu', { className: 'menu-icon' }), h('span', { class: 'menu-name', text: T.menu }));
   els.menu.addEventListener('click', onMenu);
   els.map.querySelector('canvas')?.setAttribute('aria-label', T.mapToggle);
   els.auto.textContent = T.autoRide;
   els.auto.addEventListener('click', onAutoRide);
   els.station.setAttribute('title', T.radioSwitch);
+  // 電台名放在自己的 span 裡：窄螢幕只留圖示（名字仍給螢幕報讀），寬螢幕照舊顯示名字
+  const stationName = h('span', { class: 'radio-name' });
+  els.station.replaceChildren(icon('radio', { className: 'radio-icon' }), stationName);
   els.station.addEventListener('click', onRadio);
 
   let rotateTimer = 0;
@@ -92,12 +97,12 @@ export function createHud({ root, assets, onMenu, onRadio, onAutoRide }) {
       clearInterval(rotateTimer);
       els.radio.hidden = station === undefined;
       if (!station) {
-        els.station.textContent = T.radioOff;
+        stationName.textContent = T.radioOff;
         els.text.textContent = '';
         els.ticker.classList.remove('is-rolling');
         return;
       }
-      els.station.textContent = station.name || '';
+      stationName.textContent = station.name || '';
       const lines = (station.ticker || []).filter(Boolean);
       if (reducedMotion() || lines.length === 0) {
         let index = 0;

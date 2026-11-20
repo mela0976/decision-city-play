@@ -1,9 +1,12 @@
+import {alleyParking} from './actor-streets.mjs'; // A23 actors
+import {visitWuxingArcades} from './wuxing-arcades.mjs'; // A23 alleys
 import {urbanInfill} from './infill.mjs';
 import {placeStreetLife} from './3d/street-life.js';
 import {visitLandscapeTrees} from './3d/vegetation.js'; // A19 vegetation hook
 import {placeEntrance} from './3d/frontage.js';
 // A19 terrain-landmarks hook
 import {placeFloodDefenses} from './3d/terrain.js';
+import {placeArcadeColumns} from './3d/songshan-heritage.js'; // A23 landmarks2: mapped factory arcade.
 import {placeTempleCourt} from './3d/landmarks.js';
 import {locations,metersPerUnit as unit,inBuilding} from './world.mjs';
 
@@ -18,14 +21,17 @@ export function fixtureColliders(){
       color==='#737a72'?'signal':color==='#796757'?'tree':kind==='glass'?'glass':shape==='cylinder'?'post':'fixture';
     push(x,z,w*.5,d*.5,-turn,type);
   }
-  placeStreetLife({instance,paint:()=>{},sign:()=>{},parked:(x,z,heading)=>{
+  placeStreetLife({instance,obstacle:(x,z,r,h,kind)=>{if(kind==='signal')push(x,z,r,r,0,'signal');}, // A24
+    paint:()=>{},sign:()=>{},parked:(x,z,heading)=>{
     push(x,z,.93,.39,heading,'parked');
     return true;
   }});
   // A19 vegetation hook
   visitLandscapeTrees(({x,z,width})=>push(x,z,width/2,width/2,0,'tree'));
   for(const p of locations)placeEntrance(p,{instance,sign:()=>{}});
+  visitWuxingArcades(()=>{},push); // A23 alleys: register the same posts and pots as the renderer.
   placeFloodDefenses(instance);
+  placeArcadeColumns(instance); // A23 landmarks2
   placeTempleCourt(locations.find(p=>p.shape==='temple'),instance);
   for(const parcel of urbanInfill()){
     if(parcel.housing)result.push({x:parcel.x/unit,y:parcel.z/unit,r:parcel.width*.5/unit,
@@ -33,5 +39,7 @@ export function fixtureColliders(){
     else if(parcel.tree)result.push({x:parcel.x/unit,y:parcel.z/unit,r:.16/unit,width:.16/unit,
       top:parcel.height,heading:0,type:'tree'});
   }
-  return cached=result.filter(prop=>!inBuilding(prop.x,prop.y));
+  cached=result.filter(prop=>!inBuilding(prop.x,prop.y));
+  cached.push(...alleyParking(cached)); // A23 actors register the parked row before use.
+  return cached;
 }

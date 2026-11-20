@@ -1,8 +1,11 @@
+import {surfaceAt} from '../sidewalks.mjs'; // A24
 import {createFeaturedCars,skyTraffic} from './featured-cars.js'; // A22
+import {marketTruck} from '../night-market.mjs'; // A23 night
 import {parkedKey} from '../impact.mjs';
 import {streetCrowds} from '../crowds.mjs';
 import {createModelAssets} from './model-assets.js';
-import {byId,roadAt} from '../world.mjs';
+import {fixtureColliders} from '../fixtures.mjs';
+import {byId,metersPerUnit,roadAt} from '../world.mjs';
 import * as T from '../vendor/three.module.min.js';
 
 const cube=new T.BoxGeometry(1,1,1);
@@ -20,6 +23,8 @@ function serviceProfile(points){
 const cab=serviceProfile([[-.46,-.46],[.42,-.46],[.47,-.32],[.44,.15],[.19,.46],[-.38,.46],[-.46,.35]]);
 const busShell=serviceProfile([[-.46,-.39],[.40,-.39],[.47,-.26],[.47,.22],[.35,.43],[-.41,.43],[-.47,.30]]);
 const compactor=serviceProfile([[-.47,-.40],[.44,-.40],[.47,.25],[.33,.43],[-.28,.43],[-.47,.16]]);
+const sedanHull=serviceProfile([[-.49,-.27],[-.46,.23],[-.30,.41],[.15,.48],[.44,.25],[.49,.03],[.48,-.31],[.29,-.44],[-.32,-.44]]);
+const sedanGlass=serviceProfile([[-.5,-.47],[-.40,-.09],[-.25,.42],[.16,.47],[.33,.23],[.5,-.47]]);
 const headColors=['#a97657','#ab785d','#c08968','#926747'];
 const outfits={ae:'#547981',planner:'#ba9262',media:'#6387ac',creative:'#a26072',data:'#776993',cx:'#7d8861',
   grandma:'#8b5368',npc_grandma:'#a7656e',npc_client:'#7184a2',npc_boss:'#435264',npc_colleague:'#739780',
@@ -66,14 +71,14 @@ function limb(color,a,b,w,d=w) {
   entry.pitch=Math.atan2(dz,Math.hypot(dx,dy));
   return entry;
 }
-function person(skin,phase,riding=false,seat=0,photo=false) { // A22 photo pose
+function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=false) { // A22 photo pose
   const grandma=skin.includes('grandma');
-  const [shirt,pants,accessory]=profile[skin]??[outfits[skin]??'#536573',grandma?'#4b4146':'#3e4147',
+  const [shirt,pants,accessory]=clothes??profile[skin]??[outfits[skin]??'#536573',grandma?'#4b4146':'#3e4147',
     skin==='npc_student'?'backpack':skin==='npc_boss'?'briefcase':''];
   const skinColor=headColors[skin.length%headColors.length];
-  const swing=riding?0:Math.sin(phase)*.21;
+  const swing=riding?0:Math.sin(phase)*(running?.37:.21);
   const hip=riding?(grandma?-.45:-.34):0;
-  const pelvis=riding?seat+.46:.86,shoulder=pelvis+.49;
+  const pelvis=riding?seat+.46:.86+(running?.045*Math.abs(Math.sin(phase)):0),shoulder=pelvis+.49;
   const headX=riding?hip+.17:0,headY=shoulder+.235;
   const body=[
     ball(pants,hip,pelvis,0,.30,.24,.285),
@@ -83,7 +88,7 @@ function person(skin,phase,riding=false,seat=0,photo=false) { // A22 photo pose
     ball(skinColor,headX,headY-.152,0,.12,.19,.12),
   ];
   if(riding) {
-    const shell=grandma?'#ba8c88':skin==='npc_rider'?'#cba666':'#d5d1c4';
+    const shell=clothes?.[3]??(grandma?'#ba8c88':skin==='npc_rider'?'#cba666':'#d5d1c4');
     body.push(ball(shell,headX,headY+.022,0,.285,.279,.276),
       ball('#343f49',headX+.103,headY-.005,0,.127,.125,.242),
       ball('#899ba1',headX+.158,headY+.022,0,.022,.058,.157));
@@ -91,13 +96,12 @@ function person(skin,phase,riding=false,seat=0,photo=false) { // A22 photo pose
     const hair=grandma?'#a69d97':'#2c2525';
     body.push(ball(skinColor,headX,headY,0,.216,.246,.192),ball(hair,headX-.036,headY+.071,0,.188,.156,.199),
       ball(skinColor,headX+.102,headY-.019,0,.053,.057,.068));
-    if(grandma)body.push(part('hat','#c3ab6b',headX,headY+.12,0,.49,.145,.50));
   }
   for(const s of [-1,1]) {
-    const knee=[riding?hip+.51:s*swing*.8,riding?.58:.48,s*.14];
+    const knee=[riding?hip+.51:s*swing*.8,riding?.58:.48+(running?Math.max(0,s*swing)*.35:0),s*.14];
     const ankle=[riding?hip+.52:s*swing,riding?.34:.14,s*.13];
     const elbow=photo?[.23,1.15,s*.21]:[riding?hip+.36:-s*swing*.64,shoulder-.205,s*.235];
-    const hand=photo?[.37,1.49,s*.08]:[riding?(grandma?.29:.46):-s*swing*.9,riding?(grandma?.96:1.00):pelvis-.01,s*.255];
+    const hand=photo?[.37,1.49,s*.08]:running?[.14-s*swing*.75,shoulder-.21,s*.22]:[riding?(grandma?.29:.46):-s*swing*.9,riding?(grandma?.96:1.00):pelvis-.01,s*.255];
     body.push(limb(pants,[hip,pelvis,s*.105],knee,.15),limb(pants,knee,ankle,.113),
       ball('#332e31',ankle[0]+.064,ankle[1]-.085,s*.13,.231,.115,.121),
       limb(shirt,[hip+.07,shoulder-.102,s*.178],elbow,.13),
@@ -113,18 +117,23 @@ function person(skin,phase,riding=false,seat=0,photo=false) { // A22 photo pose
   if(accessory==='vest')body.push(p('#c4c09a',hip+.197,pelvis+.27,0,.022,.28,.10));
   return body;
 }
-function car(color) {
+function car(color,variant=0) {
   const glass='#334651';
+  const wagon=variant===1,roof=wagon?1.56:1.43,glassLength=wagon?3.18:2.72;
   return [
-    ball(color,0,.65,0,4.65,.84,1.82),p(color,0,.49,0,4.37,.22,1.84),
-    ball(glass,-.22,1.07,0,2.77,.85,1.72),p('#43535c',-.32,1.48,0,1.62,.035,1.28),
-    p('#c9e6ea',2.25,.73,0,.10,.061,1.53),p('#db555b',-2.26,.76,0,.09,.068,1.52),
-    p('#222d35',2.28,.49,0,.06,.14,.82),p('#a4cccc',-.07,1.52,0,.19,.08,.31),
-    ...[-1,1].flatMap(s=>[
-      tire(1.34,.35,s*.76,.69),tire(-1.36,.35,s*.76,.69),
-      part('wheel','#98a8af',1.34,.35,s*.853,.45,.45,.025),
-      part('wheel','#98a8af',-1.36,.35,s*.853,.45,.45,.025),
-      p('#303c45',-.05,.91,s*.89,.18,.03,.025),p('#303c45',-.69,.91,s*.89,.18,.03,.025),
+    part('sedanHull',color,0,.66,0,4.46,.64,1.84),
+    part('sedanGlass',glass,wagon?-.30:-.16,1.14,0,glassLength,roof- .80,1.68),
+    ball(color,wagon?-.42:-.22,roof-.03,0,wagon?2.16:1.51,.12,1.55),
+    p('#313138',2.17,.53,0,.07,.15,1.21),p('#d5d3c8',2.215,.54,0,.035,.13,.38),
+    p('#d6d4c8',-2.18,.65,0,.035,.14,.38),
+    ...[-1,1].flatMap(side=>[
+      tire(1.32,.34,side*.86,.68),tire(-1.34,.34,side*.86,.68),
+      part('wheel','#a1a5a7',1.32,.34,side*.949,.38,.38,.025),
+      part('wheel','#a1a5a7',-1.34,.34,side*.949,.38,.38,.025),
+      p('#c9d9d6',2.17,.75,side*.64,.10,.105,.42),p('#b83c32',-2.135,.76,side*.67,.10,.13,.37),
+      p('#272d32',-.23,1.14,side*.812,.075,roof-.89,.033),
+      ball(color,.70,1.04,side*.92,.23,.11,.18),
+      p('#44474a',-.02,.87,side*.891,.17,.036,.024),p('#44474a',-.90,.87,side*.891,.17,.036,.024),
     ]),
   ];
 }
@@ -194,15 +203,59 @@ const sidewalkWardrobe=[
   ['#7887a1','#b0a189',1.02,.95],['#7b566f','#353e48',1.07,1.11],['#b3a88f','#44564e',.94,.97],
   ['#587384','#7a5547',1.04,1.06],['#8b7855','#39384a',.98,.94],
 ];
+const officeShirts=['#d7d6cb','#566679','#a17064','#455448','#beb19c','#7a646d','#a6afba','#584d46'];
+const casualShirts=['#a96547','#688281','#d4b970','#8587a4','#955967','#66845d','#bbb6a8','#977466'];
+const officeDoors=['client_hq','office','mrt'].map(id=>byId.get(id));
+const elderHats=['temple','night_market'].map(id=>byId.get(id));
+const helmets=['#ebe6d7','#494651','#b34e43','#98a9ac','#ded2b6','#343e51','#e1b96c','#836875'];
+const coats=['#e3bf53','#394764','#cbc6b8','#88749a','#a95e66','#567875'];
+const paint=['#35373c','#d2cbbf','#57677d','#895b55','#a3a4a0','#464951','#65575f','#b2a691'];
+const bikeRing=new T.TorusGeometry(.37,.032,5,14);
+const canopy=new T.SphereGeometry(.5,8,3,0,Math.PI*2,0,Math.PI*.49);
+function riderModel(color,index,rain,near){
+  const shirt=sidewalkWardrobe[index%8][0],helmet=helmets[index%helmets.length];
+  const jacket=rain?coats[index%coats.length]:shirt;
+  const parts=near?[...twoWheeler(false,color,0),...person('npc_rider',0,true,.51,false,[jacket,'#42454a','',helmet])]:
+    [tire(-.66,.30,0),tire(.67,.30,0),ball(color,-.25,.59,0,1.40,.56,.50),
+     p('#302d30',-.31,.83,0,.78,.11,.42),ball(color,.53,.75,0,.45,.75,.44),
+     ball(jacket,-.23,1.29,0,.44,.65,.51),ball(helmet,-.17,1.74,0,.30,.32,.31),
+     p('#353c41',-.028,1.72,0,.07,.10,.24),p('#b64439',-.93,.62,0,.055,.10,.25)];
+  if(rain)parts.push(part('hat',jacket,-.15,1.26,0,.98,.71,.84),
+    ball(jacket,.12,1.10,0,.69,.17,.68));
+  if(index%5===1)parts.push(p('#374243',-.73,1.01,0,.48,.43,.54),
+    p(index%2?'#c27a38':'#607e5a',-.73,1.18,0,.50,.21,.56),p('#d4cbb4',-.978,1.05,0,.012,.057,.47));
+  return parts;
+}
+
+function activeCycle(index,phase){
+  const frame=sidewalkWardrobe[index%8][0];
+  const attitude=Math.cos(phase),left=[.04+.17*attitude,.39+.17*Math.sin(phase),.14];
+  const right=[.04-.17*attitude,.39-.17*Math.sin(phase),-.14];
+  return [part('bikeRing','#35383b',-.65,.38,0,1,1,1),part('bikeRing','#35383b',.65,.38,0,1,1,1),
+    limb(frame,[-.65,.38,0],[-.29,.84,0],.07),limb(frame,[-.29,.84,0],[.04,.37,0],.08),
+    limb(frame,[-.65,.38,0],[.04,.37,0],.06),limb(frame,[.04,.37,0],[.41,.88,0],.08),
+    limb(frame,[.41,.88,0],[-.29,.84,0],.06),limb('#9ca4a2',[.42,1.01,0],[.65,.38,0],.07),
+    p('#39363a',-.28,.89,0,.28,.09,.19),p('#38393d',.43,1.02,0,.09,.055,.46),
+    limb(frame,[-.28,.96,0],[.025,1.39,0],.30,.43),ball('#b68b6d',.10,1.53,0,.23,.26,.21),
+    ball(helmets[index%8],.09,1.66,0,.29,.16,.25),
+    ...[left,right].flatMap((foot,i)=>{
+      const side=i===0?1:-1,knee=[.06+side*.12*attitude,.68+side*.10*Math.sin(phase),side*.15];
+      return [limb('#414650',[-.28,.98,side*.11],knee,.16),limb('#ac8369',knee,foot,.11),
+        ball('#303336',...foot,.22,.09,.12),limb(frame,[.005,1.34,side*.18],[.15,1.12,side*.23],.11),
+        limb('#b68b6d',[.15,1.12,side*.23],[.42,1.025,side*.20],.09)];
+    })];
+}
+const umbrellas=helmets.map((tone,i)=>[part('canopy',tone,.10,1.81,.16,1.07,.50,1.07),
+  p('#524e4c',.10,1.57,.16,.023,.54,.023),ball(i%2?'#d9ceba':'#b6adb0',.10,2.055,.16,.055,.047,.055)]);
 const dummy=new T.Object3D();
-const color=new T.Color();
+const tintCache=new Map();
 const local=new T.Vector3();
 
 export function createActors(scene,glow,parkedScooters=[]) {
   const models=createModelAssets(scene);
   const featured=createFeaturedCars(scene,glow); // A22
   const lookCache=new WeakMap();let nextLook=0;
-  const geometries={box:cube,round,wheel,hat,cab,busShell,compactor};
+  const geometries={box:cube,round,wheel,hat,cab,busShell,compactor,sedanHull,sedanGlass,bikeRing,canopy};
   const material=new T.MeshStandardMaterial({roughness:.63});
   const groups=Object.fromEntries(Object.entries(geometries).map(([name,geo])=>{
     const coat=['cab','busShell','compactor'].includes(name)?new T.MeshStandardMaterial({roughness:.31,metalness:.51}):material;
@@ -217,6 +270,13 @@ export function createActors(scene,glow,parkedScooters=[]) {
   const wreckRotation=new T.Quaternion(),partRotation=new T.Euler(),wreckEuler=new T.Euler(0,0,0,'YXZ');
   const parkedModel=twoWheeler(false,'#788b91',0);
   const farScooters=new Map();
+  const racks=fixtureColliders().filter(p=>p.alley).map(p=>({x:p.x*metersPerUnit,z:p.y*metersPerUnit,heading:p.heading,look:p.look}));
+  const parkedStyles=paint.map(tone=>({
+    near:twoWheeler(false,tone,0),
+    far:[tire(-.67,.30,0),tire(.66,.30,0),ball(tone,-.24,.57,0,1.47,.51,.49),
+      p('#363435',-.34,.80,0,.81,.14,.42),ball(tone,.54,.73,0,.44,.69,.46),
+      metal(.51,1.01,0,.13,.07,.66),p('#a84b3d',-.93,.58,0,.06,.12,.26)],
+  }));
   const carModels=new Map();
   const headlightMat=new T.MeshBasicMaterial({
     map:glow,transparent:true,depthWrite:false,opacity:0,blending:T.AdditiveBlending,side:T.DoubleSide,color:'#f8cc88',
@@ -243,14 +303,17 @@ export function createActors(scene,glow,parkedScooters=[]) {
         dummy.position.set(x+local.x,impact.center+local.y+.07,z+local.z);
         dummy.quaternion.setFromEuler(partRotation.set(d.pitch??0,d.yaw??0,d.roll,'YXZ')).premultiply(wreckRotation);
       }else{
-        local.set(d.x,d.y,d.z).applyAxisAngle(axis,lean);
+        local.set(d.x,d.y,d.z);
+        if(lean)local.applyAxisAngle(axis,lean);
         dummy.position.set(x+local.x*cos-local.z*sin,local.y+.07+altitude,z+local.x*sin+local.z*cos);
         dummy.rotation.set(lean+(d.pitch??0),-heading+(d.yaw??0),d.roll,'YXZ');
       }
       dummy.scale.set(d.w,d.h,d.d);
       dummy.updateMatrix();
       mesh.setMatrixAt(mesh.count,dummy.matrix);
-      mesh.setColorAt(mesh.count,color.set(d.color));
+      let tint=tintCache.get(d.color);
+      if(!tint){tint=new T.Color(d.color);tintCache.set(d.color,tint);}
+      mesh.setColorAt(mesh.count,tint);
       mesh.count++;
     }
   }
@@ -268,13 +331,27 @@ export function createActors(scene,glow,parkedScooters=[]) {
     for(const prop of parkedScooters){
       if(Math.hypot(x-prop.x,z-prop.z)>43||missingParked?.has(parkedKey(prop.x,prop.z)))continue;
       if(Math.hypot(x-prop.x,z-prop.z)>24||!models.draw('scooter_parked',prop.x,prop.z,prop.heading))
-        stamp(twoWheeler(false,'#788b91',0),prop.x,prop.z,prop.heading,0);
+        stamp(Math.hypot(x-prop.x,z-prop.z)>24?parkedStyles[4].far:parkedModel,prop.x,prop.z,prop.heading,0);
+    }
+  }
+  function drawRacks(x,z,missing){
+    for(const prop of racks){
+      if(Math.abs(x-prop.x)>53||Math.abs(z-prop.z)>53||missing?.has(parkedKey(prop.x,prop.z)))continue;
+      const style=prop.look%paint.length;
+      stamp(Math.hypot(x-prop.x,z-prop.z)<20?parkedStyles[style].near:parkedStyles[style].far,prop.x,prop.z,prop.heading,0);
     }
   }
   function uploadInstances(){
     for (const mesh of Object.values(groups)) {
+      if(!mesh.count)continue;
+      mesh.instanceMatrix.clearUpdateRanges();
+      mesh.instanceMatrix.addUpdateRange(0,mesh.count*16);
       mesh.instanceMatrix.needsUpdate=true;
-      if (mesh.instanceColor) mesh.instanceColor.needsUpdate=true;
+      if(mesh.instanceColor){
+        mesh.instanceColor.clearUpdateRanges();
+        mesh.instanceColor.addUpdateRange(0,mesh.count*3);
+        mesh.instanceColor.needsUpdate=true;
+      }
     }
   }
   function updateActors(state,scale,night,rain,turn,photorealistic,walkerPortrait=null,eye=null,previewBus=null,previewDelivery=null,scalePortrait=null,parkedOnly=false) {
@@ -293,9 +370,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
     const riding=player.mode==='scooter',grandma=player.skin==='grandma';
     const lean=riding?turn*Math.min(.46,player.speed*scale*.045)*(grandma?.4:1):0;
     const pitch=riding?T.MathUtils.clamp((state.acceleration??0)*.007,-.056,.051):0;
-    const ground=(roadAt(player.x,player.y)?.02:.065)+Math.abs(pitch)*.64;
     const stand=!riding&&player.speed<.5?state.standingPoint:null;
     const avatarX=stand?stand.x*scale:x,avatarZ=stand?stand.y*scale:z;
+    const ground=(surfaceAt(avatarX/scale,avatarZ/scale)?.height??(roadAt(player.x,player.y)?.02:.065))+Math.abs(pitch)*.64; // A24
     const avatar=riding?(grandma?'grandma_scooter':'rider_scooter'):['creative','media','grandma'].includes(player.skin)?'walker_f':'walker_m';
     const tesla=player.vehicle==='flyingTesla',altitude=player.altitude??0;
     if(tesla){
@@ -308,11 +385,11 @@ export function createActors(scene,glow,parkedScooters=[]) {
       state.avatarModel=loadedAvatar?avatar:models.pending(avatar)?'loading':'procedural';
       if(!loadedAvatar&&(riding||!models.pending(avatar))){
         if(riding)stamp(twoWheeler(grandma,outfits[player.skin],turn,player.skin==='data'),x,z,player.heading,lean);
-        stamp(person(player.skin,clock*player.speed*.22,riding,grandma?.31:.51),avatarX,avatarZ,player.heading,lean);
+        stamp(person(player.skin,clock*player.speed*.22,riding,grandma?.31:.51),avatarX,avatarZ,player.heading,lean,null,ground-.07);
       }
     }
     const missingParked=state.impact?.missingParked;
-    if(!photorealistic)drawParked(x,z,missingParked);
+    if(!photorealistic){drawParked(x,z,missingParked);drawRacks(x,z,missingParked);}
     decal(shadows,avatarX,avatarZ,player.heading,tesla?4.55:riding?2.35:.93,tesla?1.75:.8,tesla?.35:.47);
     if (riding && night>.1) {
       decal(headlights,x+Math.cos(player.heading)*4,z+Math.sin(player.heading)*4,player.heading,7.7,2.45,.49);
@@ -325,6 +402,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
       const px=item.x*scale,pz=item.y*scale;
       const distance=Math.hypot(px-x,pz-z);
       if(distance>104&&!state.inActorView?.(item,true))continue;
+      if(distance>22&&!item.impact&&state.inActorView?.(item,true)===false)continue;
       const impact=item.impact;
       if(item.featuredStyle!=null){ // A22 use the same rigid body as A14.
         featured.street(item,px,pz);
@@ -332,23 +410,19 @@ export function createActors(scene,glow,parkedScooters=[]) {
         const loaded=models.draw('scooter_parked',px,pz,item.heading,{impact});
         if(!loaded)stamp(parkedModel,px,pz,item.heading,0,impact);
       }else if(item.scooter) {
-        if(!farScooters.has(item.color)) {
-          farScooters.set(item.color,{
-            close:[...twoWheeler(false,item.color,0),...person('npc_rider',0,true,.51)],
-            distant:[tire(-.66,.3,0),tire(.64,.3,0),p(item.color,0,.62,0,1.55,.42,.43),
-              p('#81705a',-.13,1.31,0,.34,.67,.43),ball('#cfcbc0',-.08,1.66,0,.27,.26,.26),p('#333a41',.055,1.65,0,.035,.084,.18)],
-          });
-        }
-        const model=farScooters.get(item.color);
-        const detailed=distance<28&&models.draw('rider_scooter',px,pz,item.heading);
-        if(!detailed)stamp(distance<24?model.close:model.distant,px,pz,item.heading,0);
+        const look=lookOf(item)%120,near=distance<18;
+        const key=[item.color,look,Boolean(rain),near].join('/');
+        if(!farScooters.has(key))farScooters.set(key,riderModel(item.color,look,rain,near));
+        stamp(farScooters.get(key),px,pz,item.heading,0);
       } else {
-        if(!carModels.has(item.color)) carModels.set(item.color,car(item.color));
-        const taxi=item.service==='taxi';
-        const asset=item.service==='waste'?'garbage_truck':item.service==='bus'?'bus':!item.service||taxi?'car_ev':null;
-        const loaded=asset&&Math.hypot(px-(eye?.x??x),pz-(eye?.z??z))<=60&&
-          models.draw(asset,px,pz,item.heading,{tint:asset==='car_ev'?(taxi?'#ffbf2c':item.color):undefined,impact});
-        if(!loaded)stamp(truckModels[item.service]??carModels.get(item.color),px,pz,item.heading,0,impact);
+        const variant=lookOf(item)%3,taxi=item.service==='taxi',tone=taxi?'#eeb82e':item.color;
+        const key=tone+variant;
+        if(!carModels.has(key))carModels.set(key,car(tone,variant));
+        const asset=item.service==='waste'?'garbage_truck':item.service==='bus'?'bus':
+          !item.service&&variant===0?'car_ev':null;
+        const loaded=asset&&distance<(asset==='car_ev'?20:42)&&
+          models.draw(asset,px,pz,item.heading,{tint:asset==='car_ev'?tone:undefined,impact});
+        if(!loaded)stamp(truckModels[item.service]??carModels.get(key),px,pz,item.heading,0,impact);
         if(taxi)stamp([p('#ecd66b',-.08,1.57,0,.34,.12,.34),p('#fff2b2',.01,1.59,0,.041,.075,.26)],px,pz,item.heading,0,impact);
         if(!impact&&item.signal&&item.signalUntil>clock&&Math.floor(clock*5)%2===0){
           const front=item.service==='bus'?5.2:2.31;
@@ -364,9 +438,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
         }
       }
       if(!impact&&night>.1) {
-        const length=rain?13:9.5;
+        const length=item.scooter?(rain?6.2:5.2):(rain?10:8.5);
         decal(headlights,px+Math.cos(item.heading)*length*.49,pz+Math.sin(item.heading)*length*.49,
-          item.heading,length,rain?2.45:3.5,.088);
+          item.heading,length,item.scooter?1.08:2.30,.088);
         if(rain)decal(tails,px-Math.cos(item.heading)*2.7,pz-Math.sin(item.heading)*2.7,
           item.heading,4.35,item.scooter?.45:1.2,.088);
       }
@@ -382,20 +456,34 @@ export function createActors(scene,glow,parkedScooters=[]) {
       }
       return look;
     }
-    function stampPerson(skin,px,pz,facing,index,moving=false,speed=0,standing=false){
+    function stampPerson(item,px,pz,facing,index,moving,ground){ // A24
+      const skin=item.skin??'npc_vendor',standing=Boolean(item.standing),speed=item.movingSpeed;
       const style=sidewalkWardrobe[index%sidewalkWardrobe.length];
+      const atOffice=item.district==='client_hq'||officeDoors.some(site=>Math.hypot(px-site.x*scale,pz-site.y*scale)<95);
+      const evening=state.time>=17.5||state.time<6;
+      const shirt=atOffice&&!evening?officeShirts[index%8]:item.zone==='market'||evening?casualShirts[index%8]:style[0];
       const female=standing?index%2===0:['npc_student','npc_grandma','creative','media'].includes(skin);
       const elder=skin==='npc_elder'||skin==='npc_grandma';
       const stature=(elder?.94:1)*style[2],type=female?'walker_f':'walker_m';
-      if(!models.draw(type,px,pz,facing,{dt,moving,speed,tint:style[0],trousers:style[1],stature,
+      const hatAllowed=elder&&(item.zone==='market'||elderHats.some(site=>Math.hypot(px-site.x*scale,pz-site.y*scale)<45));
+      if(hatAllowed)stamp([part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)],px,pz,facing,0,null,ground);
+      if(Math.hypot(px-x,pz-z)>8||!models.draw(type,px,pz,facing,{dt,moving,speed,ground,tint:shirt,trousers:style[1],stature,idlePose:index%5,
         build:style[3],complexion:((index*11)%7-3)*.034})){
-        stamp(person(skin,moving?clock*7+px:0),px,pz,facing,0);
+        const phase=moving?clock*7+index:index*.82;
+        if(Math.hypot(px-x,pz-z)<28){
+          stamp(person(skin,phase,false,0,false,[shirt,style[1],index%4===0?'satchel':'']),px,pz,facing,0,null,ground);
+        }else{
+          const stride=Math.sin(phase)*.16;
+          stamp([ball(shirt,0,1.18,0,.30,.61,.44),ball('#bc9178',.025,1.60,0,.21,.26,.21),
+            ball('#443c3a',-.008,1.69,0,.22,.16,.22),
+            limb(style[1],[0,.88,.11],[stride,.10,.12],.15),limb(style[1],[0,.88,-.11],[-stride,.10,-.12],.15),
+            limb(shirt,[0,1.37,.22],[-stride,.92,.23],.11),limb(shirt,[0,1.37,-.22],[stride,.92,-.23],.11)],px,pz,facing,0,null,ground);
+        }
         return;
       }
-      if(elder||index%9===7)stamp([part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)],px,pz,facing,0);
-      else if(index%5===1||index%5===3){
+      if(index%5===1||index%5===3){
         stamp([ball('#433f49',-.16,1.16*stature,0,.21,.42,.30),
-          p('#5a5560',-.055,1.23*stature,.13,.17,.28,.027),p('#5a5560',-.055,1.23*stature,-.13,.17,.28,.027)],px,pz,facing,0);
+          p('#5a5560',-.055,1.23*stature,.13,.17,.28,.027),p('#5a5560',-.055,1.23*stature,-.13,.17,.28,.027)],px,pz,facing,0,null,ground);
       }
     }
     if(!photorealistic)for(const id of ['home','night_market','client_hq']){
@@ -404,7 +492,8 @@ export function createActors(scene,glow,parkedScooters=[]) {
       if(Math.hypot(x-sx,z-sz)>39)continue;
       const at=(side,front)=>[sx+fz*side+fx*front,sz-fx*side+fz*front];
       if(id!=='client_hq'&&!previewBus){
-        const [truckX,truckZ]=at(-3.8,.95),direction=heading-Math.PI/2;
+        const [truckX,truckZ]=id==='night_market'?[marketTruck.x*scale,marketTruck.y*scale]:at(-3.8,.95); // A23 night
+        const direction=heading-Math.PI/2;
         if(id!=='home'||!models.draw('garbage_truck',truckX,truckZ,direction))
           stamp(truckModels[id==='home'?'waste':'recycling'],truckX,truckZ,direction,0);
       }
@@ -427,19 +516,35 @@ export function createActors(scene,glow,parkedScooters=[]) {
       if(i>0&&item===walkerPortrait)continue;
       if(item.hidden)continue;
       const px=item.x*scale,pz=item.y*scale;
-      if(item!==walkerPortrait&&Math.hypot(px-x,pz-z)>60&&!state.inActorView?.(item,true))continue;
+      if(item!==walkerPortrait){
+        const distance=Math.hypot(px-x,pz-z);
+        if(distance>60&&!state.inActorView?.(item,true)||distance>12&&state.inActorView?.(item,true)===false)continue;
+      }
       const named=item.id!=null||item.standing;
       const facing=item.heading??-Math.PI/2;
-      if(item.takingPhoto){ // A22 raised arms and phone face the parked car.
+      const ground=surfaceAt(item.x,item.y)?.height??0; // A24
+      if(item.role==='cyclist'){
+        stamp(activeCycle(look,clock*6),px,pz,facing,0,null,ground);
+      }else if(item.role==='runner'){
+        stamp(person(item.skin,clock*9+look,false,0,false,[sidewalkWardrobe[look%8][0],'#424655',''],true),px,pz,facing,-.04,null,ground);
+      }else if(item.takingPhoto){ // A22 raised arms and phone face the parked car.
         const photographer=person(item.skin??'npc_student',0,false,0,true);
         photographer.push(p('#29323c',.39,1.49,0,.032,.135,.19),p('#c5f0f4',.408,1.53,.06,.008,.028,.028));
-        stamp(photographer,px,pz,facing,0);
-      }else stampPerson(item.skin??'npc_vendor',px,pz,facing,look,!named&&(item.movingSpeed??0)>.05,item.movingSpeed,Boolean(item.standing));
+        stamp(photographer,px,pz,facing,0,null,ground);
+      }else if(item.localId?.startsWith?.('evening:plaza:')&&Math.hypot(px-x,pz-z)>23){
+        // A23 night: distant holiday visitors use the existing instanced body and retain their simulation identity.
+        stamp(person(item.skin,clock*5+look),px,pz,facing,0,null,ground);
+      }else stampPerson(item,px,pz,facing,look,!named&&(item.movingSpeed??0)>.05,ground);
+      if(rain&&item.role!=='cyclist'&&item.role!=='runner'&&look%4!==0)stamp(umbrellas[look%8],px,pz,facing,0,null,ground);
       decal(shadows,px,pz,0,.87,.67,.455);
     }
     featured.finish(); // A22
     uploadInstances();
     shadows.instanceMatrix.needsUpdate=headlights.instanceMatrix.needsUpdate=true;
+    // A23 night: the two lamp beams share the vehicle's existing moving decal.
+    const wet=rain&&night>.2&&glow.userData.wetVehicle;
+    headlightMat.map=tailMaterial.map=wet||glow;
+    headlightMat.color.set(wet?'#fff0db':'#f8cc88');
     headlightMat.opacity=night*(rain?.64:.4);
     tails.instanceMatrix.needsUpdate=true;tailMaterial.opacity=rain?night*.44:0;
   }

@@ -137,7 +137,7 @@ function plantAvenues(addTree,addHedge){
         const species=edge.way.name==='信義路四段'?'camphor':random(seed+45)<.57?'rainTree':'terminalia';
         addTree(x,z,seed,species,.32,1,true);
       }
-      const offset=side*(width*unit/2+.85);
+      const offset=side*(width*unit/2+3.3); // A24 keep avenue hedges behind the stone walking strip
       for(let t=start;t<end-1.4;t+=5.4){
         const span=Math.min(5.4,end-t);
         const [x,z]=at(t+span/2,offset);

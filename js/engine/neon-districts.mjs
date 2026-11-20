@@ -17,12 +17,18 @@ for(const road of roads){
     for(let iy=Math.floor((Math.min(ay,by)-reach)/cell);iy<=Math.floor((Math.max(ay,by)+reach)/cell);iy++){
       const key=ix+','+iy;
       if(!grid.has(key))grid.set(key,[]);
-      grid.get(key).push({road,reach});
+      grid.get(key).push({road,reach,district:market?'market':'zhongxiao'});
     }
 }
 
-export function neonDistrict(x,y){
-  if(Math.abs(x-civicWalkway.x)<84/unit&&y>civicWalkway.y0-30/unit&&y<civicWalkway.y1+15/unit)return true;
-  const candidates=grid.get(Math.floor(x/cell)+','+Math.floor(y/cell));
-  return candidates?.some(({road,reach})=>nearestOnRoad(x,y,road).d<=reach)??false;
+export function mallPromenade(x,y){
+  return Math.abs(x-civicWalkway.x)<84/unit&&y>civicWalkway.y0-30/unit&&y<civicWalkway.y1+15/unit;
 }
+
+export function commercialDistrict(x,y){
+  if(mallPromenade(x,y))return 'department';
+  const candidates=grid.get(Math.floor(x/cell)+','+Math.floor(y/cell));
+  return candidates?.find(({road,reach})=>nearestOnRoad(x,y,road).d<=reach)?.district;
+}
+
+export function neonDistrict(x,y){return !!commercialDistrict(x,y);}

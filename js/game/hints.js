@@ -3,7 +3,13 @@
 
 import { T, KEY, HINT } from './strings.js';
 
+// A24 the engine publishes wait transitions on its canvas before refreshing the ride hint.
+let waitingForSignal=false;
+globalThis.document?.addEventListener('signal:wait',event=>{waitingForSignal=event.detail.seconds>0;});
+
 const part = (keys, text) => ({ keys: [].concat(keys || []), text: text || '' });
+const curbNotes = { parked: T.curbParked, road: T.curbRoad, walk: T.curbWalk }; // A24
+export const curbHint = kind => curbNotes[kind] ?? T.curbRoad;
 const say = (text) => part([], text);
 const numbers = (count) => Array.from({ length: count }, (_, i) => String(i + 1));
 
@@ -24,7 +30,7 @@ export function hintFor(state, mode) {
       };
     case 'ride': {
       const task = !state.place ? '' : state.arrived ? HINT.arrived(state.place) : HINT.goTo(state.place);
-      if (state.auto) return { task, parts: [say(T.autoRiding), say(touch ? HINT.cancelTouch : HINT.cancelKeyboard)] };
+      if (state.auto) return { task, parts: [say(waitingForSignal?HINT.signalWait:T.autoRiding), say(touch ? HINT.cancelTouch : HINT.cancelKeyboard)] };
       // goto 步驟一開始先提醒可以自動前往
       if (state.remindAuto) return { task, parts: touch ? [say(HINT.tapAuto), say(`${HINT.stick} ${HINT.move}`)] : [part(KEY.auto, T.autoRide), part(KEY.arrows, HINT.move)] };
       const context = state.context;

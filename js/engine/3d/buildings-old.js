@@ -1,4 +1,7 @@
 import * as T from '../vendor/three.module.min.js';
+import {inWuxing,metersPerUnit as unit} from '../world.mjs';
+import {visitWuxingArcades} from '../wuxing-arcades.mjs';
+import {neonDistrict} from '../neon-districts.mjs';
 import {urbanInfill} from '../infill.mjs';
 import {placeTree} from './vegetation.js';
 import {canvasTexture,hash} from './city-primitives.js';
@@ -89,13 +92,15 @@ export function addApartmentRoof(batch,points,faces,top,seed){
   roofFixtures(batch,(u,v,y)=>[center[0]+u*radius,y,center[1]+v*radius],top,seed);
 }
 
-export function addInfill({neon,batch,oldRoofDetailBatch,oldStoreDetailBatch,towerBatch,terrainBatch,storeBatch,storeInstance,roadBatch,furnitureInstance,treeInstance,textWall,paveFront}) {
+export function addInfill({neon,batch,oldInstance,oldRoofDetailBatch,oldStoreDetailBatch,towerBatch,terrainBatch,storeBatch,storeInstance,roadBatch,furnitureInstance,treeInstance,textWall}) {
+  visitWuxingArcades(oldInstance);
   for(const {x,z,width,depth,height,housing,civic,tree,lot,tin,setback=0,heading=0,streetSide,shop,street} of urbanInfill()){
     const ux=Math.cos(heading),uz=Math.sin(heading);
     const p=(dx,dy,h)=>[x+ux*dx*width/2-uz*dy*depth/2,h,z+uz*dx*width/2+ux*dy*depth/2];
     const seed=Math.round(x*31+z);
-    const groundKind=civic?'paving':lot==='parking'?'paving':lot==='fence'||lot==='bare'?'earth':'park';
-    const groundTint=civic?'#a39f93':lot==='parking'?'#8d8a84':lot==='fence'||lot==='bare'?'#8c8266':'#738759';
+    const local=inWuxing(x/unit,z/unit);
+    const groundKind=local||civic||lot==='parking'?'paving':lot==='fence'||lot==='bare'?'earth':'park';
+    const groundTint=local?'#b1a99e':civic?'#a39f93':lot==='parking'?'#8d8a84':lot==='fence'||lot==='bare'?'#8c8266':'#738759';
     terrainBatch(x,z,groundKind).quad(p(-1,-1,-.083),p(1,-1,-.083),p(1,1,-.083),p(-1,1,-.083),groundTint,width/3,depth/3);
     if(housing){
       const shellBatch=civic?towerBatch:batch;
@@ -132,16 +137,41 @@ export function addInfill({neon,batch,oldRoofDetailBatch,oldStoreDetailBatch,tow
         textWall(storeBatch(x,z,'shop'),p(-1,y,.02),p(1,y,.02),p(1,y,3.6),p(-1,y,3.6),
           -uz*streetSide,ux*streetSide,'#fff',width/7,1,'infill');
         const left=p(-1,y*1.015,.025),right=p(1,y*1.015,.025),nx=-uz*streetSide,nz=ux*streetSide;
-        neon?.frontage((left[0]+right[0])/2,(left[2]+right[2])/2,nx,nz,width,cut,seed,true); // A22 infill frontage
-        const sections=Math.max(1,Math.round(width/6.5));
+        // A24c A low commercial arcade has smaller stalls under its shared eave.
+        const glazingBays=Math.max(1,Math.round(width/6.5));
+        const sections=neon&&cut<7&&neonDistrict(x/unit,z/unit)?Math.ceil(width/4.8):glazingBays;
+        // A24c Render one complete fascia for each actual infill shop section.
+        neon?.frontage({x:(left[0]+right[0])/2,z:(left[2]+right[2])/2,nx,nz,width,top:cut,
+          seed,owner:'infill/'+x+'/'+z,face:0,bays:sections,source:'infill',
+          ends:[-streetSide+'/'+streetSide,streetSide+'/'+streetSide]});
+        const doorKinds=[];
         for(let k=0;k<sections;k++){
           const lerp=t=>left.map((v,i)=>v+(right[i]-v)*t),l0=lerp(k/sections),r0=lerp((k+1)/sections);
-          const kind='shop'+'abcdefghijkl'[Math.floor(hash(shop,seed+k*17+streetSide)*12)];
-          const uLen=width/sections/12;
-          textWall((streetApartment?oldStoreDetailBatch:storeBatch)(x,z,kind),l0,r0,[r0[0],5.2,r0[2]],[l0[0],5.2,l0[2]],nx,nz,'#fff',
-            sections>1?uLen:width/12,.82,'infill',sections>1?hash(seed,k+60)*Math.max(0,1-uLen):0);
+          const glazingBay=Math.floor((k+.5)*glazingBays/sections); // A24c Retain the original chunk material batch.
+          const kind='shop'+'abcdefghijkl'[Math.floor(hash(shop,seed+glazingBay*17+streetSide)*12)];
+          const multi=kind<='shopf',uLen=neon?(multi?.25:1):width/sections/12;
+          const uStart=neon?(multi?Math.floor(hash(seed,k+60)*4)*.25:0):
+            sections>1?hash(seed,k+60)*Math.max(0,1-uLen):0;
+          const doorTop=neon?3.52:5.2;
+          doorKinds.push({kind,uLen,uStart});
+          textWall((streetApartment||neon?oldStoreDetailBatch:storeBatch)(x,z,kind),l0,r0,[r0[0],doorTop,r0[2]],[l0[0],doorTop,l0[2]],nx,nz,'#fff',
+            uLen,neon?.43:.82,'infill',uStart);
         }
-        if(!civic)paveFront(left[0],left[2],right[0],right[2],nx,nz,width,4.0);
+        // A24c An exposed end facing a crossing street is the return of its corner tenant.
+        if(neon)for(const side of [-1,1]){
+          const end=p(side*1.004,0,.025),cnx=side*ux,cnz=side*uz;
+          const sideFace=neon.frontage({x:end[0],z:end[2],nx:cnx,nz:cnz,width:depth,top:cut,
+            seed:seed+side*17,owner:'infill/'+x+'/'+z,face:side,bays:1,source:'return',ends:[side+'/'+side,side+'/'+(-side)]});
+          if(sideFace.size){
+            const a=p(side*1.004,-1,.025),b=p(side*1.004,1,.025);
+            // A24c The same corner tenant continues around the return using its existing material batch.
+            const door=doorKinds[side<0?0:sections-1];
+            textWall(oldStoreDetailBatch(x,z,door.kind),a,b,[b[0],3.52,b[2]],[a[0],3.52,a[2]],cnx,cnz,
+              '#fff',door.uLen,.43,'infill',door.uStart);
+          }
+        }
+        // A24 the covered floor uses the same bay as the roof and posts.
+        if(local)continue; // Local covered bays use measured facade-to-road clearance.
         const [cx,,cz]=p(0,streetSide*1.17,0);
         storeInstance('metal','box','#a39984',cx,2.93,cz,width,.38,streetApartment?Math.max(1.12,depth*.18):1.12,-heading);
         storeInstance('glass','box','#8b9c90',cx,2.71,cz,width,.24,.13,-heading);
@@ -149,6 +179,12 @@ export function addInfill({neon,batch,oldRoofDetailBatch,oldStoreDetailBatch,tow
           const [colX,,colZ]=p(side,streetSide*1.17,0);
           storeInstance('concrete','box','#bdb7a9',colX,1.4,colZ,.32,2.8,.32,-heading);
         }
+      }
+    }else if(lot==='motorcycleBay'){
+      const paint=roadBatch(x,z,'line');
+      for(let k=0;k<9;k++){
+        const u=-.8+k*.19;
+        paint.quad(p(u,-.75,-.07),p(u+.009,-.75,-.07),p(u+.009,-.41,-.07),p(u,-.41,-.07),'#d6d1c5');
       }
     }else if(lot==='parking'){
       for(let k=0;k<=5;k++){

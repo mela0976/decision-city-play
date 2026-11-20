@@ -2,19 +2,21 @@ import * as T from '../vendor/three.module.min.js';
 import {buildings,roadAt,metersPerUnit as unit} from '../world.mjs';
 import {placeFrontage,placeRoof} from './frontage.js';
 import {hash} from './city-primitives.js';
+import {commercialDistrict} from '../neon-districts.mjs';
 import {addApartmentRoof,oldFacade} from './buildings-old.js';
-import {towerFacade} from './buildings-tower.js';
+import {isTowerBlock} from '../tower-structures.mjs'; // A23 towers
+import {podiumFace,shellHeight,towerFacade} from './buildings-tower.js'; // A23 towers
 
 // The two mapped Songshan warehouses and the preservation block at Four Four South Village.
 const historicFootprints=new Map([[228920407,'studio'],[228920409,'studio'],[441377762,'village'],[1131522120,'museum']]);
-export function addBuildings({neon,oldBatch,oldRoofDetailBatch,oldStoreDetailBatch,towerBatch,oldInstance,towerInstance,storeBatch,storeInstance,nightInstance,textWall,paveFront,storefrontAt,sign,materials,landmark}) {
+export function addBuildings({neon,oldBatch,oldRoofDetailBatch,oldStoreDetailBatch,towerBatch,oldInstance,towerInstance,storeBatch,storeInstance,nightInstance,textWall,storefrontAt,sign,materials,landmark}) {
   for(const b of buildings) {
     const batch=b.modern?towerBatch:oldBatch,instance=b.modern?towerInstance:oldInstance;
     const localShape=historicFootprints.get(b.osmId);
     if((b.shape||localShape) && landmark(localShape?{...b,shape:localShape}:b))continue;
     const x=(b.x+b.w/2)*unit,z=(b.y+b.h/2)*unit;
     const points=b.polygon.map(p=>new T.Vector2(p.x*unit,p.y*unit));
-    const h=Math.max(3,Math.min(198,b.elevation)),roof=batch(x,z,b.modern?'roof':'roofTop');
+    const curtain=isTowerBlock(b),h=shellHeight(b),roof=batch(x,z,b.modern?'roof':'roofTop');
     const roofFaces=T.ShapeUtils.triangulateShape(points,[]);
     for(const face of roofFaces){
       const corners=face.slice().reverse().map(i=>points[i]);
@@ -25,14 +27,14 @@ export function addBuildings({neon,oldBatch,oldRoofDetailBatch,oldStoreDetailBat
     else if(b.residential&&h>=23)addApartmentRoof(roof,points,roofFaces,h,b.osmId);
     const facadeVariant=Math.min(2,Math.floor(hash(b.osmId,7)*3));
     const tint=new T.Color(b.color).lerp(new T.Color('#ebe6dc'),.68);
-    const facade=b.modern?towerFacade(facadeVariant,tint,(hash(b.osmId,19)-.5)*.1):oldFacade(facadeVariant,tint,b.osmId);
+    const facade=b.modern?towerFacade(facadeVariant,tint,(hash(b.osmId,19)-.5)*.1,curtain):oldFacade(facadeVariant,tint,b.osmId);
     const upper=batch(x,z,facade.material);
     const [baseW,baseH]=facade.scale;
     const jitter=.85+.3*hash(b.osmId,11),tileWidth=baseW*jitter,tileHeight=baseH*(.94+.12*hash(b.osmId,12));
     const uOffset=hash(b.osmId,13),mirror=hash(b.osmId,17)>.5?-1:1;
     const faceKinds=[];
     const houseTint=new T.Color();
-    const frontageBatch=b.modern?storeBatch:oldStoreDetailBatch;
+    const frontageBatch=b.modern&&!neon?storeBatch:oldStoreDetailBatch; // A24c Doors share the sign detail distance.
     const podium=Math.min(3.5,h-.16);
     let frontage=null;
     const winding=Math.sign(points.reduce((sum,p,i)=>{
@@ -42,32 +44,49 @@ export function addBuildings({neon,oldBatch,oldRoofDetailBatch,oldStoreDetailBat
     for(let i=0;i<points.length;i++){
       const a=points[i],c=points[(i+1)%points.length],length=a.distanceTo(c);
       const p=(v,y)=>[v.x,y,v.y];
-      const mx=(a.x+c.x)/2,mz=(a.y+c.y)/2,streetFace=roadAt(mx/unit,mz/unit,-72);
-      const storefront=batch(x,z,b.modern?'new':'shop');
+      const mx=(a.x+c.x)/2,mz=(a.y+c.y)/2;
+      const midDistrict=neon&&commercialDistrict(mx/unit,mz/unit);
+      const nearStreet=roadAt(mx/unit,mz/unit,neon?-150:-72)||midDistrict;
+      const storefront=batch(x,z,curtain&&h>=17?'curtain':b.modern?'new':'shop'); // A23 towers: retain ground-floor retail glazing on low mall wings
       if(length<.01)continue;
       const nx=(c.y-a.y)/length,nz=(a.x-c.x)/length;
       if(b.modern)storefront.quad(p(a,0),p(c,0),p(c,podium),p(a,podium),tint,length/tileWidth,podium/tileHeight);
       else textWall(storefront,p(a,0),p(c,0),p(c,podium),p(a,podium),nx*winding,nz*winding,tint,length/4.2,1,'osm');
-      if(streetFace)neon?.frontage(mx,mz,nx*winding,nz*winding,length,h,b.osmId+i*17); // A22 OSM frontage
+      // A24c Arcade stalls and tower-podium kiosks have narrower doors than the larger modern shop bays.
+      const retail=midDistrict||(neon&&(commercialDistrict(a.x/unit,a.y/unit)||commercialDistrict(c.x/unit,c.y/unit)));
+      const glazingBays=Math.max(1,Math.round(length/(b.modern?10:6.5)));
+      const shopWidth=retail&&(h>=45||retail==='department')?4.1:retail==='market'?5.2:b.modern?10:6.5;
+      const units=b.modern&&!neon?1:Math.max(1,Math.round(length/shopWidth),retail?Math.ceil(length/(h<7?4.8:9.5)):0);
+      const exposed=nearStreet&&neon?neon.frontage({x:mx,z:mz,nx:nx*winding,nz:nz*winding,
+        width:length,top:h,seed:b.osmId+i*17,face:i,owner:b.osmId,bays:units,source:'osm',modern:b.modern}):null;
+      const streetFace=exposed?exposed.size>0:nearStreet;
       if(streetFace&&length>1){
         const sign=winding;
         const shift=new T.Vector2(nx*.024*sign,nz*.024*sign);
         const left=a.clone().add(shift),right=c.clone().add(shift);
         const beltHeight=b.modern?4.7:6.8,top=Math.min(h-.02,beltHeight);
         // Every street face is cut into shopfront units, each picking its own sign.
-        const units=b.modern?1:Math.max(1,Math.round(length/6.5));
         for(let k=0;k<units;k++){
+          if(exposed&&!exposed.has(winding>0?units-1-k:k))continue;
           const l0=left.clone().lerp(right,k/units),r0=left.clone().lerp(right,(k+1)/units);
-          const kind=b.modern?['shopi','shopj'][(b.osmId+i+k)%2]:storefrontAt((l0.x+r0.x)/2,(l0.y+r0.y)/2);
+          // A24c Subdivide the existing glazing without adding another door material to the chunk.
+          const glazingBay=retail?Math.floor((k+.5)*glazingBays/units):k;
+          const t=retail?(glazingBay+.5)/glazingBays:(k+.5)/units;
+          const kind=b.modern?['shopi','shopj'][(b.osmId+i+glazingBay)%2]:
+            storefrontAt(left.x+(right.x-left.x)*t,left.y+(right.y-left.y)*t);
           faceKinds[i]??=kind;
-          const uLen=length/units/(beltHeight*2);
-          textWall(frontageBatch(x,z,kind),p(l0,.015),p(r0,.015),p(r0,top),p(l0,top),
-            nx*sign,nz*sign,'#fff',units>1?uLen:length/(beltHeight*2),top/beltHeight,'osm',
-            units>1?hash(b.osmId+i*7,k+5)*Math.max(0,1-uLen):0);
+          // A24c Only the door/window portion of the photo belongs below the printed sign.
+          const quad=frontageBatch(x,z,kind),doorTop=exposed?Math.min(3.52,top):top;
+          const multi=kind>='shopa'&&kind<='shopf',uLen=exposed?(multi?.25:1):length/units/(beltHeight*2);
+          const uStart=exposed?(multi?Math.floor(hash(b.osmId+i,k+5)*4)*.25:0):
+            units>1?hash(b.osmId+i*7,k+5)*Math.max(0,1-uLen):0;
+          textWall(quad,p(l0,.015),p(r0,.015),p(r0,doorTop),p(l0,doorTop),
+            nx*sign,nz*sign,'#fff',uLen,exposed?.43:top/beltHeight,'osm',uStart);
         }
-        if(!b.modern)paveFront(a.x,a.y,c.x,c.y,nx*sign,nz*sign,length);
+        // A24 sidewalk model owns the mapped arcade floor.
 
       }
+      const upperBase=(curtain&&podiumFace(kind=>batch(x,z,kind),a,c,h,length,b.osmId))||podium; // A23 towers
       if(b.residential&&length>=4.0){
         const bays=Math.max(1,Math.round(length/4.9));
         for(let bay=0;bay<bays;bay++){
@@ -79,7 +98,7 @@ export function addBuildings({neon,oldBatch,oldRoofDetailBatch,oldStoreDetailBat
           upper.quad(p(start,podium),p(end,podium),p(end,h),p(start,h),houseTint,1/3,
             (h-podium)/baseH,phase,vPhase);
         }
-      }else upper.quad(p(a,podium),p(c,podium),p(c,h),p(a,h),tint,mirror*length/tileWidth,(h-podium)/tileHeight,
+      }else upper.quad(p(a,upperBase),p(c,upperBase),p(c,h),p(a,h),tint,mirror*length/tileWidth,(h-upperBase)/tileHeight,
         mirror>0?uOffset:uOffset+length/tileWidth);
       if(length>1&&h>6){
         // Dark plinth, parapet cap and storey bands break up the flat wall.
@@ -117,7 +136,7 @@ export function addBuildings({neon,oldBatch,oldRoofDetailBatch,oldStoreDetailBat
         const mark=sign(...args);
         if(mark.userData.vertical)mark.userData.suppressWith=materials[frontage.kind];
       };
-      placeFrontage(b,frontage.a,frontage.c,frontage.face,{instance:storeInstance,sign:storefrontSign});
+      placeFrontage(b,frontage.a,frontage.c,frontage.face,{instance:storeInstance,sign:storefrontSign,managed:!!neon}); // A24c
       if(b.modern){
         const {a,c,face,length}=frontage,height=Math.min(4.9,h-.05),width=Math.min(length,37);
         const dx=(c.x-a.x)/length,dz=(c.y-a.y)/length,[nx,nz]=face;
@@ -125,7 +144,7 @@ export function addBuildings({neon,oldBatch,oldRoofDetailBatch,oldStoreDetailBat
         const centerX=(lx+rx)/2,centerZ=(lz+rz)/2;
         const normal=(dx*nz-dz*nx)>0;
         const left=normal?[lx,lz]:[rx,rz],right=normal?[rx,rz]:[lx,lz];
-        textWall(storeBatch(centerX,centerZ,'mall'),[left[0],.1,left[1]],[right[0],.1,right[1]],
+        if(!neon)textWall(storeBatch(centerX,centerZ,'mall'),[left[0],.1,left[1]],[right[0],.1,right[1]],
           [right[0],height,right[1]],[left[0],height,left[1]],nx,nz,'#e8e5dc',width/10,.52,'osm');
         const angle=-Math.atan2(dz,dx);
         if(!roadAt((centerX+nx*.92)/unit,(centerZ+nz*.92)/unit,0)){

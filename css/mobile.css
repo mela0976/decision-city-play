@@ -1,0 +1,409 @@
+/* 手機與觸控：放在最後載入，只在觸控或窄螢幕時改寫前面的樣式。桌機（寬於 1100px、滑鼠）不受影響。 */
+
+/* ── 全域 ─────────────────────────────────────────── */
+
+/* 點兩下不放大、也不用等放大判斷的延遲；雙指縮放照樣可以（viewport 沒有關掉縮放） */
+html {
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+/* 引擎把 env(safe-area-inset-*) 寫進 canvas 的 --dc-safe-* 再用 parseFloat 讀回來，決定搖桿與按鈕要讓開 Home 條多少。
+   註冊成 <length>，不論瀏覽器怎麼處理自訂屬性裡的 env()，算出來都是像素值。 */
+@property --dc-safe-top {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --dc-safe-right {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --dc-safe-bottom {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@property --dc-safe-left {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* 長按不跳出 iOS 的拷貝／分享選單 */
+#stage {
+  -webkit-touch-callout: none;
+}
+
+/* 手指玩的時候，程式把焦點交回街景不需要整圈綠框 */
+#stage[data-input="touch"] #city:focus-visible {
+  outline: none;
+}
+
+/* 電台鈕：寬螢幕只有綠點與台名，圖示留給窄螢幕 */
+.radio-icon {
+  display: none;
+}
+
+.radio-name {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── 觸控：數字鍵的小方塊只對鍵盤有用 ─────────────── */
+
+#stage[data-input="touch"] :is(.option-key, .quiz-mark, .reply > kbd, .pick-item > kbd) {
+  display: none;
+}
+
+#stage[data-input="touch"] .option {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#stage[data-input="touch"] .option > * {
+  grid-column: 1;
+}
+
+/* ── 騎乘中的提示列：觸控時落在引擎的搖桿與按鈕下面那一條 ──
+   引擎在按鈕下方留了 90px（直向）／74px（橫向），扣掉底下的地圖標註，提示列只剩一兩行的高度。 */
+@media (max-width: 1100px) {
+  #stage[data-phase="play"][data-input="touch"]:not([data-scene]) #hint {
+    inset-block-end: calc(var(--bottom) + var(--attr-h) - 0.35rem);
+    min-block-size: 0;
+    padding-block: 0.15rem;
+    line-height: 1.3;
+  }
+}
+
+/* ── 電台：不夠寬（平板、橫放手機、直向手機）時收成一顆圖示鈕，跑馬燈不擠進 HUD ── */
+@media (max-width: 1100px), (max-height: 480px) {
+  .hud-radio {
+    justify-self: start;
+    inline-size: auto;
+  }
+
+  .radio-ticker {
+    display: none;
+  }
+
+  .radio-station {
+    position: relative;
+    justify-content: center;
+    inline-size: var(--tap);
+    max-inline-size: none;
+    padding: 0;
+    border: 0;
+    font-size: max(18px, 1rem);
+  }
+
+  .radio-station::before {
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-end: 0.5rem;
+  }
+
+  .radio-icon {
+    display: block;
+    inline-size: 1.45rem;
+    block-size: 1.45rem;
+  }
+
+  .radio-name {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ── 窄螢幕（直向手機）：HUD 收成三列 ──
+   第一列：立繪＋時鐘、電台、選單（都只留圖示），最右是小地圖（跨兩列）；第二列：四項數值；
+   第三列：任務路名牌橫跨整個寬度，自動前往在牌子右邊。 */
+.menu-icon {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  #hud {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+
+  /* 小地圖與選單鈕各自排進格線 */
+  .hud-corner {
+    display: contents;
+  }
+
+  .hud-map,
+  #hud-menu {
+    pointer-events: auto;
+  }
+
+  .hud-id {
+    grid-area: 1 / 1;
+    justify-self: start;
+    block-size: var(--tap);
+  }
+
+  .hud-portrait {
+    inline-size: 2.3rem;
+  }
+
+  /* 職稱看立繪就知道 */
+  #hud-role {
+    display: none;
+  }
+
+  #hud-clock {
+    font-size: 1.3rem;
+  }
+
+  .hud-who {
+    padding-inline: 0.55rem 0.65rem;
+  }
+
+  .hud-radio {
+    grid-area: 1 / 2;
+  }
+
+  .menu-icon {
+    display: block;
+    inline-size: 1.45rem;
+    block-size: 1.45rem;
+  }
+
+  .menu-name {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  #hud-menu {
+    grid-area: 1 / 3;
+    z-index: 3;
+    padding: 0;
+    inline-size: calc(var(--tap) + 2px);
+    block-size: calc(var(--tap) + 2px);
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+  }
+
+  .hud-map {
+    grid-area: 1 / 4 / span 2;
+    z-index: 3;
+    inline-size: clamp(84px, 22vmin, 100px);
+  }
+
+  .hud-meters {
+    grid-area: 2 / 1 / auto / span 3;
+    padding: 0.2rem 0.55rem 0.3rem;
+  }
+
+  .hud-meters .m-num {
+    line-height: 1.15;
+  }
+
+  .hud-task {
+    grid-area: 3 / 1 / auto / span 4;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 0.5rem;
+    inline-size: 100%;
+    max-inline-size: none;
+    padding-block: 0.2rem;
+  }
+
+  .hud-task:has(.hud-timer:not([hidden])) {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  #hud-task-title,
+  #hud-task-hint {
+    grid-column: 1;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.3;
+  }
+
+  .hud-timer {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .hud-autoride {
+    grid-column: -2 / -1;
+    grid-row: 1 / span 2;
+    padding-inline: 0.7rem;
+  }
+
+  /* 提示（支線開放、數值變化）落在 HUD 底下，不蓋任務牌 */
+  #stage[data-phase="play"]:not([data-scene]) #toasts {
+    inset-block-start: calc(var(--top) + 10.5rem);
+  }
+
+  /* 過場劇照期間 HUD 只剩選單鈕：放在右上角的黑邊裡 */
+  #stage[data-scene="on"] #hud-menu {
+    grid-area: 1 / 4;
+  }
+}
+
+/* ── 窄螢幕：選單、支線清單、提案、長輩圖改成從下面升起的抽屜 ──
+   寬度貼齊螢幕，底下讓出地圖標註那一條；關閉鈕固定在抽屜最下面，拇指按得到。 */
+@media (max-width: 620px) {
+  dialog.sheet,
+  dialog.sheet--wide {
+    inline-size: 100%;
+    max-inline-size: 100%;
+    margin: auto 0 calc(var(--attr-h) + env(safe-area-inset-bottom));
+    max-block-size: calc(100dvh - var(--top) - var(--attr-h) - env(safe-area-inset-bottom) - 0.5rem);
+    padding: 1rem max(1rem, env(safe-area-inset-right)) 0.8rem max(1rem, env(safe-area-inset-left));
+    border-inline: 0;
+    border-radius: 10px;
+  }
+
+  dialog.sheet[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  dialog.sheet[open] > * {
+    flex: none;
+  }
+
+  dialog.sheet .sheet-head {
+    display: contents;
+  }
+
+  dialog.sheet .sheet-head > h2 {
+    margin-block-end: 0.6rem;
+  }
+
+  dialog.sheet .sheet-head > .btn {
+    order: 99;
+    position: sticky;
+    inset-block-end: 0;
+    z-index: 2;
+    inline-size: 100%;
+    margin-block-start: auto;
+    padding-block: 0.6rem;
+    margin-block-end: 0;
+    background: var(--panel-solid);
+    /* 下面那一圈把捲上來的內容遮掉，關閉鈕看起來像抽屜的底座 */
+    box-shadow: 0 0 0 0.9rem rgb(9 13 19);
+  }
+
+  /* 攤開一頁時：上一頁、下一頁也固定在關閉鈕上面 */
+  dialog.sheet .slide-nav {
+    position: sticky;
+    inset-block-end: calc(var(--tap) + 0.9rem);
+    z-index: 2;
+    padding-block: 0.5rem 0;
+    background: rgb(9 13 19);
+    box-shadow: 0 0 0 0.9rem rgb(9 13 19);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    dialog.sheet[open] {
+      animation: drawer-up 0.22s ease-out;
+    }
+  }
+}
+
+@keyframes drawer-up {
+  from {
+    opacity: 0;
+    translate: 0 1.5rem;
+  }
+}
+
+/* ── 提案的頁：直向時兩欄，標題三行也不會壓到頁碼 ── */
+@media (max-width: 760px) {
+  .page {
+    aspect-ratio: auto;
+    min-block-size: 7.2rem;
+  }
+}
+
+/* ── 支線的章節卡：印章壓在標題右邊，下面的引文不再被蓋到 ── */
+@media (max-width: 620px) {
+  .ticket--chapter h2 {
+    margin-inline-end: 5.2rem;
+    min-block-size: 4.6rem;
+  }
+}
+
+/* 抽屜開著時，底下那條提示列講的是被蓋住的畫面，先收起來 */
+@media (max-width: 620px) {
+  body:has(dialog.sheet[open]) #stage[data-input="touch"] #hint {
+    visibility: hidden;
+  }
+}
+
+/* ── 橫放手機：高度只有三、四百像素 ── */
+@media (max-height: 480px) {
+  /* 提示落在 HUD 兩列底下 */
+  #stage[data-phase="play"]:not([data-scene]) #toasts {
+    inset-block-start: calc(var(--top) + 8.2rem);
+  }
+
+  /* 章節卡：印章縮小，引文與章節名少佔幾行，「繼續」才不會壓到卡片 */
+  .ticket--chapter h2,
+  .ticket--chapter .chapter-quote {
+    margin-inline-end: 5.5rem;
+  }
+
+  .ticket--chapter .chapter-quote {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .ticket--chapter .ticket-chapters {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+}
+
+/* 平板直向（761–1100px）：四項數值收窄一點，讓電台鈕與小地圖之間有空隙 */
+@media (max-width: 1100px) and (min-width: 761px) {
+  .hud-meters {
+    grid-template-columns: repeat(4, minmax(3.3rem, 3.8rem));
+    gap: 0 0.4rem;
+  }
+}
+
+/* 成績單的支線統計排成一行（直向手機、橫放手機） */
+@media (max-width: 620px), (max-height: 480px) {
+  .report-side {
+    flex-wrap: nowrap;
+    gap: 0.35rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .report-side b {
+    margin-inline-end: 0.35rem;
+  }
+}
+
+/* 直向手機的結局：評等印章是斜的，往內收一點，不被螢幕左緣切掉 */
+@media (max-width: 620px) {
+  .ending-story > .stamp--grade {
+    margin-inline-start: 0.5rem;
+    margin-block-start: 0.3rem;
+  }
+}

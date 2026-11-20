@@ -46,3 +46,18 @@ export function createOfficeDoor(parent){
     }
   };
 }
+
+export function placeOfficeReception(obj){
+  // A23 landmarks2: warm timber soffit, bronze fins and polished stone reception.
+  for(let i=-9;i<=9;i++){
+    obj('metal','box',i%2?'#987a5c':'#ad9070',i*.52,4.77,4.88,.42,.095,2.71);
+    if(i%3===0)obj('lobbyLight','box','#ffe1a6',i*.52,4.70,4.80,.045,.040,2.46);
+  }
+  for(const side of [-1,1]){
+    obj('concrete','box','#a5957e',side*3.53,.51,7.53,1.25,1.02,.58);
+    obj('metal','box','#d1b795',side*3.53,1.07,7.48,1.36,.11,.66);
+    for(const u of [2.06,2.28,2.50,2.72,2.94])
+      obj('lobbyTrim','box','#a6886a',side*u,2.72,7.89,.072,4.16,.21);
+    obj('lobbyLight','box','#ffdfaa',side*3.25,2.49,7.83,.12,1.94,.12);
+  }
+}

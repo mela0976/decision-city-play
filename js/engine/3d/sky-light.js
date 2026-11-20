@@ -8,11 +8,13 @@ const palettes=[
   // time, low sky, zenith, haze, sun color, sun strength, ambient, night
   [0,'#39313d','#222636','#302c37','#aaa6bf',.37,1.44,1],
   [5,'#625360','#3b485e','#53505c','#c0b6c3',.34,1.04,.66],
-  [6.5,'#dcc0ac','#819dbb','#b6b0af','#ffc89a',1.65,.65,.13],
-  [9,'#c8ccca','#6597c6','#c2d3e2','#fff0dc',3.25,.90,0],
-  [12,'#ccd3d5','#679acb','#c3d4e3','#fff6ea',3.36,.79,0],
-  [15,'#d8d2ca','#6695c0','#c2d1df','#ffe8c8',2.97,.85,0],
-  [16.9,'#e4ae90','#6577a3','#b8a7ae','#ffbf86',2.55,1.00,.05],
+  [6.5,'#dcc0ac','#819dbb','#b6b0af','#ffc89a',1.65,1.82,.13],
+  [9,'#c8ccca','#6597c6','#c2d3e2','#fff0dc',3.25,1.45,0],
+  [10.5,'#cbd0d0','#679acb','#c3d4e3','#fff4e8',4.02,2.17,0],
+  [12,'#ccd3d5','#679acb','#c3d4e3','#fff6ea',3.36,1.50,0],
+  [15,'#d8d2ca','#6695c0','#c2d1df','#ffedda',2.97,2.55,0],
+  [16,'#dacbbb','#7598bd','#c4cbd4','#ffe2c1',2.78,1.00,.01],
+  [16.9,'#e4ae90','#6577a3','#b8a7ae','#ffbf86',2.55,.88,.05],
   [17.5,'#e2b1b7','#6571a0','#a999ac','#ffad76',.70,1.32,.31],
   [19,'#51414e','#30364c','#494050','#dac4bd',.34,1.34,.83],
   [21,'#39313d','#252939','#332e39','#a9a5b9',.40,1.48,1],
@@ -43,7 +45,7 @@ function solarDirection(time,direction) {
 
 function skyMesh(scene) {
   const uniforms={zenith:{value:new T.Color()},horizon:{value:new T.Color()},sun:{value:new T.Vector3()},light:{value:new T.Color()},
-    dusk:{value:0},overcast:{value:0},clearDay:{value:0},cloudTint:{value:new T.Color()},haze:{value:new T.Color()},
+    dusk:{value:0},overcast:{value:0},clearDay:{value:0},skyGain:{value:1.17},cloudTint:{value:new T.Color()},haze:{value:new T.Color()},
     eastDusk:{value:new T.Color('#d79aa4')},westDusk:{value:new T.Color('#f2b582')},
     panoA:{value:null},panoB:{value:null},panoMix:{value:0},panoWeight:{value:0}};
   const mesh=new T.Mesh(new T.SphereGeometry(820,22,14),new T.ShaderMaterial({
@@ -53,7 +55,7 @@ function skyMesh(scene) {
     fragmentShader:`varying vec3 ray; uniform vec3 zenith; uniform vec3 horizon;
       uniform vec3 sun;uniform vec3 light;
       uniform vec3 cloudTint,eastDusk,westDusk,haze;
-      uniform float dusk,overcast,clearDay;
+      uniform float dusk,overcast,clearDay,skyGain;
       uniform sampler2D panoA,panoB;uniform float panoMix,panoWeight;
       void main(){
         vec3 d=normalize(ray);
@@ -75,7 +77,7 @@ function skyMesh(scene) {
           vec2 uv=vec2(atan(d.z,d.x)*.15915494+.5,asin(clamp(d.y,-1.,1.))*.31830989+.5);
           col=mix(col,mix(texture2D(panoA,uv).rgb,texture2D(panoB,uv).rgb,panoMix),panoWeight);
         }
-        gl_FragColor=vec4(col*1.17,1.);
+        gl_FragColor=vec4(col*skyGain,1.);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
         // Built-in material fog is blended after tone mapping and output conversion.
@@ -125,9 +127,9 @@ export function createSkyLight(view,context,doc,enabled){
     hemi.color.set('#ffffff');
   }
   const colors=[new T.Color(),new T.Color(),new T.Color(),new T.Color()];
-  const rainHorizon=new T.Color('#bcc0c6'),rainZenith=new T.Color('#a7afb9');
+  const rainHorizon=new T.Color('#b7bec7'),rainZenith=new T.Color('#a4acb8');
   const dayCloud=new T.Color('#b9c2ca'),nightCloud=new T.Color('#4a3f3c');
-  const ambientWhite=new T.Color('#d9d2ca'),goldTint=new T.Color('#ffb684');
+  const ambientWhite=new T.Color('#dcd0c1'),goldTint=new T.Color('#ffb684');
   return {scene,sun,bloom,panoramas,update(camera,x,z,time,weather,aerial){
     if(!enabled){
       daylight(time,colors);
@@ -155,6 +157,7 @@ export function createSkyLight(view,context,doc,enabled){
     sky.uniforms.overcast.value=cloudCover;
     const clearDay=(1-night)*(1-golden)*(1-cloudCover);
     sky.uniforms.clearDay.value=clearDay;
+    sky.uniforms.skyGain.value=1.08+clearDay*.29+golden*.32+twilight*.26;
     sky.uniforms.cloudTint.value.copy(dayCloud).lerp(nightCloud,night);
     const sunVisible=T.MathUtils.smoothstep(lightDir.y,-.035,.018);
     sky.uniforms.light.value.copy(sunTint).multiplyScalar(sunVisible*(overcast?.025:.68));
@@ -181,10 +184,16 @@ export function createSkyLight(view,context,doc,enabled){
     sun.position.copy(sun.target.position).addScaledVector(lightDir,61);
     if(lightDir.y<0) sun.position.y=12*night;
     sun.color.copy(sunTint).lerp(goldTint,golden*.23).lerp(ambientWhite,cloudCover*.86);
-    sun.intensity=sunPower*(overcast?.065:1);
+    // Early evening emphasises signs and windows while preserving unlit street contrast.
+    const earlyNight=T.MathUtils.smoothstep(night,.76,.86)*(1-T.MathUtils.smoothstep(night,.86,.91));
+    const eveningGrade=overcast?0:earlyNight;
+    sun.intensity=sunPower*(overcast?.065:1)*(1-eveningGrade*.43);
     sun.castShadow=!overcast;
     hemi.color.copy(zenith).lerp(ambientWhite,.76+night*.13);
-    hemi.intensity=overcast?T.MathUtils.lerp(2.05,1.43,night):ambient;
+    const nightGrade=T.MathUtils.smoothstep(night,.66,.96);
+    hemi.intensity=overcast
+      ?T.MathUtils.lerp(2.32,1.69,night)
+      :ambient*(1-eveningGrade*.53-nightGrade*.22);
     // Keep the panorama for reflections and use a soft contribution in the visible sky.
     const pano=panoramas.at(time);
     sky.uniforms.panoWeight.value=pano&&!overcast?.075*(1-night):0;
@@ -192,8 +201,9 @@ export function createSkyLight(view,context,doc,enabled){
       sky.uniforms.panoA.value=pano.a;sky.uniforms.panoB.value=pano.b;sky.uniforms.panoMix.value=pano.mix;
     }
     scene.environment=pano?.reflection??environment.texture;
-    scene.environmentIntensity=(overcast?.26:.23)-night*.11;
-    view.toneMappingExposure=1.27-night*.20;
+    scene.environmentIntensity=((overcast?.32:.29)-night*.12)*(1-eveningGrade*.43);
+    const lowSunGlare=T.MathUtils.smoothstep(time,15.55,16)*(1-T.MathUtils.smoothstep(time,16.02,16.65));
+    view.toneMappingExposure=1.28-lowSunGlare*.14+nightGrade*(raining?.07:.16)+eveningGrade*1.45;
     return {night,raining,lamps};
   },dispose(){panoramas.dispose();environment.dispose();}};
 }
