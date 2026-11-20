@@ -3,7 +3,7 @@
 import { h } from '../dom.js';
 import { T, METER_IDS, METER_NAMES } from '../strings.js';
 
-export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, role, note, onAgain, sfx }) {
+export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, side = null, role, note, onAgain, sfx }) {
   const rate = quiz.asked > 0 ? `${Math.round((quiz.right / quiz.asked) * 100)}%` : '—';
   const again = h('button', { type: 'button', class: 'btn btn--primary btn--big', id: 'ending-again', 'data-primary': true, text: T.playAgain });
   again.addEventListener('click', () => {
@@ -47,6 +47,8 @@ export function showEnding({ screen, assets, ending, stamp, meters, missionsDone
         h('div', {}, h('dt', { text: T.reportQuiz }), h('dd', { id: 'report-quiz', text: rate })),
         h('div', {}, h('dt', { text: T.reportBooks }), h('dd', { id: 'report-books', text: `${ownedYears.length + extraPages}／${books.length + extraPages}` })),
       ),
+      // 支線：完成幾個、書裡的章節讀了幾章
+      side ? h('p', { class: 'report-side', id: 'report-side' }, h('span', { text: T.reportSide }), h('b', { text: `${side.sidesDone}／${side.sidesTotal}` }), h('span', { text: T.reportChapters }), h('b', { text: `${side.read}／${side.total}` })) : null,
       h(
         'ol',
         { class: 'report-books', 'aria-label': T.reportBooks },

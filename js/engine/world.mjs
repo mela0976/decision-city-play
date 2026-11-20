@@ -152,6 +152,61 @@ function contains(x,y,polygon) {
   }
   return inside;
 }
+export const riverWidthMeters=115;
+const waterCells=new Map();
+function insertWater(points){
+  const minX=Math.min(...points.map(p=>p.x)),minY=Math.min(...points.map(p=>p.y));
+  const maxX=Math.max(...points.map(p=>p.x)),maxY=Math.max(...points.map(p=>p.y));
+  if(maxX<0||maxY<0||minX>width||minY>height)return;
+  insert(waterCells,{points,minX,minY,maxX,maxY},minX,minY,maxX,maxY);
+}
+for(const body of water){
+  const points=body.points;
+  const closed=points.length>3&&Math.hypot(points[0].x-points.at(-1).x,points[0].y-points.at(-1).y)<1;
+  if(closed)insertWater(points);
+  else if(body.name==='基隆河')for(let i=1;i<points.length;i++){
+    const a=points[i-1],b=points[i],dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy);
+    if(len===0)continue;
+    const radius=riverWidthMeters/(2*metersPerUnit),x=-dy/len*radius,y=dx/len*radius;
+    insertWater([{x:a.x+x,y:a.y+y},{x:b.x+x,y:b.y+y},{x:b.x-x,y:b.y-y},{x:a.x-x,y:a.y-y}]);
+  }
+}
+function intersectsBody(x,y,a,b,angle,points){
+  if(contains(x,y,points))return true;
+  const u=Math.cos(angle),v=Math.sin(angle);
+  let start=points.at(-1),sx=(start.x-x)*u+(start.y-y)*v,sy=(start.y-y)*u-(start.x-x)*v;
+  for(const end of points){
+    const ex=(end.x-x)*u+(end.y-y)*v,ey=(end.y-y)*u-(end.x-x)*v;
+    if(Math.min(sx,ex)<a&&Math.max(sx,ex)>-a&&Math.min(sy,ey)<b&&Math.max(sy,ey)>-b){
+      const dx=ex-sx,dy=ey-sy;
+      const t0=dx===0?(Math.abs(sx)<a?-Infinity:Infinity):Math.min((-a-sx)/dx,(a-sx)/dx);
+      const t1=dx===0?Infinity:Math.max((-a-sx)/dx,(a-sx)/dx);
+      const u0=dy===0?(Math.abs(sy)<b?-Infinity:Infinity):Math.min((-b-sy)/dy,(b-sy)/dy);
+      const u1=dy===0?Infinity:Math.max((-b-sy)/dy,(b-sy)/dy);
+      if(Math.max(0,t0,u0)<=Math.min(1,t1,u1))return true;
+    }
+    sx=ex;sy=ey;
+  }
+  return false;
+}
+export function worldContact(x,y,a,b=a,angle=0){
+  const r=Math.hypot(a,b);
+  if(x-r<0||y-r<0||x+r>width||y+r>height)return 'boundary';
+  for(let iy=Math.floor((y-r)/cellSize);iy<=Math.floor((y+r)/cellSize);iy++){
+    for(let ix=Math.floor((x-r)/cellSize);ix<=Math.floor((x+r)/cellSize);ix++){
+      const cell=key(ix,iy);
+      for(const building of buildingCells.get(cell)??[]){
+        if(x+r<building.x||x-r>building.x+building.w||y+r<building.y||y-r>building.y+building.h)continue;
+        if(intersectsBody(x,y,a,b,angle,building.polygon))return 'building';
+      }
+      for(const shore of waterCells.get(cell)??[]){
+        if(x+r<shore.minX||x-r>shore.maxX||y+r<shore.minY||y-r>shore.maxY)continue;
+        if(intersectsBody(x,y,a,b,angle,shore.points))return 'water';
+      }
+    }
+  }
+  return null;
+}
 export function inBuilding(x,y) {
   return (buildingCells.get(key(Math.floor(x/cellSize),Math.floor(y/cellSize)))??[])
     .some(b=>contains(x,y,b.polygon));

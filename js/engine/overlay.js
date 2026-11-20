@@ -2,7 +2,7 @@ import { byId, civicWalkway, height, locations, river, roads, water, width } fro
 
 const ink='#242b30';
 const paper='#fff2cd';
-const markerColors={mission:'#f8ca55',book:'#70c9fa',npc:'#f589a7',home:'#9ddc7c',egg:'#d0a4f1'};
+const markerColors={mission:'#f8ca55',book:'#70c9fa',npc:'#f589a7',home:'#9ddc7c',egg:'#d0a4f1',side:'#59e2cf'};
 function box(ctx,x,y,w,h,color,edge=ink) {
   ctx.fillStyle=color;
   ctx.fillRect(x,y,w,h);
@@ -105,9 +105,22 @@ export function createMapRenderer(minimapCanvas) {
       return;
     }
     for (const location of locations) dot(map,...point(location.x,location.y),state.largeMap?3:2,paper);
-    for (const marker of state.markers) {
+    const markerSites=new Map();
+    for(const marker of state.markers){
       const loc=byId.get(marker.locationId);
-      dot(map,...point(loc.x,loc.y),state.largeMap?6:3.5,markerColors[marker.kind]??paper,ink);
+      if(!loc)continue;
+      let kinds=markerSites.get(loc);
+      if(!kinds)markerSites.set(loc,kinds=new Set());
+      kinds.add(marker.kind);
+    }
+    for(const [loc,kinds] of markerSites){
+      const [x,y]=point(loc.x,loc.y),r=state.largeMap?6:3.5;
+      for(const kind of kinds) {
+        if(kind==='side'){
+          const dx=kinds.size>1?r*1.45:0;
+          polygon(map,[[x+dx,y-r],[x+dx-r,y+r],[x+dx+r,y+r]],markerColors.side,ink);
+        }else dot(map,x-(kinds.has('side')?r:0),y,r,markerColors[kind]??paper,ink);
+      }
     }
     const player=point(state.player.x,state.player.y);
     if (state.target) {

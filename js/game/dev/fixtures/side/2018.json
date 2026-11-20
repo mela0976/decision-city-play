@@ -1,0 +1,220 @@
+{
+ "year": 2018,
+ "chapters": [
+  {
+   "id": "c2018_01",
+   "title": "示範主線章節 2018",
+   "by": "",
+   "summary": "",
+   "coveredBy": "m2018"
+  },
+  {
+   "id": "c2018_02",
+   "title": "示範支線章節 2018-1",
+   "by": "",
+   "summary": "",
+   "coveredBy": "s2018_01"
+  },
+  {
+   "id": "c2018_03",
+   "title": "示範支線章節 2018-2",
+   "by": "",
+   "summary": "",
+   "coveredBy": "s2018_02"
+  }
+ ],
+ "npcs": [
+  {
+   "id": "n2018_demo",
+   "name": "示範路人",
+   "skin": "npc_vendor",
+   "locationId": "night_market",
+   "title": "示範攤商",
+   "lines": [
+    "（示範）路過說的話。"
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "s2018_01",
+   "year": 2018,
+   "chapterIds": [
+    "c2018_02"
+   ],
+   "title": "示範支線 2018-1",
+   "locationId": "night_market",
+   "giver": "n2018_demo",
+   "time": "any",
+   "brief": "（示範）這是一個支線任務。",
+   "steps": [
+    {
+     "type": "dialogue",
+     "lines": [
+      {
+       "who": "n2018_demo",
+       "text": "（示範）{role}，幫我看一下這個。"
+      },
+      {
+       "who": "player",
+       "text": "（示範）好，我看看。"
+      }
+     ]
+    },
+    {
+     "type": "choice",
+     "prompt": "（示範）怎麼做？",
+     "options": [
+      {
+       "text": "（示範）做法一",
+       "effects": {
+        "trust": 4,
+        "liver": 2
+       },
+       "feedback": "（示範）結果一",
+       "insight": "（示範）書中觀點一",
+       "roleBonus": {
+        "ae": {
+         "trust": 2
+        }
+       }
+      },
+      {
+       "text": "（示範）做法二",
+       "effects": {
+        "brand": 4,
+        "liver": 3
+       },
+       "feedback": "（示範）結果二",
+       "insight": "（示範）書中觀點二"
+      },
+      {
+       "text": "（示範）做法三",
+       "effects": {
+        "sales": 4,
+        "trust": -2
+       },
+       "feedback": "（示範）結果三",
+       "insight": "（示範）書中觀點三"
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "inline": {
+      "q": "（示範）支線的題目？",
+      "options": [
+       "對的",
+       "錯的一",
+       "錯的二",
+       "錯的三"
+      ],
+      "answer": 0,
+      "explain": "（示範）解說。",
+      "source": "示範章節"
+     }
+    }
+   ],
+   "reward": {
+    "brand": 1,
+    "sales": 0,
+    "trust": 1,
+    "liver": 0
+   },
+   "card": {
+    "title": "示範章節卡 1",
+    "text": "（示範）一句帶走的話。"
+   }
+  },
+  {
+   "id": "s2018_02",
+   "year": 2018,
+   "chapterIds": [
+    "c2018_03"
+   ],
+   "title": "示範支線 2018-2",
+   "locationId": "night_market",
+   "giver": "n2018_demo",
+   "time": "any",
+   "brief": "（示範）這是一個支線任務。",
+   "steps": [
+    {
+     "type": "dialogue",
+     "lines": [
+      {
+       "who": "n2018_demo",
+       "text": "（示範）{role}，幫我看一下這個。"
+      },
+      {
+       "who": "player",
+       "text": "（示範）好，我看看。"
+      }
+     ]
+    },
+    {
+     "type": "choice",
+     "prompt": "（示範）怎麼做？",
+     "options": [
+      {
+       "text": "（示範）做法一",
+       "effects": {
+        "trust": 4,
+        "liver": 2
+       },
+       "feedback": "（示範）結果一",
+       "insight": "（示範）書中觀點一",
+       "roleBonus": {
+        "ae": {
+         "trust": 2
+        }
+       }
+      },
+      {
+       "text": "（示範）做法二",
+       "effects": {
+        "brand": 4,
+        "liver": 3
+       },
+       "feedback": "（示範）結果二",
+       "insight": "（示範）書中觀點二"
+      },
+      {
+       "text": "（示範）做法三",
+       "effects": {
+        "sales": 4,
+        "trust": -2
+       },
+       "feedback": "（示範）結果三",
+       "insight": "（示範）書中觀點三"
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "inline": {
+      "q": "（示範）支線的題目？",
+      "options": [
+       "對的",
+       "錯的一",
+       "錯的二",
+       "錯的三"
+      ],
+      "answer": 0,
+      "explain": "（示範）解說。",
+      "source": "示範章節"
+     }
+    }
+   ],
+   "reward": {
+    "brand": 1,
+    "sales": 0,
+    "trust": 1,
+    "liver": 0
+   },
+   "card": {
+    "title": "示範章節卡 2",
+    "text": "（示範）一句帶走的話。"
+   }
+  }
+ ]
+}

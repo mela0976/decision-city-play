@@ -7,7 +7,7 @@ import { T } from '../strings.js';
 /**
  * pages：[{ no, year, title, points, quote, source, owned, grandma }]
  */
-export function openProposal({ dialog, pages }) {
+export function openProposal({ dialog, pages, appendix = [] }) {
   const body = h('div', { class: 'proposal-body' });
   const close = h('button', { type: 'button', class: 'btn btn--small', text: T.close, onClick: () => dialog.close() });
   const owned = pages.filter((page) => page.owned).length;
@@ -29,7 +29,23 @@ export function openProposal({ dialog, pages }) {
   };
 
   const showGrid = (focusNo) => {
-    fill(body, h('ol', { class: 'proposal-grid' }, pages.map(thumb)));
+    fill(
+      body,
+      h('ol', { class: 'proposal-grid' }, pages.map(thumb)),
+      // 附錄：做完的支線各留一張章節卡，多了就在面板裡往下捲
+      appendix.length
+        ? h(
+            'section',
+            { class: 'appendix', 'aria-labelledby': 'appendix-title' },
+            h('h3', { id: 'appendix-title' }, T.appendixTitle, h('span', { class: 'appendix-count', text: String(appendix.length) })),
+            h(
+              'ol',
+              { class: 'appendix-list' },
+              appendix.map((card) => h('li', { class: 'appendix-card', dataset: { side: card.id } }, h('span', { class: 'lightbox lightbox--small', text: String(card.year) }), h('strong', { text: card.title }), h('p', { text: card.text }), card.chapters.map((title) => h('span', { class: 'side-chapter', text: `〈${title}〉` })))),
+            ),
+          )
+        : null,
+    );
     const target = focusNo ? body.querySelector(`[data-page="${focusNo}"]`) : body.querySelector('.page--owned');
     (target || close).focus({ preventScroll: true });
   };

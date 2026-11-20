@@ -1,0 +1,112 @@
+{
+ "year": 2019,
+ "chapters": [
+  {
+   "id": "c2019_01",
+   "title": "示範主線章節 2019",
+   "by": "",
+   "summary": "",
+   "coveredBy": "m2019"
+  },
+  {
+   "id": "c2019_02",
+   "title": "示範支線章節 2019-1",
+   "by": "",
+   "summary": "",
+   "coveredBy": "s2019_01"
+  }
+ ],
+ "npcs": [],
+ "missions": [
+  {
+   "id": "s2019_01",
+   "year": 2019,
+   "chapterIds": [
+    "c2019_02"
+   ],
+   "title": "示範支線 2019-1",
+   "locationId": "office",
+   "giver": "client_demo",
+   "time": "any",
+   "brief": "（示範）這是一個支線任務。",
+   "steps": [
+    {
+     "type": "dialogue",
+     "lines": [
+      {
+       "who": "client_demo",
+       "text": "（示範）{role}，幫我看一下這個。"
+      },
+      {
+       "who": "player",
+       "text": "（示範）好，我看看。"
+      }
+     ]
+    },
+    {
+     "type": "choice",
+     "prompt": "（示範）怎麼做？",
+     "options": [
+      {
+       "text": "（示範）做法一",
+       "effects": {
+        "trust": 4,
+        "liver": 2
+       },
+       "feedback": "（示範）結果一",
+       "insight": "（示範）書中觀點一",
+       "roleBonus": {
+        "ae": {
+         "trust": 2
+        }
+       }
+      },
+      {
+       "text": "（示範）做法二",
+       "effects": {
+        "brand": 4,
+        "liver": 3
+       },
+       "feedback": "（示範）結果二",
+       "insight": "（示範）書中觀點二"
+      },
+      {
+       "text": "（示範）做法三",
+       "effects": {
+        "sales": 4,
+        "trust": -2
+       },
+       "feedback": "（示範）結果三",
+       "insight": "（示範）書中觀點三"
+      }
+     ]
+    },
+    {
+     "type": "quiz",
+     "inline": {
+      "q": "（示範）支線的題目？",
+      "options": [
+       "對的",
+       "錯的一",
+       "錯的二",
+       "錯的三"
+      ],
+      "answer": 0,
+      "explain": "（示範）解說。",
+      "source": "示範章節"
+     }
+    }
+   ],
+   "reward": {
+    "brand": 1,
+    "sales": 0,
+    "trust": 1,
+    "liver": 0
+   },
+   "card": {
+    "title": "示範章節卡 1",
+    "text": "（示範）一句帶走的話。"
+   }
+  }
+ ]
+}

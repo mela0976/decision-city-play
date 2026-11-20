@@ -98,5 +98,8 @@ export async function loadAssets() {
     manifest.audio = table || {};
   };
 
-  return { manifestOk, missing, imageSrc, video, art, loadImage, markMissing, toneOf, audio, setAudio };
+  /** 清單裡有沒有這張圖（只問，不記成缺檔）。 */
+  const hasImage = (key) => !!key && !missing.has(`image:${key}`) && !!manifest.images[key]?.src;
+
+  return { manifestOk, missing, hasImage, imageSrc, video, art, loadImage, markMissing, toneOf, audio, setAudio };
 }

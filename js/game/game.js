@@ -13,7 +13,10 @@ import { showRoleSelect } from './ui/role-select.js';
 import { runDialogue } from './ui/dialogue.js';
 import { runChoice } from './ui/choice.js';
 import { runQuiz } from './ui/quiz.js';
-import { showMissionCard, showMissionClear } from './ui/mission-card.js';
+import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js';
+import { pickWork } from './ui/side-pick.js';
+import { openSideList } from './ui/side-list.js';
+import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js';
 import { showPlaceCard } from './ui/place-card.js';
 import { playCutscene } from './ui/cutscene.js';
 import { showEnding } from './ui/ending.js';
@@ -63,6 +66,8 @@ function blankState() {
     bond: 0,
     interludesSeen: [],
     prologueSeen: false,
+    side: {},
+    sideGain: blankGain(),
   };
 }
 
@@ -149,6 +154,8 @@ export class Game {
       bond: saved.bond,
       interludesSeen: saved.interludesSeen.filter((id) => content.missionById.has(id)),
       prologueSeen: saved.prologueSeen,
+      side: Object.fromEntries(Object.entries(saved.side || {}).filter(([id]) => content.side.byId.has(id))),
+      sideGain: { ...blankGain(), ...(saved.sideGain || {}) },
     };
     if (!state.roleId) return { ...blankState(), grandma: state.grandma, quizSeen: { correct: state.quizSeen.correct, asked: 0, right: 0 } };
     return state;
@@ -170,6 +177,12 @@ export class Game {
   }
 
   applyEffects(effects, { silent = false } = {}) {
+    // 支線進行中：數值變化打折並受整局累計上限限制（見 side.js）
+    if (this.sideRun) {
+      const { applied, capped } = scaleSideEffects(effects, this.state.sideGain);
+      if (capped) this.sideRun.capped = true;
+      effects = applied;
+    }
     const deltas = {};
     for (const id of METER_IDS) {
       const change = Number(effects?.[id]) || 0;
@@ -303,9 +316,19 @@ export class Game {
       clearTimeout(this.remindTimer);
       this.remindTimer = setTimeout(() => this.free && this.rideHint(), REMIND_AUTO_MS + 50);
     }
+    const sideGoal = this.sideGoal();
+    const goal = sideGoal ? sideGoal.locationId : target?.locationId;
+    // 站在有支線（或主線加支線）的地點：就算引擎沒給提示，也告訴玩家動作鍵有事可做
+    const here = this.engine.player.locationId;
+    if (!this.context && here && (this.phase === 'roam' || this.phase === 'rechao') && sidesAt(this, here).length) this.context = { action: 'enter', targetId: `side@${here}`, targetName: this.placeName(here), own: true };
+    else if (this.context?.own && !(here && sidesAt(this, here).length)) this.context = null;
+    const sidesHere = here && (this.phase === 'roam' || this.phase === 'rechao') ? sidesAt(this, here) : [];
+    const mainHere = !!target && target.locationId === here && target.kind !== 'goto';
     this.setHint('ride', {
-      place: target ? this.placeName(target.locationId) : '',
-      arrived: !!target && this.engine.player.locationId === target.locationId,
+      // 這裡有支線：動作鍵做的事寫清楚（只有一件就是接那個支線，不只一件就是看清單）
+      work: !sidesHere.length ? '' : mainHere && target.kind === 'final' ? T.sideOrFinal : sidesHere.length === 1 && !mainHere ? T.sideTake : T.sideLook,
+      place: goal ? this.placeName(goal) : '',
+      arrived: !!goal && this.engine.player.locationId === goal,
       canAuto,
       auto: this.autoOn,
       context: this.context,
@@ -534,7 +557,11 @@ export class Game {
     if (!hit) return;
     // 任務要按動作鍵才進入（見 onInteract）；限時前往與收工是到了就算。
     if (target.kind === 'goto') this.gotoArrive?.();
-    else if (target.kind === 'final' && this.phase === 'rechao') this.runEnding();
+    else if (target.kind === 'final' && this.phase === 'rechao') {
+      // 熱炒店還有支線沒做：不直接收工，按動作鍵再選
+      if (sidesAt(this, LOC.final).length) this.rideHint();
+      else this.runEnding();
+    }
     else if (target.kind === 'mission' && !this.engineHasContext && !this.context) {
       // 舊版引擎沒有 context:change：自己補一個「可以進入任務」的提示。
       this.context = { action: 'enter', targetId: target.markerId, targetName: target.mission.title };
@@ -554,6 +581,143 @@ export class Game {
     return true;
   }
 
+  /**
+   * 這個地點有開放中的支線：只有一件事就直接開始；同時有主線（或收工）或不只一個支線，先出清單讓玩家選。
+   * 主線永遠排第一個，動作鍵再按一下就是它，兩邊不會互相吃掉。
+   */
+  tryLocationWork(kind, id) {
+    if (this.phase !== 'roam' && this.phase !== 'rechao') return false;
+    const here = this.engine.player.locationId;
+    if (!here) return false;
+    const sides = sidesAt(this, here);
+    if (!sides.length) return false;
+    if (id === EGG_GRANDMA) return false;
+    const npc = kind === 'npc' ? this.content.npcById.get(id) : null;
+    if (kind === 'npc' && (!npc || npc.locationId !== here)) return false;
+    if (npc?.skin === 'npc_grandma' && this.basketPending) return false;
+    if (id === EGG_TEMPLE || (npc && npc.locationId === LOC.temple)) this.visitTemple();
+    this.takeBreak(here);
+    const target = this.objective;
+    const main = target && target.locationId === here && (target.kind === 'mission' || target.kind === 'final') ? target : null;
+    if (!main && sides.length === 1) this.startSide(sides[0]);
+    else this.pickHere(here, main, sides);
+    return true;
+  }
+
+  async pickHere(here, main, sides) {
+    this.guardGhostClick();
+    const back = this.phase;
+    const signal = this.newFlow();
+    this.setFree(false);
+    const entries = [];
+    if (main?.kind === 'mission') entries.push({ main: true, tag: T.mainTag, title: main.mission.title, sub: main.mission.clock, value: main });
+    if (main?.kind === 'final') entries.push({ main: true, tag: T.finalTag, title: T.rechaoHint, sub: '', value: main });
+    for (const side of sides) entries.push({ tag: `${T.sideTag}　${side.year}`, title: side.title, sub: this.content.npcById.get(side.giver)?.name || '', value: side });
+    this.setHint('pick', { place: this.placeName(here), count: entries.length });
+    // 選單疊在街景上：HUD 先收起來，選完再放回來
+    this.hud.show(false);
+    let picked;
+    try {
+      picked = await pickWork({ layer: this.els.layer, place: this.placeName(here), entries, signal, sfx: this.sfx });
+    } catch (err) {
+      if (!isAbort(err)) throw err;
+      return;
+    }
+    this.els.layer.replaceChildren();
+    this.hud.show(true);
+    this.phase = back;
+    if (!picked) {
+      this.setFree(true);
+      this.rideHint();
+      this.focusCanvas();
+    } else if (picked.kind === 'mission') this.startMission(picked.mission);
+    else if (picked.kind === 'final') this.runEnding();
+    else this.startSide(picked);
+  }
+
+  /** 從清單設為導航目標的支線（還開放著才算）。 */
+  sideGoal() {
+    const side = this.sideTarget ? this.content.side.byId.get(this.sideTarget) : null;
+    if (!side || this.state.side[side.id] || !yearDone(this, side.year)) {
+      this.sideTarget = null;
+      return null;
+    }
+    return side;
+  }
+
+  navigateSide(id) {
+    this.sideTarget = id || null;
+    this.showTask();
+    this.refreshMarkers();
+    if (this.free) this.rideHint();
+  }
+
+  /** HUD 的任務牌：有導航中的支線就顯示它，否則是主線（或收工）。 */
+  showTask() {
+    const side = this.sideGoal();
+    const target = this.objective;
+    if (side) this.hud.setTask(`${T.sideTag}　${side.title}`, this.placeName(side.locationId));
+    else if (target?.kind === 'mission') this.hud.setTask(target.mission.title, `${target.mission.clock}　${this.placeName(target.locationId)}`);
+    else if (target?.kind === 'final') this.hud.setTask(this.placeName(LOC.final), T.rechaoHint);
+  }
+
+  async startSide(side) {
+    if (this.phase !== 'roam' && this.phase !== 'rechao') return;
+    this.guardGhostClick();
+    this.phase = 'mission';
+    this.setFree(false);
+    const signal = this.newFlow();
+    this.sideRun = { id: side.id, capped: false };
+    try {
+      await this.runSide(side, signal);
+    } catch (err) {
+      if (!isAbort(err)) throw err;
+    } finally {
+      if (this.sideRun?.id === side.id) this.sideRun = null;
+    }
+  }
+
+  /**
+   * 支線：任務卡 → 對話 → 抉擇 → 問答 → 章節卡。背景是那個地點的插畫；不推進主線的時鐘。
+   * 做完才寫進存檔；做到一半離開或重新整理，數值回到開始前，下次從頭來。
+   */
+  async runSide(side, signal) {
+    const { layer } = this.els;
+    const before = { ...this.state.meters };
+    const ctx = { perkUsed: true, option: -1, quiz: false };
+    const giver = this.content.npcById.get(side.giver);
+    const place = this.placeName(side.locationId);
+    const chapters = chapterTitles(this, side);
+    this.hud.setTask(`${T.sideTag}　${side.title}`, '');
+    this.setScene(side.splash);
+    this.setHint('card');
+    await showMissionCard({ layer, mission: { ...side, clock: '' }, place, giver, kind: T.sideSlip, chapters, signal, sfx: this.sfx });
+    for (const step of side.steps) {
+      await this.runStep(side, step, ctx, signal);
+      if (this.state.meters.liver >= 100) {
+        this.sideRun = null;
+        this.runEnding({ forced: true });
+        return;
+      }
+    }
+    this.applyEffects(side.reward, { silent: true });
+    const capped = !!this.sideRun?.capped;
+    this.sideRun = null;
+    this.state.side[side.id] = { option: ctx.option, quiz: !!ctx.quiz };
+    if (this.sideTarget === side.id) this.sideTarget = null;
+    this.commit();
+    const deltas = {};
+    for (const id of METER_IDS) if (this.state.meters[id] !== before[id]) deltas[id] = this.state.meters[id] - before[id];
+    this.setScene(side.splash);
+    this.setHint('clear');
+    await showChapterCard({ layer, side, card: side.card, chapters, deltas, capped, signal, sfx: this.sfx });
+    layer.replaceChildren();
+    this.setScene(null);
+    this.phase = 'roam';
+    if (this.nextMission()) this.nextObjective();
+    else this.guideToFinal({ auto: false });
+  }
+
   onEnterLocation(locationId) {
     if (this.free && locationId === LOC.temple) this.sfx.play('temple_bell');
     if (!this.free || this.phase !== 'roam') return;
@@ -563,6 +727,7 @@ export class Game {
 
   onInteract(kind, id) {
     if (!this.free) return;
+    if (this.tryLocationWork(kind, id)) return;
     if (this.tryStartMission(kind, id)) return;
     if (kind === 'marker') {
       if (id === EGG_TEMPLE) this.visitTemple();
@@ -837,22 +1002,23 @@ export class Game {
     this.objective = { kind: 'mission', mission, markerId: mission.id, locationId: mission.locationId };
     this.refreshMarkers();
     this.engine.setWaypoint(mission.id);
-    this.hud.setTask(mission.title, `${mission.clock}　${this.placeName(mission.locationId)}`);
+    this.showTask();
     this.tuneRadio(mission.year);
     this.setFree(true);
     this.focusCanvas();
     if (resume === mission) this.startMission(mission, { resume: true });
   }
 
-  guideToFinal() {
+  guideToFinal({ auto = true } = {}) {
     this.phase = 'rechao';
     this.objective = { kind: 'final', markerId: FINAL_MARKER, locationId: LOC.final };
     this.refreshMarkers();
     this.engine.setWaypoint(FINAL_MARKER);
-    this.hud.setTask(this.placeName(LOC.final), T.rechaoHint);
+    this.showTask();
     this.setFree(true);
     this.focusCanvas();
-    if (this.engine.player.locationId === LOC.final) this.runEnding();
+    // 人已經在熱炒店：直接收工；但那裡還有支線、或剛做完一個支線，就等玩家自己按
+    if (auto && this.engine.player.locationId === LOC.final && !sidesAt(this, LOC.final).length) this.runEnding();
   }
 
   refreshMarkers() {
@@ -866,14 +1032,26 @@ export class Game {
       if (this.basketPending) markers.push({ id: EGG_GRANDMA, locationId: LOC.grandma, kind: 'egg', label: '' });
       else markers.push({ id: EGG_TEMPLE, locationId: LOC.temple, kind: 'egg', label: '' });
     }
+    // 支線：開放中、還沒做的，一個地點一顆 side 標記（那裡有幾件就寫幾件）。主線標記所在的地點不另外放，免得搶走互動。
+    const byPlace = new Map();
+    for (const side of openSides(this)) byPlace.set(side.locationId, [...(byPlace.get(side.locationId) || []), side]);
+    for (const [locationId, list] of byPlace) {
+      if (target && target.locationId === locationId) continue;
+      markers.push({ id: `side@${locationId}`, locationId, kind: 'side', label: list.length === 1 ? list[0].title : T.sideMarker(list.length), count: list.length });
+    }
     this.engine.setMarkers(markers);
-    if (target) this.engine.setWaypoint(target.markerId);
+    const goal = this.sideGoal();
+    const goalMarker = goal ? (target && target.locationId === goal.locationId ? target.markerId : `side@${goal.locationId}`) : null;
+    if (goalMarker) this.engine.setWaypoint(goalMarker);
+    else if (target) this.engine.setWaypoint(target.markerId);
   }
 
   /** 阿嬤要等廟口拜滿次數才出現在柑仔店；阿嬤模組開著時玩家自己就是阿嬤，所以不重複放。 */
   activeNpcs() {
     const g = this.state.grandma;
     return this.content.npcs.filter((npc) => {
+      // 支線帶進來的人物：那一年開放之後才出現在街上
+      if (npc.sideYear) return yearDone(this, npc.sideYear);
       if (npc.skin !== 'npc_grandma') return true;
       return this.basketPending || (g.unlocked && !g.on);
     });
@@ -941,6 +1119,7 @@ export class Game {
     if (book && !this.state.books.includes(book.year)) this.state.books.push(book.year);
     this.state.doneMissionIds.push(mission.id);
     this.state.currentMissionId = null;
+    this.refreshNpcs();
     this.state.clock = this.clockAfter(mission);
     this.hud.setClock(this.state.clock);
     this.engine.setTimeOfDay(clockToHours(this.state.clock));
@@ -954,6 +1133,8 @@ export class Game {
 
     this.phase = 'roam';
     this.nextObjective();
+    const opened = this.content.side.missions.filter((side) => side.year === mission.year).length;
+    if (opened && this.free) this.toast(T.sideOpened(mission.year, opened), { tone: 'good', ms: 4200 });
   }
 
   clockAfter(mission) {
@@ -975,9 +1156,9 @@ export class Game {
       case 'goto':
         return this.stepGoto(mission, step, signal);
       case 'choice':
-        return this.stepChoice(mission, step, signal);
+        return this.stepChoice(mission, step, signal, ctx);
       case 'quiz':
-        return this.stepQuiz(mission, step, signal);
+        return this.stepQuiz(mission, step, signal, ctx);
       case 'cutscene':
         this.els.layer.replaceChildren();
         return this.playVideo(step.video, signal);
@@ -992,7 +1173,7 @@ export class Game {
     if (who === 'player') id = PLAYER_VOICE[this.state.roleId] || 'player_f';
     else if (who === 'grandma' && !this.content.npcById.has(who)) id = this.content.npcs.find((n) => n.skin === 'npc_grandma')?.id || who;
     const key = `avatar_${id}`;
-    return id && this.assets.imageSrc(key) ? key : null;
+    return id && this.assets.hasImage(key) ? key : null;
   }
 
   speakerOf(who) {
@@ -1034,11 +1215,12 @@ export class Game {
       };
     }
     this.setScene(mission.splash);
-    return this.talk(this.fillLines(step.lines), { extra, signal, fallbackName: this.content.npcById.get(mission.giver)?.name });
+    // 支線沒有錄語音：只出字幕，不去查語音檔
+    return this.talk(this.fillLines(step.lines), { extra, signal, fallbackName: this.content.npcById.get(mission.giver)?.name, mute: !!mission.isSide });
   }
 
   /** 字幕式對話，提示列左段跟著說話的對象換（玩家自己說話時沿用上一位）。 */
-  talk(lines, { extra = null, signal, fallbackName = '' } = {}) {
+  talk(lines, { extra = null, signal, fallbackName = '', mute = false } = {}) {
     let partner = fallbackName || '';
     this.setHint('dialogue', { speaker: partner, menu: this.inGame });
     return runDialogue({
@@ -1049,10 +1231,12 @@ export class Game {
       extra,
       signal,
       sfx: this.sfx,
-      voice: {
-        play: (who, text) => this.sound.voice.play(this.voiceSpeaker(who), text),
-        preload: (who, text) => this.sound.voice.preload(this.voiceSpeaker(who), text),
-      },
+      voice: mute
+        ? null
+        : {
+            play: (who, text) => this.sound.voice.play(this.voiceSpeaker(who), text),
+            preload: (who, text) => this.sound.voice.preload(this.voiceSpeaker(who), text),
+          },
       onLine: (who) => {
         if (!who.isPlayer && who.name) partner = who.name;
         this.setHint('dialogue', { speaker: partner, menu: this.inGame });
@@ -1132,7 +1316,7 @@ export class Game {
     }
   }
 
-  async stepChoice(mission, step, signal) {
+  async stepChoice(mission, step, signal, ctx = null) {
     const role = this.role;
     const merged = (option) => {
       const total = {};
@@ -1177,8 +1361,10 @@ export class Game {
       onState: (kind, count) => this.setHint(kind, { count }),
       onPick: (option) => {
         const { total, bonus } = merged(option);
-        this.applyEffects(total);
-        return { deltas: total, bonusLabel: bonus ? role.title : '' };
+        const applied = this.applyEffects(total);
+        if (ctx) ctx.option = options.indexOf(option);
+        // 支線顯示實際加上去的量（打折、受上限限制之後）
+        return { deltas: mission.isSide ? applied : total, bonusLabel: bonus ? role.title : '' };
       },
     });
   }
@@ -1203,9 +1389,10 @@ export class Game {
     return picked;
   }
 
-  async stepQuiz(mission, step, signal) {
+  async stepQuiz(mission, step, signal, ctx = null) {
     const role = this.role;
-    const questions = this.pickQuestions(step, mission);
+    // 支線的題目直接寫在步驟裡（inline）
+    const questions = step.inline ? [{ id: `${mission.id}_q`, year: mission.year, ...step.inline }] : this.pickQuestions(step, mission);
     this.setScene(mission.splash);
     for (let i = 0; i < questions.length; i += 1) {
       const question = questions[i];
@@ -1233,8 +1420,9 @@ export class Game {
             if (!seen.correct.includes(question.id)) seen.correct.push(question.id);
           }
           const effects = isCorrect ? QUIZ_RIGHT : QUIZ_WRONG;
-          this.applyEffects(effects);
-          return effects;
+          const applied = this.applyEffects(effects);
+          if (ctx) ctx.quiz = isCorrect;
+          return mission.isSide ? applied : effects;
         },
       });
       this.persist();
@@ -1292,6 +1480,7 @@ export class Game {
         books: content.books,
         ownedYears: state.books,
         extraPages: proposalPages(this).some((page) => page.grandma) ? 1 : 0,
+        side: content.side.missions.length ? chapterProgress(this) : null,
         role: this.role?.title || '',
         note: forced ? T.forcedEnd : '',
         sfx: this.sfx,
@@ -1440,7 +1629,19 @@ export class Game {
   // ── 選單、年鑑、長輩圖 ─────────────────────────────
 
   openProposal() {
-    openProposal({ dialog: this.els.proposal, pages: proposalPages(this) });
+    openProposal({ dialog: this.els.proposal, pages: proposalPages(this), appendix: appendixCards(this) });
+    this.syncWorld();
+  }
+
+  openSideList() {
+    openSideList({
+      dialog: this.els.sidelist,
+      groups: sideGroups(this),
+      progress: chapterProgress(this),
+      target: this.sideGoal()?.id || null,
+      onNavigate: (id) => this.navigateSide(id),
+      onClear: () => this.navigateSide(null),
+    });
     this.syncWorld();
   }
 
@@ -1460,6 +1661,7 @@ export class Game {
     if (!this.inGame || this.anyModalOpen) return;
     const g = this.state.grandma;
     const items = [{ id: 'resume', label: () => T.menuResume, onSelect: () => {} }, { id: 'proposal', label: () => T.proposal, onSelect: () => this.openProposal() }];
+    if (this.content.side.missions.length) items.push({ id: 'side', label: () => T.menuSide, onSelect: () => this.openSideList() });
     if (g.unlocked) {
       items.push({ id: 'elder', label: () => T.menuElder, onSelect: () => this.openElder() });
       items.push({ id: 'grandma', label: () => (this.state.grandma.on ? T.menuGrandmaOn : T.menuGrandmaOff), keepOpen: true, onSelect: () => this.setGrandma(!this.state.grandma.on) });
@@ -1597,6 +1799,33 @@ export class Game {
           this.setHint('place', { place: this.placeName(locationId) });
           await showPlaceCard({ layer: this.els.layer, name: this.placeName(locationId), hint: '', limit: '', signal, sfx: this.sfx });
         }),
+      /** 直接開某個支線（不管有沒有開放） */
+      startSide: (sideId) => {
+        const side = this.content.side.byId.get(sideId);
+        if (!side) return;
+        ensureRun();
+        this.abortFlow();
+        this.sideRun = null;
+        this.state = { ...clone(this.committed), grandma: { ...this.state.grandma } };
+        this.newFlow();
+        this.enterWorld({ at: side.locationId });
+        if (this.phase === 'roam' || this.phase === 'rechao') this.startSide(side);
+      },
+      /** 把某一年的主線標成完成（那一年的支線就開放） */
+      completeYear: (year) => {
+        ensureRun();
+        this.abortFlow();
+        for (const mission of this.content.missions.filter((m) => m.year === Number(year))) {
+          if (!this.state.doneMissionIds.includes(mission.id)) this.state.doneMissionIds.push(mission.id);
+          if (this.content.bookByYear.has(mission.year) && !this.state.books.includes(mission.year)) this.state.books.push(mission.year);
+          if (this.content.interludeByMission.has(mission.id) && !this.state.interludesSeen.includes(mission.id)) this.state.interludesSeen.push(mission.id);
+        }
+        this.state.currentMissionId = null;
+        this.commit();
+        this.newFlow();
+        this.refreshNpcs();
+        this.enterWorld({ at: this.engine.player.locationId || LOC.home });
+      },
       playPrologue: async () => preview(this.content.missions[0].id, async (mission, signal) => playPrologue(this, signal)),
     };
   }

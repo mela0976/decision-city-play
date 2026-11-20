@@ -68,6 +68,59 @@ function validate(raw) {
   }
 }
 
+/**
+ * 支線：每個年份一個檔（content/game/side/<年份>.json）。任何一檔讀不到或格式不對都只是少那一年的支線，不影響主線。
+ * 回傳 { missions, byId, chapters, chapterById, npcs, failed }。
+ */
+async function loadSide({ base, years, injected, knownNpcIds }) {
+  const out = { missions: [], byId: new Map(), chapters: [], chapterById: new Map(), npcs: [], failed: [] };
+  const files = await Promise.all(
+    years.map(async (year) => {
+      try {
+        if (injected && typeof injected === 'object') return injected[year] || null;
+        const response = await fetch(new URL(`side/${year}.json`, base), { cache: 'no-cache' });
+        return response.ok ? await response.json() : null;
+      } catch {
+        return null;
+      }
+    }),
+  );
+  years.forEach((year, i) => {
+    const file = files[i];
+    try {
+      if (!file || !Array.isArray(file.missions) || !Array.isArray(file.chapters)) throw new Error('empty');
+      const npcs = (file.npcs || []).filter((npc) => npc?.id && npc.name && !knownNpcIds.has(npc.id));
+      const missions = file.missions.map((mission, index) => {
+        if (!mission?.id || !mission.title || !mission.locationId || !Array.isArray(mission.steps)) throw new Error('mission');
+        for (const step of mission.steps) {
+          if (!STEP_TYPES.has(step?.type)) throw new Error('step');
+          if (step.type === 'choice' && !Array.isArray(step.options)) throw new Error('options');
+          if (step.type === 'quiz' && !(step.inline && Array.isArray(step.inline.options)) && !Array.isArray(step.ids)) throw new Error('quiz');
+        }
+        return { ...mission, year: mission.year ?? year, order: index + 1, isSide: true, splash: `loc_${mission.locationId}`, chapterIds: mission.chapterIds || [] };
+      });
+      for (const npc of npcs) {
+        knownNpcIds.add(npc.id);
+        out.npcs.push({ ...npc, sideYear: year });
+      }
+      for (const chapter of file.chapters) {
+        if (!chapter?.id) continue;
+        const item = { ...chapter, year };
+        out.chapters.push(item);
+        out.chapterById.set(item.id, item);
+      }
+      for (const mission of missions) {
+        if (out.byId.has(mission.id)) continue;
+        out.missions.push(mission);
+        out.byId.set(mission.id, mission);
+      }
+    } catch {
+      out.failed.push(year);
+    }
+  });
+  return out;
+}
+
 export async function loadContent({ useFixtures = false } = {}) {
   let raw;
   let source;
@@ -87,7 +140,13 @@ export async function loadContent({ useFixtures = false } = {}) {
 
   const missions = [...raw.missions].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const books = [...raw.books].sort((a, b) => a.year - b.year);
+  // 支線：主線有哪些年份就找哪些年份的檔；新 NPC 併進 NPC 表（標上 sideYear，那一年開放後才出現在街上）
+  const sideBase = useFixtures ? new URL('./dev/fixtures/', import.meta.url) : new URL('content/game/', document.baseURI);
+  const years = [...new Set(missions.map((m) => m.year).filter(Number.isInteger))].sort();
+  const side = await loadSide({ base: sideBase, years, injected: source === 'bundle' ? raw.side || {} : null, knownNpcIds: new Set(raw.npcs.map((n) => n.id)) });
+  raw.npcs = [...raw.npcs, ...side.npcs];
   return {
+    side,
     source,
     roles: raw.roles,
     books,

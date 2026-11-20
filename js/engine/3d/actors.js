@@ -1,6 +1,6 @@
 import {streetCrowds} from '../crowds.mjs';
 import {createModelAssets} from './model-assets.js';
-import {byId} from '../world.mjs';
+import {byId,roadAt} from '../world.mjs';
 import * as T from '../vendor/three.module.min.js';
 
 const cube=new T.BoxGeometry(1,1,1);
@@ -251,7 +251,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
   }
   const axis=new T.Vector3(1,0,0);
   let last=0;
-  function updateActors(state,scale,night,rain,turn,photorealistic,walkerPortrait=null,eye=null,previewBus=null,previewDelivery=null) {
+  function updateActors(state,scale,night,rain,turn,photorealistic,walkerPortrait=null,eye=null,previewBus=null,previewDelivery=null,scalePortrait=null) {
     models.begin();
     for (const mesh of Object.values(groups)) mesh.count=0;
     headlights.count=shadows.count=tails.count=0;
@@ -259,11 +259,17 @@ export function createActors(scene,glow,parkedScooters=[]) {
     const x=player.x*scale,z=player.y*scale;
     const dt=Math.max(0,Math.min(.05,clock-last));last=clock;
     const riding=player.mode==='scooter',grandma=player.skin==='grandma';
-    const lean=riding?turn*(grandma?.16:.58):0;
+    const lean=riding?turn*Math.min(.46,player.speed*scale*.045)*(grandma?.4:1):0;
+    const pitch=riding?T.MathUtils.clamp((state.acceleration??0)*.007,-.056,.051):0;
+    const ground=(roadAt(player.x,player.y)?.02:.065)+Math.abs(pitch)*.64;
     const stand=!riding&&player.speed<.5?state.standingPoint:null;
     const avatarX=stand?stand.x*scale:x,avatarZ=stand?stand.y*scale:z;
-    const avatar=riding?(grandma?'grandma_scooter':'rider_scooter'):'walker_m';
-    if(!models.draw(avatar,avatarX,avatarZ,player.heading,{dt,moving:player.speed>1,tint:outfits[player.skin]})){
+    const avatar=riding?(grandma?'grandma_scooter':'rider_scooter'):['creative','media','grandma'].includes(player.skin)?'walker_f':'walker_m';
+    const loadedAvatar=models.draw(avatar,avatarX,avatarZ,player.heading,{
+      dt,moving:player.speed>1,speed:player.speed*scale,ground,lean,pitch,tint:outfits[player.skin],
+    });
+    state.avatarModel=loadedAvatar?avatar:models.pending(avatar)?'loading':'procedural';
+    if(!loadedAvatar&&(riding||!models.pending(avatar))){
       if(riding)stamp(twoWheeler(grandma,outfits[player.skin],turn,player.skin==='data'),x,z,player.heading,lean);
       stamp(person(player.skin,clock*player.speed*.22,riding,grandma?.31:.51),avatarX,avatarZ,player.heading,lean);
     }
@@ -341,6 +347,13 @@ export function createActors(scene,glow,parkedScooters=[]) {
           stamp(truckModels[id==='home'?'waste':'recycling'],truckX,truckZ,direction,0);
       }
       stamp(cat,...at(3.2+Math.sin(clock*.9)*.6,2.98),heading,0);
+    }
+    if(!photorealistic&&scalePortrait){
+      const {x,z,heading,car,walker}=scalePortrait;
+      models.draw('rider_scooter',x,z,heading);
+      models.draw('walker_f',walker.x,walker.z,walker.heading,{tint:'#379078'});
+      models.draw('car_ev',car.x,car.z,car.heading,{tint:'#a9bac2'});
+      decal(shadows,x,z,heading,2.35,.8,.47);
     }
     if(!photorealistic&&previewDelivery)stamp(delivery,previewDelivery.x,previewDelivery.z,previewDelivery.heading,0);
     if(!photorealistic&&previewBus&&!models.draw('bus',previewBus.x,previewBus.z,previewBus.heading))

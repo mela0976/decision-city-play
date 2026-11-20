@@ -1,7 +1,8 @@
 // 存檔：照 docs/CONTRACTS.md 第 8 節，localStorage 鍵 decision-city-save-v1。
 //   { version, roleId, meters, clock, doneMissionIds, currentMissionId, books,
 //     quizSeen: { correct, asked, right }, grandma: { unlocked, on, templeVisits },
-//     relief, bond, interludesSeen, prologueSeen }
+//     relief, bond, interludesSeen, prologueSeen,
+//     side: { <支線 id>: { option, quiz } }, sideGain: { <meter>: 支線累計帶來的增減 } }   ← 支線；舊存檔沒有就當成空的
 // 讀寫都包在 try/catch；讀不到、版本不符或欄位不齊（例如舊格式的存檔），一律當作沒有存檔。
 // 音效、提示列等偏好另存 decision-city-prefs-v1。
 
@@ -13,6 +14,22 @@ const PREFS_KEY = 'decision-city-prefs-v1';
 
 const isCount = (n) => Number.isInteger(n) && n >= 0;
 const strings = (list) => list.filter((item) => typeof item === 'string');
+
+function normalizeSide(raw) {
+  const out = {};
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return out;
+  for (const [id, item] of Object.entries(raw)) {
+    if (!item || typeof item !== 'object') continue;
+    out[id] = { option: Number.isInteger(item.option) ? item.option : -1, quiz: !!item.quiz };
+  }
+  return out;
+}
+
+function normalizeGain(raw) {
+  const out = {};
+  for (const id of METER_IDS) out[id] = Number.isFinite(raw?.[id]) ? raw[id] : 0;
+  return out;
+}
 
 function normalize(data) {
   if (!data || typeof data !== 'object' || data.version !== SAVE_VERSION) return null;
@@ -47,6 +64,8 @@ function normalize(data) {
     bond: Math.round(data.bond),
     interludesSeen: strings(data.interludesSeen),
     prologueSeen: data.prologueSeen,
+    side: normalizeSide(data.side),
+    sideGain: normalizeGain(data.sideGain),
   };
 }
 

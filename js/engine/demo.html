@@ -90,6 +90,10 @@ const markers=[
   {id:'river',locationId:'riverside',kind:'book',label:'河畔散步'},
   {id:'market',locationId:'night_market',kind:'npc',label:'晚餐'},
 ];
+if(new URLSearchParams(location.search).has('sideAudit'))for(let i=0;i<36;i++){
+  const site=locations[i%locations.length];
+  markers.push({id:'side-'+i,locationId:site.id,kind:'side',label:'街區支線 '+(i+1)});
+}
 let cue={action:null,targetName:null};
 const names=['location:enter','location:leave','marker:reach','interact','crash','mode:change','autoride:change','input:mode','context:change','flyover:end'];
 const handlers=new Map(names.map(name=>[name,payload=>{
@@ -198,12 +202,13 @@ get('switch').onclick=()=>{
   else url.searchParams.set('engine','2d');
   location.assign(url);
 };
-setTime(explicit2d?9:17.35);
+const previewTime=new URLSearchParams(location.search).get('streetTime');
+setTime(previewTime!==null&&Number.isFinite(+previewTime)?+previewTime:explicit2d?9:17.35);
 const preview=new URLSearchParams(location.search).get('previewLocation');
 if(preview&&locations.some(site=>site.id===preview)){
   engine.teleportTo(preview);
-  engine.setTrafficDensity(1);
-  get('traffic').value='1';
+  const regular=new URLSearchParams(location.search).has('regularTraffic');
+  if(!regular){engine.setTrafficDensity(1);get('traffic').value='1';}
 }
 engine.start();
 function status() {

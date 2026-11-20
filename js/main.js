@@ -33,10 +33,11 @@ const els = {
   pause: $('pause-plate'),
   menu: $('menu'),
   proposal: $('proposal'),
+  sidelist: $('sidelist'),
   elder: $('elder'),
   confirm: $('confirm'),
 };
-els.dialogs = [els.menu, els.proposal, els.elder, els.confirm];
+els.dialogs = [els.menu, els.proposal, els.sidelist, els.elder, els.confirm];
 
 $('boot-plate').textContent = T.loading;
 els.pause.textContent = T.paused;

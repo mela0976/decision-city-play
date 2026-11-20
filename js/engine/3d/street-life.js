@@ -1,5 +1,5 @@
 import {crossings} from '../street-crossings.mjs';
-import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,metersPerUnit as unit} from '../world.mjs';
+import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs';
 
 const stopLocation=toWorld(25.03291,121.56645);
 const carriageways=roadOptions(stopLocation.x,stopLocation.y,8)
@@ -19,6 +19,26 @@ export function xinyiBusBay(along=0,offset=0,reverse=false){
   };
 }
 
+export function placeTree(instance,x,z,seed,trunkWidth=.22){
+  const species=Math.abs(seed)%3,scale=.83+random(seed+7)*.32;
+  const spread=[1.08,1.39,.86][species]*scale,tall=[1,.91,1.16][species]*scale;
+  const bark=['#776552','#655748','#786653'][species];
+  const leaves=[['#4a643e','#5c7645','#70864f'],['#405b3d','#567147','#698253'],
+    ['#465f40','#5f794a','#7a8d55']][species];
+  instance('metal','cylinder',bark,x,1.7*tall,z,trunkWidth,3.4*tall,trunkWidth);
+  const phase=random(seed+13)*Math.PI*2;
+  for(let i=0;i<3;i++){
+    const a=phase+i*Math.PI*2/3,dx=Math.cos(a),dz=Math.sin(a);
+    instance('metal','cylinder',bark,x+dx*.30*spread,2.94*tall,z+dz*.30*spread,
+      .095,1.55*tall,.095,-a,0,-.48);
+    const reach=(.58+random(seed+i)*.45)*spread;
+    instance('grass','crown',leaves[i],x+dx*reach,(3.48+i*.23)*tall,z+dz*reach,
+      (2.05+i*.16)*spread,(1.52+i*.10)*tall,1.92*spread,a);
+  }
+  instance('grass','crown',leaves[1],x,4.13*tall,z,2.38*spread,1.84*tall,2.09*spread,phase);
+  if(species===1)instance('grass','crown',leaves[0],x-.76,3.23*tall,z+.31,1.82*spread,1.31*tall,1.85*spread);
+}
+
 export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>{},lampGlow=()=>{},obstacle:register=()=>{},parked=()=>false}) {
   // Fixture footprints crossing the OSM travel strip stay decorative.
   // Props fully on the pavement still block normal movement and riding.
@@ -28,9 +48,7 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
   const glow=(color,x,y,z,w,h,d)=>instance('luminous','box',color,x,y,z,w,h,d);
   const tree=(x,z,seed)=>{
     obstacle(x,z,.16,3.4);
-    pole('#796757',x,1.7,z,.22,3.4);
-    for(let i=0;i<3;i++)instance('grass','crown',['#667f45','#536f43','#4d693c'][i],
-      x+(i-1)*.54,3.6+random(seed+i)*.7,z+i*.24,2.12,1.44,1.88);
+    placeTree(instance,x,z,seed);
   };
   function scooter(x,z,a,i){
     obstacle(x,z,.76,1.08);
@@ -74,6 +92,66 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
         if(!inBuilding(px/unit,pz/unit))scooter(px,pz,Math.atan2(dz,dx)+.94,i+j);
       }
     }
+  }
+  const roadside=new Set();
+  for(const [i,[ax,ay,bx,by,w,edge]] of roads.entries()){
+    if(!edge.way.name||edge.way.layer!==0||edge.d*unit<8)continue;
+    const length=edge.d*unit,major=['primary','secondary','tertiary'].includes(edge.way.kind);
+    const heading=Math.atan2(by-ay,bx-ax),dx=Math.cos(heading),dz=Math.sin(heading);
+    const step=major?19:26,count=Math.max(1,Math.floor(length/step));
+    for(const side of [-1,1])for(let n=0;n<count;n++){
+      const along=(n+.5)*length/count,off=side*(w*unit/2+2.28);
+      const x=ax*unit+dx*along-dz*off,z=ay*unit+dz*along+dx*off;
+      const key=Math.floor(x/11)+','+Math.floor(z/11);
+      if(roadside.has(key)||roadAt(x/unit,z/unit,-1.45/unit)||inBuilding(x/unit,z/unit)||
+        locations.some(site=>Math.hypot(x-site.x*unit,z-site.y*unit)<5))continue;
+      roadside.add(key);
+      if((i+n+Number(side>0))%3===0){
+        pole('#666e65',x,2.75,z,.13,5.5);
+        const hx=x+dz*side*.72,hz=z-dx*side*.72;
+        block('#666e65',(x+hx)/2,5.43,(z+hz)/2,.86,.10,.12,-heading+Math.PI/2);
+        glow('#f6d69c',hx,5.37,hz,.34,.07,.25);
+        if(major&&i%4===0)lampGlow(hx,5.34,hz);
+      }else{
+        tree(x,z,i+n);
+        if(i%5===0){
+          instance('concrete','cylinder','#9b7864',x,.18,z,.44,.36,.44);
+          instance('grass','crown','#727f4f',x,.39,z,.40,.23,.42);
+        }
+        if(!major&&i%19===0&&along>5&&along<length-5){
+          const px=x+dx*2+dz*side*.97,pz=z+dz*2-dx*side*.97;
+          if(!inBuilding(px/unit,pz/unit)&&!roadAt(px/unit,pz/unit,-.55/unit))
+            scooter(px,pz,heading+side*.83,i+n);
+        }
+      }
+      if(major&&i%23===0){
+        sign(edge.way.name,x,2.52,z,Math.PI/2-heading,'#235d46',false,1.9,.41);
+      }
+      if(major&&i%37===0&&length>27){
+        const sx=x+dx*3,sz=z+dz*3;
+        block('#75817e',sx,2.42,sz,3.7,.13,1.11,-heading);
+        block('#565d57',sx,1.16,sz,3.7,2.35,.052,-heading);
+        for(const end of [-1,1])pole('#616965',sx+dx*1.7*end,1.2,sz+dz*1.7*end,.09,2.4);
+        sign('公車候車區',sx,2.27,sz,Math.PI/2-heading,'#506a65',false,1.35,.29);
+      }
+    }
+  }
+  // Furnish the open forecourt on the east side of 忠孝東路五段236巷.
+  const court=toWorld(25.03694,121.57196);
+  const clearCourt=(x,z,r)=>!roadAt(x/unit,z/unit,-(r+1.1)/unit)&&
+    !worldContact(x/unit,z/unit,r/unit);
+  for(let i=0;i<4;i++){
+    const x=court.x*unit,z=court.y*unit+(i-1.5)*5.4;
+    if(!clearCourt(x,z,.85))continue;
+    tree(x,z,1209+i);
+    instance('concrete','box','#b0a091',x,.21,z,1.48,.42,1.48);
+    instance('grass','crown','#916d6e',x,.43,z,1.35,.28,1.32);
+    const bx=x-1.18,bz=z+1.75;
+    if(!clearCourt(bx,bz,1.0))continue;
+    obstacle(bx,bz,.84,.88);
+    block('#806650',bx,.48,bz,1.78,.12,.46,Math.PI/2);
+    block('#82705c',bx+.20,.72,bz,1.78,.31,.065,Math.PI/2);
+    for(const dz of [-.60,.60])block('#66645d',bx,.23,bz+dz,.34,.44,.09);
   }
   for(const crossing of crossings){
     const {dx,dy:dz}=crossing,x=crossing.x*unit,z=crossing.y*unit,span=crossing.width*unit;

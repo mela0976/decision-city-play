@@ -1,10 +1,12 @@
 import {trafficGreen} from '../navigation.js';
 import {surfaceMaps} from './pbr.js';
 import * as T from '../vendor/three.module.min.js';
-import {buildings,locations,roads,ways,water,width,height,metersPerUnit as unit,roadAt,toWorld,roadNodes} from '../world.mjs';
+import {buildings,locations,roads,ways,water,riverWidthMeters,width,height,metersPerUnit as unit,roadAt,toWorld,roadNodes} from '../world.mjs';
+import {urbanInfill} from '../infill.mjs';
+import {createBasin} from './basin.js';
 import landuse from '../data/xinyi-landuse.json' with { type:'json' };
 import {placeFrontage,placeRoof,placeEntrance} from './frontage.js';
-import {placeStreetLife,xinyiBusBay} from './street-life.js';
+import {placeStreetLife,placeTree,xinyiBusBay} from './street-life.js';
 import {buildLandmark} from './xinyi.js';
 import {canvasTexture} from './city.js';
 const chunkSize=100,box=new T.BoxGeometry(1,1,1),plane=new T.PlaneGeometry(1,1),
@@ -44,6 +46,15 @@ export function createOsmCity(scene,doc,anisotropy) {
     g.addColorStop(0,'#fff');g.addColorStop(1,'#ffffff00');
     ctx.fillStyle=g;ctx.fillRect(0,0,64,64);
   });
+  const textUv={total:0,osm:0,infill:0,other:0,failed:0};
+  function textWall(buffer,a,b,c,d,nx,nz,tint,u,v,source='other'){
+    const direction=(b[0]-a[0])*nz-(b[2]-a[2])*nx;
+    const face=direction<0?[b,a,d,c]:[a,b,c,d];
+    const du=(face[1][0]-face[0][0])*nz-(face[1][2]-face[0][2])*nx;
+    textUv.total++;textUv[source]++;
+    if(!(du>0&&u>0))textUv.failed++;
+    buffer.quad(...face,tint,u,v);
+  }
   const materials={}, loadedTextures=[];
   const types={
     road:['#7b7880','tex_asphalt'],paving:['#b6ad9c','tex_sidewalk'],
@@ -133,7 +144,7 @@ export function createOsmCity(scene,doc,anisotropy) {
   for(const [kind,[tint,tex]] of Object.entries(types)){
     const material=new T.MeshStandardMaterial({color:tint,roughness:.86,side:T.DoubleSide,vertexColors:true});
     if(kind==='glass'){material.metalness=.51;material.roughness=.28;}
-    if(/^shop[a-l]$/.test(kind))material.visible=false;
+    if(/^shop[a-l]$/.test(kind)||kind==='temple')material.visible=false;
     materials[kind]=material;
     if(!tex||!enabled)continue;
     if(variants[kind])available.then(images=>{if(images[tex])loadMaterial(kind,tex,material,true);});
@@ -142,6 +153,7 @@ export function createOsmCity(scene,doc,anisotropy) {
   for(const kind of ['luminous','signal','signalRed','signalGreen','towerLights','window','highglass']) {
     materials[kind]=kind==='highglass'?new T.MeshStandardMaterial({roughness:.42,fog:false}):new T.MeshBasicMaterial({fog:kind!=='towerLights'});
   }
+  materials.lobbyGlass=new T.MeshStandardMaterial({metalness:.2,roughness:.16,transparent:true,opacity:.40,depthWrite:false});
   materials.reflection=new T.MeshBasicMaterial({map:glow,transparent:true,depthWrite:false,opacity:0,blending:T.AdditiveBlending});
   const lampHalos=[],signalFaces=[],roadMarkMaterials=new Map(),chunks=new Map(),signs=[],signCache=new Map(),instanceMaterials=new Map();
   const groupOf=(x,z)=>{
@@ -159,9 +171,24 @@ export function createOsmCity(scene,doc,anisotropy) {
     if(!c.instances.has(key))c.instances.set(key,[]);
     c.instances.get(key).push([tint,x,y,z,w,h,d,turn,rx,rz]);
   }
-  const soil=new T.Mesh(new T.PlaneGeometry(width*unit,height*unit),materials.earth.clone());
-  soil.material.vertexColors=false;soil.rotation.x=-Math.PI/2;
-  soil.position.set(width*unit/2,-.11,height*unit/2);soil.receiveShadow=true;group.add(soil);
+  const cover=canvasTexture(doc,512,512,(ctx,w,h)=>{
+    const designated=toWorld(25.038,121.566);
+    for(let y=0;y<h;y+=2)for(let x=0;x<w;x+=2){
+      const gx=x/w*width,gy=y/h*height;
+      const civic=Math.hypot(gx-designated.x,gy-designated.y)*unit<550;
+      const strip=roadAt(gx,gy,-92);
+      const n=(x*13+y*47+(x*y)%29)%18;
+      ctx.fillStyle=civic||strip?`rgb(${141+n} ${135+n} ${118+n})`:
+        `rgb(${98+n} ${111+n} ${78+n})`;
+      ctx.fillRect(x,h-y-2,2,2);
+    }
+  });
+  cover.anisotropy=anisotropy;
+  const soil=new T.Mesh(new T.PlaneGeometry(width*unit,height*unit),new T.MeshStandardMaterial({map:cover,roughness:1}));
+  soil.rotation.x=-Math.PI/2;soil.position.set(width*unit/2,-.11,height*unit/2);
+  soil.receiveShadow=true;group.add(soil);
+  const basin=createBasin(width*unit,height*unit);
+  group.add(basin);
 
   const strip=(a,b,span,y,kind,off=0,tint='#fff',uvScale=3)=>{
     const ax=a[0]*unit,az=a[1]*unit,bx=b[0]*unit,bz=b[1]*unit;
@@ -271,7 +298,7 @@ export function createOsmCity(scene,doc,anisotropy) {
     const pts=object.points;
     const closed=pts.length>3&&Math.hypot(pts[0].x-pts.at(-1).x,pts[0].y-pts.at(-1).y)<2;
     if(!closed){
-      if(object.name==='基隆河')for(let i=1;i<pts.length;i++)strip([pts[i-1].x,pts[i-1].y],[pts[i].x,pts[i].y],115,-.04,'water');
+      if(object.name==='基隆河')for(let i=1;i<pts.length;i++)strip([pts[i-1].x,pts[i-1].y],[pts[i].x,pts[i].y],riverWidthMeters,-.04,'water');
       continue;
     }
     const polygon=pts.slice(0,-1).map(p=>new T.Vector2(p.x*unit,p.y*unit));
@@ -304,10 +331,10 @@ export function createOsmCity(scene,doc,anisotropy) {
       const h=12,y0=.04,y1=y0+h,w0=w*.943,d0=d*.914;
       for(const side of [-1,1]){
         const zz=z+side*d0/2,xx=x+side*w0/2,m=batch(x,z,'mall');
-        m.quad([x+side*w0/2,y0,zz],[x-side*w0/2,y0,zz],[x-side*w0/2,y1,zz],[x+side*w0/2,y1,zz],
-          '#fff',w0/(h*2),1);
-        m.quad([xx,y0,z-side*d0/2],[xx,y0,z+side*d0/2],[xx,y1,z+side*d0/2],[xx,y1,z-side*d0/2],
-          '#fff',d0/(h*2),1);
+        textWall(m,[x-w0/2,y0,zz],[x+w0/2,y0,zz],[x+w0/2,y1,zz],[x-w0/2,y1,zz],
+          0,side,'#fff',w0/(h*2),1);
+        textWall(m,[xx,y0,z-side*d0/2],[xx,y0,z+side*d0/2],[xx,y1,z+side*d0/2],[xx,y1,z-side*d0/2],
+          side,0,'#fff',d0/(h*2),1);
       }
     }
     for(const [k,items] of batches){
@@ -325,6 +352,16 @@ export function createOsmCity(scene,doc,anisotropy) {
       (replacement?replacements:group).add(mesh);
     }
     return true;
+  }
+  function paveFront(ax,az,bx,bz,nx,nz,length,maxDepth=10) {
+    const mx=(ax+bx)/2,mz=(az+bz)/2;
+    for(let d=.5;d<=maxDepth;d+=.25){
+      if(!roadAt((mx+nx*d)/unit,(mz+nz*d)/unit,-.25/unit))continue;
+      const edge=Math.max(.15,d-.37);
+      batch(mx,mz,'paving').quad([ax,.047,az],[bx,.047,bz],
+        [bx+nx*edge,.047,bz+nz*edge],[ax+nx*edge,.047,az+nz*edge],'#e7dfd1',length/3,edge/3);
+      break;
+    }
   }
   const streetBands=new Map();
   function storefrontAt(x,z){
@@ -358,28 +395,37 @@ export function createOsmCity(scene,doc,anisotropy) {
       roof.triangle(...corners.map(p=>[p.x,h,p.y]),'#c7c1b8',
         ...corners.map(p=>[(p.x-b.x*unit)/(b.w*unit),(p.y-b.y*unit)/(b.h*unit)]));
     }
-    const upper=batch(x,z,(b.modern?['new','towerB','towerC']:['old','oldB','oldC'])[b.osmId%3]);
+    const facadeVariant=b.osmId%3;
+    const upper=batch(x,z,(b.modern?['new','towerB','towerC']:['old','oldB','oldC'])[facadeVariant]);
+    const [tileWidth,tileHeight]=b.modern?[[18,18.75],[18,18.75],[12,11.25]][facadeVariant]:[5.2,5.2];
     const storeKind=b.modern?['shopi','shopj'][b.osmId%2]:storefrontAt(x,z);
     const podium=Math.min(3.5,h-.16);
     const tint=new T.Color(b.color).lerp(new T.Color('#ebe6dc'),.68);
     let frontage=null;
+    const winding=Math.sign(points.reduce((sum,p,i)=>{
+      const c=points[(i+1)%points.length];
+      return sum+p.x*c.y-c.x*p.y;
+    },0))||1;
     for(let i=0;i<points.length;i++){
       const a=points[i],c=points[(i+1)%points.length],length=a.distanceTo(c);
       const p=(v,y)=>[v.x,y,v.y];
       const mx=(a.x+c.x)/2,mz=(a.y+c.y)/2,streetFace=roadAt(mx/unit,mz/unit,-72);
       const storefront=batch(x,z,b.modern?'new':'shop');
-      storefront.quad(p(a,0),p(c,0),p(c,podium),p(a,podium),tint,length/(b.modern?1.5:4.2),1);
+      if(length<.01)continue;
+      const nx=(c.y-a.y)/length,nz=(a.x-c.x)/length;
+      if(b.modern)storefront.quad(p(a,0),p(c,0),p(c,podium),p(a,podium),tint,length/tileWidth,podium/tileHeight);
+      else textWall(storefront,p(a,0),p(c,0),p(c,podium),p(a,podium),nx*winding,nz*winding,tint,length/4.2,1,'osm');
       if(streetFace&&length>1){
-        const nx=(c.y-a.y)/length,nz=(a.x-c.x)/length;
-        const sign=(mx-x)*nx+(mz-z)*nz<0?-1:1;
+        const sign=winding;
         const shift=new T.Vector2(nx*.024*sign,nz*.024*sign);
         const left=a.clone().add(shift),right=c.clone().add(shift);
         const beltHeight=b.modern?4.7:6.8,top=Math.min(h-.02,beltHeight);
-        const [from,to]=sign>0?[right,left]:[left,right];
-        batch(x,z,storeKind).quad(p(from,.015),p(to,.015),p(to,top),p(from,top),
-          '#fff',length/(beltHeight*2),top/beltHeight);
+        textWall(batch(x,z,storeKind),p(left,.015),p(right,.015),p(right,top),p(left,top),
+          nx*sign,nz*sign,'#fff',length/(beltHeight*2),top/beltHeight,'osm');
+        if(!b.modern)paveFront(a.x,a.y,c.x,c.y,nx*sign,nz*sign,length);
+
       }
-      upper.quad(p(a,podium),p(c,podium),p(c,h),p(a,h),tint,length/(b.modern?1.5:5.2),(h-podium)/(b.modern?3.5:5.2));
+      upper.quad(p(a,podium),p(c,podium),p(c,h),p(a,h),tint,length/tileWidth,(h-podium)/tileHeight);
       if((!b.modern&&(b.osmId%3!==0||h>50))||length<5||length<=(frontage?.length??0))continue;
       if(streetFace){
         const nx=(c.y-a.y)/length,nz=(a.x-c.x)/length;
@@ -400,8 +446,8 @@ export function createOsmCity(scene,doc,anisotropy) {
         const centerX=(lx+rx)/2,centerZ=(lz+rz)/2;
         const normal=(dx*nz-dz*nx)>0;
         const left=normal?[lx,lz]:[rx,rz],right=normal?[rx,rz]:[lx,lz];
-        batch(centerX,centerZ,'mall').quad([left[0],.1,left[1]],[right[0],.1,right[1]],
-          [right[0],height,right[1]],[left[0],height,left[1]],'#e8e5dc',width/10,.52);
+        textWall(batch(centerX,centerZ,'mall'),[left[0],.1,left[1]],[right[0],.1,right[1]],
+          [right[0],height,right[1]],[left[0],height,left[1]],nx,nz,'#e8e5dc',width/10,.52,'osm');
         const angle=-Math.atan2(dz,dx);
         if(!roadAt((centerX+nx*.92)/unit,(centerZ+nz*.92)/unit,0)){
           instance('metal','box','#8c9691',centerX+nx*.89,height-.39,centerZ+nz*.89,width,.16,1.79,angle);
@@ -416,6 +462,45 @@ export function createOsmCity(scene,doc,anisotropy) {
           -Math.atan2(c.y-a.y,c.x-a.x),-Math.PI/2);
       }
       placeRoof(b,x,z,instance);
+    }
+  }
+  for(const {x,z,width,depth,height,housing,civic,tree,heading=0,streetSide,shop,street} of urbanInfill()){
+    const ux=Math.cos(heading),uz=Math.sin(heading);
+    const p=(dx,dy,h)=>[x+ux*dx*width/2-uz*dy*depth/2,h,z+uz*dx*width/2+ux*dy*depth/2];
+    batch(x,z,civic?'paving':'park').quad(p(-1,-1,-.083),p(1,-1,-.083),
+      p(1,1,-.083),p(-1,1,-.083),civic?'#b3ab96':'#738759',width/3,depth/3);
+    if(housing){
+      const walls=batch(x,z,civic?'new':'old'),roof=batch(x,z,'roofTop'),h=height;
+      for(const side of [-1,1]){
+        walls.quad(p(-1,side,0),p(1,side,0),p(1,side,h),p(-1,side,h),
+          '#c1b49e',width/(civic?18:5.2),h/(civic?18.75:4.4));
+        walls.quad(p(side,-1,0),p(side,1,0),p(side,1,h),p(side,-1,h),
+          '#b4a892',depth/(civic?18:5.2),h/(civic?18.75:4.4));
+      }
+      roof.quad(p(-1,-1,h),p(1,-1,h),p(1,1,h),p(-1,1,h),'#9d9181');
+      if(street){
+        const y=streetSide*1.004;
+        textWall(batch(x,z,'shop'),p(-1,y,.02),p(1,y,.02),p(1,y,3.6),p(-1,y,3.6),
+          -uz*streetSide,ux*streetSide,'#fff',width/7,1,'infill');
+        const left=p(-1,y*1.015,.025),right=p(1,y*1.015,.025),nx=-uz*streetSide,nz=ux*streetSide;
+        textWall(batch(x,z,'shop'+'abcdef'[shop]),left,right,
+          p(1,y*1.015,5.2),p(-1,y*1.015,5.2),nx,nz,'#fff',width/12,.82,'infill');
+        if(!civic)paveFront(left[0],left[2],right[0],right[2],nx,nz,width,4.0);
+        const [cx,,cz]=p(0,streetSide*1.17,0);
+        instance('metal','box','#a39984',cx,2.93,cz,width,.16,1.12,-heading);
+        instance('glass','box','#8b9c90',cx,2.71,cz,width,.24,.13,-heading);
+      }
+    }else if(tree){
+      placeTree(instance,x,z,Math.round(x*31+z),.32);
+      if(civic&&width>8&&depth>6){
+        const [bx,,bz]=p(0,.62,0),[px,,pz]=p(.58,-.62,0);
+        instance('metal','box','#81634d',bx,.48,bz,2.1,.12,.48,-heading);
+        for(const offset of [-.61,.61]){
+          instance('metal','box','#615e56',bx+ux*offset,.23,bz+uz*offset,.11,.46,.41,-heading);
+        }
+        instance('concrete','box','#b8ad9a',px,.24,pz,1.72,.48,.92,-heading);
+        instance('grass','crown','#987467',px,.48,pz,1.60,.44,.85,-heading);
+      }
     }
   }
   const collisionProps=[],parkedScooters=[];
@@ -443,19 +528,14 @@ export function createOsmCity(scene,doc,anisotropy) {
   for(const p of locations){
     placeEntrance(p,{instance,sign,windowBand:(a,b,h)=>{
       const m=batch((a[0]+b[0])*.5,(a[1]+b[1])*.5,'mall');
-      m.quad([a[0],.10,a[1]],[b[0],.10,b[1]],[b[0],h,b[1]],[a[0],h,a[1]],'#fff',1,.49);
+      textWall(m,[a[0],.10,a[1]],[b[0],.10,b[1]],[b[0],h,b[1]],[a[0],h,a[1]],
+        -Math.cos(p.viewHeading),-Math.sin(p.viewHeading),'#fff',1,.49);
     }});
     if(p.shape!=='temple')continue;
     const a=p.viewHeading,x=p.x*unit+Math.cos(a)*4.12,z=p.y*unit+Math.sin(a)*4.12;
-    available.then(images=>{
-      if(!images.tex_temple_front)return;
-      const material=materials.temple;
-      const patch=new T.Mesh(plane,material);
-      patch.position.set(x,1.64,z);patch.rotation.y=-Math.PI/2-a;patch.scale.set(5.12,2.56,1);
-      const whites=new Float32Array(plane.attributes.position.count*3).fill(1);
-      patch.geometry=plane.clone();patch.geometry.setAttribute('color',new T.BufferAttribute(whites,3));
-      group.add(patch);
-    });
+    const dx=Math.sin(a)*2.56,dz=-Math.cos(a)*2.56;
+    textWall(batch(x,z,'temple'),[x-dx,.36,z-dz],[x+dx,.36,z+dz],
+      [x+dx,2.92,z+dz],[x-dx,2.92,z-dz],-Math.cos(a),-Math.sin(a),'#fff',1,1);
   }
   for(const c of chunks.values()){
     for(const [key,items] of c.instances){
@@ -519,7 +599,7 @@ export function createOsmCity(scene,doc,anisotropy) {
   function billboard(id,x,y,z,rotation,w,h){
     let material=adMaterials.get(id);
     if(!material){
-      material=new T.MeshStandardMaterial({color:'#9d9b8e',metalness:.15,roughness:.43,side:T.DoubleSide});
+      material=new T.MeshStandardMaterial({color:'#9d9b8e',metalness:.15,roughness:.43,side:T.FrontSide});
       adMaterials.set(id,material);
       loadAd(id).then(texture=>{
         if(!texture)return;
@@ -547,11 +627,11 @@ export function createOsmCity(scene,doc,anisotropy) {
     if(!way.name||named.has(way.name)||!['primary','secondary','tertiary'].includes(way.kind))continue;
     named.add(way.name);
     const p=way.points[Math.floor(way.points.length/2)];
-    sign(way.name,p.x*unit,4.0,p.y*unit,0);
-    sign(way.name,p.x*unit,4.0,p.y*unit-.06,Math.PI);
+    sign(way.name,p.x*unit,4.0,p.y*unit,0,'#235d46');
+    sign(way.name,p.x*unit,4.0,p.y*unit-.06,Math.PI,'#235d46');
   }
   return {
-    group,replacements,collisionProps,parkedScooters,glow,loadedTextures,loadedAds,
+    group,replacements,collisionProps,parkedScooters,glow,loadedTextures,loadedAds,textUv,
     update(x,z,night,rain,quality,clock,lamps=night,aerial=false){
       materials.road.roughness=rain?.19:.94;
       materials.road.metalness=rain?.27:0;

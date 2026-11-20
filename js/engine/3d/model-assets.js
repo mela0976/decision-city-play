@@ -26,10 +26,12 @@ export function createModelAssets(scene){
   const loader=new GLTFLoader(),decoder=new DRACOLoader();
   decoder.setDecoderPath(new URL('../vendor/three-examples/libs/draco/gltf/',import.meta.url).href);
   loader.setDRACOLoader(decoder);
-  const assets=new Map(),matrix=new T.Object3D(),instanceTint=new T.Color();
+  const assets=new Map(),pending=new Set(),matrix=new T.Object3D(),instanceTint=new T.Color();
+  const idleSway=new T.Quaternion(),vertical=new T.Vector3(0,1,0);
   let disposed=false;
   async function load(key,axis,length){
     const url=new URL('../../../assets/models/'+key+'.glb',import.meta.url);
+    pending.add(key);
     try{
       const answer=await fetch(url);
       if(!answer.ok)return;
@@ -64,7 +66,7 @@ export function createModelAssets(scene){
         scene.add(inst);batches.push(inst);
       });
       assets.set(key,{template,animations:model.animations,dimensions,bottom,batches,pool:[],used:0});
-    }catch{}
+    }catch{}finally{pending.delete(key);}
   }
   for(const [key,[axis,length]] of Object.entries(catalog))load(key,axis,length);
   fetch(new URL('../../../assets/manifest.json',import.meta.url))
@@ -81,12 +83,12 @@ export function createModelAssets(scene){
         for(const batch of asset.batches)batch.count=0;
       }
     },
-    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28}={}){
+    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0}={}){
       const asset=assets.get(key);
       if(!asset)return false;
       if(asset.batches.length){
         if(asset.used>=180)return false;
-        matrix.position.set(x,.04,z);matrix.rotation.set(0,-heading,0);matrix.updateMatrix();
+        matrix.position.set(x,ground,z);matrix.rotation.set(lean,-heading,pitch,'YXZ');matrix.updateMatrix();
         for(const batch of asset.batches){
           const idx=batch.count++;
           batch.setMatrixAt(idx,matrix.matrix);batch.instanceMatrix.needsUpdate=true;
@@ -152,6 +154,11 @@ export function createModelAssets(scene){
           joint.position.copy(position);joint.quaternion.copy(rotation);joint.scale.copy(scale);
         }
       }
+      if(!moving&&key.startsWith('walker_')){
+        item.idleClock=(item.idleClock??0)+dt;
+        const chest=item.standingPose.find(([joint])=>/spine|chest/i.test(joint.name));
+        if(chest)chest[0].quaternion.copy(chest[2]).multiply(idleSway.setFromAxisAngle(vertical,Math.sin(item.idleClock*1.7)*.018));
+      }
       if(item.action){
         item.action.timeScale=Math.max(.24,Math.min(1.8,speed/1.28));
         item.mixer.update(dt);
@@ -162,11 +169,12 @@ export function createModelAssets(scene){
       item.pantsEnabled.value=trousers?1:0;
       if(trousers)item.pants.value.set(trousers);
       item.object.scale.set(stature*build,stature,stature*build);
-      item.object.position.set(x,.04,z);item.object.rotation.y=-heading;
+      item.object.position.set(x,ground,z);item.object.rotation.y=-heading;
       item.object.visible=true;
       return true;
     },
     loaded:()=>[...assets.keys()].sort(),
+    pending:key=>pending.has(key),
     bounds:()=>Object.fromEntries([...assets].map(([key,m])=>[key,{dims:m.dimensions,bottom:m.bottom}])),
     dispose(){disposed=true;decoder.dispose();},
   };

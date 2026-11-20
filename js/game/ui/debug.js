@@ -13,6 +13,8 @@ export function mountDebug({ game, content }) {
     content.missions.map((m) => h('option', { value: m.id, text: `${m.order ?? ''} ${m.id}` })),
   );
 
+  const sideSelect = h('select', { id: 'debug-side', 'aria-label': T.debugSide }, content.side.missions.map((side) => h('option', { value: side.id, text: `${side.id} ${side.title}` })));
+  const yearSelect = h('select', { id: 'debug-year', 'aria-label': T.debugYear }, [...new Set(content.missions.map((m) => m.year))].map((year) => h('option', { value: String(year), text: String(year) })));
   const bondInput = h('input', { type: 'number', step: '1', value: '0', id: 'debug-bond', inputmode: 'numeric' });
 
   const sync = () => {
@@ -55,6 +57,10 @@ export function mountDebug({ game, content }) {
         h('label', {}, h('span', { text: T.debugBond }), bondInput),
         h('button', { type: 'button', id: 'debug-bond-apply', text: T.debugBondApply, onClick: () => game.debug.setBond(Number(bondInput.value)) }),
       ),
+      content.side.missions.length
+        ? h('div', { class: 'debug-row' }, sideSelect, h('button', { type: 'button', id: 'debug-side-start', text: T.debugSide, onClick: () => game.debug.startSide(sideSelect.value) }))
+        : null,
+      h('div', { class: 'debug-row' }, yearSelect, h('button', { type: 'button', id: 'debug-year-done', text: T.debugYear, onClick: () => game.debug.completeYear(Number(yearSelect.value)) })),
       h(
         'div',
         { class: 'debug-row' },

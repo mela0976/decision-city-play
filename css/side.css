@@ -1,0 +1,398 @@
+/* 支線任務：同地點的選單、手機裡的支線清單、章節卡、提案附錄、結局的支線統計。 */
+
+/* ── 同一個地點有幾件事：選單疊在街景上，留出四周給 HUD 與地圖標註 ── */
+.pick-wrap {
+  position: absolute;
+  inset: var(--bar-t) 0 calc(var(--hint-h) + var(--attr-h) + var(--bottom));
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  place-items: center;
+  padding: var(--edge);
+  background: rgb(3 5 8 / 0.5);
+}
+
+.pick {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-rows: auto minmax(0, 1fr);
+  inline-size: min(100%, 34rem);
+  max-block-size: 100%;
+  padding: 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background-color: rgb(9 13 19 / 0.94);
+  background-image: var(--tex-terrazzo);
+  background-size: var(--tex-terrazzo-size);
+  overflow: hidden;
+}
+
+.pick-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.8rem;
+}
+
+.pick-head h2 {
+  font-size: 1.15rem;
+}
+
+.pick-count {
+  flex: 1;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.pick-list {
+  display: grid;
+  gap: 0.4rem;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.pick-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  min-block-size: max(var(--tap), 3.2rem);
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.04);
+  color: var(--text);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.pick-item--main {
+  border-color: var(--neon);
+}
+
+.pick-text {
+  display: grid;
+  gap: 0.05rem;
+}
+
+.pick-text small {
+  color: var(--muted);
+  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+}
+
+.pick-item--main .pick-text small {
+  color: var(--neon);
+}
+
+.pick-text strong {
+  font-size: max(18px, 1.05rem);
+  font-weight: 600;
+}
+
+.pick-text span {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+/* ── 任務卡與章節卡上的書中章節 ── */
+.ticket-chapters {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.chapter-quote {
+  margin: 0;
+  padding-inline-start: 0.8rem;
+  border-inline-start: 3px solid var(--red);
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.chapter-deltas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  padding: 0.6rem 0 0;
+  border-block-start: 1px dashed var(--line);
+  list-style: none;
+}
+
+.chapter-deltas li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+}
+
+.chapter-deltas b {
+  font-family: var(--mono);
+}
+
+.chapter-deltas .is-good b {
+  color: var(--neon);
+}
+
+.chapter-deltas .is-bad b {
+  color: var(--red);
+}
+
+.chapter-capped {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ── 手機裡的支線清單 ── */
+.side-progress {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.7rem;
+  margin-block-end: 0.7rem;
+  letter-spacing: 0.08em;
+}
+
+.side-progress span {
+  color: var(--muted);
+}
+
+.side-progress b {
+  margin-inline-end: 0.8rem;
+  font-family: var(--mono);
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.side-years {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.4rem, 1fr));
+  gap: 0.5rem 0.8rem;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  list-style: none;
+}
+
+.side-years li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+}
+
+.side-years b {
+  justify-self: end;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.side-years .m-bar {
+  grid-column: 1 / -1;
+}
+
+.side-years .is-locked {
+  opacity: 0.5;
+}
+
+.side-body {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.side-year {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.03);
+}
+
+.side-year > summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+  min-block-size: var(--tap);
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+}
+
+.side-year-count {
+  flex: 1;
+  font-family: var(--mono);
+}
+
+.side-rows {
+  display: grid;
+  margin: 0;
+  padding: 0 0.8rem 0.4rem;
+  list-style: none;
+}
+
+.side-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding-block: 0.6rem;
+  border-block-start: 1px dashed var(--line);
+}
+
+.side-main {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.side-main strong {
+  font-size: max(18px, 1.05rem);
+  font-weight: 600;
+}
+
+.side-meta,
+.side-chapter {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.side-side {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+}
+
+.side-state {
+  padding: 0.05em 0.6em;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.side-state--open {
+  border-color: var(--neon);
+  color: var(--neon);
+}
+
+.side-state--done {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.side-row--locked .side-main,
+.side-state--locked {
+  color: var(--muted);
+}
+
+.side-row--done .side-main strong {
+  color: var(--stone);
+}
+
+.side-go.is-on {
+  border-color: var(--neon);
+  color: var(--neon);
+}
+
+/* ── 今晚的提案：附錄 ── */
+.appendix {
+  margin-block-start: 1.2rem;
+  padding-block-start: 0.9rem;
+  border-block-start: 1px dashed var(--line-strong);
+}
+
+.appendix h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-block-end: 0.7rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+}
+
+.appendix-count {
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.appendix-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.appendix-card {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 0.3rem;
+  padding: 0.8rem;
+  border-radius: 2px;
+  background: var(--paper);
+  color: #17191d;
+}
+
+.appendix-card strong {
+  font-size: 1.05rem;
+}
+
+.appendix-card p {
+  line-height: 1.5;
+}
+
+.appendix-card .side-chapter {
+  color: rgb(0 0 0 / 0.55);
+}
+
+/* ── 成績單上的支線統計 ── */
+.report-side {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.6rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+.report-side b {
+  margin-inline-end: 0.8rem;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 620px) {
+  .side-row {
+    grid-template-columns: 1fr;
+  }
+
+  .side-side {
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .appendix-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 章節卡右上蓋「已讀」章：標題與那一句話讓出位置 */
+.ticket--chapter h2,
+.ticket--chapter .chapter-quote {
+  margin-inline-end: 7.5rem;
+}
+
+@media (max-width: 620px) {
+  .ticket--chapter .chapter-quote {
+    margin-inline-end: 0;
+  }
+}

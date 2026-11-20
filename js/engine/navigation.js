@@ -1,4 +1,4 @@
-import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit} from './world.mjs';
+import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit,worldContact} from './world.mjs';
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const drivable=new Map();
 export function clearPath(a,b) {
@@ -133,7 +133,9 @@ function findRide(origin,target,avoid=[]) {
     let point=center;
     if(lane&&distance(center,previous)>24&&distance(center,next)>24){
       const candidate=add(center,lane);
-      if(clearPath(previous,candidate)&&clearPath(candidate,next))point=candidate;
+      const orientation=Math.atan2(next.y-previous.y,next.x-previous.x);
+      if(!worldContact(candidate.x,candidate.y,1.03/metersPerUnit,.37/metersPerUnit,orientation)&&
+        clearPath(previous,candidate)&&clearPath(candidate,next))point=candidate;
     }
     if(!clearPath(previous,point))return null;
     route.push({x:point.x,y:point.y});

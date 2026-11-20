@@ -6,9 +6,10 @@ export function colliderRadius(car){
   return car.scooter?radius.scooter:car.service==='bus'?5.2/unit:car.service&&car.service!=='taxi'?radius.truck:radius.car;
 }
 function box(x,y,r,body){
-  const angle=body?.heading??0;
+  const angle=body?.mode==='foot'?0:body?.heading??0;
   const narrow=body?.mode==='scooter'||body?.scooter;
   const long=narrow||body?.scooter===false;
+  if(body?.width)return {x,y,a:r,b:body.width,u:Math.cos(angle),v:Math.sin(angle)};
   return {x,y,a:r,b:long?Math.min(r,(narrow?.37:body.service?1.02:.95)/unit):r,
     u:Math.cos(angle),v:Math.sin(angle)};
 }
@@ -51,7 +52,7 @@ export function occupancy(){
       const bounds=box(x,y,r,ignore);
       visit(x,y,Math.hypot(bounds.a,bounds.b),k=>{
         for(const item of cells.get(k)??[]){
-          if(item.body!==ignore&&overlap(bounds,item)){found=item;return true;}
+          if(item.body!==(ignore?.ignore??ignore)&&overlap(bounds,item)){found=item;return true;}
         }
         return false;
       });
@@ -60,13 +61,18 @@ export function occupancy(){
   };
 }
 
-export function sweep(x,y,nx,ny,test){
-  const count=Math.max(1,Math.ceil(Math.hypot(nx-x,ny-y)/3.8));
-  let endX=x,endY=y;
+export function sweep(x,y,nx,ny,test,step=3.8){
+  const count=Math.max(1,Math.ceil(Math.hypot(nx-x,ny-y)/step));
   for(let i=1;i<=count;i++){
     const px=x+(nx-x)*i/count,py=y+(ny-y)*i/count;
-    if(test(px,py))break;
-    endX=px;endY=py;
+    if(test(px,py)){
+      let lo=(i-1)/count,hi=i/count;
+      if(step<3)for(let k=0;k<5;k++){
+        const t=(lo+hi)/2;
+        if(test(x+(nx-x)*t,y+(ny-y)*t))hi=t;else lo=t;
+      }
+      return {x:x+(nx-x)*lo,y:y+(ny-y)*lo};
+    }
   }
-  return {x:endX,y:endY};
+  return {x:nx,y:ny};
 }

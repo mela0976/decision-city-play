@@ -4,7 +4,7 @@ import { buildings, byId, columns, height, locations, random, river, roads, rows
 const ink='#242b30';
 const paper='#fff2cd';
 const tileSize=512;
-const markerColors={mission:'#f8ca55',book:'#70c9fa',npc:'#f589a7',home:'#9ddc7c',egg:'#d0a4f1'};
+const markerColors={mission:'#f8ca55',book:'#70c9fa',npc:'#f589a7',home:'#9ddc7c',egg:'#d0a4f1',side:'#59e2cf'};
 const outfits={ae:'#51beb1',planner:'#e6aa59',media:'#37a1dc',creative:'#e77898',data:'#928ada',cx:'#b6ca61',
   grandma:'#cf6f89',npc_grandma:'#cf6f89',npc_client:'#849ad6',npc_boss:'#4e6781',npc_colleague:'#57ba95',
   npc_vendor:'#ef9a5b',npc_student:'#75b9cf',npc_elder:'#ad9374',npc_rider:'#efcb54'};
@@ -418,10 +418,19 @@ export function createRenderer(canvas,minimapCanvas) {
       const close=Math.hypot(loc.x-player.x,loc.y-player.y)<58;
       label(ctx,loc.name,loc.x,loc.y+17,close?'#ffd765':paper);
     }
+    const sideSites=new Set();
     if(!state.flyover)for (const marker of state.markers) {
       const loc=byId.get(marker.locationId);
       if (visible(loc.x,loc.y)) {
         const color=markerColors[marker.kind]??paper;
+        if(marker.kind==='side'){
+          const gap=Math.hypot(loc.x-player.x,loc.y-player.y);
+          if(gap>430||sideSites.has(loc.id))continue;
+          sideSites.add(loc.id);
+          polygon(ctx,[[loc.x+15,loc.y-28],[loc.x+8,loc.y-14],[loc.x+22,loc.y-14]],color);
+          if(gap<165&&marker.label)label(ctx,marker.label,loc.x+22,loc.y-8,color,10);
+          continue;
+        }
         polygon(ctx,[[loc.x,loc.y-12],[loc.x-8,loc.y-25],[loc.x,loc.y-36],[loc.x+8,loc.y-25]],color);
         if (marker.label) label(ctx,marker.label,loc.x,loc.y-61,color,11);
       }

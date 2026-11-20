@@ -63,7 +63,8 @@ export async function createEngine({canvas,minimapCanvas}) {
       draw=state=>{
         lastState=state;
         try { draw3D(state); }
-        catch {
+        catch(error) {
+          if(query.has('collisionAudit'))console.error(error);
           fallback();
           draw(state);
         }
@@ -73,7 +74,8 @@ export async function createEngine({canvas,minimapCanvas}) {
         fallback();
         if (lastState) draw(lastState);
       },{once:true});
-    } catch {
+    } catch(error) {
+      if(query.has('collisionAudit'))console.error(error);
       fallback();
     }
   }

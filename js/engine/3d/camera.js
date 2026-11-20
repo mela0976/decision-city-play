@@ -80,3 +80,25 @@ export function planFlyover(site,unit,aspect=1.7) {
   const fov=Math.max(56,(baseAngle-topAngle)*180/Math.PI+18);
   return {cx,cz,radius,high,aim,angle,roof,fov,clearance:high-obstruction,clearArc:clearArc(angle)};
 }
+
+export function streetSkylineView(site,tower,candidates,unit){
+  const tx=(tower.x+tower.w/2)*unit,tz=(tower.y+tower.h/2)*unit;
+  const rank=point=>{
+    const x=point.x*unit,z=point.y*unit,dx=tx-x,dz=tz-z;
+    const distance=Math.hypot(dx,dz),eye=4.4;
+    const bounds=cameraObstacles((tx+x)/2,(tz+z)/2,unit,distance*.54);
+    let elevation=0;
+    for(const wall of bounds){
+      if(wall.id===tower.osmId)continue;
+      const x0=(wall.minX-x)/dx,x1=(wall.maxX-x)/dx,z0=(wall.minZ-z)/dz,z1=(wall.maxZ-z)/dz;
+      const enter=Math.max(0,Math.min(x0,x1),Math.min(z0,z1));
+      const exit=Math.min(.99,Math.max(x0,x1),Math.max(z0,z1));
+      if(enter<exit)elevation=Math.max(elevation,(wall.top-eye)/Math.max(.002,enter));
+    }
+    const street=point.heading;
+    const alignment=Number.isFinite(street)?Math.abs((dx*Math.cos(street)+dz*Math.sin(street))/distance):0;
+    return {x,z,elevation,score:elevation+Math.hypot(point.x-site.x,point.y-site.y)*unit*.22+(1-alignment)*145};
+
+  };
+  return candidates.map(rank).sort((a,b)=>a.score-b.score)[0]??rank(site);
+}

@@ -67,7 +67,25 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
   }
   const isTower=['client_hq','office','datalab'].includes(p.id);
   if(isTower){
-    for(const t of [-3,-2,-1,0,1,2,3])
+    const office=p.id==='office';
+    if(office){
+      obj('concrete','box','#c5b6a1',0,.041,4.22,11.25,.077,5.35);
+      obj('glass','box','#627476',0,2.58,7.12,10.5,5.13,.14);
+      obj('window','box','#d9bd91',0,4.63,6.29,9.75,.16,.13);
+      for(const t of [-3.8,-2.65,-1.5,1.5,2.65,3.8]){
+        obj('window','box','#d0b188',t,3.83,6.28,.62,.11,.12);
+        obj('lobbyGlass','box','#bdd6d1',t,2.57,6.17,1.13,4.97,.05);
+      }
+      for(const t of [-1.26,0,1.26])obj('metal','box','#757f77',t,1.48,6.31,.052,2.84,.11);
+      obj('metal','box','#78817d',0,2.91,6.32,2.59,.12,.16);
+      for(const t of [-.65,.65])obj('lobbyGlass','box','#b9d3cd',t,1.52,6.17,1.23,2.75,.045);
+      obj('lobbyGlass','box','#b9d3cd',0,3.95,6.17,2.50,1.88,.045);
+      for(const t of [-3.58,3.58]){
+        obj('concrete','box','#afa995',t,.24,4.21,1.07,.45,.61);
+        obj('grass','crown','#567048',t,.55,4.21,1.04,.68,.67);
+      }
+    }
+    if(!office)for(const t of [-3,-2,-1,0,1,2,3])
       obj('glass','box',t===0?'#90a5a2':'#719a97',t*1.35,2.37,6.5,1.28,4.67,.12);
     for(const t of [-3.4,-2.5,-1.5,-.5,.5,1.5,2.5,3.4])
       obj('metal','box','#858c82',t*1.39,2.45,6.38,.079,4.90,.17);
@@ -95,8 +113,8 @@ export function placeEntrance(p,{instance,sign,windowBand=()=>{}}) {
       const [mallX,mallZ]=at(0,5.42);
       sign('購物商場入口',mallX,3.85,mallZ,-Math.PI/2-angle,'#54443e',false,4.1,.50);
     }
-    const [x1,z1]=at(0,4.08);
-    sign(p.name,x1,4.72,z1,-Math.PI/2-angle,'#314d50',false,5.4*scale,.68);
+    const [x1,z1]=at(0,office?3.36:4.08);
+    sign(p.name,x1,office?4.28:4.72,z1,-Math.PI/2-angle,'#314d50',false,5.4*scale,.68);
     return true;
   }
   if(p.shape==='temple'){

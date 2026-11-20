@@ -318,7 +318,7 @@ export async function createEngine({ canvas, minimapCanvas }) {
       const isWaypoint = state.waypoint === marker.id;
       c.beginPath();
       c.arc(loc.x, loc.y, mini ? 40 : 24, 0, Math.PI * 2);
-      c.fillStyle = marker.kind === 'egg' ? '#ffffff' : marker.kind === 'home' ? '#ff8a1f' : '#ffd60a';
+      c.fillStyle = marker.kind === 'egg' ? '#ffffff' : marker.kind === 'side' ? '#7fd4ff' : marker.kind === 'home' ? '#ff8a1f' : '#ffd60a';
       c.fill();
       c.lineWidth = isWaypoint ? (mini ? 16 : 9) : 4;
       c.strokeStyle = '#0a0a0a';

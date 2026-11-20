@@ -26,7 +26,7 @@ export function hintFor(state, mode) {
       if (state.remindAuto) return { task, parts: touch ? [say(HINT.tapAuto), say(`${HINT.stick} ${HINT.move}`)] : [part(KEY.auto, T.autoRide), part(KEY.arrows, HINT.move)] };
       const context = state.context;
       if (context?.action) {
-        const what = context.action === 'talk' && context.targetName ? HINT.talkTo(context.targetName) : context.action === 'enter' ? HINT.enterMission : HINT.interact;
+        const what = state.work ? state.work : context.action === 'talk' && context.targetName ? HINT.talkTo(context.targetName) : context.action === 'enter' ? HINT.enterMission : HINT.interact;
         return { task, parts: [touch ? say(`${HINT.tapAction} ${what}`) : part(KEY.action, what)] };
       }
       if (touch) return { task, parts: state.canAuto ? [say(`${HINT.stick} ${HINT.move}`), say(HINT.tapAuto)] : [say(`${HINT.stick} ${HINT.move}`)] };
@@ -37,6 +37,8 @@ export function hintFor(state, mode) {
     }
     case 'card':
       return { task: HINT.newMission, parts: touch ? [say(`${HINT.tap} ${T.acceptMission}`)] : [part(KEY.action, T.acceptMission), part(KEY.esc, HINT.menu)] };
+    case 'pick':
+      return { task: state.place || '', parts: touch ? [say(HINT.tapOption)] : [part(numbers(Math.min(state.count || 2, 9)), HINT.select)] };
     case 'place':
       return { task: state.place ? HINT.goTo(state.place) : '', parts: touch ? [say(`${HINT.tap} ${T.depart}`)] : [part(KEY.action, T.depart), part(KEY.esc, HINT.menu)] };
     case 'dialogue':

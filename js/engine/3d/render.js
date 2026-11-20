@@ -1,14 +1,14 @@
 import {makeEnvironment,makePanoramas} from './pbr.js';
 import * as T from '../vendor/three.module.min.js';
 import {createMapRenderer,drawTouch,surface} from '../overlay.js';
-import {buildings,landmarks,locations,random,scooterSpeed,toWorld} from '../world.mjs';
+import {buildings,landmarks,locations,random,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs';
 import {createBloom} from './bloom.js';
 import {createActors} from './actors.js';
 import {streetCrowds} from '../crowds.mjs';
 import {xinyiBusBay} from './street-life.js';
 import {createOsmCity} from './osm-city.js';
 import {metersPerUnit as unit} from '../world.mjs';
-import {cameraFraction,cameraObstacles,planFlyover} from './camera.js';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);
@@ -63,6 +63,16 @@ function skyMesh(scene) {
           vec2 uv=vec2(atan(d.z,d.x)*.15915494+.5,asin(clamp(d.y,-1.,1.))*.31830989+.5);
           col=mix(col,mix(texture2D(panoA,uv).rgb,texture2D(panoB,uv).rgb,panoMix),panoWeight);
         }
+        float az=atan(d.z,d.x);
+        for(int i=0;i<3;i++){
+          float layer=float(i);
+          float south=pow(max(0.,sin(az)),3.),east=pow(max(0.,cos(az)),4.);
+          float north=pow(max(0.,-sin(az)),4.);
+          float ridge=(.044*south+.033*east+.028*north)*(1.+layer*.32);
+          ridge+=(sin(az*17.+layer*5.)*.006+sin(az*33.+layer*9.)*.003)*(south+east+north);
+          float mountain=step(0.,d.y)*(1.-smoothstep(ridge-.001,ridge+.001,d.y));
+          col=mix(col,mix(horizon,vec3(.104,.173,.177),.23+layer*.12),mountain*.8);
+        }
         gl_FragColor=vec4(col,1.);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
@@ -82,7 +92,7 @@ function tag(ctx,text,x,y,kind='site') {
   ctx.fillRect(x-w/2,y-h/2,w,h);
   ctx.strokeStyle=kind==='marker'?'#efbb6d':'#d9bc883e';
   ctx.strokeRect(x-w/2+.5,y-h/2+.5,w-1,h-1);
-  ctx.fillStyle=kind==='speech'?'#242029':kind==='marker'?'#f5c97f':'#f6e8ce';
+  ctx.fillStyle=kind==='speech'?'#242029':kind==='marker'?'#f5c97f':kind==='side'?'#59e2cf':'#f6e8ce';
   ctx.fillText(text,x,y,w-13);
 }
 function rainFx(ctx,w,h,clock) {
@@ -168,7 +178,20 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     sun.shadow.map?.dispose();sun.shadow.map=null;
     sun.shadow.mapSize.set(quality===1?768:512,quality===1?768:512);
   }
-  let orbit=null,orbitKey=null;
+  let orbit=null,orbitKey=null,wuxingView=null;
+  const scenicRoads=new Map([['wuxingSouth',toWorld(25.02892,121.56282)],
+    ['songrenSouth',toWorld(25.0322,121.56815)]]);
+  for(const [key,point] of scenicRoads){
+    const street=key==='wuxingSouth'?'吳興街':'松仁路';
+    const nearest=roads.filter(r=>r[5].way.name===street).map(([x,y,a,b])=>({
+      x:(x+a)/2,y:(y+b)/2,heading:Math.atan2(b-y,a-x),
+      score:Math.hypot((x+a)/2-point.x,(y+b)/2-point.y),
+    })).sort((a,b)=>a.score-b.score)[0];
+    if(nearest){
+      if(Math.sin(nearest.heading)<0)nearest.heading+=Math.PI;
+      scenicRoads.set(key,nearest);
+    }
+  }
   const draw=state=>{
     const {player,weather,clock,filter,time,viewRevision}=state;
     const aerial=Boolean(state.flyover||state.largeMap);
@@ -194,11 +217,11 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const viewSpeed=clamp(player.speed/scooterSpeed,0,1);
     const site=spots.get(player.locationId);
     const stopped=player.speed<3 && !riding;
-    const arrival=!state.roadReturn && stopped && site && (site.id!=='home'||viewRevision>0);
+    const arrival=!state.roadReturn&&stopped&&site&&Boolean(canvas.dataset.cameraDetail);
     const detail=canvas.dataset.cameraDetail;
     const landmark=detail==='twist'?landmarks.find(b=>b.shape==='twist'):null;
     const core=detail==='core'&&!useTiles;
-    let servicePortrait=null,previewBus=null;
+    let servicePortrait=null,previewBus=null,scalePortrait=null;
     if(detail==='bus'){
       servicePortrait=previewBus=xinyiBusBay(0,-1.66);
     }else if(detail==='waste'){
@@ -208,6 +231,14 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     }
     const officePortrait=detail==='a25';
     const xinyiPortrait=detail==='xinyi';
+    const wuxingPortrait=detail==='wuxingSkyline';
+    const scenicRoad=scenicRoads.get(detail);
+    const walkwayPortrait=detail==='walkway';
+    if(detail==='scaleLineup'){
+      const rider=xinyiBusBay(-6,-1.66);
+      previewBus=xinyiBusBay(1.8,-1.72);
+      scalePortrait={...rider,car:xinyiBusBay(-11.3,-4.65),walker:xinyiBusBay(-5,-10.1)};
+    }
     const roadPortrait=detail==='road-forward'||detail==='road-reverse';
     const deliveryPortrait=detail==='delivery';
     const standingPortrait=detail==='standingQueue'?streetCrowds[1]:null;
@@ -252,16 +283,39 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const showcase=Boolean(arrival || landmark);
     const chase=detail==='streetLife'?11:detail==='skyline'?16:landmark?12:detail==='rider'?3.3:detail==='person'?2.85:
       showcase?(narrow?9.8:8.1):(narrow?7.4:5.65)+viewSpeed*.85;
-    arm.set(x,riding?1.35:1.05,z);
+    arm.set(x,riding?1.35:1.26,z);
     const bounds=cameraObstacles(x,z,unit,forceGoogle?56:39);
     if(!aerial){
       for(const object of [...state.cars,...(state.staticColliders??[])]){
         if(object.hidden||Math.hypot(object.x*unit-x,object.y*unit-z)>15)continue;
         const xx=object.x*unit,zz=object.y*unit,r=object.r?object.r*unit:object.scooter?.58:1.42;
-        bounds.push({minX:xx-r,maxX:xx+r,minZ:zz-r,maxZ:zz+r,top:object.top??(object.scooter?1.75:1.6)});
+        const width=object.width?object.width*unit:r,h=object.heading??0;
+        const halfX=r*Math.abs(Math.cos(h))+width*Math.abs(Math.sin(h));
+        const halfZ=r*Math.abs(Math.sin(h))+width*Math.abs(Math.cos(h));
+        bounds.push({minX:xx-halfX,maxX:xx+halfX,minZ:zz-halfZ,maxZ:zz+halfZ,top:object.top??(object.scooter?1.75:1.6)});
       }
     }
-    if(standingPortrait){
+    if(scenicRoad){
+      const dx=Math.cos(scenicRoad.heading??Math.PI/2),dz=Math.sin(scenicRoad.heading??Math.PI/2);
+      base.set(scenicRoad.x*unit,2.65,scenicRoad.y*unit);
+      aim.set(scenicRoad.x*unit+dx*92,11,scenicRoad.y*unit+dz*92);
+    }else if(wuxingPortrait){
+      const tower=buildings.find(b=>b.id==='client_hq'),home=spots.get('home');
+      if(!wuxingView){
+        const choices=roads.filter(r=>r[5].way.name==='吳興街'&&Math.hypot(r[0]-home.x,r[1]-home.y)<1770)
+          .flatMap(r=>[.14,.37,.67,.88].map(t=>({x:r[0]+(r[2]-r[0])*t,y:r[1]+(r[3]-r[1])*t,heading:Math.atan2(r[3]-r[1],r[2]-r[0])})));
+        wuxingView=streetSkylineView(home,tower,choices,unit);
+      }
+      base.set(wuxingView.x,4.4,wuxingView.z);
+      aim.set((tower.x+tower.w*.5)*unit,130,(tower.y+tower.h*.5)*unit);
+    }else if(walkwayPortrait){
+      base.set(civicWalkway.x*unit-2.5,5.5,civicWalkway.y*unit+20);
+      aim.set(civicWalkway.x*unit,3,civicWalkway.y*unit-65);
+    }else if(scalePortrait){
+      const a=scalePortrait.heading-1.2,center=xinyiBusBay(-4,-1.4);
+      base.set(center.x+Math.cos(a)*18,7.5,center.z+Math.sin(a)*18);
+      aim.set(center.x,1.4,center.z);
+    }else if(standingPortrait){
       const {x,z}={x:standingPortrait.x*unit,z:standingPortrait.y*unit};
       const heading=standingPortrait.heading-Math.PI*.30;
       base.set(x+Math.cos(heading)*3.7,2.2,z+Math.sin(heading)*3.7);
@@ -344,9 +398,16 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       base.copy(desired);
     } else {
       const side=arrival?1.5:detail==='rider'?1.4:.43;
-      desired.set(x-fx*chase-fz*side,detail==='skyline'?10.2:detail==='streetLife'?4.1:showcase?3.1:narrow?3.7:3.25,z-fz*chase+fx*side);
+      desired.set(x-fx*chase-fz*side,detail==='skyline'?10.2:detail==='streetLife'?4.1:showcase?3.1:narrow?2.79:2.66,z-fz*chase+fx*side);
       let fraction=cameraFraction(bounds,arm,desired);
-      if(fraction<.64) {
+      if(!riding&&!showcase&&fraction<.72){
+        for(const turn of [.38,-.38,.78,-.78,1.18,-1.18,1.57,-1.57]){
+          offset.set(x-Math.cos(direction+turn)*3.3,2.04,z-Math.sin(direction+turn)*3.3);
+          const room=cameraFraction(bounds,arm,offset);
+          if(room>fraction+.05){desired.copy(offset);fraction=room;}
+        }
+      }
+      if(fraction<.64 && (riding||showcase)) {
         for(const height of [4.4,6.2,8.9]) {
           offset.copy(desired);offset.y=height;
           const alternative=cameraFraction(bounds,arm,offset);
@@ -362,7 +423,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
         }
       }
       base.copy(arm).lerp(desired,fraction);
-      if(fraction<.39) {
+      if(fraction<.39 && (riding||showcase)) {
         offset.set(x,arm.y+Math.min(3.8,2.8+viewSpeed),z);
         const safe=cameraFraction(bounds,arm,offset);
         if(safe>.45)base.copy(arm).lerp(offset,safe);
@@ -385,15 +446,15 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     }else{
       delete canvas.dataset.flyoverCamera;
     }
-    const alpha=snap||showcase||landmark||aerial||officePortrait||evPortrait||walkerPortrait||queuePortrait||servicePortrait||xinyiPortrait?1:1-Math.exp(-dt*12);
+    const alpha=snap||showcase||landmark||aerial||officePortrait||evPortrait||walkerPortrait||queuePortrait||servicePortrait||xinyiPortrait||scenicRoad||wuxingPortrait||walkwayPortrait||scalePortrait?1:1-Math.exp(-dt*12);
     position.lerp(base,alpha);
-    if(!landmark && !core && !aerial && !officePortrait && !evPortrait && !walkerPortrait && !queuePortrait && !servicePortrait && !xinyiPortrait) {
+    if(!landmark && !core && !aerial && !officePortrait && !evPortrait && !walkerPortrait && !queuePortrait && !servicePortrait && !xinyiPortrait && !scenicRoad && !wuxingPortrait && !walkwayPortrait && !scalePortrait) {
       const safe=cameraFraction(bounds,arm,position);
       if(safe<1) position.copy(arm).lerp(position,safe);
     }
     const shake=state.shake*.16;
     camera.position.copy(position);
-    if(!showcase && !core && !aerial && !officePortrait && !evPortrait && !walkerPortrait && !queuePortrait && !servicePortrait && !xinyiPortrait && arm.distanceTo(position)>2) {
+    if(!showcase && !core && !aerial && !officePortrait && !evPortrait && !walkerPortrait && !queuePortrait && !servicePortrait && !xinyiPortrait && !scenicRoad && !wuxingPortrait && !walkwayPortrait && !scalePortrait && arm.distanceTo(position)>2) {
       offset.copy(position);
       offset.x+=Math.sin(clock*99)*shake;
       offset.y+=Math.cos(clock*81)*shake;
@@ -413,7 +474,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     camera.fov=state.flyover?orbit.fov+(w/h<1?10:0):(landmark?69:showcase?64:58)+viewSpeed*13+(narrow?13:w/h<1.15?8:0)+(state.rideBoost??0)*4;
     camera.aspect=w/h;
     camera.near=state.flyover?5:.12;
-    camera.far=state.flyover?1500:850;
+    camera.far=state.flyover?2200:2500;
     camera.updateProjectionMatrix();
     camera.updateMatrixWorld();
     projected.set(x,riding?1.2:.92,z).project(camera);
@@ -431,8 +492,8 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     sky.uniforms.zenith.value.copy(zenith);
     sky.uniforms.light.value.copy(sunTint).multiplyScalar((1-night)*(raining?.09:.34));
     scene.fog.color.copy(haze);
-    scene.fog.density=state.flyover?(raining?.0023:.00085+night*.0011):raining?.0068:.002+night*.0023;
-    const lamps=Math.max(night,time>16.6?clamp((time-16.6)/2.2,0,1)*.74:0);
+    scene.fog.density=state.flyover?(raining?.0023:.00085+night*.0011):raining?.0033:.0011+night*.0011;
+    const lamps=Math.max(night,time>16.25?clamp((time-16.25)/1.35,0,1)*.87:0);
     const bearing=(18-time)*Math.PI/12;
     const lightDir=sky.uniforms.sun.value.set(Math.cos(bearing)*Math.cos(elevation),Math.sin(elevation),-Math.sin(bearing)*Math.cos(elevation));
     sun.target.position.set(x,0,z);
@@ -444,12 +505,14 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     }
     sun.position.copy(sun.target.position).addScaledVector(lightDir,61);
     sun.color.copy(sunTint);
-    sun.intensity=sunPower*(raining?.72:1);
+    const golden=Math.max(0,1-Math.abs(time-17.65)/1.28);
+    sun.color.lerp(new T.Color('#ff9c57'),golden*.53);
+    sun.intensity=sunPower*(raining?.72:1)*(1+golden*.12);
     hemi.color.copy(zenith).lerp(ambientWhite,.53+night*.26);
-    hemi.intensity=ambient*(raining?1.23:1.68);
+    hemi.intensity=ambient*(raining?1.23:1.68)*(1-golden*.27);
     // The texture transition is continuous in the sky and quantized for cached reflections.
     const pano=panoramas.at(time);
-    sky.uniforms.panoWeight.value=pano?(raining?.48:1):0;
+    sky.uniforms.panoWeight.value=pano?(raining?.48:1-golden*.43):0;
     if(pano){
       sky.uniforms.panoA.value=pano.a;sky.uniforms.panoB.value=pano.b;sky.uniforms.panoMix.value=pano.mix;
     }
@@ -469,7 +532,6 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       canvas.dataset.engineReason='Google Photorealistic 3D Tiles';
     }
     city.group.visible=!tileView?.ready;
-    state.staticColliders=tileView?.ready?[]:city.collisionProps;
     canvas.dataset.tileCount=String(tileView?.count??0);
     if(tileView)canvas.dataset.googleDiagnostics=JSON.stringify({
       sources:tileView.sources,errorTarget:tileView.errorTarget,maxDepth:tileView.maxDepth,visibleDepth:tileView.visibleDepth,
@@ -477,7 +539,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       pitch:+(Math.atan2(camera.position.y-aim.y,Math.hypot(camera.position.x-aim.x,camera.position.z-aim.z))*180/Math.PI).toFixed(1),
     });
     state.googleInset=tileView?.ready?36:0;
-    const portrait=roadPortrait||deliveryPortrait?xinyiBusBay():servicePortrait;
+    const portrait=scalePortrait??(scenicRoad?{x:scenicRoad.x*unit,z:scenicRoad.y*unit}:null)??(wuxingPortrait?wuxingView:walkwayPortrait?{x:civicWalkway.x*unit,z:civicWalkway.y*unit}:roadPortrait||deliveryPortrait?xinyiBusBay():servicePortrait);
     const portraitFocus=portrait&&{x:portrait.x/unit,y:portrait.z/unit};
     const focus=state.flyover?.location??walkerPortrait??portraitFocus??player;
     city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover));
@@ -487,7 +549,15 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       return projected.z>=-1&&(padded||projected.z<=1)&&Math.abs(projected.x)<=margin&&Math.abs(projected.y)<=margin;
     };
     state.cameraInside=camera.position.y<.12||(!aerial&&cameraFraction(bounds,camera.position,camera.position)===0);
-    actors(state,unit,Math.max(night,lamps*.69),raining,turn,tileView?.ready,walkerPortrait,camera.position,previewBus,deliveryPortrait?xinyiBusBay(0,-1.66):null);
+    actors(state,unit,Math.max(night,lamps*.69),raining,turn,tileView?.ready,walkerPortrait,camera.position,previewBus,deliveryPortrait?xinyiBusBay(0,-1.66):null,scalePortrait);
+    if(clock-statsClock>.5&&canvas.ownerDocument.location?.pathname?.endsWith('/engine/demo.html')){
+      const near=actor=>Math.hypot(actor.x-player.x,actor.y-player.y)*unit<72&&state.inActorView(actor);
+      canvas.dataset.streetActors=JSON.stringify({cars:state.cars.filter(near).length,
+        people:[...state.walkers,...state.npcs,...streetCrowds].filter(near).length,
+        time});
+    }
+    canvas.dataset.avatarModel=state.avatarModel;
+    if(!canvas.dataset.textUv)canvas.dataset.textUv=JSON.stringify(city.textUv);
     view.info.reset();
     if(bloom && quality===2 && lamps>.10) bloom.render(scene,camera,lamps*.28);
     else view.render(scene,camera);
@@ -544,11 +614,32 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       const here=project(player.x,6,player.y);
       if(here)tag(ctx,'◆ 玩家',...here,'marker');
     }
-    if(!state.flyover)for (const marker of state.markers) {
-      const site=spots.get(marker.locationId);
-      if(!site || (!aerial&&Math.hypot(site.x-player.x,site.y-player.y)>510)) continue;
-      const at=project(site.x,4.16,site.y+18);
-      if(at) tag(ctx,'◇ '+(marker.label||site.name),...at,'marker');
+    if(!state.flyover){
+      const sides=new Map();
+      const markerAnchor=(site,height,offset)=>project(site.x,height,site.y+18)??(
+        player.locationId===site.id?[w*.5,Math.max(56,h*.25)+offset]:null);
+      for(const marker of state.markers){
+        const site=spots.get(marker.locationId);
+        if(!site)continue;
+        const gap=Math.hypot(site.x-player.x,site.y-player.y)*unit;
+        const side=marker.kind==='side';
+        if(side){
+          if(gap>45)continue;
+          if(sides.has(site.id)){sides.get(site.id).count++;continue;}
+          sides.set(site.id,{site,label:marker.label,gap,count:1});
+        }else if(aerial||gap<54){
+          const at=markerAnchor(site,4.5,0);
+          if(at)tag(ctx,'◇ '+(marker.label||site.name),...at,'marker');
+        }
+      }
+      for(const {site,label,gap,count} of sides.values()){
+        const at=markerAnchor(site,3.25,27);
+        if(!at)continue;
+        ctx.globalAlpha=clamp((45-gap)/12,0,1);
+        const badge=count>1?'▲ '+count:'▲';
+        tag(ctx,gap<19?badge+' '+(label||site.name):badge,...at,'side');
+        ctx.globalAlpha=1;
+      }
     }
     if(!state.flyover&&evPortrait){const at=project(evPortrait.x,1.98,evPortrait.y);if(at)tag(ctx,'自動駕駛中',...at);}
     if(!aerial)for(const car of state.cars){
