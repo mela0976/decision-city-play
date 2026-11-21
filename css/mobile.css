@@ -407,3 +407,23 @@ html {
     margin-block-start: 0.3rem;
   }
 }
+
+/* ── 靈感指針（窄螢幕）：任務牌底下靠右；指針出現時，提示往下讓一列 ── */
+@media (max-width: 760px) {
+  .inspire-chip {
+    grid-area: 4 / 1 / auto / span 4;
+    justify-self: end;
+    align-self: start;
+    z-index: 2;
+  }
+
+  #stage[data-phase="play"]:not([data-scene]):has(#hud-inspire:not([hidden])) #toasts {
+    inset-block-start: calc(var(--top) + 13.2rem);
+  }
+}
+
+@media (max-width: 760px) and (max-height: 480px) {
+  #stage[data-phase="play"]:not([data-scene]):has(#hud-inspire:not([hidden])) #toasts {
+    inset-block-start: calc(var(--top) + 10.6rem);
+  }
+}

@@ -3,10 +3,12 @@
 //     quizSeen: { correct, asked, right }, grandma: { unlocked, on, templeVisits },
 //     relief, bond, interludesSeen, prologueSeen, morningDone,
 //     side: { <支線 id>: { option, quiz } }, sideGain: { <meter>: 支線累計帶來的增減 } }   ← 支線；舊存檔沒有就當成空的
+//     inspiration: [<靈感 id>]   ← 自己騎車沿路撿到的靈感，依撿到的順序；舊存檔沒有就當成空的
 // 讀寫都包在 try/catch；讀不到、版本不符或欄位不齊（例如舊格式的存檔），一律當作沒有存檔。
-// 音效、提示列等偏好另存 decision-city-prefs-v1。
+// 音效、提示列等偏好另存 decision-city-prefs-v1。破關紀錄與年度重玩的成績也記在偏好裡（finished、lastRole、replay），
+// 所以重新開一局、或年度重玩，都不會動到主線存檔。
 
-import { METER_IDS } from './strings.js?v=b28f5ae';
+import { METER_IDS } from './strings.js?v=06b0d11';
 
 export const SAVE_KEY = 'decision-city-save-v1';
 export const SAVE_VERSION = 1;
@@ -70,6 +72,7 @@ function normalize(data) {
     morningDone: typeof data.morningDone === 'boolean' ? data.morningDone : data.doneMissionIds.length > 0 || (data.prologueSeen && data.currentMissionId !== null),
     side: normalizeSide(data.side),
     sideGain: normalizeGain(data.sideGain),
+    inspiration: Array.isArray(data.inspiration) ? [...new Set(strings(data.inspiration))] : [],
   };
 }
 

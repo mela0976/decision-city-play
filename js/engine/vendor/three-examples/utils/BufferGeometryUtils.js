@@ -9,7 +9,7 @@ import {
 	TriangleStripDrawMode,
 	TrianglesDrawMode,
 	Vector3,
-} from '../../three.module.min.js?v=b28f5ae';
+} from '../../three.module.min.js?v=06b0d11';
 
 /**
  * @module BufferGeometryUtils

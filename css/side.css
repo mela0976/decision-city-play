@@ -396,3 +396,29 @@
     margin-inline-end: 0;
   }
 }
+
+/* ── 今晚的提案：沿路撿到的靈感 ── */
+.inspire-list {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: inspire;
+}
+
+.inspire-list li {
+  counter-increment: inspire;
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.inspire-list li::before {
+  content: "✦ " counter(inspire);
+  color: var(--neon);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  padding-block-start: 0.15rem;
+}

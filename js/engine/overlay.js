@@ -1,4 +1,4 @@
-import { byId, civicWalkway, height, locations, river, roads, water, width } from './world.mjs?v=b28f5ae';
+import { byId, civicWalkway, height, locations, river, roads, water, width } from './world.mjs?v=06b0d11';
 
 const ink='#242b30';
 const paper='#fff2cd';
@@ -143,8 +143,12 @@ export function drawTouch(ctx,w,h,state) {
   dot(ctx,c.auto,c.y,c.small,'#142731d8','#f9e7ba');
   dot(ctx,c.interact,c.y,c.big,'#142731d8','#f9e7ba');
   ctx.textAlign='center';
-  dot(ctx,c.interact,c.carY,c.carRadius,state.player.mode==='car'?'#13889bdb':'#142731d8','#f9e7ba'); // A26
+  // A26 解鎖前按鈕照樣顯示（點了會提示第五個任務後解鎖），但畫成灰色，看得出還不能用
+  const carLocked=!state.carUnlocked;
+  if(carLocked)ctx.globalAlpha=.45;
+  dot(ctx,c.interact,c.carY,c.carRadius,state.player.mode==='car'?'#13889bdb':'#142731d8',carLocked?'#9a9a9a':'#f9e7ba');
   text(ctx,'🚗',c.interact,c.carY,20,paper);
+  if(carLocked)ctx.globalAlpha=1;
   text(ctx,'T',c.auto,c.flightY,c.small*.9,paper);
   text(ctx,'➤',c.auto,c.y,c.small*.9,paper);
   text(ctx,'●',c.interact,c.y,c.big*.60,paper);

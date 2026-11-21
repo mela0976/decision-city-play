@@ -5,7 +5,7 @@
 //   會讓三項全滿、肝指數必爆。所以支線帶來的增減一律只算三分之一，而且整局累計有上限：
 //   品牌力、業績、客戶信任各 +12（最多扣到 −8），肝指數 +5（最多降到 −10）。到了上限，支線只給章節卡。
 
-import { METER_IDS } from './strings.js?v=b28f5ae';
+import { METER_IDS } from './strings.js?v=06b0d11';
 
 export const SIDE_SCALE = 1 / 3;
 export const SIDE_CAP = { brand: [-8, 12], sales: [-8, 12], trust: [-8, 12], liver: [-10, 5] };
@@ -35,7 +35,8 @@ export function scaleSideEffects(effects, gain) {
 
 export const yearDone = (game, year) => game.content.missions.some((m) => m.year === year && game.state.doneMissionIds.includes(m.id));
 
-export const sideStatus = (game, side) => (game.state.side[side.id] ? 'done' : yearDone(game, side.year) ? 'open' : 'locked');
+// 年度重玩中：只開放重玩那一年的支線
+export const sideStatus = (game, side) => (game.state.side[side.id] ? 'done' : game.replay && side.year !== game.replay.year ? 'locked' : yearDone(game, side.year) ? 'open' : 'locked');
 
 /** 開放中、還沒做的支線。 */
 export const openSides = (game) => game.content.side.missions.filter((side) => sideStatus(game, side) === 'open');
@@ -81,7 +82,7 @@ export function sideGroups(game) {
   const progress = chapterProgress(game);
   return progress.years.map((year) => ({
     ...year,
-    open: yearDone(game, year.year),
+    open: yearDone(game, year.year) && (!game.replay || game.replay.year === year.year),
     items: game.content.side.missions
       .filter((side) => side.year === year.year)
       .map((side) => ({

@@ -1,7 +1,7 @@
-import {paving,pavingHeight,pavingPoint,curbWidth,fillets,surfaceAt} from '../sidewalks.mjs?v=b28f5ae';
-import {metersPerUnit as unit} from '../world.mjs?v=b28f5ae';
+import {paving,pavingHeight,pavingPoint,curbWidth,fillets,surfaceAt} from '../sidewalks.mjs?v=06b0d11';
+import {metersPerUnit as unit} from '../world.mjs?v=06b0d11';
 
-import {subtractConvex,subtractRectangle} from '../paving-geometry.mjs?v=b28f5ae';
+import {subtractConvex,subtractRectangle} from '../paving-geometry.mjs?v=06b0d11';
 
 function clippedQuad(buf,s,points,color,u,v){
   if(!s.cutouts&&!s.fillets){buf.quad(...points,color,u,v);return;}

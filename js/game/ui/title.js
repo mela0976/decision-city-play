@@ -1,14 +1,14 @@
 // 標題畫面：主視覺滿版，標誌是一支直式霓虹招牌；開始／繼續／年鑑。
 // 輸入阿嬤代碼（grandma.json 的 unlock.titleCode）或連點標誌七下會呼叫 onSecret。
 
-import { h, arrowFocus } from '../dom.js?v=b28f5ae';
-import { T, ZH_T } from '../strings.js?v=b28f5ae';
-import { langSwitch } from './lang-switch.js?v=b28f5ae';
+import { h, arrowFocus } from '../dom.js?v=06b0d11';
+import { T, ZH_T } from '../strings.js?v=06b0d11';
+import { langSwitch } from './lang-switch.js?v=06b0d11';
 
 const TAPS_NEEDED = 7;
 const TAP_WINDOW_MS = 4000;
 
-export function showTitle({ screen, assets, canContinue, continueNote, grandmaOn, secretCode, badge, error, onStart, onContinue, onProposal, onSecret, onRetry, onFixtures }) {
+export function showTitle({ screen, assets, canContinue, continueNote, grandmaOn, secretCode, badge, error, onStart, onContinue, onProposal, onYears = null, onSecret, onRetry, onFixtures }) {
   // 霓虹招牌是街景的一部分，各語言都掛中文原名；讀屏念目前語言的名字
   const signs = [...ZH_T.name].map((ch, i) => h('span', { class: `sign sign--${i + 1}`, 'aria-hidden': 'true', text: ch }));
   const logo = h('h1', { class: 'logo', 'aria-label': T.name }, signs, h('span', { class: 'logo-en', 'aria-hidden': 'true', text: T.nameEn }));
@@ -36,6 +36,8 @@ export function showTitle({ screen, assets, canContinue, continueNote, grandmaOn
         canContinue && continueNote ? h('small', { class: 'btn-note', text: continueNote }) : null,
       ),
       h('button', { type: 'button', class: 'btn btn--big', id: 'title-proposal', onClick: onProposal, text: T.proposal }),
+      // 破關過一次才出現：挑一年單獨重玩、補支線
+      onYears ? h('button', { type: 'button', class: 'btn btn--big', id: 'title-years', onClick: onYears, text: T.replay.button }) : null,
     );
   }
 

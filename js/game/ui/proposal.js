@@ -1,8 +1,8 @@
 // 「今晚的提案」：每過一關拿到一頁。每頁是那一年的一句答案（slide 標題）、年鑑的三個重點與一句話；
 // 還沒拿到的是空白頁。阿嬤線累積夠了，最後多一頁阿嬤的那一句。
 
-import { h, fill, arrowFocus } from '../dom.js?v=b28f5ae';
-import { T, chapterQuote } from '../strings.js?v=b28f5ae';
+import { h, fill, arrowFocus } from '../dom.js?v=06b0d11';
+import { T, chapterQuote } from '../strings.js?v=06b0d11';
 
 /**
  * pages：[{ no, year, title, points, quote, source, owned, grandma }]
@@ -10,7 +10,7 @@ import { T, chapterQuote } from '../strings.js?v=b28f5ae';
 // 英日版：書名與章節名是譯名，頁尾註明一行（中文版是空字串，不顯示）
 const translatedNote = () => (T.translatedNote ? h('p', { class: 'translated-note', text: T.translatedNote }) : null);
 
-export function openProposal({ dialog, pages, appendix = [] }) {
+export function openProposal({ dialog, pages, appendix = [], inspirations = [] }) {
   const body = h('div', { class: 'proposal-body' });
   const close = h('button', { type: 'button', class: 'btn btn--small', text: T.close, onClick: () => dialog.close() });
   const owned = pages.filter((page) => page.owned).length;
@@ -48,6 +48,15 @@ export function openProposal({ dialog, pages, appendix = [] }) {
               { class: 'appendix-list' },
               appendix.map((card) => h('li', { class: 'appendix-card', dataset: { side: card.id } }, h('span', { class: 'lightbox lightbox--small', text: String(card.year) }), h('strong', { text: card.title }), h('p', { text: card.text }), card.chapters.map((title) => h('span', { class: 'side-chapter', text: chapterQuote(title) })))),
             ),
+          )
+        : null,
+      // 沿路撿到的靈感：自己騎車經過才撿得到，一個一行
+      inspirations.length
+        ? h(
+            'section',
+            { class: 'appendix appendix--inspire', 'aria-labelledby': 'inspire-title' },
+            h('h3', { id: 'inspire-title' }, T.inspire.appendix, h('span', { class: 'appendix-count', text: String(inspirations.length) })),
+            h('ol', { class: 'inspire-list' }, inspirations.map((line) => h('li', { text: line }))),
           )
         : null,
       translatedNote(),

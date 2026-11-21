@@ -1694,3 +1694,86 @@ html[lang="en"] .hud-meters .m-name {
     grid-column: 1 / -1;
   }
 }
+
+/* ── 靈感指針（LAUNCH_READINESS #8）：選單鈕下面一塊小牌，✦ 發光、箭頭指向最近的靈感 ── */
+.inspire-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-block-size: 2.1rem;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid rgb(61 255 154 / 0.45);
+  border-radius: 999px;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  transition: opacity 0.3s, border-color 0.3s;
+}
+
+.inspire-chip[hidden] {
+  display: none;
+}
+
+.inspire-spark {
+  color: var(--neon);
+  text-shadow: 0 0 6px var(--neon), 0 0 14px rgb(61 255 154 / 0.6);
+  animation: inspire-glow 1.8s ease-in-out infinite;
+}
+
+.inspire-arrow {
+  display: none;
+  color: var(--neon);
+  rotate: var(--turn, -90deg);
+  transition: rotate 0.15s linear;
+}
+
+.inspire-chip.has-target .inspire-arrow {
+  display: inline-block;
+}
+
+.inspire-dist {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.inspire-chip.is-near {
+  border-color: var(--neon);
+  box-shadow: 0 0 12px rgb(61 255 154 / 0.55);
+}
+
+.inspire-chip.is-auto {
+  opacity: 0.5;
+}
+
+.inspire-chip.is-auto .inspire-spark {
+  animation: none;
+  text-shadow: none;
+}
+
+.inspire-chip.is-pop {
+  animation: inspire-pop 0.6s ease-out;
+}
+
+@keyframes inspire-glow {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes inspire-pop {
+  30% {
+    scale: 1.25;
+    box-shadow: 0 0 22px var(--neon);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inspire-spark,
+  .inspire-chip.is-pop {
+    animation: none;
+  }
+}

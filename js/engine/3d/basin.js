@@ -1,5 +1,5 @@
-import * as T from '../vendor/three.module.min.js?v=b28f5ae';
-import {toWorld,metersPerUnit as unit} from '../world.mjs?v=b28f5ae';
+import * as T from '../vendor/three.module.min.js?v=06b0d11';
+import {toWorld,metersPerUnit as unit} from '../world.mjs?v=06b0d11';
 
 const noise=(x,y)=>{const v=Math.sin(x*127.1+y*311.7)*43758.5453;return v-Math.floor(v);};
 function valueNoise(x,y){

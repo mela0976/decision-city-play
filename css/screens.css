@@ -850,3 +850,209 @@
     display: none;
   }
 }
+
+/* ── 年度選擇（LAUNCH_READINESS #10）：九張年份卡，重玩結束時最上面一張結果卡 ── */
+.years {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: clamp(0.5rem, 1.8vh, 1rem);
+  padding: var(--top) var(--edge) calc(var(--bottom) + var(--hint-h) + 0.3rem);
+  background:
+    radial-gradient(90% 70% at 85% 0%, rgb(61 255 154 / 0.08), transparent 60%),
+    var(--ink);
+}
+
+.years-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.years-head h2 {
+  font-size: clamp(1.3rem, 2.6vmin + 0.6rem, 2rem);
+  letter-spacing: 0.16em;
+}
+
+.years-body {
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.year-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.year-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-items: start;
+  gap: 0.2rem;
+  inline-size: 100%;
+  min-block-size: clamp(6.5rem, 18vh, 10rem);
+  padding: 0.7rem 0.9rem;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 2px;
+  background: var(--panel-solid);
+  color: var(--text);
+  text-align: start;
+  cursor: pointer;
+}
+
+.year-card .year-art {
+  position: absolute;
+  inset: 0;
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.year-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(4 6 9 / 0.92), rgb(4 6 9 / 0.2) 70%);
+  pointer-events: none;
+}
+
+.year-card > :not(.year-art) {
+  position: relative;
+  z-index: 1;
+}
+
+.year-card:hover,
+.year-card:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.year-card:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.year-no {
+  font-family: var(--mono);
+  font-size: clamp(1.5rem, 2.4vmin + 0.8rem, 2.2rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.year-title {
+  align-self: end;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.year-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.year-state {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 1.4rem;
+  block-size: 1.4rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  font-size: 0.85rem;
+}
+
+.year-state.is-done {
+  border-color: var(--neon);
+  background: var(--neon);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.year-result {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-inline-start: 3px solid var(--red);
+  border-radius: 2px;
+  background: var(--panel);
+}
+
+.year-result.is-cleared {
+  border-inline-start-color: var(--neon);
+}
+
+.year-result header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+}
+
+.year-stamp {
+  margin-inline-start: auto;
+  padding: 0.05rem 0.6rem;
+  border: 1.5px solid currentcolor;
+  color: var(--red);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.year-result.is-cleared .year-stamp {
+  color: var(--neon);
+}
+
+.year-deltas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.year-deltas li {
+  display: flex;
+  gap: 0.4rem;
+  color: var(--muted);
+}
+
+.year-deltas b {
+  font-family: var(--mono);
+  color: var(--text);
+}
+
+.year-deltas .is-good b {
+  color: var(--neon);
+}
+
+.year-deltas .is-bad b {
+  color: var(--red);
+}
+
+.year-facts {
+  color: var(--muted);
+}
+
+@media (orientation: portrait) {
+  .year-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+  }
+
+  .year-card {
+    min-block-size: 7rem;
+  }
+}

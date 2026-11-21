@@ -1,7 +1,7 @@
 // 下方提示列的內容：依目前狀態與輸入方式（鍵盤或觸控）決定。
 // 回傳 { task, parts }；parts 每段是 { keys: [鍵帽…], text }。
 
-import { T, KEY, HINT } from './strings.js?v=b28f5ae';
+import { T, KEY, HINT } from './strings.js?v=06b0d11';
 
 // A24 the engine publishes wait transitions on its canvas before refreshing the ride hint.
 let waitingForSignal=false;
@@ -25,6 +25,8 @@ export function hintFor(state, mode) {
   switch (state?.kind) {
     case 'title':
       return { task: '', parts: touch ? [say(`${HINT.tap} ${HINT.start}`)] : [part(KEY.action, state.canContinue ? HINT.resume : HINT.start)] };
+    case 'years':
+      return { task: touch ? '' : HINT.pickYear, parts: touch ? [say(HINT.tapYear)] : [part([KEY.left, KEY.right], HINT.select), part(KEY.action, HINT.confirm)] };
     case 'error':
       return { task: '', parts: touch ? [say(`${HINT.tap} ${HINT.retry}`)] : [part(KEY.action, HINT.retry)] };
     case 'roles':

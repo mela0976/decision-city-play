@@ -1,17 +1,17 @@
-import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=b28f5ae';
-import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=b28f5ae';
-import * as T from '../vendor/three.module.min.js?v=b28f5ae';
-import {drawCockpit} from '../car-cockpit.js?v=b28f5ae'; // A26
-import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=b28f5ae';
-import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=b28f5ae'; // i18n
-import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=b28f5ae';
-import {createActors} from './actors.js?v=b28f5ae';
-import {streetCrowds} from '../crowds.mjs?v=b28f5ae';
-import {xinyiBusBay} from './street-life.js?v=b28f5ae';
-import {createFarCity} from './far-city.js?v=b28f5ae'; // A20 far-city
-import {createOsmCity} from './osm-city.js?v=b28f5ae';
-import {metersPerUnit as unit} from '../world.mjs?v=b28f5ae';
-import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=b28f5ae';
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=06b0d11';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=06b0d11';
+import * as T from '../vendor/three.module.min.js?v=06b0d11';
+import {drawCockpit} from '../car-cockpit.js?v=06b0d11'; // A26
+import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=06b0d11';
+import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=06b0d11'; // i18n
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=06b0d11';
+import {createActors} from './actors.js?v=06b0d11';
+import {streetCrowds} from '../crowds.mjs?v=06b0d11';
+import {xinyiBusBay} from './street-life.js?v=06b0d11';
+import {createFarCity} from './far-city.js?v=06b0d11'; // A20 far-city
+import {createOsmCity} from './osm-city.js?v=06b0d11';
+import {metersPerUnit as unit} from '../world.mjs?v=06b0d11';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=06b0d11';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);
