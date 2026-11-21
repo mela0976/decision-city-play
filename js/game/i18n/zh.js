@@ -220,6 +220,8 @@ export const T = {
   a11yDialogue: '對話',
   a11yClock: '遊戲時間',
   mapYou: '玩家',
+  // 引擎畫在街景上的字（engine.setLabels 的 ui）
+  mapUi: { autopilot: '自動駕駛中', mrtEntrance: '捷運入口', credit: '底圖：Google Maps　遊戲角色與道路：本作／OSM' },
   feedSelf: ['我', '本人', '自己'],
   forumTags: { up: '推', down: '噓', arrow: '→' },
   fallbackKai: '今天先到這，簡報我來補。',

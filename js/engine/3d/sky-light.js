@@ -1,7 +1,7 @@
-import * as T from '../vendor/three.module.min.js?v=897423c';
-import {makeEnvironment,makePanoramas} from './pbr.js?v=897423c';
-import {createBloom} from './bloom.js?v=897423c';
-import {random} from '../world.mjs?v=897423c';
+import * as T from '../vendor/three.module.min.js?v=b28f5ae';
+import {makeEnvironment,makePanoramas} from './pbr.js?v=b28f5ae';
+import {createBloom} from './bloom.js?v=b28f5ae';
+import {random} from '../world.mjs?v=b28f5ae';
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const palettes=[
@@ -101,7 +101,7 @@ export function createSkyLight(view,context,doc,enabled){
   view.shadowMap.type=T.PCFShadowMap;
   const bloom=enabled&&context.getExtension('EXT_color_buffer_float')?createBloom(view):null;
   const scene=new T.Scene();
-  const environment=makeEnvironment(doc,view);
+  let environment=makeEnvironment(doc,view);
   const panoramas=makePanoramas(doc,view);
   scene.environment=environment.texture;
   scene.fog=new T.FogExp2('#a68973',.0094);
@@ -205,6 +205,11 @@ export function createSkyLight(view,context,doc,enabled){
     const lowSunGlare=T.MathUtils.smoothstep(time,15.55,16)*(1-T.MathUtils.smoothstep(time,16.02,16.65));
     view.toneMappingExposure=1.28-lowSunGlare*.14+nightGrade*(raining?.07:.16)+eveningGrade*1.45;
     return {night,raining,lamps};
+  },restore(){ // E3 context 還回來：重做環境反射圖，天空全景的反射用到時重算
+    environment.dispose();
+    environment=makeEnvironment(doc,view);
+    if(enabled)scene.environment=environment.texture;
+    panoramas.reset();
   },dispose(){panoramas.dispose();environment.dispose();}};
 }
 function rainFx(ctx,w,h,clock) {

@@ -180,11 +180,18 @@ export async function createEngine({ canvas, minimapCanvas }) {
       interact();
     } else if (key === 'g') setAutoRide(!state.autoRide);
     else if (key === 'f') toggleMode();
-    else if (key === 'm') state.bigMap = !state.bigMap;
+    else if (key === 'm') toggleMap();
+    else if (key === 'escape' && state.bigMap) {
+      e.preventDefault();
+      toggleMap();
+    }
   };
-  const onMapClick = () => {
+  // 跟真引擎一樣：大地圖開關都發 map:change
+  const toggleMap = () => {
     state.bigMap = !state.bigMap;
+    emit('map:change', { open: state.bigMap });
   };
+  const onMapClick = () => toggleMap();
   const onKeyUp = (e) => keys.delete(e.key.toLowerCase());
   const onBlur = () => keys.clear();
 

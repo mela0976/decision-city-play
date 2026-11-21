@@ -1,4 +1,4 @@
-import * as T from '../vendor/three.module.min.js?v=897423c';
+import * as T from '../vendor/three.module.min.js?v=b28f5ae';
 
 export function surfaceMaps(doc,source,anisotropy,strength){
   const size=512,canvas=doc.createElement('canvas');
@@ -83,6 +83,12 @@ export function makePanoramas(doc,renderer){
       return {a,b,mix,reflection:reflections.get(key).texture};
     },
     keys:()=>[...images.keys()],
+    // E3 WebGL context 還回來之後，預先算好的反射圖（PMREM）內容已經不見，清掉讓它用到時重算
+    reset(){
+      for(const reflection of reflections.values())reflection.dispose();
+      reflections.clear();
+      generator?.dispose();generator=null;
+    },
     dispose(){
       disposed=true;
       for(const image of images.values())image.dispose();

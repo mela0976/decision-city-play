@@ -1,7 +1,7 @@
-import {createMapRenderer,drawTouch} from '../overlay.js?v=897423c';
-import {createWindshield} from './windshield.js?v=897423c'; // A26
-import {placeLabel} from '../labels.mjs?v=897423c'; // i18n
-import { buildings, byId, columns, height, locations, random, river, roads, rows, water, width } from '../world.mjs?v=897423c';
+import {createMapRenderer,drawTouch} from '../overlay.js?v=b28f5ae';
+import {createWindshield} from './windshield.js?v=b28f5ae'; // A26
+import {placeLabel,uiLabel} from '../labels.mjs?v=b28f5ae'; // i18n
+import { buildings, byId, columns, height, locations, random, river, roads, rows, water, width } from '../world.mjs?v=b28f5ae';
 
 const ink='#242b30';
 const paper='#fff2cd';
@@ -213,7 +213,7 @@ function building(ctx,b,camera,night) {
   if (b.id==='mrt') {
     box(ctx,rx+13,ry+12,w-35,49,'#286c68');
     for (let i=20;i<w-28;i+=12) line(ctx,[[rx+i,ry+13],[rx+i,ry+60]],'#9be0c4',2);
-    label(ctx,'捷運入口',rx+w*.46,ry+25,'#baf1d8',11);
+    label(ctx,uiLabel('mrtEntrance'),rx+w*.46,ry+25,'#baf1d8',11);
   } else if (b.id==='riverside') {
     polygon(ctx,[[rx+10,ry+32],[rx+w/2,ry+4],[rx+w-10,ry+32],[rx+w-20,ry+52],
       [rx+20,ry+52]],'#6c9255');

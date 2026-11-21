@@ -221,6 +221,7 @@ export const T = {
   a11yDialogue: 'Dialogue',
   a11yClock: 'Game time',
   mapYou: 'You',
+  mapUi: { autopilot: 'Self-driving', mrtEntrance: 'MRT entrance', credit: 'Map: Google Maps · Characters & roads: this game / OSM' },
   feedSelf: ['Me', 'Myself', 'Self'],
   forumTags: { up: '▲', down: '▼', arrow: '→' },
   fallbackKai: 'That\'s it for today. I\'ll finish the deck.',

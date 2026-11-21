@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=897423c'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=897423c'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=897423c'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=897423c'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=897423c';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=897423c'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=897423c';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=897423c'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=897423c';
-import {neonDistrict} from './neon-districts.mjs?v=897423c'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=897423c';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=897423c';
-import {streetCrowds} from './crowds.mjs?v=897423c';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=897423c';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=897423c';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=897423c';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=897423c';
-import { touchControls } from './overlay.js?v=897423c';
-import {setLabels,placeLabel} from './labels.mjs?v=897423c'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=b28f5ae'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=b28f5ae'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=b28f5ae'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=b28f5ae'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=b28f5ae';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=b28f5ae'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=b28f5ae';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=b28f5ae'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=b28f5ae';
+import {neonDistrict} from './neon-districts.mjs?v=b28f5ae'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=b28f5ae';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=b28f5ae';
+import {streetCrowds} from './crowds.mjs?v=b28f5ae';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=b28f5ae';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=b28f5ae';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=b28f5ae';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=b28f5ae';
+import { touchControls } from './overlay.js?v=b28f5ae';
+import {setLabels,placeLabel} from './labels.mjs?v=b28f5ae'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -1187,6 +1187,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     state.largeMap=!state.largeMap;
     clearInput();
     refresh();
+    emit('map:change',{open:state.largeMap}); // E3 大地圖開關一律從這裡發事件
   }
   const actionKeysOnly=new Set(['KeyE','Space','Enter']);
   function finishFlight(){
@@ -1213,6 +1214,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   let walkSelected=false;
   function keyDown(event) {
     const {code,target}=event;
+    // E3 大地圖開著時 Esc 只收地圖（遊戲層這時不開選單）
+    if(code==='Escape'&&state.largeMap&&!flight&&enabled&&!paused&&!event.defaultPrevented){event.preventDefault();toggleMap();return;}
     if ((!enabled&&!flight) || paused || event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey ||
       target?.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(target?.tagName??'') ||
       (!keysForMove.has(code) && !actionKeys.has(code))) return;

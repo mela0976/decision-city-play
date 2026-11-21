@@ -1,10 +1,10 @@
 // 第一次遊玩的互動教學：序幕之後、前往晨會的路上，畫面左側一張小清單（轉向、前進、地圖、自動前往）。
 // 做到一項就打勾、淡出那一項；全部完成或 60 秒後收起，可以略過。只出現一次（存在偏好 coachDone），操作手冊可以重看。
 // 「做到」看的是引擎狀態，不看鍵碼：engine.player 的朝向與位置變化、autoride:change；
-// 地圖：引擎若發出 map:change 就用它，沒有的話退回小地圖被點、或 M 鍵（引擎目前沒有地圖開關事件）。
+// 地圖：看引擎的 map:change（M 鍵、點小地圖、觸控按鈕都由引擎發）。
 
-import { h } from '../dom.js?v=897423c';
-import { T, KEY } from '../strings.js?v=897423c';
+import { h } from '../dom.js?v=b28f5ae';
+import { T, KEY } from '../strings.js?v=b28f5ae';
 
 export const COACH_STEPS = ['turn', 'forward', 'map', 'auto'];
 const LIMIT_MS = 60000;
@@ -113,10 +113,6 @@ export function createCoach({ root, engine, canRun, isDone, markDone }) {
     last = { x: p.x, y: p.y, heading: p.heading };
   };
 
-  const listen = (target, event, fn, opts) => {
-    target.addEventListener(event, fn, opts);
-    unsubs.push(() => target.removeEventListener(event, fn, opts));
-  };
   const onEngine = (event, fn) => {
     engine.on?.(event, fn);
     unsubs.push(() => engine.off?.(event, fn));
@@ -128,14 +124,8 @@ export function createCoach({ root, engine, canRun, isDone, markDone }) {
       if (on) tick('auto', 'autoride:change');
     });
     onEngine('map:change', ({ open } = {}) => {
-      if (open !== false) tick('map', 'map:change');
+      if (open) tick('map', 'map:change');
     });
-    // 退路：引擎沒有地圖事件時，小地圖被點（觸控）或 M 鍵（鍵盤）就算打開了地圖
-    const minimap = document.getElementById('hud-map');
-    if (minimap) listen(minimap, 'click', () => canRun() && tick('map', 'minimap'), true);
-    listen(window, 'keydown', (e) => {
-      if (e.code === 'KeyM' && !e.repeat && canRun()) tick('map', 'key');
-    }, true);
   }
 
   function finish(reason) {

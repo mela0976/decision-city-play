@@ -220,6 +220,7 @@ export const T = {
   a11yDialogue: '会話',
   a11yClock: 'ゲーム内の時刻',
   mapYou: '現在地',
+  mapUi: { autopilot: '自動運転中', mrtEntrance: 'MRT出入口', credit: '地図：Google Maps　キャラクターと道路：本作／OSM' },
   feedSelf: ['私', '本人', '自分'],
   forumTags: { up: '▲', down: '▼', arrow: '→' },
   fallbackKai: '今日はここまで。スライドは俺が仕上げとく。',

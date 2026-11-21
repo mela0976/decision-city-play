@@ -1,11 +1,11 @@
-import * as T from '../vendor/three.module.min.js?v=897423c';
-import {roads,roadNodes,roadAt,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=897423c';
-import {crossingForNode} from '../street-crossings.mjs?v=897423c';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=897423c';
-import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=897423c';
-import {paintJunctions} from './junction-markings.js?v=897423c'; // A24
+import * as T from '../vendor/three.module.min.js?v=b28f5ae';
+import {roads,roadNodes,roadAt,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=b28f5ae';
+import {crossingForNode} from '../street-crossings.mjs?v=b28f5ae';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=b28f5ae';
+import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=b28f5ae';
+import {paintJunctions} from './junction-markings.js?v=b28f5ae'; // A24
 
-import {drawSidewalks} from './sidewalks.js?v=897423c'; // A24
+import {drawSidewalks} from './sidewalks.js?v=b28f5ae'; // A24
 const {plane}=shapes;
 export function createRoads({batch,furnitureInstance,doc,group,signs,enabled}) {
   const roadMarkMaterials=new Map(),symbols=new Map(); // A24

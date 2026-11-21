@@ -1,6 +1,6 @@
-import {createRenderer as create2D} from './2d/render.js?v=897423c';
-import {googleKey,probeGoogle} from './google-session.js?v=897423c';
-import {createSimulation} from './simulation.js?v=897423c';
+import {createRenderer as create2D} from './2d/render.js?v=b28f5ae';
+import {googleKey,probeGoogle} from './google-session.js?v=b28f5ae';
+import {createSimulation} from './simulation.js?v=b28f5ae';
 
 function layerFor(canvas) {
   const layer=canvas.ownerDocument.createElement('canvas');
@@ -36,7 +36,7 @@ export async function createEngine({canvas,minimapCanvas}) {
       canvas.removeAttribute('data-engine-stats');
     };
     try {
-      const {createRenderer}=await import('./3d/render.js?v=897423c');
+      const {createRenderer}=await import('./3d/render.js?v=b28f5ae');
       const context=canvas.getContext('webgl2',{alpha:false,antialias:false,powerPreference:'high-performance'});
       if (!context) throw Error('WebGL 2 unavailable');
       failureContext=true;
@@ -49,7 +49,7 @@ export async function createEngine({canvas,minimapCanvas}) {
         const probe=await probeGoogle(key);
         if(!probe.ok){canvas.dataset.engineReason=probe.reason;return null;}
         try{
-          const {createGoogleLayer}=await import('./3d/google.js?v=897423c');
+          const {createGoogleLayer}=await import('./3d/google.js?v=b28f5ae');
           return createGoogleLayer(...args,probe);
         }catch{
           canvas.dataset.engineReason='Google 圖磚載入器不可使用';
@@ -60,7 +60,7 @@ export async function createEngine({canvas,minimapCanvas}) {
       const draw3D=createRenderer(canvas,minimapCanvas,overlay,context,googleLayer,mode==='google');
       canvas.dataset.engine='stylized';
       dispose3D=draw3D.dispose;
-      draw=state=>{
+      const render3D=state=>{
         lastState=state;
         try { draw3D(state); }
         catch(error) {
@@ -69,11 +69,30 @@ export async function createEngine({canvas,minimapCanvas}) {
           draw(state);
         }
       };
+      draw=render3D;
+      // E3 context 暫時失去：3D 場景留著，先在覆蓋層用 2D 畫；瀏覽器還回 context 就回到 3D。
+      // 只有 3D 本身出錯（fallback）才永久換 2D。
+      let lost2D=null,lostReason=null;
       canvas.addEventListener('webglcontextlost',event=>{
         event.preventDefault();
-        fallback();
+        if(canvas.dataset.engine==='2d')return;
+        lost2D??=create2D(overlay,minimapCanvas);
+        draw=state=>{lastState=state;lost2D(state);};
+        lostReason=canvas.dataset.engineReason??'';
+        canvas.dataset.engine='2d';
+        canvas.dataset.engineReason='WebGL 暫時中斷，等待恢復';
         if (lastState) draw(lastState);
-      },{once:true});
+      });
+      canvas.addEventListener('webglcontextrestored',()=>{
+        if(lostReason===null||draw===render3D)return;
+        try{draw3D.restore?.();}
+        catch(error){if(query.has('collisionAudit'))console.error(error);}
+        draw=render3D;
+        canvas.dataset.engine='stylized';
+        canvas.dataset.engineReason=lostReason;
+        lostReason=null;
+        if (lastState) draw(lastState);
+      });
     } catch(error) {
       if(query.has('collisionAudit'))console.error(error);
       fallback();

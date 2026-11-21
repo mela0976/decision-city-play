@@ -1,17 +1,17 @@
-import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=897423c';
-import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=897423c';
-import * as T from '../vendor/three.module.min.js?v=897423c';
-import {drawCockpit} from '../car-cockpit.js?v=897423c'; // A26
-import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=897423c';
-import {placeLabel,landmarkLabel,playerLabel} from '../labels.mjs?v=897423c'; // i18n
-import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=897423c';
-import {createActors} from './actors.js?v=897423c';
-import {streetCrowds} from '../crowds.mjs?v=897423c';
-import {xinyiBusBay} from './street-life.js?v=897423c';
-import {createFarCity} from './far-city.js?v=897423c'; // A20 far-city
-import {createOsmCity} from './osm-city.js?v=897423c';
-import {metersPerUnit as unit} from '../world.mjs?v=897423c';
-import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=897423c';
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=b28f5ae';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=b28f5ae';
+import * as T from '../vendor/three.module.min.js?v=b28f5ae';
+import {drawCockpit} from '../car-cockpit.js?v=b28f5ae'; // A26
+import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=b28f5ae';
+import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=b28f5ae'; // i18n
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=b28f5ae';
+import {createActors} from './actors.js?v=b28f5ae';
+import {streetCrowds} from '../crowds.mjs?v=b28f5ae';
+import {xinyiBusBay} from './street-life.js?v=b28f5ae';
+import {createFarCity} from './far-city.js?v=b28f5ae'; // A20 far-city
+import {createOsmCity} from './osm-city.js?v=b28f5ae';
+import {metersPerUnit as unit} from '../world.mjs?v=b28f5ae';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=b28f5ae';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);
@@ -514,13 +514,14 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
           ctx.globalAlpha=1;
         }
       }
-      if(!state.flyover&&evPortrait){const at=project(evPortrait.x,1.98,evPortrait.y);if(at)tag(ctx,'自動駕駛中',...at);}
+      const autopilot=uiLabel('autopilot'); // i18n
+      if(!state.flyover&&evPortrait){const at=project(evPortrait.x,1.98,evPortrait.y);if(at)tag(ctx,autopilot,...at);}
       if(!aerial)for(const car of state.cars){
         if(car.hidden||car.scooter||car.service||((car.node*13+Math.floor(clock*.25))%5)!==0)continue;
         const gap=Math.hypot(car.x-player.x,car.y-player.y);
         if(gap<24||gap>155)continue;
         const at=project(car.x,1.91,car.y);
-        if(at)tag(ctx,'自動駕駛中',...at);
+        if(at)tag(ctx,autopilot,...at);
       }
       if(!state.flyover)for (const npc of state.npcs) {
         if(Math.hypot(npc.x-player.x,npc.y-player.y)>74) continue;
@@ -572,7 +573,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       ctx.fillStyle='#fff';
       lines.forEach((line,i)=>ctx.fillText(line,left+10,top+31+i*13,max-20));
       ctx.font='10px system-ui';
-      ctx.fillText('底圖：Google Maps　遊戲角色與道路：本作／OSM',left+10,top+hBox-4,max-20);
+      ctx.fillText(uiLabel('credit'),left+10,top+hBox-4,max-20); // i18n
     }
     if(state.flyover?.retreat){
       ctx.fillStyle=`rgba(15,23,32,${state.flyover.retreat*.96})`;
@@ -587,6 +588,8 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     }
   };
   draw.ready=actors.ready;
+  // E3 WebGL context 還回來：Three.js 會自己重傳貼圖與幾何，這裡補做渲染器算出來的貼圖
+  draw.restore=()=>{atmosphere.restore();sun.shadow.map?.dispose();sun.shadow.map=null;lastView=-1;};
   draw.dispose=()=>{disposed=true;farCity?.dispose();tiles?.dispose();actors.dispose();atmosphere.dispose();view.dispose();};
   return draw;
 }
