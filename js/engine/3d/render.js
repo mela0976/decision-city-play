@@ -170,7 +170,8 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       lastView=viewRevision;
       lastHeading=player.heading;
     }
-    if(player.speed>3) heading+=diff(player.heading,heading)*(1-Math.exp(-dt*6.5));
+    // A25 rider-relative controls: the chase camera stays behind the rider, also while turning in place.
+    heading+=diff(player.heading,heading)*(1-Math.exp(-dt*(player.speed>3?6.5:4.2)));
     const turn=clamp(diff(player.heading,lastHeading)/Math.max(.015,dt)*.11,-1,1);
     if(dt>0 || snap) lastHeading=player.heading;
     roll+=(turn*.054-roll)*(1-Math.exp(-dt*6));

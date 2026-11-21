@@ -8,7 +8,10 @@ let waitingForSignal=false;
 globalThis.document?.addEventListener('signal:wait',event=>{waitingForSignal=event.detail.seconds>0;});
 
 const part = (keys, text) => ({ keys: [].concat(keys || []), text: text || '' });
-const curbNotes = { parked: T.curbParked, road: T.curbRoad, walk: T.curbWalk }; // A24
+const curbNotes = { parked: T.curbParked, road: T.curbRoad, walk: T.curbWalk, // A24
+  // A25 autoride refusals and the stuck-player rescue
+  'auto-here': T.autoHere, 'auto-target': T.autoNoTarget, 'auto-route': T.autoNoRoute, 'auto-mount': T.autoNoMount,
+  'auto-landing': T.autoLanding, rescued: T.rescued };
 export const curbHint = kind => curbNotes[kind] ?? T.curbRoad;
 const say = (text) => part([], text);
 const numbers = (count) => Array.from({ length: count }, (_, i) => String(i + 1));

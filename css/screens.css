@@ -822,3 +822,22 @@
 :root:lang(ja) .roles-head .btn {
   white-space: nowrap;
 }
+
+/* 成績單底下：分享成果＋再玩一次 */
+.report-actions {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 0.5rem;
+}
+
+.report-actions .btn {
+  padding-inline: 0.8rem;
+}
+
+/* 矮的桌機視窗（約 720px 高）：分享鈕加進來後成績單會超出，年份格省掉（上面「提案頁數」已有數字） */
+@media (max-height: 760px) {
+  .report-books {
+    display: none;
+  }
+}

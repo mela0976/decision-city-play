@@ -28,3 +28,21 @@ export function subtractRectangle(vertices,ramp,mask){
   }
   return pieces;
 }
+
+// A25 subtract a convex polygon given as [[x,z],...] in counter-clockwise or clockwise order.
+export function subtractConvex(vertices,poly){
+  let area=0;
+  for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length];area+=a[0]*b[1]-b[0]*a[1];}
+  const sign=area>0?1:-1;
+  let remaining=vertices;
+  const pieces=[];
+  for(let i=0;i<poly.length;i++){
+    const a=poly[i],b=poly[(i+1)%poly.length];
+    // Inside of the edge (towards the polygon) is positive.
+    const {inside,outside}=split(remaining,p=>sign*((b[0]-a[0])*(p[2]-a[1])-(b[1]-a[1])*(p[0]-a[0])));
+    if(outside.length>=3)pieces.push(outside);
+    if(inside.length<3)return pieces;
+    remaining=inside;
+  }
+  return pieces;
+}

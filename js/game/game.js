@@ -23,8 +23,12 @@ import { showEnding } from './ui/ending.js';
 import { openProposal } from './ui/proposal.js';
 import { playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js';
 import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js';
+import { openManual } from './ui/manual.js';
 import { openElderCard } from './ui/elder-card.js';
 import { langControls } from './ui/lang-switch.js';
+import { createCoach } from './ui/coach.js';
+import { shareResult } from './share.js';
+import { VERSION } from './version.js';
 
 // 固定規則：docs/CONTRACTS.md 第 3.4 節。
 const QUIZ_RIGHT = { trust: 3 };
@@ -135,6 +139,15 @@ export class Game {
     });
     // 點過 HUD 上的按鈕後把焦點還給街景，方向鍵與動作鍵才不會落在那顆按鈕上。
     els.hud.addEventListener('click', () => setTimeout(() => this.focusCanvas(), 0));
+
+    // 第一次遊玩的互動教學：只在自由騎乘時計時與判斷，其他時候藏起來
+    this.coach = createCoach({
+      root: els.stage,
+      engine,
+      canRun: () => this.free && this.worldRunning,
+      isDone: () => store.readPrefs().coachDone === true,
+      markDone: () => store.writePrefs({ ...store.readPrefs(), coachDone: true }),
+    });
 
     this.bindEngine();
     this.bindWindow();
@@ -818,6 +831,7 @@ export class Game {
   // ── 標題 ───────────────────────────────────────────
 
   showTitle() {
+    this.coach?.stop('title');
     this.abortFlow();
     this.phase = 'title';
     this.objective = null;
@@ -856,6 +870,7 @@ export class Game {
   }
 
   showRoles() {
+    this.coach?.stop('title');
     this.abortFlow();
     this.phase = 'select';
     this.setFree(false);
@@ -1056,6 +1071,8 @@ export class Game {
       this.tuneRadio(mission.year);
       this.setFree(true);
       this.focusCanvas();
+      // 序幕之後第一次能自由移動：前往晨會的路上開始互動教學（偏好裡記過就不再出現）
+      this.coach.start();
       return;
     }
     this.objective = { kind: 'mission', mission, markerId: mission.id, locationId: mission.locationId };
@@ -1572,6 +1589,7 @@ export class Game {
   async runEnding({ forced = false, ignoreGrandma = false } = {}) {
     if (this.phase === 'ending') return;
     this.phase = 'ending';
+    this.coach.stop('ending');
     this.state.currentMissionId = null;
     const signal = this.newFlow();
     this.setFree(false);
@@ -1622,10 +1640,62 @@ export class Game {
         note: forced ? T.forcedEnd : '',
         sfx: this.sfx,
         onAgain: () => this.showRoles(),
+        onShare: () => this.shareEnding({ ending, stamp: asGrandma ? T.endingStampGrandma : ending.id || '' }),
       }),
       'ending',
     );
     this.setHint('ending');
+  }
+
+  /** 結局分享圖：職能、結局等級與標題、四個數值、完成任務與支線數、提案第一頁標題、遊戲網址。 */
+  async shareEnding({ ending, stamp }) {
+    const { content, state } = this;
+    const side = content.side.missions.length ? chapterProgress(this) : null;
+    const pages = proposalPages(this);
+    const first = pages.find((page) => page.owned) || null;
+    const result = await shareResult({
+      assets: this.assets,
+      image: ending.image,
+      role: this.role?.title || '',
+      stamp,
+      endingTitle: ending.title || '',
+      meters: { ...state.meters },
+      missionsDone: state.doneMissionIds.length,
+      missionsTotal: content.missions.length,
+      sidesDone: side ? side.sidesDone : null,
+      sidesTotal: side ? side.sidesTotal : null,
+      proposal: first?.title || '',
+    });
+    if (result.kind === 'download') this.toast(result.copied ? T.share.saved : T.share.savedOnly, { tone: 'good' });
+    else if (result.kind === 'error') this.toast(T.share.failed);
+    return result;
+  }
+
+  /** 錯誤卡「複製錯誤資訊」用的目前畫面狀態（不含任何個資）。 */
+  errorContext() {
+    let player = null;
+    try {
+      const p = this.engine.player;
+      player = p ? { x: Math.round(p.x), y: Math.round(p.y), heading: Number((p.heading || 0).toFixed(2)), speed: Number((p.speed || 0).toFixed(2)), locationId: p.locationId ?? null, mode: p.mode ?? null } : null;
+    } catch {
+      player = null;
+    }
+    return {
+      phase: this.phase,
+      stage: this.els.stage.dataset.phase || '',
+      scene: this.els.stage.dataset.scene || '',
+      engineKind: this.engineKind,
+      free: this.free,
+      auto: this.autoOn,
+      input: this.inputMode,
+      objective: this.objective ? { kind: this.objective.kind, marker: this.objective.markerId, at: this.objective.locationId } : null,
+      role: this.state.roleId,
+      clock: this.state.clock,
+      meters: this.state.meters,
+      done: this.state.doneMissionIds.length,
+      dialogs: this.els.dialogs.filter((d) => d.open).map((d) => d.id),
+      player,
+    };
   }
 
   // ── 阿嬤模組 ───────────────────────────────────────
@@ -1813,9 +1883,10 @@ export class Game {
         this.store.writePrefs({ ...this.store.readPrefs(), hint: this.hint.enabled });
       },
     });
+    items.push({ id: 'manual', label: () => T.menuManual, onSelect: () => openManual({ dialog: this.els.manual, onClose: () => this.syncWorld(), onReplay: this.free ? () => this.coach.start({ force: true }) : null }) });
     items.push({ id: 'unstuck', label: () => T.menuUnstuck, onSelect: () => this.unstuck() });
     items.push({ id: 'restart', label: () => T.menuRestart, danger: true, onSelect: () => this.restart() });
-    openMenu({ dialog: this.els.menu, items, extra: [soundControls(this.sound), langControls()], note: this.store.available ? '' : T.noSaving });
+    openMenu({ dialog: this.els.menu, items, extra: [soundControls(this.sound), langControls()], note: this.store.available ? '' : T.noSaving, version: T.version(VERSION) });
     this.syncWorld();
   }
 

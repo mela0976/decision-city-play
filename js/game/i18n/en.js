@@ -10,6 +10,7 @@ export const METER_NAMES = {
 
 export const T = {
   curbParked: 'Parked. Walk the rest', curbRoad: 'Get back on the road', curbWalk: 'F: get off and walk', // A24
+  autoHere: 'You are already here', autoNoTarget: 'No destination yet', autoNoRoute: 'No route from here. Ride to a bigger road first', autoNoMount: 'Get back on the road', autoLanding: 'Auto ride starts after landing', rescued: 'Moved you back onto the road', // A25
   name: 'Decision City',
   nameEn: 'Decision City',
   hook: 'One day. Nine years.',
@@ -84,6 +85,18 @@ export const T = {
   relief: 'Catch Your Breath',
 
   menu: 'Menu',
+  menuManual: 'How to Play',
+  manual: {
+    title: 'How to Play',
+    close: 'Close',
+    sections: [
+      { h: 'Riding and Moving', rows: [['↑ / ↓', 'Go forward / brake and reverse.'], ['← / →', 'Turn left or right, relative to your rider.'], ['G / ➤', 'Auto-ride to the current task. Press again or steer to cancel.'], ['F', 'Get off and walk, or get back on. Sidewalks and arcades are walk-only.'], ['T', 'Flying EV: take off or land. Signals don\'t apply in the air.'], ['M', 'Open or close the big map.']] },
+      { h: 'Interacting', rows: [['Space / bottom-right button', 'Talk, enter a mission, continue dialogue.'], ['1 · 2 · 3', 'Pick an option or answer, or just tap it.'], ['Esc / ☰', 'Open the menu: pitch, side jobs, sound, language.']] },
+      { h: 'Your Day', rows: [['Morning meeting', 'After the prologue, head to Fubang A25 for the meeting.'], ['Nine missions', 'Visit nine sites in order; each adds a page to the pitch.'], ['Side jobs', 'Optional jobs open for each year you clear; chapters you read go into the appendix.'], ['Wrap', 'Get back to Wuxing St. Stir-Fry by nine for tonight\'s ending.']] },
+      { h: 'The Four Meters', rows: [['Brand · Sales · Client Trust', 'Choices and answers move them and decide your ending grade.'], ['Burnout', 'Too high and the day ends early. Rest at the riverside or the breakfast shop.']] },
+      { h: 'Street Rules', rows: [['Traffic lights', 'Auto-ride stops at red. Riding yourself isn\'t blocked, but cars can hit you.'], ['Sidewalks', 'Scooters can\'t go up. At the curb you\'ll be told to walk.']] },
+    ],
+  },
   menuResume: 'Keep Playing',
   menuElder: 'Make a Good-Morning Card',
   menuGrandmaOn: 'Ama Mode: On',
@@ -209,10 +222,32 @@ export const T = {
   translatedNote: 'Book and chapter titles are translations of the Traditional Chinese edition.',
   language: 'Language',
   langNames: { zh: '中文', en: 'English', ja: '日本語' },
+  // Launch readiness: first-run coach, error card, ending share image, version
+  coach: { label: 'Controls', turn: 'Turn', forward: 'Forward', map: 'Open map', auto: 'Auto-Ride', skip: 'Skip', replay: 'Replay the Tutorial' },
+  oops: {
+    title: 'Something went wrong',
+    text: "The game is still running. Try Back to the Road first; if that fails, reload. Your save stays.",
+    back: 'Back to the Road',
+    reload: 'Reload',
+    copy: 'Copy Error Info',
+    copied: 'Copied',
+    copyFailed: "Couldn't copy",
+    recovered: 'The picture is back',
+  },
+  share: {
+    button: 'Share Result',
+    proposal: 'Pitch, page 1',
+    file: 'decision-city-result.png',
+    text: (title) => `My ending in Decision City: ${title}`,
+    saved: 'Image saved, link copied',
+    savedOnly: 'Image saved',
+    failed: "Couldn't make the image",
+  },
+  version: (v) => `Version ${v}`,
 };
 
 // Bottom hint bar: left side is what to do now, right side is what you can press. Keep it short.
-export const KEY = { action: 'Space', arrows: 'Arrows', esc: 'Esc', auto: 'G', map: 'M', left: '←', right: '→' };
+export const KEY = { action: 'Space', arrows: 'Arrows', esc: 'Esc', auto: 'G', map: 'M', up: '↑', left: '←', right: '→' };
 
 export const HINT = {
   flyCar: 'Flying EV',

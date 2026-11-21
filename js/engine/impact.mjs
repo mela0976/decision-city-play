@@ -14,7 +14,7 @@ const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
 export const impactTarget=body=>body?.scooter||body?.type==='parked'?'scooter':
   body?.service==='bus'?'bus':body?.service&&body.service!=='taxi'?'truck':'car';
 
-export function createImpact({contact=worldContact}={}){
+export function createImpact({contact=worldContact,avoidContact=contact}={}){ // A25 bypasses also respect kerbs
   const bodies=new Map(),parked=new Map(),missingParked=new Set(),bypasses=new WeakMap();
   function velocity(car){
     const p=bodies.get(car);
@@ -158,7 +158,7 @@ export function createImpact({contact=worldContact}={}){
     const angle=existing?.angle??Math.atan2(target.y-car.y,target.x-car.x);
     const ux=Math.cos(angle),uy=Math.sin(angle);
     const width=(manual||car.scooter?.37:car.service==='bus'?1.25:1.03)/unit;
-    const legal=(x,y,heading)=>guard(x,y,r,width,heading)&&!contact(x,y,r,width,heading)&&
+    const legal=(x,y,heading)=>guard(x,y,r,width,heading)&&!avoidContact(x,y,r,width,heading)&&
       !space.hit(x,y,r,{...car,heading,ignore:car});
     let route=existing;
     if(route&&!route.body.impact){

@@ -1505,3 +1505,192 @@ html[lang="en"] .hud-meters .m-name {
   letter-spacing: -0.01em;
   text-overflow: clip;
 }
+
+/* ── 第一次遊玩的互動教學：左側中段一張小清單，不擋車頭、HUD 與提示列 ── */
+.coach {
+  position: absolute;
+  z-index: 6;
+  inset-inline-start: var(--edge);
+  inset-block-start: 50%;
+  translate: 0 -50%;
+  display: grid;
+  gap: 0.45rem;
+  inline-size: max-content;
+  max-inline-size: min(15rem, 40vw);
+  padding: 0.55rem 0.65rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background-color: var(--panel);
+  background-image: var(--tex-tile);
+  background-size: var(--tex-tile-size);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+  transition: opacity 0.25s, visibility 0.25s;
+}
+
+.coach[hidden] {
+  display: none;
+}
+
+/* 不在自由騎乘（選單、對話、過場、空拍）時先藏起來，回到街上再出現 */
+.coach[data-paused],
+.coach.is-closing,
+#stage:not([data-phase="play"]) .coach,
+#stage[data-scene] .coach,
+#stage[data-flyover] .coach {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.coach-list {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.coach-step {
+  display: grid;
+  grid-template-columns: 3.1rem minmax(0, 1fr) 1.1rem;
+  align-items: center;
+  gap: 0.45rem;
+  min-block-size: 2rem;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: var(--text);
+  transition: opacity 0.5s, color 0.2s;
+}
+
+.coach-step.is-done {
+  color: var(--neon);
+}
+
+.coach-step.is-gone {
+  display: none;
+}
+
+.coach-keys {
+  display: inline-flex;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.coach-keys .icon {
+  inline-size: 1.7rem;
+  block-size: 1.7rem;
+}
+
+.coach-glyph {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.coach-keys--touch,
+#stage[data-input="touch"] .coach-keys--kb {
+  display: none;
+}
+
+#stage[data-input="touch"] .coach-keys--touch {
+  display: inline-flex;
+}
+
+.coach-check::before {
+  content: "";
+  display: block;
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 2px;
+}
+
+.is-done .coach-check::before {
+  content: "✓";
+  border-color: var(--neon);
+  color: var(--neon);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 0.9rem;
+  text-align: center;
+}
+
+.coach-skip {
+  justify-self: start;
+  pointer-events: auto;
+}
+
+/* 剩下的時間：底下一條會縮短的燈管 */
+.coach-time {
+  display: block;
+  block-size: 2px;
+  margin-block-start: -0.1rem;
+  background: var(--neon);
+  opacity: 0.7;
+  transform-origin: 0 50%;
+  scale: var(--left, 1) 1;
+  transition: scale 0.12s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coach,
+  .coach-step,
+  .coach-time {
+    transition: none;
+  }
+}
+
+/* 直向手機：搖桿與按鈕在下面、車頭在中下，清單收窄、貼在任務牌底下的左側 */
+@media (max-width: 760px) {
+  .coach {
+    inset-block-start: calc(var(--top) + 11.2rem);
+    translate: none;
+    max-inline-size: 8.4rem;
+    gap: 0.35rem;
+    padding: 0.45rem 0.55rem 0.5rem;
+  }
+
+  .coach-step {
+    grid-template-columns: 1.8rem minmax(0, 1fr);
+    gap: 0.4rem;
+  }
+
+  .coach-check {
+    display: none;
+  }
+
+  .coach-keys .icon {
+    inline-size: 1.6rem;
+    block-size: 1.6rem;
+  }
+}
+
+/* 橫放手機：高度不夠排一欄，改成 HUD 底下左側的兩欄兩列，略過鈕放右邊；不碰中間的車與左下的搖桿 */
+@media (max-height: 480px) {
+  .coach {
+    inset-block-start: calc(var(--top) + 8.2rem);
+    translate: none;
+    grid-template-columns: auto auto;
+    align-items: center;
+    column-gap: 0.7rem;
+    max-inline-size: 40vw;
+  }
+
+  .coach-list {
+    grid-template-columns: auto auto;
+    gap: 0.2rem 0.8rem;
+  }
+
+  .coach-step {
+    grid-template-columns: auto auto;
+    gap: 0.35rem;
+    min-block-size: 1.8rem;
+  }
+
+  .coach-check {
+    display: none;
+  }
+
+  .coach-time {
+    grid-column: 1 / -1;
+  }
+}

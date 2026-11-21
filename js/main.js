@@ -1,6 +1,8 @@
 // 進入點：讀素材清單、載入引擎（真的載不到或 ?mock=1 就用假引擎）、
 // 載入內容（?fixtures=1 用假資料；真的內容讀不到時在標題畫面顯示可重試的錯誤）。
 
+import { installErrorGuard } from './game/errors.js';
+import { VERSION } from './game/version.js';
 import { loadAssets } from './game/assets.js';
 import { loadContent } from './game/content.js';
 import { createStore } from './game/save.js';
@@ -20,6 +22,10 @@ const opts = {
 };
 
 const $ = (id) => document.getElementById(id);
+// 先裝錯誤攔截：之後任何一步出錯都會記進本機紀錄，並顯示可以回到路上、重新整理或複製資訊的錯誤卡。
+const guard = installErrorGuard({ root: document.body });
+document.documentElement.dataset.version = VERSION;
+if (opts.debug) window.__DC_ERRORS__ = guard;
 
 // i18n：index.html 寫的是中文；譯版在這裡換掉頁面標題、說明與無障礙標籤（<html lang> 由 lang.js 設定）
 if (LANG !== 'zh') {
@@ -47,9 +53,10 @@ const els = {
   proposal: $('proposal'),
   sidelist: $('sidelist'),
   elder: $('elder'),
+  manual: $('manual'),
   confirm: $('confirm'),
 };
-els.dialogs = [els.menu, els.proposal, els.sidelist, els.elder, els.confirm];
+els.dialogs = [els.menu, els.proposal, els.sidelist, els.elder, els.manual, els.confirm];
 
 const progress = createBootProgress($('boot-plate'));
 els.pause.textContent = T.paused;
@@ -99,6 +106,7 @@ async function boot() {
     onPrefs: (next) => store.writePrefs({ ...store.readPrefs(), ...next }),
   });
   const { engine, kind } = engineInfo;
+  guard.setContext(() => ({ phase: els.stage.dataset.phase, engineKind: kind }));
   engine.setPaused(true);
   engine.setInputEnabled(false);
   engine.start();
@@ -144,6 +152,15 @@ async function boot() {
       assets.setAudio(buildFixtureAudio(content, voiceKey));
     }
     game = new Game({ content, assets, engine, engineKind: kind, store, sound, hint, els, opts });
+    guard.setActions({
+      unstuck: () => {
+        if (game.inGame && game.free) game.unstuck();
+        game.syncWorld();
+        game.focusCanvas();
+      },
+      recovered: () => game.toast(T.oops.recovered),
+    });
+    guard.setContext(() => game.errorContext());
     if (opts.debug) {
       const { mountDebug } = await import('./game/ui/debug.js');
       mountDebug({ game, content });
@@ -158,6 +175,7 @@ async function boot() {
 
 boot().catch((err) => {
   console.error('[決策之城] 啟動失敗', err);
+  guard.report(err, 'boot');
   progress.fail();
   $('boot-plate').textContent = `${T.contentFailed} ${err?.message || ''}`;
 });

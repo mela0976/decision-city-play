@@ -559,6 +559,8 @@ html.grandma dialog.sheet {
 }
 
 .lang-row {
+  clear: both; /* 語言標題是 float，沒有清除會把整排按鈕擠成 0 寬 */
+  inline-size: 100%;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.5rem;
@@ -569,4 +571,113 @@ html.grandma dialog.sheet {
   margin-block-start: 1rem;
   font-size: 0.9rem;
   color: var(--muted);
+}
+
+/* 操作手冊 */
+.manual-body {
+  display: grid;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.manual-section h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.manual-rows {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.35rem 1rem;
+  margin: 0;
+}
+
+.manual-rows dt {
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.manual-rows dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.manual-close {
+  margin-block-start: 1rem;
+  inline-size: 100%;
+}
+
+@media (max-width: 520px) {
+  .manual-rows {
+    grid-template-columns: 1fr;
+    row-gap: 0.1rem;
+  }
+
+  .manual-rows dd {
+    margin-block-end: 0.5rem;
+  }
+}
+
+/* 選單底下的版本號 */
+.menu-version {
+  margin: 0.8rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  opacity: 0.75;
+  text-align: end;
+}
+
+/* 操作手冊：重看互動教學＋關閉 */
+.manual-actions {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 0.5rem;
+  margin-block-start: 1rem;
+}
+
+.manual-actions .manual-close {
+  margin: 0;
+}
+
+/* ── 錯誤卡：不擋遊戲的一張卡（popover，疊在最上層），三個按鈕 ── */
+.oops {
+  position: fixed;
+  inset: max(var(--top), 12vh) auto auto 50%;
+  translate: -50% 0;
+  margin: 0;
+  inline-size: min(31rem, calc(100vw - 2 * var(--edge)));
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--line-strong);
+  border-inline-start: 4px solid var(--red);
+  border-radius: 3px;
+  background: var(--panel-solid);
+  color: var(--text);
+  font-family: var(--font);
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.6);
+}
+
+.oops h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.25rem;
+}
+
+.oops p {
+  margin: 0 0 0.9rem;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.oops-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.oops-actions .btn {
+  flex: 1 1 auto;
 }

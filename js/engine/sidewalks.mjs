@@ -1,11 +1,13 @@
-import {subtractRectangle} from './paving-geometry.mjs';
+import {subtractConvex,subtractRectangle} from './paving-geometry.mjs';
 import {wuxingArcades} from './wuxing-arcades.mjs'; // A24
 // All geometry here is in metres (x east, z south). World queries take simulation units.
-import {buildings, inWuxing, inBuilding, metersPerUnit as unit, oldStreetDistrict, roadAt, roads, toGeo, worldContact} from './world.mjs';
+import {buildings, inWuxing, inBuilding, metersPerUnit as unit, oldStreetDistrict, roadAt, roadNodes, roads, toGeo, worldContact} from './world.mjs';
 import {urbanInfill} from './infill.mjs';
 import {crosswalkEnds} from './crosswalks.mjs';
 
 const cells = new Map(), asphalt = new Map();
+export const fillets=[]; // A25 rounded kerb corners
+const filletCells=new Map();
 const cellSize = 24;
 const cellKey = (i,j) => i*8192+j;
 export const paving = [];
@@ -49,7 +51,7 @@ function roadInterval(s,r) {
   }
   return [start,end];
 }
-function addClipped(s,owner) {
+function addClipped(s,owner,sink=add) {
   const obstacles=new Set();
   const steps=Math.ceil(2*s.half/10);
   for(let i=0;i<=steps;i++){
@@ -63,7 +65,7 @@ function addClipped(s,owner) {
   for(const [lo,hi] of [...cuts,[s.half,s.half]]){
     if(lo-start>.12){
       const mid=(start+lo)/2;
-      add({...s,x:s.x+s.dx*mid,z:s.z+s.dz*mid,half:(lo-start)/2});
+      sink({...s,x:s.x+s.dx*mid,z:s.z+s.dz*mid,half:(lo-start)/2});
     }
     start=Math.max(start,hi);
   }
@@ -88,6 +90,17 @@ for(const r of ways){
     addClipped({...r,x:r.x+r.nx*offset,z:r.z+r.nz*offset,nx:r.nx*side,nz:r.nz*side,
       depth,kind:'sidewalk',rise:.15,roadId:edge.way.id},r);
   }
+}
+
+// A25 OSM footways and pedestrian streets are drawn as flush stone paving. They are
+// pedestrian space too: scooters treat their edge like a curb, walkers cross freely.
+export const footways=[];
+const footCells=new Map();
+for(const [ax,ay,bx,by,w,edge] of roads){
+  if(edge.way.kind!=='pedestrian'||edge.way.layer!==0||edge.d<1e-6)continue;
+  const dx=(bx-ax)/edge.d,dz=(by-ay)/edge.d;
+  addClipped({x:(ax+bx)*unit/2,z:(ay+by)*unit/2,dx,dz,nx:-dz,nz:dx,half:edge.d*unit/2,depth:w*unit,kind:'footway',rise:0},
+    null,f=>{footways.push(f);register(footCells,f,6);});
 }
 
 function facade(ax,az,bx,bz,nx,nz,maxDepth){
@@ -167,6 +180,137 @@ function buildRamps(crosswalks){
   return results;
 }
 export const rampEnds=buildRamps(crosswalkEnds());
+// A25 round every kerb corner between two consecutive streets with a circular fillet
+// (1.5–3 m, wider streets get the larger radius). The fan of triangles between the sharp
+// corner and the arc is subtracted from each slab it touches; rendering, collision and
+// surface queries all read the resulting polygons, and the cut area is drawn as asphalt.
+function slabPolygon(s){
+  return [[-s.half,0],[s.half,0],[s.half,s.depth],[-s.half,s.depth]].map(([t,d])=>{
+    const p=pavingPoint(s,t,d);return [p.x,0,p.z];
+  });
+}
+const inTriangle=(x,z,[a,b,c])=>{
+  const d1=(b[0]-a[0])*(z-a[1])-(b[1]-a[1])*(x-a[0]),d2=(c[0]-b[0])*(z-b[1])-(c[1]-b[1])*(x-b[0]),
+    d3=(a[0]-c[0])*(z-c[1])-(a[1]-c[1])*(x-c[0]);
+  return !((d1<0||d2<0||d3<0)&&(d1>0||d2>0||d3>0));
+};
+export let skippedFillets=0;
+function buildFillets(){
+  const arms=new Map();
+  for(const r of ways){
+    const {edge}=r;
+    for(const [node,sign] of [[edge.a,1],[edge.b,-1]]){
+      if(!arms.has(node))arms.set(node,[]);
+      arms.get(node).push({r,ux:r.dx*sign,uz:r.dz*sign,h:r.depth/2,length:r.half*2});
+    }
+  }
+  for(const [index,list] of arms){
+    if(list.length<2)continue;
+    const node=roadNodes[index],ox=node.x*unit,oz=node.y*unit;
+    list.sort((a,b)=>Math.atan2(a.uz,a.ux)-Math.atan2(b.uz,b.ux));
+    for(let i=0;i<list.length;i++){
+      const A=list[i],B=list[(i+1)%list.length];
+      if(A===B)continue;
+      let phi=Math.atan2(B.uz,B.ux)-Math.atan2(A.uz,A.ux);
+      if(phi<=0)phi+=Math.PI*2;
+      if(phi<.35||phi>2.75)continue;
+      // Normals pointing into the sector between A and B.
+      const nA=[-A.uz,A.ux],nB=[B.uz,-B.ux];
+      const meet=R=>{
+        // ox + t*A.u + nA*(hA+R) = ox + s*B.u + nB*(hB+R)
+        const rx=nB[0]*(B.h+R)-nA[0]*(A.h+R),rz=nB[1]*(B.h+R)-nA[1]*(A.h+R);
+        const det=A.ux*(-B.uz)-A.uz*(-B.ux);
+        if(Math.abs(det)<1e-6)return null;
+        const t=(rx*(-B.uz)-rz*(-B.ux))/det,u=(A.ux*rz-A.uz*rx)/det;
+        return {t,u,x:ox+A.ux*t+nA[0]*(A.h+R),z:oz+A.uz*t+nA[1]*(A.h+R)};
+      };
+      const corner=meet(0);
+      if(!corner||corner.t<=0||corner.u<=0)continue;
+      const shape=R=>{
+        const centre=meet(R);
+        if(!centre||centre.t<=0||centre.u<=0||centre.t>A.length*.9||centre.u>B.length*.9)return null;
+        const a0=Math.atan2(-nA[1],-nA[0]),a1=Math.atan2(-nB[1],-nB[0]);
+        let sweepAngle=a1-a0;
+        while(sweepAngle>Math.PI)sweepAngle-=Math.PI*2;
+        while(sweepAngle<-Math.PI)sweepAngle+=Math.PI*2;
+        const steps=6,arc=[];
+        for(let k=0;k<=steps;k++){
+          const a=a0+sweepAngle*k/steps;
+          arc.push([centre.x+Math.cos(a)*R,centre.z+Math.sin(a)*R]);
+        }
+        const triangles=[];
+        for(let k=0;k<steps;k++)triangles.push([[corner.x,corner.z],arc[k],arc[k+1]]);
+        return {centre,arc,triangles,R};
+      };
+      // Keep every crosswalk ramp's accessible landing: shrink the radius until no ramp probe is cut.
+      const ramps=nearby(cells,corner.x,corner.z).filter(r=>r.kind==='ramp');
+      const conflict=f=>ramps.some(r=>[0,.08,.4,.75,1.1,1.46].some(d=>{
+        const x=r.x+r.nx*(d-r.depth/2),z=r.z+r.nz*(d-r.depth/2);
+        return f.triangles.some(t=>inTriangle(x,z,t));
+      }));
+      let chosen=null,partial=false;
+      const preferred=Math.max(1.5,Math.min(3,1.2+.14*Math.min(A.h,B.h)*2));
+      for(let R=preferred;R>=1.5-1e-9;R-=.25){
+        const f=shape(R);
+        if(f&&!conflict(f)){chosen=f;break;}
+      }
+      // A crosswalk landing sits on the corner itself: round the kerb with 1.5 m and keep the ramp whole.
+      if(!chosen){chosen=shape(1.5);partial=true;skippedFillets++;}
+      if(!chosen)continue;
+      const {centre,arc,triangles,R}=chosen;
+      const fillet={x:corner.x,z:corner.z,cx:centre.x,cz:centre.z,R,arc,triangles,node:index,cut:[],partial,ramps};
+      // Bounding radius for grid registration.
+      fillet.reach=Math.max(...arc.map(([x,z])=>Math.hypot(x-corner.x,z-corner.z)))+.05;
+      fillets.push(fillet);
+    }
+  }
+  for(const f of fillets){
+    const r=f.reach;
+    for(let i=Math.floor((f.x-r)/cellSize);i<=Math.floor((f.x+r)/cellSize);i++)
+      for(let j=Math.floor((f.z-r)/cellSize);j<=Math.floor((f.z+r)/cellSize);j++){
+        const key=cellKey(i,j);
+        if(!filletCells.has(key))filletCells.set(key,[]);
+        filletCells.get(key).push(f);
+      }
+    const touched=new Set([...nearby(cells,f.x,f.z),...nearby(footCells,f.x,f.z)]);
+    for(const slab of touched){
+      if(f.partial&&slab.kind==='ramp')continue;
+      let polys=slab.polys??[slabPolygon(slab)],changed=false;
+      for(const tri of f.triangles){
+        const next=polys.flatMap(poly=>{
+          const pieces=subtractConvex(poly,tri);
+          // Unchanged polygon: a single piece with the same vertex count and area.
+          if(pieces.length===1&&pieces[0].length===poly.length&&pieces[0].every((p,i)=>p===poly[i]))return pieces;
+          changed=true;return pieces;
+        });
+        polys=next;
+      }
+      if(!changed)continue;
+      slab.polys=polys;
+      (slab.fillets??=[]).push(f);
+      f.cut.push(slab);
+    }
+  }
+}
+buildFillets();
+// Inside a rounded kerb corner that was cut out of raised or footway paving.
+export function filletAt(x,y){
+  x*=unit;y*=unit;
+  for(const f of filletCells.get(cellKey(Math.floor(x/cellSize),Math.floor(y/cellSize)))??[]){
+    if(!f.cut.length||!f.triangles.some(t=>inTriangle(x,y,t)))continue;
+    if(f.partial&&f.ramps.some(r=>Math.abs(along(r,x,y))<=r.half&&across(r,x,y)+r.depth/2>=0&&across(r,x,y)+r.depth/2<=r.depth))continue;
+    return f;
+  }
+  return null;
+}
+const inPolygon=(x,z,poly)=>{
+  let inside=false;
+  for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+    const a=poly[i],b=poly[j];
+    if((a[2]>z)!==(b[2]>z)&&x<(b[0]-a[0])*(z-a[2])/(b[2]-a[2])+a[0])inside=!inside;
+  }
+  return inside;
+};
 export function pavingHeight(s,t,d){
   return roadLevel+s.rise*(s.kind==='ramp'?Math.max(0,Math.min(1,d/s.depth)):1);
 }
@@ -181,6 +325,7 @@ export function surfaceAt(x,y){
       if(h<rampHeight&&(!s.polys||!carriagewayAt(x/unit,y/unit))){ramp=s;rampHeight=h;}
       continue;
     }
+    if(s.polys&&!s.polys.some(poly=>inPolygon(x,y,poly)))continue; // A25 rounded corners
     if(h>height){top=s;height=h;}
   }
   return ramp?{slab:ramp,height:rampHeight}:top&&{slab:top,height};
@@ -200,10 +345,11 @@ function hitsPolygon(poly,x,z,ux,uz,length,width){
   }
   return true;
 }
-export function curbContact(x,y,halfLength,halfWidth,heading){
+export function curbContact(x,y,halfLength,halfWidth,heading,ramps=true){
   x*=unit;y*=unit;halfLength*=unit;halfWidth*=unit;
   const ux=Math.cos(heading),uz=Math.sin(heading);
-  for(const s of nearby(cells,x,y)){
+  for(const s of [...nearby(cells,x,y),...nearby(footCells,x,y)]){ // A25 footways are pedestrian space
+    if(!ramps&&s.kind==='ramp')continue; // A25 junction wedges: NPC lanes may clip a crosswalk landing
     const l=Math.abs(ux*s.dx+uz*s.dz),w=Math.abs(ux*s.nx+uz*s.nz);
     if(Math.abs(across(s,x,y))>=s.depth/2+l*halfWidth+w*halfLength||
        Math.abs(along(s,x,y))>=s.half+l*halfLength+w*halfWidth)continue;
@@ -231,7 +377,14 @@ export function pedestrianEntrance(site,accessible=()=>true){
 
 export function carriagewayAt(x,y){
   x*=unit;y*=unit;
-  return nearby(asphalt,x,y).some(r=>Math.abs(along(r,x,y))<=r.half+.01&&Math.abs(across(r,x,y))<=r.depth/2);
+  return nearby(asphalt,x,y).some(r=>Math.abs(along(r,x,y))<=r.half+.01&&Math.abs(across(r,x,y))<=r.depth/2)||
+    Boolean(filletAt(x/unit,y/unit)); // A25 rounded kerb corners are asphalt
+}
+// A25 point on an OSM footway strip (flush pedestrian paving).
+export function footwayAt(x,y){
+  x*=unit;y*=unit;
+  return nearby(footCells,x,y).some(s=>Math.abs(along(s,x,y))<=s.half&&Math.abs(across(s,x,y))<=s.depth/2&&
+    (!s.polys||s.polys.some(poly=>inPolygon(x,y,poly))));
 }
 
 // Project the oriented ground footprint onto the nearest lane that can hold it.

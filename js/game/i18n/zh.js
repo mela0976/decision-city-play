@@ -9,6 +9,7 @@ export const METER_NAMES = {
 
 export const T = {
   curbParked: '已停車，步行前往', curbRoad: '先回到車道', curbWalk: '按 F 下車步行', // A24
+  autoHere: '這裡就是目的地', autoNoTarget: '還沒有目的地', autoNoRoute: '找不到路線，先騎到大一點的路上', autoNoMount: '先回到車道', autoLanding: '降落後自動前往', rescued: '已幫你移回路上', // A25
   name: '決策之城',
   nameEn: 'Decision City',
   hook: '一天，走過九年',
@@ -83,6 +84,18 @@ export const T = {
   relief: '喘口氣',
 
   menu: '選單',
+  menuManual: '操作手冊',
+  manual: {
+    title: '操作手冊',
+    close: '關閉',
+    sections: [
+      { h: '騎車與移動', rows: [['↑／↓', '前進／煞車、倒退。'], ['←／→', '以人物為準向左、向右轉。'], ['G／➤', '自動前往目前任務；再按一次或動方向就取消。'], ['F', '下車步行／上車。人行道與騎樓只能步行。'], ['T', '飛行電動車：起飛或降落，空中不受號誌限制。'], ['M', '打開或收起大地圖。']] },
+      { h: '互動', rows: [['空白鍵／右下按鈕', '說話、進入任務、繼續對話。'], ['1・2・3', '選選項或答題，也可以直接點。'], ['Esc／☰', '打開選單：提案、支線、聲音、語言。']] },
+      { h: '一天怎麼過', rows: [['晨會', '序幕後先到富幫 A25 開晨會。'], ['九個任務', '依時間跑九個現場，每關收進一頁提案。'], ['支線', '過關後開放當年的支線，選做，讀到的章節會收進附錄。'], ['收工', '九點回到吳興街熱炒，看今晚的結局。']] },
+      { h: '四個數值', rows: [['品牌力・業績・客戶信任', '選項與問答會加減，決定結局等級。'], ['肝指數', '太高會提早收工；去河濱或早餐店可以喘口氣。']] },
+      { h: '街上的規矩', rows: [['紅綠燈', '自動前往會停紅燈；自己騎不攔，但車會撞你。'], ['人行道', '機車上不去，到了路緣會提示下車步行。']] },
+    ],
+  },
   menuResume: '繼續玩',
   menuElder: '做一張長輩圖',
   menuGrandmaOn: '阿嬤模組：開',
@@ -208,10 +221,32 @@ export const T = {
   translatedNote: '',
   language: '語言',
   langNames: { zh: '中文', en: 'English', ja: '日本語' },
+  // 上線前補強：第一次遊玩的互動教學、錯誤卡、結局分享圖、版本號
+  coach: { label: '操作教學', turn: '轉向', forward: '前進', map: '打開地圖', auto: '自動前往', skip: '略過', replay: '重看互動教學' },
+  oops: {
+    title: '出了點狀況',
+    text: '遊戲還在。先回到路上試試；不行再重新整理，存檔會留著。',
+    back: '回到路上',
+    reload: '重新整理',
+    copy: '複製錯誤資訊',
+    copied: '已複製',
+    copyFailed: '複製不了',
+    recovered: '畫面重新接上了',
+  },
+  share: {
+    button: '分享成果',
+    proposal: '提案第一頁',
+    file: 'decision-city-result.png',
+    text: (title) => `我在《決策之城》的結局：${title}`,
+    saved: '分享圖已下載，網址已複製',
+    savedOnly: '分享圖已下載',
+    failed: '分享圖做不出來',
+  },
+  version: (v) => `版本 ${v}`,
 };
 
 // 下方提示列的字：左段是現在要做什麼，右段是現在能按什麼。字要短。
-export const KEY = { action: '空白鍵', arrows: '方向鍵', esc: 'Esc', auto: 'G', map: 'M', left: '←', right: '→' };
+export const KEY = { action: '空白鍵', arrows: '方向鍵', esc: 'Esc', auto: 'G', map: 'M', up: '↑', left: '←', right: '→' };
 
 export const HINT = {
   signalWait: '紅燈停等', // A24

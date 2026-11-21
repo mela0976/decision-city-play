@@ -7,7 +7,7 @@ import { T } from '../strings.js';
  * items：[{ id, label, onSelect, danger, keepOpen }]，依序排成一欄。
  * keepOpen 的項目按了不關選單（開關類），其餘先關選單再執行。
  */
-export function openMenu({ dialog, items, note, extra = null }) {
+export function openMenu({ dialog, items, note, extra = null, version = '' }) {
   const buttons = items.map((item, i) => {
     const button = h('button', { type: 'button', class: `btn menu-item${item.danger ? ' btn--danger' : ''}${i === 0 ? ' btn--primary' : ''}`, id: `menu-${item.id}`, text: item.label() });
     button.addEventListener('click', () => {
@@ -21,7 +21,7 @@ export function openMenu({ dialog, items, note, extra = null }) {
     });
     return button;
   });
-  fill(dialog, h('h2', { id: 'menu-title', text: T.menu }), h('div', { class: 'menu-list' }, buttons), extra, note ? h('p', { class: 'menu-note', text: note }) : null);
+  fill(dialog, h('h2', { id: 'menu-title', text: T.menu }), h('div', { class: 'menu-list' }, buttons), extra, note ? h('p', { class: 'menu-note', text: note }) : null, version ? h('p', { class: 'menu-version', id: 'menu-version', text: version }) : null);
   if (!dialog.open) dialog.showModal();
   if (!dialog.dataset.menuArrows) {
     dialog.dataset.menuArrows = '1';

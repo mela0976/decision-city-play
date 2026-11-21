@@ -3,12 +3,24 @@
 import { h } from '../dom.js';
 import { T, METER_IDS, METER_NAMES } from '../strings.js';
 
-export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, side = null, role, note, onAgain, sfx }) {
+export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, side = null, role, note, onAgain, onShare = null, sfx }) {
   const rate = quiz.asked > 0 ? `${Math.round((quiz.right / quiz.asked) * 100)}%` : '—';
   const again = h('button', { type: 'button', class: 'btn btn--primary btn--big', id: 'ending-again', 'data-primary': true, text: T.playAgain });
   again.addEventListener('click', () => {
     sfx?.play('select');
     onAgain();
+  });
+
+  // 分享成果：產生一張分享圖（有檔案分享就用系統分享，沒有就下載並複製網址）
+  const share = onShare ? h('button', { type: 'button', class: 'btn btn--big', id: 'ending-share', text: T.share.button }) : null;
+  share?.addEventListener('click', async () => {
+    sfx?.play('select');
+    share.disabled = true;
+    try {
+      await onShare();
+    } finally {
+      share.disabled = false;
+    }
   });
 
   const root = h(
@@ -57,7 +69,7 @@ export function showEnding({ screen, assets, ending, stamp, meters, missionsDone
           return h('li', { class: owned ? 'is-owned' : 'is-locked', 'aria-label': owned ? `${book.year} ${book.title}` : `${book.year} ${T.blankPage}` }, h('span', { 'aria-hidden': 'true', text: String(book.year) }));
         }),
       ),
-      again,
+      h('div', { class: 'report-actions' }, share, again),
     ),
   );
 
