@@ -1,11 +1,11 @@
-import * as T from '../vendor/three.module.min.js?v=da1d659';
-import {roads,roadNodes,roadAt,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=da1d659';
-import {crossingForNode} from '../street-crossings.mjs?v=da1d659';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=da1d659';
-import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=da1d659';
-import {paintJunctions} from './junction-markings.js?v=da1d659'; // A24
+import * as T from '../vendor/three.module.min.js?v=4c63fb3';
+import {roads,roadNodes,roadAt,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=4c63fb3';
+import {crossingForNode} from '../street-crossings.mjs?v=4c63fb3';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=4c63fb3';
+import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=4c63fb3';
+import {paintJunctions} from './junction-markings.js?v=4c63fb3'; // A24
 
-import {drawSidewalks} from './sidewalks.js?v=da1d659'; // A24
+import {drawSidewalks} from './sidewalks.js?v=4c63fb3'; // A24
 const {plane}=shapes;
 export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sidewalks=drawSidewalks}) { // P2 perf：osm-city 可改成先保留位置、稍後才畫人行道
   const roadMarkMaterials=new Map(),symbols=new Map(); // A24
@@ -69,6 +69,16 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
         joints.get(node).push({dx:(bx-ax)/length,dy:(by-ay)/length,half:w*unit/2});
       }
     }
+    // 全部路口（不只吳興街一帶）：三條以上道路交會的點，標線要在路口邊緣停筆，不要畫進交叉道路的路面
+    const allJoints=new Map();
+    for(const [ax,ay,bx,by,w,{a,b,way}] of roads){
+      if(way.layer!==0||way.kind==='pedestrian')continue;
+      const length=Math.hypot(bx-ax,by-ay);
+      for(const node of [a,b]){
+        if(!allJoints.has(node))allJoints.set(node,[]);
+        allJoints.get(node).push({dx:(bx-ax)/length,dy:(by-ay)/length,half:w*unit/2});
+      }
+    }
     const convenience=toWorld(25.035928,121.567773);
     const covers=new Set();
     paintJunctions(strip,addRoadMark); // A24
@@ -108,6 +118,17 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
         return stop;
       };
       const kerbStart=local?clearance(from):0,kerbEnd=local?length-clearance(to):length;
+      const mouth=node=>{
+        const arms=allJoints.get(node);
+        if(!arms||arms.length<3)return 0;
+        let stop=0;
+        for(const arm of arms){
+          const cross=Math.abs((bx-ax)/d*arm.dy-(by-ay)/d*arm.dx);
+          if(cross>.4)stop=Math.max(stop,arm.half/cross);
+        }
+        return Math.min(stop,length/2);
+      };
+      const lineFrom=Math.max(start,mouth(from)),lineTo=Math.min(end,length-mouth(to));
       // A24 raised paving and curb profiles are submitted by drawSidewalks.
       for(const side of [-1,1]){
         // The Songshou convenience store faces a paved forecourt. Wuxing alleys share the lane with pedestrians.
@@ -129,10 +150,10 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
         strip(a,b,.06,.028,'curb',side*(span/2-.05),'#55595a');
         const fromJunction=crossingFrom,toJunction=crossingTo;
         if(arterial&&way.kind!=='tertiary'&&way.name!=='忠孝東路五段'){
-          paint(.45,length-.45,.10,.039,'line',roadEdge,'#d86c5d');
+          paint(lineFrom+.45,lineTo-.45,.10,.039,'line',roadEdge,'#d86c5d');
         }else{
-          if(fromJunction)paint(.45,Math.min(length-.45,9),.10,.039,'line',roadEdge,'#d86c5d');
-          if(toJunction)paint(Math.max(fromJunction?9:.45,length-9),length-.45,.10,.039,'line',roadEdge,'#d86c5d');
+          if(fromJunction)paint(lineFrom+.45,Math.min(lineTo-.45,lineFrom+9),.10,.039,'line',roadEdge,'#d86c5d');
+          if(toJunction)paint(Math.max(fromJunction?lineFrom+9:lineFrom+.45,lineTo-9),lineTo-.45,.10,.039,'line',roadEdge,'#d86c5d');
         }
         if(length>18&&hash(way.id,side+41)>.48){
           const drainAt=length*(.32+.33*hash(from,side+55));
@@ -145,9 +166,9 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
       }
       if(span>4.8&&twoWay&&!narrow){
         if(arterial&&span>9){
-          for(const offset of [-.125,.125])paint(start,end,.10,.035,'line',offset,'#d4ae53');
-        }else for(let t=start+.4;t<end-.2;t+=8){
-          paint(t,Math.min(end,t+3.8),.10,.036,'line',0,'#d6b96e');
+          for(const offset of [-.125,.125])paint(lineFrom,lineTo,.10,.035,'line',offset,'#d4ae53');
+        }else for(let t=lineFrom+.4;t<lineTo-.2;t+=8){
+          paint(t,Math.min(lineTo,t+3.8),.10,.036,'line',0,'#d6b96e');
         }
       }
       if((arterial||way.name==='菸廠路')&&laneCount>1){
@@ -155,10 +176,10 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
         for(let lane=1;lane<laneCount;lane++){
           const offsets=twoWay?[-lane*laneWidth,lane*laneWidth]:[lane*laneWidth-span/2];
           for(const offset of offsets){
-            const stopFrom=crossingFrom?Math.min(end,start+15):start;
-            const stopTo=crossingTo?Math.max(stopFrom,end-15):end;
-            paint(start,stopFrom,.10,.043,'line',offset,'#e6dfd0');
-            paint(stopTo,end,.10,.043,'line',offset,'#e6dfd0');
+            const stopFrom=crossingFrom?Math.min(lineTo,lineFrom+15):lineFrom;
+            const stopTo=crossingTo?Math.max(stopFrom,lineTo-15):lineTo;
+            paint(lineFrom,stopFrom,.10,.043,'line',offset,'#e6dfd0');
+            paint(stopTo,lineTo,.10,.043,'line',offset,'#e6dfd0');
             for(let t=stopFrom;t<stopTo;t+=10){
               const tint=hash(from,Math.round(t)+61)>.22?'#ede7d8':'#c8c2b4';
               paint(t,Math.min(stopTo,t+4),.10,.043,'line',offset,tint);

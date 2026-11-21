@@ -1,0 +1,134 @@
+{
+  "id": "m2020",
+  "year": 2020,
+  "order": 3,
+  "clock": "11:30",
+  "title": "Two Bottles in the Cart",
+  "locationId": "client_hq",
+  "giver": "client_chen",
+  "brief": "Chen wants a promotion to revive sales during the pandemic. Before the noon meeting, find out why shoppers keep leaving two bottles of supplements in their carts.",
+  "splash": "book_2020",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_chen",
+          "text": "My boss wants a proposal at noon. Think we can run that “pandemic special: buy two, get one free” ad?"
+        },
+        {
+          "who": "client_chen",
+          "text": "Lately people keep putting two bottles in their carts and leaving. Sales thinks the price has them walking away."
+        },
+        {
+          "who": "player",
+          "text": "Hold off on changing the price. One shopper took a picture of the bottom of a bottle before checkout. I want to know what he was checking."
+        },
+        {
+          "who": "client_chen",
+          "text": "Go see Kai at Lanshan Plaza. He has last year’s orders, and I asked customer service to forward their follow-up notes."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "datalab",
+      "hint": "Go to Lanshan Plaza Data Lab and see if the client's data is usable"
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "I found the follow-up for that shopper. Two bottles in the cart, only one on the receipt."
+        },
+        {
+          "who": "player",
+          "text": "Did he say why he dropped the other one?"
+        },
+        {
+          "who": "data_kai",
+          "text": "He said, “I was comparing the two. My mom still has some left, and I didn’t want to get her more of the same thing.”"
+        },
+        {
+          "who": "player",
+          "text": "So he needed someone to help him read the label. Chen asked me for a promotion, but he needs to hear this first."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "There’s room for one proposal in the noon deck. What do you pitch?",
+      "options": [
+        {
+          "text": "Offer a one-bottle trial with an instant credit at checkout, and spend the budget on shoppers close to buying.",
+          "effects": {
+            "sales": 10,
+            "brand": -4,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "Orders pick up this quarter, and Chen takes the sales report to his boss. As soon as the credit ends, support starts hearing, “How are you different from the brand next to you?” again.",
+          "insight": "The yearbook notes that younger consumers like comparing prices and find direct cash credits more appealing than prize draws or discounts.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Take Chen to watch people shop at two pharmacies and pilot a card that helps them compare labels.",
+          "effects": {
+            "sales": 5,
+            "trust": 7,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "At the counter, Chen hears a shopper ask about a bottle they brought from home and agrees to a pilot on the spot. A few shoppers buy a bottle after the pharmacists use the card to walk them through the ingredients. For two weeks, you revise the card daily using feedback from both stores.",
+          "insight": "The yearbook notes that shoppers for supplements and related health products prefer having someone explain them. At pharmacies, they look to the pharmacist for a recommendation.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Reposition the brand around “Know what’s in the bottle before you buy for family,” test it with caregivers, then launch the new packaging.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -3,
+            "liver": 8
+          },
+          "feedback": "After the new packaging launches, a few caregiver groups start sharing the brand’s illustrated guide to reading labels. The redesign displaces a promotion, leaving a dent in this quarter’s sales. You spend six weeks with creative and retail teams getting the packaging and the in-store message to match.",
+          "insight": "Adidas found that 65% of sales came from brand campaigns and shifted its brand-to-performance budget ratio from 23:77 to 60:40.",
+          "roleBonus": {
+            "data": {
+              "brand": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2020_05",
+        "q2020_10"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_noon"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

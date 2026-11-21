@@ -1,0 +1,147 @@
+{
+  "id": "m2025",
+  "year": 2025,
+  "order": 8,
+  "clock": "19:30",
+  "title": "Who Gets Credit for the Sale?",
+  "locationId": "tvstation",
+  "giver": "tv_su",
+  "brief": "The meeting upstairs at Big Dawn Dome Broadcast Center is about to start. Su wants you to check one column: if the last click was on a digital ad, does digital get all the credit for the soy sauce order?",
+  "splash": "book_2025",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "tv_su",
+          "text": "You're the data analyst, right? Take a look. The boss circled the column that says ‘Orders driven by ads.’"
+        },
+        {
+          "who": "data_kai",
+          "text": "I pulled the raw orders. That column only tells us which ad got the last click before checkout."
+        },
+        {
+          "who": "player",
+          "text": "Got timestamps? I want to line them up with the station's airing logs."
+        },
+        {
+          "who": "tv_su",
+          "text": "I do. That breakfast shop on Wuxing Street ordered this very soy sauce. The owner said her grandson placed the order on his phone."
+        },
+        {
+          "who": "player",
+          "text": "I'll ask her when she picked the brand. Kai, leave that order out of the rollup for now."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "breakfast",
+      "hint": "騎去吳興街的巷口早餐店：電視開著時，大家在看什麼？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "breakfast_auntie",
+          "text": "Hang on, the invoice is under the soy sauce bottle. I saw the ad during the news last night and told my grandson to buy that brand."
+        },
+        {
+          "who": "player",
+          "text": "Did he click an ad on his phone before he ordered?"
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "Sure did. He said there was a coupon if he clicked through. He even showed me."
+        },
+        {
+          "who": "data_kai",
+          "text": "I checked the airing log. The spot ran the night she asked him to buy it. The order came in the next day."
+        },
+        {
+          "who": "player",
+          "text": "I'll put this order in a footnote. To see how many extra orders TV brought in, we need somewhere the spot didn't run to compare against."
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "Go ahead and snap a photo of the invoice. Pass me the soy sauce, would you? That egg pancake's about to burn."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You've got one slide in the meeting. What numbers do you bring to the budget discussion?",
+      "options": [
+        {
+          "text": "Match redemptions to orders and fund digital placements with high coupon redemption rates.",
+          "effects": {
+            "sales": 9,
+            "trust": 4,
+            "brand": -5,
+            "liver": 3
+          },
+          "feedback": "More coupons get redeemed this week, and the retailer orders more stock on the spot. Next month, the client asks how new customers heard of the brand, and all you have are the clicks before checkout.",
+          "insight": "The yearbook notes that algorithms favor people who are easiest to convert. Digital ads aimed only at a target group can also miss older people who do the household shopping.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Recalculate CPM on a common age range and keep broad-reach TV for the brand.",
+          "effects": {
+            "brand": 9,
+            "sales": 5,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "The boss drops the narrow age filter from the original sheet and signs off on next quarter's TV schedule. By month-end, more people remember the ad, and the client is still waiting to find out how many orders each channel actually drove.",
+          "insight": "Dentsu estimates TV CPM at about 48 for ages 30 and up, while YouTube ads typically run 80–250. Narrow the TV audience to ages 30–39 and its CPM is about 247.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Pair similar areas and randomly pick one in each pair to get extra TV spots. Check retail sales and survey brand awareness.",
+          "effects": {
+            "trust": 8,
+            "brand": 4,
+            "sales": -3,
+            "liver": 7
+          },
+          "feedback": "You get the retailer to run the same promo on both sides and collect baseline sales. The client drops the claim that digital drives every conversion, but skipping an extra promo leaves sales behind target at month-end.",
+          "insight": "The yearbook warns that a strong Brand Lift figure may just reflect people who already supported the brand.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2025_03",
+        "q2025_05"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_night"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

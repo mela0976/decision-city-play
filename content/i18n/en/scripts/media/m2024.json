@@ -1,0 +1,138 @@
+{
+  "id": "m2024",
+  "year": 2024,
+  "order": 7,
+  "clock": "18:00",
+  "title": "The Night Market’s 8 P.M. Slot",
+  "locationId": "night_market",
+  "giver": "ae_mei",
+  "brief": "One Less Piece is opening a flagship by Linginger St. Night Market. Mei-ling has two quotes, and you have until tonight to decide which hours to buy.",
+  "splash": "book_2024",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "ae_mei",
+          "text": "One Less Piece opens next week. This quote is for the screen at the night market entrance. The other’s for mobile ads. We can’t afford both."
+        },
+        {
+          "who": "player",
+          "text": "Eight is the priciest slot, but the quote only says how many times the ad plays. I want to see who actually looks up."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Okay. I’m putting one media plan in tonight’s pitch. The vendor’s waiting to hear about that eight o’clock slot."
+        },
+        {
+          "who": "player",
+          "text": "I’ll walk down to the shrine on Fude Street and see which shops are still open along the way."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "temple",
+      "hint": "沿著巷弄走到福德街土地公廟，記下沿路的老店",
+      "timeLimitSec": 120
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "temple_uncle",
+          "text": "You were looking at the fabric shop sign, huh? They pull the shutter down at seven-thirty."
+        },
+        {
+          "who": "player",
+          "text": "Yeah. The screen at the entrance kept playing. The only people I saw look up were waiting for fried chicken."
+        },
+        {
+          "who": "temple_uncle",
+          "text": "People heading home from work take the covered sidewalk. They’re past the shrine by six or so. The eight o’clock crowd comes for a late bite."
+        },
+        {
+          "who": "data_kai",
+          "text": "I’ve got both quotes open. The screen quote is for ad plays. The mobile one estimates reach and frequency."
+        },
+        {
+          "who": "player",
+          "text": "I’ll keep those units separate. I’ll give the redemptions we can verify at the register their own column, too."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You have one launch budget. Where do you spend it?",
+      "options": [
+        {
+          "text": "Put the budget into dinner-hour mobile ads near the night market during launch week, with an in-store discount code.",
+          "effects": {
+            "sales": 10,
+            "brand": 3,
+            "trust": -4,
+            "liver": 4
+          },
+          "feedback": "Codes come in at the register several nights in a row, and first-week sales jump. The budget runs out in week two, and when evening sales drop, the client asks Mei-ling why the ads only ran for one week.",
+          "insight": "The yearbook cautions against chasing short-term traffic and results alone. Marketing investment builds up in the brand, and long-term brand strength can support short-term performance.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Split the buy between the entrance screen and backlit signs along the covered sidewalk. Run them at commute and dinner hours to reach different crowds.",
+          "effects": {
+            "brand": 11,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "You go back and forth with two vendors on specs and are still checking both sets of placement photos after the stalls close. Evening staff start hearing that shoppers recognized the store name on their way over, but first-week sales rise only slightly.",
+          "insight": "The yearbook reports that UNIQLO’s East District partnership drew 2.2 times as many visitors as the year before. 91% said the store would make them visit the East District more often.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Start with a small test on two mobile placements, give each its own discount code, and move budget based on cost per redemption.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "You and Kai spend three days matching ad invoices to register records. The placement with cheaper impressions gets fewer redemptions, so Mei-ling takes both sets of figures to the client to sign off on the shift. By the time the new buy goes live, opening weekend is over.",
+          "insight": "The yearbook calls first-party and member data central in a world with fewer cookies. Retail media still faces fragmented data and departments working in silos.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "data": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2024_02",
+        "q2024_03"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

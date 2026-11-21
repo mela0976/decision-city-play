@@ -1,0 +1,115 @@
+{
+  "id": "m2021",
+  "year": 2021,
+  "order": 4,
+  "clock": "13:00",
+  "title": "Under the Door",
+  "locationId": "studio",
+  "giver": "cd_wei",
+  "brief": "Level 3 restrictions have knocked out the realty shoot's location. There's one door on the Chillshan Creative Park soundstage, and the spot for tonight's pitch has to be in the can by four.",
+  "splash": "book_2021",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "cd_wei",
+          "text": "We lost the location. Art built us this door. Pan an inch to the right and you'll see the set ends."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client just messaged me on LINE. Can people book a virtual viewing straight from the ad?"
+        },
+        {
+          "who": "player",
+          "text": "Wei, look at this take. The kid slips her drawing under the door and her dad crouches to pick it up."
+        },
+        {
+          "who": "cd_wei",
+          "text": "I like that shot. The client circled it and wrote 'cut.' Says they can't tell who we're helping find a home."
+        },
+        {
+          "who": "player",
+          "text": "She drew the room she wants. I want to hold on her dad for a beat while he unfolds it."
+        },
+        {
+          "who": "cd_wei",
+          "text": "Okay. We're out of here at four. Tell the camera crew what you want to shoot next."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You've got a door and a phone. How do you shoot these thirty seconds?",
+      "options": [
+        {
+          "text": "Shoot a virtual viewing demo. Use the phone screen to show the light and layout, then put a booking link on the end card.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": -4,
+            "liver": 3
+          },
+          "feedback": "The client sees it on the monitor and signs off, and you wrap before four. Bookings come in from the end card, and the agents repost just the bit that shows how to use the phone.",
+          "insight": "The yearbook identified Home Commerce as an opportunity during the pandemic and noted that consumers had higher expectations for how they interact with brands.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Keep the shot under the door. Open on the sound of paper scraping against it, then hold the branding until Dad unfolds the drawing and we see the window his daughter drew.",
+          "effects": {
+            "brand": 12,
+            "trust": 3,
+            "sales": -3,
+            "liver": 6
+          },
+          "feedback": "You spend take after take flat on the floor with the camera operator until you catch that little pause as Dad reaches down. People share the shot of the crooked window, while the sales team reports few bookings from the spot.",
+          "insight": "Sinyi Realty's “Trust and Happiness” deliberately left the sales pitch out. In post-testing, 70% of viewers shifted in a positive direction, compared with a previous KPI of 20 to 30%.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Keep the door scene and pick up a vertical close-up of the phone. Let the father and daughter scene play out in widescreen, and cut from the drawing to the booking screen in the vertical version.",
+          "effects": {
+            "brand": 5,
+            "sales": 5,
+            "trust": 4,
+            "liver": 9
+          },
+          "feedback": "You get the last shot before four, then stay with the editor until midnight to line up the paper sound with the cut to the phone. The widescreen cut gets shared and the vertical cut brings in bookings. The client schedules both for release.",
+          "insight": "The yearbook cautions against taking what you observe in the data at face value.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "media": {
+              "sales": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2021_07",
+        "q2021_10"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

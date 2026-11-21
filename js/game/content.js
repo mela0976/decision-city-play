@@ -3,7 +3,7 @@
 // 英日版（lang.js）：中文原檔照常載入，再疊上 content/i18n/<lang>/ 的同名譯檔。譯檔缺少或結構和原檔不同時，
 // 那一檔退回中文並在主控台警告一次。語音照中文原句找檔，所以載入時記下每句譯文對應的中文（見 voiceTexts）。
 
-import { LANG, T, ZH_T } from './strings.js?v=da1d659';
+import { LANG, T, ZH_T } from './strings.js?v=4c63fb3';
 
 export const CONTENT_FILES = ['roles', 'books', 'missions', 'quiz', 'npcs', 'radio', 'grandma', 'endings', 'story', 'feed'];
 const FEED_FORMATS = new Set(['livestream', 'dashcam', 'story', 'forum', 'chat', 'short', 'meeting', 'aichat']);
@@ -256,6 +256,41 @@ export async function loadContent({ useFixtures = false } = {}) {
   const years = [...new Set(missions.map((m) => m.year).filter(Number.isInteger))].sort();
   const side = await loadSide({ base: sideBase, years, injected: source === 'bundle' ? raw.side || {} : null, knownNpcIds: new Set(raw.npcs.map((n) => n.id)), localizer });
   raw.npcs = [...raw.npcs, ...side.npcs];
+  // 職能劇本：每個職能一條自己的主線（content/game/role-missions.json，由 tools/build_role_missions.py 合併）。
+  // 沒有這個檔或結構不對就用通用版。譯文照一般譯檔的方式疊上去，語音也照中文原句找。
+  let roleMissions = null;
+  if (!useFixtures) {
+    try {
+      let rm = source === 'bundle' ? raw['role-missions'] ?? null : null;
+      if (!rm && source !== 'bundle') {
+        const response = await fetch(new URL('content/game/role-missions.json', document.baseURI), { cache: 'no-cache' });
+        rm = response.ok ? await response.json() : null;
+      }
+      if (rm && localizer) rm = await localizer.localize('role-missions.json', rm);
+      if (rm && typeof rm === 'object') {
+        roleMissions = new Map(Object.entries(rm).filter(([, list]) => Array.isArray(list) && list.length === missions.length)
+          .map(([role, list]) => [role, [...list].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))]));
+      }
+    } catch {
+      roleMissions = null;
+    }
+  }
+  // 職能過場台詞（客戶真心話、阿凱的回應）：content/game/role-interludes.json，{role:[{after, sincere, partner}]}
+  let roleInterludes = null;
+  if (!useFixtures) {
+    try {
+      let ri = source === 'bundle' ? raw['role-interludes'] ?? null : null;
+      if (!ri && source !== 'bundle') {
+        const response = await fetch(new URL('content/game/role-interludes.json', document.baseURI), { cache: 'no-cache' });
+        ri = response.ok ? await response.json() : null;
+      }
+      if (ri && localizer) ri = await localizer.localize('role-interludes.json', ri);
+      if (ri && typeof ri === 'object') roleInterludes = new Map(Object.entries(ri).filter(([, list]) => Array.isArray(list))
+        .map(([role, list]) => [role, new Map(list.map((item) => [item.after, item]))]));
+    } catch {
+      roleInterludes = null;
+    }
+  }
   localizer?.report();
   return {
     side,
@@ -264,6 +299,10 @@ export async function loadContent({ useFixtures = false } = {}) {
     roles: raw.roles,
     books,
     missions,
+    baseMissions: [...missions],
+    roleMissions,
+    roleInterludes,
+    baseInterludes: raw.story.interludes,
     quiz: raw.quiz,
     npcs: raw.npcs,
     radio: raw.radio,

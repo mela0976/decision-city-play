@@ -1,0 +1,134 @@
+{
+  "id": "m2020",
+  "year": 2020,
+  "order": 3,
+  "clock": "11:30",
+  "title": "Which Booking Goes?",
+  "locationId": "client_hq",
+  "giver": "client_chen",
+  "brief": "Manager Chen's lutein campaign is about to launch. There's enough money for one full schedule. Find out which placements are worth paying for.",
+  "splash": "book_2020",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_chen",
+          "text": "Look at these two quotes. Friday night's video takeover or the weekend search budget. Finance says we can keep one."
+        },
+        {
+          "who": "client_chen",
+          "text": "Impressions were cheap last time, but a coworker saw the same ad five times in one night. Now my boss only wants to see orders."
+        },
+        {
+          "who": "player",
+          "text": "I'll ask the rep to hold the takeover until noon. We can split search by day, so I'd like to check when orders actually came in last year."
+        },
+        {
+          "who": "client_chen",
+          "text": "Go see Kai at Lanshan Plaza. He's got last year's promo orders. Take the quotes with you."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "datalab",
+      "hint": "去藍山廣場數據實驗室，看看客戶的資料能不能用"
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "Last year, most orders came in after dinner on Friday, when the add-on deal went live. See? Saturday morning is practically blank."
+        },
+        {
+          "who": "player",
+          "text": "I'll price out search for after dinner, then. Does this video quote say how many people it'll reach?"
+        },
+        {
+          "who": "data_kai",
+          "text": "Just impressions. Add up both platforms and you have no idea how often you've counted the same person."
+        },
+        {
+          "who": "player",
+          "text": "Okay, I'll list cost per thousand impressions and cost per order separately. If we test by region, can you pull the orders for each one?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Chen texts you that Finance is waiting. Which schedule do you send?",
+      "options": [
+        {
+          "text": "Drop the video takeover. Put the money into category keywords and Shopping ads after dinner on Friday.",
+          "effects": {
+            "sales": 10,
+            "brand": -4,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "Friday evening orders pick up, and Chen posts the cost per sale in the group chat. Fewer people see the new product for the first time, and the following week even the retailers ask where the ads went.",
+          "insight": "In January 2020, Google announced it would phase out third-party cookies within two years in Chrome, which had nearly 70% market share in Taiwan.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Book one week of short-form video with a budget you can adjust daily, and save some for search. Pick comparable areas and compare orders where the ads ran with orders in the control area.",
+          "effects": {
+            "sales": 5,
+            "trust": 7,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "Orders tick up in the first week, and Chen takes the regional numbers to Finance to get the budget extended. You and Kai have to rerun the reports every day and flag the stores that ran out of stock.",
+          "insight": "The annual report describes social and search becoming the two main gateways to media as audiences shifted from browsing to consuming content on demand.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Pass on the big takeover and split evening slots across two video platforms. Cap frequency on each platform and measure results with a brand awareness survey.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -3,
+            "liver": 8
+          },
+          "feedback": "More people recognize the new product in the brand survey, but weekend orders drop. The platforms calculate frequency differently, and you spend several evenings with the schedule open, adjusting the next day's delivery.",
+          "insight": "Research cited in the annual report found that 65% of Adidas sales came from brand activity. Adidas shifted its brand-to-performance budget split from 23:77 to 60:40.",
+          "roleBonus": {
+            "data": {
+              "brand": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2020_05",
+        "q2020_10"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_noon"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

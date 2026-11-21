@@ -1,0 +1,116 @@
+{
+  "id": "m2023",
+  "year": 2023,
+  "order": 6,
+  "clock": "16:00",
+  "title": "Which Slot Do We Book?",
+  "locationId": "datalab",
+  "giver": "data_kai",
+  "brief": "No-Overtime Milk Tea launches a new drink tomorrow. At Lanshan Plaza, Ah-Kai spreads out the quotes and asks you where to spend the last of the media budget.",
+  "splash": "book_2023",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "Look at this screenshot. Someone asked what to drink after lunch in Xinyi, and the chatbot sent them next door."
+        },
+        {
+          "who": "player",
+          "text": "I've got a quote for screens at the MRT exits. There's a lunch slot in the chatbot too. Booking both in full puts us over budget."
+        },
+        {
+          "who": "data_kai",
+          "text": "The chatbot placement reports clicks. We can give each placement its own coupon code and I'll match those to in-store redemptions."
+        },
+        {
+          "who": "ae_mei",
+          "text": "I just got off the phone with the client. She wants to know how many people see the new drink. The store manager just wants to know how many extra cups he'll sell."
+        },
+        {
+          "who": "player",
+          "text": "The screen package costs more, but it gets us the evening commute. With chat ads we can cap how often people see them or pile into lunch."
+        },
+        {
+          "who": "data_kai",
+          "text": "They need a signature by four thirty. Send me the media plan so I know which columns to pull tomorrow."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "There's only enough money to sign off on one plan. What do you book?",
+      "options": [
+        {
+          "text": "Put the money into evening slots at two MRT exits and run the new drink's brand ad in rotation.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -4,
+            "liver": 9
+          },
+          "feedback": "Even commuters waiting across the street can see the new cup. You go back and forth with both vendors on the play logs until midnight. With no paid push for the lunch coupon, the store manager has a tub of ingredients left over.",
+          "insight": "The yearbook notes that Gucci's Chengdu flagship built a three-meter-high digital mural out of 33 large LED screens.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            }
+          }
+        },
+        {
+          "text": "Test one screen slot and one chat slot, cap chat frequency, and track reach and cost per redemption separately.",
+          "effects": {
+            "trust": 9,
+            "brand": 5,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "Ah-Kai puts estimated screen reach and chat impressions in separate columns and reconciles the two coupon codes. The client sees where the money went and approves another round. The small test only sells a few extra cups at lunch.",
+          "insight": "The yearbook calls first-party data the foundation for making money with AI and points out that the quality of the input affects the output.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Put everything into lunchtime recommendations for nearby drinks, raise the frequency cap, and lead with a limited-time coupon.",
+          "effects": {
+            "sales": 8,
+            "brand": -4,
+            "trust": -3,
+            "liver": 6
+          },
+          "feedback": "At noon the cashier scans so many coupons the till runs out of paper. Then screenshots of one person getting the offer over and over land in the brand group chat, with jokes about it being a discount shop. The client calls to stop the ads early and wants the numbers reconciled before you clock out.",
+          "insight": "The yearbook notes that Google and Bing have placed ads inside conversations with AI assistants, turning chat into a place to reach people with ads.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2023_11",
+        "q2023_12"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_evening"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

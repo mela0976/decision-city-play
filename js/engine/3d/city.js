@@ -1,9 +1,9 @@
-import {canvasTexture} from './city-primitives.js?v=da1d659';
-export {canvasTexture} from './city-primitives.js?v=da1d659';
-import * as T from '../vendor/three.module.min.js?v=da1d659';
-import {trafficGreen} from '../navigation.js?v=da1d659';
-import {buildLandmark} from './xinyi.js?v=da1d659';
-import {buildings,civicWalkway,columns,columnNames,height,random,river,roads,rows,rowNames,width} from '../world.mjs?v=da1d659';
+import {canvasTexture} from './city-primitives.js?v=4c63fb3';
+export {canvasTexture} from './city-primitives.js?v=4c63fb3';
+import * as T from '../vendor/three.module.min.js?v=4c63fb3';
+import {trafficGreen} from '../navigation.js?v=4c63fb3';
+import {buildLandmark} from './xinyi.js?v=4c63fb3';
+import {buildings,civicWalkway,columns,columnNames,height,random,river,roads,rows,rowNames,width} from '../world.mjs?v=4c63fb3';
 
 export const unit=.105;
 const chunkSize=69;
@@ -39,7 +39,8 @@ const shopNames=['牛肉麵','手搖茶','社區藥局','機車行','便當','�
 const signPalette=['#d6a53f','#4fa286','#b93d36','#d67634','#4987ad','#b39e4d'];
 function signAtlas(doc,names) {
   const columns=8,rows=Math.ceil(names.length/columns);
-  const texture=canvasTexture(doc,columns*96,rows*192,(ctx)=>{
+  const texture=canvasTexture(doc,columns*96*2,rows*192*2,(ctx)=>{
+    ctx.scale(2,2); // 店家招牌：畫布放大兩倍，字比較清楚
     names.forEach((name,i)=>{
       const x=(i%columns)*96,y=Math.floor(i/columns)*192;
       ctx.fillStyle=signPalette[i%signPalette.length];
@@ -52,8 +53,9 @@ function signAtlas(doc,names) {
       [...name].forEach((char,j)=>ctx.fillText(char,x+48,y+96+(j-(name.length-1)/2)*step));
     });
   });
-  texture.generateMipmaps=false;
-  texture.minFilter=T.LinearFilter;
+  // 開 mipmap：遠處的招牌不閃爍、不糊成一團
+  texture.generateMipmaps=true;
+  texture.minFilter=T.LinearMipmapLinearFilter;
   return {texture,columns,rows};
 }
 function terraceHeight(b) {

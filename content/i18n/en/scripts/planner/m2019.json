@@ -1,0 +1,139 @@
+{
+  "id": "m2019",
+  "year": 2019,
+  "order": 2,
+  "clock": "10:00",
+  "title": "The Blue Tube",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "HQ thinks customers have forgotten the brand because searches are down. They want new packaging and more ads, and Chief Lin wants you to find out how shoppers recognize the ointment before noon.",
+  "splash": "book_2019",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "HQ at Itch Be Gone says searches are down so far that people must have forgotten the brand."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The new box just came in. They took out the blue and put the brand name in huge letters on the front."
+        },
+        {
+          "who": "boss_lin",
+          "text": "It goes to print at noon. You're the strategist. Who needs to see the name that big?"
+        },
+        {
+          "who": "player",
+          "text": "I want to hear what customers actually say when they get to the counter."
+        },
+        {
+          "who": "boss_lin",
+          "text": "Try the convenience store on Songshou Road. Take the sample, but let the clerk talk before you show it."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "convenience",
+      "hint": "去松壽路的巷口超商問問：最近誰在買腳癢退散？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "player",
+          "text": "Do you remember what the last person who bought Itch Be Gone said when he came in?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "The guy in rain boots this morning? He put his empty tube on the counter and asked for another blue one before he got off work."
+        },
+        {
+          "who": "player",
+          "text": "What about first-time buyers? Do they ask for the blue one too?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "Yesterday someone typed 'feet itch in my shoes' on his phone and showed me. He kept the screen dim. He didn't want the people in line hearing him ask out loud."
+        },
+        {
+          "who": "player",
+          "text": "I've got both phrases on the back of the box now. Bet the first thing HQ asks in the meeting is how big the brand name should be."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Chief Lin texts, 'Can the box go to print?' Which proposal do you send back first?",
+      "options": [
+        {
+          "text": "Print the old box for now. Use 'feet itch in your shoes?' in search ads to reach people already looking for ointment.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -3,
+            "liver": 3
+          },
+          "feedback": "More people buy the ointment online that week. When HQ asks at month-end how many shoppers still recognize the old box in stores, all you have is Ning's one example.",
+          "insight": "The yearbook uses the caveman effect to show how relying on records that survive can leave out people who never made it into those records.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Ask HQ to hold printing for a week. Have regulars find the product with both boxes, and ask when they last bought it.",
+          "effects": {
+            "sales": 4,
+            "trust": 8,
+            "brand": 3,
+            "liver": 5
+          },
+          "feedback": "Regulars grab the old box and head for the register. When they see the sample, they ask Ning if the medicine has changed. HQ reviews the notes, keeps the blue, and lets stores keep selling as usual.",
+          "insight": "In the yearbook's nail fungus treatment case, there were nearly 30% fewer rainy days than the year before. Local conditions matter when you're trying to explain shifts in demand.",
+          "roleBonus": {
+            "data": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Cover the morning and evening shifts, interview new and repeat buyers, and draft a shelf card shoppers can point to.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": 3,
+            "liver": 8
+          },
+          "feedback": "The morning crowd talks about sweaty rain boots. Several evening shoppers are buying for family and bring the empty tubes. You finish the card after closing, and the retailer agrees to try it for a week, pushing back the first print run.",
+          "insight": "The yearbook recommends filling gaps in big data with sample surveys, retail interviews, and small data. The records you can get only cover part of the picture.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2019_11",
+        "q2019_12"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

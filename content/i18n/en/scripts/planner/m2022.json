@@ -1,0 +1,115 @@
+{
+  "id": "m2022",
+  "year": 2022,
+  "order": 5,
+  "clock": "14:30",
+  "title": "The Pump She Kept",
+  "locationId": "department",
+  "giver": "client_hsu",
+  "brief": "Refills are gathering dust at Shin Kong Mitsukoshi. Manager Hsu wants you, the strategy planner, to find a message shoppers will actually listen to.",
+  "splash": "book_2022",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_hsu",
+          "text": "My boss wants \"Better for the planet\" in bigger print. You handle strategy. Do you think that line can turn sales around?"
+        },
+        {
+          "who": "player",
+          "text": "I spoke with three people at the counter who bought a full bottle. One of them pulled a clean old pump out of her bag."
+        },
+        {
+          "who": "data_kai",
+          "text": "I saw that. She asked if she could still use it. The clerk wasn’t sure, so she took a full bottle to the register."
+        },
+        {
+          "who": "player",
+          "text": "She went to the trouble of bringing it. I want to know if she was worried it wouldn’t fit or that it might leak."
+        },
+        {
+          "who": "client_hsu",
+          "text": "My boss already put that planet line on slide one. What are you bringing him tomorrow morning?"
+        },
+        {
+          "who": "player",
+          "text": "I’ll bring the pump. First, let’s decide what we can actually promise shoppers."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You can pitch one direction tomorrow morning. How do you give shoppers the confidence to switch to refills?",
+      "options": [
+        {
+          "text": "Lead with \"Bring in your old pump. If it fits, grab a refill.\" Have the clerk check the fit at the counter.",
+          "effects": {
+            "sales": 10,
+            "brand": -3,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "Over the weekend, shoppers who’d picked up a full bottle switched to a refill on the spot after the fit check. Manager Hsu saw more refill sales, but all shoppers remembered afterward was that the clerk would check for them.",
+          "insight": "The yearbook cites a Kantar survey in which 76% of Taiwanese respondents said convenience and cost kept them from taking environmental action.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Borrow older bottles to check fit and leakage, then make a card listing which pump models can be reused.",
+          "effects": {
+            "brand": 6,
+            "trust": 9,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "You and Kai borrowed old bottles from every counter and finished testing at closing time. Manager Hsu took the results into the meeting, and his boss agreed to lead with \"You can keep using these pumps.\" Some shoppers took a photo of the card to check at home, and only a few extra refills sold that day.",
+          "insight": "The yearbook cites a Kantar survey in which 71% of Taiwanese respondents felt companies gave them too little information about eco-friendly products.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Ask longtime customers to bring their old bottles to the counter for a short video about how long they’ve kept their pumps.",
+          "effects": {
+            "brand": 9,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "One customer brought a bottle covered in her daughter’s stickers, and the department store shared her interview on Facebook. People started posting pictures of their own bottles, but few of the people who came to watch bought anything. You spent two weekends interviewing shoppers and your evenings checking every pump model shown on camera.",
+          "insight": "The yearbook says content is more likely to get noticed on social media when it feels relevant, gives people something of value, and makes them feel something.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2022_06",
+        "q2022_08"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

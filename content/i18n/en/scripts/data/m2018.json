@@ -1,0 +1,118 @@
+{
+  "id": "m2018",
+  "year": 2018,
+  "order": 1,
+  "clock": "08:30",
+  "title": "Does That Cup Count?",
+  "locationId": "mrt",
+  "giver": "client_wu",
+  "brief": "The hot Americano launches next week. Manager Wu spreads the trial sales report out at MRT City Hall Station. She wants to know how many extra cups a station ad could sell.",
+  "splash": "book_2018",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_wu",
+          "text": "Look, more people came out of the station on the trial day, and hot Americanos sold well. My boss says we should book this wall."
+        },
+        {
+          "who": "player",
+          "text": "This column counts exits across the whole station. That whole crowd just took the turn toward the bus terminal without passing this wall."
+        },
+        {
+          "who": "client_wu",
+          "text": "Our stores were also handing out coupons at the register. How do I tell what brought people in?"
+        },
+        {
+          "who": "data_kai",
+          "text": "I just checked the receipts. There's a refunded cup still in the sales total. Hold off on that screenshot."
+        },
+        {
+          "who": "player",
+          "text": "I'll take out the refunds. If we're looking for extra sales from the ad, I'd like some time slots without it to compare against."
+        },
+        {
+          "who": "client_wu",
+          "text": "We've got a month's budget. I have to head back to the office soon. Pick an approach and tell me what I can take to my boss at the end of the month."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The City Hall Station budget covers one plan. What evidence will you bring back at the end of the month?",
+      "options": [
+        {
+          "text": "Take the whole bus terminal passage wall. Before and after it goes up, stop commuters at the same exit and ask which coffee brands they remember.",
+          "effects": {
+            "brand": 10,
+            "sales": 3,
+            "trust": 3,
+            "liver": 6
+          },
+          "feedback": "By month's end, more people name the brand without a list of choices, and Manager Wu puts the chart on her first slide. You spend three mornings at the exit collecting extra responses, and the 'extra cups sold' cell in Finance's sheet is still blank.",
+          "insight": "The yearbook cites Dentsu Japan research finding that out-of-home plus mobile ads got 2.2 times the ad recall of mobile alone.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Pair similar morning slots and draw lots to decide which runs the coffee ad and which shows station directions. Compare sales at nearby stores.",
+          "effects": {
+            "brand": 3,
+            "sales": 9,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "Stores sell a few more hot Americanos in the half hour after the ad than after the station directions, so Manager Wu spends the rest of the budget on morning slots. You still have to reconcile the playback logs slot by slot. One day the screen starts late, and you flag that slot in the report.",
+          "insight": "The yearbook identifies measurement, automated trading, and dynamic delivery as three keys to developing Taiwan's out-of-home media.",
+          "roleBonus": {
+            "media": {
+              "sales": 5
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Put a station-specific discount code on one small board. Ask the stores for a weekly export of redemption receipts and match them against the register data.",
+          "effects": {
+            "brand": 4,
+            "sales": 7,
+            "trust": 6,
+            "liver": 3
+          },
+          "feedback": "The store manager finds a refunded sale in the receipts, and Manager Wu crosses it off the redemption sheet with you. She keeps the discount running the following week and tells her boss how many redemptions went through.",
+          "insight": "The yearbook cites Posterscope research finding that 83% of shoppers saw an out-of-home ad within 30 minutes before shopping.",
+          "roleBonus": {
+            "cx": {
+              "sales": 4
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2018_04",
+        "q2018_05"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

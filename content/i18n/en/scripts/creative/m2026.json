@@ -1,0 +1,115 @@
+{
+  "id": "m2026",
+  "year": 2026,
+  "order": 9,
+  "clock": "21:00",
+  "title": "The Buckle Click",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "Just before the pitch, the retailer pulls the commuter bag ad. Its AI-cut opening looks almost identical to a rival's. Lin wants you to pick the cut for slide nine.",
+  "splash": "book_2026",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "Buy First Select just pulled the ad. They put ours next to the rival's. Both open with someone crossing the street in the rain."
+        },
+        {
+          "who": "ae_mei",
+          "text": "They cut the location shoot. Tonight's promo code is still on. Marketing wants orders from the opening shot, and the product team wants final approval."
+        },
+        {
+          "who": "cd_wei",
+          "text": "Look at this frame. The editing agent says this shot will sell. It even swapped the buckle for a silver one."
+        },
+        {
+          "who": "player",
+          "text": "The real one's black. I shot a try-on on Wuxing Street today. A woman clips the strap and frees up a hand to grab her breakfast."
+        },
+        {
+          "who": "data_kai",
+          "text": "I ran both cuts through a simulated audience. It helped pick an opener. We'll need real viewers to see if they'd buy."
+        },
+        {
+          "who": "boss_lin",
+          "text": "They're waiting in the conference room. You're the creative. Which cut goes on slide nine? Tell me what can go straight out and what needs a sign-off."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The client cut the location shoot. The room's waiting for one rough cut. What's going on slide nine?",
+      "options": [
+        {
+          "text": "Make tonight's slot with the AI cut. Put the promo code in the first second and let the agent pick the opener and publish.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -4,
+            "liver": 3
+          },
+          "feedback": "The promo code brings in a rush of orders. The next day, the product team gets a string of comments asking about the silver buckle, and the client asks to revoke the agent's publishing access.",
+          "insight": "The annual report lists four levels of agent permissions: observe and understand, recommend, decide, and act.",
+          "roleBonus": {
+            "data": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Shoot the real black buckle at A25. Keep the offer at the end and get the product team to sign off on every format before it goes live.",
+          "effects": {
+            "trust": 10,
+            "brand": 5,
+            "sales": 3,
+            "liver": 6
+          },
+          "feedback": "You and Mei are still shooting at A25 when security comes through on rounds. The product team clears each cut, and the offer goes live just before the promo ends.",
+          "insight": "The annual report describes four steps for keeping mass-produced content from all looking alike: set specs, build a production line, inspect the work, and turn what works into repeatable patterns.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        },
+        {
+          "text": "Pull tonight's promo cut. Make a short from the Wuxing Street footage with the location audio, starting with the click of the buckle.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": -4,
+            "liver": 5
+          },
+          "feedback": "Without the promo cut driving sales, fewer orders come in that night. You stay at the edit desk past midnight replaying the buckle click. The next day, the client makes it the opener for the series, and people start asking where the bag's from.",
+          "insight": "The annual report notes that Coinbase had real actors play video game NPCs and kept the imperfections in their performances so people could tell it was made by humans.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2026_12",
+        "q2026_01"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

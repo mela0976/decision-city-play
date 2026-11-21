@@ -1,0 +1,115 @@
+{
+  "id": "m2026",
+  "year": 2026,
+  "order": 9,
+  "clock": "21:00",
+  "title": "How Do I Buy the Next Box?",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "Buy First Select uses AI to help customers restock. Some get stuck at member sign-in, while others place an order and only then realize their points weren't applied. Lin wants your call on the weekend rollout before the pitch.",
+  "splash": "book_2026",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "It's nine. Keep your laptop open. Buy First Select is pushing skincare reorders this weekend, and their e-commerce lead is waiting for our go-ahead."
+        },
+        {
+          "who": "data_kai",
+          "text": "I followed the unboxing clip all the way to checkout. Look, she tries to use her points and gets kicked back to the sign-in screen."
+        },
+        {
+          "who": "player",
+          "text": "I told the AI to repeat my last order on a test account. It used the free shipping coupon. I only saw that it hadn't applied my points after the order went through."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Support has a ticket about that exact thing. Pickup at the convenience store went fine last time. Now she says she'll just buy it in person next time."
+        },
+        {
+          "who": "player",
+          "text": "I'll put that ticket on slide nine. She already knew which box she wanted. She just needed to see what she was getting before the order went through."
+        },
+        {
+          "who": "boss_lin",
+          "text": "They're calling us into the meeting room. We've got one version for the weekend. How far do you let the shopping assistant go?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Get back to the e-commerce lead before the pitch. How should members check out when they buy their next box this weekend?",
+      "options": [
+        {
+          "text": "Repeat the last order, with the shopping assistant applying the free shipping coupon and placing the order.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -4,
+            "liver": 3
+          },
+          "feedback": "Reorders start stacking up in the convenience-store pickup queue first thing Saturday. By afternoon, support is taking cancellations from members who got free shipping and realized they hadn't used the points they meant to spend.",
+          "insight": "The 2026 report cites Baymard Institute data putting the global average cart abandonment rate at about 70.2%.",
+          "roleBonus": {
+            "data": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Preview the discount and pickup details first. If points and the coupon can't be used together, pass the cart to a support rep.",
+          "effects": {
+            "trust": 10,
+            "brand": 5,
+            "sales": 3,
+            "liver": 6
+          },
+          "feedback": "You and Ah-Kai run a test account all the way to payment and only remember your dinner when you leave the meeting room. Over the weekend, the rep can see the cart as soon as they take over, and the customer uses her points to buy her second box on the spot.",
+          "insight": "The report's section on agent experience (AX) describes three parts of designing for trust: previewing intent, auditing actions, and giving users a way to escalate.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        },
+        {
+          "text": "Pause automated orders and have support demo member discounts and convenience-store pickup on the unboxing livestream.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": -4,
+            "liver": 5
+          },
+          "feedback": "Support uses a receipt on the livestream to show how to choose a discount, and viewers clip and share that bit. You're still staring at the weekly report at midnight: more chatter, a lot fewer reorders.",
+          "insight": "The report cites DHL's social commerce research, which found that 70% of consumers have bought directly on social media.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2026_12",
+        "q2026_01"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

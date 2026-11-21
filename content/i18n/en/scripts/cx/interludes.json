@@ -1,0 +1,101 @@
+[
+  {
+    "after": "m2018",
+    "sincere": {
+      "who": "client_wu",
+      "text": "We printed ‘ready when you get here’ on the sleeve. I never thought she'd have to line up again for points when she had a bus to catch."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page one's in. I've put the sleeve next to the support ticket. She paid and still had to chase up those points."
+    }
+  },
+  {
+    "after": "m2019",
+    "sincere": {
+      "who": "clerk_ning",
+      "text": "She even brought the empty box. I hate having to tell her we're out and send her to another store with that box still in her hand."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page two's in. She already knew exactly what she wanted. The site's still asking her for a login code."
+    }
+  },
+  {
+    "after": "m2020",
+    "sincere": {
+      "who": "client_chen",
+      "text": "The clerk knew which one she'd bought right away, but support still asked for a photo of the bottom of the bottle. I'd probably give up too."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page three's in. The screenshot time checks out. She came back the next day. The refill was in her cart, but there was no order."
+    }
+  },
+  {
+    "after": "m2021",
+    "sincere": {
+      "who": "cd_wei",
+      "text": "At the studio I was worried about whether the clam soup looked good. The customer just wanted to know when it would get there."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page four's in. All I saw was the drop at sign-in. Then I read the ticket. Someone asked about the delivery date three times."
+    }
+  },
+  {
+    "after": "m2022",
+    "sincere": {
+      "who": "client_hsu",
+      "text": "She brought in the old bottle. That's when I found out she'd spilled the refill all over her table. No wonder she wanted a new bottle this time."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page five's in. I can count how many people left at the address screen. A refill all over the table? That's never going to show up in the report."
+    }
+  },
+  {
+    "after": "m2023",
+    "sincere": {
+      "who": "data_kai",
+      "text": "Good thing you went all the way to payment. If I'd only seen the bot say ‘free shipping,’ I'd have thought it got it right."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page six's in. I found last year's promo page. Two bags really did ship free. That deal's long gone."
+    }
+  },
+  {
+    "after": "m2024",
+    "sincere": {
+      "who": "vendor_cheng",
+      "text": "You've already tried on the jacket, and now you're standing in the shop waiting for a text. I'd have put the tag down too."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page seven's in. I've got the log for that verification screen. It doesn't tell me the shrine caretaker wanted another jacket for his brother."
+    }
+  },
+  {
+    "after": "m2025",
+    "sincere": {
+      "who": "tv_su",
+      "text": "I was still figuring out how long to leave the code on screen. Then you told me her egg burned while she waited. That put it in perspective."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page eight's in. That sketch on the back of the order slip makes sense. To buy the same bottle again, she has to find the product number first."
+    }
+  },
+  {
+    "after": "m2026",
+    "sincere": {
+      "who": "boss_lin",
+      "text": "Watching you buy the second box on the test account, I finally saw it. The order's already through by the time the customer finds out her points weren't used."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page nine's in. I kept the sign-in screen and that support ticket. If anyone asks what happened to the points, I've got them right here."
+    }
+  }
+]

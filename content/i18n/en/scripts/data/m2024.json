@@ -1,0 +1,138 @@
+{
+  "id": "m2024",
+  "year": 2024,
+  "order": 7,
+  "clock": "18:00",
+  "title": "One Phone, Two Visitors",
+  "locationId": "night_market",
+  "giver": "ae_mei",
+  "brief": "The flagship opens next week. Mei hands you the soft-opening report and asks whether those night-market scans turned into sales.",
+  "splash": "book_2024",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "ae_mei",
+          "text": "One Less Piece opens next week. The client saw the soft-opening report and thinks everyone on Linginger Street came in to buy clothes."
+        },
+        {
+          "who": "ae_mei",
+          "text": "They want that slide tonight. Can you check what they're counting as a visitor?"
+        },
+        {
+          "who": "player",
+          "text": "That column's from GA4. Kai, did we get the register export too?"
+        },
+        {
+          "who": "data_kai",
+          "text": "Yep. The front door and the alley have the same QR code, and the report counts every page open."
+        },
+        {
+          "who": "player",
+          "text": "I'll scan one along the way and another at the Earth God shrine on Fude Street. Keep an eye on the live report."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "temple",
+      "hint": "沿著巷弄走到福德街土地公廟，記下沿路的老店",
+      "timeLimitSec": 120
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "player",
+          "text": "The shrine sticker's on the back of a red chair. I just scanned it on the same phone. Did it show up?"
+        },
+        {
+          "who": "data_kai",
+          "text": "Yep, two page opens. Nothing new on the register, and you're still at the shrine."
+        },
+        {
+          "who": "player",
+          "text": "I'll change 'new visitors' to 'page opens' on the slide. The growth chart can come out for now."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Okay, I'll talk to the client. We've got one opening budget. What do you want to measure first?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "There's room for one measurement plan. Which number do you want to pin down first?",
+      "options": [
+        {
+          "text": "Randomly offer express checkout and compare purchases at the register. Keep opening staff at the flagship.",
+          "effects": {
+            "sales": 10,
+            "brand": 3,
+            "trust": -4,
+            "liver": 4
+          },
+          "feedback": "The group offered express checkout is more likely to pay, so the manager opens another express register the next day. The shaved-ice shop owner sees the line blocking his door and tells you to find somewhere else for your posters next time.",
+          "insight": "The 2024 report cautions against chasing short-term traffic and performance alone. Brand is where all those marketing investments add up.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Randomly assign poster slots at local shops. Ask people on the street which brands they remember when the posters are up and when they're down.",
+          "effects": {
+            "brand": 11,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "It takes you and Mei several trips to get the shops on a rotation. More people can name the store without a prompt during poster slots, but when the manager asks how many more clothes he sold, you don't have an answer yet.",
+          "insight": "UNIQLO's East District program drew 2.2 times as many visitors as the year before. 91% said the store would bring them to the area more often.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Reconcile the register data with the client, randomly offer a coupon, and compare purchase rates across the two groups using order records.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "You remove returns, match both groups' assignment codes to the receipts, and ask the manager to run the numbers with you. The coupon group buys at a slightly higher rate, but Mei has to wait until closing for the report.",
+          "insight": "The 2024 report puts first-party and member data at the center of the low-cookie era. Fragmented data and organizational silos remain barriers for retail media.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "data": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2024_02",
+        "q2024_03"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

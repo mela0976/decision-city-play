@@ -1,0 +1,115 @@
+{
+  "id": "m2022",
+  "year": 2022,
+  "order": 5,
+  "clock": "14:30",
+  "title": "Where Do We Put the Budget?",
+  "locationId": "department",
+  "giver": "client_hsu",
+  "brief": "Two cases of refills are still sitting at the Shin Kong Mitsukoshi counter. Manager Hsu has NT$60,000 left for media and needs to decide today where to run ads and for how long.",
+  "splash": "book_2022",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_hsu",
+          "text": "Look, we haven’t even opened these two cases of refills. I’ve got NT$60,000 left, and my boss wants results on Monday."
+        },
+        {
+          "who": "client_hsu",
+          "text": "The rep says the screen by the elevators will play our ad 80 times a day. Is that a good deal?"
+        },
+        {
+          "who": "player",
+          "text": "That’s 80 plays. I’ll ask for weekday and weekend foot traffic so we can compare rates."
+        },
+        {
+          "who": "data_kai",
+          "text": "Last time all three placements shared one QR code. I could see the scans, but I couldn’t tell which screen they came from."
+        },
+        {
+          "who": "client_hsu",
+          "text": "Let’s track them separately this time. I need to be able to explain what we paid for when I show my boss the numbers on Monday."
+        },
+        {
+          "who": "player",
+          "text": "Sure. I’ve got quotes here for store search ads, the mall screen, and the MRT entrance screen with short videos. Let’s put the NT$60,000 behind one of them."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The mall is waiting for your answer. Which buy gets the NT$60,000?",
+      "options": [
+        {
+          "text": "Buy weekend evening search ads on the online store. Show the refill price up front and link straight to the product page.",
+          "effects": {
+            "sales": 10,
+            "brand": -3,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "Refill orders pick up on weekend evenings. On Monday the ads come down, product page traffic drops, and searches for the brand barely move.",
+          "insight": "In Q1 2022, Kantar surveyed 500 people in Taiwan. Of those surveyed, 85% thought eco-friendly products were more expensive.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Buy a weekday lunch slot on the mall screen and go dark at the same time the next day. Use a dedicated QR code for the product comparison page and compare counter receipts.",
+          "effects": {
+            "brand": 6,
+            "trust": 9,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "Kai goes through the receipts from both lunch slots one by one. Sales are close, though the QR code does bring some visitors to the product comparison page. Hsu uses the report to convince his boss to hold off on renewing.",
+          "insight": "In the same Kantar survey, 71% said there wasn’t enough information about eco-friendly products.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Book the MRT entrance screen for the weekend and run short videos around the shopping district. Cap video ad impressions at two per person.",
+          "effects": {
+            "brand": 9,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "On Saturday afternoon, someone on Xiangti Avenue tells a friend, “That’s the refill brand from the screen at the MRT entrance.” More people ask about it at the counter, but only a few more buy. You stay until the last train two nights in a row to get the proof-of-play photos you’re missing.",
+          "insight": "The yearbook notes that five generations have different media habits, making a single market strategy harder to pull off.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2022_06",
+        "q2022_08"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

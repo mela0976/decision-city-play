@@ -1,0 +1,115 @@
+{
+  "id": "m2026",
+  "year": 2026,
+  "order": 9,
+  "clock": "21:00",
+  "title": "Where She Wants to Go",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "A joint supplement brand wants to lead with “Buy it for your parents.” In an interview, a mom deletes the bottle her daughter put in the cart. Director Lin wants the planner to settle on a message before the pitch.",
+  "splash": "book_2026",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "The client's already put “Buy it for your parents” on the cover. Anything you'd change after watching the interview?"
+        },
+        {
+          "who": "ae_mei",
+          "text": "They're pointing to the AI simulation. They've even booked a Friday promo for the gift bundle."
+        },
+        {
+          "who": "data_kai",
+          "text": "I paused the interview right here. The daughter adds the bottle to the cart and her mom reaches over and deletes it."
+        },
+        {
+          "who": "player",
+          "text": "I asked what she was doing this weekend. She wants to take the bus to Yongkang Street herself so her daughter won't have to take time off to drive her again."
+        },
+        {
+          "who": "cd_wei",
+          "text": "So should I shelve that photo of the mom and daughter holding hands? The client called it moving just this afternoon."
+        },
+        {
+          "who": "boss_lin",
+          "text": "Give me one line. The pitch client is already seated next door and slide nine is still blank."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Director Lin slides the cover page over to you. Which direction do you ask the client to back first?",
+      "options": [
+        {
+          "text": "Keep the gift promo and lead with a trial pack. Put the ingredients and price per serving at the top of the product page.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -4,
+            "liver": 3
+          },
+          "feedback": "The trial packs sell faster than expected on Friday, so the e-commerce lead orders another batch. Returns start coming in marked “My mom didn't ask for this,” and the marketing lead wants to know why you only tested with the people paying.",
+          "insight": "In the yearbook's supplement ad simulation, people aged 45 and over preferred fact-based ads featuring a professional.",
+          "roleBonus": {
+            "data": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Interview a few moms and daughters separately, then watch how they shop at a pharmacy. Bring the footage to the client and revise the message together.",
+          "effects": {
+            "trust": 10,
+            "brand": 5,
+            "sales": 3,
+            "liver": 6
+          },
+          "feedback": "After two nights at pharmacies, you find that some moms want to choose for themselves and others do ask their daughters to shop for them. The marketing lead watches two clips and agrees to use half the ad space to test a version aimed at the people who take the supplement.",
+          "insight": "The yearbook reports a correlation of 0.89 between People Model's AI Persona and survey results from real people. That figure measures how closely the results move together.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        },
+        {
+          "text": "Drop the gift bundle and build the brand message around “I'll go myself.” Invite the mom from the interview to film the bus she usually takes.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": -4,
+            "liver": 5
+          },
+          "feedback": "After the bus video goes live, someone comments that it reminds them of their mom's bus route. You miss Friday's promo slot and the orders that came with it, and spend the weekend with the crew filming extra shots.",
+          "insight": "The yearbook lists situations that prompt people to shop for joint supplements, including stiff knees on stairs and worrying an older relative won't be able to walk far on a family outing.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2026_12",
+        "q2026_01"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

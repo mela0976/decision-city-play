@@ -1,4 +1,4 @@
-import * as T from '../vendor/three.module.min.js?v=da1d659';
+import * as T from '../vendor/three.module.min.js?v=4c63fb3';
 
 export function canvasTexture(doc,w,h,paint) {
   const canvas=doc.createElement('canvas');
@@ -6,6 +6,7 @@ export function canvasTexture(doc,w,h,paint) {
   paint(canvas.getContext('2d'),w,h);
   const texture=new T.CanvasTexture(canvas);
   texture.colorSpace=T.SRGBColorSpace;
+  texture.anisotropy=8; // 斜看的招牌與路名牌保持清楚（三.js 會依顯示卡上限截斷）
   return texture;
 }
 const box=new T.BoxGeometry(1,1,1),plane=new T.PlaneGeometry(1,1),

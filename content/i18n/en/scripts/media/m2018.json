@@ -1,0 +1,118 @@
+{
+  "id": "m2018",
+  "year": 2018,
+  "order": 1,
+  "clock": "08:30",
+  "title": "Where the Money Goes Before Nine",
+  "locationId": "mrt",
+  "giver": "client_wu",
+  "brief": "The hot Americano launches next week. Manager Wu brings three printed quotes to Exit 4 at City Hall Station. There's money for one campaign, and he needs your plan by nine to get it signed off.",
+  "splash": "book_2018",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_wu",
+          "text": "Look at these. One's a monthly rate, one's priced by plays per day, and the cheapest quote is two lines long. How am I supposed to compare them?"
+        },
+        {
+          "who": "player",
+          "text": "Mr. Wu, this one counts everyone in the station. Your shop's at Exit 4, so let's pull out the traffic that actually comes this way."
+        },
+        {
+          "who": "client_wu",
+          "text": "Should I just buy the two busiest morning spots? My boss wants commuters to see us at least twice this week."
+        },
+        {
+          "who": "player",
+          "text": "If both spots are on the same route, the same people might see us twice. I'll estimate reach and frequency separately."
+        },
+        {
+          "who": "data_kai",
+          "text": "The stores can export cup sales in half-hour blocks. Send me the ad times and I'll check the numbers each morning."
+        },
+        {
+          "who": "player",
+          "text": "Okay, I'll add printing costs and guaranteed plays to the sheet. Which plan are we circling before we send it at nine?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "There's money for one campaign. Which plan do you circle on the quote sheet?",
+      "options": [
+        {
+          "text": "Put the budget into launch week. Book posters at Exit 4 and in the bus terminal passage to reach commuters on both routes.",
+          "effects": {
+            "brand": 10,
+            "sales": 3,
+            "trust": 3,
+            "liver": 6
+          },
+          "feedback": "Both routes see the new coffee in launch week, and customers send the stores photos of the posters. You spend two evenings checking the placements in person, and the month-end tally shows only a small bump in Americano sales.",
+          "insight": "Figures from Taiwan's transport and interior ministries show total public transit ridership was 86% higher in 2017 than in 2007.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Book the Exit 4 screen from 7:30 to 9:00. Spend the rest on mobile coupons nearby and cap how often each person sees the ad.",
+          "effects": {
+            "brand": 3,
+            "sales": 9,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "The nearby store redeems more breakfast coupons, and hardly anyone uses one after nine. For days, you're checking play logs before the shop opens and chasing down each missed slot.",
+          "insight": "Posterscope found that 83% of shoppers had seen out-of-home advertising in the 30 minutes before shopping.",
+          "roleBonus": {
+            "media": {
+              "sales": 5
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Keep one small placement at Exit 4 and book a week of mobile ads. Use Friday's numbers from two stores to decide whether to spend more.",
+          "effects": {
+            "brand": 4,
+            "sales": 7,
+            "trust": 6,
+            "liver": 3
+          },
+          "feedback": "Both stores log morning sales on the same sheet, and the Exit 4 store is the first to show an uptick. Manager Wu reads the sheet and signs off on week two, with the other exits still off the buy.",
+          "insight": "The 2018 yearbook identifies measurement, automated trading, and dynamic delivery as three priorities for advancing out-of-home media in Taiwan.",
+          "roleBonus": {
+            "cx": {
+              "sales": 4
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2018_04",
+        "q2018_05"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

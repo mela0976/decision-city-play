@@ -1,0 +1,115 @@
+{
+  "id": "m2026",
+  "year": 2026,
+  "order": 9,
+  "clock": "21:00",
+  "title": "Hold That Email",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "The client plans to announce a pilot for its AI shopping agent tomorrow morning. A test order just showed that the agent can swap out an out-of-stock item and check out on its own. Lin wants you to reply before the pitch.",
+  "splash": "book_2026",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "You’re the AE on this. The client scheduled the launch email for nine tomorrow and wants a yes or no from me."
+        },
+        {
+          "who": "ae_mei",
+          "text": "I printed the contract. They signed off on recommendations for this phase, but the announcement says it can buy a replacement if something’s out of stock."
+        },
+        {
+          "who": "player",
+          "text": "I just ran a test order. Oat milk was out, so it swapped in regular milk and placed the order without asking."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Their e-commerce lead is worried sales will fall flat tomorrow. PR’s already sent the release to the press, so someone will have to call around if it changes."
+        },
+        {
+          "who": "boss_lin",
+          "text": "They’re asking for slide nine in the conference room. Get back to the client first. Who signs off tonight, and what goes live in the morning?"
+        },
+        {
+          "who": "player",
+          "text": "Mei, can you see who’s still online in e-commerce and support? I’ll spell out which line in the announcement needs changing."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Lin leaves the cursor on “Please confirm we’re good to launch.” What do you send back?",
+      "options": [
+        {
+          "text": "Keep checkout on for nine, limit it to in-stock items, and get the client to sign off on the revised pilot scope tonight.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -4,
+            "liver": 3
+          },
+          "feedback": "Orders come in on schedule, bringing in more sales than recommendations alone. The client only realizes after signing that the promised out-of-stock substitutions are gone and asks you to review each item with them before future launches.",
+          "insight": "The yearbook describes four levels of agent authority: observe and understand, recommend, decide, and act. Walmart’s Sparky can handle shopping tasks across categories.",
+          "roleBonus": {
+            "data": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Call the client about the failed test, get their approval to launch recommendations only, and book a separate sign-off for checkout.",
+          "effects": {
+            "trust": 10,
+            "brand": 5,
+            "sales": 3,
+            "liver": 6
+          },
+          "feedback": "You go through the announcement line by line with e-commerce and support, and your client contact takes the revised copy to their boss. Recommendations still send shoppers to product pages, but after the pitch you’re back at your desk filling out the sign-off checklist.",
+          "insight": "The yearbook describes three ways to build trust into the agent experience: previewing what the agent intends to do, auditing its actions, and providing a way to escalate.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        },
+        {
+          "text": "Ask PR to turn tomorrow’s launch announcement into an invitation for a limited preview, with purchases disabled on the trial page.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": -4,
+            "liver": 5
+          },
+          "feedback": "You help PR call each outlet with the revised copy, and the coverage brings in another batch of sign-ups. E-commerce loses the first day of orders, and the client calls you back to renegotiate the launch date.",
+          "insight": "In the 2025 CMO Report, which surveyed more than 1,950 CMOs, 90% said strong brand preference was key to winning.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2026_12",
+        "q2026_01"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

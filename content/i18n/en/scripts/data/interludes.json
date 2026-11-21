@@ -1,0 +1,101 @@
+[
+  {
+    "after": "m2018",
+    "sincere": {
+      "who": "client_wu",
+      "text": "We’d already refunded that coffee and it was still on the trial sales sheet. Good thing you checked the receipt. I nearly took those numbers to my boss."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page one’s in. Next time I take the MRT, I’m counting how many people actually walk past that wall."
+    }
+  },
+  {
+    "after": "m2019",
+    "sincere": {
+      "who": "clerk_ning",
+      "text": "The shelf was empty for three days. Good thing you checked the delivery slip. HQ was about to figure nobody wanted it."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page two’s in. I put the stockout dates next to those three zeroes before that red line ends up in another deck."
+    }
+  },
+  {
+    "after": "m2020",
+    "sincere": {
+      "who": "client_chen",
+      "text": "I was still figuring out what to tell Finance. Then you checked the order number and it turned out we’d circled the same sale on both sheets."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page three’s in. I know 0317 by heart now. Both reports really did count it."
+    }
+  },
+  {
+    "after": "m2021",
+    "sincere": {
+      "who": "cd_wei",
+      "text": "I nearly told the client people were booking viewings off a count of how often the form opened. Good thing you asked for the branch’s records."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page four’s in. I can bump that green line three ticks just by opening the form three times. No wonder the chart looks so good."
+    }
+  },
+  {
+    "after": "m2022",
+    "sincere": {
+      "who": "client_hsu",
+      "text": "My boss wanted more coupons printed. I was about to put in the order. Seeing the numbers with the returns taken out gave me the nerve to ask him to wait."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page five’s in. We handed out coupons and showed people how to pour the refills that Saturday. I can’t tell which helped from the register sheet alone."
+    }
+  },
+  {
+    "after": "m2023",
+    "sincere": {
+      "who": "data_kai",
+      "text": "I bought that thirty percent jump, too. Then you checked the payments and showed me that hitting retry adds another row."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page six’s in. No wonder the stores didn’t cook more pearls. Hitting retry doesn’t pay for another drink."
+    }
+  },
+  {
+    "after": "m2024",
+    "sincere": {
+      "who": "vendor_cheng",
+      "text": "You were still at the shrine and the report said another customer had come in? That explains why I didn’t see anyone over here."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page seven’s in. When you scanned the code on the red chair, another hit came in. The register didn’t make a sound."
+    }
+  },
+  {
+    "after": "m2025",
+    "sincere": {
+      "who": "tv_su",
+      "text": "I didn’t get the whole story until I saw that invoice. She’d asked her grandson to buy it after watching TV the night before. He clicked for the coupon the next day."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page eight’s in. I added the airtime and order time for that soy sauce. A night apart, and all the report had was one click."
+    }
+  },
+  {
+    "after": "m2026",
+    "sincere": {
+      "who": "boss_lin",
+      "text": "I almost walked in with that chart. It took you matching the tickets for me to see the customer was still waiting to make a return."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page nine’s in. One ticket threw three close events. I left the case ID right beside them."
+    }
+  }
+]

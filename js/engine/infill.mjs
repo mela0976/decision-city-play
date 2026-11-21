@@ -1,5 +1,5 @@
 import landuse from './data/xinyi-landuse.json' with {type:'json'};
-import {metersPerUnit as unit,toWorld,inWuxing,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs?v=da1d659';
+import {metersPerUnit as unit,toWorld,inWuxing,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs?v=4c63fb3';
 
 // Residential rings keep their original character; the wide ring covers every other gap in the map.
 const neighborhoods=[
@@ -8,7 +8,7 @@ const neighborhoods=[
   {center:toWorld(25.044,121.5596),radius:255,civic:false},
   {center:toWorld(25.0335,121.5640),radius:1150,civic:false,sparse:true},
 ];
-import {occupancy} from './collision.mjs?v=da1d659';
+import {occupancy} from './collision.mjs?v=4c63fb3';
 const civicCenter=toWorld(25.0375,121.5664);
 const walkwayHalfWidth=20/unit;
 
@@ -74,6 +74,14 @@ export function urbanInfill(){
       }
     }
   }
+  // 只看中心點會讓 16 公尺的空地、圍籬或房子整塊蓋到馬路上：整塊範圍（含四角與邊中點）都要離開車道。
+  const footprintClear=q=>{
+    const hw=q.width/2/unit,hd=q.depth/2/unit;
+    for(const a of [-1,-.5,0,.5,1])for(const b of [-1,-.5,0,.5,1])
+      if(roadAt(q.x/unit+a*hw,q.z/unit+b*hd,0))return false;
+    return true;
+  };
+  for(let i=parcels.length-1;i>=0;i--)if(!footprintClear(parcels[i]))parcels.splice(i,1);
   const occupied=occupancy();
   for(const q of parcels){
     if(q.housing)occupied.put({x:q.x/unit,y:q.z/unit,width:q.depth/2/unit},q.width/2/unit,'parcel');

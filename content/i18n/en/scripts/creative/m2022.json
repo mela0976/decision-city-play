@@ -1,0 +1,115 @@
+{
+  "id": "m2022",
+  "year": 2022,
+  "order": 5,
+  "clock": "14:30",
+  "title": "Don't Toss That Bottle Yet",
+  "locationId": "department",
+  "giver": "client_hsu",
+  "brief": "At the Shin Kong Mitsukoshi cleaning products counter, Manager Hsu sends your refill ad back for changes. You've got half a day left in the studio to rethink the opening shot.",
+  "splash": "book_2022",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_hsu",
+          "text": "I'm holding this cut. Eight seconds of floating leaves and I still don't know how to use the pouch."
+        },
+        {
+          "who": "player",
+          "text": "A shopper just picked up the refill, then put the original bottle back. She wasn't sure the two would fit."
+        },
+        {
+          "who": "client_hsu",
+          "text": "That's why I wanted a shot that actually shows the pour. But my boss wants the price in the first three seconds."
+        },
+        {
+          "who": "cd_wei",
+          "text": "Half a day left in the studio. Pull the fake grass off the set. Keep the sink."
+        },
+        {
+          "who": "client_hsu",
+          "text": "One more thing. I can't sign off on 'zero impact on the planet.' That part needs a recut."
+        },
+        {
+          "who": "player",
+          "text": "All right, I'll sketch the opening. What do we want her to see before she scrolls past?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You've got half a day left in the studio. What goes in the opening shot?",
+      "options": [
+        {
+          "text": "Open with the in-store deal, then cut to close-ups of tearing the pouch open and pouring it into the original bottle.",
+          "effects": {
+            "sales": 10,
+            "brand": -3,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "Over the weekend, shoppers pull up the video at the counter and buy the refill. Once the deal ends, even the counter staff only remember that red price card at the start.",
+          "insight": "In a Kantar survey of 500 people in Taiwan, 85% thought eco-friendly products cost more.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Film the refill in one continuous take and end with usage figures the client can back up.",
+          "effects": {
+            "brand": 6,
+            "trust": 9,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "You move the lights three times to get the bottle markings to show. Manager Hsu gets the same cut approved and leaves it with the counter staff for demos, though weekend sales barely budge.",
+          "insight": "In the Kantar survey, 71% of respondents felt there wasn't enough information about eco-friendly products.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Show the empty bottle nearly getting tossed, then use match cuts to bring it back to the sink and fill it again and again.",
+          "effects": {
+            "brand": 9,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "Someone posts a photo of the same bottle, worn and faded, and others shoot their own versions. Refills move a little slower, and you stay late cutting a vertical edit where a hand one frame out of place ruins the match.",
+          "insight": "The yearbook notes that Facebook reduced Pages' organic reach in the fourth quarter of 2017. Relevance, value, and an emotional response can help content get seen.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2022_06",
+        "q2022_08"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "m2019",
+  "year": 2019,
+  "order": 2,
+  "clock": "10:00",
+  "title": "Stuck at Checkout",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "Searches for Itch Be Gone are down, and HQ wants to send members a coupon. Lin asks you to find out where shoppers drop off and why they go back to the convenience store.",
+  "splash": "book_2019",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "Seen the Itch Be Gone report? Searches are down, so HQ wants to send members a coupon at noon to lift sales."
+        },
+        {
+          "who": "ae_mei",
+          "text": "A customer called yesterday. She tapped through from a Story, but at checkout the login code never came through."
+        },
+        {
+          "who": "player",
+          "text": "I tried it on my phone. Checkout kicks me back to the login screen before the cart even shows shipping."
+        },
+        {
+          "who": "player",
+          "text": "Her support ticket says she bought it last time at the convenience store on Songshou Road. I’ll ask the clerk how regulars restock."
+        },
+        {
+          "who": "boss_lin",
+          "text": "Okay. By noon, I need one thing we can do. I’ll take it to HQ."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "convenience",
+      "hint": "去松壽路的巷口超商問問：最近誰在買腳癢退散？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "clerk_ning",
+          "text": "A lady came in with an empty box this morning. She said the website kept asking her to log in, so she just came downstairs to buy it."
+        },
+        {
+          "who": "player",
+          "text": "Is this where she bought it the first time, too?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "Yep. Her shoes got soaked in the rain and she needed it right away. Now she comes straight in and asks if we have any."
+        },
+        {
+          "who": "player",
+          "text": "If she comes all this way for nothing, she still has to dig out her password when she gets home. No wonder that ticket’s still open."
+        },
+        {
+          "who": "clerk_ning",
+          "text": "When we’re out, all I can do is send her to another store and hope for the best. Could your site help her ask who has it in stock first?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Before heading back to A25, what do you ask HQ to tackle first?",
+      "options": [
+        {
+          "text": "Turn on guest checkout and apply the first-order discount right in the cart.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -3,
+            "liver": 3
+          },
+          "feedback": "More orders come in that week, and support gets fewer calls about missing login codes. Returning members check out and then realize they didn’t get their points, so HQ has support credit each order by hand.",
+          "insight": "The yearbook points out that when online stores optimize ads and neglect the shopping experience, shoppers tend to browse without buying or visit once and never return.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Fix member verification first and let support pull up the member’s cart when they take over.",
+          "effects": {
+            "sales": 4,
+            "trust": 8,
+            "brand": 3,
+            "liver": 5
+          },
+          "feedback": "Engineering spends three days fixing the text messages, and the promotion goes on hold. Support can now pick up where a shopper left off, and once HQ sees the callback logs, it puts you in charge of fixing the repeat-purchase experience.",
+          "insight": "A survey found that 63% of consumers expect brands to use purchase history to personalize their experience. Only four in ten think brands deliver a consistent experience every time.",
+          "roleBonus": {
+            "data": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Pilot shelf cards in three convenience stores. Shoppers can scan to find a store and ask support to check stock.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": 3,
+            "liver": 8
+          },
+          "feedback": "Neighbors share the store finder in their local group chat, and some check stock before going out. In the first week, you have to go over the out-of-stock list with the stores every day, and online orders go up by just a few.",
+          "insight": "The yearbook warns that relying only on the data that gets recorded can lead to bad calls. Sample surveys, retail interviews, and small data can show more of what customers actually do.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2019_11",
+        "q2019_12"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

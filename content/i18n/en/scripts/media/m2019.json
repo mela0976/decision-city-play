@@ -1,0 +1,139 @@
+{
+  "id": "m2019",
+  "year": 2019,
+  "order": 2,
+  "clock": "10:00",
+  "title": "Do We Book the Evening Slot?",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "Itch Be Gone has one reserve budget left. The quotes expire at noon, so you need to find out who will see the ads and where.",
+  "splash": "book_2019",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "Searches for Itch Be Gone are down. HQ wants to see orders this week."
+        },
+        {
+          "who": "boss_lin",
+          "text": "We've got quotes for search ads and digital screens by the MRT exits. That's all the spare budget we've got."
+        },
+        {
+          "who": "data_kai",
+          "text": "The screen quote counts plays. Finance will kick it back if you put those in the same column as search clicks."
+        },
+        {
+          "who": "player",
+          "text": "I'll ask the store who's buying and when they come in. Then I'll know which hours are worth pricing out."
+        },
+        {
+          "who": "boss_lin",
+          "text": "The corner store on Songshou Road stocks it. Get back to me by noon. That's how long they'll hold the slots."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "convenience",
+      "hint": "去松壽路的巷口超商問問：最近誰在買腳癢退散？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "clerk_ning",
+          "text": "Itch Be Gone? It's been raining for days. We sell the most in the after-work rush."
+        },
+        {
+          "who": "player",
+          "text": "Are people finding the store on their phones, or are they passing by anyway?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "A few regulars walk over from the MRT. They ask which aisle it's in before they've even folded their umbrellas."
+        },
+        {
+          "who": "player",
+          "text": "Got it. Do you track sales for the morning and evening shifts separately?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "Sure, I can pull that from the register. I've got the dry days too. Which dates do you want?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The quotes expire at noon. How do you spend the budget?",
+      "options": [
+        {
+          "text": "Bid on generic search terms on rainy evenings and put the money into getting orders this week.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -3,
+            "liver": 3
+          },
+          "feedback": "A few more online orders come in that night, but clicks on popular terms get pricier too. The budget runs out Friday, and HQ asks how many extra orders the ads actually brought in.",
+          "insight": "After adopting data-driven attribution, E.SUN Bank found that non-brand terms accounted for nearly 60% of conversion credit. Its conversion rate rose 42% after it adjusted its campaign.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Test search ads with a small budget in one shopping district, use a similar district as a control, and hold the rest of the money.",
+          "effects": {
+            "sales": 4,
+            "trust": 8,
+            "brand": 3,
+            "liver": 5
+          },
+          "feedback": "You and Ah-Kai break out store sales in both districts by weather and shift, then send the numbers and ad costs to HQ. HQ agrees to wait for the next rain before increasing spend, so orders are slow to pick up this week.",
+          "insight": "In the yearbook's nail fungus medication case, there were nearly 30% fewer rainy days than the year before. The consultant's report overlooked the local weather.",
+          "roleBonus": {
+            "data": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Book digital screens along the walk from the MRT exits to the store for the evening rush, with a cap on plays per loop.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": 3,
+            "liver": 8
+          },
+          "feedback": "One commuter points outside and says they just saw the same cream by the MRT exit. You and Mei split up to check the playback logs for two nights running, and sales inch up that week.",
+          "insight": "The X-line digital out-of-home network connects more than 600 screens across Taiwan. Its total monthly traffic represents more than 100 million opportunities to see the screens.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2019_11",
+        "q2019_12"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

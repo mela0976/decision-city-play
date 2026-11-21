@@ -1,0 +1,147 @@
+{
+  "id": "m2025",
+  "year": 2025,
+  "order": 8,
+  "clock": "19:30",
+  "title": "Where the Launch Budget Goes",
+  "locationId": "tvstation",
+  "giver": "tv_su",
+  "brief": "The new noodles hit shelves next Monday. Ms. Su is waiting at Big Dawn Dome Broadcast Center. You need to lock in the first week's media spend tonight.",
+  "splash": "book_2025",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "tv_su",
+          "text": "They're waiting upstairs for your launch schedule. Procurement cleared NT$300,000. Five nights in the 8 p.m. drama slot would eat the whole thing."
+        },
+        {
+          "who": "tv_su",
+          "text": "The retailer's chasing us too. Their package for sponsored search and add-on placements expires tonight. Where do you want the money to go?"
+        },
+        {
+          "who": "player",
+          "text": "Can you break up the prime-time package first? I need separate rates for the noon news and the evening rerun."
+        },
+        {
+          "who": "tv_su",
+          "text": "The rerun costs less per spot, but some people watch both. Watch for overlap when you run the reach numbers."
+        },
+        {
+          "who": "player",
+          "text": "Got it. I'll compare the cost per thousand impressions for the same age group, then check how many people we'd reach more than once."
+        },
+        {
+          "who": "tv_su",
+          "text": "Meeting upstairs in twenty. Stop by Auntie Hsiu-chin's place on Wuxing Street first. She turns on the TV when she starts prepping."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "breakfast",
+      "hint": "Wuxing St. Corner Breakfast Shop: what's everyone watching on TV?",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "player",
+          "text": "Auntie Hsiu-chin, is this the channel you have on when you're prepping at noon?"
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "I watch the news at noon. The evening rerun's for people waiting on their food. See that table? They're still waiting for their egg crepes."
+        },
+        {
+          "who": "player",
+          "text": "So you're the one watching at noon. Where do you buy noodles for the shop?"
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "I pick up a whole case at the supermarket around the corner. The girl on the evening shift usually shops on her phone and adds stuff until shipping's free."
+        },
+        {
+          "who": "player",
+          "text": "I'll split noon and evening on the schedule. Same TV, different people watching and buying."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You've got NT$300,000 for week one. Which schedule do you take upstairs?",
+      "options": [
+        {
+          "text": "Put it all into sponsored search and add-on placements on the retailer's site. Run the ads only when the product's in stock.",
+          "effects": {
+            "sales": 9,
+            "trust": 4,
+            "brand": -5,
+            "liver": 3
+          },
+          "feedback": "Add-on orders start coming in before dinner on Monday, and the retailer sends the order report that night. The following week, hardly anyone at the supermarket asks for the new noodles, so clerks have to point them out on the shelf.",
+          "insight": "The yearbook warns that digital ads aimed only at a target group can miss older adults who do most of the household shopping.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Buy spots in the noon news and the evening rerun, and set aside money for mobile coupon ads with a frequency cap.",
+          "effects": {
+            "brand": 9,
+            "sales": 5,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "You line up the CPMs for the same age group, and the boss signs off on both slots. In week one, shoppers show up at the supermarket with coupons on their phones, and you're checking the logs spot by spot.",
+          "insight": "Dentsu Group estimates TV CPM at about 48 for ages 30 and up and about 247 for ages 30 to 39. YouTube CPMs typically range from 80 to 250.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Start with connected TV ads in one area, use comparable stores in another as a control, and hold the rest of the budget.",
+          "effects": {
+            "trust": 8,
+            "brand": 4,
+            "sales": -3,
+            "liver": 7
+          },
+          "feedback": "The boss agrees to release more money once there's a sales comparison between the two areas and puts the plan in the meeting notes. The chain-wide sales push drops off the launch schedule, and you spend every evening checking stock and sales with the stores.",
+          "insight": "The yearbook notes that connected TV can be bought programmatically. A strong brand lift can come from reaching people who already liked the brand.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2025_03",
+        "q2025_05"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_night"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

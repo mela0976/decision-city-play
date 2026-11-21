@@ -1,0 +1,101 @@
+[
+  {
+    "after": "m2018",
+    "sincere": {
+      "who": "client_wu",
+      "text": "I had to stand at the far end of the escalator to see it. After all those red circles, the cup was down to a sliver of white."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page one's in. I thought the cup was too big on the proof. From the far end of the escalator, I'd probably only see the price too."
+    }
+  },
+  {
+    "after": "m2019",
+    "sincere": {
+      "who": "clerk_ning",
+      "text": "I remember those boots. He poured the water out right by the red chair. He stuffed his wet socks in a plastic bag before he came over to ask where the cream was."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page two's in. Next time HQ says to just show it by the register, I'm asking which store they mean."
+    }
+  },
+  {
+    "after": "m2020",
+    "sincere": {
+      "who": "client_chen",
+      "text": "I was just trying to get the video out. That note in the shift log reminded me that some people can't even tell if the bottle they've got is the same one."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page three's in. I copied that entry from the shift log into the margin. I'd never have guessed from the orders that someone brought in an empty bottle to ask."
+    }
+  },
+  {
+    "after": "m2021",
+    "sincere": {
+      "who": "cd_wei",
+      "text": "When we lost the location and I saw that one door on the set, my heart sank. Then you showed me the test shot and I could breathe again."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page four's in. Wei said another inch to the right would give the set away. I was so busy waiting for her dad to open the drawing that I never looked over there."
+    }
+  },
+  {
+    "after": "m2022",
+    "sincere": {
+      "who": "client_hsu",
+      "text": "I held the pouch up to the bottle myself just now. I can see why that shopper stared at it and put the bottle back."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page five's in. Good call keeping the sink. I sat through eight seconds of leaves. Turns out the one thing I wanted to see was the mouth of the bottle."
+    }
+  },
+  {
+    "after": "m2023",
+    "sincere": {
+      "who": "data_kai",
+      "text": "I thought it was a recruitment ad at first, too. The time clock only clicked for me when you said it'd cut to the straw going through the seal."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page six's in. That milk foam nearly fooled me. Next time we screen a cut, let's put a cup the shop actually sells right next to it."
+    }
+  },
+  {
+    "after": "m2024",
+    "sincere": {
+      "who": "vendor_cheng",
+      "text": "He passes the jacket next door to try on like that all the time, hanger and all. I didn't expect you to go over and ask him about it."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page seven's in. Three glowing hangers and I couldn't tell you what any of them looked like. I remember the one in the fabric shop owner's hand, though."
+    }
+  },
+  {
+    "after": "m2025",
+    "sincere": {
+      "who": "tv_su",
+      "text": "I sent you to watch the TV on mute, and you came back talking about the unwrapped chopsticks. I'd probably have only noticed the empty chair."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page eight's in. I muted it for the first watch. Nobody scrolling on their phone is going to turn on the sound just for soy sauce."
+    }
+  },
+  {
+    "after": "m2026",
+    "sincere": {
+      "who": "boss_lin",
+      "text": "I was so busy looking at the promo code that you spotted the silver buckle first. The product team would've called the second they saw that frame."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page nine's in. I've kept the simulation results too. When we show it to real people, I want to ask what bag they remember. Maybe all they remember is the rain again."
+    }
+  }
+]

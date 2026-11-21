@@ -1,0 +1,142 @@
+{
+  "id": "m2024",
+  "year": 2024,
+  "order": 7,
+  "clock": "18:00",
+  "title": "Pass the Hanger",
+  "locationId": "night_market",
+  "giver": "ae_mei",
+  "brief": "The launch video for One Less Piece just got sent back. Mei-ling needs a storyboard you can actually shoot before tonight's pitch.",
+  "splash": "book_2024",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "ae_mei",
+          "text": "One Less Piece opens its flagship on Linginger Street next week. The client just sent the launch video back."
+        },
+        {
+          "who": "cd_wei",
+          "text": "The AI mock-up? By the third glowing hanger, I was ready to swipe."
+        },
+        {
+          "who": "player",
+          "text": "I wanted to cut that hanger too. Which shot did the client keep?"
+        },
+        {
+          "who": "ae_mei",
+          "text": "Just the store name at the end. They want it vertical, and we've got half a day to shoot."
+        },
+        {
+          "who": "player",
+          "text": "I'll take my phone down to the Earth God shrine on Fude Street. Wei, can you grab the storyboard?"
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "temple",
+      "hint": "沿著巷弄走到福德街土地公廟，記下沿路的老店",
+      "timeLimitSec": 120
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "temple_uncle",
+          "text": "Miss, could you move that tripod? The fabric shop owner needs to get his cart through."
+        },
+        {
+          "who": "player",
+          "text": "Wait, he just handed the jacket, hanger and all, to the guy next door to try on. Mind if I ask him to do it again?"
+        },
+        {
+          "who": "temple_uncle",
+          "text": "Go ahead. Show him what you shoot, though. He's worried people will only remember the flagship."
+        },
+        {
+          "who": "player",
+          "text": "I want to open on his hand. Then we cut to someone taking the jacket at the next shop's door."
+        },
+        {
+          "who": "cd_wei",
+          "text": "That could work. In half a day, we'll need the shops to stick to our schedule. And the client still wants to know if the price can go in the first second."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Mei-ling's waiting for the storyboard. What do you shoot with half a day?",
+      "options": [
+        {
+          "text": "Shoot a try-on ad. Put the launch price in the first second and the shopping link at the end.",
+          "effects": {
+            "sales": 10,
+            "brand": 3,
+            "trust": -4,
+            "liver": 4
+          },
+          "feedback": "The clerk changes outfits three times outside the fitting room, and it takes one last take to get the cuff in focus. Orders come in as soon as the launch price goes live. You cut the fabric shop owner's cameo, and when he sees the ad, he asks you to take his shop's name out too.",
+          "insight": "The 2024 report lists short-form video and livestream shopping as social media trends. It also warns brands against chasing only short-term traffic and results.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Shoot a relay through the neighborhood, passing the jacket from the fabric shop all the way to the flagship.",
+          "effects": {
+            "brand": 11,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "The fabric cart arrives late, and you crouch under the arcade and reshoot seven times before the hands match across the cut. When the video goes live, people recognize the fabric shop owner and tag One Less Piece when they share it. The comments are full of people naming shops, with few asking about the price.",
+          "insight": "In the report's UNIQLO East District case, the neighborhood collaboration hit 105% of its sales target and drew 2.2 times the previous year's visitors.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Film a clerk's demo with large type for sizes, the launch price, and how to try things on.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "Mei-ling checks every title card with the store manager, and the client signs off on the cut that night. At the opening, a shopper points to the jacket on the screen by the door and asks for it in their size. Without the neighborhood sequence, the clip gets few shares.",
+          "insight": "In its discussion of shopping across channels, the 2024 report reminds brands to consider older customers and people with established shopping habits.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "data": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2024_02",
+        "q2024_03"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

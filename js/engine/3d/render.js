@@ -1,18 +1,18 @@
-import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=da1d659';
-import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=da1d659';
-import * as T from '../vendor/three.module.min.js?v=da1d659';
-import {drawCockpit} from '../car-cockpit.js?v=da1d659'; // A26
-import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=da1d659';
-import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=da1d659'; // i18n
-import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=da1d659';
-import {createActors} from './actors.js?v=da1d659';
-import {streetCrowds} from '../crowds.mjs?v=da1d659';
-import {xinyiBusBay} from './street-life.js?v=da1d659';
-import {createFarCity} from './far-city.js?v=da1d659'; // A20 far-city
-import {createOsmCity} from './osm-city.js?v=da1d659';
-import {drain,later,release,releaseAfter,setUploader} from './idle-work.js?v=da1d659'; // P2 perf
-import {metersPerUnit as unit} from '../world.mjs?v=da1d659';
-import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=da1d659';
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=4c63fb3';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=4c63fb3';
+import * as T from '../vendor/three.module.min.js?v=4c63fb3';
+import {drawCockpit} from '../car-cockpit.js?v=4c63fb3'; // A26
+import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=4c63fb3';
+import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=4c63fb3'; // i18n
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=4c63fb3';
+import {createActors} from './actors.js?v=4c63fb3';
+import {streetCrowds} from '../crowds.mjs?v=4c63fb3';
+import {xinyiBusBay} from './street-life.js?v=4c63fb3';
+import {createFarCity} from './far-city.js?v=4c63fb3'; // A20 far-city
+import {createOsmCity} from './osm-city.js?v=4c63fb3';
+import {drain,later,release,releaseAfter,setUploader} from './idle-work.js?v=4c63fb3'; // P2 perf
+import {metersPerUnit as unit} from '../world.mjs?v=4c63fb3';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=4c63fb3';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);
@@ -98,6 +98,8 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
   const projected=new T.Vector3(),base=new T.Vector3(),position=new T.Vector3(),aim=new T.Vector3(),offset=new T.Vector3(),arm=new T.Vector3(),desired=new T.Vector3();
   const spots=new Map(locations.map(site=>[site.id,site]));
   let sizeW=0,sizeH=0,dpr=0,quality=capture?.quality??2,pressure=0,meanFrame=1/60,lastClock=0,lastView=-1;
+  const maxQuality=capture?.quality??2;
+  let calm=0,raisedAt=-Infinity,raiseBlockedUntil=0,elapsed=0;
   let heading=0,roll=0,lastHeading=0,statsClock=-1;
   let frameWidth=0,frameHeight=0;
   function project(x,y,z) {
@@ -111,10 +113,22 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     meanFrame+=(Math.min(dt,.05)-meanFrame)*Math.min(1,dt*4);
     if(meanFrame>1/55)pressure+=dt;
     else pressure=Math.max(0,pressure-dt*.65);
+    // 畫質也要能升回來：卡過一次就永遠停在最低畫質，換到大螢幕或電腦閒下來後畫面仍然模糊。
+    // 連續 6 秒都很順就升一級；剛升級 10 秒內又被降回來，接下來 60 秒不再嘗試。
+    elapsed+=dt;
+    calm=meanFrame<1/72?calm+dt:0;
+    if(quality<maxQuality&&calm>6&&elapsed>raiseBlockedUntil){
+      quality++;calm=0;pressure=0;raisedAt=elapsed;setShadow();return;
+    }
     if (pressure<.9 || quality===0) return;
-    quality--;pressure=0;
+    quality--;pressure=0;calm=0;
+    if(elapsed-raisedAt<10)raiseBlockedUntil=elapsed+60;
+    setShadow();
+  }
+  function setShadow(){
     sun.shadow.map?.dispose();sun.shadow.map=null;
-    sun.shadow.mapSize.set(quality===1?768:512,quality===1?768:512);
+    const size=quality===2?1024:quality===1?768:512;
+    sun.shadow.mapSize.set(size,size);
   }
   let orbit=null,orbitKey=null,wuxingView=null;
   const scenicRoads=new Map([['wuxingSouth',toWorld(25.02892,121.56282)],

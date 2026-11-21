@@ -1,0 +1,115 @@
+{
+  "id": "m2021",
+  "year": 2021,
+  "order": 4,
+  "clock": "13:00",
+  "title": "Not Ready for a Viewing",
+  "locationId": "studio",
+  "giver": "cd_wei",
+  "brief": "Real estate bookings are down during the Level 3 COVID alert. Wei needs you to figure out who the brand film is for and what to tell them before the Chillshan Creative Park studio rental ends.",
+  "splash": "book_2021",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "cd_wei",
+          "text": "Come here a sec. Sales says bookings are down because nobody knows we do virtual viewings."
+        },
+        {
+          "who": "ae_mei",
+          "text": "They already printed the booking card. It’s right next to your coffee."
+        },
+        {
+          "who": "player",
+          "text": "I talked to three first-time buyers on LINE this morning. They know about virtual viewings. They’re worried one question will get an agent chasing them to book."
+        },
+        {
+          "who": "cd_wei",
+          "text": "And that card says “Book Now.” No wonder you’ve left it face down."
+        },
+        {
+          "who": "player",
+          "text": "One guy just wanted to see out the window. He wanted to check the traffic downstairs before talking to an agent."
+        },
+        {
+          "who": "cd_wei",
+          "text": "We lose the studio at four. Give me a line we can shoot, and something I can take back to Sales."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "How will you use page four of tonight’s pitch to get the client to drop “Book Now”?",
+      "options": [
+        {
+          "text": "Speak to people already house hunting. Offer virtual viewings at a time they can pick.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": -4,
+            "liver": 3
+          },
+          "feedback": "Sales checks the roster and signs off. The film brings in a few more bookings, but hardly anyone shares it, and most comments just ask what slots are left.",
+          "insight": "The yearbook says home commerce can bring the entire customer journey into the home. The details of the service shape how people feel about it.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Position the brand around “Take your time. Ask when you’re ready,” starting with a buyer who just wants to see out the window.",
+          "effects": {
+            "brand": 12,
+            "trust": 3,
+            "sales": -3,
+            "liver": 6
+          },
+          "feedback": "You and Wei tweak the voice-over right up to the deadline. Once it’s live, people send the “ask when you’re ready” line to friends who are house hunting. Sales checks the next day and finds fewer bookings than the previous cut.",
+          "insight": "The yearbook uses Sinyi Realty’s “Trust and Happiness” to show what a real story can do. The film deliberately left out the sales pitch, and seven in ten viewers showed a positive shift in the post-test.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Test the messages separately with people just starting their search and people already booking viewings.",
+          "effects": {
+            "brand": 5,
+            "sales": 5,
+            "trust": 4,
+            "liver": 9
+          },
+          "feedback": "You and Kai compare interview transcripts until midnight and find two different worries: people just starting out dread the follow-ups, and people ready to book can’t find a slot after work. The client agrees to lead with “ask when you’re ready” in the brand film and show open slots on the booking page.",
+          "insight": "The yearbook warns analysts to distinguish what they observe from what’s really driving it.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "media": {
+              "sales": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2021_07",
+        "q2021_10"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

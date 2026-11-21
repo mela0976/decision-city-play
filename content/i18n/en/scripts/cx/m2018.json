@@ -1,0 +1,118 @@
+{
+  "id": "m2018",
+  "year": 2018,
+  "order": 1,
+  "clock": "08:30",
+  "title": "Who Gets the Points for This Coffee?",
+  "locationId": "mrt",
+  "giver": "client_wu",
+  "brief": "The hot Americano launches next week. Commuters at City Hall Station have seen the preorder pilot, and some have bought a cup. Manager Wu holds out a coffee sleeve and asks why staff are still sending customers back into the line.",
+  "splash": "book_2018",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_wu",
+          "text": "You're the e-commerce and loyalty consultant, right? Here, this sleeve is from yesterday's trial run."
+        },
+        {
+          "who": "player",
+          "text": "I scanned one just like it at City Hall Bus Terminal. My phone made me sign up first. I almost closed the page when it asked for a verification code."
+        },
+        {
+          "who": "client_wu",
+          "text": "One of our regulars got all the way through payment. The cashier told her online orders don't earn points, so she lined up again to ask how to get hers credited."
+        },
+        {
+          "who": "player",
+          "text": "She was probably trying to catch a bus, right? The sleeve even says 'ready when you get here.' Did support ever get her those points?"
+        },
+        {
+          "who": "data_kai",
+          "text": "She asked again in the afternoon. Support can see her payment, but they have to call the store to check its points records."
+        },
+        {
+          "who": "player",
+          "text": "Mind if I borrow this sleeve, Manager Wu? I want the first slide tonight to show what she went through, from scanning it to having to chase support."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The hot Americano goes on sale next week. Manager Wu can fund one change. Where do you start?",
+      "options": [
+        {
+          "text": "Run a tasting outside the station and put a link to a shareable product page on the sleeves so commuters can discover the new coffee.",
+          "effects": {
+            "brand": 10,
+            "sales": 3,
+            "trust": 3,
+            "liver": 6
+          },
+          "feedback": "Photos of the tasting sleeves make it into nearby office group chats, and a company calls Manager Wu the next day about a group order. You spend the morning restocking sleeves and running the tasting table, while mobile shoppers still get stuck at the verification code.",
+          "insight": "Posterscope found that 83% of shoppers had seen an out-of-home ad within 30 minutes before making a purchase.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Turn on guest checkout, show the pickup store and total on the first screen, and offer a coupon for the first cup.",
+          "effects": {
+            "brand": 3,
+            "sales": 9,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "Before lunch, customers are already paying on their phones and grabbing their Americanos on the way out of the station. You track pickup orders and coupon redemptions until close, and support is still asking how to credit those orders to loyalty accounts.",
+          "insight": "Think with Google found that 53% of users abandon a mobile page if it takes longer than three seconds to load.",
+          "roleBonus": {
+            "media": {
+              "sales": 5
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Pilot at one store near City Hall Station. Award points when staff scan the preorder pickup code, and let support look up missing points on LINE.",
+          "effects": {
+            "brand": 4,
+            "sales": 7,
+            "trust": 6,
+            "liver": 3
+          },
+          "feedback": "One scan gets the customer their coffee and their points, and yesterday's customer gets her missing points through LINE and preorders again the following week. Manager Wu asks you to show the other store managers how the pilot works and keeps next week's discount at the planned level.",
+          "insight": "The yearbook cites an IDC retail report: retailers that use cross-channel strategies effectively can see profit growth of up to 35% and a 10% increase in customer loyalty.",
+          "roleBonus": {
+            "cx": {
+              "sales": 4
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2018_04",
+        "q2018_05"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "id": "m2022",
+  "year": 2022,
+  "order": 5,
+  "clock": "14:30",
+  "title": "What Goes to Print at Four?",
+  "locationId": "department",
+  "giver": "client_hsu",
+  "brief": "The Shin Kong Mitsukoshi sign is due at four, and Manager Hsu has just learned that the plastic reduction figure hasn't been cleared. As his AE, you need to agree on what you can deliver for the anniversary sale before the printer closes the job.",
+  "splash": "book_2022",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_hsu",
+          "text": "Here's the proof for the anniversary sale. HQ just emailed. We can't use the plastic reduction figure yet."
+        },
+        {
+          "who": "client_hsu",
+          "text": "I told my boss the refills would sell this week. If we pull the sign, he'll ask where the money went."
+        },
+        {
+          "who": "player",
+          "text": "We can keep the counter spot, Manager Hsu. I'll hold the proof, but we need something printable by four."
+        },
+        {
+          "who": "ae_mei",
+          "text": "I checked the contract. It covers one sign. Extra staff or a new spot needs a signed addendum today."
+        },
+        {
+          "who": "client_hsu",
+          "text": "My meeting's at five. Give me one sentence I can take in there and say to my boss."
+        },
+        {
+          "who": "player",
+          "text": "Okay. I'll tell you what we can deliver for the sale and send the meeting notes with it."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The printer is waiting for the file. What do you ask Manager Hsu to sign off on today?",
+      "options": [
+        {
+          "text": "Put the weekend add-on price on the sign and get retail to approve a checkout discount on refills.",
+          "effects": {
+            "sales": 10,
+            "brand": -3,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "Retail clears the discount and more refills ring up over the weekend. The counter flips the sign back to full price the following week, and returning shoppers still ask for the deal.",
+          "insight": "Kantar surveyed 500 people in Taiwan. Of those, 85% thought eco-friendly products were more expensive.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Say the figure hasn't cleared and get Hsu to sign off on two stages: print the instructions now, add the figure once it's verified.",
+          "effects": {
+            "brand": 6,
+            "trust": 9,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "Purchasing and QA spend two days checking the records, and you put the basis for the comparison and the revision date in the addendum. Hsu uses it to get through his meeting and copies you on the next round of approvals.",
+          "insight": "In the same Kantar survey, 71% of respondents felt there wasn't enough information about eco-friendly products.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Get an addendum for a spot by the entrance, display the actual packaging, invite the press and have the brand send someone to answer questions.",
+          "effects": {
+            "brand": 9,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "A local news crew films the cutaway bottle and the refill pouch laid flat, and Hsu shares the clip in his managers' group chat. For two days straight you're there before opening and still on site after closing to oversee teardown.",
+          "insight": "The report describes three stages of sustainability transformation: Compliance, Competency, and Competitiveness.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2022_06",
+        "q2022_08"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

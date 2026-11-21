@@ -1,0 +1,135 @@
+{
+  "id": "m2019",
+  "year": 2019,
+  "order": 2,
+  "clock": "10:00",
+  "title": "Three Zeros in the Spreadsheet",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "HQ points to a search chart and says Itch Be Gone isn't selling. Lin wants you to trace the numbers and decide where the extra ad budget should go.",
+  "splash": "book_2019",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "HQ dropped this red line into a slide called \"Sales Are Down.\" Can you tell me where this column came from?"
+        },
+        {
+          "who": "data_kai",
+          "text": "It's an export from a search tool. I got the raw file from the vendor. There's not a single receipt in it."
+        },
+        {
+          "who": "player",
+          "text": "I've got the store's sales, but it shows zero from Wednesday through Friday last week. I want to see the delivery records for those days."
+        },
+        {
+          "who": "boss_lin",
+          "text": "Ask at the store on Songshou Road. Get back to me by eleven thirty. HQ's waiting to release the budget."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "convenience",
+      "hint": "去松壽路的巷口超商問問：最近誰在買腳癢退散？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "player",
+          "text": "I'm checking sales for Itch Be Gone. Do you have last Friday's delivery slip?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "Hang on. We sold out Tuesday, and the next shipment came Saturday. Look, the date's right under the barcode."
+        },
+        {
+          "who": "player",
+          "text": "That explains three days without a single sale. Who was buying on Tuesday?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "One older guy was out making deliveries on his scooter. His raincoat was still dripping. He asked for the same tube as last time. Even remembered the color of the box."
+        },
+        {
+          "who": "player",
+          "text": "And that sale never shows up in the search report. Let me mark those three days as out of stock."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "HQ will release one round of funding for now. Where do you spend it, and what numbers will you bring back?",
+      "options": [
+        {
+          "text": "Bid on branded searches where stores have stock, and track orders with a dedicated promo code.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -3,
+            "liver": 3
+          },
+          "feedback": "Stores with stock start seeing promo codes at the register, and weekend sales beat last week's. Finance checks the loyalty records, spots several repeat buyers, and asks you to work out how much new business the ads actually brought in.",
+          "insight": "After adopting data-driven attribution, E.SUN Bank found that nearly 60% of conversion credit went to non-brand keywords.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Pair in-stock shopping areas with similar rainfall, then randomly boost ads in one area per pair and keep the other's budget steady.",
+          "effects": {
+            "sales": 4,
+            "trust": 8,
+            "brand": 3,
+            "liver": 5
+          },
+          "feedback": "You and Ah-Kai check inventory and register data every day. The report takes until the following week. Sales rise in both areas when it rains, and extra ads barely widen the gap, so Lin uses the two sales reports to put a stop to the blanket increase.",
+          "insight": "In the yearbook's nail fungus treatment case, there were nearly 30% fewer rainy days than the year before.",
+          "roleBonus": {
+            "data": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Listen to what shoppers ask for in stores, then test which of two shelf signs helps people remember the brand name.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": 3,
+            "liver": 8
+          },
+          "feedback": "You and a coworker take turns by the register and catch the evening crowd too. More shoppers remember the name when it's printed larger, so the client asks stores to swap the signs and check sales at the end of the month.",
+          "insight": "The yearbook recommends pairing big data with sample surveys, retail interviews, and small data to catch what existing records miss.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2019_11",
+        "q2019_12"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

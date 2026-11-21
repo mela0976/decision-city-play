@@ -1,0 +1,138 @@
+{
+  "id": "m2020",
+  "year": 2020,
+  "order": 3,
+  "clock": "11:30",
+  "title": "Who Gets Credit for This Order?",
+  "locationId": "client_hq",
+  "giver": "client_chen",
+  "brief": "The supplement brand’s ad report is full of green arrows. Finance wants to know where the money is. Before the noon meeting, Chen asks you, the data analyst, to take a look.",
+  "splash": "book_2020",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_chen",
+          "text": "It’s freezing in this meeting room at Taipei 101. Keep your jacket on and take a look at these two printouts."
+        },
+        {
+          "who": "client_chen",
+          "text": "We started sending shoppers to our site during the pandemic. Ads and LINE both show sales, but finance barely sees any extra orders."
+        },
+        {
+          "who": "player",
+          "text": "You’ve circled 0317 on both pages. Can I get the full order numbers? I want to see if it’s the same purchase."
+        },
+        {
+          "who": "client_chen",
+          "text": "Last year’s order file is at the Lanshan Plaza data lab. I’ll ask Kai to pull up this month’s payments too."
+        },
+        {
+          "who": "player",
+          "text": "All right. Hold that slide for the noon meeting. Kai and I will match the orders and get back to you."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "datalab",
+      "hint": "去藍山廣場數據實驗室，看看客戶的資料能不能用"
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "Full order number matches for 0317. The customer clicked an ad, then opened LINE for a coupon before checking out."
+        },
+        {
+          "who": "player",
+          "text": "So both reports claimed the same order. What about the one in orange?"
+        },
+        {
+          "who": "data_kai",
+          "text": "Refunded. Still in the ad report, though. I found the same thing in last year’s file."
+        },
+        {
+          "who": "player",
+          "text": "Right, I’m crossing out “extra orders from ads.” At noon, we need to tell them what we’ll measure next."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Ten minutes to noon. Chen needs you to pick one approach. What do you go with?",
+      "options": [
+        {
+          "text": "A/B test a checkout coupon. Pick the winner on net revenue and pause ads aimed at new customers.",
+          "effects": {
+            "sales": 10,
+            "brand": -4,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "The coupon group still brings in more revenue after refunds, so Chen rolls it out that week. The social media editor comes over to ask if there’s any budget left for the video meant to bring in new customers.",
+          "insight": "The yearbook describes tests by Amnet in which machine-learning ad delivery brought average CPA down by roughly 50% or more compared with standard tactics.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Reconcile orders with finance. Remove duplicates and refunds, then send a weekly report anyone can reproduce.",
+          "effects": {
+            "sales": 5,
+            "trust": 7,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "Finance runs the numbers on the same file and finally gets the same total you do. Chen uses the report to approve a restock, but it’ll take a separate experiment to see how many extra sales the ads drove.",
+          "insight": "The yearbook cites an early 2019 survey by Vicki Boykis in which data specialists spent 67% of their time cleaning and organizing data.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Move some promo money into brand ads. Pair similar regions and randomly pick one from each pair to run the ads, then measure brand awareness.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -3,
+            "liver": 8
+          },
+          "feedback": "You and Kai work late checking the ad delivery logs and surveys for each region. Brand awareness rises more where the ads run than in the control regions, but with fewer promos you sell a few fewer cases this quarter.",
+          "insight": "The yearbook notes that a third-party study attributed 65% of Adidas sales to brand campaigns. Adidas then shifted its brand-to-performance budget to 60:40.",
+          "roleBonus": {
+            "data": {
+              "brand": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2020_05",
+        "q2020_10"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_noon"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

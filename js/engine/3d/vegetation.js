@@ -1,7 +1,7 @@
 import {
   civicWalkway, locations, metersPerUnit as unit, random, roadAt, roadOptions, roads, toWorld, worldContact,
-} from '../world.mjs?v=da1d659';
-import {crossingForNode} from '../street-crossings.mjs?v=da1d659';
+} from '../world.mjs?v=4c63fb3';
+import {crossingForNode} from '../street-crossings.mjs?v=4c63fb3';
 import landuse from '../data/xinyi-landuse.json' with {type:'json'};
 
 const tau=2*Math.PI;
@@ -192,6 +192,8 @@ export function visitLandscapeTrees(visit){
       const dx=Math.cos(heading),dz=-Math.sin(heading);
       const clear=[-.47,-.25,0,.25,.47].every(t=>clearGround((x+dx*t*length)/unit,(z+dz*t*length)/unit,.43));
       if(!clear||crowded(hedgeCells,1.5,x,z,1.25))return;
+      // 綠籬會擋人：店門口與地點入口前後留開口，讓人從路邊走得到門口
+      if(locations.some(site=>Math.hypot(x-site.x*unit,z-site.y*unit)<length/2+14))return;
       const hedge={x,z,length,heading,median};
       landscapeHedges.push(hedge);remember(hedgeCells,1.5,hedge);
     };
@@ -238,6 +240,12 @@ export function visitLandscapeTrees(visit){
 }
 
 // Call once with instanceFor('vegetation'). Soft ground cover remains decorative.
+// 綠籬和樹一樣是實體：碰撞註冊（fixtures.mjs）用同一份位置，人不能穿過，只能從綠籬之間的缺口走。
+export function visitLandscapeHedges(visit){
+  if(!landscapeHedges)visitLandscapeTrees(()=>{});
+  for(const hedge of landscapeHedges)visit(hedge);
+}
+
 export function placeGroundVegetation(instance){
   visitLandscapeTrees(({x,z,seed,species,width,scale,avenue})=>{
     drawTree(instance,x,z,seed,width,species,scale,avenue);

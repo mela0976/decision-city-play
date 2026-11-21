@@ -8,7 +8,7 @@
 // 音效、提示列等偏好另存 decision-city-prefs-v1。破關紀錄與年度重玩的成績也記在偏好裡（finished、lastRole、replay），
 // 所以重新開一局、或年度重玩，都不會動到主線存檔。
 
-import { METER_IDS } from './strings.js?v=da1d659';
+import { METER_IDS } from './strings.js?v=4c63fb3';
 
 export const SAVE_KEY = 'decision-city-save-v1';
 export const SAVE_VERSION = 1;

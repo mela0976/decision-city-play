@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=da1d659'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=da1d659'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=da1d659'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=da1d659'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=da1d659';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=da1d659'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=da1d659';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=da1d659'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=da1d659';
-import {neonDistrict} from './neon-districts.mjs?v=da1d659'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=da1d659';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=da1d659';
-import {streetCrowds} from './crowds.mjs?v=da1d659';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=da1d659';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=da1d659';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=da1d659';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=da1d659';
-import { touchControls } from './overlay.js?v=da1d659';
-import {setLabels,placeLabel} from './labels.mjs?v=da1d659'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=4c63fb3'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=4c63fb3'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=4c63fb3'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=4c63fb3'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=4c63fb3';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=4c63fb3'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=4c63fb3';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=4c63fb3'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=4c63fb3';
+import {neonDistrict} from './neon-districts.mjs?v=4c63fb3'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=4c63fb3';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=4c63fb3';
+import {streetCrowds} from './crowds.mjs?v=4c63fb3';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=4c63fb3';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=4c63fb3';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=4c63fb3';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=4c63fb3';
+import { touchControls } from './overlay.js?v=4c63fb3';
+import {setLabels,placeLabel} from './labels.mjs?v=4c63fb3'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -367,6 +367,12 @@ function carProbe(car,heading){
   return probeBody;
 }
 function advanceCar(car,dt,player,clock,space,passage,flow) {
+  // 互卡解套：卡住超過 10 秒（不是在等紅燈）的車，接下來 3.5 秒穿過其他 NPC 車輛（不穿過玩家與固定物），
+  // 讓「繞行的機車等待轉的機車、待轉的機車等繞行的機車」這種死結自己解開，不要整排車停在路口好幾分鐘。
+  if(car.ghostUntil>clock){
+    const real=space;
+    space={hit:(x,y,rr,b)=>{const item=real.hit(x,y,rr,b);return item&&item.kind==='vehicle'&&item.body!==player?null:item;}};
+  }
   const {x,y}=car.end,heading=Math.atan2(y-car.y,x-car.x);
   const aheadX=player.x-car.x,aheadY=player.y-car.y;
   const ahead=aheadX*Math.cos(heading)+aheadY*Math.sin(heading);
@@ -402,6 +408,7 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
     else car.anchor={x:car.x,y:car.y,t:clock};
   }
   const stalled=dt>0?clock-car.anchor.t:0;
+  if(stalled>10&&!car.redWait&&!(car.ghostUntil>clock-6))car.ghostUntil=clock+3.5;
   const windows=car.scooter?scooterWindows(car):[];
   let line=stopLine(car);
   for(const span of windows)if(line>=span.far&&line<=span.near)line=span.near+.1*speedUnits;
@@ -703,6 +710,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   const presentCars=new Set(),pendingWalkers=[],crossingPaths=new Map(); // A24
   let previousView=new Map(),previousRoster=new Set(),previousAuditRevision=-1,priming=false;
   let trafficConfigured=false,trafficTarget=0,spawnCursor=0,waiting=0,nextReroute=0,nextNetworkReplan=0,rideWait=0;
+  let bypassFrom=null,bounces=0; // 繞行來回彈跳偵測
   const congestion=[];
   let followedCar=null,followedSince=0,lastLeadContact=-Infinity;
   const followingDelay=()=>state.clock-lastLeadContact<.8?state.clock-followedSince:0;
@@ -973,7 +981,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       rideRemaining=rideLength(mount,route);
       cruise=route.cruise??rideCruiseSpeed(rideRemaining,ridingSpeed());
       followedCar=null;lastLeadContact=-Infinity;
-      waiting=0;escapeAfter=0;nextReroute=0;nextNetworkReplan=0;rideWait=0;congestion.length=0;
+      waiting=0;escapeAfter=0;nextReroute=0;nextNetworkReplan=0;rideWait=0;congestion.length=0;bypassFrom=null;bounces=0;
       const gap=distance(player,mount);
       if(player.mode==='car'&&plan.mount){ // A26 park and walk to the first connected lane.
         boarding={...mount,since:state.clock,car:{featuredStyle:player.featuredStyle,color:player.color}};
@@ -1108,25 +1116,27 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   function curbDistance(site,entrance){ // A24 both coordinates are valid arrival points.
     return Math.min(distance(player,site),entrance?distance(player,entrance):Infinity);
   }
-  function startEntryWalk(venue){ // A27 head through the mouth first, including approaches from behind
+  function startEntryWalk(venue,lead=[]){ // A27 head through the mouth first, including approaches from behind
     walkSelected=true;setMode('foot');state.standingPoint=null;
     finalWalk=venuePoint(venue,0,1.45);finalWalkSince=state.clock;
     doorstep=venuePoint(venue,0,-1.05);
-    route=[doorstep,finalWalk];detour=null;blocker=null;nextReroute=0;
+    route=[...lead,doorstep,finalWalk];detour=null;blocker=null;nextReroute=0;
   }
-  function parkAtCurb(auto){
+  function parkAtCurb(auto,reach=15){
     const sites=state.target?[state.target]:state.markers.map(m=>byId.get(m.locationId));
     let goal=null,nearest=Infinity;
     for(const site of sites){
       const entrance=entrances.get(site?.id)??(venues.has(site?.id)?site:null); // A27 unpaved plazas
       if(!entrance)continue;
       const gap=curbDistance(site,entrance);
-      if(gap<=15*speedUnits&&gap<nearest){nearest=gap;goal=entrance;}
+      if(gap<=reach*speedUnits&&gap<nearest){nearest=gap;goal=entrance;}
     }
     if(!goal)return false;
     carWalk=auto&&player.mode==='car'; // A26
     walkSelected=true;setMode('foot');state.standingPoint=null;
-    if(auto&&venues.has(state.target?.id))startEntryWalk(venues.get(state.target.id)); // A27
+    // 路線剩下的部分都在人行道上（窄巷口、廣場）：停車後沿著原本規劃的人行道路線走過去，不要直線穿越
+    const lead=reach>15&&route?route.filter(p=>!p.turnSignal&&distance(p,goal)>2*speedUnits):[];
+    if(auto&&venues.has(state.target?.id))startEntryWalk(venues.get(state.target.id),lead); // A27
     else if(auto){finalWalk=goal;finalWalkSince=state.clock;route=[goal];detour=null;blocker=null;nextReroute=0;}
     emit('curb:hint',{kind:'parked'});
     return true;
@@ -2001,6 +2011,13 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       let budget=pace*dt;
       let travelled=0,heldAtSignal=false; // A24
       while(route.length && budget>0){
+        // 路線點剛好落在路緣上（窄路邊、出發接線）：機車車身朝哪個方向都放不上去，會在兩個繞行點之間來回跳。
+        // 只看固定障礙（路緣、建築），車流不算；放不上去就跳過這一點，直接往下一點走。
+        if(!detour&&player.mode==='scooter'&&route.length>1&&!route[0].turnSignal&&!route[0].curbPivot){
+          const p0=route[0],p1=route[1],r=radius.rider;
+          const stuckOn=a=>curbContact(p0.x,p0.y,r,.37*speedUnits,a)||worldContact(p0.x,p0.y,r,.37/metersPerUnit,a);
+          if(stuckOn(Math.atan2(p1.y-p0.y,p1.x-p0.x))&&stuckOn(Math.atan2(p0.y-player.y,p0.x-player.x))){route.shift();continue;}
+        }
         const next=detour??route[0],gap=distance(player,next);
         let step=Math.min(gap,budget);
         if(gap>.001){
@@ -2050,7 +2067,24 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           },2);
           if(allowed.x!==nx||allowed.y!==ny||contact(player.x,player.y)){
             // A24 parked street furniture can occupy the last metre beside the lip.
-            if((obstruction==='curb'||approachingEntrance&&besideCurb(angle)||venues.has(state.target.id)&&distance(player,state.target)<7*speedUnits)&&parkAtCurb(true)){ // A27 stop beside an occupied plaza
+            // 窄巷口：路線貼著路緣轉彎，車身會擦到路緣卡住、原地亂轉。
+            // 在附近 8 公尺內找一個轉折點：從這裡過得去、從那裡也到得了下一個路線點，插進路線（同一個點只補一次）。
+            if(obstruction==='curb'&&!next.curbPivot){
+              const blocked=(x,y)=>Boolean(contact(x,y)?.kind??terrain(x,y));
+              // 車身已經貼著路緣：起點 0.6 公尺內的接觸不算，只看離開之後的路段
+              const reach=(a,b)=>{const end=sweep(a.x,a.y,b.x,b.y,(x,y)=>distance({x,y},a)>.6*speedUnits&&blocked(x,y),2);return end.x===b.x&&end.y===b.y;};
+              let pivot=null,best=Infinity;
+              for(let i=-10;i<=10;i++)for(let j=-10;j<=10;j++){
+                const q={x:player.x+i*.8*speedUnits,y:player.y+j*.8*speedUnits};
+                const cost=distance(player,q)+distance(q,next);
+                if(cost>=best||blocked(q.x,q.y)||!carriagewayAt(q.x,q.y)||!reach(player,q)||!reach(q,next))continue;
+                pivot=q;best=cost;
+              }
+              if(pivot){route.unshift({...pivot,curbPivot:true});next.curbPivot=true;followMap(dt);updateLocation();updateContext();return;}
+            }
+            // 剩下的路線全在人行道上（例如數據實驗室前的窄巷口）：機車上不去，就在這裡停車改走路，最遠 45 公尺，不要卡在轉角
+            const footRest=obstruction==='curb'&&route.length>0&&route.every(p=>!carriagewayAt(p.x,p.y));
+            if((obstruction==='curb'||approachingEntrance&&besideCurb(angle)||venues.has(state.target.id)&&distance(player,state.target)<7*speedUnits)&&parkAtCurb(true,footRest?45:15)){ // A27 stop beside an occupied plaza
               followMap(dt);updateLocation();updateContext();return;
             }
             const obstacle=hitBody??contact(player.x,player.y);
@@ -2149,6 +2183,18 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
                 if(bypass){chosen={bypass,skip:!offset&&candidate===original};break;}
               }
               if(chosen){
+                // 來回彈跳：這次繞行又把車帶回上一次繞行出發的地方（兩個繞行點之間無限來回），
+                // 第二次就從目前位置重新規劃整條路線，不再死守那個過不去的路線點
+                const back=bypassFrom&&distance(chosen.bypass[0],bypassFrom)<.6*speedUnits;
+                bounces=back?bounces+1:0;
+                bypassFrom={x:player.x,y:player.y};
+                if(bounces>=2&&state.target){
+                  const fresh=routeTo(player,state.target,congestion);
+                  bounces=0;bypassFrom=null;
+                  if(fresh?.length&&!fresh.mount){route=fresh;detour=null;rideRemaining=rideLength(player,route);break;}
+                  route.shift(); // 規劃不出新路線：至少丟掉卡住的那一點
+                  break;
+                }
                 if(chosen.skip)route.shift();
                 route.unshift(...chosen.bypass);
                 break;
@@ -2569,7 +2615,10 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       refresh();
     },
     setNpcs(list) {
-      const counts=new Map(),ids=new Set();
+      const counts=new Map(),ids=new Set(),placed=[];
+      // 同一批人物彼此也要隔開（至少 0.9 公尺），不然同一個地點的人會落在同一個備用位置、疊在一起
+      const crowded=(x,y)=>streetCrowds.some(p=>distance(p,{x,y})<.9/metersPerUnit)||placed.some(p=>distance(p,{x,y})<.9/metersPerUnit);
+      const place=npc=>{placed.push(npc);return npc;};
       state.npcs=list.filter(n=>{
         if(!byId.has(n.locationId)||n.id!=null&&ids.has(n.id))return false;
         ids.add(n.id);
@@ -2585,16 +2634,16 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           const y=loc.y+(Math.sin(a)*d-Math.cos(a)*side)/metersPerUnit;
           if(!atVenueMouth(venues.get(loc.id),{x,y},15)&&!entranceObstacles.hit(x,y,radius.foot)&& // A27 keep the lobby and nearby fixtures clear
             !inBuilding(x,y)&&!roadAt(x,y,-.34/metersPerUnit)&&
-            !streetCrowds.some(p=>distance(p,{x,y})<.9/metersPerUnit))return {...n,x,y,heading:a+Math.PI+slot*.93};
+            !crowded(x,y))return place({...n,x,y,heading:a+Math.PI+slot*.93});
         }
-        for(let radius=1;radius<=24;radius++)for(let step=0;step<16;step++){
+        for(let ring=1;ring<=24;ring++)for(let step=0;step<16;step++){ // ring：不要蓋掉外面的 radius（碰撞半徑表）
           const angle=a+step*Math.PI/8;
-          const x=loc.x+Math.cos(angle)*radius/metersPerUnit,y=loc.y+Math.sin(angle)*radius/metersPerUnit;
+          const x=loc.x+Math.cos(angle)*ring/metersPerUnit,y=loc.y+Math.sin(angle)*ring/metersPerUnit;
           if(!atVenueMouth(venues.get(loc.id),{x,y},15)&&!entranceObstacles.hit(x,y,radius.foot)&& // A27 fallback placement shares doorway clearance
             !inBuilding(x,y)&&!roadAt(x,y,-.34/metersPerUnit)&&
-            !streetCrowds.some(p=>distance(p,{x,y})<.9/metersPerUnit))return {...n,x,y,heading:a+Math.PI+slot*.93};
+            !crowded(x,y))return place({...n,x,y,heading:a+Math.PI+slot*.93});
         }
-        return {...n,x:loc.x,y:loc.y};
+        return place({...n,x:loc.x,y:loc.y});
       });
       updateContext();
       for (const id of state.speech.keys()) if (!state.npcs.some(n=>n.id===id)) state.speech.delete(id);

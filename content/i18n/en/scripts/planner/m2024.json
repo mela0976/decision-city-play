@@ -1,0 +1,142 @@
+{
+  "id": "m2024",
+  "year": 2024,
+  "order": 7,
+  "clock": "18:00",
+  "title": "A Change Before Dinner",
+  "locationId": "night_market",
+  "giver": "ae_mei",
+  "brief": "One Less Piece opens its flagship on Linginger Street next week. The client wants to spend the entire launch budget on a photo spot. Mei-ling asks you to find out what would actually get night market customers into a clothing store.",
+  "splash": "book_2024",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "ae_mei",
+          "text": "You're our strategist. Take a look at this. The client sent three photos of neon walls. They figure if young people line up here, they'll line up for a photo too."
+        },
+        {
+          "who": "player",
+          "text": "Those two in uniform took their chicken and left. Ah-Cheng, are they always in that much of a hurry?"
+        },
+        {
+          "who": "vendor_cheng",
+          "text": "They meet friends over by the Earth God shrine after work. Go ask them yourself. I've got a batch to pull out."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Go on. Before the nine o'clock pitch, I need to know where we're putting that launch money."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "temple",
+      "hint": "沿著巷弄走到福德街土地公廟，記下沿路的老店",
+      "timeLimitSec": 120
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "player",
+          "text": "I asked two people outside the shrine who'd just clocked out. They were headed to dinner, and one was looking up where he could change nearby."
+        },
+        {
+          "who": "temple_uncle",
+          "text": "The guy holding his uniform? Last time he rode home, changed his shirt, then came back to meet his friends."
+        },
+        {
+          "who": "player",
+          "text": "He said his uniform smelled like fryer oil, and he felt awkward showing up like that. I was all set to ask him where he takes photos."
+        },
+        {
+          "who": "temple_uncle",
+          "text": "Did you ask how far home is? By the time he's back, his fried chicken's gone soggy."
+        },
+        {
+          "who": "player",
+          "text": "I'm pulling the photo-wall sticky note. These two want to go straight from work to dinner. That's the thought I'd build on."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Two people is enough for a hunch. The client has to settle on a launch tonight. Which idea are you asking them to back?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You can pitch one plan tonight. What do you do with what you heard at the shrine?",
+      "options": [
+        {
+          "text": "Lead with ‘Change before dinner.’ Push tops that are in stock and run an after-work bundle deal in week one.",
+          "effects": {
+            "sales": 10,
+            "brand": 3,
+            "trust": -4,
+            "liver": 4
+          },
+          "feedback": "The pre-dinner bundles sell fastest, and the staff restock the popular sizes twice. As soon as the deal ends, hardly anyone asks about it, and the client pulls out the wrap report and asks what sets the line apart from anyone else's sale.",
+          "insight": "The yearbook says marketing investment builds up in the brand, and long-term brand strength helps sustain short-term performance.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Make the store the stop between work and dinner. Ask night market staff to try on clothes and photograph what they'd actually wear out after closing.",
+          "effects": {
+            "brand": 11,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "You wait for the stalls to close to finish the shoot, then spend the night checking permission for each photo. During opening week, someone walks in with a photo a friend sent and asks, ‘Is this the place I can come change after work?’ Only a few of the pieces in the photos sell that week.",
+          "insight": "UNIQLO's East District partnership in the yearbook drew 2.2 times the previous year's visitors, and 91% of people said the store would bring them to the area more often.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Get the client to approve a two-night sales trial. Compare ‘Night market looks’ with ‘Change before dinner’ and use try-ons and purchases to pick the launch message.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "You and the staff rotate both signs each night, then stay after closing to check the fitting notes against the receipts. More people buy after trying things on when ‘Change before dinner’ is up. The client reads the notes, signs off on the message, and saves the rest of the budget for the launch.",
+          "insight": "The yearbook describes using A/B testing alongside digital twins as an application of first-party data.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "data": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2024_02",
+        "q2024_03"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

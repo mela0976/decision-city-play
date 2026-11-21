@@ -1,0 +1,118 @@
+{
+  "id": "m2018",
+  "year": 2018,
+  "order": 1,
+  "clock": "08:30",
+  "title": "Coffee Before the Bus",
+  "locationId": "mrt",
+  "giver": "client_wu",
+  "brief": "The hot Americano launches next week. The boss wants to run “Strong enough to wake you up” at City Hall Station. Manager Wu sends you to ask commuters how they really pick their morning coffee.",
+  "splash": "book_2018",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_wu",
+          "text": "“Strong enough to wake you up” topped the tasting survey. My boss wants it sent to the billboard printer by noon."
+        },
+        {
+          "who": "player",
+          "text": "I asked three people at Exit 2. All three said they liked strong coffee. Two took one look at the line and walked off."
+        },
+        {
+          "who": "data_kai",
+          "text": "I asked those two where they were headed. Their bus was due, and they weren't about to gamble on what everyone ahead of them might order."
+        },
+        {
+          "who": "player",
+          "text": "My sticky note said “not strong enough.” Now I want to know how many minutes they'd spare for coffee."
+        },
+        {
+          "who": "client_wu",
+          "text": "I can take that back to the office. But when my boss asks, what have I got to show him?"
+        },
+        {
+          "who": "player",
+          "text": "I'll put the tasting survey next to our notes from the exit. First we need to pick what we want this Americano launch to prove."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "There's time to send one proposal before noon. What will you take to Manager Wu?",
+      "options": [
+        {
+          "text": "Interview regulars waiting by the exit and turn the little breaks they squeeze in into a line: “Take a seat before work.”",
+          "effects": {
+            "brand": 10,
+            "sales": 3,
+            "trust": 3,
+            "liver": 6
+          },
+          "feedback": "It takes three mornings of follow-up interviews to pull together enough commuter quotes for the station posters. Nearby office workers share photos in their work chats, and some even use the line to invite coworkers on a break. The store sells only a few more hot Americanos in week one.",
+          "insight": "Intelligent Decision suggests looking past the initial brief. Start with the experience you want people to have, then find the medium that can deliver it.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Test “Order your hot Americano ahead and grab it as you leave the station.” Give advance orders their own line during the rush.",
+          "effects": {
+            "brand": 3,
+            "sales": 9,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "The store sells more hot Americanos during the morning rush in week one, and the manager moves the pickup table closer to the door. You spend the next few mornings at the store sorting out the pickup order so the two lines stop getting in each other's way.",
+          "insight": "In its discussion of omnichannel retail, Intelligent Decision recommends mapping the customer journey to find where it breaks down, then starting with a small test you can actually run.",
+          "roleBonus": {
+            "media": {
+              "sales": 5
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Take Manager Wu to interview commuters at the exit, then test “Just around the corner from the station” at one store to see who makes the detour.",
+          "effects": {
+            "brand": 4,
+            "sales": 7,
+            "trust": 6,
+            "liver": 3
+          },
+          "feedback": "Manager Wu hears someone say they like strong coffee, then immediately ask how close the store is. Morning sales edge up at the test store, and the other stores miss the first wave. She takes your interview notes into the meeting and gets the original tagline put on hold.",
+          "insight": "The 2018 edition points out that what people say can differ from what they do. Neuromarketing can fill gaps in surveys, but an artificial test setting can still skew results.",
+          "roleBonus": {
+            "cx": {
+              "sales": 4
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2018_04",
+        "q2018_05"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

@@ -2,10 +2,10 @@
 //   序幕、每個任務開場的「那一年的台灣網路」、任務之後的過場（提案入手、真心話被打斷、搭檔與阿嬤的訊息）、收工時的兩種結尾。
 // 這裡只管流程；文字全部來自內容檔，畫面在 ui/phone.js、ui/feed.js、ui/interlude.js。
 
-import { showMessages } from './ui/phone.js?v=da1d659';
-import { playFeed } from './ui/feed.js?v=da1d659';
-import { showSlide, runSincere } from './ui/interlude.js?v=da1d659';
-import { T, LANG } from './strings.js?v=da1d659';
+import { showMessages } from './ui/phone.js?v=4c63fb3';
+import { playFeed } from './ui/feed.js?v=4c63fb3';
+import { showSlide, runSincere } from './ui/interlude.js?v=4c63fb3';
+import { T, LANG } from './strings.js?v=4c63fb3';
 
 // 序幕在吳興街租屋處；清單裡沒有那張圖就退回開場海報
 const PROLOGUE_SCENE = 'loc_home';
@@ -83,7 +83,7 @@ export async function playPrologue(game, signal) {
 
 /**
  * 晨會：序幕之後、第一個任務之前，在富幫 A25 會議室。會議室劇照淡入，字幕對話；不給分、不計時、不動時鐘。
- * 這些台詞沒有語音檔，缺檔時只出字幕。存檔由呼叫的人處理（除錯預覽不存）。
+ * 台詞有語音（缺檔時只出字幕）。存檔由呼叫的人處理（除錯預覽不存）。
  */
 export async function playMorning(game, signal) {
   const lines = game.content.story.morning?.lines || [];

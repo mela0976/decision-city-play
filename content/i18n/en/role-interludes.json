@@ -1,0 +1,608 @@
+{
+ "ae": [
+  {
+   "after": "m2018",
+   "sincere": {
+    "who": "client_wu",
+    "text": "When you said you'd join the call, I finally felt ready to open the contract and tell my boss what we were buying with that wall."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page one's in. The slot needs a signature by nine, and the boss wants a cup count. No wonder you offered to join the call."
+   }
+  },
+  {
+   "after": "m2019",
+   "sincere": {
+    "who": "clerk_ning",
+    "text": "I remember the guy with the empty box. Thanks for asking why the shelf was empty, too."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page two's in. That spot on the Songshou Road shelf was empty because they sold out last night. Try getting that from a search report."
+   }
+  },
+  {
+   "after": "m2020",
+   "sincere": {
+    "who": "client_chen",
+    "text": "I was relieved when you told me to hold off on sending page seven for approval. I had no idea how I'd count those store orders either."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page three's in. I checked the store file again. Still just receipt numbers. Good thing you asked before anything got signed."
+   }
+  },
+  {
+   "after": "m2021",
+   "sincere": {
+    "who": "cd_wei",
+    "text": "The last thing I want to hear on set is 'Can we squeeze in one more shot?' Once you asked the client what they actually needed, I could plan the shoot."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page four's in. The studio's due back at four and the booking number just came up. I'd be watching the clock waiting for that email."
+   }
+  },
+  {
+   "after": "m2022",
+   "sincere": {
+    "who": "client_hsu",
+    "text": "The second that email came from HQ, all I could think about was what I'd tell my boss at five. I'm glad you held the file back."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page five's in. Four o'clock print deadline, five o'clock meeting. I bet Manager Hsu's hands were sweating when that email came in."
+   }
+  },
+  {
+   "after": "m2023",
+   "sincere": {
+    "who": "data_kai",
+    "text": "When I held back the print file, I honestly thought you'd be mad. I'm glad you were willing to make that call."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page six's in. That call before five couldn't have been fun. The quote doesn't even say whether the franchisees can print the image."
+   }
+  },
+  {
+   "after": "m2024",
+   "sincere": {
+    "who": "vendor_cheng",
+    "text": "You saw how narrow it is outside the shaved ice shop and still took the time to hear when each owner could get back to you. I was worried HQ thought everyone had already said yes."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page seven's in. The fabric shop owner is in tonight, and the tofu pudding stall won't reply till morning. Let me see your list. I almost thought they'd all signed up."
+   }
+  },
+  {
+   "after": "m2025",
+   "sincere": {
+    "who": "tv_su",
+    "text": "All I could think about was getting that form signed by eight. It took your trip to the breakfast shop for me to find out people really were asking for the old bottle."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page eight's in. The new bottle was right next to the old one and the customer still missed it. Make sure the brand manager sees that photo."
+   }
+  },
+  {
+   "after": "m2026",
+   "sincere": {
+    "who": "boss_lin",
+    "text": "That email was already set for nine tomorrow, and you still went and placed a test order. Without that, I might've told the client to send it."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page nine's in. I made a note of the oat milk getting swapped for regular milk. Next time we test this, I'm placing an order myself."
+   }
+  }
+ ],
+ "planner": [
+  {
+   "after": "m2018",
+   "sincere": {
+    "who": "client_wu",
+    "text": "They both said they liked strong coffee, then took one look at the line and left. I didn't see that coming."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page one's in. Funny how the tasting survey never asked when the bus was due."
+   }
+  },
+  {
+   "after": "m2019",
+   "sincere": {
+    "who": "clerk_ning",
+    "text": "The guy with the empty tube just asked for the blue one. Never even said the brand name."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page two's in. One showed up with an empty tube, the other showed you a phone. Good luck getting that from search numbers."
+   }
+  },
+  {
+   "after": "m2020",
+   "sincere": {
+    "who": "client_chen",
+    "text": "I figured he put two in the cart hoping for a deal. Turns out he didn't want to buy what his mom already had."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page three's in. Two bottles in the cart. The order alone couldn't tell us what he was comparing."
+   }
+  },
+  {
+   "after": "m2021",
+   "sincere": {
+    "who": "cd_wei",
+    "text": "That ‘Book Now’ card was already printed. Never crossed my mind those two words might make someone close the tab."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page four's in. The guy just wanted to see out the window, and we nearly asked for his phone number first."
+   }
+  },
+  {
+   "after": "m2022",
+   "sincere": {
+    "who": "client_hsu",
+    "text": "She went to the trouble of washing that old pump and bringing it in, and we couldn't even tell her if she could still use it."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page five's in. If that pump leaks, a bigger tagline isn't going to help."
+   }
+  },
+  {
+   "after": "m2023",
+   "sincere": {
+    "who": "data_kai",
+    "text": "I nodded along at ‘worried it’ll be too sweet.’ Then I checked the transcript and saw she meant her coworker."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page six is in. Next time the summary says ‘too sweet,’ I’m asking ‘too sweet for who?’"
+   }
+  },
+  {
+   "after": "m2024",
+   "sincere": {
+    "who": "vendor_cheng",
+    "text": "That kid rode all the way home to change before dinner last time. Till you asked, I had no idea it was the fryer smell."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page seven's in. Show up to dinner smelling like fryer oil? I'd take the extra ride too."
+   }
+  },
+  {
+   "after": "m2025",
+   "sincere": {
+    "who": "tv_su",
+    "text": "The boss circled that checkout screen, and I almost forgot Auntie was the one picking the soy sauce."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page eight is in. You’d never guess from that checkout screen that Auntie picked the yellow cap."
+   }
+  },
+  {
+   "after": "m2026",
+   "sincere": {
+    "who": "boss_lin",
+    "text": "I was so focused on whether the daughter would buy it. Then you asked, and her mom said she just wanted to take the bus to Yongkang Street herself."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page nine's in. I rewound that bit twice. Mom didn't hesitate for a second before taking it out of the cart."
+   }
+  }
+ ],
+ "media": [
+  {
+   "after": "m2018",
+   "sincere": {
+    "who": "client_wu",
+    "text": "Once you showed me the foot traffic for Exit 4 on its own, I finally knew how to compare those three quotes."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page one's in. I'll pull the half-hour cup sales for the Exit 4 shop tomorrow morning."
+   }
+  },
+  {
+   "after": "m2019",
+   "sincere": {
+    "who": "clerk_ning",
+    "text": "I see regulars come in with their umbrellas still open all the time. Never thought that could help you pick when to run an ad."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page two's in. Ning says the evening shift sells the most when it rains. I'll ask her for the numbers on dry days."
+   }
+  },
+  {
+   "after": "m2020",
+   "sincere": {
+    "who": "client_chen",
+    "text": "Last time I bragged to my boss about how cheap the impressions were. One of my own coworkers saw the ad five times in one night."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page three's in. I marked the orders that came in after dinner that Friday last year."
+   }
+  },
+  {
+   "after": "m2021",
+   "sincere": {
+    "who": "cd_wei",
+    "text": "When the MRT lightboxes got pulled, my first thought was, did we shoot that thirty-second spot for nothing?"
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page four's in. The client wants to know how many saw it. The branch wants confirmed bookings. I'll give each its own column."
+   }
+  },
+  {
+   "after": "m2022",
+   "sincere": {
+    "who": "client_hsu",
+    "text": "The scan count looked pretty good last time. Then my boss asked which screen the scans came from, and I had nothing."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page five's in. Eighty plays a day by the elevators. I almost read that as eighty people."
+   }
+  },
+  {
+   "after": "m2023",
+   "sincere": {
+    "who": "data_kai",
+    "text": "When the chatbot recommended the place next door, I actually asked around at lunch to see where everyone gets their tea."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page six's in. I've got a column ready for the store manager. Tomorrow we'll see how many cups of the new drink they actually sell."
+   }
+  },
+  {
+   "after": "m2024",
+   "sincere": {
+    "who": "vendor_cheng",
+    "text": "You really stood out there watching who looked up? I run a stall here and even I’ve never counted."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page seven's in. Six-ish under the covered sidewalk is the after-work crowd. Eight is the late-night food crowd. Got it."
+   }
+  },
+  {
+   "after": "m2025",
+   "sincere": {
+    "who": "tv_su",
+    "text": "Auntie Hsiu-chin buys her noodles by the case at the supermarket? I figured she ordered on her phone like the girl on the evening shift."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page eight's in. Auntie Hsiu-chin at noon, people waiting for egg crepes at night. I see why you ran the numbers separately."
+   }
+  },
+  {
+   "after": "m2026",
+   "sincere": {
+    "who": "boss_lin",
+    "text": "That MRT quote was about to expire, and I nearly told you to sign it. Glad you showed me what else that money could buy."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page nine's in. Last time, short videos averaged seven views per person and reach still stalled. I'm keeping that number handy."
+   }
+  }
+ ],
+ "creative": [
+  {
+   "after": "m2018",
+   "sincere": {
+    "who": "client_wu",
+    "text": "I had to stand at the far end of the escalator to see it. After all those red circles, the cup was down to a sliver of white."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page one's in. I thought the cup was too big on the proof. From the far end of the escalator, I'd probably only see the price too."
+   }
+  },
+  {
+   "after": "m2019",
+   "sincere": {
+    "who": "clerk_ning",
+    "text": "I remember those boots. He poured the water out right by the red chair. He stuffed his wet socks in a plastic bag before he came over to ask where the cream was."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page two's in. Next time HQ says to just show it by the register, I'm asking which store they mean."
+   }
+  },
+  {
+   "after": "m2020",
+   "sincere": {
+    "who": "client_chen",
+    "text": "I was just trying to get the video out. That note in the shift log reminded me that some people can't even tell if the bottle they've got is the same one."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page three's in. I copied that entry from the shift log into the margin. I'd never have guessed from the orders that someone brought in an empty bottle to ask."
+   }
+  },
+  {
+   "after": "m2021",
+   "sincere": {
+    "who": "cd_wei",
+    "text": "When we lost the location and I saw that one door on the set, my heart sank. Then you showed me the test shot and I could breathe again."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page four's in. Wei said another inch to the right would give the set away. I was so busy waiting for her dad to open the drawing that I never looked over there."
+   }
+  },
+  {
+   "after": "m2022",
+   "sincere": {
+    "who": "client_hsu",
+    "text": "I held the pouch up to the bottle myself just now. I can see why that shopper stared at it and put the bottle back."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page five's in. Good call keeping the sink. I sat through eight seconds of leaves. Turns out the one thing I wanted to see was the mouth of the bottle."
+   }
+  },
+  {
+   "after": "m2023",
+   "sincere": {
+    "who": "data_kai",
+    "text": "I thought it was a recruitment ad at first, too. The time clock only clicked for me when you said it'd cut to the straw going through the seal."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page six's in. That milk foam nearly fooled me. Next time we screen a cut, let's put a cup the shop actually sells right next to it."
+   }
+  },
+  {
+   "after": "m2024",
+   "sincere": {
+    "who": "vendor_cheng",
+    "text": "He passes the jacket next door to try on like that all the time, hanger and all. I didn't expect you to go over and ask him about it."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page seven's in. Three glowing hangers and I couldn't tell you what any of them looked like. I remember the one in the fabric shop owner's hand, though."
+   }
+  },
+  {
+   "after": "m2025",
+   "sincere": {
+    "who": "tv_su",
+    "text": "I sent you to watch the TV on mute, and you came back talking about the unwrapped chopsticks. I'd probably have only noticed the empty chair."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page eight's in. I muted it for the first watch. Nobody scrolling on their phone is going to turn on the sound just for soy sauce."
+   }
+  },
+  {
+   "after": "m2026",
+   "sincere": {
+    "who": "boss_lin",
+    "text": "I was so busy looking at the promo code that you spotted the silver buckle first. The product team would've called the second they saw that frame."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page nine's in. I've kept the simulation results too. When we show it to real people, I want to ask what bag they remember. Maybe all they remember is the rain again."
+   }
+  }
+ ],
+ "data": [
+  {
+   "after": "m2018",
+   "sincere": {
+    "who": "client_wu",
+    "text": "We’d already refunded that coffee and it was still on the trial sales sheet. Good thing you checked the receipt. I nearly took those numbers to my boss."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page one’s in. Next time I take the MRT, I’m counting how many people actually walk past that wall."
+   }
+  },
+  {
+   "after": "m2019",
+   "sincere": {
+    "who": "clerk_ning",
+    "text": "The shelf was empty for three days. Good thing you checked the delivery slip. HQ was about to figure nobody wanted it."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page two’s in. I put the stockout dates next to those three zeroes before that red line ends up in another deck."
+   }
+  },
+  {
+   "after": "m2020",
+   "sincere": {
+    "who": "client_chen",
+    "text": "I was still figuring out what to tell Finance. Then you checked the order number and it turned out we’d circled the same sale on both sheets."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page three’s in. I know 0317 by heart now. Both reports really did count it."
+   }
+  },
+  {
+   "after": "m2021",
+   "sincere": {
+    "who": "cd_wei",
+    "text": "I nearly told the client people were booking viewings off a count of how often the form opened. Good thing you asked for the branch’s records."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page four’s in. I can bump that green line three ticks just by opening the form three times. No wonder the chart looks so good."
+   }
+  },
+  {
+   "after": "m2022",
+   "sincere": {
+    "who": "client_hsu",
+    "text": "My boss wanted more coupons printed. I was about to put in the order. Seeing the numbers with the returns taken out gave me the nerve to ask him to wait."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page five’s in. We handed out coupons and showed people how to pour the refills that Saturday. I can’t tell which helped from the register sheet alone."
+   }
+  },
+  {
+   "after": "m2023",
+   "sincere": {
+    "who": "data_kai",
+    "text": "I bought that thirty percent jump, too. Then you checked the payments and showed me that hitting retry adds another row."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page six’s in. No wonder the stores didn’t cook more pearls. Hitting retry doesn’t pay for another drink."
+   }
+  },
+  {
+   "after": "m2024",
+   "sincere": {
+    "who": "vendor_cheng",
+    "text": "You were still at the shrine and the report said another customer had come in? That explains why I didn’t see anyone over here."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page seven’s in. When you scanned the code on the red chair, another hit came in. The register didn’t make a sound."
+   }
+  },
+  {
+   "after": "m2025",
+   "sincere": {
+    "who": "tv_su",
+    "text": "I didn’t get the whole story until I saw that invoice. She’d asked her grandson to buy it after watching TV the night before. He clicked for the coupon the next day."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page eight’s in. I added the airtime and order time for that soy sauce. A night apart, and all the report had was one click."
+   }
+  },
+  {
+   "after": "m2026",
+   "sincere": {
+    "who": "boss_lin",
+    "text": "I almost walked in with that chart. It took you matching the tickets for me to see the customer was still waiting to make a return."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page nine’s in. One ticket threw three close events. I left the case ID right beside them."
+   }
+  }
+ ],
+ "cx": [
+  {
+   "after": "m2018",
+   "sincere": {
+    "who": "client_wu",
+    "text": "We printed ‘ready when you get here’ on the sleeve. I never thought she'd have to line up again for points when she had a bus to catch."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page one's in. I've put the sleeve next to the support ticket. She paid and still had to chase up those points."
+   }
+  },
+  {
+   "after": "m2019",
+   "sincere": {
+    "who": "clerk_ning",
+    "text": "She even brought the empty box. I hate having to tell her we're out and send her to another store with that box still in her hand."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page two's in. She already knew exactly what she wanted. The site's still asking her for a login code."
+   }
+  },
+  {
+   "after": "m2020",
+   "sincere": {
+    "who": "client_chen",
+    "text": "The clerk knew which one she'd bought right away, but support still asked for a photo of the bottom of the bottle. I'd probably give up too."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page three's in. The screenshot time checks out. She came back the next day. The refill was in her cart, but there was no order."
+   }
+  },
+  {
+   "after": "m2021",
+   "sincere": {
+    "who": "cd_wei",
+    "text": "At the studio I was worried about whether the clam soup looked good. The customer just wanted to know when it would get there."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page four's in. All I saw was the drop at sign-in. Then I read the ticket. Someone asked about the delivery date three times."
+   }
+  },
+  {
+   "after": "m2022",
+   "sincere": {
+    "who": "client_hsu",
+    "text": "She brought in the old bottle. That's when I found out she'd spilled the refill all over her table. No wonder she wanted a new bottle this time."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page five's in. I can count how many people left at the address screen. A refill all over the table? That's never going to show up in the report."
+   }
+  },
+  {
+   "after": "m2023",
+   "sincere": {
+    "who": "data_kai",
+    "text": "Good thing you went all the way to payment. If I'd only seen the bot say ‘free shipping,’ I'd have thought it got it right."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page six's in. I found last year's promo page. Two bags really did ship free. That deal's long gone."
+   }
+  },
+  {
+   "after": "m2024",
+   "sincere": {
+    "who": "vendor_cheng",
+    "text": "You've already tried on the jacket, and now you're standing in the shop waiting for a text. I'd have put the tag down too."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page seven's in. I've got the log for that verification screen. It doesn't tell me the shrine caretaker wanted another jacket for his brother."
+   }
+  },
+  {
+   "after": "m2025",
+   "sincere": {
+    "who": "tv_su",
+    "text": "I was still figuring out how long to leave the code on screen. Then you told me her egg burned while she waited. That put it in perspective."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page eight's in. That sketch on the back of the order slip makes sense. To buy the same bottle again, she has to find the product number first."
+   }
+  },
+  {
+   "after": "m2026",
+   "sincere": {
+    "who": "boss_lin",
+    "text": "Watching you buy the second box on the test account, I finally saw it. The order's already through by the time the customer finds out her points weren't used."
+   },
+   "partner": {
+    "who": "data_kai",
+    "text": "Page nine's in. I kept the sign-in screen and that support ticket. If anyone asks what happened to the points, I've got them right here."
+   }
+  }
+ ]
+}

@@ -1,37 +1,37 @@
 // 遊戲控制器：一天的推進、任務執行、數值、存檔、阿嬤模組、結局。
 // 任務、角色、題目的文字全部來自 content；這裡只有流程與規則。
 
-import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js?v=da1d659';
-import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=da1d659';
-import { pickEnding, metersForEnding } from './endings.js?v=da1d659';
-import { hintFor, curbHint } from './hints.js?v=da1d659';
-import { voiceKey } from './sound.js?v=da1d659';
-import { createHud } from './ui/hud.js?v=da1d659';
-import { createToasts } from './ui/toast.js?v=da1d659';
-import { showTitle } from './ui/title.js?v=da1d659';
-import { showRoleSelect } from './ui/role-select.js?v=da1d659';
-import { runDialogue } from './ui/dialogue.js?v=da1d659';
-import { runChoice } from './ui/choice.js?v=da1d659';
-import { runQuiz } from './ui/quiz.js?v=da1d659';
-import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=da1d659';
-import { pickWork } from './ui/side-pick.js?v=da1d659';
-import { openSideList } from './ui/side-list.js?v=da1d659';
-import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js?v=da1d659';
-import { showPlaceCard } from './ui/place-card.js?v=da1d659';
-import { playCutscene } from './ui/cutscene.js?v=da1d659';
-import { showEnding } from './ui/ending.js?v=da1d659';
-import { openProposal } from './ui/proposal.js?v=da1d659';
-import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=da1d659'; // A26
-import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=da1d659';
-import { openManual } from './ui/manual.js?v=da1d659';
-import { openElderCard } from './ui/elder-card.js?v=da1d659';
-import { langControls } from './ui/lang-switch.js?v=da1d659';
-import { createCoach } from './ui/coach.js?v=da1d659';
-import { shareResult } from './share.js?v=da1d659';
-import { VERSION } from './version.js?v=da1d659';
-import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=da1d659';
-import { createInspireChip } from './ui/inspire.js?v=da1d659';
-import { showYearSelect } from './ui/year-select.js?v=da1d659';
+import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js?v=4c63fb3';
+import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=4c63fb3';
+import { pickEnding, metersForEnding } from './endings.js?v=4c63fb3';
+import { hintFor, curbHint } from './hints.js?v=4c63fb3';
+import { voiceKey, voiceInfo } from './sound.js?v=4c63fb3';
+import { createHud } from './ui/hud.js?v=4c63fb3';
+import { createToasts } from './ui/toast.js?v=4c63fb3';
+import { showTitle } from './ui/title.js?v=4c63fb3';
+import { showRoleSelect } from './ui/role-select.js?v=4c63fb3';
+import { runDialogue } from './ui/dialogue.js?v=4c63fb3';
+import { runChoice } from './ui/choice.js?v=4c63fb3';
+import { runQuiz } from './ui/quiz.js?v=4c63fb3';
+import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=4c63fb3';
+import { pickWork } from './ui/side-pick.js?v=4c63fb3';
+import { openSideList } from './ui/side-list.js?v=4c63fb3';
+import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js?v=4c63fb3';
+import { showPlaceCard } from './ui/place-card.js?v=4c63fb3';
+import { playCutscene } from './ui/cutscene.js?v=4c63fb3';
+import { showEnding } from './ui/ending.js?v=4c63fb3';
+import { openProposal } from './ui/proposal.js?v=4c63fb3';
+import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=4c63fb3'; // A26
+import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=4c63fb3';
+import { openManual } from './ui/manual.js?v=4c63fb3';
+import { openElderCard } from './ui/elder-card.js?v=4c63fb3';
+import { langControls } from './ui/lang-switch.js?v=4c63fb3';
+import { createCoach } from './ui/coach.js?v=4c63fb3';
+import { shareResult } from './share.js?v=4c63fb3';
+import { VERSION } from './version.js?v=4c63fb3';
+import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=4c63fb3';
+import { createInspireChip } from './ui/inspire.js?v=4c63fb3';
+import { showYearSelect } from './ui/year-select.js?v=4c63fb3';
 
 // 固定規則：docs/CONTRACTS.md 第 3.4 節。
 const QUIZ_RIGHT = { trust: 3 };
@@ -128,6 +128,7 @@ export class Game {
     this.gotoRun = null;
 
     this.state = this.loadState();
+    this.applyRoleScript(); // 職能劇本
     this.engine.setCarUnlocked?.(this.state.carUnlocked); // A26
     this.committed = clone(this.state);
 
@@ -327,7 +328,7 @@ export class Game {
   voiceFor(who) {
     const speaker = this.voiceSpeaker(who);
     return {
-      info: (text) => this.assets.audio('voice', voiceKey(speaker, this.voiceText(text))),
+      info: (text) => voiceInfo(this.assets, voiceKey(speaker, this.voiceText(text))),
       play: (text, options) => this.sound.voice.play(speaker, text, options),
       preload: (text) => this.sound.voice.preload(speaker, text),
     };
@@ -1095,6 +1096,7 @@ export class Game {
     this.sideTarget = null;
     const grandma = { ...this.state.grandma };
     this.state = { ...r.main.state, grandma };
+    this.applyRoleScript();
     this.committed = { ...r.main.committed, grandma };
     this.replay = null;
     this.engine.setCarUnlocked?.(this.state.carUnlocked);
@@ -1139,7 +1141,32 @@ export class Game {
     this.playTitleMusic();
   }
 
+  /**
+   * 職能劇本：把任務清單換成這個職能自己的劇情（content.roleMissions）。原地替換陣列元素與索引，
+   * 其他地方拿著 content.missions／missionById 的參照不必改。沒有該職能的劇本就用通用版。
+   */
+  applyRoleScript(roleId = this.state.roleId) {
+    const content = this.content;
+    const key = roleId && content.roleMissions?.has(roleId) ? roleId : '';
+    if (this.scriptRole === key || !content.baseMissions) return;
+    this.scriptRole = key;
+    const list = key ? content.roleMissions.get(key) : content.baseMissions;
+    content.missions.splice(0, content.missions.length, ...list);
+    content.missionById.clear();
+    for (const m of list) content.missionById.set(m.id, m);
+    // 過場：客戶真心話與阿凱的回應也換成這個職能的版本；阿嬤訊息與年鑑標題照舊
+    if (content.baseInterludes) {
+      const lines = key ? content.roleInterludes?.get(key) : null;
+      content.interludeByMission.clear();
+      for (const item of content.baseInterludes) {
+        const own = lines?.get(item.after);
+        content.interludeByMission.set(item.after, own ? { ...item, sincere: own.sincere, partner: own.partner } : item);
+      }
+    }
+  }
+
   freshRun(roleId) {
+    this.applyRoleScript(roleId);
     const role = this.content.roleById.get(roleId);
     const meters = {};
     for (const id of METER_IDS) meters[id] = clamp(Number(role.start?.[id]) || 0);
@@ -1183,6 +1210,7 @@ export class Game {
   continueRun() {
     if (!this.committed.roleId) return;
     this.state = { ...clone(this.committed), grandma: { ...this.state.grandma } };
+    this.applyRoleScript();
     const { content, state } = this;
     const signal = this.newFlow();
     // 序幕還沒看完就離開的：從序幕重來。
@@ -1463,6 +1491,7 @@ export class Game {
     this.officeLast = line.text;
     this.sfx.play('select');
     const who = this.speakerOf(line.who);
+    this.voiceFor(line.who).play(line.text);
     const art = this.assets.imageSrc('loc_office') ? this.assets.art('loc_office', { kind: 'cover' }) : null;
     if (art) this.toast(line.text, { tone: 'plain', ms: 3800, title: who.name, art });
     else this.toast(`${who.name}　${line.text}`);
@@ -2282,6 +2311,7 @@ export class Game {
     if (!ok) return;
     this.abortFlow();
     this.state = { ...blankState(), grandma: { ...this.state.grandma }, quizSeen: { correct: [...this.committed.quizSeen.correct], asked: 0, right: 0 } };
+    this.applyRoleScript();
     this.commit();
     this.showTitle();
   }
@@ -2394,6 +2424,7 @@ export class Game {
         this.abortFlow();
         this.sideRun = null;
         this.state = { ...clone(this.committed), grandma: { ...this.state.grandma } };
+        this.applyRoleScript();
         this.newFlow();
         this.enterWorld({ at: side.locationId });
         if (this.phase === 'roam' || this.phase === 'rechao') this.startSide(side);

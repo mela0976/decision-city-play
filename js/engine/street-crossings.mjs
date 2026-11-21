@@ -1,6 +1,6 @@
 // A24. Coordinates use world units; crosswalk, stop and box distances are metres
 // from the OSM arm's anchor, including on divided carriageways.
-import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=da1d659';
+import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=4c63fb3';
 import tagged from './data/xinyi-signals.json' with {type:'json'};
 
 const rank={primary:3,secondary:2,tertiary:1};
@@ -127,13 +127,18 @@ while(pending.size){
     const aligned=a.dx*dx+a.dy*dy>.65;
     const ux=aligned?a.dx:dx,uy=aligned?a.dy:dy;
     const origin=aligned?a:center;
-    let side=a.width*unit/2+.55;
-    let x,y;
-    for(let i=0;i<16;i++,side+=.45){
-      x=origin.x*unit+ux*(a.crosswalk+.7)+uy*side;
-      y=origin.y*unit+uy*(a.crosswalk+.7)-ux*side;
-      if(!roadAt(x/unit,y/unit,-.1/unit))break;
+    // 號誌杆要立在路外：從路緣往外推，右側推不出路面就試左側（最遠約 12 公尺）；兩邊都還在車道上就不放這一支，不要立在路中央
+    let x,y,placed=false;
+    for(const sign of [1,-1]){
+      let side=a.width*unit/2+.55;
+      for(let i=0;i<26&&!placed;i++,side+=.45){
+        x=origin.x*unit+ux*(a.crosswalk+.7)+uy*side*sign;
+        y=origin.y*unit+uy*(a.crosswalk+.7)-ux*side*sign;
+        if(!roadAt(x/unit,y/unit,-.4/unit))placed=true;
+      }
+      if(placed)break;
     }
+    if(!placed)continue;
     const street=approaches.find(b=>b.group!==a.group&&b.way.name)?.way.name||a.way.name;
     j.poles.push({x,y,dx:ux,dy:uy,group:signalGroup(j,ux,uy),name:street,en:tagged.english[street]??'',junction:j});
   }

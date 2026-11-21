@@ -1,0 +1,138 @@
+{
+  "id": "m2024",
+  "year": 2024,
+  "order": 7,
+  "clock": "18:00",
+  "title": "The Jacket Still in the Cart",
+  "locationId": "night_market",
+  "giver": "ae_mei",
+  "brief": "Shoppers at the new Linginger Street store scan the tags and leave without buying. Mei-ling asks you to try the whole journey before deciding where to spend the launch budget.",
+  "splash": "book_2024",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "ae_mei",
+          "text": "One Less Piece opens next week. The client saw the soft-launch report and thinks one more coupon will get those jackets out of people's carts."
+        },
+        {
+          "who": "data_kai",
+          "text": "I pulled last night's logs. Several shoppers bailed at phone verification. They never even saw the payment page."
+        },
+        {
+          "who": "player",
+          "text": "This is the kind of report I dread in e-commerce. They've picked a size. Why are we still making them sign up?"
+        },
+        {
+          "who": "ae_mei",
+          "text": "Follow the old shops to the shrine on Fude Street. The caretaker tried it on last night. Take this tag and ask him what happened."
+        },
+        {
+          "who": "player",
+          "text": "Okay, I'll bring a test phone. I'll go through the exchange process too, as if the jacket had already arrived."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "temple",
+      "hint": "沿著巷弄走到福德街土地公廟，記下沿路的老店",
+      "timeLimitSec": 120
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "temple_uncle",
+          "text": "That's the one! My wife liked it on me. I scanned the tag, then it wanted me to check a text, so I just went home."
+        },
+        {
+          "who": "player",
+          "text": "Look, I went all the way to the payment screen. I still can't find a number to call if the size is wrong."
+        },
+        {
+          "who": "temple_uncle",
+          "text": "Say I want to buy my brother the same jacket later. If I bring in the tag, will the staff know which one it is?"
+        },
+        {
+          "who": "player",
+          "text": "I'll write down the item number. Tonight's pitch needs to show how people can find the same jacket again after they buy it."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Back at the flagship, there's room in the launch budget for one fix. Where do you spend it?",
+      "options": [
+        {
+          "text": "Run a two-night opening deal. Scan the tag to pay straight away. Discounted orders can be returned for a refund only.",
+          "effects": {
+            "sales": 10,
+            "brand": 3,
+            "trust": -4,
+            "liver": 4
+          },
+          "feedback": "Shoppers who'd dropped off at verification paid, and first-week orders beat the soft launch. One customer asked for the next size up, but support told her to return it and place a new order, so she turned off restock alerts too.",
+          "insight": "The yearbook warns against chasing immediate traffic and sales. Building a brand over time helps sustain short-term results.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Borrow a mirror from the fabric shop for a neighborhood try-on. Make shareable fit cards with sizes and product links.",
+          "effects": {
+            "brand": 11,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "The fit cards made it into the neighborhood chat, and people came in with screenshots to ask about the jacket the next day. You and the staff checked sizes on every card until closing, and only a few orders came in that week.",
+          "insight": "The yearbook reports that UNIQLO's East District partnership drew 2.2 times the previous year's visitors. 91% said the store would bring them to the district more often.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Offer guest checkout and print the exchange number on receipts. After purchase, let shoppers opt in to save their size in a member account.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "The shrine caretaker called the number on his receipt. The clerk used the item number to set one aside for his brother. Repeat orders came in, but sign-ups grew slowly, and store staff and support had to take turns answering calls.",
+          "insight": "The yearbook calls first-party and member data central to a world with fewer cookies. It also says customer experience needs to account for privacy and inclusion.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "data": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2024_02",
+        "q2024_03"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

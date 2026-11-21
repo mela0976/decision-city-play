@@ -1,0 +1,115 @@
+{
+  "id": "m2021",
+  "year": 2021,
+  "order": 4,
+  "clock": "13:00",
+  "title": "Where Does the Budget Go by Four?",
+  "locationId": "studio",
+  "giver": "cd_wei",
+  "brief": "Level 3 restrictions just kicked in, and the realty client wants to pull its MRT lightbox ads. Wei is waiting at the Chillshan Creative Park studio for your revised media plan for the week.",
+  "splash": "book_2021",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "cd_wei",
+          "text": "Look, the client crossed out the MRT lightboxes. We've still got the money, but the station will only hold that 8 PM slot until four."
+        },
+        {
+          "who": "player",
+          "text": "Let me pull up the quotes. If we put it all into prime time, there's nothing left for weekend search."
+        },
+        {
+          "who": "cd_wei",
+          "text": "Mei-ling just texted. The branch manager still needs staff to take bookings this week. The client wants to know what number to look at once the ad runs."
+        },
+        {
+          "who": "player",
+          "text": "For reach, I want to know how many people saw it. For bookings, I'll ask the branch to log which ones actually got confirmed."
+        },
+        {
+          "who": "cd_wei",
+          "text": "I'll leave the 30-second master on your desk. If we're running online video, the editor can still export it today."
+        },
+        {
+          "who": "player",
+          "text": "Got it. I'll put the frequency caps and placement rates on page four of tonight's pitch."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The TV station needs an answer by four. Where do you put this week's media budget?",
+      "options": [
+        {
+          "text": "Release the TV hold. Buy high-intent home-viewing search terms during weekend daytime hours and send people to the booking page with the video.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": -4,
+            "liver": 3
+          },
+          "feedback": "The branch manager staffs virtual tours around the bookings and sends you the confirmed list on Monday without being asked. Most people only see the video on the booking page, and when the client asks about brand reach, you barely have a number to show.",
+          "insight": "Citing Taiwan's National Credit Card Center, the annual report puts the online share of card transactions at 25% in January 2019 and 45% in January 2021.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Put most of the money into the 8 PM TV slot and extend reach with streaming video, capped at three views per person per week.",
+          "effects": {
+            "brand": 12,
+            "trust": 3,
+            "sales": -3,
+            "liver": 6
+          },
+          "feedback": "On Friday night, someone posts a photo of the TV ad taken by a family member in the branch group chat. The streaming report shows you're still reaching new viewers, but with no weekend search budget, several of the branch's virtual tour slots go unfilled.",
+          "insight": "The annual report cites Nielsen's 2020 finding that both TV and the internet drew more attention as people spent more time at home.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Drop TV, compare the cost per thousand impressions from two video vendors, then run search in two comparable districts and add video in just one.",
+          "effects": {
+            "brand": 5,
+            "sales": 5,
+            "trust": 4,
+            "liver": 9
+          },
+          "feedback": "You and Ah-Kai pore over reports until midnight to remove duplicate bookings logged by the branches. The district with video reaches more people and records more valid bookings. The manager agrees to increase video spend there next week and stick to search elsewhere for now.",
+          "insight": "Nielsen data shows that Taiwan's traditional media ad spend fell from NT$41.69 billion in 2015 to NT$25.64 billion in 2020. Over the same period, digital ad spend rose from NT$19.352 billion to NT$48.256 billion.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "media": {
+              "sales": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2021_07",
+        "q2021_10"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

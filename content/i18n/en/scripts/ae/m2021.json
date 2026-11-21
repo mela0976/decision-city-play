@@ -1,0 +1,115 @@
+{
+  "id": "m2021",
+  "year": 2021,
+  "order": 4,
+  "clock": "13:00",
+  "title": "Please Confirm by Four",
+  "locationId": "studio",
+  "giver": "cd_wei",
+  "brief": "The real estate client wants to add a booking number to the brand film at the last minute, but the contract covers one 30-second spot. The Chillshan Creative Park studio has to be handed back at four. You need written approval before the crew can roll.",
+  "splash": "book_2021",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "cd_wei",
+          "text": "Elephant Mountain View Realty just sent a screenshot. Their boss asked in the group chat who viewers should call to book a viewing after the ad."
+        },
+        {
+          "who": "player",
+          "text": "Our marketing contact told me the brand film was approved this morning. Now she's worried her boss will put her on the spot at tonight's meeting."
+        },
+        {
+          "who": "cd_wei",
+          "text": "We hand the studio back at four. Find out what we're actually shooting today so I know which shot to start with."
+        },
+        {
+          "who": "ae_mei",
+          "text": "I found the contract attachment. It covers one 30-second spot. If we're delivering a second cut, someone needs to sign a change order today."
+        },
+        {
+          "who": "player",
+          "text": "I'll call her first. If she's worried about getting cornered tonight, I'll join the meeting and spell out what we can deliver and what costs extra."
+        },
+        {
+          "who": "cd_wei",
+          "text": "Okay. Customer service and the cast are still online. Get me that email and I'll roll."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The client picks up. They need a commitment they can take into tonight's meeting. What do you offer?",
+      "options": [
+        {
+          "text": "Keep the price and deadline. Turn the 30 seconds into a virtual viewing demo and get written approval for the phone number on the end card.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": -4,
+            "liver": 3
+          },
+          "feedback": "Your contact signs off by email, the branches staff the phone, and a few viewings get booked on launch day. The original story scenes are cut, and hardly anyone shares the spot from the brand's social accounts.",
+          "insight": "The yearbook says consumers can complete the whole shopping journey from home, so brands need fully digital operations and the ability to deliver to people's doors.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Keep the brand film. Flag that there's no booking number on the end card, and help your contact pitch brand favorability to the boss as the success metric.",
+          "effects": {
+            "brand": 12,
+            "trust": 3,
+            "sales": -3,
+            "liver": 6
+          },
+          "feedback": "The boss agrees to change the success metric and puts the film on the brand's homepage, where it gets more shares than expected. The branches report no bump in bookings, and you get another call about it the next day.",
+          "insight": "In post-testing, 70% of viewers responded more positively after seeing Sinyi Realty's “Trust and Happiness,” compared with a past KPI of 20–30%.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Get a signed change order. Shoot a booking end card in the same studio session, then set separate deadlines and success metrics for the brand film and the short cut that drives bookings.",
+          "effects": {
+            "brand": 5,
+            "sales": 5,
+            "trust": 4,
+            "liver": 9
+          },
+          "feedback": "The client signs the change order, the brand film gets shared, and the short cut brings in bookings. The two department heads review their cuts separately, and you're up with production reconciling versions until the early hours.",
+          "insight": "The yearbook says dentsu advocated breaking down service silos so creative, media, data, and consulting teams could work together.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "media": {
+              "sales": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2021_07",
+        "q2021_10"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

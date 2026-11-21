@@ -1,0 +1,116 @@
+{
+  "id": "m2023",
+  "year": 2023,
+  "order": 6,
+  "clock": "16:00",
+  "title": "Call Back Before Five",
+  "locationId": "datalab",
+  "giver": "data_kai",
+  "brief": "No-Overtime Milk Tea launches at 8 tomorrow morning. Franchisees are chasing the posters, but Ah-Kai has put the print files on hold at Lanshan Plaza.",
+  "splash": "book_2023",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "Hold off on sending the print files. I got to the last page and couldn't trace the pattern on the cup sleeve in the AI image."
+        },
+        {
+          "who": "player",
+          "text": "The franchise group chat's already announced an 8 AM launch. The client even asked if they could reuse the image for next month's store opening."
+        },
+        {
+          "who": "data_kai",
+          "text": "The quote just says 'new product promotion.' It doesn't say where we can use AI or whether franchisees can print the artwork."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client just messaged me. She's worried her boss will think she's holding things up. The printer needs files by five. Give her something she can take back to him."
+        },
+        {
+          "who": "player",
+          "text": "I'll call. Can you ask Wei how many placements he can cover tonight with the photos we shot?"
+        },
+        {
+          "who": "data_kai",
+          "text": "On it. Ask the client this, too. If she can only have one thing by morning, does she want the in-store poster or the order page?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You owe the client a call before five. What can you agree to deliver?",
+      "options": [
+        {
+          "text": "Pull the AI image and rebuild the whole set tonight with product photos. Keep the launch on schedule and send the coupons a day later.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -4,
+            "liver": 9
+          },
+          "feedback": "You're up with the designers past midnight. The opening crews get matching photo posters, and the brand's website gets the new look too. The coupons go out a day later, so the launch misses its planned push to drive orders.",
+          "insight": "The yearbook notes that Coca-Cola's Masterpiece animation took eight weeks to make. Without AI, it could have taken five times as long.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            }
+          }
+        },
+        {
+          "text": "Tell the client you can't trace the image, get written approval to use only product photos, and deliver the order page first thing tomorrow.",
+          "effects": {
+            "trust": 9,
+            "brand": 5,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "The client uses your confirmation email to brief her boss. She agrees to open orders on time and wait two days for the franchise posters. You and Ah-Kai spell out where AI is allowed and what franchisees can use, then send the contract addendum for sign-off.",
+          "insight": "The yearbook flags three things for account executives to discuss with clients: where AI can be used, what the contract requires them to disclose, and who owns the rights.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Agree by phone to use the AI image on the order page to start taking orders. Hold the franchise print files until you've checked the source.",
+          "effects": {
+            "sales": 8,
+            "brand": -4,
+            "trust": -3,
+            "liver": 6
+          },
+          "feedback": "Orders start coming in at eight. Before noon, a franchisee has printed a screenshot as a table sign, and a customer posts asking whether it's a collaboration with another brand. The client calls to ask how it ended up in print, and you have to ring each store to get it taken down.",
+          "insight": "The yearbook points out that AI makes content cheaper to produce and slower to verify. A check that once took a second might now take a minute, ten minutes, or even an hour.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2023_11",
+        "q2023_12"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_evening"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

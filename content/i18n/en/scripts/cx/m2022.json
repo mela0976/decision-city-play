@@ -1,0 +1,115 @@
+{
+  "id": "m2022",
+  "year": 2022,
+  "order": 5,
+  "clock": "14:30",
+  "title": "The Refill Stuck in the Cart",
+  "locationId": "department",
+  "giver": "client_hsu",
+  "brief": "With the anniversary sale coming up, Manager Hsu lays out the support logs at the Shin Kong Mitsukoshi counter. Shoppers add the refill to their carts after watching a clip, then leave without paying. Few of the people who bought one come back for more.",
+  "splash": "book_2022",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_hsu",
+          "text": "Look at this screenshot. A shopper tapped through from the unboxing clip, added a refill, and still had to ask support."
+        },
+        {
+          "who": "player",
+          "text": "Let me try it on my phone. Shipping only shows up after I enter my address, and I have to go back to the product page to check whether my old bottle fits."
+        },
+        {
+          "who": "data_kai",
+          "text": "Plenty of people add it to their cart. We lose the most at the address page. As for why buyers never come back, the report can’t tell us that."
+        },
+        {
+          "who": "client_hsu",
+          "text": "A customer brought her old bottle in yesterday. She’d bought a refill online, spilled it all over the table, and figured she’d just buy a new bottle this time."
+        },
+        {
+          "who": "player",
+          "text": "Manager Hsu, let me match that receipt to the support log. Getting her through checkout and getting her to buy again are two different problems."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The anniversary sale starts next week. Manager Hsu has room in the budget for one change this week. Which part do you tackle first?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Where do you spend the money first?",
+      "options": [
+        {
+          "text": "Apply a free-shipping voucher to refill carts automatically so shoppers see the reduced total before entering their address.",
+          "effects": {
+            "sales": 10,
+            "brand": -3,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "Over the weekend, some of the carts stalled at the address page turn into orders, and Manager Hsu posts them in the group chat. As soon as free shipping ends, someone comments on the product page that they’ll wait for the next voucher.",
+          "insight": "The yearbook cites a Kantar LifePoints survey in which 85% of respondents thought eco-friendly products cost more. Convenience and cost kept 76% from taking action.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Show shipping costs and a bottle compatibility chart at checkout. Let support use the order to look up the bottle model and send a pouring guide.",
+          "effects": {
+            "brand": 6,
+            "trust": 9,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "On the first call after the pilot starts, support sends the right guide as soon as the customer gives their order number. Manager Hsu checks two older bottles against the page and signs off. Checking the bottle models takes three extra days, so the first anniversary-sale push notification still links to the old page.",
+          "insight": "In the Kantar LifePoints survey, 71% of respondents said they had too little information. The yearbook also proposes using conversion rate optimization (CRO) to improve brand websites.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Ask repeat buyers to film how they pour refills at home. Let new shoppers book a pouring demo at the counter from the clip and pick when they want a restock reminder.",
+          "effects": {
+            "brand": 9,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "A member films herself pouring a refill through a silicone funnel, and a housekeeping group shares the clip. The comments fill up with people asking where to try it, and bookings outnumber orders at the counter that day. You spend the weekend matching names to bookings and answering DMs after closing.",
+          "insight": "The yearbook names fragmented customer journeys as one of three types of fragmentation and calls for a shift from acquisition to retention. It also presents member segmentation and reactivating dormant customers as CRM applications.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2022_06",
+        "q2022_08"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "id": "m2023",
+  "year": 2023,
+  "order": 6,
+  "clock": "16:00",
+  "title": "Who Is the Second Cup For?",
+  "locationId": "datalab",
+  "giver": "data_kai",
+  "brief": "The new drink goes on sale at 8 tomorrow morning. Kai brings you an AI interview summary and asks what No-Overtime Milk Tea should lead with.",
+  "splash": "book_2023",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "The AI put “worried it’ll be too sweet” at the top of its summary of the walk-up interviews at Lanshan Plaza. You’re the planner. Would you lead with that?"
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client’s already stuck “Less Sugar” on the menu board. He wants an answer by five."
+        },
+        {
+          "who": "player",
+          "text": "I spent half an hour at the Songgao Road shop. This woman ordered half sugar, so why did she add another cup just before paying?"
+        },
+        {
+          "who": "data_kai",
+          "text": "Hang on, I’ll pull up the transcript. She said, “I was worried my coworker would find it too sweet.” Yep, two different sugar levels."
+        },
+        {
+          "who": "player",
+          "text": "I asked her about it. Her coworker was still wrapping up a project, so she was taking a cup back to give them a break."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Okay, I’ll get them to hold the menu board. We owe the client a line he can put on it by five."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The client needs the wording locked by five. What do you do with the receipt and interview?",
+      "options": [
+        {
+          "text": "Lead with “Bring a cup to someone still working.” Interview the evening crowd, then give that line the space reserved for the discount.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -4,
+            "liver": 9
+          },
+          "feedback": "You finish typing up the extra interviews after closing, and Wei stays with you until almost dawn to get the wording right. The next day, someone snaps a photo of the line and sends it to a coworker, but you lose the orders a launch discount would have brought in.",
+          "insight": "The yearbook warns that when everyone uses the same AI, the work tends toward the average. A team with varied talent is what gives a business a lasting edge.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            }
+          }
+        },
+        {
+          "text": "Play the recording for the client and compare the two sugar levels. Test “Choose the sweetness for each cup” at one shop first.",
+          "effects": {
+            "trust": 9,
+            "brand": 5,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "You and Kai cross-check receipts half the evening, and the client crosses out “Less Sugar” himself after hearing the recording. The test shop gets a few extra two-cup orders, and the client asks you to run the next round of interviews.",
+          "insight": "The yearbook calls first-party data the foundation for making money with AI. Poor-quality input leads to poor-quality output.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Launch tomorrow morning with NT$10 off the second cup. Save the coworker message for the next campaign.",
+          "effects": {
+            "sales": 8,
+            "brand": -4,
+            "trust": -3,
+            "liver": 6
+          },
+          "feedback": "Two-cup orders take off in the morning, but by lunch all anyone is sharing in group chats is a screenshot of the discount. The client asks what you’ll say next time without a deal, and you’re still sorting through comments after closing.",
+          "insight": "The yearbook identifies four kinds of friction for shoppers: money, time, physical effort, and mental effort. Generative AI is especially good at saving mental effort.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2023_11",
+        "q2023_12"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_evening"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

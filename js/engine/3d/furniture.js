@@ -1,7 +1,8 @@
-import {placeTree} from './vegetation.js?v=da1d659';
-import {hash} from './city-primitives.js?v=da1d659';
-import {crossings} from '../street-crossings.mjs?v=da1d659';
-import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs?v=da1d659';
+import {placeTree} from './vegetation.js?v=4c63fb3';
+import {hash} from './city-primitives.js?v=4c63fb3';
+import {crossings} from '../street-crossings.mjs?v=4c63fb3';
+import {carriagewayAt} from '../sidewalks.mjs?v=4c63fb3';
+import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs?v=4c63fb3';
 
 const marketApproach=toWorld(25.02960,121.55408);
 const studioEntrance=toWorld(25.04509,121.55910);
@@ -31,6 +32,7 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
   const pole=(color,x,y,z,w,h)=>instance('metal','cylinder',color,x,y,z,w,h,w);
   const glow=(color,x,y,z,w,h,d)=>nightInstance('luminous','box',color,x,y,z,w,h,d);
   const tree=(x,z,seed)=>{
+    if(carriagewayAt(x/unit,z/unit))return; // 樹不種在車道上
     obstacle(x,z,.16,3.4);
     placeTree(treeInstance,x,z,seed);
   };
@@ -52,7 +54,8 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
     const t=.56,length=edge.d*unit,x=(ax+(bx-ax)*t)*unit,z=(ay+(by-ay)*t)*unit;
     const qx=x-dz*(span/2+1.22),qz=z+dx*(span/2+1.22);
     const key=Math.floor(qx/15)+','+Math.floor(qz/15);
-    if(lamps.has(key)||inBuilding(qx/unit,qz/unit))continue;
+    // 路燈與行道樹放在路緣外；路口或兩條路靠很近時，這個點會落在別條路的車道上，就不放
+    if(lamps.has(key)||inBuilding(qx/unit,qz/unit)||roadAt(qx/unit,qz/unit,-.5/unit,1e-6))continue;
     lamps.add(key);
     if(i%3===0){
       obstacle(qx,qz,.11,5.3);
@@ -173,7 +176,7 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
     }
   }
   // A24 physical signal posts are rendered by the instanced signal layer.
-  for(const j of crossings)for(const p of j.poles)obstacle(p.x,p.y,.11,5.4,'signal');
+  for(const j of crossings)for(const p of j.poles)if(!carriagewayAt(p.x/unit,p.y/unit))obstacle(p.x,p.y,.11,5.4,'signal');
   const byId=new Map(locations.map(p=>[p.id,p]));
   const placement=(id,fn)=>{
     const p=byId.get(id),angle=p.viewHeading,x=p.x*unit,z=p.y*unit;

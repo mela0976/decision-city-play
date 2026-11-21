@@ -1,12 +1,13 @@
-import {surfaceAt} from '../sidewalks.mjs?v=da1d659'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=da1d659'; // A22
-import {marketTruck} from '../night-market.mjs?v=da1d659'; // A23 night
-import {parkedKey} from '../impact.mjs?v=da1d659';
-import {streetCrowds} from '../crowds.mjs?v=da1d659';
-import {createModelAssets} from './model-assets.js?v=da1d659';
-import {fixtureColliders} from '../fixtures.mjs?v=da1d659';
-import {byId,metersPerUnit,roadAt} from '../world.mjs?v=da1d659';
-import * as T from '../vendor/three.module.min.js?v=da1d659';
+import {surfaceAt} from '../sidewalks.mjs?v=4c63fb3'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=4c63fb3'; // A22
+import {marketTruck} from '../night-market.mjs?v=4c63fb3'; // A23 night
+import {parkedKey} from '../impact.mjs?v=4c63fb3';
+import {streetCrowds} from '../crowds.mjs?v=4c63fb3';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=4c63fb3';
+import {createModelAssets} from './model-assets.js?v=4c63fb3';
+import {fixtureColliders} from '../fixtures.mjs?v=4c63fb3';
+import {byId,metersPerUnit,roadAt} from '../world.mjs?v=4c63fb3';
+import * as T from '../vendor/three.module.min.js?v=4c63fb3';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -406,6 +407,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
     }else if(tesla){
       featured.electric(x,z,player.heading,altitude,turn,clock,night,player.speed*scale); // A22
       state.avatarModel='flyingTesla';
+    }else if(eye&&Math.hypot(eye.x-avatarX,eye.z-avatarZ)<.95&&eye.y<ground+2.3){
+      // 鏡頭被牆或柱子推到主角身上時，暫時不畫主角，不要讓畫面被衣服的破面填滿
+      state.avatarModel='hidden';
     }else{
       const loadedAvatar=models.draw(avatar,avatarX,avatarZ,player.heading,{
         dt,moving:player.speed>1,speed:player.speed*scale,ground,lean,pitch,tint:outfits[player.skin],
@@ -496,7 +500,8 @@ export function createActors(scene,glow,parkedScooters=[]) {
       const atOffice=item.district==='client_hq'||nearSite(officeDoors,px,pz,scale,95);
       const evening=state.time>=17.5||state.time<6;
       const shirt=atOffice&&!evening?officeShirts[index%8]:item.zone==='market'||evening?casualShirts[index%8]:style[0];
-      const female=standing?index%2===0:femaleSkins.includes(skin);
+      // 有名字的角色照角色設定的性別；路人才用外觀類型或輪流
+      const female=femaleNpcs.has(item.id)?true:maleNpcs.has(item.id)?false:standing?index%2===0:femaleSkins.includes(skin);
       const elder=skin==='npc_elder'||skin==='npc_grandma';
       const stature=(elder?.94:1)*style[2],type=female?'walker_f':'walker_m';
       const hatAllowed=elder&&(item.zone==='market'||nearSite(elderHats,px,pz,scale,45));

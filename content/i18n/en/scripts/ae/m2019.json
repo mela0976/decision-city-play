@@ -1,0 +1,139 @@
+{
+  "id": "m2019",
+  "year": 2019,
+  "order": 2,
+  "clock": "10:00",
+  "title": "Call Back Before Noon",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "HQ at Itch Be Gone is taking a drop in searches as a drop in sales. Procurement is waiting on the change order, and Manager Chen needs a line he can take into his meeting.",
+  "splash": "book_2019",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "Chen meets with Finance at noon. He circled the numbers and asked if he should cut stock because searches are down."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The change order's next to your keyboard. The media team's holding tonight's slot until eleven thirty. Keeping it takes a signature."
+        },
+        {
+          "who": "player",
+          "text": "He just told Finance last night they'd sell through the stock. I'll text him now and call by eleven thirty so he has time to fix his deck."
+        },
+        {
+          "who": "boss_lin",
+          "text": "The contract only covers the original buy. Get his signature for any extra spend, and don't promise sales over the phone."
+        },
+        {
+          "who": "player",
+          "text": "I'll stop by the convenience store on Songshou Road. Last time we met, he kept asking who actually buys this stuff in stores."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "convenience",
+      "hint": "去松壽路的巷口超商問問：最近誰在買腳癢退散？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "player",
+          "text": "Ning, got a sec? Who's been buying Itch Be Gone lately? What do they ask for when they walk in?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "A delivery guy on the morning shift dropped his old box on the counter and asked if we had more. I grabbed one from under the register."
+        },
+        {
+          "who": "player",
+          "text": "Why's it under the register? The spot on the shelf is empty."
+        },
+        {
+          "who": "clerk_ning",
+          "text": "We sold out last night. This box only came in this morning. If you're telling HQ, remember this is just one store."
+        },
+        {
+          "who": "player",
+          "text": "Got it. I'll put that in my notes. Chen just messaged me on LINE asking if he can put 'demand is down' in his deck."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "It's eleven twenty, and you're under the awning outside the store. Chen picks up. What do you ask him to get approved at noon?",
+      "options": [
+        {
+          "text": "Get him to sign off on three days of extra search and social ads and send shoppers to the in-stock online store tonight.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -3,
+            "liver": 3
+          },
+          "feedback": "You keep the evening slot, and the online store picks up orders over the next three days. When Finance asks why stores are still sitting on stock, Chen realizes the ads only send people online and asks you to spell that out in the change order.",
+          "insight": "The yearbook calls this blind spot the caveman effect. If you only look at the data that survives, it's easy to mistake a piece of the picture for the whole thing.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Ask him to change 'demand is down' to 'searches are down,' hold the extra spend, and give you until tomorrow morning to bring in rainfall and store sales data.",
+          "effects": {
+            "sales": 4,
+            "trust": 8,
+            "brand": 3,
+            "liver": 5
+          },
+          "feedback": "Chen tells Finance what you actually know. They give you a day, and tonight's slot goes back on the market. You and Ah-Kai bring in the rainfall and store sales figures the next day, and Chen asks you to sit in on budget meetings from now on.",
+          "insight": "In the yearbook's nail fungus treatment case, there were nearly 30% fewer rainy days than the year before. The consultant's report overlooked local conditions.",
+          "roleBonus": {
+            "data": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Ask him to approve a one-week store pilot. You'll get three stores to put up counter signs and log what customers ask for.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": 3,
+            "liver": 8
+          },
+          "feedback": "Three stores agree to put the Itch Be Gone name on the counter, and customers start pointing to the sign and asking about it the next day. You visit during the evening shift to collect notes and chase restocks, with customer feedback to share this week and sales figures still pending.",
+          "insight": "The yearbook argues for pairing big data with sample surveys, retail interviews, and small data to see customers who leave no trace online.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2019_11",
+        "q2019_12"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

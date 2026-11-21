@@ -1,0 +1,139 @@
+{
+  "id": "m2019",
+  "year": 2019,
+  "order": 2,
+  "clock": "10:00",
+  "title": "Do We Cut the Shot with the Boots?",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "The Itch Be Gone ad goes live tomorrow. HQ just axed the studio shoot and wants a product shot where the rain boots used to be.",
+  "splash": "book_2019",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "Searches for Itch Be Gone are down. HQ wants the tube on screen in the first second."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The studio shoot's gone, too. They need a cut by noon or they'll run last year's."
+        },
+        {
+          "who": "cd_wei",
+          "text": "I remember those boots you drew. Will people know where to buy the stuff, though?"
+        },
+        {
+          "who": "player",
+          "text": "I'll go take a look. The store might have the shot we're missing."
+        },
+        {
+          "who": "boss_lin",
+          "text": "Try the corner store on Songshou Road. While you're there, ask who's been buying lately."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "convenience",
+      "hint": "去松壽路的巷口超商問問：最近誰在買腳癢退散？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "clerk_ning",
+          "text": "A delivery guy came in this morning, stood by that red chair, and poured water out of his rain boots."
+        },
+        {
+          "who": "player",
+          "text": "Did he grab the cream right after that?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "He stuffed his wet socks into one of our plastic bags first. Then he came over and asked where we kept the cream."
+        },
+        {
+          "who": "player",
+          "text": "We could keep the bit where he ties the bag. Which shelf is it on? Mind if I get a shot?"
+        },
+        {
+          "who": "clerk_ning",
+          "text": "Second shelf to the right of the register. You can shoot the shelf, just keep customers' faces out of frame."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You've got a shelf photo on your phone and time to send one cut before lunch. What do you do?",
+      "options": [
+        {
+          "text": "Cut a six-second sales spot from the existing product shots and show where to find it by the register.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -3,
+            "liver": 3
+          },
+          "feedback": "The spot makes the next day's slot. The clerk says someone came in with the ad on their phone and bought a tube on the spot. Then HQ hears from other stores: they don't stock it by the register.",
+          "insight": "The 2019 yearbook notes that E.SUN Bank used data-driven attribution and found that non-brand keywords accounted for nearly 60% of conversion credit. After adjustments, its conversion rate rose 42%.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Make two storyboard cuts on your phone and ask Kai to show them to a few people and see if they can point out where the cream is stocked.",
+          "effects": {
+            "sales": 4,
+            "trust": 8,
+            "brand": 3,
+            "liver": 5
+          },
+          "feedback": "A few people who see the boots-first cut recognize the box but miss where the register is. You send HQ the results and both cuts, and they give you half a day to pick up a shelf shot.",
+          "insight": "The 2019 yearbook points out that data only covers what gets recorded. Sample surveys, interviews at stores, and small data can help uncover clues it misses.",
+          "roleBonus": {
+            "data": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Borrow the store for the last half hour before closing and shoot a short film following a delivery rider from emptying his boots to buying the cream.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": 3,
+            "liver": 8
+          },
+          "feedback": "You kneel in the doorway to reshoot the water pouring out, then edit back at the office until the last train's gone. The film goes up a day late, but someone in the comments recognizes their own kind of rain boots and tags the brand for a coworker to see.",
+          "insight": "The 2019 yearbook discusses weaving brands into stories as a way to reach people who skip or block ads. It also stresses that the placement has to serve the story.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2019_11",
+        "q2019_12"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

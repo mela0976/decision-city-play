@@ -1,0 +1,135 @@
+{
+  "id": "m2025",
+  "year": 2025,
+  "order": 8,
+  "clock": "19:30",
+  "title": "I Scanned. Where’s the Soy Sauce?",
+  "locationId": "tvstation",
+  "giver": "tv_su",
+  "brief": "The Big Dawn Dome Broadcast Center is launching a soy sauce sampler for its cooking show. Su asks you to find out where viewers get stuck after scanning the code, before the meeting upstairs.",
+  "splash": "book_2025",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "tv_su",
+          "text": "The soy sauce sampler goes live right after tonight’s cooking show. Could you take a look at these comments?"
+        },
+        {
+          "who": "tv_su",
+          "text": "Scanning the code in rehearsal took people straight to sign-up. Someone’s already asked support, “Do I need an account just to buy one bottle?”"
+        },
+        {
+          "who": "player",
+          "text": "Let me scan it. The page doesn’t even show shipping yet. No wonder people are closing it."
+        },
+        {
+          "who": "tv_su",
+          "text": "The boss wants to see how many sets we sell tonight. You’ve got twenty minutes before the meeting upstairs. Ask the auntie at the corner shop. She scanned it too."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "breakfast",
+      "hint": "騎去吳興街的巷口早餐店：電視開著時，大家在看什麼？",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "breakfast_auntie",
+          "text": "Those braised tofu bites looked good on TV, so I scanned it. My egg was burning on the griddle by the time the code came."
+        },
+        {
+          "who": "player",
+          "text": "If you could check out first, how would you order another bottle when this one runs out?"
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "I’d pull up the order and look for the same bottle. Last time support asked for a product number. How was I supposed to know where to find that?"
+        },
+        {
+          "who": "player",
+          "text": "I’ll sketch out what you just went through on the back of this order slip. I’m taking it upstairs."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Before you head upstairs, Su asks what you’d change first tonight. What will you do for viewers who scan?",
+      "options": [
+        {
+          "text": "Open guest checkout tonight, apply the first-order discount automatically, and invite shoppers to join later.",
+          "effects": {
+            "sales": 9,
+            "trust": 4,
+            "brand": -5,
+            "liver": 3
+          },
+          "feedback": "First orders jump that night, and the boss takes the shipping slips over to sales. The following week, shoppers come back looking for the deal and can’t even remember the soy sauce brand.",
+          "insight": "The yearbook says too many offers and loyalty programs can make decisions harder, prompting shoppers to turn to agents for help choosing.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Send viewers who scan to the show’s braised tofu recipe, let them add the soy sauce to their cart there, and cut a short clip to bring people back.",
+          "effects": {
+            "brand": 9,
+            "sales": 5,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "The next day someone shares the recipe in a LINE group and asks where to buy that soy sauce. The editor stays after the show to finish the clip, and orders come in more slowly on opening night than with an immediate discount.",
+          "insight": "The yearbook says brands should make content that fits each platform and stay recognizable as audiences move across screens.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Start with a small run, show shipping up front, let support reorder from the original order, and give members the option to get reminders.",
+          "effects": {
+            "trust": 8,
+            "brand": 4,
+            "sales": -3,
+            "liver": 7
+          },
+          "feedback": "The boss agrees to a trial, but cutting the first night’s stock leaves sales short of target. You work the late shift with support to practice repeat orders. The next week, a shopper gives the last four digits of her order number and support finds her original bottle.",
+          "insight": "The yearbook lists check-ins, journey maps that flag drop-off points, and playbooks for returning customers as ways to see where customers get stuck.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2025_03",
+        "q2025_05"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_night"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

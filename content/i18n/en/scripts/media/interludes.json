@@ -1,0 +1,101 @@
+[
+  {
+    "after": "m2018",
+    "sincere": {
+      "who": "client_wu",
+      "text": "Once you showed me the foot traffic for Exit 4 on its own, I finally knew how to compare those three quotes."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page one's in. I'll pull the half-hour cup sales for the Exit 4 shop tomorrow morning."
+    }
+  },
+  {
+    "after": "m2019",
+    "sincere": {
+      "who": "clerk_ning",
+      "text": "I see regulars come in with their umbrellas still open all the time. Never thought that could help you pick when to run an ad."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page two's in. Ning says the evening shift sells the most when it rains. I'll ask her for the numbers on dry days."
+    }
+  },
+  {
+    "after": "m2020",
+    "sincere": {
+      "who": "client_chen",
+      "text": "Last time I bragged to my boss about how cheap the impressions were. One of my own coworkers saw the ad five times in one night."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page three's in. I marked the orders that came in after dinner that Friday last year."
+    }
+  },
+  {
+    "after": "m2021",
+    "sincere": {
+      "who": "cd_wei",
+      "text": "When the MRT lightboxes got pulled, my first thought was, did we shoot that thirty-second spot for nothing?"
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page four's in. The client wants to know how many saw it. The branch wants confirmed bookings. I'll give each its own column."
+    }
+  },
+  {
+    "after": "m2022",
+    "sincere": {
+      "who": "client_hsu",
+      "text": "The scan count looked pretty good last time. Then my boss asked which screen the scans came from, and I had nothing."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page five's in. Eighty plays a day by the elevators. I almost read that as eighty people."
+    }
+  },
+  {
+    "after": "m2023",
+    "sincere": {
+      "who": "data_kai",
+      "text": "When the chatbot recommended the place next door, I actually asked around at lunch to see where everyone gets their tea."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page six's in. I've got a column ready for the store manager. Tomorrow we'll see how many cups of the new drink they actually sell."
+    }
+  },
+  {
+    "after": "m2024",
+    "sincere": {
+      "who": "vendor_cheng",
+      "text": "You really stood out there watching who looked up? I run a stall here and even I’ve never counted."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page seven's in. Six-ish under the covered sidewalk is the after-work crowd. Eight is the late-night food crowd. Got it."
+    }
+  },
+  {
+    "after": "m2025",
+    "sincere": {
+      "who": "tv_su",
+      "text": "Auntie Hsiu-chin buys her noodles by the case at the supermarket? I figured she ordered on her phone like the girl on the evening shift."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page eight's in. Auntie Hsiu-chin at noon, people waiting for egg crepes at night. I see why you ran the numbers separately."
+    }
+  },
+  {
+    "after": "m2026",
+    "sincere": {
+      "who": "boss_lin",
+      "text": "That MRT quote was about to expire, and I nearly told you to sign it. Glad you showed me what else that money could buy."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page nine's in. Last time, short videos averaged seven views per person and reach still stalled. I'm keeping that number handy."
+    }
+  }
+]

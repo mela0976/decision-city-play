@@ -1,0 +1,115 @@
+{
+  "id": "m2026",
+  "year": 2026,
+  "order": 9,
+  "clock": "21:00",
+  "title": "Which Slot Do We Keep?",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "Outside the A25 meeting room, the MRT ad quote for a new face wash is about to expire. The budget is fixed, and Lin needs your launch-week plan before the pitch.",
+  "splash": "book_2026",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "That's all we've got for the face wash launch. They'll release the MRT slots at 9:10."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client told me this afternoon they need orders to show Finance at month-end. They still want that MRT placement, too."
+        },
+        {
+          "who": "player",
+          "text": "I just put all three quotes on a cost-per-thousand basis. If I sign for the MRT package, I'll have to cut the evening shopping ads."
+        },
+        {
+          "who": "data_kai",
+          "text": "Last time the short videos ran seven times per person on average, and reach still stalled. More money might just buy more of the same audience."
+        },
+        {
+          "who": "player",
+          "text": "I'll put a frequency cap in the plan. Ah-Kai, can we hold back one group from the video ads? I want to see how many extra orders we get."
+        },
+        {
+          "who": "boss_lin",
+          "text": "The client's inside. Page nine gets one media schedule. You make the call."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The launch-week budget covers one plan. Which schedule do you take into the room?",
+      "options": [
+        {
+          "text": "Put most of the money into evening on-site search and product-page ads to reach people ready to buy.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -4,
+            "liver": 3
+          },
+          "feedback": "Evening orders pick up, and Mei posts the numbers in the client chat the next day. At month-end, the client sees that many shoppers were already searching for the brand and asks how many extra orders the spend actually brought in.",
+          "insight": "The yearbook notes that on a per-thousand-impressions basis, placements billed per click often cost five to ten times as much as CPM placements or more. Attention quality and incremental impact matter too.",
+          "roleBonus": {
+            "data": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Keep a small on-site search buy. Spend the rest on two waves of short video, cap frequency, and keep one group out of the video buy for comparison.",
+          "effects": {
+            "trust": 10,
+            "brand": 5,
+            "sales": 3,
+            "liver": 6
+          },
+          "feedback": "You and Ah-Kai stay at A25 splitting the audience lists and checking orders until your boxed dinners go cold. The first wave shows the client how many extra orders came in, and they agree to shift the second wave's spend to placements where reach is still growing.",
+          "insight": "The yearbook distinguishes attribution from incrementality and points out that clients with urgent questions often can't wait weeks for a study.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        },
+        {
+          "text": "Drop launch-week shopping ads and book the screens at Taipei City Hall MRT station for the evening commute so the new product shows up on the way home.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": -4,
+            "liver": 5
+          },
+          "feedback": "You check every screen with the vendor before the last train, and the client gets a commuter's Story the next morning. People start asking about the product, but launch-week orders come in below forecast.",
+          "insight": "The yearbook cites CeraVe's MRT campaign with sample bottles on the hand straps, which sparked 24,000 posts in a single day.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2026_12",
+        "q2026_01"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

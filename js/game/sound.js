@@ -4,7 +4,8 @@
 //   · 三條音量（音樂、語音、音效）加一個全部靜音，存在偏好設定裡。
 //   · 每一次「要播、要停」都記在 log 裡（最多 600 筆），自動化驗收靠它確認行為——無頭瀏覽器聽不到聲音。
 
-import { synth, canSynth } from './audio.js?v=da1d659';
+import { synth, canSynth } from './audio.js?v=4c63fb3';
+import { LANG } from './lang.js?v=4c63fb3';
 
 const FADE_SEC = 0.5;
 const DUCK_LEVEL = 0.28;
@@ -39,6 +40,9 @@ export function fnv1a(text) {
 
 /** 語音的 key：「說話者/雜湊」，雜湊對「說話者|畫面上顯示的文字」算。 */
 export const voiceKey = (speaker, text) => `${speaker}/${fnv1a(`${speaker}|${text}`)}`;
+
+/** 找語音檔：英日版先找該語言的配音（manifest key 前面加 `en/`、`ja/`），沒有才退回中文配音。 */
+export const voiceInfo = (assets, key) => (LANG !== 'zh' && assets.audio('voice', `${LANG}/${key}`)) || assets.audio('voice', key);
 
 export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
   const volumes = { ...DEFAULT_VOLUMES };
@@ -309,7 +313,7 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
       preload(speaker, text) {
         if (!unlocked || !nodes) return;
         const key = voiceKey(speaker, voiceText(text));
-        const info = assets.audio('voice', key);
+        const info = voiceInfo(assets, key);
         if (!info || preloaded.has(key)) return;
         for (const [oldKey, track] of preloaded) {
           if (preloaded.size < 3) break;
@@ -322,7 +326,7 @@ export function createSound({ assets, prefs = {}, onPrefs = () => {} }) {
       play(speaker, text, { onEnd } = {}) {
         stopVoice('cut');
         const key = voiceKey(speaker, voiceText(text));
-        const info = assets.audio('voice', key);
+        const info = voiceInfo(assets, key);
         record('voice', info ? 'play' : 'missing', key);
         const handle = { key, found: !!info, stop: () => {} };
         waitingVoice = null;

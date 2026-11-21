@@ -1,14 +1,14 @@
-import {alleyParking} from './actor-streets.mjs?v=da1d659'; // A23 actors
-import {visitWuxingArcades} from './wuxing-arcades.mjs?v=da1d659'; // A23 alleys
-import {urbanInfill} from './infill.mjs?v=da1d659';
-import {placeStreetLife} from './3d/street-life.js?v=da1d659';
-import {visitLandscapeTrees} from './3d/vegetation.js?v=da1d659'; // A19 vegetation hook
-import {placeEntrance} from './3d/frontage.js?v=da1d659';
+import {alleyParking} from './actor-streets.mjs?v=4c63fb3'; // A23 actors
+import {visitWuxingArcades} from './wuxing-arcades.mjs?v=4c63fb3'; // A23 alleys
+import {urbanInfill} from './infill.mjs?v=4c63fb3';
+import {placeStreetLife} from './3d/street-life.js?v=4c63fb3';
+import {visitLandscapeTrees,visitLandscapeHedges} from './3d/vegetation.js?v=4c63fb3'; // A19 vegetation hook
+import {placeEntrance} from './3d/frontage.js?v=4c63fb3';
 // A19 terrain-landmarks hook
-import {placeFloodDefenses} from './3d/terrain.js?v=da1d659';
-import {placeArcadeColumns} from './3d/songshan-heritage.js?v=da1d659'; // A23 landmarks2: mapped factory arcade.
-import {placeTempleCourt} from './3d/landmarks.js?v=da1d659';
-import {locations,metersPerUnit as unit,inBuilding} from './world.mjs?v=da1d659';
+import {placeFloodDefenses} from './3d/terrain.js?v=4c63fb3';
+import {placeArcadeColumns} from './3d/songshan-heritage.js?v=4c63fb3'; // A23 landmarks2: mapped factory arcade.
+import {placeTempleCourt} from './3d/landmarks.js?v=4c63fb3';
+import {locations,metersPerUnit as unit,inBuilding} from './world.mjs?v=4c63fb3';
 
 let cached;
 export function fixtureColliders(){
@@ -28,6 +28,7 @@ export function fixtureColliders(){
   }});
   // A19 vegetation hook
   visitLandscapeTrees(({x,z,width})=>push(x,z,width/2,width/2,0,'tree'));
+  visitLandscapeHedges(({x,z,length,heading})=>push(x,z,length*1.07/2,.95/2,-heading,'hedge')); // 綠籬擋人
   const entrySolids=new Set(); // A27 keep the exposed end of a wall whose centre overlaps an OSM footprint
   for(const p of locations)placeEntrance(p,{sign:()=>{},instance:(...args)=>{
     const count=result.length;

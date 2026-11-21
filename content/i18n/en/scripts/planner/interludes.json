@@ -1,0 +1,101 @@
+[
+  {
+    "after": "m2018",
+    "sincere": {
+      "who": "client_wu",
+      "text": "They both said they liked strong coffee, then took one look at the line and left. I didn't see that coming."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page one's in. Funny how the tasting survey never asked when the bus was due."
+    }
+  },
+  {
+    "after": "m2019",
+    "sincere": {
+      "who": "clerk_ning",
+      "text": "The guy with the empty tube just asked for the blue one. Never even said the brand name."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page two's in. One showed up with an empty tube, the other showed you a phone. Good luck getting that from search numbers."
+    }
+  },
+  {
+    "after": "m2020",
+    "sincere": {
+      "who": "client_chen",
+      "text": "I figured he put two in the cart hoping for a deal. Turns out he didn't want to buy what his mom already had."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page three's in. Two bottles in the cart. The order alone couldn't tell us what he was comparing."
+    }
+  },
+  {
+    "after": "m2021",
+    "sincere": {
+      "who": "cd_wei",
+      "text": "That ‘Book Now’ card was already printed. Never crossed my mind those two words might make someone close the tab."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page four's in. The guy just wanted to see out the window, and we nearly asked for his phone number first."
+    }
+  },
+  {
+    "after": "m2022",
+    "sincere": {
+      "who": "client_hsu",
+      "text": "She went to the trouble of washing that old pump and bringing it in, and we couldn't even tell her if she could still use it."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page five's in. If that pump leaks, a bigger tagline isn't going to help."
+    }
+  },
+  {
+    "after": "m2023",
+    "sincere": {
+      "who": "data_kai",
+      "text": "I nodded along at ‘worried it’ll be too sweet.’ Then I checked the transcript and saw she meant her coworker."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page six is in. Next time the summary says ‘too sweet,’ I’m asking ‘too sweet for who?’"
+    }
+  },
+  {
+    "after": "m2024",
+    "sincere": {
+      "who": "vendor_cheng",
+      "text": "That kid rode all the way home to change before dinner last time. Till you asked, I had no idea it was the fryer smell."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page seven's in. Show up to dinner smelling like fryer oil? I'd take the extra ride too."
+    }
+  },
+  {
+    "after": "m2025",
+    "sincere": {
+      "who": "tv_su",
+      "text": "The boss circled that checkout screen, and I almost forgot Auntie was the one picking the soy sauce."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page eight is in. You’d never guess from that checkout screen that Auntie picked the yellow cap."
+    }
+  },
+  {
+    "after": "m2026",
+    "sincere": {
+      "who": "boss_lin",
+      "text": "I was so focused on whether the daughter would buy it. Then you asked, and her mom said she just wanted to take the bus to Yongkang Street herself."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page nine's in. I rewound that bit twice. Mom didn't hesitate for a second before taking it out of the cart."
+    }
+  }
+]

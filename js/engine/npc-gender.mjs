@@ -1,0 +1,4 @@
+// 人物的性別（由 assets/audio/side-casting.json 的角色描述整理）：路上的人物模型依這裡選男／女身形。
+// 外觀類型（skin）是好幾個人共用的（例如 npc_colleague 同時有美玲姐與阿凱），不能拿來判斷性別。
+export const femaleNpcs=new Set(["ae_mei", "breakfast_auntie", "clerk_ning", "client_hsu", "grandma", "n2018_fang", "n2018_ivy", "n2019_lan", "n2019_you", "n2020_cheng", "n2020_chou", "n2021_ting", "n2021_wen", "n2022_fang", "n2022_meijun", "n2023_hua", "n2024_joy", "n2024_lulu", "n2025_hsin", "n2025_pei", "player_f", "rechao_boss", "rival_vicky", "roommate_yu", "tv_su"]);
+export const maleNpcs=new Set(["boss_lin", "cd_wei", "client_chen", "client_wu", "data_kai", "n2018_deng", "n2018_hao", "n2019_lai", "n2019_tsai", "n2020_ko", "n2020_zhe", "n2021_hao", "n2021_kun", "n2022_damu", "n2022_qiao", "n2023_gao", "n2023_lai", "n2024_ken", "n2024_wang", "n2025_bong", "n2026_ming", "n2026_tim", "rider_jie", "temple_uncle", "vendor_cheng"]);

@@ -1,0 +1,116 @@
+{
+  "id": "m2023",
+  "year": 2023,
+  "order": 6,
+  "clock": "16:00",
+  "title": "Where Did Those Extra Orders Come From?",
+  "locationId": "datalab",
+  "giver": "data_kai",
+  "brief": "At Lanshan Plaza, the dashboard shows a 30% jump in milk tea orders after the AI ordering assistant went live. Ah-Kai asks you to check the payments. The client needs a decision by 5 p.m. for tomorrow's 8 a.m. launch.",
+  "splash": "book_2023",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "Hey, take a look. No-Overtime Milk Tea tried AI ordering, and the dashboard says orders are up 30%."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client already made a graphic to celebrate. They need an answer by 5 p.m.. Do we turn the assistant on at every store for the eight o'clock launch tomorrow?"
+        },
+        {
+          "who": "player",
+          "text": "I checked the payment export. Same order number. Each retry adds a row, but the customer only gets charged once."
+        },
+        {
+          "who": "data_kai",
+          "text": "No wonder the stores didn't cook any extra pearls. We sent out an NT$10 coupon during yesterday's pilot, too. Nobody kept a control group."
+        },
+        {
+          "who": "player",
+          "text": "If we want to see how many drinks the AI actually sells, give both groups the same coupon and put one on the regular menu. Then count paid orders."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The store manager just texted. They're out of taro balls and the assistant is still pushing them. I need to settle tomorrow's ordering setup with the client."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The client is waiting in the group chat. How will customers order the new drink tomorrow morning?",
+      "options": [
+        {
+          "text": "Turn off the assistant and the coupon. Check what's in stock with the stores and post a menu people can share.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -4,
+            "liver": 9
+          },
+          "feedback": "You call every store and pull sold-out toppings from the menu graphic. It's nearly midnight by the time you're done. Regulars share it in local groups and the brand page gets more comments, but without the coupon, launch-day orders come in below expectations.",
+          "insight": "The yearbook notes that conversational search can fall behind on updates and even recommend restaurants that have already closed.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            }
+          }
+        },
+        {
+          "text": "Give both groups the same coupon, randomly send customers to the AI assistant or the regular menu, and compare paid orders.",
+          "effects": {
+            "trust": 9,
+            "brand": 5,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "You and Ah-Kai check the payments, and the two groups have about the same paid conversion rate, with coupon redemptions in both. The client pulls the celebration graphic and asks for another update next week. Half the traffic stays on the regular menu as a control this week, so the assistant rollout stays on hold.",
+          "insight": "The yearbook calls first-party data the foundation for making money with AI. Poor data in means poor results out.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Turn on the assistant at every store, send the coupon as planned, and track launch-day paid orders in the payment records.",
+          "effects": {
+            "sales": 8,
+            "brand": -4,
+            "trust": -3,
+            "liver": 6
+          },
+          "feedback": "The coupons go out and paid orders do rise that day. The assistant keeps pushing sold-out taro balls, so customers post the chats in local groups, and you and Mei-ling scramble to fix orders and refund the difference. The client asks how many extra orders the assistant drove, and all you have is the chain-wide total.",
+          "insight": "Citing Similarweb's 2023 figures, the yearbook reports that visits to Bing rose by 15% at one point after it integrated ChatGPT.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2023_11",
+        "q2023_12"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_evening"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

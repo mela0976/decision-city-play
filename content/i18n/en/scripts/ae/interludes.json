@@ -1,0 +1,101 @@
+[
+  {
+    "after": "m2018",
+    "sincere": {
+      "who": "client_wu",
+      "text": "When you said you'd join the call, I finally felt ready to open the contract and tell my boss what we were buying with that wall."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page one's in. The slot needs a signature by nine, and the boss wants a cup count. No wonder you offered to join the call."
+    }
+  },
+  {
+    "after": "m2019",
+    "sincere": {
+      "who": "clerk_ning",
+      "text": "I remember the guy with the empty box. Thanks for asking why the shelf was empty, too."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page two's in. That spot on the Songshou Road shelf was empty because they sold out last night. Try getting that from a search report."
+    }
+  },
+  {
+    "after": "m2020",
+    "sincere": {
+      "who": "client_chen",
+      "text": "I was relieved when you told me to hold off on sending page seven for approval. I had no idea how I'd count those store orders either."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page three's in. I checked the store file again. Still just receipt numbers. Good thing you asked before anything got signed."
+    }
+  },
+  {
+    "after": "m2021",
+    "sincere": {
+      "who": "cd_wei",
+      "text": "The last thing I want to hear on set is 'Can we squeeze in one more shot?' Once you asked the client what they actually needed, I could plan the shoot."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page four's in. The studio's due back at four and the booking number just came up. I'd be watching the clock waiting for that email."
+    }
+  },
+  {
+    "after": "m2022",
+    "sincere": {
+      "who": "client_hsu",
+      "text": "The second that email came from HQ, all I could think about was what I'd tell my boss at five. I'm glad you held the file back."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page five's in. Four o'clock print deadline, five o'clock meeting. I bet Manager Hsu's hands were sweating when that email came in."
+    }
+  },
+  {
+    "after": "m2023",
+    "sincere": {
+      "who": "data_kai",
+      "text": "When I held back the print file, I honestly thought you'd be mad. I'm glad you were willing to make that call."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page six's in. That call before five couldn't have been fun. The quote doesn't even say whether the franchisees can print the image."
+    }
+  },
+  {
+    "after": "m2024",
+    "sincere": {
+      "who": "vendor_cheng",
+      "text": "You saw how narrow it is outside the shaved ice shop and still took the time to hear when each owner could get back to you. I was worried HQ thought everyone had already said yes."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page seven's in. The fabric shop owner is in tonight, and the tofu pudding stall won't reply till morning. Let me see your list. I almost thought they'd all signed up."
+    }
+  },
+  {
+    "after": "m2025",
+    "sincere": {
+      "who": "tv_su",
+      "text": "All I could think about was getting that form signed by eight. It took your trip to the breakfast shop for me to find out people really were asking for the old bottle."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page eight's in. The new bottle was right next to the old one and the customer still missed it. Make sure the brand manager sees that photo."
+    }
+  },
+  {
+    "after": "m2026",
+    "sincere": {
+      "who": "boss_lin",
+      "text": "That email was already set for nine tomorrow, and you still went and placed a test order. Without that, I might've told the client to send it."
+    },
+    "partner": {
+      "who": "data_kai",
+      "text": "Page nine's in. I made a note of the oat milk getting swapped for regular milk. Next time we test this, I'm placing an order myself."
+    }
+  }
+]

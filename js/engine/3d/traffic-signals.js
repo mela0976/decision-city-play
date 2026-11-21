@@ -1,15 +1,19 @@
-import * as T from '../vendor/three.module.min.js?v=da1d659';
-import {canvasTexture,shapes} from './city-primitives.js?v=da1d659';
-import {crossings,signalState} from '../street-crossings.mjs?v=da1d659';
+import * as T from '../vendor/three.module.min.js?v=4c63fb3';
+import {canvasTexture,shapes} from './city-primitives.js?v=4c63fb3';
+import {crossings,signalState} from '../street-crossings.mjs?v=4c63fb3';
+import {carriagewayAt} from '../sidewalks.mjs?v=4c63fb3';
+import {metersPerUnit as unitM} from '../world.mjs?v=4c63fb3';
 
-const poles=crossings.flatMap(j=>j.poles);
+// 立在車道上的號誌杆不畫（和碰撞註冊同一個條件）：紅綠燈不站在路中央
+const poles=crossings.flatMap(j=>j.poles).filter(p=>!carriagewayAt(p.x/unitM,p.y/unitM));
 export const signalReflections=poles.map(p=>({x:p.x-p.dy*2.7,z:p.y+p.dx*2.7,crossing:p})); // A24
 const names=[...new Map(poles.map(p=>[p.name,p])).values()];
 const nameTile=new Map(names.map((p,i)=>[p.name,i]));
-const cell=128,columns=16;
+const cell=128,columns=16,sharp=2; // 路名牌貼圖：繪製座標仍以 128 為一格，畫布放大兩倍，近看不糊
 function atlas(doc,count,paint){
   const rows=Math.ceil(count/columns);
-  const map=canvasTexture(doc,columns*cell,rows*cell,(ctx)=>{
+  const map=canvasTexture(doc,columns*cell*sharp,rows*cell*sharp,(ctx)=>{
+    ctx.scale(sharp,sharp);
     for(let i=0;i<count;i++){
       ctx.save();ctx.translate((i%columns)*cell,Math.floor(i/columns)*cell);
       paint(ctx,i);ctx.restore();

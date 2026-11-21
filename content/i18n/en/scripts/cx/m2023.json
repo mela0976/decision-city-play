@@ -1,0 +1,116 @@
+{
+  "id": "m2023",
+  "year": 2023,
+  "order": 6,
+  "clock": "16:00",
+  "title": "Chat Said Shipping Was Free",
+  "locationId": "datalab",
+  "giver": "data_kai",
+  "brief": "A frozen dumpling promo for members starts tomorrow morning. Ah-Kai is waiting at Lanshan Plaza. He wants you to run through the checkout on your phone.",
+  "splash": "book_2023",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "Can you try this? Tap the dumpling promo in LINE and ask support what shipping costs for two bags."
+        },
+        {
+          "who": "player",
+          "text": "It says shipping's free. So why did a frozen shipping fee pop up right before payment?"
+        },
+        {
+          "who": "data_kai",
+          "text": "Found it. The bot pulled last year's promo page. Two bags got you free shipping back then."
+        },
+        {
+          "who": "player",
+          "text": "Look at this ticket. A regular thought the fee would come off when she signed in. She tried checking out three times, then asked if we'd changed her member perks."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client wants the LINE message out at eight tomorrow. Their boss wants orders by the afternoon. If you're scaling it back, I need to call him now."
+        },
+        {
+          "who": "data_kai",
+          "text": "We've only got one engineer who can make changes tonight. Which part do you want to tackle first?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Where do you send members when tomorrow's promo goes live?",
+      "options": [
+        {
+          "text": "Pause the push to checkout and go live with a cooking demo. Show people on your phone how the frozen shipping fee works.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -4,
+            "liver": 9
+          },
+          "feedback": "You and the store manager stay up reshooting the cooking clip. The next day, people share the shipping demo in group-buy chats. The checkout link goes out a day late, and first-day orders take a hit.",
+          "insight": "The yearbook warns that false content can do serious damage to a brand and calls for closer social listening.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            }
+          }
+        },
+        {
+          "text": "Invite past buyers to try ordering first. Give the bot the current shipping table and hand off questions about combining coupons to a person.",
+          "effects": {
+            "trust": 9,
+            "brand": 5,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "Support can see the chat when they take over, so members don't have to resend their cart screenshots. One regular works out the shipping and adds two bags. For now, the offer stays with that first batch.",
+          "insight": "The yearbook calls first-party data the foundation for making money with AI. Bad data in, bad results out.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Send a limited-time coupon for repeat buyers that takes them straight back to their carts. Clean up the old support answers after the promo.",
+          "effects": {
+            "sales": 8,
+            "brand": -4,
+            "trust": -3,
+            "liver": 6
+          },
+          "feedback": "The coupon brings in a rush of orders before dinner. Someone posts a screenshot of the bot promising free shipping, and the replies fill up with people asking whether the deal is real. You and support are still refunding shipping one order at a time after hours.",
+          "insight": "The yearbook says generative AI is good at saving shoppers mental effort. Money, time, physical effort, and mental effort can all add friction to a purchase.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2023_11",
+        "q2023_12"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_evening"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

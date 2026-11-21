@@ -1,0 +1,138 @@
+{
+  "id": "m2024",
+  "year": 2024,
+  "order": 7,
+  "clock": "18:00",
+  "title": "The Launch Is On. What Do We Tell HQ?",
+  "locationId": "night_market",
+  "giver": "ae_mei",
+  "brief": "One Less Piece opens its Linginger Street flagship next week, with enough budget for one launch. The client told headquarters the neighborhood shops were on board, but nobody's signed.",
+  "splash": "book_2024",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "ae_mei",
+          "text": "You're the AE on this. Look at the deck the client just sent HQ. It says the neighborhood shops are joining next week."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The contract only budgets for one launch. The client's worried HQ might pull the money and wants a confirmed list tonight."
+        },
+        {
+          "who": "player",
+          "text": "I'll pull the shop names from the deck for now. I'll snap their storefronts on the way to the Fude Street shrine and check with Ah-Cheng."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Good. Call the client before the nine o'clock pitch so they know what's still up in the air before they present."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "temple",
+      "hint": "沿著巷弄走到福德街土地公廟，記下沿路的老店",
+      "timeLimitSec": 120
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "temple_uncle",
+          "text": "Ah-Cheng's by the red chairs with the shopkeepers' reply slips. You saw how narrow it is in front of the ice shop on your way here, right?"
+        },
+        {
+          "who": "vendor_cheng",
+          "text": "The ice shop owner saw the photos from the last opening. He doesn't want another line blocking his door. The fabric shop will lend us its window if the owner can approve the shop name and photos first."
+        },
+        {
+          "who": "player",
+          "text": "I'll take the ice shop out. If the fabric shop only has to lend us the window and won't have to handle a line, how soon can we get their approval?"
+        },
+        {
+          "who": "vendor_cheng",
+          "text": "The fabric shop owner's in tonight. The tofu pudding stall won't get back to us till morning. They can't take vouchers when it's too busy, so agree on a daily cap up front."
+        },
+        {
+          "who": "player",
+          "text": "Got it. I'll write down who can sign and when they can get back to us, so I have something concrete for the call."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The client calls. \"What can I actually leave on that slide for nine?\" What do you tell them?",
+      "options": [
+        {
+          "text": "Ask the client to put the launch budget into the flagship. Offer an instant discount to drive week-one sales and take the neighborhood partnership off the slide.",
+          "effects": {
+            "sales": 10,
+            "brand": 3,
+            "trust": -4,
+            "liver": 4
+          },
+          "feedback": "The discount drives checkouts at the flagship, and the store manager reorders early. The client still has to walk back the promise to HQ and asks you to confirm every revision in writing from then on.",
+          "insight": "The yearbook says the brand is where all marketing investment builds over time. It warns against chasing short-term traffic and results alone.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Renegotiate the deliverables. Scale down the opening promo, arrange a month-long co-branded window display with the fabric shop, and put the approval deadline in the contract addendum tonight.",
+          "effects": {
+            "brand": 11,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "The window goes up with the brand's fabric swatches and old photos of the shop, and local media come by twice to cover it. Without the big discount, week-one sales tick up only slightly. You spend two nights waiting until closing to get both sides to sign off on how they're credited.",
+          "insight": "In the yearbook's UNIQLO East District case, the neighborhood partnership hit 105% of its sales target and drew 2.2 times as many visitors as the year before.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Tell the client the shops haven't signed. Ask them to approve a paper tofu pudding voucher with a minimum purchase, and hold printing until the stall owner signs off on the redemption cap.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "The client uses your approval timetable to brief HQ and keeps the launch budget. The stall owner signs off on the cap the next day, and shoppers add items to qualify for the voucher. You tally the stubs daily and tell the cashiers to take down the sign when the vouchers run out.",
+          "insight": "The yearbook calls for inclusive customer experiences and says an omnichannel approach should account for older shoppers and customers with established shopping habits.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "data": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2024_02",
+        "q2024_03"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "id": "m2022",
+  "year": 2022,
+  "order": 5,
+  "clock": "14:30",
+  "title": "The Stack of Returns",
+  "locationId": "department",
+  "giver": "client_hsu",
+  "brief": "Refill sales jump in the Shin Kong Mitsukoshi anniversary sale report. Manager Hsu slides a stack of return slips across the counter and asks you how much they really sold.",
+  "splash": "book_2022",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_hsu",
+          "text": "Could you take a look at this? The chart shoots up on Saturday, but the counter staff say there’s still a whole case they never opened."
+        },
+        {
+          "who": "data_kai",
+          "text": "I checked the register logs. Returns have their own transaction code, and this report only pulls sales."
+        },
+        {
+          "who": "player",
+          "text": "I took out the returns. Saturday still comes out on top. That’s when we sent out coupons and had someone at the counter showing people how to pour the refills."
+        },
+        {
+          "who": "client_hsu",
+          "text": "Right, we did both on Saturday. My boss saw the numbers and asked me to print another batch of coupons for next week."
+        },
+        {
+          "who": "player",
+          "text": "Hang on. Let’s test one thing first. If we run both again, we’ll still be guessing."
+        },
+        {
+          "who": "client_hsu",
+          "text": "Okay, the counter staff can help with one round. At Friday’s meeting, I need you to tell me if this is worth paying for."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Manager Hsu can fit in one round of testing. What do you check first?",
+      "options": [
+        {
+          "text": "Randomly give half the members a refill coupon, then compare purchase rates after accounting for returns.",
+          "effects": {
+            "sales": 10,
+            "brand": -3,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "More members bought refills in the coupon group, so Manager Hsu ordered another case. The following week, a shopper asked when the next coupons were coming and put the refill back on the shelf.",
+          "insight": "In the first quarter of 2022, Kantar surveyed 500 people in Taiwan. Some 85% thought eco-friendly products cost more, and 76% cited convenience and cost as reasons for not taking action.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Weigh the empty bottle and pouch, put the figures on a card, and randomly show it to half the shoppers. Track sales and follow-up questions.",
+          "effects": {
+            "brand": 6,
+            "trust": 9,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "You borrowed a digital scale, worked out the difference in packaging weight for the same volume, and left the weighing log at the counter. When a shopper came back with the card to ask if the cap was included, Manager Hsu opened the log and answered on the spot.",
+          "insight": "In the same Kantar survey, 71% of respondents felt they had too little information.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Hold public demos using empty bottles of the same kind. Randomly assign demos to comparable time slots and compare stops and QR-code shares with and without a demo.",
+          "effects": {
+            "brand": 9,
+            "trust": 5,
+            "sales": 3,
+            "liver": 7
+          },
+          "feedback": "Several shoppers tried pouring the refill, scanned the display code, and sent the brand’s how-to page to friends. Sales were only up a few units, and you and the staff were still washing measuring cups in the back after the demo.",
+          "insight": "The yearbook features IKEA’s secondhand market as a sustainability case study.",
+          "roleBonus": {
+            "cx": {
+              "trust": 4
+            },
+            "creative": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2022_06",
+        "q2022_08"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

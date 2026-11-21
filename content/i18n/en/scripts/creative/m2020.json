@@ -1,0 +1,130 @@
+{
+  "id": "m2020",
+  "year": 2020,
+  "order": 3,
+  "clock": "11:30",
+  "title": "The Shot Outside the Pharmacy",
+  "locationId": "client_hq",
+  "giver": "client_chen",
+  "brief": "The health supplement ad loses its studio budget before filming. Manager Chen has a noon presentation, and on your way to Lanshan Plaza you need to decide whether to keep the shot outside the pharmacy.",
+  "splash": "book_2020",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_chen",
+          "text": "When the pandemic hit, my boss cut the studio budget. He wants that money spent on traffic, but he still wants to see a new cut at noon."
+        },
+        {
+          "who": "client_chen",
+          "text": "That woman at the start opens her paper bag outside the pharmacy. My boss wants to know why our bottle isn't on screen in the first second."
+        },
+        {
+          "who": "player",
+          "text": "She's digging out the bottle she bought by mistake last time. It's that crumpled receipt I want to keep in the shot."
+        },
+        {
+          "who": "client_chen",
+          "text": "Last year's orders and the stores' customer inquiries are at Lanshan Plaza. Can you take a look? I need to know if that scene is worth filming."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "datalab",
+      "hint": "去藍山廣場數據實驗室，看看客戶的資料能不能用"
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "The orders tell us what sold. For questions, you need the shift log. Here's one: a customer brought in an empty bottle to ask if it was the same product."
+        },
+        {
+          "who": "player",
+          "text": "We can shoot that. Phone right up by the counter, hands and the empty bottle in frame, clerk answering through a mask. Saves us the rental, too."
+        },
+        {
+          "who": "data_kai",
+          "text": "Sure. Chen still needs one slide for noon that tells his boss how we'll judge whether the ad worked."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Ten minutes to noon. Which cut goes into Manager Chen's deck?",
+      "options": [
+        {
+          "text": "Cut a six-second sales spot. Put the bottle, discount, and buy button in the first frame.",
+          "effects": {
+            "sales": 10,
+            "brand": -4,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "The stock product photo goes live that afternoon, and the discounted bundles sell out fast. Chen sends a screenshot of someone posting a rival's bottle and asking if it’s part of the same deal.",
+          "insight": "A survey cited in the yearbook found that 73% use their phones while eating and 71% do so while watching TV.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Film the clerk answering the empty-bottle question. Have Chen sign off on the captions and link to the product page at the end.",
+          "effects": {
+            "sales": 5,
+            "trust": 7,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "Chen asks the store team to check the captions, and the video goes live after two rounds of edits. Orders start coming in from viewers who clicked through, and Chen gives customer support the same cut to use in replies.",
+          "insight": "In a Salesforce survey cited in the yearbook, 84% of customers said content, interactions, and service at each touchpoint were as important as the product itself.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Keep the shot outside the pharmacy, build three short films around it, and run them on the brand budget first.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -3,
+            "liver": 8
+          },
+          "feedback": "You shoot inserts of the hands on your phone and spend two nights cutting the three films together. Someone in the comments recognizes the crumpled bag, but the promotion gets fewer placements and orders are down this week.",
+          "insight": "The yearbook cites third-party research finding that 65% of Adidas sales came from brand campaigns. Adidas later shifted its brand-to-performance budget from 23:77 to 60:40.",
+          "roleBonus": {
+            "data": {
+              "brand": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2020_05",
+        "q2020_10"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_noon"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

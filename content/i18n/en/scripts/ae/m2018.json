@@ -1,0 +1,118 @@
+{
+  "id": "m2018",
+  "year": 2018,
+  "order": 1,
+  "clock": "08:30",
+  "title": "Hold Off on Signing",
+  "locationId": "mrt",
+  "giver": "client_wu",
+  "brief": "The hot Americano launches next Monday. Manager Wu has already promised his boss a full wall at MRT City Hall Station. The vendor will only hold it until 9, and the contract only guarantees that the ad goes up.",
+  "splash": "book_2018",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_wu",
+          "text": "The contract came through just as I got to the gates. They'll only hold the wall until 9, and the deposit is due today."
+        },
+        {
+          "who": "client_wu",
+          "text": "I told my boss yesterday we'd have the whole wall by next Monday. Now he wants to know how many extra cups we'll sell."
+        },
+        {
+          "who": "player",
+          "text": "Manager Wu, the contract only gives us a posting date. Can we check what number your boss will look at when he signs off?"
+        },
+        {
+          "who": "client_wu",
+          "text": "Cups sold. Last time I showed him foot traffic and he asked if everyone coming out of the station had bought a coffee."
+        },
+        {
+          "who": "ae_mei",
+          "text": "I just checked for you. The store can tally cups sold at the promo price, but the manager needs instructions by noon today."
+        },
+        {
+          "who": "player",
+          "text": "Got it. I'll put the decisions we need by 9 in writing for you. I'll be on the call with you, too."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Which plan do you ask Manager Wu to take to his boss before 9?",
+      "options": [
+        {
+          "text": "Hold the whole wall. Get the boss to sign off on buying launch visibility, then ask Creative to rush the print job.",
+          "effects": {
+            "brand": 10,
+            "sales": 3,
+            "trust": 3,
+            "liver": 6
+          },
+          "feedback": "On Monday, the boss snaps a photo of the whole wall along the bus terminal passage and posts it in the company chat. Creative was still making changes just before the print shop closed last night, and the weekly sales report shows only a slight bump in cups sold.",
+          "insight": "Posterscope found that 83% of shoppers had seen an out-of-home ad in the 30 minutes before shopping.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Move the budget to morning digital slots. Run the Americano deal during the commute and ask the store to tally discounted cups separately.",
+          "effects": {
+            "brand": 3,
+            "sales": 9,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "On Monday morning the store manager reports that the Americano deal is beating expectations. The next day the screen shows the old price, so you're up early getting the vendor to swap the file and asking staff to honor the deal at the register.",
+          "insight": "The 2018 yearbook identifies three keys to the evolution of out-of-home advertising in Taiwan: measurement, automated trading, and dynamic delivery.",
+          "roleBonus": {
+            "media": {
+              "sales": 5
+            },
+            "data": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Tell the boss up front that the full wall won't tell him how many extra cups he sold. Switch the contract to a small board by the exit and test the deal at the nearest store only.",
+          "effects": {
+            "brand": 4,
+            "sales": 7,
+            "trust": 6,
+            "liver": 3
+          },
+          "feedback": "The boss stares at the smaller placement mockup for a while, then agrees to start with one store. After launch, Manager Wu takes the store's discounted cup count into his meeting and texts to thank you for joining that call.",
+          "insight": "The 2018 yearbook recommends starting with a small, workable version of an omnichannel experience and improving it over time.",
+          "roleBonus": {
+            "cx": {
+              "sales": 4
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2018_04",
+        "q2018_05"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

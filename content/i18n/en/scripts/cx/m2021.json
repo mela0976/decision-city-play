@@ -1,0 +1,115 @@
+{
+  "id": "m2021",
+  "year": 2021,
+  "order": 4,
+  "clock": "13:00",
+  "title": "Soup Left in the Cart",
+  "locationId": "studio",
+  "giver": "cd_wei",
+  "brief": "During Taiwan's Level 3 COVID alert, a trial livestream for frozen meal kits fills plenty of carts. Wei is at the Chillshan Creative Park studio, waiting for you to figure out where shoppers got stuck before you have to clear out at four.",
+  "splash": "book_2021",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "cd_wei",
+          "text": "Everyone in the test stream was asking about the clam soup. The client says the carts just sat there once we went off air last night."
+        },
+        {
+          "who": "player",
+          "text": "Wei, I tried it on my phone. You have to sign up before you can see shipping, and if you forget your password, you have to leave to check your email."
+        },
+        {
+          "who": "data_kai",
+          "text": "The member login is where we lost the most people last night. The logs can't tell me if it was the hassle or the cost of frozen shipping."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Support printed out last night's chats for me. One regular asked three times if they could change the delivery date, then said they'd order some other time."
+        },
+        {
+          "who": "player",
+          "text": "I've put the stream link, the checkout screens, and the support tickets side by side. The launch is tonight, and the people who buy might come back for more next week."
+        },
+        {
+          "who": "cd_wei",
+          "text": "We have to hand the studio back at four. The client will only pay for one plan today. Where do you want to start?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Where in the customer journey should we spend the budget before the launch stream?",
+      "options": [
+        {
+          "text": "Keep the stream as planned. Add guest checkout, show the frozen shipping fee and delivery date up front, and give shoppers a way to reach a real person.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": -4,
+            "liver": 3
+          },
+          "feedback": "On launch night, some shoppers saw the shipping fee and went straight to payment. Support could focus on rescheduling deliveries, but the stream reused the product footage from the test and the buzz died down fast.",
+          "insight": "The yearbook says the entire home commerce journey can happen from home. Brands need to get the details right, from running the shop online to delivering to the doorstep.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Turn the stream into a frozen parcel unboxing and show what to do if an order arrives thawed. Take down the buy link for now so support can focus on answering questions in the chat.",
+          "effects": {
+            "brand": 12,
+            "trust": 3,
+            "sales": -3,
+            "liver": 6
+          },
+          "feedback": "A support rep opened a box on camera and used a thermometer to show how to check an order on arrival. The clip made it into several neighborhood group chats, but orders that night fell short of the client's expectations.",
+          "insight": "The yearbook features Sinyi Realty's “Trust and Happiness,” a campaign that deliberately sold no product. In post-testing, 70% of viewers showed a positive shift, compared with previous targets of 20 to 30%.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Shoot short clips on delivery and reheating. Show the shipping fee on the first-order page, then invite shoppers to join after paying and choose whether to get restock reminders.",
+          "effects": {
+            "brand": 5,
+            "sales": 5,
+            "trust": 4,
+            "liver": 9
+          },
+          "feedback": "Some viewers placed their first order after watching the reheating clip, while some members came back to restock after a reminder. You and Kai stayed up past midnight matching test orders to membership and support records one by one.",
+          "insight": "In the 2020 CCS survey, 72.9% said they like brands that reward loyal customers, and 36.8% stick with a brand once they've settled on it.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "media": {
+              "sales": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2021_07",
+        "q2021_10"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

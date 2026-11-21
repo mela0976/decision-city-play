@@ -1,0 +1,116 @@
+{
+  "id": "m2023",
+  "year": 2023,
+  "order": 6,
+  "clock": "16:00",
+  "title": "The Sound of Clocking Out",
+  "locationId": "datalab",
+  "giver": "data_kai",
+  "brief": "The new milk tea goes on sale at 8 tomorrow morning. The client saw the AI storyboard for the vertical spot and wants the time clock cut from the opening.",
+  "splash": "book_2023",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "I played the rough cut on my phone here in the data lab. Two seconds of a time clock, and the client asked if we were hiring."
+        },
+        {
+          "who": "player",
+          "text": "Wait for the click. The time card pops out, then the straw punches through the cup seal. I want you to hear it and know the shift is over."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client wants the cup and the promo code right up front. We can move money out of print, but we only get an hour in the shop after closing."
+        },
+        {
+          "who": "cd_wei",
+          "text": "That cup in the storyboard has milk foam the shop doesn’t serve. I’ll get you a time clock. We’ll have to reshoot the cup."
+        },
+        {
+          "who": "player",
+          "text": "I’ll shoot a close-up with the real cup on the desk first. Once I cut those two shots together, the client can see what I’m going for."
+        },
+        {
+          "who": "data_kai",
+          "text": "Okay, I’ll set up the phone. We need a vertical cut by eight tomorrow morning. How do you want to edit it?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "You have one hour in the shop. How do you make the spot that goes live at 8 tomorrow morning?",
+      "options": [
+        {
+          "text": "Shoot in the shop. Cut from the time clock click to the straw piercing the seal, and put the offer on a separate graphic.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -4,
+            "liver": 9
+          },
+          "feedback": "You and the editor work till the small hours to get the sounds to line up. A shop employee even does the click when they share the clip, but the offer is on a separate graphic and few morning orders come through the video.",
+          "insight": "The yearbook says even people with no art training can sketch with prompts. It still takes a person to judge how an image feels and whether it’s usable.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            }
+          }
+        },
+        {
+          "text": "Shoot the real cup and make two cuts from the same footage. Give the client a story-first cut and a product-first cut to watch side by side tonight.",
+          "effects": {
+            "trust": 9,
+            "brand": 5,
+            "sales": 3,
+            "liver": 5
+          },
+          "feedback": "The client keeps the clock sound, agrees to move the real cup up to the first second, and signs off on keeping the AI images in the pitch deck. You and the editor make an extra cut, and the shop crew is already prepping ingredients by the time it’s locked.",
+          "insight": "The yearbook warns that misleading content and infringement can seriously hurt a brand. It recommends putting AI disclosure clauses in contracts.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Lead with the promo code and keep the cup from the AI storyboard to catch the breakfast crowd.",
+          "effects": {
+            "sales": 8,
+            "brand": -4,
+            "trust": -3,
+            "liver": 6
+          },
+          "feedback": "Commuters scan the code to order, and morning orders beat the forecast. Someone posts a screenshot asking where the milk foam is, so the shop manager calls for a replacement and you have to reshoot and export the spot again.",
+          "insight": "The yearbook points out that generated content is getting cheaper while verification costs are rising. What once took a second to verify can now take a minute, ten minutes, or even an hour.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2023_11",
+        "q2023_12"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_evening"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

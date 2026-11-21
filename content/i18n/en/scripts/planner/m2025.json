@@ -1,0 +1,143 @@
+{
+  "id": "m2025",
+  "year": 2025,
+  "order": 8,
+  "clock": "19:30",
+  "title": "Soy Sauce on the Shopping List",
+  "locationId": "tvstation",
+  "giver": "tv_su",
+  "brief": "The soy sauce client wants “Order in One Tap” to lead the launch. Su needs you upstairs at Big Dawn Dome Broadcast Center in twenty minutes with a line that captures what the brand should stand for.",
+  "splash": "book_2025",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "tv_su",
+          "text": "The boss printed out the checkout screenshot and circled “Order in One Tap.” You’re the strategist. Should we keep that line?"
+        },
+        {
+          "who": "ae_mei",
+          "text": "What he’s got there is an order. If you want him to change the line, bring him a reason."
+        },
+        {
+          "who": "player",
+          "text": "Mei, let me ask around first. Who picked the last bottle, and why that one?"
+        },
+        {
+          "who": "tv_su",
+          "text": "Try Auntie at the corner of Wuxing Street. She’s still making egg pancakes, and the TV’s on."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "breakfast",
+      "hint": "Wuxing St. Corner Breakfast Shop: what's everyone watching on TV?",
+      "timeLimitSec": 100
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "player",
+          "text": "Auntie, you added something to your list as soon as that soy sauce ad came on. What did you write?"
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "“Yellow cap.” Last time my son ordered on his phone, he got the red cap. One bite of the braised tofu and I could tell he’d switched it."
+        },
+        {
+          "who": "player",
+          "text": "So now you write down what you want and have him order it?"
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "Yep. When they poured it on TV just now, the tofu turned the same color mine does. So I wrote down the brand, too."
+        },
+        {
+          "who": "player",
+          "text": "He places the order, but you pick the brand. Before you try a new bottle, you want to see how the food will turn out."
+        },
+        {
+          "who": "breakfast_auntie",
+          "text": "Go ahead and take a picture. Give it back after, though. I still have to send it to him."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Su texts you to come upstairs. What goes on slide one?",
+      "options": [
+        {
+          "text": "“Running low on soy sauce?” Give repeat buyers a restock coupon and drive orders this week.",
+          "effects": {
+            "sales": 9,
+            "trust": 4,
+            "brand": -5,
+            "liver": 3
+          },
+          "feedback": "The boss signs off on the coupon that night, and repeat orders pick up the next day. At the end of the month, shoppers who haven’t bought it still can’t name the new product.",
+          "insight": "The yearbook notes that algorithms tend to serve ads to the people most likely to convert.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "“That familiar taste of home.” Show the tofu taking on color and the bottle on TV, then feature that same bottle on the mobile page.",
+          "effects": {
+            "brand": 9,
+            "sales": 5,
+            "trust": 4,
+            "liver": 5
+          },
+          "feedback": "The boss keeps the TV slot and asks for a test shoot this week. When a parent in the screening points at the yellow cap and asks where to buy it, you add the purchase link just before launch.",
+          "insight": "The yearbook notes that digital ads aimed only at the target audience can miss older family members who do the household shopping.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        },
+        {
+          "text": "Interview the cooks and the people who place orders separately, then test two rough cuts: one about easy ordering, one about the familiar taste of home.",
+          "effects": {
+            "trust": 8,
+            "brand": 4,
+            "sales": -3,
+            "liver": 7
+          },
+          "feedback": "The boss agrees to hold off on the final wording, so the first promotion slips, too. You and Su spend three evenings interviewing people, and on Friday the boss signs off on more testing after seeing who you recruited and what they actually said.",
+          "insight": "The yearbook warns that Brand Lift may simply reflect people who already support the brand.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2025_03",
+        "q2025_05"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_night"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

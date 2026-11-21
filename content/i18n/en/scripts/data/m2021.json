@@ -1,0 +1,115 @@
+{
+  "id": "m2021",
+  "year": 2021,
+  "order": 4,
+  "clock": "13:00",
+  "title": "What Drove That Green Line?",
+  "locationId": "studio",
+  "giver": "cd_wei",
+  "brief": "The Chillshan Creative Park studio closes at four. A realty client is pushing Wei to sign off on the strength of a teaser click chart. It is up to the data analyst to check whether those clicks led to bookings.",
+  "splash": "book_2021",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "cd_wei",
+          "text": "You work with data. Take a look at this chart for me? The realty team says the green line is up and wants it in tonight’s pitch."
+        },
+        {
+          "who": "cd_wei",
+          "text": "They want a booking button at the end of the main spot. They say that button is what got people to book viewings off the teaser."
+        },
+        {
+          "who": "data_kai",
+          "text": "I pulled the raw export. That green line counts form opens. If I open it three times, that’s three hits."
+        },
+        {
+          "who": "player",
+          "text": "The branch sheet only has confirmed bookings. There’s no source column, so we can’t match the two."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client’s here at four to pick up the cut. What do I put on the slide in place of “The ad drove bookings”?"
+        },
+        {
+          "who": "cd_wei",
+          "text": "We’ll shoot the spot as planned. You tell me what goes on the end card and what goes on tonight’s slide."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The end card is due at four. Which result do you measure first?",
+      "options": [
+        {
+          "text": "Keep the booking button and use a dedicated link to match submissions to confirmed bookings.",
+          "effects": {
+            "sales": 6,
+            "trust": 6,
+            "brand": -4,
+            "liver": 3
+          },
+          "feedback": "The branch removes duplicates by booking ID and schedules viewings that week. The client signs off on the weekly report, but shares lag.",
+          "insight": "The yearbook says that as third-party cookies go away, brands need to build up their own first-party data and identity systems.",
+          "roleBonus": {
+            "ae": {
+              "trust": 4
+            }
+          }
+        },
+        {
+          "text": "Give the brand the end card and measure recall against a group that hasn’t seen the spot.",
+          "effects": {
+            "brand": 12,
+            "trust": 3,
+            "sales": -3,
+            "liver": 6
+          },
+          "feedback": "The editor barely gets the brand card in before launch. The survey comes back the next day, and more people in the viewing group can name the realty firm unaided. Sales still can’t find any bookings they can trace to the spot.",
+          "insight": "In the post-test for Sinyi Realty’s “Trust and Happiness,” 70% of viewers showed a positive shift, compared with the previous KPI of 20 to 30%.",
+          "roleBonus": {
+            "creative": {
+              "brand": 5
+            },
+            "planner": {
+              "brand": 3
+            }
+          }
+        },
+        {
+          "text": "Randomly split viewers between two end cards for the same spot and compare bookings and brand recall.",
+          "effects": {
+            "brand": 5,
+            "sales": 5,
+            "trust": 4,
+            "liver": 9
+          },
+          "feedback": "You and Kai work past midnight to clear out duplicate submissions. The button gets more confirmed bookings and the brand card gets better recall. The client runs the brand cut as the main spot and keeps the button cut for driving bookings.",
+          "insight": "The yearbook warns against taking patterns in search or other data at face value.",
+          "roleBonus": {
+            "data": {
+              "trust": 4
+            },
+            "media": {
+              "sales": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2021_07",
+        "q2021_10"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 2,
+    "sales": 1,
+    "trust": 1,
+    "liver": 0
+  }
+}

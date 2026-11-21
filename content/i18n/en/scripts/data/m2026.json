@@ -1,0 +1,115 @@
+{
+  "id": "m2026",
+  "year": 2026,
+  "order": 9,
+  "clock": "21:00",
+  "title": "How Many Times Did This Ticket Close?",
+  "locationId": "office",
+  "giver": "boss_lin",
+  "brief": "Right before the pitch, Lin asks you to check the returns agent’s case counts. The client has already used the chart to request a wider rollout.",
+  "splash": "book_2026",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "boss_lin",
+          "text": "You’re the data analyst. Take a look at this chart. Buy First Select says case closures shot up as soon as the agent went live."
+        },
+        {
+          "who": "ae_mei",
+          "text": "Support just dropped a screenshot in LINE. The customer’s still asking how to return the item, and the dashboard says it’s resolved."
+        },
+        {
+          "who": "data_kai",
+          "text": "I pulled the event log. Look at that. Same case ID, three close events."
+        },
+        {
+          "who": "player",
+          "text": "The event got sent again. I matched the IDs to the support tickets, and once I took out the duplicates, the jump disappeared."
+        },
+        {
+          "who": "ae_mei",
+          "text": "The client is signing off on the budget tomorrow morning. They want to lead the anniversary sale with “No waiting on returns.” Do I have them pull the copy now?"
+        },
+        {
+          "who": "boss_lin",
+          "text": "The people we’re pitching to are already in the A25 conference room. Swap out slide nine. What numbers are you taking in there?"
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The duplicate closures are gone. What goes on slide nine?",
+      "options": [
+        {
+          "text": "Fast-track low-risk returns and use payment records to track exchange top-ups and repeat purchases.",
+          "effects": {
+            "sales": 8,
+            "brand": 3,
+            "trust": -4,
+            "liver": 3
+          },
+          "feedback": "Routine exchanges go faster, and the client sees repeat sales come in. Finance spots that most of the shoppers are regulars and asks you to strike “Fast-track returns drove repeat sales” from the deck.",
+          "insight": "The yearbook warns that focusing solely on conversion rates can shift costs to support and logistics.",
+          "roleBonus": {
+            "data": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Randomly split similar cases between the current process and the new handoff rule.",
+          "effects": {
+            "trust": 10,
+            "brand": 5,
+            "sales": 3,
+            "liver": 6
+          },
+          "feedback": "You and Ah-Kai stay at A25 past the last train, linking reopened tickets and refunds back to the original cases. Early results show a lower reopen rate under the new rule, and the client agrees to expand the rollout.",
+          "insight": "The yearbook cites an analysis of 200 B2B AI projects. Projects with a human in the loop had 104% higher ROI than fully automated ones.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            },
+            "ae": {
+              "trust": 3
+            }
+          }
+        },
+        {
+          "text": "Pause the rollout, spot-check tickets, and publish a corrected count with a way for customers to check their status.",
+          "effects": {
+            "trust": 6,
+            "brand": 6,
+            "sales": -4,
+            "liver": 5
+          },
+          "feedback": "You and Mei go through the sampled tickets one by one, and the brand adds a correction and a support link under the original post. Customers share the status link with other shoppers, but the sale loses its fast-returns hook and repeat orders drop.",
+          "insight": "The yearbook describes three ways to build trust in AI agents: preview what they plan to do, audit what they did, and define when to hand off to a person.",
+          "roleBonus": {
+            "planner": {
+              "brand": 4
+            },
+            "creative": {
+              "brand": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2026_12",
+        "q2026_01"
+      ]
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 1,
+    "trust": 2,
+    "liver": 0
+  }
+}

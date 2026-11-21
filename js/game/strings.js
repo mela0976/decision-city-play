@@ -1,10 +1,10 @@
 // 介面本身的字（按鈕、狀態）。任務、角色、題目的文字一律來自 content/game/*.json，不寫在這裡。
 // 三種語言的字放在 js/game/i18n/{zh,en,ja}.js（同鍵、同巢狀）；這裡依目前語言（lang.js）轉出同一組名稱。
 
-import { LANG } from './lang.js?v=da1d659';
-import * as zh from './i18n/zh.js?v=da1d659';
-import * as en from './i18n/en.js?v=da1d659';
-import * as ja from './i18n/ja.js?v=da1d659';
+import { LANG } from './lang.js?v=4c63fb3';
+import * as zh from './i18n/zh.js?v=4c63fb3';
+import * as en from './i18n/en.js?v=4c63fb3';
+import * as ja from './i18n/ja.js?v=4c63fb3';
 
 const PACKS = { zh, en, ja };
 const pack = PACKS[LANG] || zh;

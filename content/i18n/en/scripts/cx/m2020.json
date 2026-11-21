@@ -1,0 +1,138 @@
+{
+  "id": "m2020",
+  "year": 2020,
+  "order": 3,
+  "clock": "11:30",
+  "title": "The Refill Left in the Cart",
+  "locationId": "client_hq",
+  "giver": "client_chen",
+  "brief": "Foot traffic is down at Manager Chen's stores. Regulars find their refills through LINE, then disappear before paying on the website. Before noon, the client can spare staff for one fix.",
+  "splash": "book_2020",
+  "steps": [
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "client_chen",
+          "text": "Look at this screenshot. A customer followed the store's LINE link, picked a refill online, then went back to the clerk to ask how to buy it."
+        },
+        {
+          "who": "client_chen",
+          "text": "The clerk could see which one she'd bought in store. Support couldn't look it up by phone number, so they asked her for another photo of the bottom of the bottle."
+        },
+        {
+          "who": "player",
+          "text": "Let me try it on my phone. I can see the shipping fee, but the second I hit checkout, it makes me sign up."
+        },
+        {
+          "who": "client_chen",
+          "text": "My boss just wants to know how many orders we lost this week. The order files are at Lanshan Plaza Data Lab. Can you take a look?"
+        },
+        {
+          "who": "player",
+          "text": "I'll go through them with Ah-Kai. Send me the time on that screenshot too. I want to see if she ever got her refill."
+        }
+      ]
+    },
+    {
+      "type": "goto",
+      "locationId": "datalab",
+      "hint": "去藍山廣場數據實驗室，看看客戶的資料能不能用"
+    },
+    {
+      "type": "dialogue",
+      "lines": [
+        {
+          "who": "data_kai",
+          "text": "Found it. She hit checkout twice that afternoon, then came back through the product page the next day. The refill was still in her cart. No order."
+        },
+        {
+          "who": "player",
+          "text": "She actually came back for it. Can we pull what she bought in store into her online account?"
+        },
+        {
+          "who": "data_kai",
+          "text": "We can start by verifying the phone number on her membership. The stores have to change their process too, or support will still be asking for bottle photos next week."
+        },
+        {
+          "who": "player",
+          "text": "I'll put her shopping trip on the journey map. Manager Chen can see every step, from finding the refill on LINE to coming back for another one."
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "The noon meeting will give one fix the go-ahead. What do you ask Manager Chen to do first?",
+      "options": [
+        {
+          "text": "Turn on guest checkout and run weekend ads offering free shipping on refills.",
+          "effects": {
+            "sales": 10,
+            "brand": -4,
+            "trust": 3,
+            "liver": 3
+          },
+          "feedback": "More carts make it through payment over the weekend. As soon as free shipping ends, people ask on the brand's page when the next deal is. Guest orders aren't linked to memberships, so support still has to dig up past orders to identify the right refill.",
+          "insight": "The yearbook cites the Adidas case. Third-party research found that 65% of sales came from brand campaigns.",
+          "roleBonus": {
+            "media": {
+              "sales": 4
+            }
+          }
+        },
+        {
+          "text": "Let regulars link their store membership by verifying their phone number, so support can send them the name of their last refill and a reorder link.",
+          "effects": {
+            "sales": 5,
+            "trust": 7,
+            "brand": 4,
+            "liver": 5
+          },
+          "feedback": "On day one of the pilot, some texts don't come through, so you test with the store staff until closing. The following week, Manager Chen sees a support ticket where a regular used the reorder link to buy the same refill. Other stores have to wait until next month.",
+          "insight": "The yearbook describes how Isobar introduced Salesforce and a new membership program for 10/10. In the first week, the program reached 8,880 LINE friends and a 74.61% member linking rate.",
+          "roleBonus": {
+            "cx": {
+              "trust": 5
+            }
+          }
+        },
+        {
+          "text": "Have store staff show how to match old bottles to refills on a livestream, then turn it into a buying guide on the brand's site.",
+          "effects": {
+            "brand": 8,
+            "trust": 4,
+            "sales": -3,
+            "liver": 8
+          },
+          "feedback": "A few groups share the part about matching bottle openings, and the clerks start using the guide to answer questions. The free-shipping promo moves to next month and sales take a hit this week. You spend several evenings checking older bottles and stock with the store staff.",
+          "insight": "The yearbook cites a Salesforce survey in which 84% of customers said the brand's content, interactions, and service at each touchpoint mattered as much as the product itself.",
+          "roleBonus": {
+            "data": {
+              "brand": 4
+            },
+            "planner": {
+              "brand": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "ids": [
+        "q2020_05",
+        "q2020_10"
+      ]
+    },
+    {
+      "type": "cutscene",
+      "video": "to_noon"
+    }
+  ],
+  "reward": {
+    "brand": 1,
+    "sales": 2,
+    "trust": 1,
+    "liver": 0
+  }
+}

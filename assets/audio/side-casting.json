@@ -1,0 +1,209 @@
+{
+  "model": "gemini-3.8-flash-tts",
+  "speakers": {
+    "player_f": {
+      "voice": "Despina",
+      "profile": "A woman around thirty, agency staffer; quick, clear, talks to colleagues as equals."
+    },
+    "player_m": {
+      "voice": "Iapetus",
+      "profile": "A man around thirty, agency strategist; natural, clear, like chatting with a coworker."
+    },
+    "data_kai": {
+      "voice": "Achird",
+      "profile": "A man in his twenties, data analyst; talks a bit fast, amused, likes teasing."
+    },
+    "roommate_yu": {
+      "voice": "Leda",
+      "profile": "A 22-year-old female college intern, the player's roommate; light, slightly playful but sincere."
+    },
+    "rechao_boss": {
+      "voice": "Gacrux",
+      "profile": "A cheerful woman in her fifties who runs a Taiwanese stir-fry restaurant; loud, warm, motherly to regulars."
+    },
+    "ae_mei": {
+      "voice": "Kore",
+      "profile": "A woman in her forties, senior account executive; mature, brisk, caring."
+    },
+    "breakfast_auntie": {
+      "voice": "Sulafat",
+      "profile": "A woman in her fifties who runs a breakfast shop; hearty, greets regulars warmly."
+    },
+    "cd_wei": {
+      "voice": "Alnilam",
+      "profile": "A man in his forties, creative director; sharp, direct, low-mid voice."
+    },
+    "clerk_ning": {
+      "voice": "Laomedeia",
+      "profile": "A woman in her early twenties, convenience store clerk; bright, light, everyday chat."
+    },
+    "client_chen": {
+      "voice": "Schedar",
+      "profile": "A man about forty, health-supplement brand marketing manager; steady, earnest, a bit formal."
+    },
+    "client_hsu": {
+      "voice": "Erinome",
+      "profile": "A woman in her thirties, cleaning-products brand manager; thinks before speaking, plain and gentle."
+    },
+    "client_wu": {
+      "voice": "Charon",
+      "profile": "A man in his forties, coffee-chain marketing manager; practical, slightly hesitant at sentence ends."
+    },
+    "rival_vicky": {
+      "voice": "Pulcherrima",
+      "profile": "A woman in her thirties, rival agency pitch director; confident, crisp, a little challenging."
+    },
+    "temple_uncle": {
+      "voice": "Algenib",
+      "profile": "A man in his sixties, temple caretaker; deep, slow, like an elder at the temple square."
+    },
+    "tv_su": {
+      "voice": "Vindemiatrix",
+      "profile": "A woman in her forties, veteran TV ad sales manager; lower voice, calm, slightly wistful."
+    },
+    "vendor_cheng": {
+      "voice": "Fenrir",
+      "profile": "A man in his forties, night-market fried chicken vendor; straightforward, enthusiastic, Taiwanese-accented Mandarin."
+    },
+    "rider_jie": {
+      "voice": "Zubenelgenubi",
+      "profile": "A man in his twenties, food-delivery rider; casual, easygoing."
+    },
+    "n2018_deng": {
+      "voice": "Puck",
+      "profile": "A young man, production company PD; quick and a bit stressed."
+    },
+    "n2018_fang": {
+      "voice": "Aoede",
+      "profile": "A woman in her thirties, department store counter manager; polite but troubled."
+    },
+    "n2018_hao": {
+      "voice": "Sadachbia",
+      "profile": "A man in his thirties, riverside night-run coach; energetic, sporty."
+    },
+    "n2018_ivy": {
+      "voice": "Autonoe",
+      "profile": "A woman in her late twenties, e-commerce marketer; bright, data-minded."
+    },
+    "n2019_lai": {
+      "voice": "Rasalgethi",
+      "profile": "A man in his fifties, insurance company digital transformation chief; measured, a bit weary."
+    },
+    "n2019_lan": {
+      "voice": "Callirrhoe",
+      "profile": "A woman in her sixties, owner of a military-village chili sauce shop; warm, proud, easygoing."
+    },
+    "n2019_tsai": {
+      "voice": "Orus",
+      "profile": "A man in his forties, toothbrush brand marketing manager; firm, blunt."
+    },
+    "n2019_you": {
+      "voice": "Zephyr",
+      "profile": "A 20-year-old female college student working at a makeup counter; lively, candid."
+    },
+    "n2020_cheng": {
+      "voice": "Achernar",
+      "profile": "A woman in her thirties, pharmacist in a convenience store; soft, careful."
+    },
+    "n2020_chou": {
+      "voice": "Despina",
+      "profile": "A woman in her thirties, health app founder; smooth, persuasive."
+    },
+    "n2020_ko": {
+      "voice": "Sadaltager",
+      "profile": "A man in his forties, car brand marketing assistant manager; knowledgeable, proud of numbers."
+    },
+    "n2020_zhe": {
+      "voice": "Umbriel",
+      "profile": "A young man, junior copywriter in his second year; easygoing, a bit anxious."
+    },
+    "n2021_hao": {
+      "voice": "Enceladus",
+      "profile": "A man in his thirties, fitness equipment marketer; tired, a little rueful."
+    },
+    "n2021_kun": {
+      "voice": "Fenrir",
+      "profile": "A young man, a runner wearing an ad shirt; excitable."
+    },
+    "n2021_ting": {
+      "voice": "Laomedeia",
+      "profile": "A young woman, social media editor in her second year; upbeat, panicky."
+    },
+    "n2021_wen": {
+      "voice": "Kore",
+      "profile": "A woman in her thirties, department store member-media sales rep; firm, salesy."
+    },
+    "n2022_damu": {
+      "voice": "Algieba",
+      "profile": "A man in his thirties, commercial director; smooth, confident."
+    },
+    "n2022_fang": {
+      "voice": "Leda",
+      "profile": "A young woman, e-commerce site editor; curious, lively."
+    },
+    "n2022_meijun": {
+      "voice": "Gacrux",
+      "profile": "A woman in her forties, pharma brand CMO; mature, pressed for time."
+    },
+    "n2022_qiao": {
+      "voice": "Zubenelgenubi",
+      "profile": "A man in his thirties, bubble tea shop owner; casual, chatty."
+    },
+    "n2023_gao": {
+      "voice": "Iapetus",
+      "profile": "A man in his forties, R&D manager with a PhD; clear, precise."
+    },
+    "n2023_hua": {
+      "voice": "Pulcherrima",
+      "profile": "A woman in her forties, night-market livestream seller; loud, forward, showy."
+    },
+    "n2023_lai": {
+      "voice": "Charon",
+      "profile": "A man in his forties, convenience store district manager; informative, cautious."
+    },
+    "n2024_joy": {
+      "voice": "Autonoe",
+      "profile": "A woman in her thirties, e-commerce manager; bright, quick."
+    },
+    "n2024_ken": {
+      "voice": "Puck",
+      "profile": "A man in his late twenties, beverage brand manager; upbeat."
+    },
+    "n2024_lulu": {
+      "voice": "Zephyr",
+      "profile": "A woman in her late twenties, pro baseball team marketing lead; energetic."
+    },
+    "n2024_wang": {
+      "voice": "Schedar",
+      "profile": "A man in his forties, e-scooter showroom manager; even, slightly frustrated."
+    },
+    "n2025_bong": {
+      "voice": "Sadachbia",
+      "profile": "A young short-video creator; lively, playful."
+    },
+    "n2025_hsin": {
+      "voice": "Aoede",
+      "profile": "A woman around thirty, third generation of a wedding-cake bakery; breezy, hesitant."
+    },
+    "n2025_pei": {
+      "voice": "Erinome",
+      "profile": "A young woman, junior graphic designer; clear, a little overwhelmed."
+    },
+    "n2026_ming": {
+      "voice": "Algenib",
+      "profile": "A man in his sixties, optical shop owner; gravelly, old-school."
+    },
+    "n2026_tim": {
+      "voice": "Achird",
+      "profile": "A man in his thirties, online shopping PM; friendly, data-driven."
+    },
+    "boss_lin": {
+      "voice": "Orus",
+      "profile": "A man around fifty, agency managing director; low, reserved, short sentences with no trailing off."
+    },
+    "grandma": {
+      "voice": "Achernar",
+      "profile": "A 67-year-old Taiwanese grandmother (阿嬤); warm, kind, slightly slow, a bit of an elderly voice texture, chatting with her grandchild. (Cast to match VoAI 春枝.)"
+    }
+  }
+}
