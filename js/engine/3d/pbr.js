@@ -6,17 +6,17 @@ export function surfaceMaps(doc,source,anisotropy,strength){
   const ctx=canvas.getContext('2d',{willReadFrequently:true});
   ctx.drawImage(source,0,0,size,size);
   const pixels=ctx.getImageData(0,0,size,size).data;
-  const luma=(x,y)=>{
-    const i=4*((y+size)%size*size+(x+size)%size);
-    return (.2126*pixels[i]+.7152*pixels[i+1]+.0722*pixels[i+2])/255;
-  };
+  // P1 perf: luma once per pixel and direct byte writes (was a per-pixel array allocation); same output bytes.
+  const lum=new Float64Array(size*size);
+  for(let i=0,k=0;i<lum.length;i++,k+=4)lum[i]=(.2126*pixels[k]+.7152*pixels[k+1]+.0722*pixels[k+2])/255;
+  const luma=(x,y)=>lum[(y+size)%size*size+(x+size)%size];
   const normal=new Uint8Array(pixels.length),rough=new Uint8Array(pixels.length);
   for(let y=0;y<size;y++)for(let x=0;x<size;x++){
     const p=4*(y*size+x),nx=(luma(x-1,y)-luma(x+1,y))*strength;
     const ny=(luma(x,y+1)-luma(x,y-1))*strength;
     const inv=127/Math.hypot(nx,ny,1);
-    normal.set([128+nx*inv,128+ny*inv,128+inv,255],p);
-    rough.set([255,Math.round(255*Math.min(1,.48+.41*luma(x,y))),255,255],p);
+    normal[p]=128+nx*inv;normal[p+1]=128+ny*inv;normal[p+2]=128+inv;normal[p+3]=255;
+    rough[p]=255;rough[p+1]=Math.round(255*Math.min(1,.48+.41*lum[y*size+x]));rough[p+2]=255;rough[p+3]=255;
   }
   const texture=data=>{
     const tex=new T.DataTexture(data,size,size);

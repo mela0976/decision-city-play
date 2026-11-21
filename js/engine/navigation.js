@@ -1,3 +1,4 @@
+import {carRoute,carParking} from './drive-car.mjs'; // A26
 import {crossingForNode,gateAhead,waitSeconds,junctionById} from './street-crossings.mjs'; // A24
 import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit,worldContact} from './world.mjs';
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
@@ -49,17 +50,17 @@ function heap() {
   };
 }
 const localRoutes=new Map();
-export function aroundObstacle(a,b,test=clearPath){
+export function aroundObstacle(a,b,test=clearPath,foot=false){ // A27 sub-metre grid for narrow doorways
   const key=[a.x,a.y,b.x,b.y].map(n=>n.toFixed(2)).join(',');
-  const cacheable=test===clearPath;
+  const cacheable=!foot&&test===clearPath; // A27 road routes use a different clearance grid
   if(cacheable&&localRoutes.has(key))return localRoutes.get(key);
-  const cell=cacheable?14:12,margin=cacheable?145:46;
+  const cell=foot?6:cacheable?14:12,margin=foot?90:cacheable?145:46;
   const inside=(x,y)=>x>=Math.min(a.x,b.x)-margin&&x<=Math.max(a.x,b.x)+margin&&
     y>=Math.min(a.y,b.y)-margin&&y<=Math.max(a.y,b.y)+margin;
   const queue=heap(),seen=new Map(),start={x:a.x,y:a.y,g:0,cost:distance(a,b),from:null};
   queue.push(start);
   let end=null,n=0;
-  while(n++<(cacheable?4000:350)){
+  while(n++<(foot?2300:cacheable?4000:350)){
     const item=queue.pop();
     if(!item)break;
     if(distance(item,b)<45&&test(item,b)){end=item;break;}
@@ -91,12 +92,13 @@ function endpoints(candidate,outgoing) {
     ...(e.reverse?[{end:outgoing?a:b,lane:rightLane(b,a,e.w),width:e.w}]:[]),
   ];
 }
-function findRide(origin,target,avoid=[],timing,turns=Boolean(timing)) {
+function findRide(origin,target,avoid=[],timing,turns=Boolean(timing),car=Boolean(timing?.car)) {
   const from=roadOptions(origin.x,origin.y,28),to=roadOptions(target.x,target.y,28);
   const open=heap(),records=new Map(),finish=new Map();
   const clearConnector=(a,b)=>clearPath(a,b)?[b]:aroundObstacle(a,b);
   const hazard=(a,b)=>avoid.some(q=>nearestOnRoad(q.x,q.y,[a.x,a.y,b.x,b.y]).d<65)?420:0;
-  for(const p of from)for(const e of endpoints(p,true)){
+  const eligible=p=>!car||p.r[4]*metersPerUnit>=4; // A26 motor lanes for both endpoints and every graph edge
+  for(const p of from.filter(eligible))for(const e of endpoints(p,true)){
     const first=clearConnector(origin,p),second=first&&clearConnector(p,e.end);
     if(!second)continue;
     const cost=rideLength(origin,[...first,...second])+p.d*.25+hazard(origin,p)+hazard(p,e.end);
@@ -104,7 +106,7 @@ function findRide(origin,target,avoid=[],timing,turns=Boolean(timing)) {
     const entry={index:e.end.index,cost,from:null,point:p,lane:e.lane,connector:[...first,...second]};
     records.set(entry.index,entry);open.push(entry);
   }
-  for(const p of to)for(const e of endpoints(p,false)){
+  for(const p of to.filter(eligible))for(const e of endpoints(p,false)){ // A26
     const first=clearConnector(e.end,p),second=first&&clearConnector(p,target);
     if(!second)continue;
     const cost=rideLength(e.end,[...first,...second])+p.d*.25;
@@ -119,6 +121,7 @@ function findRide(origin,target,avoid=[],timing,turns=Boolean(timing)) {
     const end=finish.get(entry.index);
     if(end && entry.cost+end.cost<min){winner=entry;last=end;min=entry.cost+end.cost;}
     for(const edge of roadNodes[entry.index].out) {
+      if(car&&edge.w*metersPerUnit<4)continue; // A26
       const k=entry.index*roadNodes.length+edge.to;
       const a=roadNodes[entry.index],b=roadNodes[edge.to];
       if(!drivable.has(k))drivable.set(k,clearConnector(a,b));
@@ -154,7 +157,7 @@ function findRide(origin,target,avoid=[],timing,turns=Boolean(timing)) {
   for(let i=0;i<spine.length;i++){
     const center=spine[i],next=spine[i+1];
     if(distance(center,previous)<.1)continue;
-    const lane=next?rightLane(previous,next,42):null;
+    const lane=next?rightLane(previous,next,42,!car):null; // A26
     let point=center;
     if(lane&&distance(center,previous)>24&&distance(center,next)>24){
       const candidate=add(center,lane);
@@ -165,7 +168,7 @@ function findRide(origin,target,avoid=[],timing,turns=Boolean(timing)) {
     if(!clearPath(previous,point))return null;
     const previousNode=spine[i-1],junction=crossingForNode.get(center.index);
     const entryArm=junction?.approaches.find(a=>a.from===center.index&&a.to===previousNode?.index&&a.reverse);
-    if(turns&&junction?.twoStage&&entryArm?.turnBox&&next){
+    if(!car&&turns&&junction?.twoStage&&entryArm?.turnBox&&next){ // A26
       let exit=i+1;
       while(exit<spine.length-1&&crossingForNode.get(spine[exit].index)===junction)exit++;
       const lastNode=spine[exit-1],out=spine[exit];
@@ -182,7 +185,21 @@ function findRide(origin,target,avoid=[],timing,turns=Boolean(timing)) {
 
 }
 export function planRide(origin,target,avoid=[],timing){
-  const direct=findRide(origin,target,avoid,null,Boolean(timing));
+  if(timing?.car){ // A26 retain the same red-light timing and trip-duration contract.
+    const path=carRoute(origin,target,avoid,heap,endpoints);
+    if(path?.length){
+      const start=path.mount??origin;
+      const usual=rideCruiseSpeed(rideLength(start,path),timing.speed);
+      const option=timedCruise(start,path,usual,timing.speed,timing.clock,timing.hour);
+      return Object.assign(path,{cruise:option.speed,usual,seconds:option.seconds+(path.mount?distance(origin,start)*metersPerUnit/1.39:0),signalCount:option.signals,reserve:option.reserve});
+    }
+    // A26 an isolated departure can need the existing obstacle-recovery route.
+    // Its endpoint must also be a motor lane wide enough for the car.
+    const stop=carParking(target,()=>true,145);
+    if(!stop)return null;
+    target=stop;
+  }
+  const direct=findRide(origin,target,avoid,null,Boolean(timing),Boolean(timing?.car)); // A26
   if(!timing||!direct)return direct;
   // Signals split short playable trips into green windows. Use the existing
   // dynamic long-trip cruise budget to compare arrival through the road graph.

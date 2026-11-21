@@ -143,6 +143,8 @@ export function drawTouch(ctx,w,h,state) {
   dot(ctx,c.auto,c.y,c.small,'#142731d8','#f9e7ba');
   dot(ctx,c.interact,c.y,c.big,'#142731d8','#f9e7ba');
   ctx.textAlign='center';
+  dot(ctx,c.interact,c.carY,c.carRadius,state.player.mode==='car'?'#13889bdb':'#142731d8','#f9e7ba'); // A26
+  text(ctx,'🚗',c.interact,c.carY,20,paper);
   text(ctx,'T',c.auto,c.flightY,c.small*.9,paper);
   text(ctx,'➤',c.auto,c.y,c.small*.9,paper);
   text(ctx,'●',c.interact,c.y,c.big*.60,paper);
@@ -151,7 +153,9 @@ export function drawTouch(ctx,w,h,state) {
 export function touchControls(w,h,[,right=0,bottom=0,left=0]=[],extra=0) {
   const radius=Math.max(29,Math.min(42,Math.min(w,h)*.087));
   const reserve=Math.max(extra, h>w?90:74);
-  return {x:left+radius+20,y:h-bottom-reserve-radius-19,radius,
+  const y=h-bottom-reserve-radius-19,flightY=h-bottom-reserve-radius*2.45-26;
+  const carRadius=22,carY=Math.min(flightY,y-radius*.90-4-carRadius-1); // A26 include the action button's hit padding.
+  return {x:left+radius+20,y,radius,carRadius,carY,
     auto:w-right-radius*2.45-30,interact:w-right-radius*.90-15,
-    flightY:h-bottom-reserve-radius*2.45-26,small:radius*.55,big:radius*.90};
+    flightY,small:radius*.55,big:radius*.90};
 }

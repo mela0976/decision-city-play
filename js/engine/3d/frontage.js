@@ -1,3 +1,4 @@
+import {placeVenueFront} from './venue-fronts.js'; // A27
 import {courtPlanters,courtPoint,entranceHeaders} from '../entry-courts.mjs'; // A23 night: visible entrances
 import {placeTree} from './vegetation.js';
 import {placeOfficeReception} from './office-door.js'; // A23 landmarks2
@@ -104,6 +105,7 @@ function stationPaving(site,stone){
 }
 
 export function placeEntrance(p,{instance,sign,windowBand=()=>{},paving,treeInstance=instance}) {
+  if(placeVenueFront(p,{instance,sign}))return true; // A27
   const angle=p.viewHeading,x=p.x*unit,z=p.y*unit;
   const scale=p.id==='client_hq'?1.65:p.id==='office'?1.35:1;
   const at=(s,d)=>[x+s*Math.sin(angle)+d*Math.cos(angle),z-s*Math.cos(angle)+d*Math.sin(angle)];

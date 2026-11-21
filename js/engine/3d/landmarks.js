@@ -6,6 +6,7 @@ import {addTemple} from './temple-court.js';
 export {placeTempleCourt} from './temple-court.js';
 import {buildLandmark} from './xinyi.js';
 import {placeEntrance} from './frontage.js';
+import {venues} from '../venue-entrances.mjs'; // A27
 import {createOfficeDoor} from './office-door.js';
 import {shapes,matrix,color} from './city-primitives.js';
 
@@ -55,7 +56,9 @@ function addFixedStructure(group,materials,place){
 }
 
 export function createLandmarks({group,replacements,batch,materials,textWall,obstacle,enabled,towerDetail}) {
-  const updateOfficeDoor=enabled?createOfficeDoor(group):()=>{};
+  const office=enabled?createOfficeDoor(group):()=>{};
+  const shop=enabled?createOfficeDoor(group,venues.get('convenience')):()=>{}; // A27
+  const updateOfficeDoor=(progress,shopProgress=0)=>{office(progress);shop(shopProgress);};
   updateOfficeDoor(0);
   if(enabled){
     addFixedStructure(group,materials,addRiverBridge);
@@ -223,12 +226,13 @@ export function addEntrances({instance,sign,batch,textWall,foliage}) {
   addPondWalk(batch);
   for(const p of locations){
     if(p.shape==='temple'){
+      placeEntrance(p,{instance,sign:()=>{}}); // A27 shrine returns
       addTemple(p,{instance,batch,sign,foliage});
       continue;
     }
-    // The generic projecting board is untextured at the close rechao camera.
+    // A27 the open restaurant uses the same frontage for rendering and collision.
     // A23 night: the entrance paving and planted bays share the existing landmark batches.
-    placeEntrance(p,{instance:p.id==='rechao'?()=>{}:instance,sign,paving:batch,treeInstance:foliage?instance:()=>{},windowBand:(a,b,h)=>{
+    placeEntrance(p,{instance,sign,paving:batch,treeInstance:foliage?instance:()=>{},windowBand:(a,b,h)=>{
       const m=batch((a[0]+b[0])*.5,(a[1]+b[1])*.5,'mall');
       textWall(m,[a[0],.10,a[1]],[b[0],.10,b[1]],[b[0],h,b[1]],[a[0],h,a[1]],
         -Math.cos(p.viewHeading),-Math.sin(p.viewHeading),'#fff',1,.49);

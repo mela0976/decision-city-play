@@ -1,5 +1,7 @@
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs'; // A26
 import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs'; // A24
 import {towerBlocksHop} from './tower-structures.mjs'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs'; // A27
 import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs';
 import {createFeaturedTraffic} from './featured-traffic.mjs'; // A22 featured traffic
 import {createImpact,impactTarget} from './impact.mjs';
@@ -28,11 +30,12 @@ const keysForMove = new Map([
   ['ArrowUp',[0,-1]],['KeyW',[0,-1]],['ArrowDown',[0,1]],['KeyS',[0,1]],
   ['ArrowLeft',[-1,0]],['KeyA',[-1,0]],['ArrowRight',[1,0]],['KeyD',[1,0]],
 ]);
-const actionKeys=new Set(['KeyF','KeyE','Enter','Space','KeyM','KeyG','KeyT']);
+const actionKeys=new Set(['KeyF','KeyE','Enter','Space','KeyM','KeyG','KeyT','KeyC','KeyV']); // A26
 const entranceObstacles=occupancy(); // A24 select accessible pedestrian endpoints once
 for(const fixture of fixtureColliders())entranceObstacles.put(fixture,fixture.r,'static');
 const entrances=new Map(locations.map(site=>[site.id,pedestrianEntrance(site,(x,y)=>
   !entranceObstacles.hit(x,y,radius.foot)&&!streetCrowds.some(p=>distance(p,{x,y})<radius.foot*2))]));
+const shop=venues.get('convenience'),shopThreshold=venuePoint(shop); // A27
 const nearest=(list,n)=>list.reduce((a,b)=>Math.abs(a-n)<Math.abs(b-n)?a:b);
 const carColors=['#e2dfd6','#302f32','#9e9fa0','#56595c','#d1cbc2','#555a62','#793e38','#273c51'];
 function localService(index,width){
@@ -648,9 +651,13 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   const eveningFixtures=fixtures.concat(marketColliders); // A23 night: physics and the camera read the same bodies.
   const doorLeaves=[-1,1].map(side=>({side,r:officeDoor.halfLeaf/metersPerUnit,
     width:.065/metersPerUnit,heading:officeDoor.heading,type:'officeDoor'}));
+  const shopLeaves=[-1,1].map(side=>({side,r:shop.opening/(4*metersPerUnit), // A27
+    width:.065/metersPerUnit,heading:shop.site.viewHeading-Math.PI/2,type:'shopDoor'}));
   let officeParking=false;
   let manualAvoidHeading=null,movedForward=0; // A25 last manual frame's actual forward speed
+  let carWalk=false; // A26 require an entrance arrival after parking the car.
   let finalWalk=null,finalWalkSince=0,approachingEntrance=false; // A24 last metres of automatic navigation
+  let doorstep=null; // A27 current intermediate goal outside the sliding doors
   let staticRegistry;
   // A14 impact
   const featured=createFeaturedTraffic(); // A22 curb cars share A14 occupancy.
@@ -681,11 +688,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   const reached=new Map();
   const joy={x:0,y:0};
   const state={featuredParked:featured.parked,player,camera,joy,staticColliders:fixtures,npcs:[],markers:[],speech:new Map(),cars:[],walkers:[],target:null,
-    officeDoorProgress:0,time:17.35,viewRevision:0,weather:'clear',filter:'none',clock:0,shake:0,touch:matchMedia('(pointer: coarse)').matches,largeMap:false};
+    officeDoorProgress:0,shopDoorProgress:0,time:17.35,viewRevision:0,weather:'clear',filter:'none',clock:0,shake:0,touch:matchMedia('(pointer: coarse)').matches,largeMap:false};
   state.impact=impact; // A14 impact
   let enabled=true,paused=false,running=false,frame=0,last=null,crashCooldown=0;
   let joystick=null,waypoint=null,density=.55,velocityX=0,velocityY=0,flight=null;
-  let teslaHop=null,teslaBody=player;
+  let teslaHop=null,teslaBody=player,teslaCollider=null; // A26 release the flight body before remounting.
   let escapeAfter=0,rideAnchor=null,rideStarted=0;
   let route=null,cruise=0,rideRemaining=0,detour=null,blocker=null,manualUntil=0,inputMode='keyboard',context={action:null,targetId:null,targetName:null},resizer=null;
   function setInputMode(mode) {
@@ -694,6 +701,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     emit('input:mode',{mode});
   }
   function clearPose(x,y,mode,heading){
+    if(mode==='car')return !(route&&narrowLane(x,y))&&!carTerrain(x,y,heading)&&!trafficSpace.hit(x,y,carLength,{width:carWidth,heading,ignore:player}); // A26
     const r=mode==='scooter'?radius.rider:radius.foot;
     const pose={mode,heading,ignore:player};
     if(mode==='scooter'&&curbContact(x,y,r,.37*speedUnits,heading))return false; // A24
@@ -740,12 +748,43 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         along+front<=e.d-(red?(mark?.stop??6.2)*speedUnits:0);
     };
   }
+  // A26 only the parked-car registry is eligible. A queued traffic car stays an NPC.
+  const nearestParked=()=>state.carUnlocked&&player.mode==='foot'&&!player.vehicle&&
+    featured.parked.find(car=>!car.hidden&&!car.retired&&!car.impact&&distance(car,player)<4.5*speedUnits);
+  function switchCar(parked=null){
+    if(!state.carUnlocked){emit('curb:hint',{kind:'carLocked'});return false;}
+    if(player.vehicle||flight)return false;
+    if(player.mode==='car'){
+      setRide(false);setMode('scooter');manualUntil=state.clock+3;
+      if(player.mode==='car')emit('curb:hint',{kind:'carSpace'});
+      return player.mode==='scooter';
+    }
+    if(parked&&parked!==nearestParked())return false;
+    const clear=(x,y,heading)=>!trafficSpace.hit(x,y,carLength,{width:carWidth,heading,ignore:player});
+    if(parked)space.remove(parked.collider);
+    const spot=parked&&!carTerrain(parked.x,parked.y,parked.heading)&&clear(parked.x,parked.y,parked.heading)?
+      {x:parked.x,y:parked.y,heading:parked.heading}:
+      (parked||carriagewayAt(player.x,player.y))&&(carParking(parked||player,clear)??
+        (!parked&&clearPose(player.x,player.y,'car',player.heading)?{x:player.x,y:player.y,heading:player.heading}:
+          carParking(parked||player,clear,12,0))); // A26 manual parking only needs physical clearance.
+    if(!spot){
+      if(parked)parked.collider=space.put(parked,radius.car,'vehicle');
+      emit('curb:hint',{kind:'carSpace'});return false;
+    }
+    setRide(false);walkSelected=false;
+    if(parked)parked.hidden=parked.retired=true;
+    Object.assign(player,spot,{featuredStyle:parked?.featuredStyle??3,color:parked?.color??'#bed6dd'});
+    setMode('car');updateLocation();updateContext();refresh();
+    emit('curb:hint',{kind:inputMode==='touch'?'carDrivingTouch':'carDriving'});return true;
+  }
   function setFlyingTesla(active){
     if(Boolean(active)===(player.vehicle==='flyingTesla'))return true;
     if(teslaHop)return false;
     if(active){
-      let parking=null;
+      const fromCar=player.mode==='car'; // A26 retain the same body, pose and livery in flight.
+      let parking=fromCar?{x:player.x,y:player.y,heading:player.heading}:null;
       for(const site of roadOptions(player.x,player.y,5)){
+        if(parking)break;
         const {r}=site,axis=Math.atan2(r[3]-r[1],r[2]-r[0]);
         if(distance(player,site)>18*speedUnits||r[4]<3*speedUnits)continue;
         const heading=r[5].forward&&(!r[5].reverse||Math.abs(angleDiff(axis,player.heading))<Math.PI/2)?axis:axis+Math.PI;
@@ -757,9 +796,14 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       setRide(false);
       Object.assign(player,parking,{vehicle:'flyingTesla',altitude:0});
       state.viewRevision++;
-      setMode('foot');
+      if(!fromCar)setMode('foot');
+      else { // A26 take off from the car the player already occupies.
+        state.cockpit=false;
+        teslaHop=planTeslaHop(player.heading,0)??{...parking,fromX:player.x,fromY:player.y,clearance:3,time:0,travel:.4};
+      }
     }else{
-      teslaBody=player;
+      if(player.mode==='car'&&carTerrain(player.x,player.y,player.heading))return false; // A26
+      space.remove(teslaCollider);teslaCollider=null;teslaBody=player; // A26
       delete player.vehicle;
       delete player.altitude;
     }
@@ -784,7 +828,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       if(meters>=obstacleAt+5&&!obstruction&&!traffic){
         // A24 choose the nearest clear lane when the projected touchdown is on paving.
         const landing=laneTouchdown(x,y,heading,teslaLength,teslaWidth,(cx,cy)=>!teslaContact(cx,cy,heading));
-        if(!landing||towerBlocksHop(player.x,player.y,landing.x,landing.y,teslaLength,teslaWidth,heading,clearance))continue; // A23 towers / A24 projected landing
+        if(!landing||player.mode==='car'&&carTerrain(landing.x,landing.y,heading)||towerBlocksHop(player.x,player.y,landing.x,landing.y,teslaLength,teslaWidth,heading,clearance))continue; // A23 towers / A24 projected landing // A26
         return {x:landing.x,y:landing.y,fromX:player.x,fromY:player.y,clearance,time:0,travel:meters/14};
       }
     }
@@ -835,7 +879,9 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     Object.assign(player,next);
   }
   const ridingSpeed=()=>scooterSpeed*(player.skin==='grandma'?.4:1);
-  const routeTo=(p,q,avoid=[])=>planRide(p,q,avoid,{clock:state.clock,hour:state.time,speed:ridingSpeed()}); // A24
+  const routeTo=(p,q,avoid=[])=>planRide(p,q,avoid,{clock:state.clock,hour:state.time,speed:ridingSpeed(),car:player.mode==='car'}); // A24 // A26
+  let carItinerary=null; // A26 preserve forward progress across traffic detours.
+  let carSignal=null; // A26 keep the specific approach while stopped at its line.
   let waitStarted=0,waitSignal=null,nextPaceCheck=0;
   function notifySignal(j,seconds){
     if(waitSignal?.id===j?.id)return;
@@ -848,6 +894,10 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   }
   // A24 quote the route from the same legal mounting position used at departure.
   function planDeparture(target){
+    if(player.mode==='car'){ // A26 route from the actual wheels and park near the entrance.
+      const plan=routeTo(player,target);
+      return {mount:plan?.mount??{x:player.x,y:player.y},plan};
+    }
     let mount=null;
     const tries=[];
     for(const reach of [33,90,200])tries.push([player.heading,false,reach]);
@@ -873,7 +923,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     if(on) {
       if(route){state.rideFail='busy';emit('autoride:change',{on:true,reason:'busy'});return;}
       if(!state.target){rideFailed('target');return;}
-      if(player.locationId===state.target.id||distance(player,state.target)<2){rideFailed('here');return;}
+      if(player.locationId===state.target.id||!venues.has(state.target.id)&&distance(player,state.target)<2){rideFailed('here');return;}
       if(player.vehicle==='flyingTesla'){
         // Park the flying car on its lane and ride from there; mid-hop, wait for the landing.
         if(teslaHop){pendingRide=true;rideFailed('landing');return;}
@@ -883,25 +933,33 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       const {mount,plan}=planDeparture(state.target);
       if(!mount||!plan){rideFailed(mount?'route':'mount');return;}
       route=plan;
+      if(player.mode==='car'){ // A26 keep the lane plan even when a traffic bypass rewrites the working route.
+        const points=[mount,...plan];
+        carItinerary={points,next:1,indices:new Map(points.map((point,i)=>[point,i]))};
+      }
       state.rideFail=null;
       rideRemaining=rideLength(mount,route);
       cruise=route.cruise??rideCruiseSpeed(rideRemaining,ridingSpeed());
       followedCar=null;lastLeadContact=-Infinity;
       waiting=0;escapeAfter=0;nextReroute=0;nextNetworkReplan=0;rideWait=0;congestion.length=0;
       const gap=distance(player,mount);
-      if(player.mode==='foot'&&gap>.5*speedUnits&&gap<40*speedUnits){
+      if(player.mode==='car'&&plan.mount){ // A26 park and walk to the first connected lane.
+        boarding={...mount,since:state.clock,car:{featuredStyle:player.featuredStyle,color:player.color}};
+        walkSelected=true;setMode('foot');state.standingPoint=null;
+        emit('curb:hint',{kind:'carBoard'});
+      }else if(player.mode==='foot'&&gap>.5*speedUnits&&gap<40*speedUnits){
         // Walk to the lane before mounting (standing on a sidewalk, under an arcade or beside parked bikes).
         boarding={x:mount.x,y:mount.y,heading:mount.heading??player.heading,since:state.clock};
       }else{
         Object.assign(player,mount);
-        setMode('scooter');
+        if(player.mode!=='car')setMode('scooter'); // A26
       }
       rideStarted=state.clock;nextPaceCheck=state.clock+6;
       rideAnchor={goal:distance(player,state.target),time:state.clock};
     } else {
-      pendingRide=false;
+      pendingRide=false;carSignal=null;carItinerary=null; // A26
       if(!route)return;
-      route=null;detour=null;blocker=null;finalWalk=null;approachingEntrance=false;boarding=null; // A24 / A25
+      route=null;detour=null;blocker=null;finalWalk=null;carWalk=false;doorstep=null;approachingEntrance=false;boarding=null; // A24 / A25 / A26 / A27
       if(waitSignal)notifySignal(null,0); // A24
       state.rideBoost=0;
       velocityX=velocityY=0;
@@ -913,6 +971,14 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   // A25 the foot leg from a sidewalk or arcade to the scooter's lane position.
   function updateBoarding(dt){
     const goal=boarding,gap=distance(player,goal);
+    if(goal.car&&gap<.3*speedUnits){ // A26 wait for a legal vehicle-sized pose at the lane.
+      const spot=carParking(goal,(x,y,a)=>clearPose(x,y,'car',a),12);
+      if(!spot){setRide(false);rideFailed('mount');return;}
+      boarding=null;Object.assign(player,spot,goal.car);setMode('car');
+      rideRemaining=rideLength(player,route);rideStarted=state.clock;
+      rideAnchor={goal:distance(player,state.target),time:state.clock};
+      return;
+    }
     const mount=()=>{
       boarding=null;
       if(!clearPose(goal.x,goal.y,'scooter',goal.heading)){
@@ -934,6 +1000,15 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     player.speed=dt?distance(player,pos)/dt:0;
     Object.assign(player,pos,{heading});
     // Blocked on the way, or a long detour: hop on where the lane position is.
+    if(goal.car){ // A26
+      if(player.speed>.1*speedUnits)goal.since=state.clock;
+      if(state.clock-goal.since>2){ // A25's foot recovery, used only when this walk is genuinely blocked.
+        const near=legalNear(goal,'foot',goal.heading,false,20);
+        if(near){Object.assign(player,near);state.viewRevision++;}
+        goal.since=state.clock;
+      }
+      return;
+    }
     if(state.clock-goal.since>(player.speed<.1*speedUnits?1.5:8))mount();
   }
   const emit=(event,payload)=>{for (const handler of [...listeners.get(event)??[]]) handler(payload);};
@@ -957,9 +1032,16 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     const want=nearOfficeDoor(player,5)?1:0;
     const position=state.officeDoorProgress;
     const progress=position+clamp(want-position,-dt/officeDoor.seconds,dt/officeDoor.seconds);
-    if(progress===position&&doorLeaves[0].x!==undefined)return;
+    const wantShop=distance(player,shopThreshold)*metersPerUnit<=5?1:0; // A27
+    const shopProgress=state.shopDoorProgress+clamp(wantShop-state.shopDoorProgress,-dt/.55,dt/.55);
+    if(progress===position&&shopProgress===state.shopDoorProgress&&doorLeaves[0].x!==undefined)return;
+    state.shopDoorProgress=shopProgress;
     state.officeDoorProgress=progress;
     doorSpace.clear();
+    for(const leaf of shopLeaves){ // A27 slide the collision panels with the rendered glass
+      Object.assign(leaf,venuePoint(shop,leaf.side*(shop.opening/4+(shop.opening/2+.08)*shopProgress)));
+      doorSpace.put(leaf,leaf.r,'static');
+    }
     for(const leaf of doorLeaves){
       Object.assign(leaf,officeLeaf(leaf.side,progress));
       doorSpace.put(leaf,leaf.r,'static');
@@ -968,10 +1050,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   updateOfficeDoor(0);
   function updateLocation() {
     const goal=entrances.get(state.target?.id); // A24 wait for the actual pedestrian arrival before notifying the game
-    const pending=goal&&!player.vehicle&&(player.mode==='scooter'||finalWalk&&(distance(player,goal)>=.06*speedUnits||!surfaceAt(player.x,player.y)));
+    const pending=goal&&!player.vehicle&&(player.mode==='scooter'||player.mode==='car'||finalWalk&&(distance(player,goal)>=.06*speedUnits||!surfaceAt(player.x,player.y))); // A26
     const atGoal=goal&&!pending&&player.mode==='foot'&&distance(player,goal)<.16*speedUnits; // A24 prefer the active entrance in overlapping location radii
-    const next=atGoal?state.target.id:nearOfficeDoor(player,5)&&!pending?'office':
-      locations.find(location=>(!pending||location!==state.target)&&distance(location,player)<=locationRadius)?.id??null;
+    const venue=activeVenue(player); // A27 only the recessed lobby emits indoor arrival
+    const next=venue?.id??(atGoal&&!venues.has(state.target.id)?state.target.id:
+      locations.find(location=>!venues.has(location.id)&&(!pending||location!==state.target)&&distance(location,player)<=locationRadius)?.id??null);
     if (next!==player.locationId) {
       const previous=player.locationId;
       player.locationId=next;
@@ -993,18 +1076,26 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   function curbDistance(site,entrance){ // A24 both coordinates are valid arrival points.
     return Math.min(distance(player,site),entrance?distance(player,entrance):Infinity);
   }
+  function startEntryWalk(venue){ // A27 head through the mouth first, including approaches from behind
+    walkSelected=true;setMode('foot');state.standingPoint=null;
+    finalWalk=venuePoint(venue,0,1.45);finalWalkSince=state.clock;
+    doorstep=venuePoint(venue,0,-1.05);
+    route=[doorstep,finalWalk];detour=null;blocker=null;nextReroute=0;
+  }
   function parkAtCurb(auto){
     const sites=state.target?[state.target]:state.markers.map(m=>byId.get(m.locationId));
     let goal=null,nearest=Infinity;
     for(const site of sites){
-      const entrance=entrances.get(site?.id);
+      const entrance=entrances.get(site?.id)??(venues.has(site?.id)?site:null); // A27 unpaved plazas
       if(!entrance)continue;
       const gap=curbDistance(site,entrance);
       if(gap<=15*speedUnits&&gap<nearest){nearest=gap;goal=entrance;}
     }
     if(!goal)return false;
+    carWalk=auto&&player.mode==='car'; // A26
     walkSelected=true;setMode('foot');state.standingPoint=null;
-    if(auto){finalWalk=goal;finalWalkSince=state.clock;route=[goal];detour=null;blocker=null;nextReroute=0;}
+    if(auto&&venues.has(state.target?.id))startEntryWalk(venues.get(state.target.id)); // A27
+    else if(auto){finalWalk=goal;finalWalkSince=state.clock;route=[goal];detour=null;blocker=null;nextReroute=0;}
     emit('curb:hint',{kind:'parked'});
     return true;
   }
@@ -1031,6 +1122,12 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   function setMode(mode) {
     if(player.mode===mode)return;
     if(mode==='scooter'&&!clearPose(player.x,player.y,mode,player.heading))return;
+    if(mode==='car'||player.mode==='car'){ // A26 keep the collision index and velocity aligned with the new body.
+      velocityX=velocityY=player.speed=movedForward=0;
+      state.cockpit=false;state.viewRevision++;
+      if(mode==='car')player.width=carWidth;
+      else {delete player.width;delete player.featuredStyle;delete player.color;}
+    }
     player.mode=mode;
     if(mode==='scooter')state.roadReturn=false;
     if (player.mode==='foot') {
@@ -1043,14 +1140,19 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   }
   function updateContext() {
     let next={action:null,targetId:null,targetName:null}, gap=67;
-    if(player.mode==='foot'&&nearOfficeDoor(player,3)){
-      next={action:'enter',targetId:'office',targetName:placeLabel(byId.get('office'))}; // i18n
+    const parked=nearestParked(); // A26
+    const venue=parked?null:activeVenue(player); // A27
+    if(parked)next={action:'drive',targetId:parked.id,targetName:null};
+    else if(venue){
+      const mark=state.markers.find(m=>m.locationId===venue.id);
+      next={action:'enter',targetId:venue.id==='office'?'office':mark?.id??venue.id,targetName:placeLabel(venue.site)};
+      if(venue.id!=='office')next.entrance=true; // i18n
     }
     for (const npc of next.action?[]:state.npcs) {
       const d=distance(player,npc);
       if(d<=gap){gap=d;next={action:'talk',targetId:npc.id,targetName:npc.name};}
     }
-    if(!next.action) {
+    if(!next.action&&!venues.has(player.locationId)) { // A27 indoor markers require the live doorway check
       const mark=state.markers.find(m=>m.locationId===player.locationId);
       if(mark) next={action:'enter',targetId:mark.id,targetName:mark.label??placeLabel(byId.get(mark.locationId))}; // i18n
     }
@@ -1061,9 +1163,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   }
   function interact() {
     updateContext();
-    if(context.action==='enter'&&player.mode==='foot'&&nearOfficeDoor(player,3)){
-      const mark=state.markers.find(m=>m.locationId==='office');
-      emit('interact',{kind:'marker',id:mark?.id??null,locationId:'office',entrance:true});
+    if(context.action==='drive'){switchCar(nearestParked());return;} // A26
+    const venue=activeVenue(player); // A27
+    if(context.action==='enter'&&venue){
+      const mark=state.markers.find(m=>m.locationId===venue.id);
+      emit('interact',{kind:'marker',id:mark?.id??null,locationId:venue.id,entrance:true});
       return;
     }
     if(context.action) emit('interact',{kind:context.action==='talk'?'npc':'marker',id:context.targetId});
@@ -1124,9 +1228,12 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       keys.add(code);
     }
     if (event.repeat) return;
+    if(code==='KeyC'){switchCar();return;} // A26
+    if(code==='KeyV'&&player.mode==='car'&&!player.vehicle){state.cockpit=!state.cockpit;state.viewRevision++;refresh();return;}
     if(code==='KeyT'){setFlyingTesla(player.vehicle!=='flyingTesla');return;}
     if(player.vehicle==='flyingTesla'&&(code==='KeyF'||teslaHop&&actionKeys.has(code)))return;
     if (code==='KeyF') {
+      if(player.mode==='car')return; // A26
       if(player.mode==='foot'&&(!carriagewayAt(player.x,player.y)||surfaceAt(player.x,player.y))){ // A24
         emit('curb:hint',{kind:'road'});return;
       }
@@ -1166,7 +1273,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         joystick=event.pointerId;
         canvas.setPointerCapture(joystick);
         setJoy(x,y,control);
-      } else if(Math.hypot(x-control.auto,y-control.flightY)<control.small+4)setFlyingTesla(player.vehicle!=='flyingTesla');
+      } else if(Math.hypot(x-control.interact,y-control.carY)<=control.carRadius)switchCar(); // A26
+      else if(Math.hypot(x-control.auto,y-control.flightY)<control.small+4)setFlyingTesla(player.vehicle!=='flyingTesla');
       else if (Math.hypot(x-control.auto,y-control.y)<control.small+4) setRide(!route);
       else if (Math.hypot(x-control.interact,y-control.y)<control.big+4) interact();
     }
@@ -1264,6 +1372,9 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     // Only manoeuvres reachable from the current pose count: a footprint already pressed into
     // geometry, or one that can neither drive, back up nor start turning, is trapped.
     if(!test(player.x,player.y,h))return false;
+    if(player.mode==='car'&&!player.vehicle){ // A26 a stationary car cannot free itself by turning in place.
+      return [-1,1].some(sign=>[.15,.35,.65].every(m=>test(player.x+fx*m*sign*speedUnits,player.y+fy*m*sign*speedUnits,h)));
+    }
     return [d,-d].some(m=>test(player.x+fx*m,player.y+fy*m,h))||[.06,-.06].some(t=>test(player.x,player.y,h+t));
   }
   function rescuePlayer(){
@@ -1275,6 +1386,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         for(const heading of [axis,axis+Math.PI])if(!spot&&!teslaContact(site.x,site.y,heading))spot={x:site.x,y:site.y,heading};
         if(spot)break;
       }
+    }else if(player.mode==='car'){ // A26
+      spot=carParking(player,(x,y,a)=>distance(player,{x,y})>.75*speedUnits&&clearPose(x,y,'car',a),25);
     }else{
       const found=legalNear(player,scooterLike?'scooter':'foot',player.heading,true,240);
       if(found&&(!scooterLike||carriagewayAt(found.x,found.y)))spot={...found,heading:player.heading};
@@ -1293,13 +1406,19 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     emit('curb:hint',{kind:'rescued'});
     if(route&&state.target&&!finalWalk){
       const plan=routeTo(player,state.target);
-      if(plan?.length){route=plan;detour=null;blocker=null;waiting=0;rideRemaining=rideLength(player,route);
+      if(plan?.length&&!plan.mount){route=plan;detour=null;blocker=null;waiting=0;rideRemaining=rideLength(player,route);
         rideAnchor={goal:distance(player,state.target),time:state.clock};}
     }
     return true;
   }
   function watchStall(dt,input){
     const trying=route?!waitSignal&&!finalWalk&&!teslaHop:input>.035&&!teslaHop;
+    if(player.mode==='car'&&!player.vehicle&&!route){ // A26 measure net travel; twitching between two kerbs is still a stall.
+      if(!trying||!stallPose||distance(player,stallPose)>.5*speedUnits){stallPose={...player};stallTime=0;return;}
+      stallTime+=dt;
+      if(stallTime>=2&&!canManoeuvre()){rescuePlayer();stallPose=null;stallTime=0;}
+      return;
+    }
     const pose=stallPose;
     stallPose={x:player.x,y:player.y,heading:player.heading};
     if(!trying||!pose){stallTime=0;return;}
@@ -1307,7 +1426,9 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     stallTime=moved?0:stallTime+dt;
     if(stallTime<2)return;
     if(!canManoeuvre()||route&&stallTime>=4){
-      if(route&&canManoeuvre()){escapeAfter=0;waiting=Math.max(waiting,7);stallTime=1;return;}
+      if(route&&(player.mode==='car'||canManoeuvre())){ // A26 recover along the planned lane instead of oscillating between two parking poses.
+        escapeAfter=0;waiting=Math.max(waiting,7);stallTime=1;return;
+      }
       stallTime=0;
       rescuePlayer();
     }
@@ -1318,8 +1439,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     if(state.largeMap)return;
     updateOfficeDoor(dt);
     if(!nearOfficeDoor(player,6))officeParking=false;
-    if(!route&&player.mode==='scooter'&&nearOfficeDoor(player,3)){
-      officeParking=true;
+    if(!route&&player.mode==='scooter'&&(nearOfficeDoor(player,3)||[...venues.values()].some(v=>atVenueMouth(v,player)))){ // A27 plazas may have a flush curb
+      officeParking=true;walkSelected=true; // A27 stay on foot after parking
       setMode('foot');emit('curb:hint',{kind:'parked'}); // A24
     }
     crashCooldown=Math.max(0,crashCooldown-dt);
@@ -1327,11 +1448,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     for (const [id,bubble] of state.speech) if (bubble.until<=state.clock) state.speech.delete(id);
     space.clear();
     const activeCars=[];
-    const playerRadius=player.mode==='scooter'?radius.rider:radius.foot;
+    const playerRadius=player.mode==='car'?carLength:player.mode==='scooter'?radius.rider:radius.foot;
     if((player.altitude??0)<1.2){
       if(player.vehicle==='flyingTesla'){
         teslaBody={...player,mode:undefined,width:teslaWidth};
-        space.put(teslaBody,teslaLength,'player');
+        teslaCollider=space.put(teslaBody,teslaLength,'player'); // A26
       }
       else space.put(player,playerRadius,'player');
     }
@@ -1661,7 +1782,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     }
     const magnitude=Math.hypot(dx,dy);
     const input=Math.min(1,magnitude);
-    if(input>.035&&!route&&!walkSelected&&!officeParking&&player.mode==='foot'){
+    if(input>.035&&!route&&!walkSelected&&!officeParking&&player.mode==='foot'&&!activeVenue(player)){ // A27 stay on foot in a lobby
       const mount={...player,mode:'scooter',ignore:player};
       if(!worldContact(mount.x,mount.y,radius.rider,.37/metersPerUnit,mount.heading)&&
         !trafficSpace.hit(mount.x,mount.y,radius.rider,mount))setMode('scooter');
@@ -1674,40 +1795,60 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       const pos=sweep(player.x,player.y,player.x+Math.cos(heading)*step,player.y+Math.sin(heading)*step,clear,2);
       player.speed=dt?distance(player,pos)/dt:0;
       Object.assign(player,pos,{heading});
+      if(carWalk&&player.speed>.4*speedUnits)finalWalkSince=state.clock; // A26 finish longer walks from car-accessible curb parking.
       if(distance(player,next)<.12*speedUnits)route.shift();
-      if(distance(player,goal)<.06*speedUnits&&surfaceAt(player.x,player.y))setRide(false,'arrived');
+      if(doorstep&&distance(player,doorstep)<.15*speedUnits)doorstep=null; // A27 approach the sensor before planning through a closed door
+      const venue=venues.get(state.target?.id); // A27 finish inside the doorway and never skip through a wall
+      if(venue&&activeVenue(player)===venue||!venue&&distance(player,goal)<.06*speedUnits&&(carWalk||surfaceAt(player.x,player.y)))setRide(false,'arrived');
       // 終點被人或物件占住時不要一直走：步行 8 秒後已在地點範圍內就算抵達
-      else if(state.clock-finalWalkSince>8&&state.target&&distance(player,state.target)<=locationRadius)setRide(false,'arrived');
+      else if(!venue&&!carWalk&&state.clock-finalWalkSince>8&&state.target&&distance(player,state.target)<=locationRadius)setRide(false,'arrived');
       // A25 never park forever on a blocked final walk: step to the entrance and finish.
-      else if(state.clock-finalWalkSince>12){
+      else if(!venue&&state.clock-finalWalkSince>12){
         const spot=legalNear(goal,'foot',heading,false,60);
         if(spot){Object.assign(player,spot);state.viewRevision++;}
         updateLocation();
         setRide(false,'arrived');
       }
+      else if(venue&&doorstep&&state.clock-finalWalkSince>12){ // A26+A27 a long walk from curb parking can stall on a detour: step to the spot outside the doors, then walk in through the doorway
+        const spot=legalNear(doorstep,'foot',heading,false,30);
+        if(spot){Object.assign(player,spot);state.viewRevision++;doorstep=null;route=[finalWalk];finalWalkSince=state.clock;}
+        else{setRide(false,'cancelled');rideFailed('route');}
+      }
+      else if(venue&&state.clock-finalWalkSince>45){ // A27 report an occupied approach without moving the avatar through it
+        setRide(false,'cancelled');rideFailed('route');
+      }
       else if(step>0&&player.speed<.1*speedUnits&&state.clock>=nextReroute){
         nextReroute=state.clock+.6;
-        const path=aroundObstacle(player,goal,(a,b)=>{
-          const end=sweep(a.x,a.y,b.x,b.y,clear,2);
+        const clearPath=(a,b)=>{
+          const end=sweep(a.x,a.y,b.x,b.y,clear,1.5);
           return distance(end,b)<.01;
-        });
-        if(path)route=path;
+        };
+        // A27 a person can occupy the middle of a wide doorway. Route to an accessible point inside.
+        const endpoints=doorstep?[doorstep]:venue?[goal,...[-1,1].map(s=>venuePoint(venue,s*(venue.opening/2-.48),1.42))]:[goal];
+        for(const endpoint of endpoints){
+          if(clear(endpoint.x,endpoint.y))continue;
+          const path=aroundObstacle(player,endpoint,clearPath,Boolean(venue));
+          if(path){route=doorstep?[...path,goal]:path;break;}
+        }
       }
       followMap(dt);updateLocation();updateContext();return;
     }
-    const scooter=player.mode==='scooter';
+    const driving=player.mode==='car',scooter=driving||player.mode==='scooter'; // A26
+    const bodyMode=driving?'car':'scooter';
+    const r=driving?carLength:scooter?radius.rider:radius.foot;
     const maxSpeed=scooter?ridingSpeed():1.39/metersPerUnit;
     // A25 rider-relative controls: up/down are throttle and brake/reverse, left/right steer from the current heading.
     const throttle=clamp(-dy,-1,1),steer=clamp(dx,-1,1);
+    if(driving)state.carSteer=steer; // A26
     const forwardSpeed=Math.min(velocityX*Math.cos(player.heading)+velocityY*Math.sin(player.heading),movedForward+.3*speedUnits);
     let brakingInput=false;
     if(input>.035&&!route){
-      const r=scooter?radius.rider:radius.foot;
       if(Math.abs(steer)>.05){
         const metres=Math.abs(forwardSpeed)*metersPerUnit;
         const rate=scooter?Math.min(1.2+metres*.9,Math.max(.9,4.6-Math.abs(forwardSpeed)*.018)):3.2;
-        const angle=player.heading+steer*rate*dt;
-        const free=(x,y)=>!curbContact(x,y,r,.37*speedUnits,angle)&& // A24 rotating scooter footprint
+        const yawRate=driving?clamp(forwardSpeed*metersPerUnit/5.8,-.9,1.25):rate; // A26 bicycle-model turning radius
+        const angle=player.heading+steer*yawRate*dt;
+        const free=(x,y)=>driving?clearPose(x,y,'car',angle):!curbContact(x,y,r,.37*speedUnits,angle)&& // A24 rotating scooter footprint
           !worldContact(x,y,r,.37/metersPerUnit,angle)&&
           !trafficSpace.hit(x,y,r,{...player,heading:angle,ignore:player});
         if(!scooter)player.heading=angle;
@@ -1738,7 +1879,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     if(input<=.035||route)state.reversing=false;
     const drive=Math.max(0,throttle);
     let targetSpeed=input>.035&&!route?(state.reversing?-(scooter?1.35:.8)/metersPerUnit*Math.abs(throttle):brakingInput?0:maxSpeed*drive):0;
-    if(scooter&&!route&&targetSpeed>0){
+    if(scooter&&!driving&&!route&&targetSpeed>0){ // A26 car impacts use the actual swept contact.
       const fx=Math.cos(player.heading),fy=Math.sin(player.heading);
       let lead=null,clearance=Infinity;
       for(const car of state.cars){
@@ -1761,11 +1902,10 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     const blend=scooter?1-Math.exp(-dt*(brakingInput?7.5:input>0?4.9:3.4)):1;
     velocityX+=(Math.cos(player.heading)*targetSpeed-velocityX)*blend;
     velocityY+=(Math.sin(player.heading)*targetSpeed-velocityY)*blend;
-    const r=scooter?radius.rider:radius.foot;
     const contact=(x,y)=>trafficSpace.hit(x,y,r,player);
-    const terrain=(x,y)=>scooter&&curbContact(x,y,r,.37*speedUnits,player.heading)?'curb':worldContact(x,y,r,scooter?.37/metersPerUnit:r,scooter?player.heading:0);
+    const terrain=(x,y)=>driving?(route&&narrowLane(x,y)?'curb':carTerrain(x,y,player.heading)):scooter&&curbContact(x,y,r,.37*speedUnits,player.heading)?'curb':worldContact(x,y,r,scooter?.37/metersPerUnit:r,scooter?player.heading:0); // A26
     const wall=(x,y)=>Boolean(terrain(x,y)||contact(x,y));
-    if(scooter&&enabled&&impact.hasWrecks()&&(route||input>.035&&!state.reversing)){
+    if(scooter&&!driving&&enabled&&impact.hasWrecks()&&(route||input>.035&&!state.reversing)){
       const next=route?.find(point=>distance(player,point)>2*speedUnits);
       // A25 a manual bypass keeps the lane heading the rider had when it began.
       const heading=next?Math.atan2(next.y-player.y,next.x-player.x):manualAvoidHeading??player.heading;
@@ -1791,14 +1931,23 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       }
     }else{impact.cancelAvoid(player);manualAvoidHeading=null;}
     if(route && enabled) {
-      if(!entrances.get(state.target?.id)&&state.clock-rideStarted>75&&distance(player,state.target)<locationRadius*.90&&
+      if(driving&&carSignal){ // A26 do not reproject the nose onto a different approach on the next frame.
+        if(waitSeconds(carSignal.j,carSignal.a.group,state.clock,state.time)>0){
+          player.speed=velocityX=velocityY=0;
+          if(rideAnchor)rideAnchor.time=state.clock;
+          followMap(dt);updateLocation();updateContext();return;
+        }
+        carSignal=null;
+        if(waitSignal)notifySignal(null,0);
+      }
+      if(!driving&&!venues.has(state.target?.id)&&!entrances.get(state.target?.id)&&state.clock-rideStarted>75&&distance(player,state.target)<locationRadius*.90&& // A26
         clearPose(player.x,player.y,'foot',player.heading)){
         setRide(false,'arrived');
         setMode('foot');followMap(dt);updateLocation();updateContext();
         return;
       }
       if(!rideAnchor||distance(player,state.target)<rideAnchor.goal-145)rideAnchor={goal:distance(player,state.target),time:state.clock};
-      if(!approachingEntrance&&state.target&&distance(player,state.target)<310&&route.length>1){
+      if(!driving&&!approachingEntrance&&state.target&&distance(player,state.target)<310&&route.length>1){
         const goal=state.target,heading=Math.atan2(goal.y-player.y,goal.x-player.x);
         if(clearPose(player.x,player.y,'scooter',heading)&&clearPose(goal.x,goal.y,'scooter',heading)){
           const path=sweep(player.x,player.y,goal.x,goal.y,(x,y)=>!clearPose(x,y,'scooter',heading),2.5);
@@ -1822,7 +1971,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         if(gap>.001){
           const ux=(next.x-player.x)/gap,uy=(next.y-player.y)/gap;
           const flash=state.time>=23||state.time<6;
-          const g=gateAhead(player,ux,uy,flash?30:step*metersPerUnit+.05,1.03);
+          const g=gateAhead(player,ux,uy,flash?30:step*metersPerUnit+.05,driving?2.35:1.03); // A26
           if(flash&&g){
             budget=Math.min(budget,6*speedUnits*dt);
             step=Math.min(step,budget);
@@ -1840,12 +1989,13 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
               if(waitSignal===g.j&&state.clock-waitStarted>2*g.j.cycle){
                 congestion.push({x:g.x*speedUnits,y:g.y*speedUnits});
                 const alternate=routeTo(player,state.target,congestion);
-                if(alternate){route=alternate;detour=null;rideRemaining=rideLength(player,route);cruise=route.cruise;}
+                if(alternate&&!alternate.mount){route=alternate;detour=null;rideRemaining=rideLength(player,route);cruise=route.cruise;} // A26
                 waitStarted=state.clock;
               }
+              if(driving&&g.distance<=step*metersPerUnit+.001)carSignal=g; // A26
               step=Math.min(step,g.distance*speedUnits);
-              heldAtSignal=true;
-              notifySignal(g.j,delay);
+              heldAtSignal=!driving||Boolean(carSignal); // A26 announce a stop only after the car reaches the red line.
+              if(heldAtSignal)notifySignal(g.j,delay);
               budget=step;
             }
           }
@@ -1865,7 +2015,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           },2);
           if(allowed.x!==nx||allowed.y!==ny||contact(player.x,player.y)){
             // A24 parked street furniture can occupy the last metre beside the lip.
-            if((obstruction==='curb'||approachingEntrance&&besideCurb(angle))&&parkAtCurb(true)){
+            if((obstruction==='curb'||approachingEntrance&&besideCurb(angle)||venues.has(state.target.id)&&distance(player,state.target)<7*speedUnits)&&parkAtCurb(true)){ // A27 stop beside an occupied plaza
               followMap(dt);updateLocation();updateContext();return;
             }
             const obstacle=hitBody??contact(player.x,player.y);
@@ -1885,6 +2035,21 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
               route.length=0;break;
             }
             player.heading=previousHeading;
+            if(driving&&carItinerary&&!heldAtSignal&&waiting>=5&&state.clock>=escapeAfter){ // A26
+              const red=(from,fx,fy,reach)=>{
+                const gate=gateAhead(from,fx,fy,reach,2.35);
+                return gate&&waitSeconds(gate.j,gate.a.group,state.clock,state.time)>0;
+              };
+              const ahead=forwardCarSpace(player,carItinerary,(x,y,yaw)=>clearPose(x,y,'car',yaw),red);
+              if(ahead){
+                Object.assign(player,{x:ahead.x,y:ahead.y,heading:ahead.heading,speed:0});
+                carItinerary.next=ahead.next;route=carItinerary.points.slice(ahead.next);
+                detour=null;blocker=null;waiting=0;escapeAfter=state.clock+3;
+                rideAnchor={goal:distance(player,state.target),time:state.clock};
+                rideRemaining=rideLength(player,route);state.viewRevision++;
+                break;
+              }
+            }
             if(auditEnabled)audit.blockedAutoFrames++;
             if(obstacle?.body?.impact||obstacle?.body?.body?.impact){
               if(waiting>=3&&state.clock>=nextNetworkReplan&&state.target){
@@ -1892,7 +2057,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
                 congestion.push({x:next.x,y:next.y});
                 if(congestion.length>4)congestion.shift();
                 const alternate=routeTo(player,state.target,congestion);
-                if(alternate?.length&&distance(alternate[0],next)>13){
+                if(alternate?.length&&!alternate.mount&&distance(alternate[0],next)>13){ // A26
                   route=alternate;detour=null;
                   rideRemaining=rideLength(player,route);
                 }
@@ -1914,11 +2079,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
               let recovery=null;
               for(const {point,i} of options){
                 const heading=Math.atan2(point.y-start.y,point.x-start.x);
-                const landing=legalNear(point,'scooter',heading,true,65);
+                const landing=legalNear(point,bodyMode,heading,true,65);
                 if(!landing||distance(start,landing)<50||distance(start,landing)>330)continue;
                 const arrived=i===-2&&distance(landing,state.target)<locationRadius;
                 const remaining=arrived?[]:i<0?routeTo(landing,state.target,congestion):route.slice(i+1);
-                if(!arrived&&!remaining?.length)continue;
+                if(!arrived&&(!remaining?.length||remaining.mount))continue; // A26 reboarding can only start at departure.
                 recovery={landing,heading,remaining};
                 break;
               }
@@ -1959,7 +2124,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
               congestion.push({x:next.x,y:next.y});
               if(congestion.length>4)congestion.shift();
               const alternate=routeTo(player,state.target,congestion);
-              if(alternate?.length&&distance(alternate[0],next)>13){
+              if(alternate?.length&&!alternate.mount&&distance(alternate[0],next)>13){ // A26
                 route=alternate;detour=null;
                 rideRemaining=rideLength(player,route);
                 cruise=Math.max(cruise,rideCruiseSpeed(rideRemaining,maxSpeed));
@@ -2006,7 +2171,10 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
             }
           }
           if(detour){route.splice(0,detour.resume);detour=null;}
-          else route.shift();
+          else { // A26 only mark a lane point passed when the car actually reaches it.
+            const point=route.shift(),i=driving&&carItinerary?carItinerary.indices.get(point):undefined;
+            if(i!==undefined)carItinerary.next=Math.max(carItinerary.next,i+1);
+          }
         }
         travelled+=step;
       }
@@ -2023,7 +2191,18 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       if(congested)rideWait+=dt;
       waiting=congested?waiting+dt:Math.max(0,waiting-dt*3);
       rideRemaining=Math.max(0,rideRemaining-travelled);
-      if(!route.length&&!approachingEntrance&&entrances.get(state.target?.id)){ // A24 continue from the lane anchor to the lip
+      if(!route.length&&driving&&venues.has(state.target?.id)){ // A26 + A27 park, then walk in through the doorway
+        carWalk=true;startEntryWalk(venues.get(state.target.id));
+        emit('curb:hint',{kind:'parked'});
+      }else if(!route.length&&driving){ // A26 complete the final approach as a pedestrian, including venues without raised paving.
+        carWalk=true;
+        const goal=entrances.get(state.target.id)??state.target;
+        walkSelected=true;setMode('foot');state.standingPoint=null;
+        finalWalk=goal;finalWalkSince=state.clock;route=[goal];detour=null;blocker=null;
+        emit('curb:hint',{kind:'parked'});
+      }else if(!route.length&&venues.has(state.target?.id)){ // A27 dismount at the lane anchor even where there is no raised curb
+        startEntryWalk(venues.get(state.target.id));
+      }else if(!route.length&&!approachingEntrance&&entrances.get(state.target?.id)){ // A24 continue from the lane anchor to the lip
         const entrance=entrances.get(state.target.id);
         approachingEntrance=true;route=[entrance];rideRemaining=distance(player,entrance);
       }else if(!route.length){
@@ -2077,9 +2256,9 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           else{velocityX*=-.12;velocityY*=.59;}
         }
       }
-      if(terrainAtContact==='curb')manualCurb(); // A24 slide and damp without a building crash
+      if(terrainAtContact==='curb'){if(!driving)manualCurb();} // A26 explicit car dismount // A24 slide and damp without a building crash
       else{
-        const curbsideFixture=scooter&&state.target&&hitAtContact?.kind==='static'&&body?.type!=='parked'&&besideCurb(player.heading);
+        const curbsideFixture=scooter&&!driving&&state.target&&hitAtContact?.kind==='static'&&body?.type!=='parked'&&besideCurb(player.heading);
         crash=!(curbsideFixture&&parkAtCurb(false)); // A24 same curbside furniture as the autoride approach.
       }
     }
@@ -2102,7 +2281,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     followMap(dt);
     updateLocation();
     updateContext();
-    if(input<=.035 && state.clock>=manualUntil && player.speed<1.8 && (player.locationId || context.action==='talk')) setMode('foot');
+    if(!driving && input<=.035 && state.clock>=manualUntil && player.speed<1.8 && (player.locationId || context.action==='talk')) setMode('foot'); // A26
   }
   function recordAudit(){
     const sample=occupancy();
@@ -2117,11 +2296,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       if(hit?.kind==='person')audit.personVehicle++;
       sample.put(car,r,'vehicle');
     }
-    const size=player.mode==='scooter'?radius.rider:radius.foot;
+    const size=player.mode==='car'?carLength:player.mode==='scooter'?radius.rider:radius.foot; // A26
     const hit=sample.hit(player.x,player.y,size,player)??staticSpace.hit(player.x,player.y,size,player)??doorSpace.hit(player.x,player.y,size,player);
     if(hit?.kind==='vehicle')audit.playerVehicle++;
     if(hit?.kind==='person')audit.playerPerson++;
-    if(hit?.kind==='static'||worldContact(player.x,player.y,size,player.mode==='scooter'?.37/metersPerUnit:size,player.mode==='scooter'?player.heading:0))audit.playerStatic++;
+    if(hit?.kind==='static'||(player.mode==='car'?carTerrain(player.x,player.y,player.heading):worldContact(player.x,player.y,size,player.mode==='scooter'?.37/metersPerUnit:size,player.mode==='scooter'?player.heading:0)))audit.playerStatic++;
     if(state.cameraInside)audit.camera++;
     const current=new Map(),roster=new Set([...state.cars,...state.walkers]);
     for(const object of roster){
@@ -2165,8 +2344,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     Object.assign(camera,{x:location.x,y:location.y-19,zoom:1});
     velocityX=0;
     velocityY=0;
+    setMode('foot'); // A27 indoor location sensors require a pedestrian on arrival
     updateLocation();
-    setMode('foot');
     state.standingPoint=sidewalkStand();
     updateContext();
     refresh();
@@ -2260,6 +2439,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         updateFlight();refresh();
       });
     },
+    setCarUnlocked(on){ // A26
+      state.carUnlocked=Boolean(on);
+      if(!on&&player.mode==='car'){teslaHop=null;delete player.vehicle;delete player.altitude;teslaBody=player;setRide(false);setMode('foot');}
+      updateContext();
+    },
     setFlyingTesla,
     // A24 debug API returns copies, so callers cannot mutate the signal network.
     junctions(){return crossings.map(j=>({id:j.id,x:j.x,y:j.y,members:[...j.members],cycle:j.cycle,
@@ -2276,11 +2460,14 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       const target=byId.get(id);
       if(!target)return null;
       if(distance(player,target)<2)return 0;
-      const {plan}=planDeparture(target);
+      const {plan,mount}=planDeparture(target);
       if(!plan)return null;
+      const venue=venues.get(id); // A27 quote both walked segments at the actual pedestrian pace
+      const walkSeconds=venue?(distance(player,mount)*metersPerUnit+
+        distance(target,venuePoint(venue,0,1.45))*metersPerUnit)/1.39:0;
       const flash=state.time>=23||state.time<6;
       // A24 peak queues can also delay release after the green (one headway per signal).
-      return plan.seconds+density*(2+(flash?0:plan.reserve+Math.min(plan.signalCount,12)*1.2));
+      return plan.seconds+walkSeconds+density*(2+(flash?0:plan.reserve+Math.min(plan.signalCount,12)*1.2));
     },
     nearestRoadTeleport() {
       let best=null;
@@ -2299,9 +2486,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     teleportTo(id) {
       const location=byId.get(id);
       if(!location)return;
-      // A23 night: step onto the pedestrian entrance facing the shopfront or station. Keep the driving waypoint on its OSM road.
-      if(id==='department'||id==='mrt'){
-        relocate(entrances.get(id)??location,location.viewHeading+(id==='department'?.87:.70));
+      if(venues.has(id)){ // A27 explicit location teleports arrive in the accessible lobby
+        relocate(venuePoint(venues.get(id),0,1.4),location.viewHeading+Math.PI);
       }else relocate(location,facing(id));
     },
     setTimeOfDay(hours) {
@@ -2362,13 +2548,15 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           const d=depth+(slot?random(slot+41)*2.8:0);
           const x=loc.x+(Math.cos(a)*d+Math.sin(a)*side)/metersPerUnit;
           const y=loc.y+(Math.sin(a)*d-Math.cos(a)*side)/metersPerUnit;
-          if(!inBuilding(x,y)&&!roadAt(x,y,-.34/metersPerUnit)&&
+          if(!atVenueMouth(venues.get(loc.id),{x,y},15)&&!entranceObstacles.hit(x,y,radius.foot)&& // A27 keep the lobby and nearby fixtures clear
+            !inBuilding(x,y)&&!roadAt(x,y,-.34/metersPerUnit)&&
             !streetCrowds.some(p=>distance(p,{x,y})<.9/metersPerUnit))return {...n,x,y,heading:a+Math.PI+slot*.93};
         }
         for(let radius=1;radius<=24;radius++)for(let step=0;step<16;step++){
           const angle=a+step*Math.PI/8;
           const x=loc.x+Math.cos(angle)*radius/metersPerUnit,y=loc.y+Math.sin(angle)*radius/metersPerUnit;
-          if(!inBuilding(x,y)&&!roadAt(x,y,-.34/metersPerUnit)&&
+          if(!atVenueMouth(venues.get(loc.id),{x,y},15)&&!entranceObstacles.hit(x,y,radius.foot)&& // A27 fallback placement shares doorway clearance
+            !inBuilding(x,y)&&!roadAt(x,y,-.34/metersPerUnit)&&
             !streetCrowds.some(p=>distance(p,{x,y})<.9/metersPerUnit))return {...n,x,y,heading:a+Math.PI+slot*.93};
         }
         return {...n,x:loc.x,y:loc.y};

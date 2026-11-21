@@ -55,6 +55,8 @@ function normalize(data) {
     roleId: data.roleId,
     meters,
     clock: data.clock,
+    carUnlocked: data.carUnlocked === true, // A26
+    carNoticePending: data.carNoticePending === true,
     doneMissionIds: strings(data.doneMissionIds),
     currentMissionId: data.currentMissionId,
     books: data.books.filter((year) => Number.isInteger(year)),

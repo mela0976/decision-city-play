@@ -24,11 +24,12 @@ export function placeTempleCourt(p,instance){
       round('#aa352a',side*u,1.70,5.45,.34,2.84);
     }
   }
+  // A27 keep the censer to one side of the entry aisle.
   // Offering table, bronze tripod censer and brick paper furnace.
   box('#79442d',0,.64,7.95,1.82,1.28,.64);
-  for(const u of [-.27,.27])round('#67583c',u,.24,3.35,.13,.47);
-  round('#685c42',0,.57,3.35,.75,.30);
-  round('#998154',0,.75,3.35,.91,.14);
+  for(const u of [-.27,.27])round('#67583c',u-2.1,.24,3.35,.13,.47);
+  round('#685c42',-2.1,.57,3.35,.75,.30);
+  round('#998154',-2.1,.75,3.35,.91,.14);
   box('#93634d',3.60,.78,2.70,1.08,1.56,1.04);
   box('#59443c',3.60,1.59,2.70,1.18,.13,1.14);
   // Banyan and the granite furniture below its crown.
@@ -124,8 +125,8 @@ export function addTemple(p,{instance,batch,sign,foliage}){
   block('#bb8550',0,1.54,8.06,.65,.35,.39);
   ellipsoid('#c79755',0,1.92,8.08,.29,.36,.29);
   for(const u of [-.61,.61])block('#e67e4b',u,1.49,7.75,.09,.39,.09);
-  for(const u of [-.18,-.04,.12])block('#b6633f',u,.98,3.35,.019,.37,.019);
-  for(const side of [-1,1])ellipsoid('#88764e',side*.47,.78,3.35,.16,.23,.14);
+  for(const u of [-.18,-.04,.12])block('#b6633f',u-2.1,.98,3.35,.019,.37,.019);
+  for(const side of [-1,1])ellipsoid('#88764e',-2.1+side*.47,.78,3.35,.16,.23,.14);
   block('#443a35',3.60,.74,2.165,.63,.58,.035);
   block('#d47d42',3.60,.52,2.139,.52,.095,.024);
   for(let row=0;row<10;row++){

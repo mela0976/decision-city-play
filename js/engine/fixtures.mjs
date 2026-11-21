@@ -28,7 +28,21 @@ export function fixtureColliders(){
   }});
   // A19 vegetation hook
   visitLandscapeTrees(({x,z,width})=>push(x,z,width/2,width/2,0,'tree'));
-  for(const p of locations)placeEntrance(p,{instance,sign:()=>{}});
+  const entrySolids=new Set(); // A27 keep the exposed end of a wall whose centre overlaps an OSM footprint
+  for(const p of locations)placeEntrance(p,{sign:()=>{},instance:(...args)=>{
+    const count=result.length;
+    instance(...args);
+    if(result.length>count){
+      const prop=result.at(-1);prop.top=args[4]+args[7]/2;
+      const [,shape,,x,,z,w,,d,turn=0]=args; // A27 keep rotated walls clear of the camera aisle
+      if(shape==='box'){
+        const c=Math.cos(turn),s=Math.sin(turn);
+        prop.footprint=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>
+          [x+a*w*c/2+b*d*s/2,z-a*w*s/2+b*d*c/2]);
+      }
+      entrySolids.add(prop);
+    }
+  }});
   visitWuxingArcades(()=>{},push); // A23 alleys: register the same posts and pots as the renderer.
   placeFloodDefenses(instance);
   placeArcadeColumns(instance); // A23 landmarks2
@@ -39,7 +53,7 @@ export function fixtureColliders(){
     else if(parcel.tree)result.push({x:parcel.x/unit,y:parcel.z/unit,r:.16/unit,width:.16/unit,
       top:parcel.height,heading:0,type:'tree'});
   }
-  cached=result.filter(prop=>!inBuilding(prop.x,prop.y));
+  cached=result.filter(prop=>entrySolids.has(prop)||!inBuilding(prop.x,prop.y));
   cached.push(...alleyParking(cached)); // A23 actors register the parked row before use.
   return cached;
 }

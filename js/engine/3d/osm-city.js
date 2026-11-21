@@ -17,12 +17,17 @@ import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} 
 import {metersPerUnit as unit} from '../world.mjs';
 const chunkSize=100;
 
+// P1 perf: tint strings parse once (same values Color.set produces); pushes without spreading.
+const tintCache=new Map();
 function meshBuffers(material) {
   const v=[],uv=[],rgb=[];
   function triangle(a,b,c,tint,ta=[0,0],tb=[0,1],tc=[1,0]) {
-    v.push(...a,...b,...c);uv.push(...ta,...tb,...tc);
-    color.set(tint);
-    for(let i=0;i<3;i++)rgb.push(color.r,color.g,color.b);
+    v.push(a[0],a[1],a[2],b[0],b[1],b[2],c[0],c[1],c[2]);uv.push(ta[0],ta[1],tb[0],tb[1],tc[0],tc[1]);
+    let cached=typeof tint==='string'?tintCache.get(tint):null;
+    if(cached){color.r=cached[0];color.g=cached[1];color.b=cached[2];}
+    else{color.set(tint);if(typeof tint==='string')tintCache.set(tint,[color.r,color.g,color.b]);}
+    const cr=color.r,cg=color.g,cb=color.b;
+    rgb.push(cr,cg,cb,cr,cg,cb,cr,cg,cb);
   }
   function quad(a,b,c,d,tint,u=1,w=1,uo=0,vo=0) {
     triangle(a,b,c,tint,[uo,vo],[uo+u,vo],[uo+u,vo+w]);

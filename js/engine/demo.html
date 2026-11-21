@@ -100,7 +100,8 @@ const names=['location:enter','location:leave','marker:reach','interact','crash'
 const handlers=new Map(names.map(name=>[name,payload=>{
   if(name==='context:change') cue=payload;
   const log=get('events');
-  const message=name==='interact'&&payload.entrance?`進入富幫 A25：${markers.find(mark=>mark.id===payload.id)?.label??'晨會'}\n`:'';
+  const place=locations.find(site=>site.id===payload.locationId); // A27
+  const message=name==='interact'&&payload.entrance?(place?.id==='office'?`進入富幫 A25：${markers.find(mark=>mark.id===payload.id)?.label??'晨會'}\n`:`${place?.name??cue.targetName}\n`):'';
   if(message)get('entranceResult').textContent=message.trim();
   log.textContent=(message+`${name} ${JSON.stringify(payload)}\n`+log.textContent).split('\n').slice(0,50).join('\n');
 }]));

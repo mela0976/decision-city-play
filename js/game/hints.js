@@ -11,6 +11,7 @@ const part = (keys, text) => ({ keys: [].concat(keys || []), text: text || '' })
 const curbNotes = { parked: T.curbParked, road: T.curbRoad, walk: T.curbWalk, // A24
   // A25 autoride refusals and the stuck-player rescue
   'auto-here': T.autoHere, 'auto-target': T.autoNoTarget, 'auto-route': T.autoNoRoute, 'auto-mount': T.autoNoMount,
+  carDrivingTouch: T.carDrivingTouch, carBoard: T.carBoard, carLocked: T.carLocked, carSpace: T.carSpace, carDriving: T.carDriving, // A26
   'auto-landing': T.autoLanding, rescued: T.rescued };
 export const curbHint = kind => curbNotes[kind] ?? T.curbRoad;
 const say = (text) => part([], text);
@@ -38,7 +39,7 @@ export function hintFor(state, mode) {
       if (state.remindAuto) return { task, parts: touch ? [say(HINT.tapAuto), say(`${HINT.stick} ${HINT.move}`)] : [part(KEY.auto, T.autoRide), part(KEY.arrows, HINT.move)] };
       const context = state.context;
       if (context?.action) {
-        const what = state.work ? state.work : context.action === 'talk' && context.targetName ? HINT.talkTo(context.targetName) : context.action === 'enter' ? (isPlaceDoor(context) ? HINT.enterPlace(context.targetName) : HINT.enterMission) : HINT.interact;
+        const what = context.action === 'drive' ? T.carTake : state.work ? state.work : context.action === 'talk' && context.targetName ? HINT.talkTo(context.targetName) : context.action === 'enter' ? (isPlaceDoor(context) ? HINT.enterPlace(context.targetName) : HINT.enterMission) : HINT.interact; // A26
         return { task, parts: [touch ? say(`${HINT.tapAction} ${what}`) : part(KEY.action, what)] };
       }
       // A22 featured vehicle hint
@@ -47,6 +48,10 @@ export function hintFor(state, mode) {
       const auto = part(KEY.auto, T.autoRide);
       const map = part(KEY.map, HINT.map);
       const tesla = part('T', HINT.flyCar);
+      if (state.carUnlocked) { // A26 preserve the normal action prompt by showing vehicle keys only when free.
+        const vehicle = part('C', state.driving ? T.carExit : T.carTake);
+        return { task, parts: [move, ...(state.canAuto ? [auto] : []), map, vehicle, ...(state.driving ? [part('V', T.carView)] : []), tesla] };
+      }
       return { task, parts: state.canAuto ? [move, auto, map, tesla] : [move, map, tesla] };
     }
     case 'card':

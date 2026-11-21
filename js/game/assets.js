@@ -2,6 +2,7 @@
 // 用到時由 .art 的色塊替代畫面頂著，流程不會停。
 
 import { h } from './dom.js';
+import { ENGINE_MODULES, ENGINE_DATA } from './engine-preload.js';
 
 function toneOf(key) {
   let sum = 0;
@@ -10,14 +11,14 @@ function toneOf(key) {
 }
 
 export async function loadAssets() {
-  let manifest = { images: {}, videos: {}, audio: {} };
+  let manifest = { images: {}, videos: {}, audio: {}, models: {} };
   let manifestOk = false;
   try {
     const response = await fetch('assets/manifest.json', { cache: 'no-cache' });
     if (response.ok) {
       const data = await response.json();
       if (data && typeof data === 'object') {
-        manifest = { images: data.images || {}, videos: data.videos || {}, audio: data.audio || {} };
+        manifest = { images: data.images || {}, videos: data.videos || {}, audio: data.audio || {}, models: data.models || {} };
         manifestOk = true;
       }
     }
@@ -101,5 +102,65 @@ export async function loadAssets() {
   /** 清單裡有沒有這張圖（只問，不記成缺檔）。 */
   const hasImage = (key) => !!key && !missing.has(`image:${key}`) && !!manifest.images[key]?.src;
 
-  return { manifestOk, missing, hasImage, imageSrc, video, art, loadImage, markMissing, toneOf, audio, setAudio };
+  // ── P1 perf：預先下載 ─────────────────────────────────
+  // 只把檔案抓進瀏覽器的 HTTP 快取（GitHub Pages 給 max-age=600），不解碼、不執行；
+  // 之後真正的載入器（<img>、import、three.js 的 loader）直接命中快取。省流量模式不預載。
+  const saveData = () => !!navigator.connection?.saveData;
+  const warm = (url, priority = 'low') => fetch(url, { priority }).then((r) => (r.ok ? r.arrayBuffer() : null)).catch(() => null);
+
+  /** 標題主視覺：高優先，比其他檔案先到。 */
+  const warmTitle = () => {
+    const src = imageSrc('title_key');
+    if (src) warm(src, 'high');
+  };
+
+  /**
+   * 城市：引擎程式用 modulepreload 下載（只下載與解析、不執行），地圖資料與 Draco 解碼器交給 worker 下載。
+   * 回傳的 afterTitle() 在標題畫好之後呼叫：再依序下載街景貼圖、模型、職能立繪與開場（序幕插畫、開場影片）——
+   * 城市建好之前網路是空著的，先抓好，選完職能就不用等。worker 讀回應，建城市的長任務不會讓下載停住。
+   */
+  let warming = null;
+  const warmEngine = () => {
+    if (warming) return warming;
+    const abs = (src) => new URL(src, document.baseURI).href;
+    if (saveData()) return (warming = { afterTitle: () => Promise.resolve() });
+    for (const src of ENGINE_MODULES) {
+      const link = document.createElement('link');
+      link.rel = 'modulepreload';
+      link.href = src;
+      document.head.append(link);
+    }
+    let worker = null;
+    const waiting = new Map();
+    try {
+      worker = new Worker(new URL('./prefetch-worker.js', import.meta.url));
+      worker.onmessage = ({ data }) => { waiting.get(data)?.(); waiting.delete(data); };
+      worker.onerror = () => { for (const done of waiting.values()) done(); waiting.clear(); };
+    } catch {
+      worker = null;
+    }
+    // 沒有 worker：主執行緒照順序下載
+    let chain = Promise.resolve();
+    const group = (priority, urls) => {
+      if (!worker) return (chain = chain.then(() => Promise.all(urls.map((u) => warm(u, priority)))));
+      const id = waiting.size + Math.random();
+      return new Promise((resolve) => { waiting.set(id, resolve); worker.postMessage({ id, priority, urls }); });
+    };
+    group('high', ENGINE_DATA.map(abs));
+    const images = Object.entries(manifest.images);
+    let rest = null;
+    warming = {
+      afterTitle: () => (rest ??= group('low', [
+        ...images.map(([, i]) => i?.src).filter((src) => src?.startsWith('assets/tex/')),
+        ...Object.values(manifest.models).map((m) => m?.src),
+        ...images.filter(([key]) => key.startsWith('role_')).map(([, i]) => i?.src),
+        manifest.images.loc_home?.src,
+        manifest.videos.intro?.poster,
+        manifest.videos.intro?.src,
+      ].filter(Boolean).map(abs)).then(() => worker?.terminate())),
+    };
+    return warming;
+  };
+
+  return { manifestOk, missing, hasImage, imageSrc, video, art, loadImage, markMissing, toneOf, audio, setAudio, warmTitle, warmEngine };
 }

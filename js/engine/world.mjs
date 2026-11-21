@@ -113,8 +113,8 @@ export function nearestOnRoad(x,y,r) {
   return {x:ax+dx*t,y:ay+dy*t,t,d:Math.hypot(x-ax-dx*t,y-ay-dy*t)};
 }
 export function roadDistance(x,y,r) {return nearestOnRoad(x,y,r).d;}
-export function roadAt(x,y,inset=0) {
-  return (roadCells.get(key(Math.floor(x/cellSize),Math.floor(y/cellSize)))??[]).some(r=>roadDistance(x,y,r)<=r[4]/2-inset);
+export function roadAt(x,y,inset=0,minWidth=0) { // A26 apply road width to car navigation.
+  return (roadCells.get(key(Math.floor(x/cellSize),Math.floor(y/cellSize)))??[]).some(r=>(!minWidth||r[4]>=minWidth&&r[5].way.kind!=='pedestrian'&&r[5].way.layer===0)&&roadDistance(x,y,r)<=r[4]/2-inset);
 }
 export function roadOptions(x,y,count=5,componentOnly=true) {
   const nearby=new Set();

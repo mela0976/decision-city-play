@@ -21,7 +21,7 @@ import { showPlaceCard } from './ui/place-card.js';
 import { playCutscene } from './ui/cutscene.js';
 import { showEnding } from './ui/ending.js';
 import { openProposal } from './ui/proposal.js';
-import { playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js';
+import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js'; // A26
 import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js';
 import { openManual } from './ui/manual.js';
 import { openElderCard } from './ui/elder-card.js';
@@ -65,6 +65,8 @@ function blankState() {
     meters: { brand: 0, sales: 0, trust: 0, liver: 0 },
     clock: START_CLOCK,
     doneMissionIds: [],
+    carUnlocked: false, // A26
+    carNoticePending: false,
     books: [],
     currentMissionId: null,
     quizSeen: { correct: [], asked: 0, right: 0 },
@@ -111,6 +113,7 @@ export class Game {
     sound.voice.setTextSource?.((text) => this.voiceText(text));
 
     this.state = this.loadState();
+    this.engine.setCarUnlocked?.(this.state.carUnlocked); // A26
     this.committed = clone(this.state);
 
     // 操作狀態：輸入方式（鍵盤或觸控）、動作鍵現在會做的事、自動前往。
@@ -167,6 +170,8 @@ export class Game {
       meters: saved.meters,
       clock: saved.clock,
       doneMissionIds,
+      carUnlocked: saved.carUnlocked || new Set(doneMissionIds).size >= 5, // A26
+      carNoticePending: saved.carNoticePending,
       currentMissionId: content.missionById.has(saved.currentMissionId) && !doneMissionIds.includes(saved.currentMissionId) ? saved.currentMissionId : null,
       books: saved.books.filter((year) => content.bookByYear.has(year)),
       quizSeen: saved.quizSeen,
@@ -189,6 +194,7 @@ export class Game {
 
   /** 把目前狀態定為「存檔點」並寫入。任務進行中不會呼叫，所以重新整理會回到任務開始前。 */
   commit() {
+    this.engine.setCarUnlocked?.(this.state.carUnlocked); // A26
     this.committed = clone(this.state);
     this.persist();
   }
@@ -377,6 +383,7 @@ export class Game {
       canAuto,
       auto: this.autoOn,
       context: this.context,
+      driving: this.engine.player.mode === 'car', carUnlocked: this.state.carUnlocked, // A26
       remindAuto: canAuto && !this.autoOn && performance.now() < (this.remindUntil || 0),
     });
     this.syncAutoRide();
@@ -583,6 +590,11 @@ export class Game {
       if (this.free) this.rideHint();
     });
     let curbTimer; // A24 briefly show parking and mounting feedback in the hint bar
+    this.carNote = text => { // A26 share the curb timer so a stale timeout cannot erase a newer hint.
+      clearTimeout(curbTimer);
+      this.hint.setNote(text);
+      curbTimer = setTimeout(() => this.hint.setNote(null), 5500);
+    };
     engine.on('curb:hint', ({kind}) => {
       clearTimeout(curbTimer);
       this.hint.setNote(curbHint(kind));
@@ -593,6 +605,7 @@ export class Game {
       if (this.free) this.rideHint();
       else this.syncAutoRide();
     });
+    engine.on('mode:change', () => { if (this.free && this.state.carUnlocked) this.rideHint(); }); // A26
     engine.on('input:mode', ({ mode }) => this.setInputMode(mode));
   }
 
@@ -982,8 +995,9 @@ export class Game {
     this.phase = 'mission';
     this.setFree(false);
     this.hud.setTask(mission.title, '');
+    let notifyCar; // A26
     try {
-      await this.afterMission(mission, this.flow.signal);
+      notifyCar = await this.afterMission(mission, this.flow.signal);
     } catch (err) {
       if (isAbort(err)) return;
       throw err;
@@ -991,10 +1005,17 @@ export class Game {
     this.phase = 'roam';
     this.nextObjective();
     this.flashHintOnce();
+    if (notifyCar) this.carNote(T.carAward); // A26
   }
 
   /** 過關畫面之後：過場（提案入手、真心話被打斷、搭檔與阿嬤的訊息），再播任務結尾的過場影片。 */
   async afterMission(mission, signal) {
+    const notifyCar = this.state.carNoticePending; // A26 resume a saved reward even after reloading the results screen.
+    if (notifyCar) {
+      await playLines(this, [{ who: 'data_kai', via: 'line', text: T.carMessage }], { sceneKey: mission.splash, signal });
+      this.state.carNoticePending = false;
+      this.commit();
+    }
     const interlude = await playInterlude(this, mission, signal);
     // 被午後雷陣雨打斷之後，到下一個任務開始前都在下雨。
     if (interlude?.kind === 'thunder') this.setRain(true);
@@ -1003,6 +1024,7 @@ export class Game {
     for (const step of mission.steps.filter((item, i, all) => item.type === 'cutscene' && all.slice(i).every((later) => later.type === 'cutscene'))) {
       await this.playVideo(step.video, signal);
     }
+    return notifyCar; // A26
   }
 
   /**
@@ -1263,6 +1285,8 @@ export class Game {
     const book = this.content.bookByYear.get(mission.year) || null;
     if (book && !this.state.books.includes(book.year)) this.state.books.push(book.year);
     this.state.doneMissionIds.push(mission.id);
+    const awardCar = !this.state.carUnlocked && this.state.doneMissionIds.length >= 5; // A26
+    if (awardCar) this.state.carUnlocked = this.state.carNoticePending = true;
     this.state.currentMissionId = null;
     this.refreshNpcs();
     this.state.clock = this.clockAfter(mission);
@@ -1274,10 +1298,11 @@ export class Game {
     this.setHint('clear');
     const hasInterlude = this.content.interludeByMission.has(mission.id);
     await showMissionClear({ layer, assets: this.assets, mission, place, before, after: { ...this.state.meters }, book: hasInterlude ? null : book, signal, sfx: this.sfx });
-    await this.afterMission(mission, signal);
+    const notifyCar = await this.afterMission(mission, signal); // A26
 
     this.phase = 'roam';
     this.nextObjective();
+    if (notifyCar) this.carNote(T.carAward); // A26
     const opened = this.content.side.missions.filter((side) => side.year === mission.year).length;
     if (opened && this.free) this.toast(T.sideOpened(mission.year, opened), { tone: 'good', ms: 4200 });
   }
@@ -1965,6 +1990,7 @@ export class Game {
         this.abortFlow();
         const earlier = this.content.missions.slice(0, this.content.missions.indexOf(target));
         this.state.doneMissionIds = earlier.map((m) => m.id);
+        this.state.carUnlocked ||= earlier.length >= 5; // A26
         this.state.currentMissionId = null;
         this.state.prologueSeen = true;
         this.state.morningDone = true;
@@ -1992,6 +2018,14 @@ export class Game {
         if (!this.state.grandma.unlocked) this.unlockGrandma({ quiet: true });
         else if (!this.state.grandma.on) this.setGrandma(true);
         await this.runEnding();
+      },
+      unlockCar: () => { // A26 preserve the current mission checkpoint.
+        ensureRun();
+        this.state.carUnlocked = true;
+        this.committed.carUnlocked = true;
+        this.engine.setCarUnlocked?.(true);
+        this.persist();
+        this.carNote(T.carAward);
       },
       toggleGrandma: () => this.unlockGrandma(),
       setBond: (value) => {

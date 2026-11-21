@@ -375,7 +375,10 @@ export function createActors(scene,glow,parkedScooters=[]) {
     const ground=(surfaceAt(avatarX/scale,avatarZ/scale)?.height??(roadAt(player.x,player.y)?.02:.065))+Math.abs(pitch)*.64; // A24
     const avatar=riding?(grandma?'grandma_scooter':'rider_scooter'):['creative','media','grandma'].includes(player.skin)?'walker_f':'walker_m';
     const tesla=player.vehicle==='flyingTesla',altitude=player.altitude??0;
-    if(tesla){
+    if(player.mode==='car'){ // A26 draw the same livery on the street and in flight.
+      if(!state.cockpit)featured.electric(x,z,player.heading,altitude,turn,clock,night,player.speed*scale,player.featuredStyle);
+      state.avatarModel=state.cockpit?'cockpit':'companyCar';
+    }else if(tesla){
       featured.electric(x,z,player.heading,altitude,turn,clock,night,player.speed*scale); // A22
       state.avatarModel='flyingTesla';
     }else{
@@ -391,7 +394,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
     const missingParked=state.impact?.missingParked;
     if(!photorealistic){drawParked(x,z,missingParked);drawRacks(x,z,missingParked);}
     decal(shadows,avatarX,avatarZ,player.heading,tesla?4.55:riding?2.35:.93,tesla?1.75:.8,tesla?.35:.47);
-    if (riding && night>.1) {
+    if ((riding||player.mode==='car') && night>.1) { // A26
       decal(headlights,x+Math.cos(player.heading)*4,z+Math.sin(player.heading)*4,player.heading,7.7,2.45,.49);
     }
     // A22 sky traffic follows surveyed lanes above the roofs.

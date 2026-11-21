@@ -1,6 +1,7 @@
 import * as T from '../vendor/three.module.min.js';
 import {canvasTexture,hash,shapes} from './city-primitives.js';
-import {byId,metersPerUnit as unit,toWorld} from '../world.mjs';
+import {venues,venuePoint} from '../venue-entrances.mjs'; // A27
+import {byId,metersPerUnit as unit} from '../world.mjs';
 import {signalState} from '../street-crossings.mjs'; // A24
 import {marketCarts,nightMarketOpen} from '../night-market.mjs';
 import {nightScenes,vendorCounters} from './night-scenes.js';
@@ -9,7 +10,7 @@ export const windowKinds=['old','oldB','oldC','new','towerB','towerC','office'];
 const shopKinds=[...'abcdefghijkl'].map(letter=>'shop'+letter).concat('mall');
 const windowTints=['#ffce95','#ffc097','#dce9ed','#efaa87','#ffe8c7'];
 const neutralLED='#ffdbb7'; // Approximate a 4000 K phosphor LED in sRGB.
-const shopDoor=toWorld(25.035926,121.567701);
+const shopDoor=venuePoint(venues.get('convenience')); // A27
 
 function radial(doc,stops){
   return canvasTexture(doc,64,64,(ctx,w,h)=>{

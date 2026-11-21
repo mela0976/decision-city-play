@@ -230,10 +230,10 @@ export function createFeaturedCars(scene,glow){
     for(const mesh of [car.body,car.lights,car.wrap])if(mesh&&mesh.count<mesh.instanceMatrix.count)
       mesh.setMatrixAt(mesh.count++,frame.matrix);
   }
-  function electric(x,z,heading,altitude,turn,clock,night,speed){
+  function electric(x,z,heading,altitude,turn,clock,night,speed,style=3){ // A26
     const lift=Math.min(1,altitude/.8),hover=.068*Math.sin(clock*3)*lift;
     pose(x,.06+altitude+hover,z,heading,-turn*.13);
-    shell(3);
+    shell(style); // A26
     if(altitude<.07)return;
     const jet=Math.min(1,altitude/1.3);
     for(const px of [-1.38,1.38])for(const pz of [-.88,.88]){

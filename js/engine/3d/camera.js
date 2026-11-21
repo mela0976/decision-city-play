@@ -1,8 +1,10 @@
+import {canopyBounds} from '../venue-entrances.mjs'; // A27
 import {headerBounds} from '../entry-courts.mjs'; // A23 night: elevated entrance fixtures share their rendered dimensions.
 import {buildings} from '../world.mjs';
 
 const topByShape={spire:160,twist:78,office:266,datalab:47,dome:15,construction:90,memorial:13,
   cityhall:20,studio:7,market:7,temple:11,park:4,mall:21,cinema:15,village:7,mrt:13};
+const overheadBounds=headerBounds.concat(canopyBounds); // A27
 export function cameraObstacles(x,z,unit,radius=39) {
   const bounds=[];
   for(const [index,b] of buildings.entries()) {
@@ -12,7 +14,7 @@ export function cameraObstacles(x,z,unit,radius=39) {
     const footprint=b.polygon?.map(p=>[p.x*unit,p.y*unit]);
     bounds.push({id:b.osmId,minX,minZ,maxX,maxZ,top,footprint});
   }
-  for(const b of headerBounds)if(b.minX<=x+radius&&b.maxX>=x-radius&&b.minZ<=z+radius&&b.maxZ>=z-radius)bounds.push(b);
+  for(const b of overheadBounds)if(b.minX<=x+radius&&b.maxX>=x-radius&&b.minZ<=z+radius&&b.maxZ>=z-radius)bounds.push(b);
   return bounds;
 }
 function solid(b,x,y,z,padding) {

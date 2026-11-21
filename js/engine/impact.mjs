@@ -68,7 +68,7 @@ export function createImpact({contact=worldContact,avoidContact=contact}={}){ //
       if(missingParked.has(parkedKey(body.x*unit,body.y*unit)))return null;
       target={...body,scooter:true,parked:true,original:body,color:'#788b91',speed:0};
     }
-    const result=transfer(source,target,vx*unit,vy*unit,specs.scooter.mass,{playerSpeed:speed});
+    const result=transfer(source,target,vx*unit,vy*unit,source.mode==='car'?specs.car.mass:specs.scooter.mass,{playerSpeed:speed}); // A26
     if(result&&target!==body){
       parked.set(body,target);
       missingParked.add(parkedKey(body.x*unit,body.y*unit));

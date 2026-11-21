@@ -97,7 +97,15 @@ async function loadEngine() {
 async function boot() {
   const store = createStore();
   progress.start('assets');
-  const [assets, engineInfo] = await Promise.all([loadAssets().then((a) => { progress.done('assets'); return a; }), loadEngine()]);
+  progress.start('content');
+  const assets = await loadAssets();
+  progress.done('assets');
+  // P1 perf：標題主視覺最先抓；引擎檔案在標題期間背景下載（不執行），標題畫好才建城市。
+  assets.warmTitle?.();
+  if (!opts.mock) {
+    progress.start('code');
+    assets.warmEngine?.();
+  }
   const prefs = store.readPrefs();
   // 聲音：第一次使用者操作之後才啟動，檔案用到才載，所以不會拖慢標題畫面。
   const sound = createSound({
@@ -105,11 +113,6 @@ async function boot() {
     prefs: { volumes: prefs.volumes, muted: prefs.muted ?? prefs.sound === false },
     onPrefs: (next) => store.writePrefs({ ...store.readPrefs(), ...next }),
   });
-  const { engine, kind } = engineInfo;
-  guard.setContext(() => ({ phase: els.stage.dataset.phase, engineKind: kind }));
-  engine.setPaused(true);
-  engine.setInputEnabled(false);
-  engine.start();
 
   let game = null;
   // 內容還沒載入成功時，動作鍵與提示列由這裡先頂著。
@@ -119,6 +122,17 @@ async function boot() {
     const primary = els.screen.querySelector('[data-primary]');
     if (primary && document.activeElement !== primary) primary.click();
   });
+  const inputMode = () => (matchMedia('(pointer: coarse)').matches ? 'touch' : 'keyboard');
+
+  // P1 perf：引擎只建一次；標題畫好（或最多等 2.5 秒）才開始執行引擎程式。
+  let engineInfo = null;
+  const engineReady = () => (engineInfo ??= loadEngine().then((info) => {
+    info.engine.setPaused(true);
+    info.engine.setInputEnabled(false);
+    info.engine.start();
+    guard.setContext(() => ({ phase: els.stage.dataset.phase, engineKind: info.kind }));
+    return info;
+  }));
 
   const startWith = async (useFixtures) => {
     let content;
@@ -129,7 +143,7 @@ async function boot() {
     } catch (err) {
       // PRD 第 10 節：內容載入失敗時留在標題畫面，顯示可重試的錯誤，不進入遊戲。
       els.stage.dataset.phase = 'title';
-      hint.set(hintFor({ kind: 'error' }, matchMedia('(pointer: coarse)').matches ? 'touch' : 'keyboard'));
+      hint.set(hintFor({ kind: 'error' }, inputMode()));
       const ui = showTitle({
         screen: els.screen,
         assets,
@@ -151,6 +165,15 @@ async function boot() {
       const { buildFixtureAudio } = await import('./game/dev/fixtures/audio.js');
       assets.setAudio(buildFixtureAudio(content, voiceKey));
     }
+
+    // P1 perf：先畫一張「開機標題」（和遊戲的標題同一個元件），城市在背景建；按了任何按鈕就等城市好了再接手。
+    // 假引擎（?mock=1）一下就好，不用開機標題，流程與以前相同。
+    const early = opts.mock ? null : earlyTitle({ content, store, assets, sound, hint, inputMode });
+    if (early) {
+      await early.painted;
+      assets.warmEngine?.().afterTitle();
+    }
+    const { engine, kind } = await engineReady();
     game = new Game({ content, assets, engine, engineKind: kind, store, sound, hint, els, opts });
     guard.setActions({
       unstuck: () => {
@@ -167,10 +190,75 @@ async function boot() {
       window.__DC_GAME__ = game;
     }
     progress.finish();
-    game.showTitle();
+    if (early) early.handOff(game);
+    else game.showTitle();
   };
 
   await startWith(opts.fixtures);
+}
+
+/**
+ * P1 perf：開機標題。引擎還沒好時先給玩家看標題；玩家按下的動作記著，引擎好了由遊戲照常處理。
+ * 引擎好了而玩家還沒按：遊戲重畫同一張標題（is-instant：不再淡入、霓虹不再閃一次）。
+ */
+function earlyTitle({ content, store, assets, sound, hint, inputMode }) {
+  const saved = store.read();
+  const roleId = saved?.roleId && content.roleById?.get(saved.roleId) ? saved.roleId : null;
+  const grandmaOn = !!content.grandma && !!saved?.grandma?.on;
+  let pending = null;
+  const want = (action) => () => {
+    if (pending) return;
+    pending = action;
+    // 城市還沒建好：回到載入畫面（百分比繼續走），好了直接進下一步
+    els.stage.dataset.phase = 'boot';
+  };
+  els.stage.dataset.phase = 'title';
+  els.stage.dataset.boot = 'early';
+  const ui = showTitle({
+    screen: els.screen,
+    assets,
+    canContinue: !!roleId,
+    continueNote: roleId ? `${content.roleById.get(roleId)?.title || ''}・${saved.clock || ''}` : '',
+    grandmaOn,
+    secretCode: content.grandma?.unlock?.titleCode,
+    badge: content.source === 'fixtures' ? T.fixturesBadge : '',
+    onStart: want('start'),
+    onContinue: want('continue'),
+    onProposal: want('proposal'),
+    onSecret: content.grandma ? want('secret') : null,
+  });
+  hint.set(hintFor({ kind: 'title', canContinue: !!roleId }, inputMode()));
+  sound.music.play(grandmaOn ? 'music_grandma' : 'music_title');
+  // 標題主視覺載完（或 2.5 秒）且畫上去之後才開始建城市
+  const art = els.screen.querySelector('.title-art');
+  const painted = new Promise((resolve) => {
+    const img = art?.querySelector('img');
+    const done = () => requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    if (!img || img.complete) { done(); return; }
+    img.addEventListener('load', done, { once: true });
+    img.addEventListener('error', done, { once: true });
+    setTimeout(done, 2500);
+  });
+  return {
+    painted,
+    handOff(game) {
+      const focused = document.activeElement?.id;
+      ui.destroy?.();
+      delete els.stage.dataset.boot;
+      game.showTitle();
+      const title = els.screen.querySelector('.title');
+      if (title && !pending) {
+        title.classList.add('is-instant');
+        const fresh = title.querySelector('.title-art');
+        if (fresh?.querySelector('img')?.complete) fresh.classList.add('has-img');
+        if (focused) document.getElementById(focused)?.focus({ preventScroll: true });
+      }
+      if (pending === 'start') game.startNew();
+      else if (pending === 'continue') game.continueRun();
+      else if (pending === 'proposal') game.openProposal();
+      else if (pending === 'secret') game.unlockGrandma();
+    },
+  };
 }
 
 boot().catch((err) => {

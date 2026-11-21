@@ -1,6 +1,7 @@
 import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs';
 import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js';
 import * as T from '../vendor/three.module.min.js';
+import {drawCockpit} from '../car-cockpit.js'; // A26
 import {createMapRenderer,drawTouch,surface} from '../overlay.js';
 import {placeLabel,landmarkLabel,playerLabel} from '../labels.mjs'; // i18n
 import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs';
@@ -109,7 +110,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     }
     frameWidth=w;frameHeight=h;
     const x=player.x*unit,z=player.y*unit;
-    const riding=player.mode==='scooter';
+    const driving=player.mode==='car',riding=driving||player.mode==='scooter'; // A26
     const viewSpeed=clamp(player.speed/scooterSpeed,0,1);
     const site=spots.get(player.locationId);
     const stopped=player.speed<3 && !riding;
@@ -178,7 +179,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const direction=detail==='peak'?(site?.viewHeading??heading)+Math.PI/2:detail==='skyline'?-1.98:arrival?site.viewHeading:heading;
     const fx=Math.cos(direction),fz=Math.sin(direction);
     const showcase=Boolean(arrival || landmark);
-    const chase=detail==='streetLife'?11:detail==='skyline'?16:landmark?12:detail==='rider'?3.3:detail==='person'?2.85:
+    const chase=driving?9.7:detail==='streetLife'?11:detail==='skyline'?16:landmark?12:detail==='rider'?3.3:detail==='person'?2.85: // A26
       showcase?(narrow?9.8:8.1):(narrow?7.4:5.65)+viewSpeed*.85;
     arm.set(x,riding?1.35:1.26,z);
     const bounds=cameraObstacles(x,z,unit,forceGoogle?56:39);
@@ -191,7 +192,8 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
         const width=object.width?object.width*unit:r,h=object.heading??0;
         const halfX=r*Math.abs(Math.cos(h))+width*Math.abs(Math.sin(h));
         const halfZ=r*Math.abs(Math.sin(h))+width*Math.abs(Math.cos(h));
-        bounds.push({minX:xx-halfX,maxX:xx+halfX,minZ:zz-halfZ,maxZ:zz+halfZ,top:object.top??(object.scooter?1.75:1.6)});
+        bounds.push({minX:xx-halfX,maxX:xx+halfX,minZ:zz-halfZ,maxZ:zz+halfZ,
+          footprint:object.footprint,top:object.top??(object.scooter?1.75:1.6)}); // A27 use the rotated wall outline
       }
     }
     if(scenicRoad){
@@ -297,7 +299,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       base.copy(desired);
     } else {
       const side=arrival?1.5:detail==='rider'?1.4:.43;
-      desired.set(x-fx*chase-fz*side,detail==='skyline'?10.2:detail==='streetLife'?4.1:showcase?3.1:narrow?2.79:2.66,z-fz*chase+fx*side);
+      desired.set(x-fx*chase-fz*side,driving?4.1:detail==='skyline'?10.2:detail==='streetLife'?4.1:showcase?3.1:narrow?2.79:2.66,z-fz*chase+fx*side); // A26
       let fraction=cameraFraction(bounds,arm,desired);
       if(!riding&&!showcase&&fraction<.72){
         for(const turn of [.38,-.38,.78,-.78,1.18,-1.18,1.57,-1.57]){
@@ -373,14 +375,22 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       const fx=-Math.sin(officeDoor.heading),fz=Math.cos(officeDoor.heading);
       const depth=(camera.position.x-threshold.x*unit)*fx+(camera.position.z-threshold.y*unit)*fz;
       if(depth>-.4){
-        camera.position.x-=(depth+.4)*fx;
-        camera.position.z-=(depth+.4)*fz;
+        offset.copy(camera.position);
+        offset.x-=(depth+.4)*fx;
+        offset.z-=(depth+.4)*fz;
+        const safe=cameraFraction(bounds,arm,offset); // A27 keep the outer-door clamp below the canopy
+        camera.position.copy(arm).lerp(offset,safe);
       }
     }
     if(!aerial&&player.vehicle==='flyingTesla'){
       const altitude=player.altitude??0;
       camera.position.y+=altitude;
       aim.y+=altitude+.55;
+    }
+    if(driving&&state.cockpit&&!aerial){ // A26 omit the outside shell and anchor the eye in the driver's seat.
+      const fx=Math.cos(player.heading),fz=Math.sin(player.heading);
+      camera.position.set(x+fx*.38+fz*.32,1.24,z+fz*.38-fx*.32);
+      aim.set(camera.position.x+fx*26,1.02,camera.position.z+fz*26);
     }
     camera.lookAt(aim);
     if(!showcase&&!core&&!aerial&&!officePortrait&&!evPortrait&&!walkerPortrait&&!queuePortrait&&!servicePortrait&&!xinyiPortrait)camera.rotateZ(-roll);
@@ -428,7 +438,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const portrait=scalePortrait??(scenicRoad?{x:scenicRoad.x*unit,z:scenicRoad.y*unit}:null)??(wuxingPortrait?wuxingView:walkwayPortrait?{x:civicWalkway.x*unit,z:civicWalkway.y*unit}:roadPortrait||deliveryPortrait?xinyiBusBay():servicePortrait);
     const portraitFocus=portrait&&{x:portrait.x/unit,y:portrait.z/unit};
     const focus=state.flyover?.location??walkerPortrait??portraitFocus??player;
-    city.updateOfficeDoor(state.officeDoorProgress);
+    city.updateOfficeDoor(state.officeDoorProgress,state.shopDoorProgress); // A27
     city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover),time);
     farCity?.update(focus.x*unit,focus.y*unit,has('night')?night:0,quality,Boolean(state.flyover),w<650); // A20 far-city
     state.inActorView=(body,padded=false)=>{
@@ -568,6 +578,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       ctx.fillStyle=`rgba(15,23,32,${state.flyover.retreat*.96})`;
       ctx.fillRect(0,0,w,h-(state.googleInset??0)-bottom);
     }
+    if(driving&&state.cockpit&&!aerial&&!capture)drawCockpit(ctx,w,h,player.speed*unit,state.carSteer??0); // A26
     if(!capture){drawTouch(ctx,w,h,state);map(state);}
     if(capture||snap||clock-statsClock>.5) {
       const {calls,triangles}=view.info.render;

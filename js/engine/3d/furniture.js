@@ -236,7 +236,8 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
       stall(args,7.4,3.25,'#577871');
       stall(args,10.0,3.35,'#927858');
     }
-    for(const s of [-3.8,-2.45,.2]) {
+    const tables=id==='convenience'?[-3.8,-2.45]:[-3.8,-2.45,.2]; // A27 leave the shop’s curb-to-door path clear
+    for(const s of tables) {
       box(id==='rechao'?'#a5a8a1':'#b09777',s,.76,2.4,.78,.065,.73);
       if(id==='rechao'){
         box('#ddd0b4',s-.13,.804,2.35,.19,.034,.19);

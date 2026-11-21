@@ -257,33 +257,33 @@
     },
     "tex_shopfront_a": {
       "src": "assets/tex/tex_shopfront_a.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_b": {
       "src": "assets/tex/tex_shopfront_b.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_c": {
       "src": "assets/tex/tex_shopfront_c.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_d": {
       "src": "assets/tex/tex_shopfront_d.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_e": {
       "src": "assets/tex/tex_shopfront_e.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_f": {
       "src": "assets/tex/tex_shopfront_f.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_facade_apartment_b": {
       "src": "assets/tex/tex_facade_apartment_b.webp",
@@ -312,13 +312,13 @@
     },
     "tex_facade_mall": {
       "src": "assets/tex/tex_facade_mall.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_temple_front": {
       "src": "assets/tex/tex_temple_front.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "avatar_player_m": {
       "src": "assets/img/avatar_player_m.webp",
@@ -402,23 +402,23 @@
     },
     "ad_5": {
       "src": "assets/tex/ad_5.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "ad_6": {
       "src": "assets/tex/ad_6.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "ad_7": {
       "src": "assets/tex/ad_7.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_g": {
       "src": "assets/tex/tex_shopfront_g.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "avatar_roommate_yu": {
       "src": "assets/img/avatar_roommate_yu.webp",
@@ -467,23 +467,23 @@
     },
     "ad_8": {
       "src": "assets/tex/ad_8.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_j": {
       "src": "assets/tex/tex_shopfront_j.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_h": {
       "src": "assets/tex/tex_shopfront_h.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_i": {
       "src": "assets/tex/tex_shopfront_i.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "loc_studio": {
       "src": "assets/img/loc_studio.webp",
@@ -512,13 +512,13 @@
     },
     "tex_shopfront_k": {
       "src": "assets/tex/tex_shopfront_k.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "tex_shopfront_l": {
       "src": "assets/tex/tex_shopfront_l.webp",
-      "w": 2048,
-      "h": 1024
+      "w": 1024,
+      "h": 512
     },
     "loc_riverside": {
       "src": "assets/img/loc_riverside.webp",
@@ -692,18 +692,18 @@
     },
     "sky_dusk": {
       "src": "assets/tex/sky_dusk.webp",
-      "w": 4096,
-      "h": 2048
+      "w": 2048,
+      "h": 1024
     },
     "sky_day": {
       "src": "assets/tex/sky_day.webp",
-      "w": 4096,
-      "h": 2048
+      "w": 2048,
+      "h": 1024
     },
     "sky_night": {
       "src": "assets/tex/sky_night.webp",
-      "w": 4096,
-      "h": 2048
+      "w": 2048,
+      "h": 1024
     },
     "loc_home": {
       "src": "assets/img/loc_home.webp",
@@ -769,21 +769,21 @@
   "models": {
     "rider_scooter": {
       "src": "assets/models/rider_scooter.glb",
-      "bytes": 601012,
+      "bytes": 410296,
       "triangles": 20457,
       "rigged": false,
       "animations": []
     },
     "grandma_scooter": {
       "src": "assets/models/grandma_scooter.glb",
-      "bytes": 766408,
+      "bytes": 519276,
       "triangles": 19990,
       "rigged": false,
       "animations": []
     },
     "walker_m": {
       "src": "assets/models/walker_m.glb",
-      "bytes": 555732,
+      "bytes": 401408,
       "triangles": 15535,
       "rigged": true,
       "animations": [
@@ -792,7 +792,7 @@
     },
     "walker_f": {
       "src": "assets/models/walker_f.glb",
-      "bytes": 562456,
+      "bytes": 404340,
       "triangles": 15447,
       "rigged": true,
       "animations": [
@@ -801,28 +801,28 @@
     },
     "car_ev": {
       "src": "assets/models/car_ev.glb",
-      "bytes": 464944,
+      "bytes": 274280,
       "triangles": 20008,
       "rigged": false,
       "animations": []
     },
     "scooter_parked": {
       "src": "assets/models/scooter_parked.glb",
-      "bytes": 598200,
+      "bytes": 337244,
       "triangles": 20288,
       "rigged": false,
       "animations": []
     },
     "garbage_truck": {
       "src": "assets/models/garbage_truck.glb",
-      "bytes": 2046324,
+      "bytes": 413984,
       "triangles": 19759,
       "rigged": false,
       "animations": []
     },
     "bus": {
       "src": "assets/models/bus.glb",
-      "bytes": 704876,
+      "bytes": 376556,
       "triangles": 19251,
       "rigged": false,
       "animations": []

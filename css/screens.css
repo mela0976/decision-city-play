@@ -110,6 +110,15 @@
   }
 }
 
+/* P1 perf：開機時先畫的標題換成遊戲接手的同一張，不再淡入、霓虹不再亮一次 */
+.title.is-instant .sign {
+  animation: none;
+}
+
+.title.is-instant .art img {
+  transition: none;
+}
+
 @keyframes neon-on {
   0% {
     opacity: 0.12;

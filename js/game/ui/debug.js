@@ -50,6 +50,7 @@ export function mountDebug({ game, content }) {
         ),
         content.grandma?.ending ? h('button', { type: 'button', id: 'debug-ending-grandma', text: T.debugGrandmaEnding, onClick: () => game.debug.showGrandmaEnding().then(sync) }) : null,
       ),
+      h('div', { class: 'debug-row' }, h('button', { type: 'button', id: 'debug-car', text: T.debugCar, onClick: () => game.debug.unlockCar() })), // A26
       h('div', { class: 'debug-row' }, h('button', { type: 'button', id: 'debug-grandma', text: T.debugGrandma, onClick: () => game.debug.toggleGrandma() })),
       h(
         'div',

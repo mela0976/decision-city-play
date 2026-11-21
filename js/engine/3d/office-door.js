@@ -1,8 +1,10 @@
 import * as T from '../vendor/three.module.min.js';
+import {venuePoint} from '../venue-entrances.mjs'; // A27
 import {officeDoor,officeLeaf} from '../office-entrance.mjs';
 import {metersPerUnit as unit} from '../world.mjs';
 
-export function createOfficeDoor(parent){
+export function createOfficeDoor(parent,venue=null){ // A27 share the sliding glass hardware
+  const halfLeaf=venue?venue.opening/4:officeDoor.halfLeaf;
   const box=new T.BoxGeometry(1,1,1);
   const metal=new T.MeshStandardMaterial({color:'#687a79',metalness:.58,roughness:.28});
   const glass=new T.MeshStandardMaterial({color:'#b5d9dc',metalness:.28,roughness:.11,
@@ -11,8 +13,8 @@ export function createOfficeDoor(parent){
   const leaves=[],transform=new T.Object3D();
   for(const side of [-1,1]){
     const leaf=new T.Group();
-    leaf.rotation.y=-officeDoor.heading;
-    const panel=2*officeDoor.halfLeaf;
+    leaf.rotation.y=venue?Math.PI/2-venue.site.viewHeading:-officeDoor.heading;
+    const panel=2*halfLeaf;
     const parts=new Map();
     function part(material,x,y,w,h,d){
       if(!parts.has(material))parts.set(material,[]);
@@ -41,7 +43,7 @@ export function createOfficeDoor(parent){
   }
   return progress=>{
     for(const {side,leaf} of leaves){
-      const {x,y}=officeLeaf(side,progress);
+      const {x,y}=venue?venuePoint(venue,side*(halfLeaf+(2*halfLeaf+.08)*progress)):officeLeaf(side,progress); // A27
       leaf.position.set(x*unit,0,y*unit);
     }
   };

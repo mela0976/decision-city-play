@@ -1,4 +1,5 @@
 import {createMapRenderer,drawTouch} from '../overlay.js';
+import {createWindshield} from './windshield.js'; // A26
 import {placeLabel} from '../labels.mjs'; // i18n
 import { buildings, byId, columns, height, locations, random, river, roads, rows, water, width } from '../world.mjs';
 
@@ -305,6 +306,7 @@ function surface(canvas,ctx) {
 export function createRenderer(canvas,minimapCanvas) {
   const ctx=canvas.getContext('2d',{alpha:false});
   const drawMap=createMapRenderer(minimapCanvas);
+  const drawWindshield=createWindshield(); // A26
   const tiles=new Map();
   function tile(tx,ty) {
     const key=`${tx},${ty}`;
@@ -323,6 +325,14 @@ export function createRenderer(canvas,minimapCanvas) {
     if (!size) return;
     const {w,h}=size;
     const {player,time,clock}=state;
+    if(player.mode==='car'&&state.cockpit&&!state.flyover&&!state.largeMap){ // A26
+      drawWindshield(ctx,w,h,state);
+      drawTouch(ctx,w,h,state);
+      drawMap(state);
+      ctx.textAlign='left';
+      text(ctx,'© OpenStreetMap contributors',14,h-(state.insets?.[2]??0)-14,11,'#fff',500);
+      return;
+    }
     const target=state.flyover?.location??player;
     const aerial=state.flyover||state.largeMap;
     const blend=aerial?1-(state.flyover?.retreat??0):0;
@@ -370,11 +380,11 @@ export function createRenderer(canvas,minimapCanvas) {
       bodies.push({y:npc.y,draw:()=>person(ctx,npc.x,npc.y,0,npc.skin,'foot',0)});
     }
     const stance=player.mode==='foot'&&player.speed<.5?state.standingPoint??player:player;
-    if(player.vehicle==='flyingTesla'){
+    if(player.vehicle==='flyingTesla'||player.mode==='car'){ // A26
       const lift=(player.altitude??0)*4.3;
       bodies.push({y:player.y,draw:()=>{
         if(lift>0)dot(ctx,player.x,player.y,11,'#16233364');
-        vehicle(ctx,{x:player.x,y:player.y-lift,heading:player.heading,color:'#bed6dd'},night);
+        vehicle(ctx,{x:player.x,y:player.y-lift,heading:player.heading,featuredStyle:player.featuredStyle,color:player.color??'#bed6dd'},night);
       }});
     }else bodies.push({y:stance.y,draw:()=>person(ctx,stance.x,stance.y,player.heading,player.skin,player.mode,clock*player.speed*.29)});
     bodies.sort((a,b)=>a.y-b.y);
