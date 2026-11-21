@@ -1,9 +1,9 @@
-import {canvasTexture} from './city-primitives.js?v=83fdd04';
-export {canvasTexture} from './city-primitives.js?v=83fdd04';
-import * as T from '../vendor/three.module.min.js?v=83fdd04';
-import {trafficGreen} from '../navigation.js?v=83fdd04';
-import {buildLandmark} from './xinyi.js?v=83fdd04';
-import {buildings,civicWalkway,columns,columnNames,height,random,river,roads,rows,rowNames,width} from '../world.mjs?v=83fdd04';
+import {canvasTexture} from './city-primitives.js?v=c0252f8';
+export {canvasTexture} from './city-primitives.js?v=c0252f8';
+import * as T from '../vendor/three.module.min.js?v=c0252f8';
+import {trafficGreen} from '../navigation.js?v=c0252f8';
+import {buildLandmark} from './xinyi.js?v=c0252f8';
+import {buildings,civicWalkway,columns,columnNames,height,random,river,roads,rows,rowNames,width} from '../world.mjs?v=c0252f8';
 
 export const unit=.105;
 const chunkSize=69;

@@ -52,9 +52,12 @@ function nodeFor(p) {
   roadNodes.push({...toWorld(...p),index,out:[],around:[]});
   return index;
 }
+// 光復南路：實際是每個方向 3 車道的單向大道，但資料裡 16 段沒標車道數，會套用「次要道路」預設 12 公尺，
+// 同一條路時而 9.3 公尺、時而 12 公尺。缺車道數的路段改用同一條路最常見的車道數（3）。
+const FILL_LANES=new Map([['光復南路',3]]);
 for(const [id,name,kind,oneway,layer,points,widthTag,lanes] of osm.roads) {
   if(parseFloat(layer)<0||kind==='trunk') continue;
-  const declared=parseFloat(widthTag),laneCount=parseInt(lanes,10);
+  const declared=parseFloat(widthTag),laneCount=parseInt(lanes,10)>0?parseInt(lanes,10):(FILL_LANES.get(name)??NaN);
   const widthMeters=(declared>2&&declared<45?declared:laneCount>0&&laneCount<10?Math.max(3.4,laneCount*3.1):widths[kind]??5);
   const way={id,name,kind,oneway,layer:parseFloat(layer)||0,points:points.map(pt=>toWorld(...pt))};
   ways.push(way);
