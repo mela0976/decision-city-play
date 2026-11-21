@@ -1,12 +1,13 @@
-import * as T from '../vendor/three.module.min.js?v=4c63fb3';
-import {roads,roadNodes,roadAt,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=4c63fb3';
-import {crossingForNode} from '../street-crossings.mjs?v=4c63fb3';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=4c63fb3';
-import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=4c63fb3';
-import {paintJunctions} from './junction-markings.js?v=4c63fb3'; // A24
+import * as T from '../vendor/three.module.min.js?v=83fdd04';
+import {roads,roadNodes,roadAt,roadOptions,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=83fdd04';
+import {crossingForNode} from '../street-crossings.mjs?v=83fdd04';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=83fdd04';
+import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=83fdd04';
+import {paintJunctions} from './junction-markings.js?v=83fdd04'; // A24
 
-import {drawSidewalks} from './sidewalks.js?v=4c63fb3'; // A24
+import {drawSidewalks} from './sidewalks.js?v=83fdd04'; // A24
 const {plane}=shapes;
+const BUS_ROADS=new Set(['忠孝東路四段','忠孝東路五段','仁愛路四段','信義路四段','信義路五段','南京東路五段']);
 export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sidewalks=drawSidewalks}) { // P2 perf：osm-city 可改成先保留位置、稍後才畫人行道
   const roadMarkMaterials=new Map(),symbols=new Map(); // A24
   const strip=(a,b,span,y,kind,off=0,tint='#fff',uvScale=3,minLength=.1)=>{
@@ -37,7 +38,7 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
     const mark=new T.Mesh(plane,roadMarkMaterials.get(arrows));
     mark.position.set(x,.078,z);mark.rotation.set(-Math.PI/2,0,-heading-Math.PI/2,'YXZ');
     mark.scale.set(arrows==='scooter'?1.4:2.25,arrows==='↑'?2.0:1.30,1);
-    if(arrows==='scooter'||arrows==='慢'){
+    if(arrows==='scooter'||arrows==='慢'||arrows==='公車專用'){ // 公車專用也批次畫，大道上上百個不要各佔一次繪製
       if(!symbols.has(arrows))symbols.set(arrows,[]);
       mark.updateMatrix();symbols.get(arrows).push(mark.matrix);return;
     }
@@ -169,6 +170,23 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
           for(const offset of [-.125,.125])paint(lineFrom,lineTo,.10,.035,'line',offset,'#d4ae53');
         }else for(let t=lineFrom+.4;t<lineTo-.2;t+=8){
           paint(t,Math.min(lineTo,t+3.8),.10,.036,'line',0,'#d6b96e');
+        }
+      }
+      // 公車專用道：台北這幾條大道在分隔島那一側的內車道是公車專用道（黃實線＋「公車專用」）。
+      // 只畫在已經分成兩條單向車道、至少三線的路段；分隔島在哪一側，看哪一側有同名的另一條車道。
+      if(BUS_ROADS.has(way.name)&&forward!==reverse&&span>=9&&lineTo-lineFrom>20){
+        const mid=at(length/2/unit),nx=-(by-ay)/d,ny=(bx-ax)/d;
+        const sameNameAt=side=>roadOptions(mid[0]+nx*side*(span/2+5)/unit,mid[1]+ny*side*(span/2+5)/unit,6)
+          .some(o=>o.r[5].way.name===way.name&&o.r[5].way.id!==way.id&&o.d*unit<4);
+        const median=sameNameAt(1)?1:sameNameAt(-1)?-1:0;
+        if(median){
+          const laneW=span/laneCount,inner=median*(span/2-laneW);
+          paint(lineFrom+1,lineTo-1,.15,.046,'line',inner,'#d9b442');
+          const travel=forward?Math.atan2(by-ay,bx-ax):Math.atan2(ay-by,ax-bx);
+          for(let t=lineFrom+18;t<lineTo-12;t+=60){
+            const q=at(t/unit),off=median*(span/2-laneW/2)/unit;
+            addRoadMark('公車專用',(q[0]+nx*off)*unit,(q[1]+ny*off)*unit,travel);
+          }
         }
       }
       if((arterial||way.name==='菸廠路')&&laneCount>1){

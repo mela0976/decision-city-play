@@ -1,7 +1,7 @@
 import {
   civicWalkway, locations, metersPerUnit as unit, random, roadAt, roadOptions, roads, toWorld, worldContact,
-} from '../world.mjs?v=4c63fb3';
-import {crossingForNode} from '../street-crossings.mjs?v=4c63fb3';
+} from '../world.mjs?v=83fdd04';
+import {crossingForNode} from '../street-crossings.mjs?v=83fdd04';
 import landuse from '../data/xinyi-landuse.json' with {type:'json'};
 
 const tau=2*Math.PI;
@@ -105,13 +105,16 @@ const corridors=[
   {site:sites.datalab,names:['松智路','松仁路','松壽路','松廉路','信義路五段'],radius:205,margin:1.82},
   {site:toWorld(25.0333,121.5542),names:['信義路四段'],radius:480,margin:1.85},
   {site:sites.tvstation,names:['忠孝東路四段'],radius:140,margin:1.95},
+  // 信義區的林蔭大道整條都種：仁愛路、光復南路、信義路五段、忠孝東路五段、基隆路一段、南京東路五段、松仁路
+  {site:toWorld(25.0385,121.5650),names:['仁愛路四段','光復南路','信義路五段','忠孝東路五段','基隆路一段','南京東路五段','松仁路'],radius:2600,margin:1.85},
 ];
 const clearGround=(x,z,r)=>!roadAt(x,z,-r/unit)&&!worldContact(x,z,r/unit);
 const spacing=7.2;
 let landscapeTrees;
 let landscapeHedges;
+let landscapeMedians=[];
 
-function plantAvenues(addTree,addHedge){
+function plantAvenues(addTree,addHedge,addMedian=()=>{}){
   const distanceByWay=new Map();
   for(const [ax,az,bx,bz,width,edge] of roads){
     if(edge.way.layer!==0)continue;
@@ -157,7 +160,18 @@ function plantAvenues(addTree,addHedge){
       const gap=opposite.d*unit-(width+opposite.r[4])*unit/2;
       if(gap<1.35)continue;
       const fraction=(width*unit/2+gap/2)/(opposite.d*unit);
-      addHedge(x+(opposite.x*unit-x)*fraction,z+(opposite.y*unit-z)*fraction,span,heading,true);
+      const mx=x+(opposite.x*unit-x)*fraction,mz=z+(opposite.y*unit-z)*fraction;
+      // 中間還夾著別條車道（例如仁愛路四條平行車道時抓到更遠那條）就不是分隔島：整個寬度都不能壓到路面
+      const nx=(opposite.x*unit-x)/(opposite.d*unit),nz=(opposite.y*unit-z)/(opposite.d*unit);
+      const islandClear=[-.42,-.25,0,.25,.42].every(f=>!roadAt((mx+nx*gap*f)/unit,(mz+nz*gap*f)/unit,-.2/unit));
+      if(!islandClear)continue;
+      // 分隔島鋪草地；夠寬（3 公尺以上）就在中間種一排大樹，像真的林蔭大道
+      if(gap>=2.2)addMedian(mx,mz,span,heading,gap);
+      if(gap>=3){
+        const seed=edge.way.id+Math.round((since+t)*5);
+        if(Math.round(t/5.4)%2===0)addTree(mx,mz,seed,edge.way.name==='仁愛路四段'?'camphor':random(seed+45)<.6?'camphor':'terminalia',.34,1.08,true);
+      }
+      addHedge(mx,mz,span,heading,true);
     }
   }
 }
@@ -208,7 +222,8 @@ export function visitLandscapeTrees(visit){
         }
       }
     }
-    plantAvenues(add,addHedge);
+    landscapeMedians=[];
+    plantAvenues(add,addHedge,(x,z,length,heading,gap)=>landscapeMedians.push({x,z,length,heading,gap}));
     // Choose mature trees inside mapped green space, away from the venue and water footprints.
     for(const [id,kind,name,coordinates] of landuse.features){
       if(kind!=='green'||!name)continue;
@@ -251,6 +266,10 @@ export function placeGroundVegetation(instance){
     drawTree(instance,x,z,seed,width,species,scale,avenue);
     if(avenue)instance('metal','box','#53524a',x,.085,z,.94,.029,.94);
   });
+  // 分隔島草地（綠籬與大樹底下那一條）
+  for(const {x,z,length,heading,gap} of landscapeMedians){
+    instance('grass','box','#6f8a5a',x,.075,z,length*1.02,.05,Math.max(.6,gap-.7),heading);
+  }
   for(const {x,z,length,heading,median} of landscapeHedges){
     instance('grass','vegetationCards',median?'#d8ebbf':'#e0edcc',x,.50,z,
       length*1.07,1.03,.95,heading,0,0,'hedge');

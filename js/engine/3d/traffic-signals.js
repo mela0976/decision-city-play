@@ -1,8 +1,8 @@
-import * as T from '../vendor/three.module.min.js?v=4c63fb3';
-import {canvasTexture,shapes} from './city-primitives.js?v=4c63fb3';
-import {crossings,signalState} from '../street-crossings.mjs?v=4c63fb3';
-import {carriagewayAt} from '../sidewalks.mjs?v=4c63fb3';
-import {metersPerUnit as unitM} from '../world.mjs?v=4c63fb3';
+import * as T from '../vendor/three.module.min.js?v=83fdd04';
+import {canvasTexture,shapes} from './city-primitives.js?v=83fdd04';
+import {crossings,signalState} from '../street-crossings.mjs?v=83fdd04';
+import {carriagewayAt} from '../sidewalks.mjs?v=83fdd04';
+import {metersPerUnit as unitM} from '../world.mjs?v=83fdd04';
 
 // 立在車道上的號誌杆不畫（和碰撞註冊同一個條件）：紅綠燈不站在路中央
 const poles=crossings.flatMap(j=>j.poles).filter(p=>!carriagewayAt(p.x/unitM,p.y/unitM));

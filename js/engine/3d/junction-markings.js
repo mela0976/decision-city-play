@@ -1,5 +1,5 @@
-import {crossings,crosswalks,alleyStops} from '../street-crossings.mjs?v=4c63fb3';
-import {metersPerUnit as unit} from '../world.mjs?v=4c63fb3';
+import {crossings,crosswalks,paintedCrosswalks,alleyStops} from '../street-crossings.mjs?v=83fdd04';
+import {metersPerUnit as unit} from '../world.mjs?v=83fdd04';
 
 export function paintJunctions(strip,mark){
   const ink='#f0eadc';
@@ -7,7 +7,7 @@ export function paintJunctions(strip,mark){
     const point=t=>[a.x+a.dx*t/unit,a.y+a.dy*t/unit];
     strip(point(start),point(end),width,.078,'line',offset,ink,3,.01);
   }
-  for(const w of crosswalks){
+  for(const w of [...crosswalks,...paintedCrosswalks]){
     const n=Math.max(2,Math.round(w.span/.81)),pitch=w.span/n;
     const a={...w,x:w.x/unit,y:w.y/unit};
     for(let i=0;i<n;i++)stripe(a,-w.depth/2,w.depth/2,pitch*.51,(i+.5-n/2)*pitch);

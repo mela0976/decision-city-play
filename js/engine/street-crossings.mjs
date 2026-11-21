@@ -1,6 +1,6 @@
 // A24. Coordinates use world units; crosswalk, stop and box distances are metres
 // from the OSM arm's anchor, including on divided carriageways.
-import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=4c63fb3';
+import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=83fdd04';
 import tagged from './data/xinyi-signals.json' with {type:'json'};
 
 const rank={primary:3,secondary:2,tertiary:1};
@@ -225,10 +225,13 @@ function curbSpan(x,y,dx,dy,half){
   return result;
 }
 export const crosswalks=[],skippedCrosswalks=[];
-for(const j of crossings)for(const a of j.approaches.filter(a=>a.reverse)){
+// 只畫在路面、不參與路緣斜坡與行人路網的斑馬線（駛出路口的單向車道補的那一條）
+export const paintedCrosswalks=[];
+// 在這條進出路口的車道上找一條兩側都有路緣的斑馬線位置（和其他斑馬線不重疊）；找到就記在 a.walk。
+function placeWalk(j,a,into=crosswalks){
   const span=a.width*unit,depth=1.8;
   const rect={dx:a.dx,dy:a.dy,span,depth,junctionId:j.id,roadId:a.way.id,from:a.from};
-  const local=crosswalks.filter(p=>Math.hypot(p.x-a.x*unit,p.y-a.y*unit)<55);
+  const local=[...crosswalks,...paintedCrosswalks].filter(p=>Math.hypot(p.x-a.x*unit,p.y-a.y*unit)<55);
   const preferred=a.crosswalk;
   const choices=Array.from({length:46},(_,i)=>3+i*.24).sort((x,y)=>Math.abs(x-preferred)-Math.abs(y-preferred));
   for(const start of choices){
@@ -248,8 +251,12 @@ for(const j of crossings)for(const a of j.approaches.filter(a=>a.reverse)){
       }
       continue;
     }
-    a.crosswalk=start;a.walk=rect;crosswalks.push(rect);break;
+    a.crosswalk=start;a.walk=rect;into.push(rect);break;
   }
+}
+for(const j of crossings)for(const a of j.approaches.filter(a=>a.reverse)){
+  const depth=1.8;
+  placeWalk(j,a);
   if(!a.walk)skippedCrosswalks.push({junctionId:j.id,roadId:a.way.id,from:a.from,to:a.to,reason:'no clear pair of curbs'});
   a.stop=a.crosswalk+depth+1.65;a.box=a.crosswalk+depth+.825;a.arrow=a.stop+3;
   if(j.twoStage){
@@ -291,4 +298,12 @@ export function gateAhead(p,ux,uy,reach,front=0){
         best={...g,distance:Math.max(0,d)};
       }
   return best;
+}
+
+// 有分隔島的雙向道在地圖資料裡是兩條單向道：斑馬線原本只畫在車子駛進路口的那一側，
+// 兩條車道就一東一西錯開。駛出路口的單向車道也補一條斑馬線（不畫停止線與待轉格），兩側車道對齊。
+for(const j of crossings)for(const a of j.approaches.filter(a=>a.forward&&!a.reverse)){
+  const keep={crosswalk:a.crosswalk,stop:a.stop,box:a.box,arrow:a.arrow,walk:a.walk};
+  placeWalk(j,a,paintedCrosswalks);
+  Object.assign(a,keep); // 這條車道的停止線、行人路網都維持原樣，只多畫一條斑馬線
 }
