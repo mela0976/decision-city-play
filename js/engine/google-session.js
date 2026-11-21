@@ -1,4 +1,4 @@
-import {GOOGLE_MAPS_API_KEY} from './config.js?v=eb4dc5b';
+import {GOOGLE_MAPS_API_KEY} from './config.js?v=c70e9ac';
 
 export const rootURL='https://tile.googleapis.com/v1/3dtiles/root.json';
 

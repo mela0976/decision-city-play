@@ -1,3 +1,3 @@
 // 由 tools/publish.sh 產生，請改原始專案的 js/game/version.js。
-export const VERSION = 'eb4dc5b';
-export const BUILT = '2026-11-21T06:59Z';
+export const VERSION = 'c70e9ac';
+export const BUILT = '2026-11-21T07:27Z';

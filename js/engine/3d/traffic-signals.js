@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=eb4dc5b';
-import {canvasTexture,shapes} from './city-primitives.js?v=eb4dc5b';
-import {crossings,signalState} from '../street-crossings.mjs?v=eb4dc5b';
+import * as T from '../vendor/three.module.min.js?v=c70e9ac';
+import {canvasTexture,shapes} from './city-primitives.js?v=c70e9ac';
+import {crossings,signalState} from '../street-crossings.mjs?v=c70e9ac';
 
 const poles=crossings.flatMap(j=>j.poles);
 export const signalReflections=poles.map(p=>({x:p.x-p.dy*2.7,z:p.y+p.dx*2.7,crossing:p})); // A24

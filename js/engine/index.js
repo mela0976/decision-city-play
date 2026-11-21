@@ -1,6 +1,6 @@
-import {createRenderer as create2D} from './2d/render.js?v=eb4dc5b';
-import {googleKey,probeGoogle} from './google-session.js?v=eb4dc5b';
-import {createSimulation} from './simulation.js?v=eb4dc5b';
+import {createRenderer as create2D} from './2d/render.js?v=c70e9ac';
+import {googleKey,probeGoogle} from './google-session.js?v=c70e9ac';
+import {createSimulation} from './simulation.js?v=c70e9ac';
 
 function layerFor(canvas) {
   const layer=canvas.ownerDocument.createElement('canvas');
@@ -36,7 +36,7 @@ export async function createEngine({canvas,minimapCanvas}) {
       canvas.removeAttribute('data-engine-stats');
     };
     try {
-      const {createRenderer}=await import('./3d/render.js?v=eb4dc5b');
+      const {createRenderer}=await import('./3d/render.js?v=c70e9ac');
       const context=canvas.getContext('webgl2',{alpha:false,antialias:false,powerPreference:'high-performance'});
       if (!context) throw Error('WebGL 2 unavailable');
       failureContext=true;
@@ -49,7 +49,7 @@ export async function createEngine({canvas,minimapCanvas}) {
         const probe=await probeGoogle(key);
         if(!probe.ok){canvas.dataset.engineReason=probe.reason;return null;}
         try{
-          const {createGoogleLayer}=await import('./3d/google.js?v=eb4dc5b');
+          const {createGoogleLayer}=await import('./3d/google.js?v=c70e9ac');
           return createGoogleLayer(...args,probe);
         }catch{
           canvas.dataset.engineReason='Google 圖磚載入器不可使用';

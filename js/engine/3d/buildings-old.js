@@ -1,10 +1,10 @@
-import * as T from '../vendor/three.module.min.js?v=eb4dc5b';
-import {inWuxing,metersPerUnit as unit} from '../world.mjs?v=eb4dc5b';
-import {visitWuxingArcades} from '../wuxing-arcades.mjs?v=eb4dc5b';
-import {neonDistrict} from '../neon-districts.mjs?v=eb4dc5b';
-import {urbanInfill} from '../infill.mjs?v=eb4dc5b';
-import {placeTree} from './vegetation.js?v=eb4dc5b';
-import {canvasTexture,hash} from './city-primitives.js?v=eb4dc5b';
+import * as T from '../vendor/three.module.min.js?v=c70e9ac';
+import {inWuxing,metersPerUnit as unit} from '../world.mjs?v=c70e9ac';
+import {visitWuxingArcades} from '../wuxing-arcades.mjs?v=c70e9ac';
+import {neonDistrict} from '../neon-districts.mjs?v=c70e9ac';
+import {urbanInfill} from '../infill.mjs?v=c70e9ac';
+import {placeTree} from './vegetation.js?v=c70e9ac';
+import {canvasTexture,hash} from './city-primitives.js?v=c70e9ac';
 
 const wallSwatches=['#dcb795','#decfaf','#c5c8c2','#bbc9b3','#cfab9c','#c2b5ae'];
 const apartmentMaterials=['old','oldB','oldC'];

@@ -1,7 +1,7 @@
-import * as T from '../vendor/three.module.min.js?v=eb4dc5b';
-import {venuePoint} from '../venue-entrances.mjs?v=eb4dc5b'; // A27
-import {officeDoor,officeLeaf} from '../office-entrance.mjs?v=eb4dc5b';
-import {metersPerUnit as unit} from '../world.mjs?v=eb4dc5b';
+import * as T from '../vendor/three.module.min.js?v=c70e9ac';
+import {venuePoint} from '../venue-entrances.mjs?v=c70e9ac'; // A27
+import {officeDoor,officeLeaf} from '../office-entrance.mjs?v=c70e9ac';
+import {metersPerUnit as unit} from '../world.mjs?v=c70e9ac';
 
 export function createOfficeDoor(parent,venue=null){ // A27 share the sliding glass hardware
   const halfLeaf=venue?venue.opening/4:officeDoor.halfLeaf;
