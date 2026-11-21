@@ -1,25 +1,33 @@
 // Street-side coordinates are metres. The frame of a panel uses Three's rotation about Y.
-import {buildings,buildingHeightAt,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from '../world.mjs?v=06b0d11';
-import {urbanInfill} from '../infill.mjs?v=06b0d11';
-import {mallPromenade,neonDistrict} from '../neon-districts.mjs?v=06b0d11';
-import {hash} from './city-primitives.js?v=06b0d11';
+import {buildings,buildingHeightAt,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from '../world.mjs?v=eb4dc5b';
+import {urbanInfill} from '../infill.mjs?v=eb4dc5b';
+import {mallPromenade,neonDistrict} from '../neon-districts.mjs?v=eb4dc5b';
+import {hash} from './city-primitives.js?v=eb4dc5b';
 
 const cell=24;
+// P2 perf：同樣的格子走訪順序（先 z 後 x、格內依加入順序），只是不再每格建立閉包與呼叫 some()。
 function grid(){
   const cells=new Map();
   const key=(i,j)=>i+j*65536;
-  function visit(x0,z0,x1,z1,fn){
-    for(let j=Math.floor(z0/cell);j<=Math.floor(z1/cell);j++)
-      for(let i=Math.floor(x0/cell);i<=Math.floor(x1/cell);i++)if(fn(key(i,j)))return true;
-    return false;
-  }
   return {
-    add(item,x0,z0,x1,z1){visit(x0,z0,x1,z1,k=>{
-      if(!cells.has(k))cells.set(k,[]);
-      cells.get(k).push(item);
-    });},
+    add(item,x0,z0,x1,z1){
+      for(let j=Math.floor(z0/cell);j<=Math.floor(z1/cell);j++)
+        for(let i=Math.floor(x0/cell);i<=Math.floor(x1/cell);i++){
+          const k=key(i,j);
+          let list=cells.get(k);
+          if(!list)cells.set(k,list=[]);
+          list.push(item);
+        }
+    },
     at(x,z){return cells.get(key(Math.floor(x/cell),Math.floor(z/cell)))??[];},
-    any(x,z,r,predicate){return visit(x-r,z-r,x+r,z+r,k=>cells.get(k)?.some(predicate));}
+    any(x,z,r,predicate){
+      for(let j=Math.floor((z-r)/cell);j<=Math.floor((z+r)/cell);j++)
+        for(let i=Math.floor((x-r)/cell);i<=Math.floor((x+r)/cell);i++){
+          const list=cells.get(key(i,j));
+          if(list)for(let n=0;n<list.length;n++)if(predicate(list[n]))return true;
+        }
+      return false;
+    }
   };
 }
 

@@ -1,6 +1,6 @@
 // A24. Coordinates use world units; crosswalk, stop and box distances are metres
 // from the OSM arm's anchor, including on divided carriageways.
-import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=06b0d11';
+import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=eb4dc5b';
 import tagged from './data/xinyi-signals.json' with {type:'json'};
 
 const rank={primary:3,secondary:2,tertiary:1};
@@ -27,11 +27,34 @@ const candidates=new Set(major),ids=new Map();
 const coordKey=p=>Math.round(p.x*100)+','+Math.round(p.y*100);
 const byCoordinate=new Map(roadNodes.map(n=>[coordKey(n),n]));
 export const skippedSignals=[];
+// P2 perf：「25 m 內最近的路口」與「25 m 內併成同一路口」原本逐一比對全部路口。改用 30 m 格子只取附近的候選，
+// 候選依原本的陣列順序（索引由小到大）檢查，所以找到的路口、並列時的取捨都和逐一比對相同。
+const nearCell=30/unit;
+function pointGrid(points){
+  const cells=new Map();
+  points.forEach((n,i)=>{
+    const key=Math.floor(n.x/nearCell)*65536+Math.floor(n.y/nearCell);
+    let list=cells.get(key);
+    if(!list)cells.set(key,list=[]);
+    list.push(i);
+  });
+  return cells;
+}
+function nearIndices(cells,p){
+  const out=[],ci=Math.floor(p.x/nearCell),cj=Math.floor(p.y/nearCell);
+  for(let i=ci-1;i<=ci+1;i++)for(let j=cj-1;j<=cj+1;j++){
+    const list=cells.get(i*65536+j);
+    if(list)for(const k of list)out.push(k);
+  }
+  return out.sort((a,b)=>a-b);
+}
+const nodeCells=pointGrid(nodes);
 for(const [id,lat,lon,ped] of tagged.nodes){
   const p=toWorld(lat,lon),exact=byCoordinate.get(coordKey(p));
   // OSM commonly places heads on the incoming way, before the graph junction.
   let nearest=null,best=25;
-  for(const n of nodes){
+  for(const index of nearIndices(nodeCells,p)){
+    const n=nodes[index];
     if(exact&&!arms[n.index].some(a=>arms[exact.index].some(b=>a.way.id===b.way.id)))continue;
     const d=dist(n,p);
     if(d<best){best=d;nearest=n;}
@@ -46,10 +69,11 @@ for(const [id,lat,lon,ped] of tagged.nodes){
 export const crossings=[],crossingForNode=new Map(),junctionById=new Map(),alleyStops=[];
 export const signalGroup=(j,dx,dy)=>Math.abs(j.dx*dx+j.dy*dy)>=Math.SQRT1_2;
 const pending=new Set([...candidates].sort((a,b)=>a-b));
+const roadNodeCells=pointGrid(roadNodes); // roadNodes[i].index===i，候選索引就是節點編號
 while(pending.size){
   const first=pending.values().next().value,members=[first];
   pending.delete(first);
-  for(const i of members)for(const k of pending)if(dist(roadNodes[i],roadNodes[k])<25){
+  for(const i of members)for(const k of nearIndices(roadNodeCells,roadNodes[i]))if(pending.has(k)&&dist(roadNodes[i],roadNodes[k])<25){
     members.push(k);pending.delete(k);
   }
   const inside=new Set(members);

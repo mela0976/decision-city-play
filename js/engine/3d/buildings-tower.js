@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=06b0d11';
-import {canvasTexture,hash} from './city-primitives.js?v=06b0d11';
-import {towerStructures} from '../tower-structures.mjs?v=06b0d11';
+import * as T from '../vendor/three.module.min.js?v=eb4dc5b';
+import {canvasTexture,hash} from './city-primitives.js?v=eb4dc5b';
+import {towerStructures} from '../tower-structures.mjs?v=eb4dc5b';
 
 const bays=32,floors=8,paneWidth=16,paneHeight=64;
 const width=bays*paneWidth,height=floors*paneHeight;

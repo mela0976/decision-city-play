@@ -1,12 +1,12 @@
-import {surfaceAt} from '../sidewalks.mjs?v=06b0d11'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=06b0d11'; // A22
-import {marketTruck} from '../night-market.mjs?v=06b0d11'; // A23 night
-import {parkedKey} from '../impact.mjs?v=06b0d11';
-import {streetCrowds} from '../crowds.mjs?v=06b0d11';
-import {createModelAssets} from './model-assets.js?v=06b0d11';
-import {fixtureColliders} from '../fixtures.mjs?v=06b0d11';
-import {byId,metersPerUnit,roadAt} from '../world.mjs?v=06b0d11';
-import * as T from '../vendor/three.module.min.js?v=06b0d11';
+import {surfaceAt} from '../sidewalks.mjs?v=eb4dc5b'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=eb4dc5b'; // A22
+import {marketTruck} from '../night-market.mjs?v=eb4dc5b'; // A23 night
+import {parkedKey} from '../impact.mjs?v=eb4dc5b';
+import {streetCrowds} from '../crowds.mjs?v=eb4dc5b';
+import {createModelAssets} from './model-assets.js?v=eb4dc5b';
+import {fixtureColliders} from '../fixtures.mjs?v=eb4dc5b';
+import {byId,metersPerUnit,roadAt} from '../world.mjs?v=eb4dc5b';
+import * as T from '../vendor/three.module.min.js?v=eb4dc5b';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -30,11 +30,22 @@ const outfits={ae:'#547981',planner:'#ba9262',media:'#6387ac',creative:'#a26072'
   grandma:'#8b5368',npc_grandma:'#a7656e',npc_client:'#7184a2',npc_boss:'#435264',npc_colleague:'#739780',
   npc_vendor:'#324b62',npc_student:'#296168',npc_elder:'#766953',npc_rider:'#c29b4d'};
 
-const part=(shape,color,x,y,z,w,h,d,roll=0)=>({shape,color,x,y,z,w,h,d,roll});
-const p=(...args)=>part('box',...args);
-const ball=(...args)=>part('round',...args);
+// P2 perf：每幀臨時拼出來的人形、單車、閃光等零件改從物件池拿，不再每幀配置上萬個小物件。
+// 只有在 scratch 打開的區段（畫完就丟的零件）才用池；快取起來的車款、機車等模型照舊建新物件。
+const partPool=[];let scratch=false,pooled=0;
+const part=(shape,color,x,y,z,w,h,d,roll=0)=>{
+  if(!scratch)return {shape,color,x,y,z,w,h,d,roll};
+  let e=partPool[pooled++];
+  // pitch／yaw 用 0（stamp 讀的是 d.pitch??0，結果相同），欄位一直是數字，重設時不必配置新的數值物件
+  if(!e){e={shape,color,x,y,z,w,h,d,roll,pitch:0,yaw:0};partPool.push(e);return e;}
+  e.shape=shape;e.color=color;e.x=x;e.y=y;e.z=z;e.w=w;e.h=h;e.d=d;e.roll=roll;e.pitch=0;e.yaw=0;
+  return e;
+};
+// P2 perf：明列參數，不用 ...args（每次呼叫都會配置一個陣列）
+const p=(color,x,y,z,w,h,d,roll)=>part('box',color,x,y,z,w,h,d,roll);
+const ball=(color,x,y,z,w,h,d,roll)=>part('round',color,x,y,z,w,h,d,roll);
 const tire=(x,y,z,size=.58)=>part('wheel','#252329',x,y,z,size,size,.16);
-const metal=(...args)=>p('#87908e',...args);
+const metal=(x,y,z,w,h,d,roll)=>p('#87908e',x,y,z,w,h,d,roll);
 function twoWheeler(grandma,paint,steer,electric=false) {
   if (grandma) {
     const chair=[];
@@ -71,6 +82,8 @@ function limb(color,a,b,w,d=w) {
   entry.pitch=Math.atan2(dz,Math.hypot(dx,dy));
   return entry;
 }
+const personBody=[],kneeAt=[0,0,0],ankleAt=[0,0,0],elbowAt=[0,0,0],handAt=[0,0,0],rootAt=[0,0,0];
+const v3=(out,x,y,z)=>{out[0]=x;out[1]=y;out[2]=z;return out;};
 function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=false) { // A22 photo pose
   const grandma=skin.includes('grandma');
   const [shirt,pants,accessory]=clothes??profile[skin]??[outfits[skin]??'#536573',grandma?'#4b4146':'#3e4147',
@@ -80,13 +93,16 @@ function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=
   const hip=riding?(grandma?-.45:-.34):0;
   const pelvis=riding?seat+.46:.86+(running?.045*Math.abs(Math.sin(phase)):0),shoulder=pelvis+.49;
   const headX=riding?hip+.17:0,headY=shoulder+.235;
-  const body=[
+  // P2 perf：臨時零件（scratch）時重用同一個陣列；limb 的端點陣列讀完就丟，也重用
+  const body=scratch?personBody:[];
+  body.length=0;
+  body.push(
     ball(pants,hip,pelvis,0,.30,.24,.285),
     ball(shirt,hip+.058,pelvis+.29,0,.265,.52,.365),
     ball(shirt,hip+.072,shoulder-.075,0,.255,.18,.43),
     ball('#d1ccb9',hip+.124,shoulder-.017,0,.146,.088,.158),
     ball(skinColor,headX,headY-.152,0,.12,.19,.12),
-  ];
+  );
   if(riding) {
     const shell=clothes?.[3]??(grandma?'#ba8c88':skin==='npc_rider'?'#cba666':'#d5d1c4');
     body.push(ball(shell,headX,headY+.022,0,.285,.279,.276),
@@ -97,19 +113,20 @@ function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=
     body.push(ball(skinColor,headX,headY,0,.216,.246,.192),ball(hair,headX-.036,headY+.071,0,.188,.156,.199),
       ball(skinColor,headX+.102,headY-.019,0,.053,.057,.068));
   }
-  for(const s of [-1,1]) {
-    const knee=[riding?hip+.51:s*swing*.8,riding?.58:.48+(running?Math.max(0,s*swing)*.35:0),s*.14];
-    const ankle=[riding?hip+.52:s*swing,riding?.34:.14,s*.13];
-    const elbow=photo?[.23,1.15,s*.21]:[riding?hip+.36:-s*swing*.64,shoulder-.205,s*.235];
-    const hand=photo?[.37,1.49,s*.08]:running?[.14-s*swing*.75,shoulder-.21,s*.22]:[riding?(grandma?.29:.46):-s*swing*.9,riding?(grandma?.96:1.00):pelvis-.01,s*.255];
-    body.push(limb(pants,[hip,pelvis,s*.105],knee,.15),limb(pants,knee,ankle,.113),
+  for(let side=0;side<2;side++) {
+    const s=side?1:-1;
+    const knee=v3(kneeAt,riding?hip+.51:s*swing*.8,riding?.58:.48+(running?Math.max(0,s*swing)*.35:0),s*.14);
+    const ankle=v3(ankleAt,riding?hip+.52:s*swing,riding?.34:.14,s*.13);
+    const elbow=photo?v3(elbowAt,.23,1.15,s*.21):v3(elbowAt,riding?hip+.36:-s*swing*.64,shoulder-.205,s*.235);
+    const hand=photo?v3(handAt,.37,1.49,s*.08):running?v3(handAt,.14-s*swing*.75,shoulder-.21,s*.22):v3(handAt,riding?(grandma?.29:.46):-s*swing*.9,riding?(grandma?.96:1.00):pelvis-.01,s*.255);
+    body.push(limb(pants,v3(rootAt,hip,pelvis,s*.105),knee,.15),limb(pants,knee,ankle,.113),
       ball('#332e31',ankle[0]+.064,ankle[1]-.085,s*.13,.231,.115,.121),
-      limb(shirt,[hip+.07,shoulder-.102,s*.178],elbow,.13),
-      limb(shirt,elbow,hand,.092),ball(skinColor,...hand,.083,.091,.086));
+      limb(shirt,v3(rootAt,hip+.07,shoulder-.102,s*.178),elbow,.13),
+      limb(shirt,elbow,hand,.092),ball(skinColor,hand[0],hand[1],hand[2],.083,.091,.086));
   }
   if(accessory==='backpack'||accessory==='satchel') {
     body.push(ball('#363940',hip-.13,pelvis+.29,accessory==='satchel'?.16:0,.215,.35,.28));
-    for(const s of [-1,1]) body.push(limb('#33333a',[hip+.173,shoulder,s*.137],[hip+.173,pelvis+.17,s*.137],.034));
+    for(let side=0;side<2;side++){const s=side?1:-1;body.push(limb('#33333a',v3(rootAt,hip+.173,shoulder,s*.137),v3(kneeAt,hip+.173,pelvis+.17,s*.137),.034));}
   }
   if(accessory==='briefcase'&&!riding)body.push(p('#584339',swing*.82,pelvis-.23,.28,.31,.25,.12));
   if(accessory==='scarf')body.push(ball('#e2b56b',hip+.09,shoulder+.058,0,.20,.083,.182));
@@ -247,6 +264,13 @@ function activeCycle(index,phase){
 }
 const umbrellas=helmets.map((tone,i)=>[part('canopy',tone,.10,1.81,.16,1.07,.50,1.07),
   p('#524e4c',.10,1.57,.16,.023,.54,.023),ball(i%2?'#d9ceba':'#b6adb0',.10,2.055,.16,.055,.047,.055)]);
+// P2 perf：stampPerson 用的暫存（畫完就丟的零件清單、衣著、一個零件的清單）
+const femaleSkins=['npc_student','npc_grandma','creative','media'],clothesAt=['','',''],farBody=[],onePart=[null];
+const one=entry=>{onePart[0]=entry;return onePart;};
+function nearSite(sites,px,pz,scale,limit){
+  for(let i=0;i<sites.length;i++)if(Math.hypot(px-sites[i].x*scale,pz-sites[i].y*scale)<limit)return true;
+  return false;
+}
 const dummy=new T.Object3D();
 const tintCache=new Map();
 const local=new T.Vector3();
@@ -357,6 +381,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
   function updateActors(state,scale,night,rain,turn,photorealistic,walkerPortrait=null,eye=null,previewBus=null,previewDelivery=null,scalePortrait=null,parkedOnly=false) {
     featured.begin(); // A22
     models.begin();
+    scratch=false;pooled=0; // P2 perf
     for (const mesh of Object.values(groups)) mesh.count=0;
     headlights.count=shadows.count=tails.count=0;
     const {player,clock}=state;
@@ -387,8 +412,10 @@ export function createActors(scene,glow,parkedScooters=[]) {
       });
       state.avatarModel=loadedAvatar?avatar:models.pending(avatar)?'loading':'procedural';
       if(!loadedAvatar&&(riding||!models.pending(avatar))){
+        scratch=true;
         if(riding)stamp(twoWheeler(grandma,outfits[player.skin],turn,player.skin==='data'),x,z,player.heading,lean);
         stamp(person(player.skin,clock*player.speed*.22,riding,grandma?.31:.51),avatarX,avatarZ,player.heading,lean,null,ground-.07);
+        scratch=false;
       }
     }
     const missingParked=state.impact?.missingParked;
@@ -426,19 +453,23 @@ export function createActors(scene,glow,parkedScooters=[]) {
         const loaded=asset&&distance<(asset==='car_ev'?20:42)&&
           models.draw(asset,px,pz,item.heading,{tint:asset==='car_ev'?tone:undefined,impact});
         if(!loaded)stamp(truckModels[item.service]??carModels.get(key),px,pz,item.heading,0,impact);
+        scratch=true;
         if(taxi)stamp([p('#ecd66b',-.08,1.57,0,.34,.12,.34),p('#fff2b2',.01,1.59,0,.041,.075,.26)],px,pz,item.heading,0,impact);
         if(!impact&&item.signal&&item.signalUntil>clock&&Math.floor(clock*5)%2===0){
           const front=item.service==='bus'?5.2:2.31;
           stamp([p('#ffaa39',front,.77,item.signal*.79,.053,.12,.19),p('#ffaa39',-front,.77,item.signal*.79,.053,.12,.19)],px,pz,item.heading,0);
         }
+        scratch=false;
       }
       if(distance<57) decal(shadows,px,pz,item.heading,item.scooter?2.3:4.4,item.scooter?.8:1.9,.46);
       if(impact?.settled&&distance<65){
+        scratch=true;
         for(let i=0;i<4;i++){
           const age=(clock*.9+i*.25)%1;
           const size=.18+age*.39;
           stamp([ball(i%2?'#687077':'#525960',age*.55,1.02+age*1.65,Math.sin(age*4+i)*.25,size,size,size)],px,pz,0,0);
         }
+        scratch=false;
       }
       if(!impact&&night>.1) {
         const length=item.scooter?(rain?6.2:5.2):(rain?10:8.5);
@@ -462,31 +493,36 @@ export function createActors(scene,glow,parkedScooters=[]) {
     function stampPerson(item,px,pz,facing,index,moving,ground){ // A24
       const skin=item.skin??'npc_vendor',standing=Boolean(item.standing),speed=item.movingSpeed;
       const style=sidewalkWardrobe[index%sidewalkWardrobe.length];
-      const atOffice=item.district==='client_hq'||officeDoors.some(site=>Math.hypot(px-site.x*scale,pz-site.y*scale)<95);
+      const atOffice=item.district==='client_hq'||nearSite(officeDoors,px,pz,scale,95);
       const evening=state.time>=17.5||state.time<6;
       const shirt=atOffice&&!evening?officeShirts[index%8]:item.zone==='market'||evening?casualShirts[index%8]:style[0];
-      const female=standing?index%2===0:['npc_student','npc_grandma','creative','media'].includes(skin);
+      const female=standing?index%2===0:femaleSkins.includes(skin);
       const elder=skin==='npc_elder'||skin==='npc_grandma';
       const stature=(elder?.94:1)*style[2],type=female?'walker_f':'walker_m';
-      const hatAllowed=elder&&(item.zone==='market'||elderHats.some(site=>Math.hypot(px-site.x*scale,pz-site.y*scale)<45));
-      if(hatAllowed)stamp([part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)],px,pz,facing,0,null,ground);
+      const hatAllowed=elder&&(item.zone==='market'||nearSite(elderHats,px,pz,scale,45));
+      if(hatAllowed)stamp(one(part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)),px,pz,facing,0,null,ground);
       if(Math.hypot(px-x,pz-z)>8||!models.draw(type,px,pz,facing,{dt,moving,speed,ground,tint:shirt,trousers:style[1],stature,idlePose:index%5,
         build:style[3],complexion:((index*11)%7-3)*.034})){
         const phase=moving?clock*7+index:index*.82;
         if(Math.hypot(px-x,pz-z)<28){
-          stamp(person(skin,phase,false,0,false,[shirt,style[1],index%4===0?'satchel':'']),px,pz,facing,0,null,ground);
+          clothesAt[0]=shirt;clothesAt[1]=style[1];clothesAt[2]=index%4===0?'satchel':'';
+          stamp(person(skin,phase,false,0,false,clothesAt),px,pz,facing,0,null,ground);
         }else{
           const stride=Math.sin(phase)*.16;
-          stamp([ball(shirt,0,1.18,0,.30,.61,.44),ball('#bc9178',.025,1.60,0,.21,.26,.21),
+          farBody.length=0;
+          farBody.push(ball(shirt,0,1.18,0,.30,.61,.44),ball('#bc9178',.025,1.60,0,.21,.26,.21),
             ball('#443c3a',-.008,1.69,0,.22,.16,.22),
-            limb(style[1],[0,.88,.11],[stride,.10,.12],.15),limb(style[1],[0,.88,-.11],[-stride,.10,-.12],.15),
-            limb(shirt,[0,1.37,.22],[-stride,.92,.23],.11),limb(shirt,[0,1.37,-.22],[stride,.92,-.23],.11)],px,pz,facing,0,null,ground);
+            limb(style[1],v3(rootAt,0,.88,.11),v3(kneeAt,stride,.10,.12),.15),limb(style[1],v3(rootAt,0,.88,-.11),v3(kneeAt,-stride,.10,-.12),.15),
+            limb(shirt,v3(rootAt,0,1.37,.22),v3(kneeAt,-stride,.92,.23),.11),limb(shirt,v3(rootAt,0,1.37,-.22),v3(kneeAt,stride,.92,-.23),.11));
+          stamp(farBody,px,pz,facing,0,null,ground);
         }
         return;
       }
       if(index%5===1||index%5===3){
-        stamp([ball('#433f49',-.16,1.16*stature,0,.21,.42,.30),
-          p('#5a5560',-.055,1.23*stature,.13,.17,.28,.027),p('#5a5560',-.055,1.23*stature,-.13,.17,.28,.027)],px,pz,facing,0,null,ground);
+        farBody.length=0;
+        farBody.push(ball('#433f49',-.16,1.16*stature,0,.21,.42,.30),
+          p('#5a5560',-.055,1.23*stature,.13,.17,.28,.027),p('#5a5560',-.055,1.23*stature,-.13,.17,.28,.027));
+        stamp(farBody,px,pz,facing,0,null,ground);
       }
     }
     if(!photorealistic)for(const id of ['home','night_market','client_hq']){
@@ -514,7 +550,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
       stamp(bus,previewBus.x,previewBus.z,previewBus.heading,0);
     const persons=[...state.npcs,...streetCrowds,...state.walkers];
     if(walkerPortrait)persons.unshift(walkerPortrait);
-    for (const [i,item] of persons.entries()) {
+    scratch=true; // 這個迴圈裡的零件都是畫完就丟
+    for (let i=0;i<persons.length;i++) {
+      const item=persons[i];
       const look=lookOf(item,i);
       if(i>0&&item===walkerPortrait)continue;
       if(item.hidden)continue;
@@ -541,6 +579,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
       if(rain&&item.role!=='cyclist'&&item.role!=='runner'&&look%4!==0)stamp(umbrellas[look%8],px,pz,facing,0,null,ground);
       decal(shadows,px,pz,0,.87,.67,.455);
     }
+    scratch=false;
     featured.finish(); // A22
     uploadInstances();
     shadows.instanceMatrix.needsUpdate=headlights.instanceMatrix.needsUpdate=true;

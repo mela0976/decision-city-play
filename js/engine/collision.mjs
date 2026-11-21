@@ -1,62 +1,72 @@
-import {metersPerUnit as unit} from './world.mjs?v=06b0d11';
+import {metersPerUnit as unit} from './world.mjs?v=eb4dc5b';
 
 const cell=48;
 export const radius={rider:1.03/unit,foot:.29/unit,scooter:1.02/unit,car:2.45/unit,truck:2.9/unit};
 export function colliderRadius(car){
   return car.parked?car.r:car.scooter?radius.scooter:car.service==='bus'?5.4/unit:car.service&&car.service!=='taxi'?radius.truck:radius.car;
 }
-function box(x,y,r,body){
+// P2 perf：box 直接寫進給定的物件（碰撞查詢每幀上千次，不再每次配置暫存物件）；數值與原本完全相同。
+function box(x,y,r,body,out={}){
   const angle=body?.mode==='foot'?0:body?.heading??0;
   const narrow=body?.mode==='scooter'||body?.scooter;
   const long=narrow||body?.scooter===false;
-  if(body?.width)return {x,y,a:r,b:body.width,u:Math.cos(angle),v:Math.sin(angle)};
-  return {x,y,a:r,b:long?Math.min(r,(narrow?.37:body.service==='bus'?1.25:body.service?1.02:.95)/unit):r,
-    u:Math.cos(angle),v:Math.sin(angle)};
+  out.x=x;out.y=y;out.a=r;
+  out.b=body?.width?body.width:long?Math.min(r,(narrow?.37:body.service==='bus'?1.25:body.service?1.02:.95)/unit):r;
+  out.u=Math.cos(angle);out.v=Math.sin(angle);
+  return out;
 }
-function overlap(a,b){
-  const dx=b.x-a.x,dy=b.y-a.y;
-  if(Math.hypot(dx,dy)>Math.hypot(a.a,a.b)+Math.hypot(b.a,b.b))return false;
+// P2 perf：外接圓半徑沿用 put/hit 已算好的值（同一個 Math.hypot 結果）；距離先用平方粗篩，
+// 明顯分開（留 1e-6 的相對餘量，遠大於 hypot 的捨入誤差）才跳過，邊界附近仍用 Math.hypot 判斷，結果不變。
+function overlap(a,b,aReach){
+  const dx=b.x-a.x,dy=b.y-a.y,limit=aReach+b.reach,d2=dx*dx+dy*dy;
+  if(d2>limit*limit*1.000001||Math.hypot(dx,dy)>limit)return false;
   const parallel=Math.abs(a.u*b.u+a.v*b.v),across=Math.abs(a.u*b.v-a.v*b.u);
   return Math.abs(dx*a.u+dy*a.v)<a.a+b.a*parallel+b.b*across-.03
     &&Math.abs(-dx*a.v+dy*a.u)<a.b+b.a*across+b.b*parallel-.03
     &&Math.abs(dx*b.u+dy*b.v)<b.a+a.a*parallel+a.b*across-.03
     &&Math.abs(-dx*b.v+dy*b.u)<b.b+a.a*across+a.b*parallel-.03;
 }
+const query={x:0,y:0,a:0,b:0,u:0,v:0};
 
 // Index oriented boxes by an enclosing radius, then test the four separating axes.
+// P2 perf：clear() 只清空這一輪用過的格子（Set 留著重用），插入順序與新建 Set 相同，所以 hit() 找到的仍是同一個物件。
 export function occupancy(){
   const cells=new Map();
-  function visit(x,y,r,fn){
-    for(let iy=Math.floor((y-r)/cell);iy<=Math.floor((y+r)/cell);iy++){
-      for(let ix=Math.floor((x-r)/cell);ix<=Math.floor((x+r)/cell);ix++){
-        if(fn(iy*65536+ix))return true;
-      }
-    }
-    return false;
-  }
+  let touched=[];
+  const lo=(v,r)=>Math.floor((v-r)/cell),hi=(v,r)=>Math.floor((v+r)/cell);
   return {
-    clear:()=>cells.clear(),
+    clear(){
+      for(let i=0;i<touched.length;i++)touched[i].clear();
+      touched.length=0;
+    },
     put(body,r,kind){
-      const item={body,kind,...box(body.x,body.y,r,body)};
+      const item={body,kind,x:0,y:0,a:0,b:0,u:0,v:0,reach:0};
+      box(body.x,body.y,r,body,item);
       item.reach=Math.hypot(item.a,item.b);
-      visit(item.x,item.y,item.reach,k=>{
+      const x=item.x,y=item.y,reach=item.reach;
+      for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++){
+        const k=iy*65536+ix;
         let row=cells.get(k);
         if(!row)cells.set(k,row=new Set());
+        if(!row.size)touched.push(row);
         row.add(item);
-      });
+      }
       return item;
     },
-    remove(item){if(item)visit(item.x,item.y,item.reach,k=>{cells.get(k)?.delete(item);});},
+    remove(item){
+      if(!item)return;
+      const x=item.x,y=item.y,reach=item.reach;
+      for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++)cells.get(iy*65536+ix)?.delete(item);
+    },
     hit(x,y,r,ignore){
-      let found=null;
-      const bounds=box(x,y,r,ignore);
-      visit(x,y,Math.hypot(bounds.a,bounds.b),k=>{
-        for(const item of cells.get(k)??[]){
-          if(item.body!==(ignore?.ignore??ignore)&&overlap(bounds,item)){found=item;return true;}
-        }
-        return false;
-      });
-      return found;
+      const bounds=box(x,y,r,ignore,query);
+      const skip=ignore?.ignore??ignore,reach=Math.hypot(bounds.a,bounds.b);
+      for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++){
+        const row=cells.get(iy*65536+ix);
+        if(!row||!row.size)continue;
+        for(const item of row)if(item.body!==skip&&overlap(bounds,item,reach))return item;
+      }
+      return null;
     },
   };
 }

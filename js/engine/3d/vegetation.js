@@ -1,7 +1,7 @@
 import {
   civicWalkway, locations, metersPerUnit as unit, random, roadAt, roadOptions, roads, toWorld, worldContact,
-} from '../world.mjs?v=06b0d11';
-import {crossingForNode} from '../street-crossings.mjs?v=06b0d11';
+} from '../world.mjs?v=eb4dc5b';
+import {crossingForNode} from '../street-crossings.mjs?v=eb4dc5b';
 import landuse from '../data/xinyi-landuse.json' with {type:'json'};
 
 const tau=2*Math.PI;
@@ -167,15 +167,33 @@ export function visitLandscapeTrees(visit){
   if(!landscapeTrees){
     landscapeTrees=[];
     landscapeHedges=[];
+    // P2 perf：「附近已經有樹／綠籬」改用格子只比附近的（原本每次比對全部），判斷條件與結果相同。
+    const treeCells=new Map(),hedgeCells=new Map();
+    const crowded=(cells,size,x,z,limit)=>{
+      const ci=Math.floor(x/size),cj=Math.floor(z/size);
+      for(let i=ci-1;i<=ci+1;i++)for(let j=cj-1;j<=cj+1;j++){
+        const list=cells.get(i*65536+j);
+        if(list)for(const t of list)if(Math.hypot(t.x-x,t.z-z)<limit)return true;
+      }
+      return false;
+    };
+    const remember=(cells,size,item)=>{
+      const key=Math.floor(item.x/size)*65536+Math.floor(item.z/size);
+      let list=cells.get(key);
+      if(!list)cells.set(key,list=[]);
+      list.push(item);
+    };
     const add=(x,z,seed,species,width,scale,avenue=false)=>{
-      if(!clearGround(x/unit,z/unit,.62)||landscapeTrees.some(t=>Math.hypot(t.x-x,t.z-z)<5.8))return;
-      landscapeTrees.push({x,z,seed,species,width,scale,avenue});
+      if(!clearGround(x/unit,z/unit,.62)||crowded(treeCells,6,x,z,5.8))return;
+      const tree={x,z,seed,species,width,scale,avenue};
+      landscapeTrees.push(tree);remember(treeCells,6,tree);
     };
     const addHedge=(x,z,length,heading,median=false)=>{
       const dx=Math.cos(heading),dz=-Math.sin(heading);
       const clear=[-.47,-.25,0,.25,.47].every(t=>clearGround((x+dx*t*length)/unit,(z+dz*t*length)/unit,.43));
-      if(!clear||landscapeHedges.some(h=>Math.hypot(h.x-x,h.z-z)<1.25))return;
-      landscapeHedges.push({x,z,length,heading,median});
+      if(!clear||crowded(hedgeCells,1.5,x,z,1.25))return;
+      const hedge={x,z,length,heading,median};
+      landscapeHedges.push(hedge);remember(hedgeCells,1.5,hedge);
     };
     for(let z=civicWalkway.y0*unit+3.6;z<civicWalkway.y1*unit;z+=spacing){
       for(const side of [-1,1]){

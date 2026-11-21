@@ -1,5 +1,5 @@
 import landuse from './data/xinyi-landuse.json' with {type:'json'};
-import {metersPerUnit as unit,toWorld,inWuxing,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs?v=06b0d11';
+import {metersPerUnit as unit,toWorld,inWuxing,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs?v=eb4dc5b';
 
 // Residential rings keep their original character; the wide ring covers every other gap in the map.
 const neighborhoods=[
@@ -8,7 +8,7 @@ const neighborhoods=[
   {center:toWorld(25.044,121.5596),radius:255,civic:false},
   {center:toWorld(25.0335,121.5640),radius:1150,civic:false,sparse:true},
 ];
-import {occupancy} from './collision.mjs?v=06b0d11';
+import {occupancy} from './collision.mjs?v=eb4dc5b';
 const civicCenter=toWorld(25.0375,121.5664);
 const walkwayHalfWidth=20/unit;
 
@@ -25,16 +25,31 @@ export function urbanInfill(){
     return {kind,points,minX:Math.min(...points.map(p=>p.x)),maxX:Math.max(...points.map(p=>p.x)),
       minY:Math.min(...points.map(p=>p.y)),maxY:Math.max(...points.map(p=>p.y))};
   });
+  // P2 perf：先用外框格子找出可能包含這一點的地塊，再做同樣的點在多邊形內判斷（結果只看「有沒有任何一塊」，與順序無關）。
+  const designCell=200,designGrid=new Map();
+  for(const d of designated){
+    for(let i=Math.floor(d.minX/designCell);i<=Math.floor(d.maxX/designCell);i++)
+      for(let j=Math.floor(d.minY/designCell);j<=Math.floor(d.maxY/designCell);j++){
+        const key=i*65536+j;
+        let list=designGrid.get(key);
+        if(!list)designGrid.set(key,list=[]);
+        list.push(d);
+      }
+  }
   function designation(x,y){
-    return designated.some(({points,minX,maxX,minY,maxY})=>{
-      if(x<minX||x>maxX||y<minY||y>maxY)return false;
+    const list=designGrid.get(Math.floor(x/designCell)*65536+Math.floor(y/designCell));
+    if(!list)return false;
+    for(let k=0;k<list.length;k++){
+      const {points,minX,maxX,minY,maxY}=list[k];
+      if(x<minX||x>maxX||y<minY||y>maxY)continue;
       let inside=false;
       for(let i=0,j=points.length-1;i<points.length;j=i++){
         const a=points[i],b=points[j];
         if((a.y>y)!==(b.y>y)&&x<(b.x-a.x)*(y-a.y)/(b.y-a.y)+a.x)inside=!inside;
       }
-      return inside;
-    });
+      if(inside)return true;
+    }
+    return false;
   }
   const parcels=[],step=20/unit;
   const found=new Set();

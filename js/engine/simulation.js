@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=06b0d11'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=06b0d11'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=06b0d11'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=06b0d11'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=06b0d11';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=06b0d11'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=06b0d11';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=06b0d11'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=06b0d11';
-import {neonDistrict} from './neon-districts.mjs?v=06b0d11'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=06b0d11';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=06b0d11';
-import {streetCrowds} from './crowds.mjs?v=06b0d11';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=06b0d11';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=06b0d11';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=06b0d11';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=06b0d11';
-import { touchControls } from './overlay.js?v=06b0d11';
-import {setLabels,placeLabel} from './labels.mjs?v=06b0d11'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=eb4dc5b'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=eb4dc5b'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=eb4dc5b'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=eb4dc5b'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=eb4dc5b';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=eb4dc5b'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=eb4dc5b';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=eb4dc5b'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=eb4dc5b';
+import {neonDistrict} from './neon-districts.mjs?v=eb4dc5b'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=eb4dc5b';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=eb4dc5b';
+import {streetCrowds} from './crowds.mjs?v=eb4dc5b';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=eb4dc5b';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=eb4dc5b';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=eb4dc5b';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=eb4dc5b';
+import { touchControls } from './overlay.js?v=eb4dc5b';
+import {setLabels,placeLabel} from './labels.mjs?v=eb4dc5b'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -181,10 +181,29 @@ function buildTraffic() {
     return car;
   });
 }
+// P2 perf：依路段中點建格子，只走訪半徑內可能符合的路段（索引由小到大，與逐一掃描全部 1 萬多段的順序相同）。
+// 半徑判斷仍由原本的 Math.hypot 條件決定，所以挑出的路段與結果完全一樣。
+const roadCell=60/metersPerUnit,roadMidCells=new Map();
+roads.forEach(([ax,ay,bx,by],index)=>{
+  const key=Math.floor((ax+bx)/2/roadCell)*65536+Math.floor((ay+by)/2/roadCell);
+  let list=roadMidCells.get(key);
+  if(!list)roadMidCells.set(key,list=[]);
+  list.push(index);
+});
+function roadsNear(x,y,reach){
+  const out=[];
+  for(let i=Math.floor((x-reach)/roadCell)-1;i<=Math.floor((x+reach)/roadCell)+1;i++)
+    for(let j=Math.floor((y-reach)/roadCell)-1;j<=Math.floor((y+reach)/roadCell)+1;j++){
+      const list=roadMidCells.get(i*65536+j);
+      if(list)for(const index of list)out.push(index);
+    }
+  return out.sort((a,b)=>a-b);
+}
 function nearbyStreetTraffic(player,peak=false){
   const result=[];
   const dx=Math.cos(player.heading),dy=Math.sin(player.heading);
-  for(const [index,[ax,ay,bx,by,w,edge]] of roads.entries()){
+  for(const index of roadsNear(player.x,player.y,(peak?315:130)/metersPerUnit)){
+    const [ax,ay,bx,by,w,edge]=roads[index];
     if(!edge.way.name||peak&&!isMajor(edge.way.kind,edge.way.name)&&index%3!==0||edge.way.kind==='pedestrian'||edge.way.layer!==0||edge.d*metersPerUnit<9||
       Math.hypot((ax+bx)/2-player.x,(ay+by)/2-player.y)>(peak?315:130)/metersPerUnit)continue;
     for(const [node,to,permitted] of [[edge.a,edge.b,edge.forward],[edge.b,edge.a,edge.reverse]]){
@@ -215,7 +234,8 @@ function nearbyStreetTraffic(player,peak=false){
 }
 function nearbySidewalks(player,evening=false){ // A22 keep short shopfront walks within the existing sidewalk system
   const paths=evening?eveningPlazaWalks(player):[]; // A23 night: routes through the pedestrian plaza
-  for(const [index,[ax,ay,bx,by,w,edge]] of roads.entries()){
+  for(const index of roadsNear(player.x,player.y,105/metersPerUnit)){ // P2 perf：只看附近路段，順序不變
+    const [ax,ay,bx,by,w,edge]=roads[index];
     const length=edge.d*metersPerUnit;
     if(!edge.way.name||edge.way.layer!==0||length<5||Math.hypot((ax+bx)/2-player.x,(ay+by)/2-player.y)>105/metersPerUnit)continue;
     const ux=(bx-ax)/edge.d,uy=(by-ay)/edge.d,heading=Math.atan2(uy,ux);
@@ -338,6 +358,14 @@ function clearWalkingPath(walker){
   const reach=Math.hypot(walker.r??radius.foot,walker.width??radius.foot);
   return entranceWindows(start,end,reach).length===0;
 }
+// P2 perf：碰撞查詢只讀 mode/heading/scooter/width/service/ignore，用同一個探針物件代替每次展開整台車（{...car}）。
+// hit() 不會留住這個物件，所以重複使用不影響結果。
+const probeBody={mode:undefined,heading:0,scooter:undefined,width:undefined,service:undefined,ignore:null};
+function carProbe(car,heading){
+  probeBody.mode=car.mode;probeBody.heading=heading;probeBody.scooter=car.scooter;
+  probeBody.width=car.width;probeBody.service=car.service;probeBody.ignore=car;
+  return probeBody;
+}
 function advanceCar(car,dt,player,clock,space,passage,flow) {
   const {x,y}=car.end,heading=Math.atan2(y-car.y,x-car.x);
   const aheadX=player.x-car.x,aheadY=player.y-car.y;
@@ -368,7 +396,11 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
   }
   // A25 stall clock: time since the car last made 0.5 m of progress, outside red-light waits.
   // Creeping a few millimetres per frame behind an obstacle still counts as stalled.
-  if(dt>0&&(car.redWait||!car.anchor||distance(car,car.anchor)>.5*speedUnits))car.anchor={x:car.x,y:car.y,t:clock};
+  if(dt>0&&(car.redWait||!car.anchor||distance(car,car.anchor)>.5*speedUnits)){
+    // P2 perf：每輛車只有自己的 anchor（沒有別處共用），原地更新與換一個新物件結果相同
+    if(car.anchor){car.anchor.x=car.x;car.anchor.y=car.y;car.anchor.t=clock;}
+    else car.anchor={x:car.x,y:car.y,t:clock};
+  }
   const stalled=dt>0?clock-car.anchor.t:0;
   const windows=car.scooter?scooterWindows(car):[];
   let line=stopLine(car);
@@ -421,7 +453,7 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
         const dest=roadNodes[next.to],lane=trafficLane(junction,dest,next,car);
         const h=Math.atan2(dest.y-junction.y,dest.x-junction.x);
         const probe=Math.min(next.d*.7,8*speedUnits);
-        const occupied=space.hit(junction.x+lane.x+Math.cos(h)*probe,junction.y+lane.y+Math.sin(h)*probe,r+speedUnits,{...car,heading:h,ignore:car});
+        const occupied=space.hit(junction.x+lane.x+Math.cos(h)*probe,junction.y+lane.y+Math.sin(h)*probe,r+speedUnits,carProbe(car,h));
         exit=!occupied||occupied.kind==='vehicle'&&!occupied.body.impact&&occupied.body.speed>3*speedUnits&&
           Math.abs(angleDiff(occupied.body.heading,h))<.3;
         // A25 two queues waiting on each other's exit: after 2.5 s creep in; the physical sweep still guards contact.
@@ -471,7 +503,7 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
   const look=Math.min(gap+2*speedUnits,(2.2*speedUnits)+car.speed*.65+car.speed**2/(2*braking));
   // Before entering a keep-clear area, look for a queue all the way to its exit.
   const reservation=windows.findLast(span=>gap>=span.near&&gap-span.near<look);
-  const hitAhead=length=>space.hit(car.x+ux*length/2,car.y+uy*length/2,r+length/2,{...car,heading,ignore:car});
+  const hitAhead=length=>space.hit(car.x+ux*length/2,car.y+uy*length/2,r+length/2,carProbe(car,heading));
   let holdingEntrance=false;
   if(reservation){
     const clearance=gap-reservation.far+2*r+speedUnits;
@@ -1700,7 +1732,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       if(car.impact&&!impact.retire(car,outsideView(car)))indexImpact(car);
     }
     impact.advance(dt,{hit:(x,y,r,car,p,heading)=>p.air>=1?null:
-      space.hit(x,y,r,{...car,heading,ignore:car}),moveCollider:indexImpact});
+      space.hit(x,y,r,carProbe(car,heading)),moveCollider:indexImpact});
     for(const [car,c] of activeCars){
       if(car.impact){
         space.remove(c);

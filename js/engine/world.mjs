@@ -283,13 +283,27 @@ export function worldContact(x,y,a,b=a,angle=0){
   }
   return null;
 }
+// P2 perf：多邊形外框（由頂點算出，必定包住多邊形）。查詢框的外接圓碰不到外框時，intersectsBody 一定是 false，可先跳過。
+const polygonBounds=new WeakMap();
+function boundsOf(points){
+  let box=polygonBounds.get(points);
+  if(!box){
+    box={minX:Infinity,minY:Infinity,maxX:-Infinity,maxY:-Infinity};
+    for(const p of points){box.minX=Math.min(box.minX,p.x);box.minY=Math.min(box.minY,p.y);box.maxX=Math.max(box.maxX,p.x);box.maxY=Math.max(box.maxY,p.y);}
+    polygonBounds.set(points,box);
+  }
+  return box;
+}
 export function buildingHeightAt(x,y,a,b,heading,except){
   const r=Math.hypot(a,b);
   let height=0;
   for(let iy=Math.floor((y-r)/cellSize);iy<=Math.floor((y+r)/cellSize);iy++){
     for(let ix=Math.floor((x-r)/cellSize);ix<=Math.floor((x+r)/cellSize);ix++){
       for(const building of buildingCells.get(key(ix,iy))??[]){
-        if(building!==except&&building.elevation>height&&intersectsBody(x,y,a,b,heading,building.polygon))height=building.elevation;
+        if(building===except||!(building.elevation>height))continue;
+        const box=boundsOf(building.polygon);
+        if(x+r<box.minX||x-r>box.maxX||y+r<box.minY||y-r>box.maxY)continue;
+        if(intersectsBody(x,y,a,b,heading,building.polygon))height=building.elevation;
       }
     }
   }

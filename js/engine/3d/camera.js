@@ -1,20 +1,31 @@
-import {canopyBounds} from '../venue-entrances.mjs?v=06b0d11'; // A27
-import {headerBounds} from '../entry-courts.mjs?v=06b0d11'; // A23 night: elevated entrance fixtures share their rendered dimensions.
-import {buildings} from '../world.mjs?v=06b0d11';
+import {canopyBounds} from '../venue-entrances.mjs?v=eb4dc5b'; // A27
+import {headerBounds} from '../entry-courts.mjs?v=eb4dc5b'; // A23 night: elevated entrance fixtures share their rendered dimensions.
+import {buildings} from '../world.mjs?v=eb4dc5b';
 
 const topByShape={spire:160,twist:78,office:266,datalab:47,dome:15,construction:90,memorial:13,
   cityhall:20,studio:7,market:7,temple:11,park:4,mall:21,cinema:15,village:7,mrt:13};
 const overheadBounds=headerBounds.concat(canopyBounds); // A27
-export function cameraObstacles(x,z,unit,radius=39) {
-  const bounds=[];
-  for(const [index,b] of buildings.entries()) {
+// P2 perf：建物的鏡頭邊界（含多邊形外框）每次都算得一樣，第一次用到時算好存起來，之後每幀只篩選。
+let staticBounds=null,staticUnit=null;
+function buildingBounds(unit){
+  if(staticUnit===unit)return staticBounds;
+  staticUnit=unit;
+  staticBounds=buildings.map((b,index)=>{
     const minX=b.x*unit,minZ=b.y*unit,maxX=(b.x+b.w)*unit,maxZ=(b.y+b.h)*unit;
-    if(minX>x+radius||maxX<x-radius||minZ>z+radius||maxZ<z-radius)continue;
     const top=Math.max(b.elevation??(4.5+((b.floors??3)-1)*2.72+(b.modern?4+index%8:0)),topByShape[b.shape]??0);
     const footprint=b.polygon?.map(p=>[p.x*unit,p.y*unit]);
-    bounds.push({id:b.osmId,minX,minZ,maxX,maxZ,top,footprint});
+    return {id:b.osmId,minX,minZ,maxX,maxZ,top,footprint};
+  });
+  return staticBounds;
+}
+export function cameraObstacles(x,z,unit,radius=39) {
+  const bounds=[],all=buildingBounds(unit);
+  for(let i=0;i<all.length;i++) {
+    const b=all[i];
+    if(b.minX>x+radius||b.maxX<x-radius||b.minZ>z+radius||b.maxZ<z-radius)continue;
+    bounds.push(b);
   }
-  for(const b of overheadBounds)if(b.minX<=x+radius&&b.maxX>=x-radius&&b.minZ<=z+radius&&b.maxZ>=z-radius)bounds.push(b);
+  for(let i=0;i<overheadBounds.length;i++){const b=overheadBounds[i];if(b.minX<=x+radius&&b.maxX>=x-radius&&b.minZ<=z+radius&&b.maxZ>=z-radius)bounds.push(b);}
   return bounds;
 }
 function solid(b,x,y,z,padding) {
@@ -23,23 +34,28 @@ function solid(b,x,y,z,padding) {
   if(!points)return true;
   let inside=false;
   for(let i=0,j=points.length-1;i<points.length;j=i++){
-    const [ax,az]=points[j],[bx,bz]=points[i];
+    const pj=points[j],pi=points[i],ax=pj[0],az=pj[1],bx=pi[0],bz=pi[1];
     if((az>z)!==(bz>z)&&x<(bx-ax)*(z-az)/(bz-az)+ax)inside=!inside;
     const dx=bx-ax,dz=bz-az,t=Math.max(0,Math.min(1,((x-ax)*dx+(z-az)*dz)/(dx*dx+dz*dz)));
     if(padding && Math.hypot(x-ax-dx*t,z-az-dz*t)<padding)return true;
   }
   return inside;
 }
+// P2 perf：用迴圈代替每一步都建一個 some() 閉包，結果相同。
+function anySolid(bounds,x,y,z,padding){
+  for(let i=0;i<bounds.length;i++)if(solid(bounds[i],x,y,z,padding))return true;
+  return false;
+}
 export function cameraFraction(bounds,origin,end) {
   const steps=Math.max(1,Math.ceil(Math.hypot(end.x-origin.x,end.y-origin.y,end.z-origin.z)/.27));
   const padding=.37;
-  const clearAtOrigin=!bounds.some(b=>solid(b,origin.x,origin.y,origin.z,padding));
+  const clearAtOrigin=!anySolid(bounds,origin.x,origin.y,origin.z,padding);
   let escaped=clearAtOrigin;
   for(let i=1;i<=steps;i++){
     const t=i/steps,x=origin.x+(end.x-origin.x)*t,y=origin.y+(end.y-origin.y)*t,z=origin.z+(end.z-origin.z)*t;
-    const touching=bounds.some(b=>solid(b,x,y,z,padding));
+    const touching=anySolid(bounds,x,y,z,padding);
     if(!touching){escaped=true;continue;}
-    if(escaped||bounds.some(b=>solid(b,x,y,z,0)))return Math.max(0,(i-1)/steps-.027);
+    if(escaped||anySolid(bounds,x,y,z,0))return Math.max(0,(i-1)/steps-.027);
   }
   return escaped?1:0;
 }

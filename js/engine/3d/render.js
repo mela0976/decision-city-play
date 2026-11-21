@@ -1,17 +1,18 @@
-import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=06b0d11';
-import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=06b0d11';
-import * as T from '../vendor/three.module.min.js?v=06b0d11';
-import {drawCockpit} from '../car-cockpit.js?v=06b0d11'; // A26
-import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=06b0d11';
-import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=06b0d11'; // i18n
-import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=06b0d11';
-import {createActors} from './actors.js?v=06b0d11';
-import {streetCrowds} from '../crowds.mjs?v=06b0d11';
-import {xinyiBusBay} from './street-life.js?v=06b0d11';
-import {createFarCity} from './far-city.js?v=06b0d11'; // A20 far-city
-import {createOsmCity} from './osm-city.js?v=06b0d11';
-import {metersPerUnit as unit} from '../world.mjs?v=06b0d11';
-import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=06b0d11';
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=eb4dc5b';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=eb4dc5b';
+import * as T from '../vendor/three.module.min.js?v=eb4dc5b';
+import {drawCockpit} from '../car-cockpit.js?v=eb4dc5b'; // A26
+import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=eb4dc5b';
+import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=eb4dc5b'; // i18n
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=eb4dc5b';
+import {createActors} from './actors.js?v=eb4dc5b';
+import {streetCrowds} from '../crowds.mjs?v=eb4dc5b';
+import {xinyiBusBay} from './street-life.js?v=eb4dc5b';
+import {createFarCity} from './far-city.js?v=eb4dc5b'; // A20 far-city
+import {createOsmCity} from './osm-city.js?v=eb4dc5b';
+import {drain,later,release,releaseAfter,setUploader} from './idle-work.js?v=eb4dc5b'; // P2 perf
+import {metersPerUnit as unit} from '../world.mjs?v=eb4dc5b';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=eb4dc5b';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);
@@ -31,14 +32,54 @@ function tag(ctx,text,x,y,kind='site') {
   ctx.fillStyle=kind==='speech'?'#242029':kind==='marker'?'#f5c97f':kind==='side'?'#59e2cf':'#f6e8ce';
   ctx.fillText(text,x,y,w-13);
 }
+// P2 perf：鏡頭 15 m 內的車輛與固定物外框（A23 alleys／A27 外框照舊）
+function pushBound(bounds,object,x,z){
+  const xx=object.x*unit,zz=object.y*unit,dx=xx-x,dz=zz-z;
+  if(object.hidden||dx*dx+dz*dz>225)return;
+  const r=object.r?object.r*unit:object.scooter?.58:1.42;
+  const width=object.width?object.width*unit:r,h=object.heading??0;
+  const halfX=r*Math.abs(Math.cos(h))+width*Math.abs(Math.sin(h));
+  const halfZ=r*Math.abs(Math.sin(h))+width*Math.abs(Math.cos(h));
+  bounds.push({minX:xx-halfX,maxX:xx+halfX,minZ:zz-halfZ,maxZ:zz+halfZ,
+    footprint:object.footprint,top:object.top??(object.scooter?1.75:1.6)}); // A27 use the rotated wall outline
+}
+// 固定物不會移動：依 16 m 格子記下索引（陣列換了或長度變了就重建）。回傳附近格子的索引，由小到大，與原本掃描順序一致。
+const staticGrids=new WeakMap(),gridCell=16,nearIndex=[];
+function nearStatics(objects,x,z){
+  let grid=staticGrids.get(objects);
+  if(!grid||grid.length!==objects.length){
+    grid={length:objects.length,cells:new Map()};
+    for(let i=0;i<objects.length;i++){
+      const key=Math.floor(objects[i].x*unit/gridCell)*65536+Math.floor(objects[i].y*unit/gridCell);
+      let list=grid.cells.get(key);
+      if(!list)grid.cells.set(key,list=[]);
+      list.push(i);
+    }
+    staticGrids.set(objects,grid);
+  }
+  nearIndex.length=0;
+  const i0=Math.floor((x-15)/gridCell),i1=Math.floor((x+15)/gridCell),j0=Math.floor((z-15)/gridCell),j1=Math.floor((z+15)/gridCell);
+  for(let i=i0;i<=i1;i++)for(let j=j0;j<=j1;j++){
+    const list=grid.cells.get(i*65536+j);
+    if(list)for(let k=0;k<list.length;k++)nearIndex.push(list[k]);
+  }
+  if(nearIndex.length>1)nearIndex.sort((a,b)=>a-b);
+  return nearIndex;
+}
 export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogleLayer,forceGoogle=false,capture=null) {
   const view=new T.WebGLRenderer({canvas,context,alpha:false});
   const has=capture?.has??(()=>true);
   const atmosphere=createSkyLight(view,context,canvas.ownerDocument,has('sky-light'));
   const {scene,sun,bloom,panoramas}=atmosphere;
   const camera=new T.PerspectiveCamera(66,1,.12,850);
-  const city=createOsmCity(scene,canvas.ownerDocument,view.capabilities.getMaxAnisotropy(),has);
-  const farCity=has('far-city')?createFarCity(city.group,canvas.ownerDocument):null; // A20 far-city
+  // P2 perf：一般遊戲把由貼圖衍生的貼圖延到開始騎乘後才算；截圖工具（capture）照舊當場算
+  const city=createOsmCity(scene,canvas.ownerDocument,view.capabilities.getMaxAnisotropy(),has,!capture);
+  if(!capture){releaseAfter(30000);setUploader(texture=>view.initTexture(texture));}
+  // A20 far-city。P2 perf：一般遊戲時遠景排在上街後的第一件背景工作（截圖工具照舊當場建）
+  const wantFarCity=has('far-city');
+  let farCity=null;
+  if(wantFarCity&&capture)farCity=createFarCity(city.group,canvas.ownerDocument);
+  else if(wantFarCity)later(()=>{if(!disposed)farCity=createFarCity(city.group,canvas.ownerDocument);},true);
   let tiles=null,sessionStarted=false,disposed=false;
   function loadTiles(){
     if(!createGoogleLayer||sessionStarted)return;
@@ -89,6 +130,12 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
       scenicRoads.set(key,nearest);
     }
   }
+  // 用的是畫面當下的相機，與原本每幀新建的閉包行為相同
+  const inActorView=(body,padded=false)=>{
+    projected.set(body.x*unit,1,body.y*unit).project(camera);
+    const margin=padded?1.32:1;
+    return projected.z>=-1&&(padded||projected.z<=1)&&Math.abs(projected.x)<=margin&&Math.abs(projected.y)<=margin;
+  };
   const draw=state=>{
     const {player,weather,clock,filter,time,viewRevision}=state;
     const aerial=Boolean(state.flyover||state.largeMap);
@@ -102,6 +149,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const snap=lastView!==viewRevision||Boolean(canvas.dataset.flyoverCamera)&&!state.flyover;
     const dt=clamp(clock-lastClock,0,.05);
     if(!snap&&!capture) adjustQuality(dt);
+    if(dt>0&&!capture)release(); // P2 perf：模擬開始走（玩家上街）才做延後的工作
     lastClock=clock;
     const requestedDpr=Math.min(devicePixelRatio||1,quality===2?2:quality===1?1.25:.85);
     if (w!==sizeW||h!==sizeH||dpr!==requestedDpr) {
@@ -185,15 +233,13 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const bounds=cameraObstacles(x,z,unit,forceGoogle?56:39);
     if(!aerial){
       // A23 alleys: scan the same 15 m camera range without copying thousands of posts on every frame.
-      for(const objects of [state.cars,state.staticColliders??[]])for(const object of objects){
-        const xx=object.x*unit,zz=object.y*unit,dx=xx-x,dz=zz-z;
-        if(object.hidden||dx*dx+dz*dz>225)continue;
-        const r=object.r?object.r*unit:object.scooter?.58:1.42;
-        const width=object.width?object.width*unit:r,h=object.heading??0;
-        const halfX=r*Math.abs(Math.cos(h))+width*Math.abs(Math.sin(h));
-        const halfZ=r*Math.abs(Math.sin(h))+width*Math.abs(Math.cos(h));
-        bounds.push({minX:xx-halfX,maxX:xx+halfX,minZ:zz-halfZ,maxZ:zz+halfZ,
-          footprint:object.footprint,top:object.top??(object.scooter?1.75:1.6)}); // A27 use the rotated wall outline
+      // P2 perf：靜態碰撞物約 4 萬個，改用格子索引只看附近的格子；放進 bounds 的物件與順序和逐一掃描相同。
+      const cars=state.cars;
+      for(let i=0;i<cars.length;i++)pushBound(bounds,cars[i],x,z);
+      const statics=state.staticColliders;
+      if(statics){
+        const near=nearStatics(statics,x,z);
+        for(let i=0;i<near.length;i++)pushBound(bounds,statics[near[i]],x,z);
       }
     }
     if(scenicRoad){
@@ -403,7 +449,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     }
     camera.aspect=w/h;
     camera.near=state.flyover?5:.12;
-    camera.far=farCity&&!forceGoogle&&!capture?.google&&canvas.dataset.engine!=='google'?5500:state.flyover?2200:2500; // A20 far-city
+    camera.far=wantFarCity&&!forceGoogle&&!capture?.google&&canvas.dataset.engine!=='google'?5500:state.flyover?2200:2500; // A20 far-city
     camera.updateProjectionMatrix();
     camera.updateMatrixWorld();
     projected.set(x,riding?1.2:.92,z).project(camera);
@@ -441,11 +487,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     city.updateOfficeDoor(state.officeDoorProgress,state.shopDoorProgress); // A27
     city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover),time);
     farCity?.update(focus.x*unit,focus.y*unit,has('night')?night:0,quality,Boolean(state.flyover),w<650); // A20 far-city
-    state.inActorView=(body,padded=false)=>{
-      projected.set(body.x*unit,1,body.y*unit).project(camera);
-      const margin=padded?1.32:1;
-      return projected.z>=-1&&(padded||projected.z<=1)&&Math.abs(projected.x)<=margin&&Math.abs(projected.y)<=margin;
-    };
+    state.inActorView=inActorView; // P2 perf：同一個函式，不必每幀新建
     state.cameraInside=camera.position.y<.12||(!aerial&&cameraFraction(bounds,camera.position,camera.position)===0);
     if(!capture||actorLayer.visible)actors(state,unit,has('night')?Math.max(night,lamps*.69):0,raining,turn,tileView?.ready,walkerPortrait,camera.position,previewBus,deliveryPortrait?xinyiBusBay(0,-1.66):null,scalePortrait,!has('actors'));
     if(clock-statsClock>.5&&canvas.ownerDocument.location?.pathname?.endsWith('/engine/demo.html')){
@@ -588,8 +630,11 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     }
   };
   draw.ready=actors.ready;
+  // P2 perf：測試用。立刻建完延後的區塊、遠景與貼圖衍生圖；scene 供場景雜湊比對
+  draw.finishStreaming=()=>{city.finishAll();drain();};
+  draw.scene=scene;
   // E3 WebGL context 還回來：Three.js 會自己重傳貼圖與幾何，這裡補做渲染器算出來的貼圖
   draw.restore=()=>{atmosphere.restore();sun.shadow.map?.dispose();sun.shadow.map=null;lastView=-1;};
-  draw.dispose=()=>{disposed=true;farCity?.dispose();tiles?.dispose();actors.dispose();atmosphere.dispose();view.dispose();};
+  draw.dispose=()=>{disposed=true;setUploader(null);farCity?.dispose();tiles?.dispose();actors.dispose();atmosphere.dispose();view.dispose();};
   return draw;
 }

@@ -1,8 +1,8 @@
 // 「今晚的提案」：每過一關拿到一頁。每頁是那一年的一句答案（slide 標題）、年鑑的三個重點與一句話；
 // 還沒拿到的是空白頁。阿嬤線累積夠了，最後多一頁阿嬤的那一句。
 
-import { h, fill, arrowFocus } from '../dom.js?v=06b0d11';
-import { T, chapterQuote } from '../strings.js?v=06b0d11';
+import { h, fill, arrowFocus } from '../dom.js?v=eb4dc5b';
+import { T, chapterQuote } from '../strings.js?v=eb4dc5b';
 
 /**
  * pages：[{ no, year, title, points, quote, source, owned, grandma }]

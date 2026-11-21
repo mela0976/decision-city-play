@@ -1,49 +1,96 @@
-import {createSignalLayer,signalReflections} from './traffic-signals.js?v=06b0d11'; // A24
-import {createNeonStreet} from './neon-street.js?v=06b0d11'; // A22 street signs
-import {surfaceMaps} from './pbr.js?v=06b0d11';
-import * as T from '../vendor/three.module.min.js?v=06b0d11';
-import {canvasTexture,hash,shapes,color} from './city-primitives.js?v=06b0d11';
-import {addGround,addWaterAndParks} from './terrain.js?v=06b0d11';
-import {createRoads} from './roads.js?v=06b0d11'; // A24 decks are owned by roads
-import {createLandmarks,addEntrances} from './landmarks.js?v=06b0d11';
-import {curtainMaterial} from './buildings-tower.js?v=06b0d11'; // A23 towers
-import {addBuildings} from './buildings.js?v=06b0d11';
-import {addInfill,apartmentWindowMask} from './buildings-old.js?v=06b0d11';
-import {createStorefront,addBillboards,addStreetNames,updateSigns} from './storefront.js?v=06b0d11';
-import {placeStreetLife} from './furniture.js?v=06b0d11';
-import {createNight,updateNight,windowKinds} from './night.js?v=06b0d11';
-import {placeGroundVegetation} from './vegetation.js?v=06b0d11';
-import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} from './vegetation-cards.js?v=06b0d11';
-import {metersPerUnit as unit} from '../world.mjs?v=06b0d11';
+import {createSignalLayer,signalReflections} from './traffic-signals.js?v=eb4dc5b'; // A24
+import {createNeonStreet} from './neon-street.js?v=eb4dc5b'; // A22 street signs
+import {surfaceMaps} from './pbr.js?v=eb4dc5b';
+import * as T from '../vendor/three.module.min.js?v=eb4dc5b';
+import {canvasTexture,hash,shapes,color} from './city-primitives.js?v=eb4dc5b';
+import {addGround,addWaterAndParks} from './terrain.js?v=eb4dc5b';
+import {createRoads} from './roads.js?v=eb4dc5b'; // A24 decks are owned by roads
+import {createLandmarks,addEntrances} from './landmarks.js?v=eb4dc5b';
+import {curtainMaterial} from './buildings-tower.js?v=eb4dc5b'; // A23 towers
+import {addBuildings} from './buildings.js?v=eb4dc5b';
+import {addInfill,apartmentWindowMask} from './buildings-old.js?v=eb4dc5b';
+import {createStorefront,addBillboards,addStreetNames,updateSigns} from './storefront.js?v=eb4dc5b';
+import {placeStreetLife} from './furniture.js?v=eb4dc5b';
+import {createNight,updateNight,windowKinds} from './night.js?v=eb4dc5b';
+import {placeGroundVegetation} from './vegetation.js?v=eb4dc5b';
+import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} from './vegetation-cards.js?v=eb4dc5b';
+import {metersPerUnit as unit} from '../world.mjs?v=eb4dc5b';
+import {later,preload} from './idle-work.js?v=eb4dc5b'; // P2 perf
+import {paving,fillets} from '../sidewalks.mjs?v=eb4dc5b';
+import {drawSidewalks} from './sidewalks.js?v=eb4dc5b';
 const chunkSize=100;
 
 // P1 perf: tint strings parse once (same values Color.set produces); pushes without spreading.
 const tintCache=new Map();
-function meshBuffers(material) {
-  const v=[],uv=[],rgb=[];
-  function triangle(a,b,c,tint,ta=[0,0],tb=[0,1],tc=[1,0]) {
-    v.push(a[0],a[1],a[2],b[0],b[1],b[2],c[0],c[1],c[2]);uv.push(ta[0],ta[1],tb[0],tb[1],tc[0],tc[1]);
-    let cached=typeof tint==='string'?tintCache.get(tint):null;
-    if(cached){color.r=cached[0];color.g=cached[1];color.b=cached[2];}
-    else{color.set(tint);if(typeof tint==='string')tintCache.set(tint,[color.r,color.g,color.b]);}
-    const cr=color.r,cg=color.g,cb=color.b;
-    rgb.push(cr,cg,cb,cr,cg,cb,cr,cg,cb);
-  }
+// P2 perf：buffer 可以分段。reserve() 在目前位置插入一段空白，之後再由 writer(slot) 補上內容；
+// make() 依段落順序串起來，所以補寫的三角形落在原本會在的位置，頂點順序與一次寫完完全相同。
+// 頂點資料直接寫進會自動加大的 Float32Array（原本先放 JS 陣列、make() 時才轉 Float32，數值相同，少一次複製與大量暫存）
+const empty=new Float32Array(0);
+const part=()=>({v:empty,uv:empty,rgb:empty,n:0});
+function grow(p){
+  const vertices=Math.max(24,p.n*2);
+  const v=new Float32Array(vertices*3),uv=new Float32Array(vertices*2),rgb=new Float32Array(vertices*3);
+  v.set(p.v);uv.set(p.uv);rgb.set(p.rgb);
+  p.v=v;p.uv=uv;p.rgb=rgb;
+}
+function emit(p,a,b,c,tint,ta,tb,tc){
+  if((p.n+3)*3>p.v.length)grow(p);
+  const n=p.n,v=p.v,uv=p.uv,rgb=p.rgb;
+  let i=n*3;
+  v[i]=a[0];v[i+1]=a[1];v[i+2]=a[2];v[i+3]=b[0];v[i+4]=b[1];v[i+5]=b[2];v[i+6]=c[0];v[i+7]=c[1];v[i+8]=c[2];
+  const j=n*2;
+  uv[j]=ta[0];uv[j+1]=ta[1];uv[j+2]=tb[0];uv[j+3]=tb[1];uv[j+4]=tc[0];uv[j+5]=tc[1];
+  let cached=typeof tint==='string'?tintCache.get(tint):null;
+  if(cached){color.r=cached[0];color.g=cached[1];color.b=cached[2];}
+  else{color.set(tint);if(typeof tint==='string')tintCache.set(tint,[color.r,color.g,color.b]);}
+  const cr=color.r,cg=color.g,cb=color.b;
+  rgb[i]=cr;rgb[i+1]=cg;rgb[i+2]=cb;rgb[i+3]=cr;rgb[i+4]=cg;rgb[i+5]=cb;rgb[i+6]=cr;rgb[i+7]=cg;rgb[i+8]=cb;
+  p.n=n+3;
+}
+const corner0=[0,0],corner1=[0,1],corner2=[1,0];
+function writerFor(part){
+  function triangle(a,b,c,tint,ta=corner0,tb=corner1,tc=corner2){emit(part,a,b,c,tint,ta,tb,tc);}
   function quad(a,b,c,d,tint,u=1,w=1,uo=0,vo=0) {
     triangle(a,b,c,tint,[uo,vo],[uo+u,vo],[uo+u,vo+w]);
     triangle(a,c,d,tint,[uo,vo],[uo+u,vo+w],[uo,vo+w]);
   }
-  return {triangle,quad,make(){
-    const geometry=new T.BufferGeometry();
-    geometry.setAttribute('position',new T.Float32BufferAttribute(v,3));
-    geometry.setAttribute('uv',new T.Float32BufferAttribute(uv,2));
-    geometry.setAttribute('color',new T.Float32BufferAttribute(rgb,3));
-    geometry.computeVertexNormals();
-    return new T.Mesh(geometry,material);
-  }};
+  return {triangle,quad};
+}
+const joined=(parts,key,size)=>{
+  let n=0;for(const p of parts)n+=p.n*size;
+  const out=new Float32Array(n);
+  let at=0;for(const p of parts){out.set(p[key].subarray(0,p.n*size),at);at+=p.n*size;}
+  return out;
+};
+function meshBuffers(material) {
+  let current=part();
+  const parts=[current];
+  const writer=writerFor(current);
+  return {
+    // 直接寫進目前這一段（與原本的 triangle/quad 相同）；reserve() 之後換成寫進新的一段
+    triangle:writer.triangle,
+    quad:writer.quad,
+    reserve(){
+      const slot=part(),next=part();
+      parts.push(slot,next);
+      current=next;
+      const w=writerFor(next);
+      this.triangle=w.triangle;this.quad=w.quad;
+      return slot;
+    },
+    writer:writerFor,
+    make(){
+      const geometry=new T.BufferGeometry();
+      geometry.setAttribute('position',new T.BufferAttribute(joined(parts,'v',3),3));
+      geometry.setAttribute('uv',new T.BufferAttribute(joined(parts,'uv',2),2));
+      geometry.setAttribute('color',new T.BufferAttribute(joined(parts,'rgb',3),3));
+      geometry.computeVertexNormals();
+      return new T.Mesh(geometry,material);
+    },
+  };
 }
 
-export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
+export function createOsmCity(scene,doc,anisotropy,has=()=>true,deferDerived=false) {
   const group=new T.Group();
   const replacements=new T.Group();
   scene.add(group,replacements);
@@ -112,6 +159,21 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
   }
   function loadMaterial(kind,tex,material,variant=false){
     loader.load(new URL('../../../assets/tex/'+tex+'.webp',import.meta.url).href,texture=>{
+      if(deferDerived){
+        // P2 perf：貼圖一到先掛上底色貼圖就能看；遮罩、法線與粗糙度圖（每張要算幾十萬個像素）
+        // 連同原本整段設定，依到達順序排進 later()，玩家開始騎乘後在背景照原順序執行，最後的材質狀態與原本相同。
+        texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.RepeatWrapping;
+        texture.generateMipmaps=true;texture.minFilter=T.LinearMipmapLinearFilter;texture.anisotropy=anisotropy;
+        material.map=texture;
+        if(['new','office','towerB','towerC'].includes(kind)){material.metalness=.32;material.roughness=.47;}
+        material.color.set(kind==='road'?'#b3a8a0':kind==='paving'?'#d1c7b7':'#fff');
+        material.visible=true;material.needsUpdate=true;
+        preload(texture);
+        later(()=>applyTexture(kind,tex,material,variant,texture));
+      }else applyTexture(kind,tex,material,variant,texture);
+    },undefined,()=>{});
+  }
+  function applyTexture(kind,tex,material,variant,texture){
       texture.colorSpace=T.SRGBColorSpace;texture.wrapS=texture.wrapT=T.RepeatWrapping;
       texture.generateMipmaps=true;texture.minFilter=T.LinearMipmapLinearFilter;texture.anisotropy=anisotropy;
       material.map=texture;
@@ -165,7 +227,6 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
         if(material.emissiveMap){materials[alias].emissive.set('#fff');materials[alias].emissiveIntensity=0;}
         materials[alias].color.copy(material.color);materials[alias].needsUpdate=true;
       }
-    },undefined,()=>{});
   }
   for(const [kind,[tint,tex]] of Object.entries(types)){
     const material=new T.MeshStandardMaterial({color:tint,roughness:.86,side:T.DoubleSide,vertexColors:true});
@@ -234,8 +295,27 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
   const {updateOfficeDoor,landmark}=createLandmarks({group,replacements,batch:landmarkBatch,materials,textWall,obstacle:neon?.obstacle,enabled:has('landmarks'),towerDetail:has('buildings-tower')?towerInstance:null});
   const localPave=(...args)=>paveFront(roadBatch,...args);
   if(has('terrain'))addGround(group,doc,anisotropy);
+  // P2 perf：一般遊戲（deferDerived）時人行道幾何（全城約 97 萬個三角形呼叫）不在開機時算：
+  // 先在每個區塊會收到人行道的 buffer 裡保留位置（呼叫 batch 的順序與 drawSidewalks 一樣），
+  // 區塊第一次要被看到、或背景有空時，才只算那個區塊的鋪面與圓角，寫回保留的位置。
+  const deferChunks=deferDerived;
+  const sidewalkSlots=new Map(),sidewalkWork=new Map();
+  const reserveSidewalks=b=>{
+    const touch=(x,z,kind)=>{
+      const buffer=b(x,z,kind);
+      if(buffer.reserve&&!sidewalkSlots.has(buffer))sidewalkSlots.set(buffer,buffer.writer(buffer.reserve()));
+    };
+    const work=(x,z)=>{
+      const c=groupOf(x,z);
+      if(!sidewalkWork.has(c))sidewalkWork.set(c,{paving:[],fillets:[]});
+      return sidewalkWork.get(c);
+    };
+    for(const s of paving){touch(s.x,s.z,'paving');if(s.kind!=='ramp')touch(s.x,s.z,'curb');work(s.x,s.z).paving.push(s);}
+    for(const f of fillets){if(!f.cut.length)continue;touch(f.x,f.z,'road');touch(f.x,f.z,'curb');work(f.x,f.z).fillets.push(f);}
+  };
   const road=createRoads({
     batch:roadBatch,instance:instanceFor('roads'),furnitureInstance,doc,group,signs,enabled:has('roads'),
+    ...(deferChunks?{sidewalks:reserveSidewalks}:{}),
   });
   road.build();
   if(has('terrain'))addWaterAndParks(terrainBatch,createRoads({
@@ -261,7 +341,24 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
   if(has('vegetation'))placeGroundVegetation(treeInstance); // A19 vegetation hook
   addEntrances({instance:fixtureFor('landmarks'),sign,batch:landmarkBatch,textWall,foliage:has('vegetation')}); // A23 landmarks2: reuse leaf atlas on the old banyan.
   neon?.finish(); // A24c All awnings and storefront fixtures are available now.
-  for(const c of chunks.values()){
+  // P2 perf：區塊的 mesh 改成 finishChunk() 逐一建立。材質副本先依原本的遇到順序建好（副本必須是貼圖載入前的狀態），
+  // 區塊的 group 也照原順序先掛上場景；一般遊戲時區塊內容等到第一次在可見範圍內、或背景有空才建。
+  for(const c of chunks.values())for(const key of c.instances.keys()){
+    const [kind,shape]=key.split('/');
+    if(shape==='vegetationCards'||instanceMaterials.has(kind))continue;
+    const material=materials[kind];
+    if(material.vertexColors){
+      const copy=material.clone();
+      copy.vertexColors=false;
+      instanceMaterials.set(kind,copy);
+    }else instanceMaterials.set(kind,material);
+  }
+  function finishChunk(c){
+    if(c.built)return;
+    c.built=true;
+    const work=sidewalkWork.get(c);
+    if(work)drawSidewalks((x,z,kind)=>sidewalkSlots.get(bufferFor(groupOf(x,z).meshes,kind)),work.paving,work.fillets);
+    sidewalkWork.delete(c);
     for(const [key,items] of c.instances){
       const [kind,shape]=key.split('/');
       if(shape==='vegetationCards'){
@@ -304,14 +401,32 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
       if(shadowMaterials.has(kind))c.shadowMeshes.push(mesh);
       c.group.add(mesh);
     }
-    group.add(c.group);
     c.meshes.clear();
+    c.shadow=undefined; // 讓下一次 update 依距離設定陰影
   }
+  const pendingChunks=new Set();
+  for(const c of chunks.values()){
+    group.add(c.group);
+    if(deferChunks)pendingChunks.add(c);
+    else finishChunk(c);
+  }
+  let focusX=0,focusZ=0;
+  function finishNearest(){
+    let best=null,bestD=Infinity;
+    for(const c of pendingChunks){const d=(c.x-focusX)**2+(c.z-focusZ)**2;if(d<bestD){bestD=d;best=c;}}
+    if(!best)return;
+    pendingChunks.delete(best);
+    finishChunk(best);
+    if(pendingChunks.size)later(finishNearest);
+  }
+  // 遠處的區塊等玩家上街後才在背景一個一個建（離目前位置近的先建）
+  if(pendingChunks.size)later(finishNearest);
   if(has('storefront'))addBillboards(signLayer.billboard);
   if(has('roads'))addStreetNames(signFor('roads'));
   const cityChunks=[...chunks.values()];
   const lightState={...lighting,...signLayer,materials,signalFaces:has('furniture')?signalReflections:[],signs}; // A24 share lamps with A23 night
   return {
+    finishAll(){for(const c of pendingChunks)finishChunk(c);pendingChunks.clear();}, // P2 perf：測試與工具用，立刻建完全部區塊
     group,replacements,updateOfficeDoor,collisionProps,parkedScooters,glow,loadedTextures,loadedAds,textUv,
     update(x,z,night,rain,quality,clock,lamps=night,aerial=false,hour){
       materials.road.roughness=rain?.19:.94;
@@ -324,8 +439,10 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true) {
       neon?.update(x,z,has('night')?lamps:0,aerial?0:storeRadius,clock); // A24c Also visible over live tiles.
       const leafRadius=quality===2?97:76;
       const corridorRadius=quality===2?230:154;
+      focusX=x;focusZ=z;
       for(const chunk of cityChunks){
         const dx=x-chunk.x,dz=z-chunk.z,d2=dx*dx+dz*dz;
+        if(!chunk.built&&d2<radius*radius){pendingChunks.delete(chunk);finishChunk(chunk);} // P2 perf：要看到了就當場建
         chunk.group.visible=d2<radius*radius;
         chunk.detail.visible=!aerial&&d2<detailRadius*detailRadius;
         const vegetationRadius=chunk.primaryVegetation?corridorRadius:detailRadius;
