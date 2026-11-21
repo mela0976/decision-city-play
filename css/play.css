@@ -1777,3 +1777,8 @@ html[lang="en"] .hud-meters .m-name {
     animation: none;
   }
 }
+
+/* 日文的教學清單：「オート移動」等短詞不折行（片假名斷在中間很難讀） */
+:root:lang(ja) .coach-step {
+  white-space: nowrap;
+}
