@@ -1,4 +1,4 @@
-import {byId,metersPerUnit as unit} from './world.mjs';
+import {byId,metersPerUnit as unit} from './world.mjs?v=897423c';
 
 const office=byId.get('office');
 const angle=office.viewHeading;

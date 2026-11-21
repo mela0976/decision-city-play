@@ -3,8 +3,8 @@
 // 「做到」看的是引擎狀態，不看鍵碼：engine.player 的朝向與位置變化、autoride:change；
 // 地圖：引擎若發出 map:change 就用它，沒有的話退回小地圖被點、或 M 鍵（引擎目前沒有地圖開關事件）。
 
-import { h } from '../dom.js';
-import { T, KEY } from '../strings.js';
+import { h } from '../dom.js?v=897423c';
+import { T, KEY } from '../strings.js?v=897423c';
 
 export const COACH_STEPS = ['turn', 'forward', 'map', 'auto'];
 const LIMIT_MS = 60000;

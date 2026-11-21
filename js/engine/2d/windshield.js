@@ -1,6 +1,6 @@
 // A26 perspective view for the Canvas renderer, using the same OSM geometry as the map.
-import {buildings,metersPerUnit as unit,roads} from '../world.mjs';
-import {drawCockpit} from '../car-cockpit.js';
+import {buildings,metersPerUnit as unit,roads} from '../world.mjs?v=897423c';
+import {drawCockpit} from '../car-cockpit.js?v=897423c';
 
 export function createWindshield(){
   const range=125/unit,refresh=15/unit;

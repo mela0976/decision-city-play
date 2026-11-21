@@ -1,5 +1,5 @@
-import {crossings,crosswalks,alleyStops} from '../street-crossings.mjs';
-import {metersPerUnit as unit} from '../world.mjs';
+import {crossings,crosswalks,alleyStops} from '../street-crossings.mjs?v=897423c';
+import {metersPerUnit as unit} from '../world.mjs?v=897423c';
 
 export function paintJunctions(strip,mark){
   const ink='#f0eadc';

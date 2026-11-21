@@ -6,7 +6,7 @@
 // 讀寫都包在 try/catch；讀不到、版本不符或欄位不齊（例如舊格式的存檔），一律當作沒有存檔。
 // 音效、提示列等偏好另存 decision-city-prefs-v1。
 
-import { METER_IDS } from './strings.js';
+import { METER_IDS } from './strings.js?v=897423c';
 
 export const SAVE_KEY = 'decision-city-save-v1';
 export const SAVE_VERSION = 1;

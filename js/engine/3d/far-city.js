@@ -1,9 +1,9 @@
-import * as T from '../vendor/three.module.min.js';
+import * as T from '../vendor/three.module.min.js?v=897423c';
 import data from '../data/far-city.json' with {type:'json'};
-import {buildings,toWorld,metersPerUnit as unit} from '../world.mjs';
-import {isTowerBlock} from '../tower-structures.mjs'; // A23 towers
-import {shellHeight} from './buildings-tower.js'; // A23 towers
-import {urbanInfill} from '../infill.mjs';
+import {buildings,toWorld,metersPerUnit as unit} from '../world.mjs?v=897423c';
+import {isTowerBlock} from '../tower-structures.mjs?v=897423c'; // A23 towers
+import {shellHeight} from './buildings-tower.js?v=897423c'; // A23 towers
+import {urbanInfill} from '../infill.mjs?v=897423c';
 
 const origin=toWorld(...data.origin),ox=origin.x*unit,oz=origin.y*unit;
 function unpack(row,start=0){

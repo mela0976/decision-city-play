@@ -1,17 +1,17 @@
-import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs';
-import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js';
-import * as T from '../vendor/three.module.min.js';
-import {drawCockpit} from '../car-cockpit.js'; // A26
-import {createMapRenderer,drawTouch,surface} from '../overlay.js';
-import {placeLabel,landmarkLabel,playerLabel} from '../labels.mjs'; // i18n
-import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs';
-import {createActors} from './actors.js';
-import {streetCrowds} from '../crowds.mjs';
-import {xinyiBusBay} from './street-life.js';
-import {createFarCity} from './far-city.js'; // A20 far-city
-import {createOsmCity} from './osm-city.js';
-import {metersPerUnit as unit} from '../world.mjs';
-import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js';
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=897423c';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=897423c';
+import * as T from '../vendor/three.module.min.js?v=897423c';
+import {drawCockpit} from '../car-cockpit.js?v=897423c'; // A26
+import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=897423c';
+import {placeLabel,landmarkLabel,playerLabel} from '../labels.mjs?v=897423c'; // i18n
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=897423c';
+import {createActors} from './actors.js?v=897423c';
+import {streetCrowds} from '../crowds.mjs?v=897423c';
+import {xinyiBusBay} from './street-life.js?v=897423c';
+import {createFarCity} from './far-city.js?v=897423c'; // A20 far-city
+import {createOsmCity} from './osm-city.js?v=897423c';
+import {metersPerUnit as unit} from '../world.mjs?v=897423c';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=897423c';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);

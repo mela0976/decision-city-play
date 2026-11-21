@@ -1,8 +1,8 @@
 // Street-side coordinates are metres. The frame of a panel uses Three's rotation about Y.
-import {buildings,buildingHeightAt,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from '../world.mjs';
-import {urbanInfill} from '../infill.mjs';
-import {mallPromenade,neonDistrict} from '../neon-districts.mjs';
-import {hash} from './city-primitives.js';
+import {buildings,buildingHeightAt,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from '../world.mjs?v=897423c';
+import {urbanInfill} from '../infill.mjs?v=897423c';
+import {mallPromenade,neonDistrict} from '../neon-districts.mjs?v=897423c';
+import {hash} from './city-primitives.js?v=897423c';
 
 const cell=24;
 function grid(){

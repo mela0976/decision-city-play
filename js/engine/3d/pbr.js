@@ -1,4 +1,4 @@
-import * as T from '../vendor/three.module.min.js';
+import * as T from '../vendor/three.module.min.js?v=897423c';
 
 export function surfaceMaps(doc,source,anisotropy,strength){
   const size=512,canvas=doc.createElement('canvas');

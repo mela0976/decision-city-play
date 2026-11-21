@@ -1,34 +1,34 @@
 // 遊戲控制器：一天的推進、任務執行、數值、存檔、阿嬤模組、結局。
 // 任務、角色、題目的文字全部來自 content；這裡只有流程與規則。
 
-import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js';
-import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js';
-import { pickEnding, metersForEnding } from './endings.js';
-import { hintFor, curbHint } from './hints.js';
-import { voiceKey } from './sound.js';
-import { createHud } from './ui/hud.js';
-import { createToasts } from './ui/toast.js';
-import { showTitle } from './ui/title.js';
-import { showRoleSelect } from './ui/role-select.js';
-import { runDialogue } from './ui/dialogue.js';
-import { runChoice } from './ui/choice.js';
-import { runQuiz } from './ui/quiz.js';
-import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js';
-import { pickWork } from './ui/side-pick.js';
-import { openSideList } from './ui/side-list.js';
-import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js';
-import { showPlaceCard } from './ui/place-card.js';
-import { playCutscene } from './ui/cutscene.js';
-import { showEnding } from './ui/ending.js';
-import { openProposal } from './ui/proposal.js';
-import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js'; // A26
-import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js';
-import { openManual } from './ui/manual.js';
-import { openElderCard } from './ui/elder-card.js';
-import { langControls } from './ui/lang-switch.js';
-import { createCoach } from './ui/coach.js';
-import { shareResult } from './share.js';
-import { VERSION } from './version.js';
+import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js?v=897423c';
+import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=897423c';
+import { pickEnding, metersForEnding } from './endings.js?v=897423c';
+import { hintFor, curbHint } from './hints.js?v=897423c';
+import { voiceKey } from './sound.js?v=897423c';
+import { createHud } from './ui/hud.js?v=897423c';
+import { createToasts } from './ui/toast.js?v=897423c';
+import { showTitle } from './ui/title.js?v=897423c';
+import { showRoleSelect } from './ui/role-select.js?v=897423c';
+import { runDialogue } from './ui/dialogue.js?v=897423c';
+import { runChoice } from './ui/choice.js?v=897423c';
+import { runQuiz } from './ui/quiz.js?v=897423c';
+import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=897423c';
+import { pickWork } from './ui/side-pick.js?v=897423c';
+import { openSideList } from './ui/side-list.js?v=897423c';
+import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js?v=897423c';
+import { showPlaceCard } from './ui/place-card.js?v=897423c';
+import { playCutscene } from './ui/cutscene.js?v=897423c';
+import { showEnding } from './ui/ending.js?v=897423c';
+import { openProposal } from './ui/proposal.js?v=897423c';
+import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=897423c'; // A26
+import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=897423c';
+import { openManual } from './ui/manual.js?v=897423c';
+import { openElderCard } from './ui/elder-card.js?v=897423c';
+import { langControls } from './ui/lang-switch.js?v=897423c';
+import { createCoach } from './ui/coach.js?v=897423c';
+import { shareResult } from './share.js?v=897423c';
+import { VERSION } from './version.js?v=897423c';
 
 // 固定規則：docs/CONTRACTS.md 第 3.4 節。
 const QUIZ_RIGHT = { trust: 3 };

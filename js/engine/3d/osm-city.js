@@ -1,20 +1,20 @@
-import {createSignalLayer,signalReflections} from './traffic-signals.js'; // A24
-import {createNeonStreet} from './neon-street.js'; // A22 street signs
-import {surfaceMaps} from './pbr.js';
-import * as T from '../vendor/three.module.min.js';
-import {canvasTexture,hash,shapes,color} from './city-primitives.js';
-import {addGround,addWaterAndParks} from './terrain.js';
-import {createRoads} from './roads.js'; // A24 decks are owned by roads
-import {createLandmarks,addEntrances} from './landmarks.js';
-import {curtainMaterial} from './buildings-tower.js'; // A23 towers
-import {addBuildings} from './buildings.js';
-import {addInfill,apartmentWindowMask} from './buildings-old.js';
-import {createStorefront,addBillboards,addStreetNames,updateSigns} from './storefront.js';
-import {placeStreetLife} from './furniture.js';
-import {createNight,updateNight,windowKinds} from './night.js';
-import {placeGroundVegetation} from './vegetation.js';
-import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} from './vegetation-cards.js';
-import {metersPerUnit as unit} from '../world.mjs';
+import {createSignalLayer,signalReflections} from './traffic-signals.js?v=897423c'; // A24
+import {createNeonStreet} from './neon-street.js?v=897423c'; // A22 street signs
+import {surfaceMaps} from './pbr.js?v=897423c';
+import * as T from '../vendor/three.module.min.js?v=897423c';
+import {canvasTexture,hash,shapes,color} from './city-primitives.js?v=897423c';
+import {addGround,addWaterAndParks} from './terrain.js?v=897423c';
+import {createRoads} from './roads.js?v=897423c'; // A24 decks are owned by roads
+import {createLandmarks,addEntrances} from './landmarks.js?v=897423c';
+import {curtainMaterial} from './buildings-tower.js?v=897423c'; // A23 towers
+import {addBuildings} from './buildings.js?v=897423c';
+import {addInfill,apartmentWindowMask} from './buildings-old.js?v=897423c';
+import {createStorefront,addBillboards,addStreetNames,updateSigns} from './storefront.js?v=897423c';
+import {placeStreetLife} from './furniture.js?v=897423c';
+import {createNight,updateNight,windowKinds} from './night.js?v=897423c';
+import {placeGroundVegetation} from './vegetation.js?v=897423c';
+import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} from './vegetation-cards.js?v=897423c';
+import {metersPerUnit as unit} from '../world.mjs?v=897423c';
 const chunkSize=100;
 
 // P1 perf: tint strings parse once (same values Color.set produces); pushes without spreading.
