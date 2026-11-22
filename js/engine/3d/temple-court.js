@@ -1,6 +1,6 @@
 // The shrine occupies the narrow parcel beside the Fude Street marker.
 // Positive depth faces the altar; dimensions and heights are in metres.
-import {metersPerUnit as unit} from '../world.mjs?v=c9f6d84';
+import {metersPerUnit as unit} from '../world.mjs?v=5a397df';
 
 function templeFrame(p){
   const a=p.viewHeading,s=Math.sin(a),c=Math.cos(a);

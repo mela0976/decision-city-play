@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=c9f6d84'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=c9f6d84'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=c9f6d84'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=c9f6d84'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=c9f6d84';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=c9f6d84'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=c9f6d84';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=c9f6d84'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=c9f6d84';
-import {neonDistrict} from './neon-districts.mjs?v=c9f6d84'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=c9f6d84';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=c9f6d84';
-import {streetCrowds} from './crowds.mjs?v=c9f6d84';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=c9f6d84';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=c9f6d84';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=c9f6d84';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=c9f6d84';
-import { touchControls } from './overlay.js?v=c9f6d84';
-import {setLabels,placeLabel} from './labels.mjs?v=c9f6d84'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=5a397df'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=5a397df'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=5a397df'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=5a397df'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=5a397df';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=5a397df'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=5a397df';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=5a397df'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=5a397df';
+import {neonDistrict} from './neon-districts.mjs?v=5a397df'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=5a397df';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=5a397df';
+import {streetCrowds} from './crowds.mjs?v=5a397df';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=5a397df';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=5a397df';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=5a397df';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=5a397df';
+import { touchControls } from './overlay.js?v=5a397df';
+import {setLabels,placeLabel} from './labels.mjs?v=5a397df'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -969,8 +969,19 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         if(teslaHop){pendingRide=true;rideFailed('landing');return;}
         setFlyingTesla(false);
       }
+      // 偏好開車、而且已解鎖：步行或騎機車時按自動前往，也用車。在車道上直接上車；站在人行道、廣場上就先當作車來規劃，走到最近的車道再上車。
+      // 規劃不出車的路線（例如目的地只有窄巷）就退回用機車。
+      let fakedCar=false;
+      if(preferCar&&state.carUnlocked&&!player.vehicle&&player.mode!=='car'){
+        const onLane=carriagewayAt(player.x,player.y)&&!surfaceAt(player.x,player.y);
+        if(onLane)switchCar();
+        else if(player.mode==='foot'){player.mode='car';fakedCar=true;} // 只為了規劃；規劃完下面會依結果還原或進入上車流程
+      }
+      let departure=planDeparture(state.target);
+      // 車走不了、或規劃出來沒有「先走到車道」這一步（站在人行道上不能直接變成車）：退回機車
+      if(fakedCar&&(!departure.mount||!departure.plan||!departure.plan.mount)){player.mode='foot';fakedCar=false;departure=planDeparture(state.target);}
       // 身邊被停放的機車或路邊物件擋住、或某個上車點規劃不出路線時，換更遠的點與不同方向再試，不要讓 G 默默失效
-      const {mount,plan}=planDeparture(state.target);
+      const {mount,plan}=departure;
       if(!mount||!plan){rideFailed(mount?'route':'mount');return;}
       route=plan;
       if(player.mode==='car'){ // A26 keep the lane plan even when a traffic bypass rewrites the working route.
@@ -1008,6 +1019,9 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     emit('autoride:change',{on,reason});
   }
   let pendingRide=false;
+  // 玩家偏好開公司車：任務結束回到街上、或抵達後下車，玩家都會變成步行（車就不見了）；之後按自動前往仍然用車，
+  // 不要莫名其妙變成機車。自己按 F 騎機車就改成偏好機車。
+  let preferCar=false;
   // A25 the foot leg from a sidewalk or arcade to the scooter's lane position.
   function updateBoarding(dt){
     const goal=boarding,gap=distance(player,goal);
@@ -1116,27 +1130,25 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   function curbDistance(site,entrance){ // A24 both coordinates are valid arrival points.
     return Math.min(distance(player,site),entrance?distance(player,entrance):Infinity);
   }
-  function startEntryWalk(venue,lead=[]){ // A27 head through the mouth first, including approaches from behind
+  function startEntryWalk(venue){ // A27 head through the mouth first, including approaches from behind
     walkSelected=true;setMode('foot');state.standingPoint=null;
     finalWalk=venuePoint(venue,0,1.45);finalWalkSince=state.clock;
     doorstep=venuePoint(venue,0,-1.05);
-    route=[...lead,doorstep,finalWalk];detour=null;blocker=null;nextReroute=0;
+    route=[doorstep,finalWalk];detour=null;blocker=null;nextReroute=0;
   }
-  function parkAtCurb(auto,reach=15){
+  function parkAtCurb(auto){
     const sites=state.target?[state.target]:state.markers.map(m=>byId.get(m.locationId));
     let goal=null,nearest=Infinity;
     for(const site of sites){
       const entrance=entrances.get(site?.id)??(venues.has(site?.id)?site:null); // A27 unpaved plazas
       if(!entrance)continue;
       const gap=curbDistance(site,entrance);
-      if(gap<=reach*speedUnits&&gap<nearest){nearest=gap;goal=entrance;}
+      if(gap<=15*speedUnits&&gap<nearest){nearest=gap;goal=entrance;}
     }
     if(!goal)return false;
     carWalk=auto&&player.mode==='car'; // A26
     walkSelected=true;setMode('foot');state.standingPoint=null;
-    // 路線剩下的部分都在人行道上（窄巷口、廣場）：停車後沿著原本規劃的人行道路線走過去，不要直線穿越
-    const lead=reach>15&&route?route.filter(p=>!p.turnSignal&&distance(p,goal)>2*speedUnits):[];
-    if(auto&&venues.has(state.target?.id))startEntryWalk(venues.get(state.target.id),lead); // A27
+    if(auto&&venues.has(state.target?.id))startEntryWalk(venues.get(state.target.id)); // A27
     else if(auto){finalWalk=goal;finalWalkSince=state.clock;route=[goal];detour=null;blocker=null;nextReroute=0;}
     emit('curb:hint',{kind:'parked'});
     return true;
@@ -1171,6 +1183,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       else {delete player.width;delete player.featuredStyle;delete player.color;}
     }
     player.mode=mode;
+    if(mode==='car')preferCar=true;else if(mode==='scooter')preferCar=false; // 記住玩家最後選的是車還是機車（見 setRide）
     if(mode==='scooter')state.roadReturn=false;
     if (player.mode==='foot') {
       velocityX=0;
@@ -1283,7 +1296,21 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         emit('curb:hint',{kind:'road'});return;
       }
       if(finalWalk)setRide(false); // A24 explicit mount cancels the walking leg
-      if(player.mode==='foot'&&!clearPose(player.x,player.y,'scooter',player.heading))return;
+      if(player.mode==='foot'){
+        // 站在路緣邊、車頭朝著走路方向（垂直路緣）時機車放不下：先試著把車頭轉成沿最近那條路的方向（挑跟目前朝向接近的那邊）；
+        // 都放不下才提示「先回到車道」（原本是默默什麼都不做）
+        let pose=clearPose(player.x,player.y,'scooter',player.heading)?player.heading:null;
+        for(const site of pose===null?roadOptions(player.x,player.y,1):[]){ // 只看最近的那一條路（玩家就站在它的車道邊上），不要被附近垂直的巷子牽著走
+          const axis=Math.atan2(site.r[3]-site.r[1],site.r[2]-site.r[0]);
+          // 只轉到跟目前朝向差 100 度以內的方向：垂直路緣（90 度）可以轉成沿路，但不會把玩家整個掉頭、背對眼前的障礙物上車
+          const options=[axis,axis+Math.PI].filter(h=>Math.abs(angleDiff(h,player.heading))<=1.75)
+            .sort((a,b)=>Math.abs(angleDiff(a,player.heading))-Math.abs(angleDiff(b,player.heading)));
+          pose=options.find(h=>clearPose(player.x,player.y,'scooter',h))??null;
+          if(pose!==null)break;
+        }
+        if(pose===null){emit('curb:hint',{kind:'road'});return;}
+        player.heading=pose;
+      }
       manualUntil=state.clock+3;
       walkSelected=player.mode!=='foot';
       setMode(walkSelected?'foot':'scooter');
@@ -2082,9 +2109,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
               }
               if(pivot){route.unshift({...pivot,curbPivot:true});next.curbPivot=true;followMap(dt);updateLocation();updateContext();return;}
             }
-            // 剩下的路線全在人行道上（例如數據實驗室前的窄巷口）：機車上不去，就在這裡停車改走路，最遠 45 公尺，不要卡在轉角
-            const footRest=obstruction==='curb'&&route.length>0&&route.every(p=>!carriagewayAt(p.x,p.y));
-            if((obstruction==='curb'||approachingEntrance&&besideCurb(angle)||venues.has(state.target.id)&&distance(player,state.target)<7*speedUnits)&&parkAtCurb(true,footRest?45:15)){ // A27 stop beside an occupied plaza
+            if((obstruction==='curb'||approachingEntrance&&besideCurb(angle)||venues.has(state.target.id)&&distance(player,state.target)<7*speedUnits)&&parkAtCurb(true)){ // A27 stop beside an occupied plaza
               followMap(dt);updateLocation();updateContext();return;
             }
             const obstacle=hitBody??contact(player.x,player.y);

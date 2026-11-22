@@ -4,8 +4,8 @@
 //   · 三條音量（音樂、語音、音效）加一個全部靜音，存在偏好設定裡。
 //   · 每一次「要播、要停」都記在 log 裡（最多 600 筆），自動化驗收靠它確認行為——無頭瀏覽器聽不到聲音。
 
-import { synth, canSynth } from './audio.js?v=c9f6d84';
-import { LANG } from './lang.js?v=c9f6d84';
+import { synth, canSynth } from './audio.js?v=5a397df';
+import { LANG } from './lang.js?v=5a397df';
 
 const FADE_SEC = 0.5;
 const DUCK_LEVEL = 0.28;

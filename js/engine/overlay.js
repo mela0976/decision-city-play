@@ -1,4 +1,4 @@
-import { byId, civicWalkway, height, locations, river, roads, water, width } from './world.mjs?v=c9f6d84';
+import { byId, civicWalkway, height, locations, river, roads, water, width } from './world.mjs?v=5a397df';
 
 const ink='#242b30';
 const paper='#fff2cd';

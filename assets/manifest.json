@@ -722,8 +722,8 @@
     },
     "icon": {
       "src": "assets/img/icon.png",
-      "w": 512,
-      "h": 512
+      "w": 192,
+      "h": 192
     }
   },
   "videos": {

@@ -1,11 +1,11 @@
-import * as T from '../vendor/three.module.min.js?v=c9f6d84';
-import {roads,roadNodes,roadAt,roadOptions,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=c9f6d84';
-import {crossingForNode} from '../street-crossings.mjs?v=c9f6d84';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=c9f6d84';
-import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=c9f6d84';
-import {paintJunctions} from './junction-markings.js?v=c9f6d84'; // A24
+import * as T from '../vendor/three.module.min.js?v=5a397df';
+import {roads,roadNodes,roadAt,roadOptions,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=5a397df';
+import {crossingForNode} from '../street-crossings.mjs?v=5a397df';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=5a397df';
+import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=5a397df';
+import {paintJunctions} from './junction-markings.js?v=5a397df'; // A24
 
-import {drawSidewalks} from './sidewalks.js?v=c9f6d84'; // A24
+import {drawSidewalks} from './sidewalks.js?v=5a397df'; // A24
 const {plane}=shapes;
 const BUS_ROADS=new Set(['忠孝東路四段','忠孝東路五段','仁愛路四段','信義路四段','信義路五段','南京東路五段']);
 export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sidewalks=drawSidewalks}) { // P2 perf：osm-city 可改成先保留位置、稍後才畫人行道
@@ -38,7 +38,7 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
     const mark=new T.Mesh(plane,roadMarkMaterials.get(arrows));
     mark.position.set(x,.078,z);mark.rotation.set(-Math.PI/2,0,-heading-Math.PI/2,'YXZ');
     mark.scale.set(arrows==='scooter'?1.4:2.25,arrows==='↑'?2.0:1.30,1);
-    if(arrows==='scooter'||arrows==='慢'||arrows==='公車專用'){ // 公車專用也批次畫，大道上上百個不要各佔一次繪製
+    if(arrows==='scooter'||arrows==='慢'||arrows==='公車專用'||arrows==='↑'){ // 公車專用也批次畫，大道上上百個不要各佔一次繪製
       if(!symbols.has(arrows))symbols.set(arrows,[]);
       mark.updateMatrix();symbols.get(arrows).push(mark.matrix);return;
     }

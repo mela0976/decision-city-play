@@ -2,8 +2,8 @@
 // 完成任務與支線數、提案第一頁標題、遊戲網址），沿用遊戲的深色底與霓虹綠。
 // 能分享檔案就用系統分享（圖片＋網址），不能就下載 PNG 並把網址複製到剪貼簿。全部在本機產生，不上傳。
 
-import { T, LANG, METER_IDS, METER_NAMES } from './strings.js?v=c9f6d84';
-import { copyText } from './errors.js?v=c9f6d84';
+import { T, LANG, METER_IDS, METER_NAMES } from './strings.js?v=5a397df';
+import { copyText } from './errors.js?v=5a397df';
 
 export const SHARE_W = 1080;
 export const SHARE_H = 1350;

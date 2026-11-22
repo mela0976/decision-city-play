@@ -1,11 +1,10 @@
-import * as T from '../vendor/three.module.min.js?v=c9f6d84';
-import {canvasTexture,shapes} from './city-primitives.js?v=c9f6d84';
-import {crossings,signalState} from '../street-crossings.mjs?v=c9f6d84';
-import {carriagewayAt} from '../sidewalks.mjs?v=c9f6d84';
-import {metersPerUnit as unitM} from '../world.mjs?v=c9f6d84';
+import * as T from '../vendor/three.module.min.js?v=5a397df';
+import {canvasTexture,shapes} from './city-primitives.js?v=5a397df';
+import {crossings,signalState} from '../street-crossings.mjs?v=5a397df';
+import {placedPoles} from '../signal-poles.mjs?v=5a397df';
 
-// 立在車道上的號誌杆不畫（和碰撞註冊同一個條件）：紅綠燈不站在路中央
-const poles=crossings.flatMap(j=>j.poles).filter(p=>!carriagewayAt(p.x/unitM,p.y/unitM));
+// 燈桿位置見 signal-poles.mjs：落在車道上的會先移到路外，繪製和碰撞用同一份
+const poles=placedPoles;
 export const signalReflections=poles.map(p=>({x:p.x-p.dy*2.7,z:p.y+p.dx*2.7,crossing:p})); // A24
 const names=[...new Map(poles.map(p=>[p.name,p])).values()];
 const nameTile=new Map(names.map((p,i)=>[p.name,i]));

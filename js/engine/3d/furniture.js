@@ -1,8 +1,9 @@
-import {placeTree} from './vegetation.js?v=c9f6d84';
-import {hash} from './city-primitives.js?v=c9f6d84';
-import {crossings} from '../street-crossings.mjs?v=c9f6d84';
-import {carriagewayAt} from '../sidewalks.mjs?v=c9f6d84';
-import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs?v=c9f6d84';
+import {placeTree} from './vegetation.js?v=5a397df';
+import {hash} from './city-primitives.js?v=5a397df';
+import {crossings} from '../street-crossings.mjs?v=5a397df';
+import {carriagewayAt} from '../sidewalks.mjs?v=5a397df';
+import {placedPoles} from '../signal-poles.mjs?v=5a397df';
+import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs?v=5a397df';
 
 const marketApproach=toWorld(25.02960,121.55408);
 const studioEntrance=toWorld(25.04509,121.55910);
@@ -176,7 +177,7 @@ export function placeStreetLife({instance,paint,sign,roadMark=()=>{},signal=()=>
     }
   }
   // A24 physical signal posts are rendered by the instanced signal layer.
-  for(const j of crossings)for(const p of j.poles)if(!carriagewayAt(p.x/unit,p.y/unit))obstacle(p.x,p.y,.11,5.4,'signal');
+  for(const p of placedPoles)obstacle(p.x,p.y,.11,5.4,'signal');
   const byId=new Map(locations.map(p=>[p.id,p]));
   const placement=(id,fn)=>{
     const p=byId.get(id),angle=p.viewHeading,x=p.x*unit,z=p.y*unit;
