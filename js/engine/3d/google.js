@@ -1,9 +1,9 @@
-import * as T from '../vendor/three.module.min.js?v=c0252f8';
-import {TilesRenderer} from '../vendor/tiles/index.three.js?v=c0252f8';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=c0252f8';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=c0252f8';
-import {copyrightStrings,rootURL} from '../google-session.js?v=c0252f8';
-import {geographicOrigin,geographicBounds,projectMeters} from '../world.mjs?v=c0252f8';
+import * as T from '../vendor/three.module.min.js?v=c9f6d84';
+import {TilesRenderer} from '../vendor/tiles/index.three.js?v=c9f6d84';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=c9f6d84';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=c9f6d84';
+import {copyrightStrings,rootURL} from '../google-session.js?v=c9f6d84';
+import {geographicOrigin,geographicBounds,projectMeters} from '../world.mjs?v=c9f6d84';
 
 function matrixAtOrigin() {
   const [latitude,longitude]=geographicOrigin;

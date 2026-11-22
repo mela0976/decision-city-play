@@ -1,18 +1,18 @@
-import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=c0252f8';
-import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=c0252f8';
-import * as T from '../vendor/three.module.min.js?v=c0252f8';
-import {drawCockpit} from '../car-cockpit.js?v=c0252f8'; // A26
-import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=c0252f8';
-import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=c0252f8'; // i18n
-import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=c0252f8';
-import {createActors} from './actors.js?v=c0252f8';
-import {streetCrowds} from '../crowds.mjs?v=c0252f8';
-import {xinyiBusBay} from './street-life.js?v=c0252f8';
-import {createFarCity} from './far-city.js?v=c0252f8'; // A20 far-city
-import {createOsmCity} from './osm-city.js?v=c0252f8';
-import {drain,later,release,releaseAfter,setUploader} from './idle-work.js?v=c0252f8'; // P2 perf
-import {metersPerUnit as unit} from '../world.mjs?v=c0252f8';
-import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=c0252f8';
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=c9f6d84';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=c9f6d84';
+import * as T from '../vendor/three.module.min.js?v=c9f6d84';
+import {drawCockpit} from '../car-cockpit.js?v=c9f6d84'; // A26
+import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=c9f6d84';
+import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=c9f6d84'; // i18n
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=c9f6d84';
+import {createActors} from './actors.js?v=c9f6d84';
+import {streetCrowds} from '../crowds.mjs?v=c9f6d84';
+import {xinyiBusBay} from './street-life.js?v=c9f6d84';
+import {createFarCity} from './far-city.js?v=c9f6d84'; // A20 far-city
+import {createOsmCity} from './osm-city.js?v=c9f6d84';
+import {drain,later,release,releaseAfter,setUploader} from './idle-work.js?v=c9f6d84'; // P2 perf
+import {metersPerUnit as unit} from '../world.mjs?v=c9f6d84';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=c9f6d84';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);

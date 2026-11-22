@@ -1,7 +1,7 @@
-import {byId,civicWalkway,metersPerUnit as unit,random,roadAt,roads,toWorld,worldContact} from './world.mjs?v=c0252f8';
-import {obstructsEntrance} from './actor-entrances.mjs?v=c0252f8';
-import {occupancy} from './collision.mjs?v=c0252f8';
-import {riversideCycleways} from './3d/terrain.js?v=c0252f8';
+import {byId,civicWalkway,metersPerUnit as unit,random,roadAt,roads,toWorld,worldContact} from './world.mjs?v=c9f6d84';
+import {obstructsEntrance} from './actor-entrances.mjs?v=c9f6d84';
+import {occupancy} from './collision.mjs?v=c9f6d84';
+import {riversideCycleways} from './3d/terrain.js?v=c9f6d84';
 
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y)*unit;
 

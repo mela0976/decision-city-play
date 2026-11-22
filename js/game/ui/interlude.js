@@ -2,10 +2,10 @@
 //   showSlide    「提案第 n 頁」蓋章入手（那一年的一句答案）
 //   runSincere   一句真心話，話沒顯示完就被台灣的日常打斷。六種打斷各有一個畫面效果與合成音效。
 
-import { h, interaction, reducedMotion } from '../dom.js?v=c0252f8';
-import { T } from '../strings.js?v=c0252f8';
-import { icon } from './icons.js?v=c0252f8';
-import { avatarFor } from './phone.js?v=c0252f8';
+import { h, interaction, reducedMotion } from '../dom.js?v=c9f6d84';
+import { T } from '../strings.js?v=c9f6d84';
+import { icon } from './icons.js?v=c9f6d84';
+import { avatarFor } from './phone.js?v=c9f6d84';
 
 const CHAR_MS = 30;
 const CUT_AT = 0.58;

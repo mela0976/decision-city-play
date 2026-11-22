@@ -3,8 +3,8 @@
 // options 每筆：{ text, feedback, insight, isGrandma, bonusLabel, hint }
 // onPick(option) 由遊戲層結算，回傳 { deltas, bonusLabel }。
 
-import { h, fill, interaction, formatDelta, arrowFocus } from '../dom.js?v=c0252f8';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=c0252f8';
+import { h, fill, interaction, formatDelta, arrowFocus } from '../dom.js?v=c9f6d84';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=c9f6d84';
 
 export function deltaChips(deltas, className = 'chips') {
   const items = METER_IDS.filter((id) => deltas?.[id]).map((id) => {
