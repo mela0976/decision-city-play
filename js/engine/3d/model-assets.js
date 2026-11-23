@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=5114ee85';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=5114ee85';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=5114ee85';
+import * as T from '../vendor/three.module.min.js?v=1448599f';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=1448599f';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=1448599f';
 
 const optionalVehicles={garbage_truck:6.5,bus:12};
 const catalog={
@@ -145,8 +145,29 @@ export function createModelAssets(scene){
               shader.fragmentShader='varying float dcGarmentHeight; uniform vec3 garmentTint; uniform float garmentEnabled;uniform float skinTone; uniform vec3 pantsTint; uniform float pantsEnabled;\n'+shader.fragmentShader;
               const band=key==='rider_scooter'?'smoothstep(.54,.59,dcGarmentHeight)*(1.-smoothstep(.76,.83,dcGarmentHeight))':
                 'smoothstep(.51,.57,dcGarmentHeight)*(1.-smoothstep(.76,.82,dcGarmentHeight))';
-              shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',
-                '#include <map_fragment>\nfloat garment='+band+';\nfloat light=dot(diffuseColor.rgb,vec3(.25,.55,.20));\ndiffuseColor.rgb=mix(diffuseColor.rgb,garmentTint*(.38+light*.85),garment*garmentEnabled*.53);\nfloat headBand=smoothstep(.8,.86,dcGarmentHeight);\nfloat pantsBand=smoothstep(.12,.17,dcGarmentHeight)*(1.-smoothstep(.47,.54,dcGarmentHeight));\ndiffuseColor.rgb=mix(diffuseColor.rgb,pantsTint*(.52+light*.93),pantsBand*pantsEnabled*.69);\ndiffuseColor.rgb*=1.+skinTone*headBand*mix(.48,1.,smoothstep(.04,.35,light));');
+              const walker=key==='walker_f'||key==='walker_m';
+              shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>', `
+                #include <map_fragment>
+                float garment=${band};
+                float light=dot(diffuseColor.rgb,vec3(.25,.55,.20));
+                ${walker?`
+                  // The original albedo atlas shares skin, hair and clothing.
+                  vec3 texel=diffuseColor.rgb;
+                  float warm=smoothstep(.035,.12,texel.r-texel.g)*smoothstep(.012,.06,texel.r-texel.b);
+                  float head=smoothstep(.79,.84,dcGarmentHeight);
+                  float hands=smoothstep(.36,.47,dcGarmentHeight)*(1.-smoothstep(.72,.80,dcGarmentHeight));
+                  float skinMask=warm*smoothstep(.085,.20,texel.r)*max(head,hands);
+                `:''}
+                diffuseColor.rgb=mix(diffuseColor.rgb,garmentTint*(.38+light*.85),garment*garmentEnabled*.53${walker?'*(1.-skinMask)':''});
+                float pantsBand=smoothstep(.12,.17,dcGarmentHeight)*(1.-smoothstep(.47,.54,dcGarmentHeight));
+                diffuseColor.rgb=mix(diffuseColor.rgb,pantsTint*(.52+light*.93),pantsBand*pantsEnabled*.69${walker?'*(1.-skinMask)':''});
+                ${walker?'diffuseColor.rgb*=mix(vec3(1.),vec3(1.02,1.06,.99)*(1.+skinTone),skinMask);':''}
+              `);
+              if(walker){
+                shader.fragmentShader=shader.fragmentShader
+                  .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\nroughnessFactor=mix(roughnessFactor,max(.72,roughnessFactor),skinMask);')
+                  .replace('#include <metalnessmap_fragment>', '#include <metalnessmap_fragment>\nmetalnessFactor*=1.-skinMask;');
+              }
             };
             material.customProgramCacheKey=()=>key+'-'+min.y+'-'+span;
             return material;

@@ -1,21 +1,23 @@
-import {surfaceAt} from '../sidewalks.mjs?v=5114ee85'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=5114ee85'; // A22
-import {marketTruck} from '../night-market.mjs?v=5114ee85'; // A23 night
-import {parkedKey} from '../impact.mjs?v=5114ee85';
-import {streetCrowds} from '../crowds.mjs?v=5114ee85';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=5114ee85';
-import {createNamedNpcModels} from './named-npcs.js?v=5114ee85';
-import {buildOfficePeople} from './office-people.js?v=5114ee85';
-import {createModelAssets} from './model-assets.js?v=5114ee85';
-import {fixtureColliders} from '../fixtures.mjs?v=5114ee85';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=5114ee85';
-import * as T from '../vendor/three.module.min.js?v=5114ee85';
+import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=1448599f'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=1448599f'; // A22
+import {marketTruck} from '../night-market.mjs?v=1448599f'; // A23 night
+import {parkedKey} from '../impact.mjs?v=1448599f';
+import {streetCrowds} from '../crowds.mjs?v=1448599f';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=1448599f';
+import {createNamedNpcModels} from './named-npcs.js?v=1448599f';
+import {buildOfficePeople} from './office-people.js?v=1448599f';
+import {createModelAssets} from './model-assets.js?v=1448599f';
+import {fixtureColliders} from '../fixtures.mjs?v=1448599f';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=1448599f';
+import * as T from '../vendor/three.module.min.js?v=1448599f';
+import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=1448599f';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
 const faceMark=new T.SphereGeometry(.5,8,5);
 const wheel=new T.CylinderGeometry(.5,.5,1,12).rotateX(Math.PI/2);
 const hat=new T.ConeGeometry(.5,1,12);
+const spectacleRim=new T.TorusGeometry(.41,.09,5,12).rotateY(Math.PI/2);
 // Beveled service bodies reuse fixed meshes rather than box silhouettes.
 function serviceProfile(points){
   const outline=new T.Shape();
@@ -51,7 +53,18 @@ const wagonGlass=cabinProfile([[-.47,-.46],[-.37,.34],[-.28,.44],[.20,.44],[.29,
 const scooterRear=serviceProfile([[-.47,-.06],[-.43,.30],[-.28,.43],[.26,.43],[.47,.28],[.38,-.33],[-.07,-.42]]);
 const scooterShield=serviceProfile([[-.46,-.44],[-.22,.30],[.04,.46],[.31,.38],[.46,.12],[.26,-.27],[-.02,-.44]]);
 const scooterSeat=serviceProfile([[-.47,-.20],[-.44,.27],[-.31,.40],[.03,.38],[.21,.21],[.43,.21],[.47,.04],[.35,-.30],[-.31,-.30]]);
+const cargoCase=serviceProfile([[-.46,-.34],[-.36,-.46],[.38,-.46],[.46,-.35],[.46,.37],[.36,.46],[-.37,.46],[-.46,.36]]);
 const headColors=['#a97657','#ab785d','#c08968','#926747'];
+// sRGB albedo and corresponding exposure shift for the textured walkers.
+const complexions=[
+  {color:'#d0a385',shift:.07},
+  {color:'#be926f',shift:-.04},
+  {color:'#a77659',shift:-.21},
+  {color:'#dbad96',shift:.14},
+  {color:'#c59a83',shift:0},
+  {color:'#b48770',shift:-.13},
+  {color:'#956a50',shift:-.30},
+];
 const outfits={ae:'#547981',planner:'#ba9262',media:'#6387ac',creative:'#a26072',data:'#776993',cx:'#7d8861',
   grandma:'#8b5368',npc_grandma:'#a7656e',npc_client:'#7184a2',npc_boss:'#435264',npc_colleague:'#739780',
   npc_vendor:'#324b62',npc_student:'#296168',npc_elder:'#766953',npc_rider:'#c29b4d'};
@@ -70,6 +83,34 @@ const part=(shape,color,x,y,z,w,h,d,roll=0)=>{
 // P2 perf：明列參數，不用 ...args（每次呼叫都會配置一個陣列）
 const p=(color,x,y,z,w,h,d,roll)=>part('box',color,x,y,z,w,h,d,roll);
 const ball=(color,x,y,z,w,h,d,roll)=>part('round',color,x,y,z,w,h,d,roll);
+const deliveryVest='#b98332',workerVest='#bb752e',reflectiveTape='#efe5ad';
+function deliveryHelmet(body,x,y,shell,near){
+  body.push(ball(shell,x-.016,y+.04,0,.305,.265,.304),
+    ball('#252e37',x+.063,y+.013,0,.233,.144,.282),
+    ball(shell,x+.034,y-.078,0,.237,.120,.279));
+  if(near)body.push(ball('#718b96',x+.158,y+.042,0,.047,.039,.171),
+    ball('#353c43',x-.040,y-.014,-.143,.066,.061,.023),
+    ball('#353c43',x-.040,y-.014,.143,.066,.061,.023));
+}
+
+function addDeliveryCase(parts,tone,near){
+  parts.push(p('#303338',-.797,.835,0,.52,.09,.47),
+    part('cargoCase',tone,-.80,1.071,0,.51,.44,.55),
+    part('cargoCase','#3b4144',-.80,1.272,0,.53,.095,.57),
+    p(reflectiveTape,-1.056,1.083,0,.013,.041,.365),
+    p(reflectiveTape,-.80,1.083,-.278,.36,.041,.013),
+    p(reflectiveTape,-.80,1.083,.278,.36,.041,.013));
+  if(near)parts.push(p('#303338',-1.059,1.185,0,.026,.056,.124));
+}
+
+function addVest(body,x,y,width,depth,tone,near){
+  body.push(ball(tone,x,y,0,depth,.42,width));
+  if(near)body.push(
+    p(reflectiveTape,x+depth*.38,y+.025,-width*.22,.037,.225,.037),
+    p(reflectiveTape,x+depth*.38,y+.025,width*.22,.037,.225,.037));
+  body.push(p(reflectiveTape,x-depth*.48,y-.036,0,.029,.041,width*.68),
+    p(reflectiveTape,x+depth*.48,y-.036,0,.029,.041,width*.68));
+}
 const tire=(x,y,z,size=.58)=>part('wheel','#252329',x,y,z,size,size,.16);
 const metal=(x,y,z,w,h,d,roll)=>p('#87908e',x,y,z,w,h,d,roll);
 function scooterBody(paint,steer){
@@ -128,9 +169,80 @@ function limb(color,a,b,w,d=w) {
 }
 // Compile the stationary office poses once, outside the per-frame scratch pool.
 const officePeople=buildOfficePeople(p,ball,limb,part);
+// X points toward the face. Shape the hairline around the forehead, ears and nape.
+function hairCap(front,side,back,height,parting=0,bob=false){
+  const columns=16,rows=5;
+  const cap=new T.SphereGeometry(1,columns,rows,0,Math.PI*2,0,Math.PI/2);
+  const position=cap.getAttribute('position');
+  for(let row=0;row<=rows;row++)for(let column=0;column<=columns;column++){
+    const fraction=row/rows,angle=column*2*Math.PI/columns;
+    const forward=-Math.cos(angle),across=Math.sin(angle);
+    const hem=side+(forward>0?front-side:side-back)*forward+parting*across*Math.max(0,forward);
+    const latitude=fraction*hem;
+    const crownWave=1+.018*Math.sin(5*angle)*Math.sin(latitude);
+    const drop=bob?.115*fraction**3*(1-forward*forward*Math.max(0,forward)):0;
+    position.setXYZ(row*(columns+1)+column,
+      -.008+.122*forward*Math.sin(latitude)*crownWave,
+      height*Math.cos(latitude)-drop,
+      .110*across*Math.sin(latitude)*crownWave);
+  }
+  cap.computeVertexNormals();
+  return cap;
+}
+
+function tiedHair(cap,knot,tail){
+  const pieces=tail?[cap,knot,tail]:[cap,knot];
+  const geometry=mergeGeometries(pieces);
+  for(const piece of pieces)piece.dispose();
+  return geometry;
+}
+const hairMeshes={
+  shortHair:hairCap(1.15,1.47,2.03,.134),
+  sweptHair:hairCap(1.28,1.59,2.04,.151,.38),
+  bobHair:hairCap(1.29,1.71,1.86,.145,.18,true),
+  ponytail: tiedHair(hairCap(1.14,1.53,2.10,.143,.15),
+    new T.SphereGeometry(1,10,6).scale(.041,.040,.044).translate(-.112,.049,0),
+    new T.SphereGeometry(1,10,6).scale(.045,.147,.050).rotateZ(-.29).translate(-.158,-.068,0)),
+  bun: tiedHair(hairCap(1.13,1.53,2.06,.140,.10),
+    new T.SphereGeometry(1,10,6).scale(.073,.064,.068).rotateZ(-.24).translate(-.119,.085,0)),
+};
+const womenHair=['bobHair','ponytail','bun','shortHair'];
+const menHair=['shortHair','sweptHair'];
+const darkHair=['#282224','#352925','#292a2d','#392c2a'];
+const greyHair=['#a69e96','#b5aea6','#999896','#bbb8b0'];
+const hairTone=(elder,index)=>(elder?greyHair:darkHair)[(index>>>3)%4];
+const hairPart=(style,color,x,y)=>part(style,color,x,y,0,1,1,1);
+const elderSkin=skin=>skin==='npc_elder'||skin==='npc_grandma'||skin==='grandma';
+
 const personBody=[],kneeAt=[0,0,0],ankleAt=[0,0,0],elbowAt=[0,0,0],handAt=[0,0,0],rootAt=[0,0,0];
 const namedNpcModels=createNamedNpcModels(p,ball,limb);
 const v3=(out,x,y,z)=>{out[0]=x;out[1]=y;out[2]=z;return out;};
+const stampLift=.07;
+const shoeLength=.231,shoeHeight=.115,shoeWidth=.121;
+const surfaceProbe={slab:null,height:0};
+const footFrame={x:0,z:0,cos:1,sin:0,ground:0};
+function placeFeet(x,z,heading,ground){
+  footFrame.x=x;footFrame.z=z;
+  footFrame.cos=Math.cos(heading);footFrame.sin=Math.sin(heading);
+  footFrame.ground=ground;
+  return footFrame;
+}
+function streetHeight(x,z,surface){
+  return surface?.height??(carriagewayAt(x,z)?.02:footwayAt(x,z)?-.008:0);
+}
+function supportHeight(frame,x,z,halfLength,halfHeight,halfWidth){
+  const {cos,sin,ground}=frame;
+  const wx=frame.x+(x*cos-z*sin)/metersPerUnit,wz=frame.z+(x*sin+z*cos)/metersPerUnit;
+  const surface=surfaceAt(wx,wz,surfaceProbe);
+  const ramp=surface?.slab;
+  const height=streetHeight(wx,wz,surface)-ground;
+  if(ramp?.kind!=='ramp')return height+halfHeight;
+  // A horizontal ellipsoid touches an incline uphill of its centre.
+  const grade=ramp.rise/ramp.depth;
+  const forward=grade*(ramp.nx*cos+ramp.nz*sin);
+  const lateral=grade*(ramp.nz*cos-ramp.nx*sin);
+  return height+Math.hypot(halfHeight,halfLength*forward,halfWidth*lateral);
+}
 const strideLength=1.10,stance=.56,plantReach=strideLength*stance/2;
 const ankleHeight=.125,legSegment=.378,idlePelvis=.872;
 function footTravel(cycle) {
@@ -145,11 +257,67 @@ function footLift(cycle) {
   const lift=Math.sin(Math.PI*(cycle-stance)/(1-stance));
   return .145*lift*lift;
 }
-function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=false,faceDetail=false,gait=-1,idle=0) { // A22 photo pose
+const isElder=skin=>skin==='npc_elder'||skin==='npc_grandma';
+function elderPerson(grandma,shirt,pants,stature,wearsHat,usesCane,phase,pace,detail){
+  const body=personBody;
+  body.length=0;
+  const swing=Math.sin(phase)*pace*.16,step=Math.cos(phase)*pace;
+  const hip=.76*stature+.017*Math.abs(step),shoulder=hip+.43*stature,head=shoulder+.22*stature;
+  const skin=grandma?'#ba896e':'#ad7d61',hair=grandma?'#d2cbc4':'#9d9790';
+  body.push(ball(pants,-.039,hip,0,.29,.22,.28),
+    ball(shirt,.027,hip+.21*stature,0,.30,.51*stature,.36,-.23),
+    ball(shirt,.080,shoulder-.028,0,.27,.19,.39),
+    ball(skin,.127,shoulder+.072,0,.118,.17,.127),
+    ball(skin,.169,head,0,.216,.244,.193),
+    ball(hair,.133,head+.047,0,.182,.184,.201));
+  if(grandma){
+    body.push(ball(hair,.052,head+.022,0,.132,.125,.142),
+      ball(hair,.158,head+.091,0,.195,.088,.192,-.18));
+  }
+  if(detail){
+    body.push(ball(skin,.272,head-.020,0,.048,.052,.063),
+      ball(skin,.181,head-.024,.093,.055,.082,.045),
+      ball(skin,.181,head-.024,-.093,.055,.082,.045),
+      ball('#55413e',.257,head+.023,.052,.025,.018,.021),
+      ball('#55413e',.257,head+.023,-.052,.025,.018,.021),
+      ball('#8b5548',.269,head-.046,0,.012,.013,.048),
+      ball(grandma?'#e3c3af':'#d3c5a9',.156,shoulder+.013,0,.16,.075,.19));
+  }
+  if(wearsHat){
+    const brim=grandma?'#ae825a':'#777355',crown=grandma?'#ccab79':'#959471';
+    body.push(ball(brim,.164,head+.112,0,.38,.036,.35,-.08),
+      ball(crown,.148,head+.154,0,.234,.139,.238,-.08));
+  }
+  for(let side=-1;side<=1;side+=2){
+    const stride=side*swing, lift=Math.max(0,side*step)*.062;
+    const knee=v3(kneeAt,.044+stride*.77,hip*.54+lift*.65,side*.098);
+    const foot=v3(ankleAt,stride,.082+lift,side*.105);
+    const holding=side===1&&usesCane;
+    const caneLift=holding?Math.max(0,step)*.042:0;
+    const hand=v3(handAt,holding?.221+swing*.39:-stride*.62,holding?.73+caneLift:hip-.015,side*.216);
+    body.push(limb(pants,v3(rootAt,-.039,hip,side*.095),knee,.132,.128),
+      limb(pants,knee,foot,.106,.102),
+      ball('#363033',foot[0]+.043,.055+lift,foot[2],.199,.11,.116));
+    const arm=v3(rootAt,.080,shoulder-.052,side*.155);
+    if(detail||holding){
+      const elbow=v3(elbowAt,.017-stride*.35,shoulder-.241,side*.196);
+      body.push(limb(shirt,arm,elbow,.111),limb(shirt,elbow,hand,.086),
+        ball(skin,hand[0],hand[1],hand[2],.073,.084,.073));
+    }else body.push(limb(shirt,arm,hand,.105));
+    if(holding){
+      const tipX=hand[0]+.062,tipY=.019+caneLift,length=hand[1]-tipY;
+      body.push(p('#584235',(hand[0]+tipX)*.5,(hand[1]+tipY)*.5,hand[2],.025,Math.hypot(length,.062),.025,Math.atan2(.062,length)),
+        ball('#3c302a',hand[0]-.016,hand[1],hand[2],.106,.037,.039),
+        ball('#353436',tipX,tipY,hand[2],.041,.038,.041));
+    }
+  }
+  return body;
+}
+function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=false,faceDetail=false,gait=-1,idle=0,hairstyle,hairColor,umbrella=null,lanyard=false,feet=null,skinTone=complexions[4].color) { // A22 photo pose
   const grandma=skin.includes('grandma');
-  const [shirt,pants,accessory]=clothes??profile[skin]??[outfits[skin]??'#536573',grandma?'#4b4146':'#3e4147',
+  const [shirt,pants,accessory,helmetTone,deliveryRider]=clothes??profile[skin]??[outfits[skin]??'#536573',grandma?'#4b4146':'#3e4147',
     skin==='npc_student'?'backpack':skin==='npc_boss'?'briefcase':''];
-  const skinColor=headColors[skin.length%headColors.length];
+  const skinColor=skinTone;
   const walking=gait>=0;
   const swing=riding?0:walking?Math.cos(phase*2*Math.PI)*.205*gait:Math.sin(phase)*(running?.37:.21);
   const hip=riding?(grandma?-.45:-.34):walking?idle*.019:0;
@@ -167,13 +335,15 @@ function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=
     ball(skinColor,headX,headY-.152,0,.12,.19,.12),
   );
   if(riding) {
-    const shell=clothes?.[3]??(grandma?'#ba8c88':skin==='npc_rider'?'#cba666':'#d5d1c4');
-    body.push(ball(shell,headX,headY+.022,0,.285,.279,.276),
+    const shell=helmetTone??(grandma?'#ba8c88':skin==='npc_rider'?'#cba666':'#d5d1c4');
+    if(deliveryRider)deliveryHelmet(body,headX,headY,shell,true);
+    else body.push(ball(shell,headX,headY+.022,0,.285,.279,.276),
       ball('#343f49',headX+.103,headY-.005,0,.127,.125,.242),
       ball('#899ba1',headX+.158,headY+.022,0,.022,.058,.157));
   } else {
-    const hair=grandma?'#a69d97':'#2c2525';
-    body.push(ball(skinColor,headX,headY,0,.216,.246,.192),ball(hair,headX-.036,headY+.071,0,.188,.156,.199),
+    const style=hairstyle??(grandma?'bun':skin==='creative'?'bobHair':skin==='npc_student'||skin==='media'?'ponytail':'shortHair');
+    body.push(ball(skinColor,headX,headY,0,.216,.246,.192),
+      hairPart(style,hairColor??hairTone(elderSkin(skin),0),headX,headY),
       ball(skinColor,headX+.102,headY-.019,0,.053,.057,.068));
   }
   for(let side=0;side<2;side++) {
@@ -194,18 +364,55 @@ function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=
     }
     const elbow=walking?v3(elbowAt,hip+.03-s*swing*.69,shoulder-.295,s*.235):photo?v3(elbowAt,.23,1.15,s*.21):v3(elbowAt,riding?hip+.36:-s*swing*.64,shoulder-.205,s*.235);
     const hand=walking?v3(handAt,hip+.052-s*swing,pelvis-.069+Math.abs(swing)*.16,s*.245):photo?v3(handAt,.37,1.49,s*.08):running?v3(handAt,.14-s*swing*.75,shoulder-.21,s*.22):v3(handAt,riding?(grandma?.29:.46):-s*swing*.9,riding?(grandma?.96:1.00):pelvis-.01,s*.255);
+    if(umbrella&&s===1){v3(elbowAt,.11,1.01,.23);v3(handAt,.27,1.23,.255);}
+    const shoeX=ankle[0]+.064,shoeZ=ankle[2];
+    let shoeY=ankle[1]-(walking?ankleHeight-.0575:.085);
+    if(feet&&!riding){
+      // Each shoe rests on the pavement under its own centre, including kerbs and ramps.
+      const rise=supportHeight(feet,shoeX,shoeZ,shoeLength/2,shoeHeight/2,shoeWidth/2)-shoeHeight/2;
+      shoeY+=rise;ankle[1]+=rise;knee[1]+=rise*.5;
+    }
     body.push(limb(pants,v3(rootAt,hip,pelvis,s*.105),knee,.15),limb(pants,knee,ankle,.113),
-      ball('#332e31',ankle[0]+.064,ankle[1]-(walking?ankleHeight-.0575:.085),ankle[2],.231,.115,.121),
+      ball('#332e31',shoeX,shoeY,shoeZ,shoeLength,shoeHeight,shoeWidth),
       limb(shirt,v3(rootAt,hip+.07,shoulder-.102,s*.178),elbow,.13),
       limb(shirt,elbow,hand,.092),ball(skinColor,hand[0],hand[1],hand[2],.083,.091,.086));
+    if(accessory==='briefcase'&&!riding&&!photo&&!umbrella&&s===1){
+      const x=hand[0],y=hand[1],z=hand[2];
+      body.push(p('#4a3930',x,y-.187,z,.272,.218,.094),p('#765846',x,y-.132,z+.047,.254,.075,.015),
+        p('#332c29',x-.046,y-.042,z,.019,.074,.026),p('#332c29',x+.046,y-.042,z,.019,.074,.026),
+        p('#bd9e71',x,y-.151,z+.057,.031,.024,.009));
+    }
   }
-  if(accessory==='backpack'||accessory==='satchel') {
-    body.push(ball('#363940',hip-.13,pelvis+.29,accessory==='satchel'?.16:0,.215,.35,.28));
-    for(let side=0;side<2;side++){const s=side?1:-1;body.push(limb('#33333a',v3(rootAt,hip+.173,shoulder,s*.137),v3(kneeAt,hip+.173,pelvis+.17,s*.137),.034));}
+  if(accessory==='backpack'){
+    body.push(ball('#36414a',hip-.137,pelvis+.267,0,.178,.364,.285),
+      ball('#52616b',hip-.214,pelvis+.207,0,.048,.157,.221));
+    for(let s=-1;s<=1;s+=2){
+      body.push(limb('#37414a',v3(rootAt,hip-.12,shoulder-.047,s*.119),v3(kneeAt,hip+.15,shoulder-.033,s*.119),.035),
+        limb('#37414a',v3(rootAt,hip+.15,shoulder-.033,s*.119),v3(kneeAt,hip+.165,pelvis+.195,s*.118),.033));
+    }
   }
-  if(accessory==='briefcase'&&!riding)body.push(p('#584339',swing*.82,pelvis-.23,.28,.31,.25,.12));
+  if(accessory==='satchel'){
+    body.push(p('#674939',hip-.092,pelvis+.092,.177,.17,.221,.145),
+      p('#91684b',hip-.085,pelvis+.14,.253,.158,.112,.02),
+      p('#cfad7b',hip-.084,pelvis+.113,.266,.028,.028,.009),
+      limb('#553d30',v3(rootAt,hip-.086,pelvis+.183,.189),v3(kneeAt,hip+.202,pelvis+.206,.129),.027),
+      limb('#553d30',v3(rootAt,hip+.202,pelvis+.206,.129),v3(kneeAt,hip+.15,shoulder-.023,-.123),.028),
+      limb('#553d30',v3(rootAt,hip+.15,shoulder-.023,-.123),v3(kneeAt,hip-.055,shoulder-.046,-.123),.028));
+  }
+  if(lanyard){
+    const cord='#38696d';
+    body.push(limb(cord,v3(rootAt,.14,shoulder-.005,-.049),v3(kneeAt,.202,shoulder-.20,0),.016),
+      limb(cord,v3(rootAt,.14,shoulder-.005,.049),v3(kneeAt,.202,shoulder-.20,0),.016),
+      p(cord,.203,shoulder-.233,0,.027,.083,.063),
+      p('#e4e4d4',.219,shoulder-.235,0,.008,.063,.049));
+  }
   if(accessory==='scarf')body.push(ball('#e2b56b',hip+.09,shoulder+.058,0,.20,.083,.182));
-  if(accessory==='glasses'&&!riding)body.push(p('#34373d',headX+.102,headY+.031,0,.038,.036,.17));
+  if(accessory==='glasses'&&!riding){
+    const frame='#37343c',x=headX+.104,y=headY+.028;
+    body.push(part('spectacleRim',frame,x,y,-.05,.025,.052,.076),
+      part('spectacleRim',frame,x,y,.05,.025,.052,.076),p(frame,x,y+.004,0,.015,.009,.027),
+      p(frame,x-.046,y,.086,.099,.009,.012),p(frame,x-.046,y,-.086,.099,.009,.012));
+  }
   if(faceDetail&&!riding){
     // The face points along local +X. Set the shallow marks into the cheek
     // surface so they follow the head silhouette in profile.
@@ -215,7 +422,10 @@ function person(skin,phase,riding=false,seat=0,photo=false,clothes=null,running=
     }
     body.push(part('faceMark','#79504a',headX+.096,headY-.046,0,.015,.016,.064));
   }
+  if(umbrella)for(const entry of umbrella)body.push(entry);
   if(accessory==='vest')body.push(p('#c4c09a',hip+.197,pelvis+.27,0,.022,.28,.10));
+  if(accessory==='workerVest'||accessory==='deliveryVest')
+    addVest(body,hip+.062,pelvis+.29,.39,.29,accessory==='deliveryVest'?deliveryVest:workerVest,true);
   return body;
 }
 function schoolWalker(index,phase,close) {
@@ -368,19 +578,31 @@ const bikeRing=new T.TorusGeometry(.37,.032,5,14);
 const canopy=new T.SphereGeometry(.5,8,3,0,Math.PI*2,0,Math.PI*.49);
 function riderModel(color,index,rain,near){
   const shirt=sidewalkWardrobe[index%8][0],helmet=helmets[index%helmets.length];
+  const carriesDelivery=index%5===1;
   const jacket=rain?coats[index%coats.length]:shirt;
-  const parts=near?[...twoWheeler(false,color,0),...person('npc_rider',0,true,.51,false,[jacket,'#42454a','',helmet])]:
-    [...scooterBody(color,0),p('#303439',.46,1.015,0,.12,.075,.68),
-     ball(jacket,-.23,1.29,0,.44,.65,.51),ball(helmet,-.17,1.74,0,.30,.32,.31),
-     p('#353c41',-.028,1.72,0,.07,.10,.24)];
+  const outfit=[jacket,'#42454a',carriesDelivery&&!rain?'deliveryVest':'',helmet,carriesDelivery];
+  const parts=near?[...twoWheeler(false,color,0),...person('npc_rider',0,true,.51,false,outfit)]:
+    [...scooterBody(color,0),p('#303439',.46,1.015,0,.12,.075,.68)];
+  if(!near&&carriesDelivery){
+    parts.push(ball(jacket,-.23,1.25,0,.29,.56,.365),ball('#a97657',-.17,1.54,0,.12,.19,.12));
+    deliveryHelmet(parts,-.17,1.695,helmet,false);
+    for(const side of [-1,1]){
+      parts.push(limb(jacket,[-.24,1.37,side*.17],[.46,1.02,side*.25],.116),
+        limb('#42454a',[-.30,.96,side*.10],[.18,.57,side*.14],.15),
+        limb('#42454a',[.18,.57,side*.14],[.17,.37,side*.13],.113));
+    }
+    if(!rain)addVest(parts,-.23,1.26,.39,.31,deliveryVest,false);
+  }else if(!near){
+    parts.push(ball(jacket,-.23,1.29,0,.44,.65,.51),ball(helmet,-.17,1.74,0,.30,.32,.31),
+      p('#353c41',-.028,1.72,0,.07,.10,.24));
+  }
   if(rain)parts.push(part('hat',jacket,-.15,1.26,0,.98,.71,.84),
     ball(jacket,.12,1.10,0,.69,.17,.68));
-  if(index%5===1)parts.push(p('#374243',-.73,1.01,0,.48,.43,.54),
-    p(index%2?'#c27a38':'#607e5a',-.73,1.18,0,.50,.21,.56),p('#d4cbb4',-.978,1.05,0,.012,.057,.47));
+  if(carriesDelivery)addDeliveryCase(parts,index%2?'#a75632':'#4c7770',near);
   return parts;
 }
 
-function activeCycle(index,phase){
+function activeCycle(index,phase,skinColor){
   const frame=sidewalkWardrobe[index%8][0];
   const attitude=Math.cos(phase),left=[.04+.17*attitude,.39+.17*Math.sin(phase),.14];
   const right=[.04-.17*attitude,.39-.17*Math.sin(phase),-.14];
@@ -389,21 +611,32 @@ function activeCycle(index,phase){
     limb(frame,[-.65,.38,0],[.04,.37,0],.06),limb(frame,[.04,.37,0],[.41,.88,0],.08),
     limb(frame,[.41,.88,0],[-.29,.84,0],.06),limb('#9ca4a2',[.42,1.01,0],[.65,.38,0],.07),
     p('#39363a',-.28,.89,0,.28,.09,.19),p('#38393d',.43,1.02,0,.09,.055,.46),
-    limb(frame,[-.28,.96,0],[.025,1.39,0],.30,.43),ball('#b68b6d',.10,1.53,0,.23,.26,.21),
+    limb(frame,[-.28,.96,0],[.025,1.39,0],.30,.43),ball(skinColor,.10,1.53,0,.23,.26,.21),
     ball(helmets[index%8],.09,1.66,0,.29,.16,.25),
     ...[left,right].flatMap((foot,i)=>{
       const side=i===0?1:-1,knee=[.06+side*.12*attitude,.68+side*.10*Math.sin(phase),side*.15];
-      return [limb('#414650',[-.28,.98,side*.11],knee,.16),limb('#ac8369',knee,foot,.11),
+      return [limb('#414650',[-.28,.98,side*.11],knee,.16),limb(skinColor,knee,foot,.11),
         ball('#303336',...foot,.22,.09,.12),limb(frame,[.005,1.34,side*.18],[.15,1.12,side*.23],.11),
-        limb('#b68b6d',[.15,1.12,side*.23],[.42,1.025,side*.20],.09)];
+        limb(skinColor,[.15,1.12,side*.23],[.42,1.025,side*.20],.09)];
     })];
 }
-const umbrellas=helmets.map((tone,i)=>[part('canopy',tone,.10,1.81,.16,1.07,.50,1.07),
-  p('#524e4c',.10,1.57,.16,.023,.54,.023),ball(i%2?'#d9ceba':'#b6adb0',.10,2.055,.16,.055,.047,.055)]);
 // Radii in metres cover the visible sweep of the limbs, umbrellas and bicycles.
 const personRadius=.48,umbrellaRadius=.74,runnerRadius=.60,bicycleRadius=1.05;
 const spacingRings=[.28,.55,.82,1.10,1.40,1.72];
 const spacingAngles=[0,Math.PI,Math.PI/2,-Math.PI/2,Math.PI/4,-Math.PI/4,3*Math.PI/4,-3*Math.PI/4];
+// Both versions share the canopy. The near procedural pose closes its hand around the forward grip.
+function umbrellaParts(tone,x,y,z){
+  return [part('canopy',tone,x,1.83,z,.92,.45,.92),
+    p('#827b74',x,(1.98+y)*.5,z,.014,1.98-y,.014),
+    p('#343137',x,y,z,.034,.094,.034),
+    ball('#343137',x-.026,y-.045,z,.074,.027,.032),
+    ball('#c2b5a0',x,2.055,z,.042,.044,.042)];
+}
+const umbrellas=helmets.map(tone=>umbrellaParts(tone,.13,1.17,.23));
+const heldUmbrellas=helmets.map(tone=>umbrellaParts(tone,.27,1.23,.255));
+const photoPhone=[p('#303744',.401,1.49,0,.039,.109,.196),
+  p('#76a0a6',.38,1.49,0,.007,.083,.16),
+  p('#4e5c68',.424,1.515,.065,.01,.037,.038),ball('#222831',.431,1.515,.065,.015,.021,.021)];
 // P2 perf：stampPerson 用的暫存（畫完就丟的零件清單、衣著、一個零件的清單）
 const femaleSkins=['npc_student','npc_grandma','creative','media'],clothesAt=['','',''],farBody=new Array(7),walkerBag=new Array(3),onePart=[null];
 const one=entry=>{onePart[0]=entry;return onePart;};
@@ -438,10 +671,11 @@ export function createActors(scene,glow,parkedScooters=[]) {
     return pose;
   }
   const geometries={box:cube,round,faceMark,wheel,hat,cab,busShell,compactor,sedanHull,sedanGlass,wagonGlass,
-    scooterRear,scooterShield,scooterSeat,bikeRing,canopy,officeGarment,officeTrouser};
+    scooterRear,scooterShield,scooterSeat,bikeRing,canopy,officeGarment,officeTrouser,...hairMeshes,cargoCase,spectacleRim};
   const material=new T.MeshStandardMaterial({roughness:.63});
   const groups=Object.fromEntries(Object.entries(geometries).map(([name,geo])=>{
-    const coat=['cab','busShell','compactor'].includes(name)?new T.MeshStandardMaterial({roughness:.31,metalness:.51}):material;
+    const coat=name==='canopy'?new T.MeshStandardMaterial({roughness:.8,side:T.DoubleSide}):
+      ['cab','busShell','compactor'].includes(name)?new T.MeshStandardMaterial({roughness:.31,metalness:.51}):material;
     const mesh=new T.InstancedMesh(geo,coat,1200);
     mesh.instanceMatrix.setUsage(T.DynamicDrawUsage);
     mesh.count=0;
@@ -489,7 +723,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
       }else{
         local.set(d.x,d.y,d.z);
         if(lean)local.applyAxisAngle(axis,lean);
-        dummy.position.set(x+local.x*cos-local.z*sin,local.y+.07+altitude,z+local.x*sin+local.z*cos);
+        dummy.position.set(x+local.x*cos-local.z*sin,local.y+stampLift+altitude,z+local.x*sin+local.z*cos);
         dummy.rotation.set(lean+(d.pitch??0),-heading+(d.yaw??0),d.roll,'YXZ');
       }
       dummy.scale.set(d.w,d.h,d.d);
@@ -613,8 +847,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
         scratch=true;
         if(riding)stamp(twoWheeler(grandma,outfits[player.skin],turn,player.skin==='data'),x,z,player.heading,lean);
         const pose=riding?null:trackGait(player,avatarX,avatarZ,player.heading,clock,player.speed>.5,0);
+        const feet=riding?null:placeFeet(avatarX/scale,avatarZ/scale,player.heading,ground);
         stamp(person(player.skin,pose?.phase??0,riding,grandma?.31:.51,false,null,false,false,pose?.weight??-1,
-          Math.sin(clock*1.7)*(1-(pose?.weight??0))),avatarX,avatarZ,player.heading,lean,null,ground-.07);
+          Math.sin(clock*1.7)*(1-(pose?.weight??0)),undefined,undefined,null,false,feet),avatarX,avatarZ,player.heading,lean,null,ground-stampLift);
         scratch=false;
       }
     }
@@ -693,7 +928,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
       }
       return look;
     }
-    function stampPerson(item,px,pz,facing,index,moving,ground,distance){ // A24
+    function stampPerson(item,px,pz,facing,index,moving,ground,distance,complexion=complexions[index%complexions.length]){ // A24
       const officePerson=item.locationId==='office'?officePeople.get(item.id):null;
       if(officePerson){
         stamp(officePerson,px,pz,facing,0,null,ground);
@@ -707,6 +942,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
         stamp(schoolWalker(index,phase,distance<18),px,pz,facing,0,null,ground);
         return;
       }
+      const worker=item.skin==='npc_vendor';
       const style=sidewalkWardrobe[index%sidewalkWardrobe.length];
       const atOffice=item.district==='client_hq'||nearSite(officeDoors,px,pz,scale,95);
       const evening=state.time>=17.5||state.time<6;
@@ -715,50 +951,77 @@ export function createActors(scene,glow,parkedScooters=[]) {
         market||evening?marketWardrobe[index%8]:style;
       // 有名字的角色照角色設定的性別；路人才用外觀類型或輪流
       const female=femaleNpcs.has(item.id)?true:maleNpcs.has(item.id)?false:standing?index%2===0:femaleSkins.includes(skin);
-      const elder=skin==='npc_elder'||skin==='npc_grandma';
+      const elder=elderSkin(skin);
+      const hairstyle=item.id==='ae_mei'?'bobHair':elder&&female?'bun':
+        female?womenHair[((index>>>1)^(index>>>5))%womenHair.length]:menHair[(index>>>1)%menHair.length];
+      const hairColor=hairTone(elder,index);
       const stature=(elder?.94:1)*style[2],base=female?'walker_f':'walker_m';
       // 路人輪流用不同長相的寫實模型；換色只套在原本兩個模型上，其他保留原本的衣服
       const looks=female?(skin==='npc_student'?['walker_f3']:['walker_f','walker_f2','walker_f3']):elder?['walker_m3','walker_m3','walker_m2']:['walker_m','walker_m2','walker_m3'];
       const type=item.id!=null?base:looks[index%looks.length];
       const hatAllowed=elder&&(item.zone==='market'||nearSite(elderHats,px,pz,scale,45));
-      if(hatAllowed)stamp(one(part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)),px,pz,facing,0,null,ground);
       let drawn=false;
-      if(distance<=20){
+      if(distance<=20&&item.id!=='ae_mei'){
         walkerOptions.dt=dt;walkerOptions.moving=moving;walkerOptions.speed=speed;walkerOptions.ground=ground;
-        walkerOptions.tint=shirt;walkerOptions.trousers=pants;walkerOptions.stature=stature;
-        walkerOptions.idlePose=index%5;walkerOptions.build=style[3];walkerOptions.complexion=((index*11)%7-3)*.034;
+        walkerOptions.tint=worker?workerVest:shirt;walkerOptions.trousers=pants;walkerOptions.stature=stature;
+        walkerOptions.idlePose=index%5;walkerOptions.build=style[3];walkerOptions.complexion=complexion.shift;
         const original=type===base;
         if(!original){walkerOptions.tint=undefined;walkerOptions.trousers=undefined;walkerOptions.build=1;}
         drawn=models.draw(type,px,pz,facing,walkerOptions);
-        if(!drawn&&!original){walkerOptions.tint=shirt;walkerOptions.trousers=pants;walkerOptions.build=style[3];drawn=models.draw(base,px,pz,facing,walkerOptions);}
+        if(!drawn&&!original){walkerOptions.tint=worker?workerVest:shirt;walkerOptions.trousers=pants;walkerOptions.build=style[3];drawn=models.draw(base,px,pz,facing,walkerOptions);}
+      }
+      if(drawn&&hatAllowed)stamp(one(part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)),px,pz,facing,0,null,ground);
+      if(!drawn&&elder){
+        // Hand-built elder silhouette with its own hair, hat and cane beyond GLB range.
+        const grandma=skin==='npc_grandma';
+        const usesCane=item.id==='grandma'||(!grandma&&index%3!==1);
+        // Fixed cadence avoids phase jumps as the simulation reports a new speed.
+        const phase=clock*5.4+(index%32)*.82,pace=moving?Math.min(1,speed/1.25):0;
+        const coat=item.id==='grandma'?outfits.npc_grandma:shirt;
+        stamp(elderPerson(grandma,coat,pants,style[2]*(grandma?.95:1),hatAllowed,usesCane,phase,pace,distance<24),
+          px,pz,facing,0,null,ground-stampLift);
+        return;
       }
       if(!drawn){
         const pose=trackGait(item,px,pz,facing,clock,moving,index);
         const {phase,weight}=pose;
         const idle=Math.sin(clock*1.7+(index%13)*.82)*(1-weight);
+        const feet=placeFeet(px/scale,pz/scale,facing,ground);
         if(distance<28){
-          clothesAt[0]=shirt;clothesAt[1]=pants;clothesAt[2]=index%4===0?'satchel':'';
+          clothesAt[0]=shirt;clothesAt[1]=pants;clothesAt[2]=worker?'workerVest':skin==='data'?'glasses':skin==='ae'||skin==='npc_boss'?'briefcase':
+            skin==='media'||skin==='npc_student'?'backpack':skin==='planner'||index%4===0?'satchel':'';
+          const badge=atOffice&&!evening&&(item.id==='ae_mei'||index%4===2)&&clothesAt[2]!=='satchel';
+          const raining=rain&&index%4!==0;
           const faceDetail=Math.hypot(px-(eye?.x??x),pz-(eye?.z??z))<12;
-          stamp(person(skin,phase,false,0,false,clothesAt,false,faceDetail,weight,idle),px,pz,facing,0,null,ground-.07);
+          stamp(person(skin,phase,false,0,false,clothesAt,false,faceDetail,weight,idle,hairstyle,hairColor,raining?heldUmbrellas[index%8]:null,badge,feet,complexion.color),px,pz,facing,0,null,ground-stampLift);
+          // The near pose holds its own umbrella; the caller skips the rigid one.
+          return raining;
         }else{
+          farBody.length=7;
           const opposite=(phase+.5)%1,hip=idle*.019;
           const arm=Math.cos(phase*2*Math.PI)*.205*weight;
           farBody[0]=ball(shirt,hip,1.14,0,.30,.61,.44);
-          farBody[1]=ball('#bc9178',hip+.025,1.55,0,.21,.26,.21);
-          farBody[2]=ball('#443c3a',hip-.008,1.64,0,.22,.16,.22);
-          farBody[3]=limb(pants,v3(rootAt,hip,.81,.11),v3(kneeAt,footTravel(phase)*weight,.039+footLift(phase)*weight,.11),.15);
-          farBody[4]=limb(pants,v3(rootAt,hip,.81,-.11),v3(kneeAt,footTravel(opposite)*weight,.039+footLift(opposite)*weight,-.11),.15);
+          farBody[1]=ball(complexion.color,hip+.025,1.55,0,.21,.26,.21);
+          farBody[2]=hairPart(hairstyle,hairColor,hip+.025,1.55);
+          const nearX=footTravel(phase)*weight,farX=footTravel(opposite)*weight;
+          // Simplified feet still sample the pavement separately.
+          const nearRise=supportHeight(feet,nearX,.11,.09,.035,.055)-.035,farRise=supportHeight(feet,farX,-.11,.09,.035,.055)-.035;
+          farBody[3]=limb(pants,v3(rootAt,hip,.81,.11),v3(kneeAt,nearX,.039+nearRise+footLift(phase)*weight,.11),.15);
+          farBody[4]=limb(pants,v3(rootAt,hip,.81,-.11),v3(kneeAt,farX,.039+farRise+footLift(opposite)*weight,-.11),.15);
           farBody[5]=limb(shirt,v3(rootAt,hip,1.32,.22),v3(kneeAt,hip-arm,.89,.22),.11);
           farBody[6]=limb(shirt,v3(rootAt,hip,1.32,-.22),v3(kneeAt,hip+arm,.89,-.22),.11);
-          stamp(farBody,px,pz,facing,0,null,ground-.07);
+          if(worker)addVest(farBody,hip,1.15,.46,.32,workerVest,false);
+          stamp(farBody,px,pz,facing,0,null,ground-stampLift);
         }
         return;
       }
-      if(index%5===1||index%5===3){
-        walkerBag[0]=ball('#433f49',-.16,1.16*stature,0,.21,.42,.30);
-        walkerBag[1]=p('#5a5560',-.055,1.23*stature,.13,.17,.28,.027);
-        walkerBag[2]=p('#5a5560',-.055,1.23*stature,-.13,.17,.28,.027);
-        stamp(walkerBag,px,pz,facing,0,null,ground);
+      if(!worker&&(index%5===1||index%5===3)){
+        const build=style[3]*stature;
+        walkerBag.length=2;
+        walkerBag[0]=ball('#36414a',-.16*build,1.16*stature,0,.19*build,.35*stature,.27*build);
+        walkerBag[1]=ball('#52616b',-.242*build,1.107*stature,0,.049*build,.153*stature,.218*build);
+        // GLB ground is already at its feet, unlike the primitive stamp origin.
+        stamp(walkerBag,px,pz,facing,0,null,ground-.07);
       }
     }
     if(!photorealistic)for(const id of ['home','night_market','client_hq']){
@@ -807,29 +1070,34 @@ export function createActors(scene,glow,parkedScooters=[]) {
       const umbrella=rain&&item.role!=='cyclist'&&item.role!=='runner'&&look%4!==0;
       const radius=item.role==='cyclist'?bicycleRadius:item.role==='runner'?runnerRadius:umbrella?umbrellaRadius:personRadius;
       const pose=placePerson(item,facing,radius,scale);
+      let held=false;
       if(!pose)continue;
       const {x:px,z:pz}=pose;
-      const ground=surfaceAt(px/scale,pz/scale)?.height??0; // A24
+      const surface=surfaceAt(px/scale,pz/scale,surfaceProbe); // A24
+      const ground=item.role==='cyclist'?surface?.height??0:streetHeight(px/scale,pz/scale,surface);
       const namedModel=item.id==null?undefined:namedNpcModels.get(item.id);
+      const complexion=complexions[look%complexions.length];
       if(namedModel){
         // The named models' soles are built at local zero; cancel stamp's default lift.
         stamp(namedModel,px,pz,facing,0,null,ground-.07);
       }else if(item.role==='cyclist'){
-        stamp(activeCycle(look,clock*6),px,pz,facing,0,null,ground);
+        stamp(activeCycle(look,clock*6,complexion.color),px,pz,facing,0,null,ground);
       }else if(item.role==='runner'){
-        stamp(person(item.skin,clock*9+look,false,0,false,[sidewalkWardrobe[look%8][0],'#424655',''],true),px,pz,facing,-.04,null,ground);
+        stamp(person(item.skin,clock*9+look,false,0,false,[sidewalkWardrobe[look%8][0],'#424655',''],true,false,-1,0,undefined,undefined,null,false,placeFeet(px/scale,pz/scale,facing,ground),complexion.color),px,pz,facing,-.04,null,ground-stampLift);
       }else if(item.takingPhoto){ // A22 raised arms and phone face the parked car.
-        const photographer=person(item.skin??'npc_student',0,false,0,true);
-        photographer.push(p('#29323c',.39,1.49,0,.032,.135,.19),p('#c5f0f4',.408,1.53,.06,.008,.028,.028));
-        stamp(photographer,px,pz,facing,0,null,ground);
-      }else if(item.skin!=='npc_student'&&item.localId?.startsWith?.('evening:plaza:')&&distance>23){
+        // Both hands stay on the phone, so the photographer carries no umbrella.
+        held=true;
+        const photographer=person(item.skin??'npc_student',0,false,0,true,null,false,false,-1,0,undefined,undefined,null,false,placeFeet(px/scale,pz/scale,facing,ground),complexion.color);
+        for(const entry of photoPhone)photographer.push(entry);
+        stamp(photographer,px,pz,facing,0,null,ground-stampLift);
+      }else if(item.skin!=='npc_student'&&!isElder(item.skin)&&item.localId?.startsWith?.('evening:plaza:')&&distance>23){
         // A23 night: keep the holiday visitor outfit while using the pavement pose.
         const pose=trackGait(item,px,pz,facing,clock,!named&&(item.movingSpeed??0)>.05,look);
         const idle=Math.sin(clock*1.7+(look%13)*.82)*(1-pose.weight);
-        stamp(person(item.skin,pose.phase,false,0,false,null,false,false,pose.weight,idle),px,pz,facing,0,null,ground-.07);
-      }else stampPerson(item,px,pz,facing,look,!named&&(item.movingSpeed??0)>.05,ground,distance);
-      if(umbrella)stamp(umbrellas[look%8],px,pz,facing,0,null,ground);
-      decal(shadows,px,pz,0,.87,.67,.455);
+        stamp(person(item.skin,pose.phase,false,0,false,null,false,false,pose.weight,idle,undefined,undefined,null,false,placeFeet(px/scale,pz/scale,facing,ground),complexion.color),px,pz,facing,0,null,ground-stampLift);
+      }else held=stampPerson(item,px,pz,facing,look,!named&&(item.movingSpeed??0)>.05,ground,distance,complexion);
+      if(umbrella&&!held)stamp(umbrellas[look%8],px,pz,facing,0,null,ground);
+      decal(shadows,px,pz,0,.87,.67,item.role==='cyclist'?.455:ground+.009);
     }
     scratch=false;
     featured.finish(); // A22

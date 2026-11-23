@@ -1,9 +1,9 @@
-import {subtractConvex,subtractRectangle} from './paving-geometry.mjs?v=5114ee85';
-import {wuxingArcades} from './wuxing-arcades.mjs?v=5114ee85'; // A24
+import {subtractConvex,subtractRectangle} from './paving-geometry.mjs?v=1448599f';
+import {wuxingArcades} from './wuxing-arcades.mjs?v=1448599f'; // A24
 // All geometry here is in metres (x east, z south). World queries take simulation units.
-import {buildings, inWuxing, inBuilding, metersPerUnit as unit, oldStreetDistrict, roadAt, roadNodes, roads, toGeo, worldContact} from './world.mjs?v=5114ee85';
-import {urbanInfill} from './infill.mjs?v=5114ee85';
-import {crosswalkEnds} from './crosswalks.mjs?v=5114ee85';
+import {buildings, inWuxing, inBuilding, metersPerUnit as unit, oldStreetDistrict, roadAt, roadNodes, roads, toGeo, worldContact} from './world.mjs?v=1448599f';
+import {urbanInfill} from './infill.mjs?v=1448599f';
+import {crosswalkEnds} from './crosswalks.mjs?v=1448599f';
 
 const cells = new Map(), asphalt = new Map();
 export const fillets=[]; // A25 rounded kerb corners
@@ -314,7 +314,8 @@ const inPolygon=(x,z,poly)=>{
 export function pavingHeight(s,t,d){
   return roadLevel+s.rise*(s.kind==='ramp'?Math.max(0,Math.min(1,d/s.depth)):1);
 }
-export function surfaceAt(x,y){
+// Render loops may supply a scratch result to query multiple contact points per actor.
+export function surfaceAt(x,y,result){
   x*=unit;y*=unit;
   let top=null,height=0,ramp=null,rampHeight=Infinity;
   for(const s of nearby(cells,x,y)){
@@ -328,7 +329,11 @@ export function surfaceAt(x,y){
     if(s.polys&&!s.polys.some(poly=>inPolygon(x,y,poly)))continue; // A25 rounded corners
     if(h>height){top=s;height=h;}
   }
-  return ramp?{slab:ramp,height:rampHeight}:top&&{slab:top,height};
+  if(!ramp&&!top)return null;
+  result??={};
+  result.slab=ramp??top;
+  result.height=ramp?rampHeight:height;
+  return result;
 }
 // Extra separating axes for the small subset of ramps clipped by skew carriageways.
 function hitsPolygon(poly,x,z,ux,uz,length,width){
