@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=5a397df'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=5a397df'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=5a397df'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=5a397df'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=5a397df';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=5a397df'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=5a397df';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=5a397df'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=5a397df';
-import {neonDistrict} from './neon-districts.mjs?v=5a397df'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=5a397df';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=5a397df';
-import {streetCrowds} from './crowds.mjs?v=5a397df';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=5a397df';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=5a397df';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=5a397df';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=5a397df';
-import { touchControls } from './overlay.js?v=5a397df';
-import {setLabels,placeLabel} from './labels.mjs?v=5a397df'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=ac7fc88'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=ac7fc88'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=ac7fc88'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=ac7fc88'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=ac7fc88';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=ac7fc88'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=ac7fc88';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=ac7fc88'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=ac7fc88';
+import {neonDistrict} from './neon-districts.mjs?v=ac7fc88'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=ac7fc88';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=ac7fc88';
+import {streetCrowds} from './crowds.mjs?v=ac7fc88';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=ac7fc88';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=ac7fc88';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=ac7fc88';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=ac7fc88';
+import { touchControls } from './overlay.js?v=ac7fc88';
+import {setLabels,placeLabel} from './labels.mjs?v=ac7fc88'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -733,6 +733,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   let enabled=true,paused=false,running=false,frame=0,last=null,crashCooldown=0;
   let joystick=null,waypoint=null,density=.55,velocityX=0,velocityY=0,flight=null;
   let teslaHop=null,teslaBody=player,teslaCollider=null; // A26 release the flight body before remounting.
+  let hopFail=null,nextFlyHint=0; // 飛不過去的原因（'boundary' 地圖邊界、'tall' 建築太高、'landing' 沒有降落點）與提示的間隔
   let escapeAfter=0,rideAnchor=null,rideStarted=0;
   let route=null,cruise=0,rideRemaining=0,detour=null,blocker=null,manualUntil=0,inputMode='keyboard',context={action:null,targetId:null,targetName:null},resizer=null;
   function setInputMode(mode) {
@@ -843,6 +844,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       }
     }else{
       if(player.mode==='car'&&carTerrain(player.x,player.y,player.heading))return false; // A26
+      if(route)setRide(false); // 自動飛行中自己按 T 降落：取消自動前往
       space.remove(teslaCollider);teslaCollider=null;teslaBody=player; // A26
       delete player.vehicle;
       delete player.altitude;
@@ -853,14 +855,15 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   }
   function planTeslaHop(heading,obstacleAt){
     const fx=Math.cos(heading),fy=Math.sin(heading);
+    hopFail=null;
     let clearance=5.5;
     for(let meters=1;meters<=36;meters++){
       const x=player.x+fx*meters*speedUnits,y=player.y+fy*meters*speedUnits;
       const obstruction=worldContact(x,y,teslaLength,teslaWidth,heading);
-      if(obstruction==='boundary')return null;
+      if(obstruction==='boundary'){hopFail='boundary';return null;}
       if(obstruction==='building'){
         clearance=Math.max(clearance,buildingHeightAt(x,y,teslaLength,teslaWidth,heading)+1.8);
-        if(clearance>20)return null;
+        if(clearance>20){hopFail='tall';return null;}
       }
       const pose={width:teslaWidth,heading,ignore:teslaBody};
       const traffic=trafficSpace.hit(x,y,teslaLength,pose)?.body;
@@ -872,7 +875,53 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         return {x:landing.x,y:landing.y,fromX:player.x,fromY:player.y,clearance,time:0,travel:meters/14};
       }
     }
+    hopFail='landing';
     return null;
+  }
+  // 飛不過去：每 4 秒提示一次原因，不要默默卡住
+  function reportFlyBlocked(){
+    if(state.clock<nextFlyHint)return;
+    nextFlyHint=state.clock+4;
+    emit('curb:hint',{kind:'flyBlocked-'+(hopFail??'landing')});
+  }
+  // 飛天車自動前往：拉高到巡航高度（12 公尺，高過車輛、路燈、路樹），沿汽車路線的街道飛過去，所以前面不管有什麼車都是直接飛過；
+  // 接近終點時降到路面，降落在路邊再自動走到門口。手動飛行才是「遇到障礙才跳」。
+  const CRUISE_ALTITUDE=12;
+  function cruiseAlong(dt){
+    while(route.length>1&&distance(player,route[0])<5*speedUnits)route.shift();
+    const next=route[0],toNext=distance(player,next),last=route.length<=1;
+    let remaining=toNext;for(let i=1;i<route.length;i++)remaining+=distance(route[i-1],route[i]);
+    const altitude=player.altitude??0;
+    // 高度：平常巡航；離終點 8 公尺內降到 0，之間依斜率下降（約 27 公尺的下降距離）
+    let aim=Math.min(CRUISE_ALTITUDE,Math.max(0,(remaining*metersPerUnit-8)*.45));
+    if(aim<1.8&&teslaContact(player.x,player.y,player.heading))aim=2; // 落點有車或障礙：先在上面等，別落在別人身上
+    const rate=aim>altitude?6:8;
+    player.altitude=aim>altitude?Math.min(aim,altitude+rate*dt):Math.max(aim,altitude-rate*dt);
+    // 方向與速度：轉彎角度越大越慢；剛離地（高度不到 1 公尺）先不動；終點前放慢
+    const want=Math.atan2(next.y-player.y,next.x-player.x),diff=angleDiff(want,player.heading);
+    player.heading+=clamp(diff,-2.2*dt,2.2*dt);
+    const finalApproach=remaining*metersPerUnit<15; // 最後一段已經在降落，不能再因為高度低就停住
+    const lift=finalApproach?1:clamp((player.altitude-.8)/1.5,0,1),slow=finalApproach?.5:1;
+    const speed=14*speedUnits*lift*clamp(1.1-Math.abs(diff)*.6,.35,1)*slow;
+    player.x+=Math.cos(player.heading)*speed*dt;player.y+=Math.sin(player.heading)*speed*dt;
+    player.speed=speed;
+    if(last&&toNext<3*speedUnits&&player.altitude<.3)arriveFlying();
+  }
+  function arriveFlying(){
+    route=null;
+    if(!setFlyingTesla(false)){route=[];setRide(false,'arrived');return;} // 降落在最近的車道
+    // 離入口 15 公尺內：下車、自動走到門口（和一般自動前往的最後一段一樣）
+    if(parkAtCurb(true))return;
+    // 降落點離入口比較遠（例如降在大馬路邊）：照樣下車走過去
+    const site=state.target,venue=venues.get(site?.id),entrance=entrances.get(site?.id);
+    if(venue||entrance){
+      walkSelected=true;setMode('foot');state.standingPoint=null;
+      if(venue)startEntryWalk(venue);
+      else{finalWalk=entrance;finalWalkSince=state.clock;route=[entrance];detour=null;blocker=null;nextReroute=0;}
+      emit('curb:hint',{kind:'parked'});
+      return;
+    }
+    route=[];setRide(false,'arrived');
   }
   function steerTesla(dt,dx,dy){
     const hop=teslaHop;
@@ -908,6 +957,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         if(!teslaContact(x,y,player.heading))continue;
         teslaHop=planTeslaHop(player.heading,meters);
         if(teslaHop)return;
+        reportFlyBlocked();
         break;
       }
     }
@@ -965,9 +1015,13 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       if(!state.target){rideFailed('target');return;}
       if(player.locationId===state.target.id||!venues.has(state.target.id)&&distance(player,state.target)<2){rideFailed('here');return;}
       if(player.vehicle==='flyingTesla'){
-        // Park the flying car on its lane and ride from there; mid-hop, wait for the landing.
+        // 跳到一半先等落地；之後保持飛天，沿汽車路線飛過去（遇到擋路的車自己飛過去），不再降落改成地面行駛
         if(teslaHop){pendingRide=true;rideFailed('landing');return;}
-        setFlyingTesla(false);
+        const flight=planRide(player,state.target,[],{clock:state.clock,hour:state.time,speed:ridingSpeed(),car:true});
+        if(!flight?.length){rideFailed('route');return;}
+        route=[...flight];state.rideFail=null;rideStarted=state.clock;
+        emit('autoride:change',{on:true,reason:'started'});
+        return;
       }
       // 偏好開車、而且已解鎖：步行或騎機車時按自動前往，也用車。在車道上直接上車；站在人行道、廣場上就先當作車來規劃，走到最近的車道再上車。
       // 規劃不出車的路線（例如目的地只有窄巷）就退回用機車。
@@ -1847,6 +1901,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     if(enabled&&dt>0)watchStall(dt,Math.min(1,Math.hypot(dx,dy))); // A25
     if(pendingRide&&!teslaHop&&player.vehicle==='flyingTesla'){pendingRide=false;setRide(true);} // A25 resume after landing
     if(player.vehicle==='flyingTesla'){
+      if(route&&enabled&&!teslaHop){cruiseAlong(dt);followMap(dt);if(player.vehicle==='flyingTesla'||!route){updateLocation();updateContext();}return;} // 自動前往
       if(enabled||teslaHop)steerTesla(dt,dx,dy);
       followMap(dt);
       if(!teslaHop){updateLocation();updateContext();}

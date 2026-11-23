@@ -2,8 +2,8 @@
 // 九個年份各一張卡：年份、那一年的主線、完成與否、支線做了幾件。挑一年就單獨重玩那一年的主線，可以順便補支線。
 // 重玩結束回到這裡，最上面一張小結果卡。
 
-import { h, arrowFocus } from '../dom.js?v=5a397df';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=5a397df';
+import { h, arrowFocus } from '../dom.js?v=ac7fc88';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=ac7fc88';
 
 const signed = (n) => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : '±0');
 

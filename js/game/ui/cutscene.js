@@ -1,8 +1,8 @@
 // 過場影片：靜音、playsinline、可跳過。
 // 清單裡沒有這支、載入失敗、或 3 秒內播不起來，就直接結束讓流程往下走。
 
-import { h, interaction } from '../dom.js?v=5a397df';
-import { T } from '../strings.js?v=5a397df';
+import { h, interaction } from '../dom.js?v=ac7fc88';
+import { T } from '../strings.js?v=ac7fc88';
 
 const START_TIMEOUT_MS = 3000;
 

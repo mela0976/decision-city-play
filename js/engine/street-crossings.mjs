@@ -1,6 +1,6 @@
 // A24. Coordinates use world units; crosswalk, stop and box distances are metres
 // from the OSM arm's anchor, including on divided carriageways.
-import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=5a397df';
+import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=ac7fc88';
 import tagged from './data/xinyi-signals.json' with {type:'json'};
 
 const rank={primary:3,secondary:2,tertiary:1};
@@ -230,9 +230,24 @@ export const paintedCrosswalks=[];
 // 在這條進出路口的車道上找一條兩側都有路緣的斑馬線位置（和其他斑馬線不重疊）；找到就記在 a.walk。
 function placeWalk(j,a,into=crosswalks){
   const span=a.width*unit,depth=1.8;
-  const rect={dx:a.dx,dy:a.dy,span,depth,junctionId:j.id,roadId:a.way.id,from:a.from};
+  const rect={dx:a.dx,dy:a.dy,span,depth,junctionId:j.id,roadId:a.way.id,name:a.way.name,from:a.from};
   const local=[...crosswalks,...paintedCrosswalks].filter(p=>Math.hypot(p.x-a.x*unit,p.y-a.y*unit)<55);
-  const preferred=a.crosswalk;
+  let preferred=a.crosswalk;
+  // 有分隔島的大道是兩條單向車道：對面那條車道上已經放好的斑馬線，這一條要沿路對齊它，行人過了這一半可以直直走過去，
+  // 不要兩側各畫在自己路口的位置（原本只有約四成對得上）。對面那條的位置在可放範圍內才對齊，否則維持原本的位置。
+  if(a.way.name){
+    let partner=null,gap=Infinity;
+    for(const q of local){
+      if(q.name!==a.way.name||q.roadId===a.way.id||Math.abs(q.dx*a.dx+q.dy*a.dy)<.97)continue;
+      const dx=q.x-a.x*unit,dy=q.y-a.y*unit,lateral=Math.abs(-dx*a.dy+dy*a.dx);
+      if(lateral<3||lateral>40)continue;
+      if(lateral<gap){gap=lateral;partner=q;}
+    }
+    if(partner){
+      const along=(partner.x-a.x*unit)*a.dx+(partner.y-a.y*unit)*a.dy-depth/2; // 這條車道上要放在離進路起點多遠，才會和對面對齊
+      if(Math.abs(along-a.crosswalk)<20)preferred=along; // 超出 3–14 公尺的可放範圍時，下面會挑範圍內最靠近的位置
+    }
+  }
   const choices=Array.from({length:46},(_,i)=>3+i*.24).sort((x,y)=>Math.abs(x-preferred)-Math.abs(y-preferred));
   for(const start of choices){
     const x=a.x*unit+a.dx*(start+depth/2),y=a.y*unit+a.dy*(start+depth/2);
