@@ -1,4 +1,4 @@
-import * as T from '../vendor/three.module.min.js?v=f213092';
+import * as T from '../vendor/three.module.min.js?v=9b45bc39';
 
 export function canvasTexture(doc,w,h,paint) {
   const canvas=doc.createElement('canvas');
@@ -28,8 +28,17 @@ function halve(texture){
   ctx.drawImage(image,0,0,canvas.width,canvas.height);
   texture.image=canvas;texture.needsUpdate=true;
 }
+// 手機：先用 img.decode() 在背景解碼，解完才縮圖並交出貼圖；否則 drawImage 會在主執行緒同步解碼整張大圖，造成長幀。
+// 與 three.js 的 TextureLoader 相同：先回傳空貼圖，圖好了才設 image 與 needsUpdate（中間不會先上傳一次原尺寸）。
 export class TextureLoader extends T.TextureLoader{
   load(url,onLoad,onProgress,onError){
-    return super.load(url,texture=>{halve(texture);onLoad?.(texture);},onProgress,onError);
+    const texture=new T.Texture(),loader=new T.ImageLoader(this.manager);
+    loader.setCrossOrigin(this.crossOrigin);loader.setPath(this.path);
+    loader.load(url,image=>{
+      const done=()=>{texture.image=image;texture.needsUpdate=true;halve(texture);onLoad?.(texture);};
+      if(mobileTextures&&typeof image.decode==='function')image.decode().catch(()=>{}).then(done);
+      else done();
+    },onProgress,onError);
+    return texture;
   }
 }

@@ -1,7 +1,7 @@
-import * as T from '../vendor/three.module.min.js?v=f213092';
-import {makeEnvironment,makePanoramas} from './pbr.js?v=f213092';
-import {createBloom} from './bloom.js?v=f213092';
-import {random} from '../world.mjs?v=f213092';
+import * as T from '../vendor/three.module.min.js?v=9b45bc39';
+import {makeEnvironment,makePanoramas} from './pbr.js?v=9b45bc39';
+import {createBloom} from './bloom.js?v=9b45bc39';
+import {random} from '../world.mjs?v=9b45bc39';
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const palettes=[

@@ -1,15 +1,15 @@
-import {surfaceAt} from '../sidewalks.mjs?v=f213092'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=f213092'; // A22
-import {marketTruck} from '../night-market.mjs?v=f213092'; // A23 night
-import {parkedKey} from '../impact.mjs?v=f213092';
-import {streetCrowds} from '../crowds.mjs?v=f213092';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=f213092';
-import {createNamedNpcModels} from './named-npcs.js?v=f213092';
-import {buildOfficePeople} from './office-people.js?v=f213092';
-import {createModelAssets} from './model-assets.js?v=f213092';
-import {fixtureColliders} from '../fixtures.mjs?v=f213092';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=f213092';
-import * as T from '../vendor/three.module.min.js?v=f213092';
+import {surfaceAt} from '../sidewalks.mjs?v=9b45bc39'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=9b45bc39'; // A22
+import {marketTruck} from '../night-market.mjs?v=9b45bc39'; // A23 night
+import {parkedKey} from '../impact.mjs?v=9b45bc39';
+import {streetCrowds} from '../crowds.mjs?v=9b45bc39';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=9b45bc39';
+import {createNamedNpcModels} from './named-npcs.js?v=9b45bc39';
+import {buildOfficePeople} from './office-people.js?v=9b45bc39';
+import {createModelAssets} from './model-assets.js?v=9b45bc39';
+import {fixtureColliders} from '../fixtures.mjs?v=9b45bc39';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=9b45bc39';
+import * as T from '../vendor/three.module.min.js?v=9b45bc39';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -714,7 +714,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
       const hatAllowed=elder&&(item.zone==='market'||nearSite(elderHats,px,pz,scale,45));
       if(hatAllowed)stamp(one(part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)),px,pz,facing,0,null,ground);
       let drawn=false;
-      if(distance<=8){
+      if(distance<=20){
         walkerOptions.dt=dt;walkerOptions.moving=moving;walkerOptions.speed=speed;walkerOptions.ground=ground;
         walkerOptions.tint=shirt;walkerOptions.trousers=pants;walkerOptions.stature=stature;
         walkerOptions.idlePose=index%5;walkerOptions.build=style[3];walkerOptions.complexion=((index*11)%7-3)*.034;

@@ -1,8 +1,8 @@
 // 素材清單：讀 assets/manifest.json；清單讀不到、key 不在清單、或檔案載入失敗，都記進 missing，
 // 用到時由 .art 的色塊替代畫面頂著，流程不會停。
 
-import { h } from './dom.js?v=f213092';
-import { ENGINE_MODULES, ENGINE_DATA } from './engine-preload.js?v=f213092';
+import { h } from './dom.js?v=9b45bc39';
+import { ENGINE_MODULES, ENGINE_DATA } from './engine-preload.js?v=9b45bc39';
 
 function toneOf(key) {
   let sum = 0;
@@ -61,7 +61,12 @@ export async function loadAssets() {
         img.remove();
       });
       img.src = src;
-      box.append(img);
+      // 手機直向：有 9:16 直式版就換用（瀏覽器依方向自動挑，轉橫向時換回 16:9）
+      const tall = manifest.images?.[key]?.portrait;
+      if (tall) {
+        box.dataset.portrait = '';
+        box.append(h('picture', {}, h('source', { media: '(orientation: portrait) and (max-width: 900px)', srcset: tall }), img));
+      } else box.append(img);
     } else if (alt) {
       box.setAttribute('role', 'img');
       box.setAttribute('aria-label', alt);
@@ -134,7 +139,7 @@ export async function loadAssets() {
     let worker = null;
     const waiting = new Map();
     try {
-      worker = new Worker(new URL('./prefetch-worker.js?v=f213092', import.meta.url));
+      worker = new Worker(new URL('./prefetch-worker.js?v=9b45bc39', import.meta.url));
       worker.onmessage = ({ data }) => { waiting.get(data)?.(); waiting.delete(data); };
       worker.onerror = () => { for (const done of waiting.values()) done(); waiting.clear(); };
     } catch {
@@ -163,5 +168,24 @@ export async function loadAssets() {
     return warming;
   };
 
-  return { manifestOk, missing, hasImage, imageSrc, video, art, loadImage, markMissing, toneOf, audio, setAudio, warmTitle, warmEngine };
+  /**
+   * 預先解碼劇照：設定下一個目的地時就把那張圖下載並解碼（img.decode() 在背景執行緒），
+   * 抵達後 art() 顯示同一個網址時直接用解碼好的圖，不在主執行緒同步解碼大圖。只留最近幾張，避免手機記憶體堆積。
+   */
+  const decodedStills = new Map();
+  const predecode = (key) => {
+    const src = imageSrc(key);
+    if (!src || saveData()) return;
+    const tall = manifest.images?.[key]?.portrait;
+    const url = tall && matchMedia('(orientation: portrait) and (max-width: 900px)').matches ? tall : src;
+    if (decodedStills.has(url)) return;
+    const img = new Image();
+    img.decoding = 'async';
+    img.src = url;
+    img.decode().catch(() => {});
+    decodedStills.set(url, img);
+    while (decodedStills.size > 3) decodedStills.delete(decodedStills.keys().next().value);
+  };
+
+  return { manifestOk, missing, hasImage, imageSrc, video, art, loadImage, markMissing, toneOf, audio, setAudio, warmTitle, warmEngine, predecode };
 }

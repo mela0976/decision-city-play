@@ -921,3 +921,11 @@ kbd {
 .crash-notice li {
   display: list-item;
 }
+
+/* 手機直向換成 9:16 直式版時，圖本身已是直式構圖，不再依橫式圖的重點偏移 */
+@media (orientation: portrait) and (max-width: 900px) {
+  .art[data-portrait] img,
+  .scene-art[data-portrait] img {
+    object-position: 50% 35%;
+  }
+}

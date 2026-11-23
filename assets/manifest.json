@@ -19,131 +19,154 @@
       "src": "assets/img/title_key.webp",
       "w": 1600,
       "h": 900,
-      "focus": "62% 50%"
+      "focus": "62% 50%",
+      "portrait": "assets/img/portrait/title_key.webp"
     },
     "book_2018": {
       "src": "assets/img/book_2018.webp",
       "w": 1600,
       "h": 900,
-      "focus": "34% 20%"
+      "focus": "34% 20%",
+      "portrait": "assets/img/portrait/book_2018.webp"
     },
     "book_2019": {
       "src": "assets/img/book_2019.webp",
       "w": 1600,
       "h": 900,
-      "focus": "54% 15%"
+      "focus": "54% 15%",
+      "portrait": "assets/img/portrait/book_2019.webp"
     },
     "book_2020": {
       "src": "assets/img/book_2020.webp",
       "w": 1600,
       "h": 900,
-      "focus": "38% 15%"
+      "focus": "38% 15%",
+      "portrait": "assets/img/portrait/book_2020.webp"
     },
     "book_2021": {
       "src": "assets/img/book_2021.webp",
       "w": 1600,
       "h": 900,
-      "focus": "34% 15%"
+      "focus": "34% 15%",
+      "portrait": "assets/img/portrait/book_2021.webp"
     },
     "book_2022": {
       "src": "assets/img/book_2022.webp",
       "w": 1600,
       "h": 900,
-      "focus": "53% 15%"
+      "focus": "53% 15%",
+      "portrait": "assets/img/portrait/book_2022.webp"
     },
     "book_2023": {
       "src": "assets/img/book_2023.webp",
       "w": 1600,
       "h": 900,
-      "focus": "28% 25%"
+      "focus": "28% 25%",
+      "portrait": "assets/img/portrait/book_2023.webp"
     },
     "book_2024": {
       "src": "assets/img/book_2024.webp",
       "w": 1600,
       "h": 900,
-      "focus": "42% 15%"
+      "focus": "42% 15%",
+      "portrait": "assets/img/portrait/book_2024.webp"
     },
     "book_2025": {
       "src": "assets/img/book_2025.webp",
       "w": 1600,
       "h": 900,
-      "focus": "62% 22%"
+      "focus": "62% 22%",
+      "portrait": "assets/img/portrait/book_2025.webp"
     },
     "book_2026": {
       "src": "assets/img/book_2026.webp",
       "w": 1600,
       "h": 900,
-      "focus": "41% 20%"
+      "focus": "41% 20%",
+      "portrait": "assets/img/portrait/book_2026.webp"
     },
     "loc_office": {
       "src": "assets/img/loc_office.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_office.webp"
     },
     "loc_client_hq": {
       "src": "assets/img/loc_client_hq.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_client_hq.webp"
     },
     "loc_night_market": {
       "src": "assets/img/loc_night_market.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_night_market.webp"
     },
     "loc_temple": {
       "src": "assets/img/loc_temple.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_temple.webp"
     },
     "loc_gamadiam": {
       "src": "assets/img/loc_gamadiam.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_gamadiam.webp"
     },
     "loc_rechao": {
       "src": "assets/img/loc_rechao.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_rechao.webp"
     },
     "ending_s": {
       "src": "assets/img/ending_s.webp",
       "w": 1600,
       "h": 900,
-      "focus": "60% 40%"
+      "focus": "60% 40%",
+      "portrait": "assets/img/portrait/ending_s.webp"
     },
     "ending_a": {
       "src": "assets/img/ending_a.webp",
       "w": 1600,
       "h": 900,
-      "focus": "50% 30%"
+      "focus": "50% 30%",
+      "portrait": "assets/img/portrait/ending_a.webp"
     },
     "ending_b": {
       "src": "assets/img/ending_b.webp",
       "w": 1600,
       "h": 900,
-      "focus": "33% 30%"
+      "focus": "33% 30%",
+      "portrait": "assets/img/portrait/ending_b.webp"
     },
     "ending_c": {
       "src": "assets/img/ending_c.webp",
       "w": 1600,
       "h": 900,
-      "focus": "56% 50%"
+      "focus": "56% 50%",
+      "portrait": "assets/img/portrait/ending_c.webp"
     },
     "ending_grandma": {
       "src": "assets/img/ending_grandma.webp",
       "w": 1600,
       "h": 900,
-      "focus": "52% 30%"
+      "focus": "52% 30%",
+      "portrait": "assets/img/portrait/ending_grandma.webp"
     },
     "intro_poster": {
       "src": "assets/img/intro_poster.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/intro_poster.webp"
     },
     "grandma_poster": {
       "src": "assets/img/grandma_poster.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/grandma_poster.webp"
     },
     "role_ae": {
       "src": "assets/img/role_ae.webp",
@@ -378,12 +401,14 @@
     "loc_convenience": {
       "src": "assets/img/loc_convenience.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_convenience.webp"
     },
     "loc_breakfast": {
       "src": "assets/img/loc_breakfast.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_breakfast.webp"
     },
     "avatar_client_wu": {
       "src": "assets/img/avatar_client_wu.webp",
@@ -443,7 +468,8 @@
     "loc_mrt": {
       "src": "assets/img/loc_mrt.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_mrt.webp"
     },
     "ad_3": {
       "src": "assets/tex/ad_3.webp",
@@ -453,12 +479,14 @@
     "loc_department": {
       "src": "assets/img/loc_department.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_department.webp"
     },
     "loc_datalab": {
       "src": "assets/img/loc_datalab.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_datalab.webp"
     },
     "avatar_client_chen": {
       "src": "assets/img/avatar_client_chen.webp",
@@ -503,12 +531,14 @@
     "loc_studio": {
       "src": "assets/img/loc_studio.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_studio.webp"
     },
     "loc_tvstation": {
       "src": "assets/img/loc_tvstation.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_tvstation.webp"
     },
     "avatar_tv_su": {
       "src": "assets/img/avatar_tv_su.webp",
@@ -538,7 +568,8 @@
     "loc_riverside": {
       "src": "assets/img/loc_riverside.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_riverside.webp"
     },
     "avatar_rechao_boss": {
       "src": "assets/img/avatar_rechao_boss.webp",
@@ -723,7 +754,8 @@
     "loc_home": {
       "src": "assets/img/loc_home.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "portrait": "assets/img/portrait/loc_home.webp"
     },
     "og": {
       "src": "assets/img/og.webp",
@@ -784,22 +816,22 @@
   "models": {
     "rider_scooter": {
       "src": "assets/models/rider_scooter.glb",
-      "bytes": 563888,
-      "triangles": 19760,
+      "bytes": 410296,
+      "triangles": 20457,
       "rigged": false,
       "animations": []
     },
     "grandma_scooter": {
       "src": "assets/models/grandma_scooter.glb",
-      "bytes": 1039316,
-      "triangles": 29398,
+      "bytes": 519276,
+      "triangles": 19990,
       "rigged": false,
       "animations": []
     },
     "walker_m": {
       "src": "assets/models/walker_m.glb",
-      "bytes": 834660,
-      "triangles": 17026,
+      "bytes": 401408,
+      "triangles": 15535,
       "rigged": true,
       "animations": [
         "Armature|Casual_Walk|baselayer"
@@ -807,8 +839,8 @@
     },
     "walker_f": {
       "src": "assets/models/walker_f.glb",
-      "bytes": 751756,
-      "triangles": 16600,
+      "bytes": 404340,
+      "triangles": 15447,
       "rigged": true,
       "animations": [
         "Armature|Casual_Walk|baselayer"
