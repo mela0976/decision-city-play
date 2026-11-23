@@ -326,7 +326,7 @@ body:has(dialog[open]) .scene-art img {
 }
 
 #stage[data-scene="on"] #hud {
-  padding-block-start: calc(env(safe-area-inset-top) + (var(--bar) - var(--tap)) / 2);
+  padding-block-start: calc(env(safe-area-inset-top) + 0.3rem);
 }
 
 /* 窄螢幕：身分、數值、任務、電台一列一列往下疊，右上角留給小地圖 */
@@ -597,7 +597,17 @@ body:has(dialog[open]) .scene-art img {
 .scene-art,
 .scene-shade {
   position: absolute;
-  inset: var(--bar-t) 0 var(--bar-b);
+  /* 上方黑邊只留選單鈕的高度，劇照多露出一些；下方黑邊維持寬銀幕 */
+  inset: var(--scene-t, var(--bar-t)) 0 var(--bar-b);
+}
+
+#stage[data-scene="on"] {
+  --scene-t: calc(env(safe-area-inset-top) + var(--tap) + 0.6rem);
+}
+
+/* 裁切時保留人物頭頂，多切下方 */
+.scene-art img {
+  object-position: 50% 22%;
 }
 
 .scene-art {
@@ -1045,6 +1055,17 @@ body:has(dialog[open]) .scene-art img {
 
 .quiz.is-miss .quiz-verdict strong {
   color: #ff8a7c;
+}
+
+.quiz-context {
+  max-inline-size: min(34em, 100%);
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: pretty;
+  color: var(--stone);
+  text-shadow: 0 1px 0 #000, 0 0 6px rgb(0 0 0 / 0.9);
 }
 
 .quiz-explain {

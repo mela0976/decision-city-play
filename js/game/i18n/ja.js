@@ -9,7 +9,7 @@ export const METER_NAMES = {
 
 export const T = {
   curbParked: '駐車完了、歩いて向かう', curbRoad: '先に車道へ戻ろう', curbWalk: 'Fで降りて歩く', // A24
-  autoHere: 'ここが目的地です', autoNoTarget: 'まだ目的地がありません', autoNoRoute: 'ルートが見つかりません。広い道へ出よう', autoNoMount: '先に車道へ戻ろう', autoLanding: '着陸後に自動で向かいます', rescued: '道路に戻しました', // A25
+  autoHere: 'ここが目的地です', autoNoTarget: 'まだ目的地がありません', autoNoRoute: 'ルートが見つかりません。広い道へ出よう', autoNoMount: '先に車道へ戻ろう', autoLanding: '着陸後に自動で向かいます', rescued: '道路に戻しました', dodged: 'よけました。3秒間は車に当たりません', // A25
   name: 'ディシジョン・シティ',
   nameEn: 'Decision City',
   hook: '一日で、九年を駆け抜ける',

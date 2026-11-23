@@ -1,7 +1,7 @@
 // 下方提示列的內容：依目前狀態與輸入方式（鍵盤或觸控）決定。
 // 回傳 { task, parts }；parts 每段是 { keys: [鍵帽…], text }。
 
-import { T, KEY, HINT } from './strings.js?v=441539d';
+import { T, KEY, HINT } from './strings.js?v=441539db';
 
 // A24 the engine publishes wait transitions on its canvas before refreshing the ride hint.
 let waitingForSignal=false;
@@ -12,7 +12,7 @@ const curbNotes = { parked: T.curbParked, road: T.curbRoad, walk: T.curbWalk, //
   // A25 autoride refusals and the stuck-player rescue
   'auto-here': T.autoHere, 'auto-target': T.autoNoTarget, 'auto-route': T.autoNoRoute, 'auto-mount': T.autoNoMount,
   carDrivingTouch: T.carDrivingTouch, carBoard: T.carBoard, carLocked: T.carLocked, carSpace: T.carSpace, carDriving: T.carDriving, // A26
-  'auto-landing': T.autoLanding, rescued: T.rescued,
+  'auto-landing': T.autoLanding, rescued: T.rescued, dodged: T.dodged,
   // 飛天車飛不過去的原因：建築太高、沒有降落點、地圖邊界
   'flyBlocked-tall': T.flyBlockedTall, 'flyBlocked-landing': T.flyBlockedLanding, 'flyBlocked-boundary': T.flyBlockedBoundary };
 export const curbHint = kind => curbNotes[kind] ?? T.curbRoad;

@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=441539d'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=441539d'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=441539d'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=441539d'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=441539d';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=441539d'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=441539d';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=441539d'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=441539d';
-import {neonDistrict} from './neon-districts.mjs?v=441539d'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=441539d';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=441539d';
-import {streetCrowds} from './crowds.mjs?v=441539d';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=441539d';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=441539d';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=441539d';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=441539d';
-import { touchControls } from './overlay.js?v=441539d';
-import {setLabels,placeLabel} from './labels.mjs?v=441539d'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=441539db'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=441539db'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=441539db'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=441539db'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=441539db';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=441539db'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=441539db';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=441539db'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=441539db';
+import {neonDistrict} from './neon-districts.mjs?v=441539db'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=441539db';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=441539db';
+import {streetCrowds} from './crowds.mjs?v=441539db';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=441539db';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=441539db';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=441539db';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=441539db';
+import { touchControls } from './overlay.js?v=441539db';
+import {setLabels,placeLabel} from './labels.mjs?v=441539db'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -731,6 +731,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     officeDoorProgress:0,shopDoorProgress:0,time:17.35,viewRevision:0,weather:'clear',filter:'none',clock:0,shake:0,touch:matchMedia('(pointer: coarse)').matches,largeMap:false};
   state.impact=impact; // A14 impact
   let enabled=true,paused=false,running=false,frame=0,last=null,crashCooldown=0;
+  let vehicleHits=[],dodgeUntil=0; // 10 秒內撞車兩次：自動閃開並短暫穿過車流
   let joystick=null,waypoint=null,density=.55,velocityX=0,velocityY=0,flight=null;
   let teslaHop=null,teslaBody=player,teslaCollider=null; // A26 release the flight body before remounting.
   let hopFail=null,nextFlyHint=0; // 飛不過去的原因（'boundary' 地圖邊界、'tall' 建築太高、'landing' 沒有降落點）與提示的間隔
@@ -2030,7 +2031,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     const blend=scooter?1-Math.exp(-dt*(brakingInput?7.5:input>0?4.9:3.4)):1;
     velocityX+=(Math.cos(player.heading)*targetSpeed-velocityX)*blend;
     velocityY+=(Math.sin(player.heading)*targetSpeed-velocityY)*blend;
-    const contact=(x,y)=>trafficSpace.hit(x,y,r,player);
+    const contact=(x,y)=>{const item=trafficSpace.hit(x,y,r,player);return dodgeUntil>state.clock&&item?.kind==='vehicle'?null:item;};
     const terrain=(x,y)=>driving?(route&&narrowLane(x,y)?'curb':carTerrain(x,y,player.heading)):scooter&&curbContact(x,y,r,.37*speedUnits,player.heading)?'curb':worldContact(x,y,r,scooter?.37/metersPerUnit:r,scooter?player.heading:0); // A26
     const wall=(x,y)=>Boolean(terrain(x,y)||contact(x,y));
     if(scooter&&!driving&&enabled&&impact.hasWrecks()&&(route||input>.035&&!state.reversing)){
@@ -2435,6 +2436,15 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       const target=reaction?.target??(!terrainAtContact&&(hitAtContact?.kind==='vehicle'||body?.type==='parked')?
         impactTarget(body):'building');
       emit('crash',{speed,target,launched:reaction?.launched??false});
+      if(!terrainAtContact&&(hitAtContact?.kind==='vehicle'||body?.type==='parked')){
+        vehicleHits=vehicleHits.filter(t=>state.clock-t<10);vehicleHits.push(state.clock);
+        if(vehicleHits.length>=2){
+          vehicleHits=[];dodgeUntil=state.clock+3;
+          rescuePlayer();
+          emit('player:dodge',{x:player.x,y:player.y});
+          emit('curb:hint',{kind:'dodged'});
+        }
+      }
     }
     player.speed=Math.hypot(velocityX,velocityY);
     // A25 measured travel along the heading: a rider pinned against an obstacle can reverse at once.

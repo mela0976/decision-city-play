@@ -9,7 +9,7 @@ export const METER_NAMES = {
 
 export const T = {
   curbParked: '已停車，步行前往', curbRoad: '先回到車道', curbWalk: '按 F 下車步行', // A24
-  autoHere: '這裡就是目的地', autoNoTarget: '還沒有目的地', autoNoRoute: '找不到路線，先騎到大一點的路上', autoNoMount: '先回到車道', autoLanding: '降落後自動前往', rescued: '已幫你移回路上', // A25
+  autoHere: '這裡就是目的地', autoNoTarget: '還沒有目的地', autoNoRoute: '找不到路線，先騎到大一點的路上', autoNoMount: '先回到車道', autoLanding: '降落後自動前往', rescued: '已幫你移回路上', dodged: '已幫你閃開，三秒內不會再被車撞', // A25
   name: '決策之城',
   nameEn: 'Decision City',
   hook: '一天，走過九年',

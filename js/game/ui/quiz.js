@@ -2,9 +2,9 @@
 // removed：開場就刪掉的錯誤選項索引（數據分析師的加成），沒有就傳 -1。
 // onAnswer(isCorrect) 由遊戲層結算，回傳數值變化。
 
-import { h, fill, interaction, arrowFocus } from '../dom.js?v=441539d';
-import { T } from '../strings.js?v=441539d';
-import { deltaChips } from './choice.js?v=441539d';
+import { h, fill, interaction, arrowFocus } from '../dom.js?v=441539db';
+import { T } from '../strings.js?v=441539db';
+import { deltaChips } from './choice.js?v=441539db';
 
 export function runQuiz({ layer, question, removed = -1, removedLabel, position, total, onAnswer, signal, sfx, onState }) {
   return interaction(signal, (done) => {
@@ -28,7 +28,7 @@ export function runQuiz({ layer, question, removed = -1, removedLabel, position,
     const panel = h(
       'section',
       { class: 'quiz', 'aria-labelledby': 'quiz-q', tabindex: '-1' },
-      h('header', { class: 'quiz-head' }, h('span', { class: 'quiz-count', text: `${position}／${total}` }), h('h2', { id: 'quiz-q', text: question.q })),
+      h('header', { class: 'quiz-head' }, h('span', { class: 'quiz-count', text: `${position}／${total}` }), question.context ? h('p', { class: 'quiz-context', text: question.context }) : null, h('h2', { id: 'quiz-q', text: question.q })),
       h('div', { class: 'quiz-options' }, buttons),
       result,
       actions,

@@ -10,7 +10,7 @@ export const METER_NAMES = {
 
 export const T = {
   curbParked: 'Parked. Walk the rest', curbRoad: 'Get back on the road', curbWalk: 'F: get off and walk', // A24
-  autoHere: 'You are already here', autoNoTarget: 'No destination yet', autoNoRoute: 'No route from here. Ride to a bigger road first', autoNoMount: 'Get back on the road', autoLanding: 'Auto ride starts after landing', rescued: 'Moved you back onto the road', // A25
+  autoHere: 'You are already here', autoNoTarget: 'No destination yet', autoNoRoute: 'No route from here. Ride to a bigger road first', autoNoMount: 'Get back on the road', autoLanding: 'Auto ride starts after landing', rescued: 'Moved you back onto the road', dodged: 'Dodged for you. No more car hits for 3 seconds', // A25
   name: 'Decision City',
   nameEn: 'Decision City',
   hook: 'One day. Nine years.',
