@@ -1,7 +1,7 @@
-import * as T from '../vendor/three.module.min.js?v=b0bdcee1';
-import {water,riverWidthMeters,width,height,metersPerUnit as unit,roadAt,wuxingBounds,toWorld} from '../world.mjs?v=b0bdcee1';
-import {createBasin} from './basin.js?v=b0bdcee1';
-import {canvasTexture,hash,matrix,color,shapes} from './city-primitives.js?v=b0bdcee1';
+import * as T from '../vendor/three.module.min.js?v=5114ee85';
+import {water,riverWidthMeters,width,height,metersPerUnit as unit,roadAt,wuxingBounds,toWorld} from '../world.mjs?v=5114ee85';
+import {createBasin} from './basin.js?v=5114ee85';
+import {canvasTexture,hash,matrix,color,shapes} from './city-primitives.js?v=5114ee85';
 import landuse from '../data/xinyi-landuse.json' with { type:'json' };
 
 export const riversideCycleways=[ // A23 actors share the rendered OSM cycle paths.

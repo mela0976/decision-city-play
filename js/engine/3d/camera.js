@@ -1,6 +1,6 @@
-import {canopyBounds} from '../venue-entrances.mjs?v=b0bdcee1'; // A27
-import {headerBounds} from '../entry-courts.mjs?v=b0bdcee1'; // A23 night: elevated entrance fixtures share their rendered dimensions.
-import {buildings} from '../world.mjs?v=b0bdcee1';
+import {canopyBounds} from '../venue-entrances.mjs?v=5114ee85'; // A27
+import {headerBounds} from '../entry-courts.mjs?v=5114ee85'; // A23 night: elevated entrance fixtures share their rendered dimensions.
+import {buildings} from '../world.mjs?v=5114ee85';
 
 const topByShape={spire:160,twist:78,office:266,datalab:47,dome:15,construction:90,memorial:13,
   cityhall:20,studio:7,market:7,temple:11,park:4,mall:21,cinema:15,village:7,mrt:13};
