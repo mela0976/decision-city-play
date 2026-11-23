@@ -2,7 +2,9 @@ import * as T from '../vendor/three.module.min.js?v=986dcfc6';
 import data from '../data/far-city.json' with {type:'json'};
 import {buildings,toWorld,metersPerUnit as unit} from '../world.mjs?v=986dcfc6';
 import {isTowerBlock} from '../tower-structures.mjs?v=986dcfc6'; // A23 towers
-import {shellHeight} from './buildings-tower.js?v=986dcfc6'; // A23 towers
+import {shellHeight,towerFacade} from './buildings-tower.js?v=986dcfc6'; // A23 towers
+import {oldFacade} from './buildings-old.js?v=986dcfc6';
+import {hash} from './city-primitives.js?v=986dcfc6';
 import {urbanInfill} from '../infill.mjs?v=986dcfc6';
 
 const origin=toWorld(...data.origin),ox=origin.x*unit,oz=origin.y*unit;
@@ -64,6 +66,23 @@ function facadeMap(doc,lights=false){
   return texture;
 }
 
+// 遠景外殼換成近景模型的那一刻顏色不能跳：照 buildings.js 的同一套決定性算法取 tint，
+// 乘上近景立面貼圖的平均色（assets/tex 量測值），再補上「近景有打光、遠景外殼不打光且自帶淺色立面貼圖」的差
+// （係數用 probe-lod-pair 同鏡頭近／遠兩張截圖對色量出來）。
+const nearTexture={new:'#436373',towerB:'#33484c',towerC:'#727370',old:'#756d65',oldB:'#6e6d61',oldC:'#847c73'};
+const NEAR_LIGHT=4,nearRoof=new T.Color('#c7c1b8').multiply(new T.Color('#837e76')).multiplyScalar(1.4);
+function nearTone(b,out){
+  const variant=Math.min(2,Math.floor(hash(b.osmId,7)*3));
+  const tint=new T.Color(b.color).lerp(new T.Color('#ebe6dc'),.68);
+  const {material}=b.modern?towerFacade(variant,tint,(hash(b.osmId,19)-.5)*.1,false):oldFacade(variant,tint,b.osmId);
+  return out.copy(tint).multiply(new T.Color(nearTexture[material])).multiplyScalar(NEAR_LIGHT);
+}
+function infillTone(q,out){ // 與 buildings-old.js addInfill 同一套
+  const seed=Math.round(q.x*31+q.z),tint=new T.Color('#e0d8c8');
+  const {material}=q.civic?{material:'new'}:oldFacade(Math.floor(hash(seed,2)*3),tint,seed);
+  return out.copy(tint).multiply(new T.Color(nearTexture[material])).multiplyScalar(NEAR_LIGHT);
+}
+
 export function createFarCity(group,doc){
   const chunks=new Map(),focus={value:new T.Vector2()},near={value:340},dark={value:0};
   const facade=facadeMap(doc),lights=facadeMap(doc,true),cover=groundMap(doc);
@@ -99,22 +118,23 @@ export function createFarCity(group,doc){
   const plane=new T.Mesh(new T.PlaneGeometry(2*data.radius,2*data.radius),floor);
   plane.rotation.x=-Math.PI/2;plane.position.set(ox,-.072,oz);
   group.add(plane);
-  function add(ring,h,owned,seed,coarse=false,curtain=false){
+  function add(ring,h,owned,seed,coarse=false,curtain=false,color=null){
     if(ring.length<3)return;
     const box=new T.Box2().setFromPoints(ring),center=box.getCenter(new T.Vector2());
     const {x,y:z}=center;
     const ix=Math.floor((x-ox)/1500),iz=Math.floor((z-oz)/1500),key=ix+','+iz;
     if(!chunks.has(key))chunks.set(key,[]);
     const modern=x-ox>-160&&x-ox<1050&&z-oz>-750&&z-oz<520;
-    chunks.get(key).push({ring,h,x,z,owned,modern,seed,coarse,curtain,
+    chunks.get(key).push({ring,h,x,z,owned,modern,seed,coarse,curtain,color,
       primary:owned||h>=25||seed%3===0});
   }
   for(const b of buildings){
     if(b.shape||[228920407,228920409,441377762,1131522120].includes(b.osmId))continue;
-    add(b.polygon.map(p=>new T.Vector2(p.x*unit,p.y*unit)),shellHeight(b,0),true,b.osmId,false,isTowerBlock(b));
+    const curtain=isTowerBlock(b);
+    add(b.polygon.map(p=>new T.Vector2(p.x*unit,p.y*unit)),shellHeight(b,0),true,b.osmId,false,curtain,curtain?null:nearTone(b,new T.Color()));
   }
   for(const q of urbanInfill())if(q.housing){
-    add(rectangle(q.x,q.z,q.width,q.depth,q.heading),q.tin?Math.min(q.height,5.4):q.height,true,Math.abs(Math.round(q.x*31+q.z)));
+    add(rectangle(q.x,q.z,q.width,q.depth,q.heading),q.tin?Math.min(q.height,5.4):q.height,true,Math.abs(Math.round(q.x*31+q.z)),false,false,infillTone(q,new T.Color()));
   }
   for(const [i,row] of data.buildings.entries())add(unpack(row,1),row[0],false,i);
   for(const [i,[h,x,z,w,d]] of data.blocks.entries())add(rectangle(ox+2*x+w,oz+2*z+d,2*w,2*d),h,false,i,true);
@@ -122,14 +142,15 @@ export function createFarCity(group,doc){
   for(const items of chunks.values()){
     const pos=[],uv=[],colors=[],owner=[],indices=[];
     let mobileCount=0;
-    const tone=new T.Color();
+    const tone=new T.Color();let roofTone=null;
     function vertex(p,y,u,v,shade){
       pos.push(p.x,y,p.y);uv.push(u,v);colors.push(tone.r*shade,tone.g*shade,tone.b*shade);
     }
     function shell(ring,bottom,top,roofOnly=false,seed=0){
       const faces=T.ShapeUtils.triangulateShape(ring,[]);
       const base=pos.length/3;
-      for(const p of ring)vertex(p,top,0,-1,1.08);
+      if(roofTone){const wall=tone.clone();tone.copy(roofTone);for(const p of ring)vertex(p,top,0,-1,1);tone.copy(wall);}
+      else for(const p of ring)vertex(p,top,0,-1,1.08);
       for(const [a,b,c] of faces)indices.push(base+a,base+b,base+c);
       for(let i=0;i<ring.length;i++){
         const a=ring[i],b=ring[(i+1)%ring.length],w=a.distanceTo(b);
@@ -145,6 +166,8 @@ export function createFarCity(group,doc){
       const {ring,h,x,z,owned,seed,modern,coarse}=item;
       tone.set((modern?['#8199a5','#a0aeb1','#8e9ca5','#9caaa9']:['#c2b6a8','#c4bbae','#bab6ac','#b7ada2'])[seed%4]);
       if(item.curtain)tone.set(['#667d87','#70838c','#788b91','#647b84'][seed%4]); // A23 towers
+      if(item.color)tone.copy(item.color); // 與近景同色
+      roofTone=item.color?nearRoof:null;
       const start=pos.length;
       shell(ring,0,h,false,seed);
       if(!coarse&&seed%4===0&&ring.length>=4&&ring[0].distanceTo(ring[1])>8){
@@ -172,8 +195,8 @@ export function createFarCity(group,doc){
     group.add(mesh);meshes.push({mesh,mobileCount});
   }
   return {
-    update(x,z,night,quality,aerial,mobile){
-      focus.value.set(x,z);near.value=aerial?535:quality===2?340:265;dark.value=night;
+    update(x,z,night,quality,aerial,mobile,nearRadius){
+      focus.value.set(x,z);near.value=nearRadius??(aerial?535:quality===2?340:265);dark.value=night;
       for(const {mesh,mobileCount} of meshes){
         const geo=mesh.geometry,{center,radius}=geo.boundingSphere;
         const distant=Math.hypot(center.x-x,center.z-z)-radius>2500;

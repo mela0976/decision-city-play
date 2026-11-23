@@ -428,12 +428,12 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true,deferDerived=fal
   return {
     finishAll(){for(const c of pendingChunks)finishChunk(c);pendingChunks.clear();}, // P2 perf：測試與工具用，立刻建完全部區塊
     group,replacements,updateOfficeDoor,collisionProps,parkedScooters,glow,loadedTextures,loadedAds,textUv,
-    update(x,z,night,rain,quality,clock,lamps=night,aerial=false,hour){
+    update(x,z,night,rain,quality,clock,lamps=night,aerial=false,hour,nearRadius){
       materials.road.roughness=rain?.19:.94;
       materials.road.metalness=rain?.27:0;
       updateNight(lightState,x,z,has('night')?night:0,rain,clock,has('night')?lamps:0,hour); // A23 night
       materials.curtain.emissiveIntensity=materials.landmarkCurtain.emissiveIntensity=has('night')?night*.65:0; // A23 towers
-      const radius=aerial?535:quality===2?340:265;
+      const radius=nearRadius??(aerial?535:quality===2?340:265);
       const detailRadius=quality===2?117:88;
       const storeRadius=quality===2?186:145;
       neon?.update(x,z,has('night')?lamps:0,aerial?0:storeRadius,clock); // A24c Also visible over live tiles.

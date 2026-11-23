@@ -99,7 +99,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
   const spots=new Map(locations.map(site=>[site.id,site]));
   let sizeW=0,sizeH=0,dpr=0,quality=capture?.quality??2,pressure=0,meanFrame=1/60,lastClock=0,lastView=-1;
   const maxQuality=capture?.quality??2;
-  let calm=0,raisedAt=-Infinity,raiseBlockedUntil=0,elapsed=0;
+  let calm=0,raisedAt=-Infinity,raiseBlockedUntil=0,elapsed=0,nearRadius=0;
   let heading=0,roll=0,lastHeading=0,statsClock=-1;
   let frameWidth=0,frameHeight=0;
   function project(x,y,z) {
@@ -499,8 +499,12 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     const portraitFocus=portrait&&{x:portrait.x/unit,y:portrait.z/unit};
     const focus=state.flyover?.location??walkerPortrait??portraitFocus??player;
     city.updateOfficeDoor(state.officeDoorProgress,state.shopDoorProgress); // A27
-    city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover),time);
-    farCity?.update(focus.x*unit,focus.y*unit,has('night')?night:0,quality,Boolean(state.flyover),w<650); // A20 far-city
+    // 近景 OSM 模型與遠景外殼的交界圈。畫質升降時半徑不再一口氣跳 75 公尺（整圈建築同時換樣子），
+    // 而是每秒最多推 40 公尺，讓區塊一個一個換；近景與遠景用同一個值，交界不重疊也不留空。
+    const radiusTarget=state.flyover?535:quality===2?340:265;
+    nearRadius=snap||capture||!nearRadius||state.flyover?radiusTarget:nearRadius+clamp(radiusTarget-nearRadius,-40*dt,40*dt);
+    city.update(focus.x*unit,focus.y*unit,night,raining,quality,clock,lamps,Boolean(state.flyover),time,nearRadius);
+    farCity?.update(focus.x*unit,focus.y*unit,has('night')?night:0,quality,Boolean(state.flyover),w<650,nearRadius); // A20 far-city
     state.inActorView=inActorView; // P2 perf：同一個函式，不必每幀新建
     state.cameraInside=camera.position.y<.12||(!aerial&&cameraFraction(bounds,camera.position,camera.position)===0);
     if(!capture||actorLayer.visible)actors(state,unit,has('night')?Math.max(night,lamps*.69):0,raining,turn,tileView?.ready,walkerPortrait,camera.position,previewBus,deliveryPortrait?xinyiBusBay(0,-1.66):null,scalePortrait,!has('actors'));
