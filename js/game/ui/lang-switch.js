@@ -1,8 +1,8 @@
 // 語言切換：中文／English／日本語，各用自己的寫法。按下去記住偏好並重新載入（lang.js）。
 
-import { h } from '../dom.js?v=7c27097e';
-import { T, LANG } from '../strings.js?v=7c27097e';
-import { LANGS, HTML_LANG, switchLang } from '../lang.js?v=7c27097e';
+import { h } from '../dom.js?v=986dcfc6';
+import { T, LANG } from '../strings.js?v=986dcfc6';
+import { LANGS, HTML_LANG, switchLang } from '../lang.js?v=986dcfc6';
 
 export function langButtons() {
   return LANGS.map((code) =>

@@ -597,12 +597,18 @@ body:has(dialog[open]) .scene-art img {
 .scene-art,
 .scene-shade {
   position: absolute;
-  /* 上方黑邊只留選單鈕的高度，劇照多露出一些；下方黑邊維持寬銀幕 */
   inset: var(--scene-t, var(--bar-t)) 0 var(--bar-b);
 }
 
+/* 劇照滿到頂端，選單鈕改成浮在圖上的半透明小框 */
 #stage[data-scene="on"] {
-  --scene-t: calc(env(safe-area-inset-top) + var(--tap) + 0.6rem);
+  --scene-t: 0px;
+}
+
+#stage[data-scene="on"] #hud-menu {
+  background: rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 /* 裁切時保留人物頭頂，多切下方 */

@@ -769,22 +769,22 @@
   "models": {
     "rider_scooter": {
       "src": "assets/models/rider_scooter.glb",
-      "bytes": 410296,
-      "triangles": 20457,
+      "bytes": 563888,
+      "triangles": 19760,
       "rigged": false,
       "animations": []
     },
     "grandma_scooter": {
       "src": "assets/models/grandma_scooter.glb",
-      "bytes": 519276,
-      "triangles": 19990,
+      "bytes": 1039316,
+      "triangles": 29398,
       "rigged": false,
       "animations": []
     },
     "walker_m": {
       "src": "assets/models/walker_m.glb",
-      "bytes": 401408,
-      "triangles": 15535,
+      "bytes": 834660,
+      "triangles": 17026,
       "rigged": true,
       "animations": [
         "Armature|Casual_Walk|baselayer"
@@ -792,8 +792,8 @@
     },
     "walker_f": {
       "src": "assets/models/walker_f.glb",
-      "bytes": 404340,
-      "triangles": 15447,
+      "bytes": 751756,
+      "triangles": 16600,
       "rigged": true,
       "animations": [
         "Armature|Casual_Walk|baselayer"
@@ -801,29 +801,29 @@
     },
     "car_ev": {
       "src": "assets/models/car_ev.glb",
-      "bytes": 274280,
-      "triangles": 20008,
+      "bytes": 242904,
+      "triangles": 8286,
       "rigged": false,
       "animations": []
     },
     "scooter_parked": {
       "src": "assets/models/scooter_parked.glb",
-      "bytes": 337244,
-      "triangles": 20288,
+      "bytes": 658160,
+      "triangles": 22442,
       "rigged": false,
       "animations": []
     },
     "garbage_truck": {
       "src": "assets/models/garbage_truck.glb",
-      "bytes": 413984,
-      "triangles": 19759,
+      "bytes": 634716,
+      "triangles": 17768,
       "rigged": false,
       "animations": []
     },
     "bus": {
       "src": "assets/models/bus.glb",
-      "bytes": 376556,
-      "triangles": 19251,
+      "bytes": 1091232,
+      "triangles": 33608,
       "rigged": false,
       "animations": []
     }
@@ -1237,27 +1237,27 @@
       },
       "rival_vicky/8ca25fc4": {
         "src": "assets/audio/voice/rival_vicky/8ca25fc4.mp3",
-        "sec": 4.6825
+        "sec": 5.072
       },
       "rival_vicky/fd808c59": {
         "src": "assets/audio/voice/rival_vicky/fd808c59.mp3",
-        "sec": 5.434208
+        "sec": 4.836833
       },
       "rival_vicky/e9849d5d": {
         "src": "assets/audio/voice/rival_vicky/e9849d5d.mp3",
-        "sec": 4.911
+        "sec": 4.782708
       },
       "rival_vicky/8db9c79d": {
         "src": "assets/audio/voice/rival_vicky/8db9c79d.mp3",
-        "sec": 4.302542
+        "sec": 4.61125
       },
       "rival_vicky/1cf36c6e": {
         "src": "assets/audio/voice/rival_vicky/1cf36c6e.mp3",
-        "sec": 5.082583
+        "sec": 5.206375
       },
       "rival_vicky/d0265345": {
         "src": "assets/audio/voice/rival_vicky/d0265345.mp3",
-        "sec": 5.082083
+        "sec": 5.308125
       },
       "data_kai/1fe85369": {
         "src": "assets/audio/voice/data_kai/1fe85369.mp3",
@@ -1409,27 +1409,27 @@
       },
       "rival_vicky/33486fa6": {
         "src": "assets/audio/voice/rival_vicky/33486fa6.mp3",
-        "sec": 4.369958
+        "sec": 4.791333
       },
       "rival_vicky/71d12f53": {
         "src": "assets/audio/voice/rival_vicky/71d12f53.mp3",
-        "sec": 5.113958
+        "sec": 4.311292
       },
       "rival_vicky/a61b5657": {
         "src": "assets/audio/voice/rival_vicky/a61b5657.mp3",
-        "sec": 4.895917
+        "sec": 5.302208
       },
       "rival_vicky/f83165ff": {
         "src": "assets/audio/voice/rival_vicky/f83165ff.mp3",
-        "sec": 3.978917
+        "sec": 4.958667
       },
       "rival_vicky/5b950fbc": {
         "src": "assets/audio/voice/rival_vicky/5b950fbc.mp3",
-        "sec": 4.753958
+        "sec": 4.581208
       },
       "rival_vicky/1689cd0d": {
         "src": "assets/audio/voice/rival_vicky/1689cd0d.mp3",
-        "sec": 5.55725
+        "sec": 4.990667
       },
       "tv_su/718235bc": {
         "src": "assets/audio/voice/tv_su/718235bc.mp3",
@@ -1529,7 +1529,7 @@
       },
       "rival_vicky/4f97fa3e": {
         "src": "assets/audio/voice/rival_vicky/4f97fa3e.mp3",
-        "sec": 3.805375
+        "sec": 4.1125
       },
       "breakfast_auntie/d8b148d2": {
         "src": "assets/audio/voice/breakfast_auntie/d8b148d2.mp3",
@@ -1649,7 +1649,7 @@
       },
       "rival_vicky/d13baf4d": {
         "src": "assets/audio/voice/rival_vicky/d13baf4d.mp3",
-        "sec": 4.883583
+        "sec": 4.91875
       },
       "data_kai/839ad3c0": {
         "src": "assets/audio/voice/data_kai/839ad3c0.mp3",
@@ -1657,7 +1657,7 @@
       },
       "rival_vicky/d72f8897": {
         "src": "assets/audio/voice/rival_vicky/d72f8897.mp3",
-        "sec": 3.084875
+        "sec": 3.277333
       },
       "grandma/9af99acf": {
         "src": "assets/audio/voice/grandma/9af99acf.mp3",
@@ -1745,27 +1745,27 @@
       },
       "rival_vicky/8ccf97a8": {
         "src": "assets/audio/voice/rival_vicky/8ccf97a8.mp3",
-        "sec": 6.020625
+        "sec": 6.419542
       },
       "rival_vicky/d4cbac5b": {
         "src": "assets/audio/voice/rival_vicky/d4cbac5b.mp3",
-        "sec": 6.95675
+        "sec": 7.071792
       },
       "rival_vicky/02b5d67f": {
         "src": "assets/audio/voice/rival_vicky/02b5d67f.mp3",
-        "sec": 6.272042
+        "sec": 7.164583
       },
       "rival_vicky/24bbc57b": {
         "src": "assets/audio/voice/rival_vicky/24bbc57b.mp3",
-        "sec": 6.667167
+        "sec": 6.584167
       },
       "rival_vicky/37b4a3de": {
         "src": "assets/audio/voice/rival_vicky/37b4a3de.mp3",
-        "sec": 7.06675
+        "sec": 6.955792
       },
       "rival_vicky/aedd044f": {
         "src": "assets/audio/voice/rival_vicky/aedd044f.mp3",
-        "sec": 7.818375
+        "sec": 7.001917
       },
       "client_chen/601cbed0": {
         "src": "assets/audio/voice/client_chen/601cbed0.mp3",
@@ -2625,7 +2625,7 @@
       },
       "rival_vicky/6fc73973": {
         "src": "assets/audio/voice/rival_vicky/6fc73973.mp3",
-        "sec": 4.288458
+        "sec": 5.778917
       },
       "data_kai/028a9780": {
         "src": "assets/audio/voice/data_kai/028a9780.mp3",
@@ -3977,11 +3977,11 @@
       },
       "n2023_hua/a2345b7e": {
         "src": "assets/audio/voice/n2023_hua/a2345b7e.mp3",
-        "sec": 4.708292
+        "sec": 5.823833
       },
       "player_m/1ad242d5": {
         "src": "assets/audio/voice/player_m/1ad242d5.mp3",
-        "sec": 1.793333
+        "sec": 1.553333
       },
       "roommate_yu/e1f0196b": {
         "src": "assets/audio/voice/roommate_yu/e1f0196b.mp3",
@@ -3993,11 +3993,11 @@
       },
       "n2023_hua/f617b181": {
         "src": "assets/audio/voice/n2023_hua/f617b181.mp3",
-        "sec": 5.45375
+        "sec": 5.955
       },
       "n2023_hua/3c716719": {
         "src": "assets/audio/voice/n2023_hua/3c716719.mp3",
-        "sec": 6.3405
+        "sec": 6.686833
       },
       "roommate_yu/dbefd261": {
         "src": "assets/audio/voice/roommate_yu/dbefd261.mp3",
@@ -4013,11 +4013,11 @@
       },
       "n2023_hua/45c65193": {
         "src": "assets/audio/voice/n2023_hua/45c65193.mp3",
-        "sec": 5.297958
+        "sec": 6.909708
       },
       "n2023_hua/a117511b": {
         "src": "assets/audio/voice/n2023_hua/a117511b.mp3",
-        "sec": 6.209667
+        "sec": 6.940208
       },
       "player_m/09e2769a": {
         "src": "assets/audio/voice/player_m/09e2769a.mp3",
@@ -4029,7 +4029,7 @@
       },
       "n2023_hua/c1237ef0": {
         "src": "assets/audio/voice/n2023_hua/c1237ef0.mp3",
-        "sec": 6.519875
+        "sec": 5.618708
       },
       "client_hsu/327db8df": {
         "src": "assets/audio/voice/client_hsu/327db8df.mp3",
@@ -4065,7 +4065,7 @@
       },
       "n2023_hua/1f09c8dc": {
         "src": "assets/audio/voice/n2023_hua/1f09c8dc.mp3",
-        "sec": 8.325208
+        "sec": 6.872083
       },
       "player_m/1500b473": {
         "src": "assets/audio/voice/player_m/1500b473.mp3",
@@ -4105,7 +4105,7 @@
       },
       "player_f/f4890848": {
         "src": "assets/audio/voice/player_f/f4890848.mp3",
-        "sec": 1.251458
+        "sec": 1.274
       },
       "player_m/84a28504": {
         "src": "assets/audio/voice/player_m/84a28504.mp3",
@@ -4145,7 +4145,7 @@
       },
       "n2023_hua/66004a87": {
         "src": "assets/audio/voice/n2023_hua/66004a87.mp3",
-        "sec": 7.201958
+        "sec": 6.602417
       },
       "player_m/b8e82ddc": {
         "src": "assets/audio/voice/player_m/b8e82ddc.mp3",
@@ -4281,7 +4281,7 @@
       },
       "roommate_yu/3633c5fa": {
         "src": "assets/audio/voice/roommate_yu/3633c5fa.mp3",
-        "sec": 7.78225
+        "sec": 6.676708
       },
       "n2023_lai/da337fed": {
         "src": "assets/audio/voice/n2023_lai/da337fed.mp3",
@@ -4881,7 +4881,7 @@
       },
       "n2023_hua/53f8c85b": {
         "src": "assets/audio/voice/n2023_hua/53f8c85b.mp3",
-        "sec": 2.607417
+        "sec": 3.300667
       },
       "player_f/12e99796": {
         "src": "assets/audio/voice/player_f/12e99796.mp3",
@@ -5365,7 +5365,7 @@
       },
       "en/rival_vicky/24bbc57b": {
         "src": "assets/audio/voice/en/rival_vicky/24bbc57b.mp3",
-        "sec": 6.952167
+        "sec": 5.829542
       },
       "en/data_kai/447e6d23": {
         "src": "assets/audio/voice/en/data_kai/447e6d23.mp3",
@@ -5381,7 +5381,7 @@
       },
       "en/rival_vicky/02b5d67f": {
         "src": "assets/audio/voice/en/rival_vicky/02b5d67f.mp3",
-        "sec": 6.485042
+        "sec": 7.079333
       },
       "rechao_boss/55c120ea": {
         "src": "assets/audio/voice/rechao_boss/55c120ea.mp3",
@@ -5497,11 +5497,11 @@
       },
       "en/rival_vicky/8ca25fc4": {
         "src": "assets/audio/voice/en/rival_vicky/8ca25fc4.mp3",
-        "sec": 5.00475
+        "sec": 5.097167
       },
       "en/rival_vicky/fd808c59": {
         "src": "assets/audio/voice/en/rival_vicky/fd808c59.mp3",
-        "sec": 5.961
+        "sec": 6.29775
       },
       "en/client_hsu/06cbc979": {
         "src": "assets/audio/voice/en/client_hsu/06cbc979.mp3",
@@ -5513,11 +5513,11 @@
       },
       "en/rival_vicky/e9849d5d": {
         "src": "assets/audio/voice/en/rival_vicky/e9849d5d.mp3",
-        "sec": 5.296458
+        "sec": 4.657958
       },
       "en/rival_vicky/d0265345": {
         "src": "assets/audio/voice/en/rival_vicky/d0265345.mp3",
-        "sec": 6.81025
+        "sec": 6.824625
       },
       "en/data_kai/1fe85369": {
         "src": "assets/audio/voice/en/data_kai/1fe85369.mp3",
@@ -5577,7 +5577,7 @@
       },
       "en/rival_vicky/1cf36c6e": {
         "src": "assets/audio/voice/en/rival_vicky/1cf36c6e.mp3",
-        "sec": 5.1565
+        "sec": 5.549167
       },
       "en/client_chen/dd65bb5b": {
         "src": "assets/audio/voice/en/client_chen/dd65bb5b.mp3",
@@ -5677,7 +5677,7 @@
       },
       "en/rival_vicky/8db9c79d": {
         "src": "assets/audio/voice/en/rival_vicky/8db9c79d.mp3",
-        "sec": 5.597042
+        "sec": 5.679625
       },
       "en/client_hsu/237b902b": {
         "src": "assets/audio/voice/en/client_hsu/237b902b.mp3",
@@ -5685,7 +5685,7 @@
       },
       "en/rival_vicky/a61b5657": {
         "src": "assets/audio/voice/en/rival_vicky/a61b5657.mp3",
-        "sec": 5.596542
+        "sec": 5.797542
       },
       "en/tv_su/56fabfde": {
         "src": "assets/audio/voice/en/tv_su/56fabfde.mp3",
@@ -5713,7 +5713,7 @@
       },
       "en/rival_vicky/1689cd0d": {
         "src": "assets/audio/voice/en/rival_vicky/1689cd0d.mp3",
-        "sec": 7.475583
+        "sec": 6.318583
       },
       "en/breakfast_auntie/a48494ea": {
         "src": "assets/audio/voice/en/breakfast_auntie/a48494ea.mp3",
@@ -5725,7 +5725,7 @@
       },
       "en/rival_vicky/33486fa6": {
         "src": "assets/audio/voice/en/rival_vicky/33486fa6.mp3",
-        "sec": 5.745083
+        "sec": 5.860292
       },
       "en/boss_lin/cef17213": {
         "src": "assets/audio/voice/en/boss_lin/cef17213.mp3",
@@ -5749,7 +5749,7 @@
       },
       "en/rival_vicky/71d12f53": {
         "src": "assets/audio/voice/en/rival_vicky/71d12f53.mp3",
-        "sec": 6.064042
+        "sec": 6.217958
       },
       "en/player_f/2e6a67e6": {
         "src": "assets/audio/voice/en/player_f/2e6a67e6.mp3",
@@ -5761,7 +5761,7 @@
       },
       "en/rival_vicky/8ccf97a8": {
         "src": "assets/audio/voice/en/rival_vicky/8ccf97a8.mp3",
-        "sec": 6.203167
+        "sec": 7.158542
       },
       "en/boss_lin/4a96e474": {
         "src": "assets/audio/voice/en/boss_lin/4a96e474.mp3",
@@ -5777,7 +5777,7 @@
       },
       "en/rival_vicky/37b4a3de": {
         "src": "assets/audio/voice/en/rival_vicky/37b4a3de.mp3",
-        "sec": 7.745208
+        "sec": 7.283458
       },
       "en/data_kai/55470336": {
         "src": "assets/audio/voice/en/data_kai/55470336.mp3",
@@ -5817,7 +5817,7 @@
       },
       "en/rival_vicky/aedd044f": {
         "src": "assets/audio/voice/en/rival_vicky/aedd044f.mp3",
-        "sec": 8.3
+        "sec": 8.840292
       },
       "en/boss_lin/f7423694": {
         "src": "assets/audio/voice/en/boss_lin/f7423694.mp3",
@@ -5833,7 +5833,7 @@
       },
       "en/rival_vicky/d4cbac5b": {
         "src": "assets/audio/voice/en/rival_vicky/d4cbac5b.mp3",
-        "sec": 6.88
+        "sec": 7.689583
       },
       "en/data_kai/de58ae06": {
         "src": "assets/audio/voice/en/data_kai/de58ae06.mp3",
@@ -5925,7 +5925,7 @@
       },
       "en/rival_vicky/d13baf4d": {
         "src": "assets/audio/voice/en/rival_vicky/d13baf4d.mp3",
-        "sec": 4.161375
+        "sec": 4.459167
       },
       "en/grandma/64dad7ea": {
         "src": "assets/audio/voice/en/grandma/64dad7ea.mp3",
@@ -5953,7 +5953,7 @@
       },
       "en/rival_vicky/4f97fa3e": {
         "src": "assets/audio/voice/en/rival_vicky/4f97fa3e.mp3",
-        "sec": 4.970833
+        "sec": 4.8755
       },
       "en/grandma/7473ce9d": {
         "src": "assets/audio/voice/en/grandma/7473ce9d.mp3",
@@ -6053,7 +6053,7 @@
       },
       "en/boss_lin/e50dab89": {
         "src": "assets/audio/voice/en/boss_lin/e50dab89.mp3",
-        "sec": 0.519542
+        "sec": 0.373167
       },
       "en/breakfast_auntie/89ef914b": {
         "src": "assets/audio/voice/en/breakfast_auntie/89ef914b.mp3",
@@ -6085,7 +6085,7 @@
       },
       "en/rival_vicky/f83165ff": {
         "src": "assets/audio/voice/en/rival_vicky/f83165ff.mp3",
-        "sec": 4.451917
+        "sec": 5.081333
       },
       "en/player_f/aa8ced6e": {
         "src": "assets/audio/voice/en/player_f/aa8ced6e.mp3",
@@ -6233,7 +6233,7 @@
       },
       "en/rival_vicky/d72f8897": {
         "src": "assets/audio/voice/en/rival_vicky/d72f8897.mp3",
-        "sec": 5.165292
+        "sec": 4.396208
       },
       "en/rechao_boss/1da8745e": {
         "src": "assets/audio/voice/en/rechao_boss/1da8745e.mp3",
@@ -6521,7 +6521,7 @@
       },
       "en/rechao_boss/a156614e": {
         "src": "assets/audio/voice/en/rechao_boss/a156614e.mp3",
-        "sec": 6.674875
+        "sec": 6.80525
       },
       "en/n2019_lai/7686db1a": {
         "src": "assets/audio/voice/en/n2019_lai/7686db1a.mp3",
@@ -6541,7 +6541,7 @@
       },
       "en/rival_vicky/5b950fbc": {
         "src": "assets/audio/voice/en/rival_vicky/5b950fbc.mp3",
-        "sec": 5.03825
+        "sec": 4.938708
       },
       "en/n2019_tsai/c7b6e9d1": {
         "src": "assets/audio/voice/en/n2019_tsai/c7b6e9d1.mp3",
@@ -6561,7 +6561,7 @@
       },
       "en/rival_vicky/6fc73973": {
         "src": "assets/audio/voice/en/rival_vicky/6fc73973.mp3",
-        "sec": 5.393125
+        "sec": 5.783083
       },
       "en/player_f/86ce6245": {
         "src": "assets/audio/voice/en/player_f/86ce6245.mp3",
@@ -6645,7 +6645,7 @@
       },
       "en/rechao_boss/03677b8c": {
         "src": "assets/audio/voice/en/rechao_boss/03677b8c.mp3",
-        "sec": 6.7035
+        "sec": 7.160125
       },
       "en/grandma/e08e90f2": {
         "src": "assets/audio/voice/en/grandma/e08e90f2.mp3",
@@ -6697,7 +6697,7 @@
       },
       "en/rechao_boss/b402a263": {
         "src": "assets/audio/voice/en/rechao_boss/b402a263.mp3",
-        "sec": 6.0175
+        "sec": 6.374167
       },
       "en/player_f/d7d3c465": {
         "src": "assets/audio/voice/en/player_f/d7d3c465.mp3",
@@ -6857,7 +6857,7 @@
       },
       "en/rechao_boss/f819fc26": {
         "src": "assets/audio/voice/en/rechao_boss/f819fc26.mp3",
-        "sec": 6.725333
+        "sec": 6.396333
       },
       "en/data_kai/a83e58bd": {
         "src": "assets/audio/voice/en/data_kai/a83e58bd.mp3",
@@ -8289,7 +8289,7 @@
       },
       "en/n2023_hua/f617b181": {
         "src": "assets/audio/voice/en/n2023_hua/f617b181.mp3",
-        "sec": 6.970875
+        "sec": 7.797458
       },
       "en/player_f/dee70ec0": {
         "src": "assets/audio/voice/en/player_f/dee70ec0.mp3",
@@ -8301,11 +8301,11 @@
       },
       "en/n2023_hua/c1237ef0": {
         "src": "assets/audio/voice/en/n2023_hua/c1237ef0.mp3",
-        "sec": 5.924583
+        "sec": 6.067875
       },
       "en/n2023_hua/66004a87": {
         "src": "assets/audio/voice/en/n2023_hua/66004a87.mp3",
-        "sec": 6.92975
+        "sec": 7.651375
       },
       "en/roommate_yu/d8d194ad": {
         "src": "assets/audio/voice/en/roommate_yu/d8d194ad.mp3",
@@ -8313,7 +8313,7 @@
       },
       "en/n2023_hua/a2345b7e": {
         "src": "assets/audio/voice/en/n2023_hua/a2345b7e.mp3",
-        "sec": 6.788917
+        "sec": 6.262708
       },
       "en/n2023_gao/4f3837d3": {
         "src": "assets/audio/voice/en/n2023_gao/4f3837d3.mp3",
@@ -8329,15 +8329,15 @@
       },
       "en/n2023_hua/a117511b": {
         "src": "assets/audio/voice/en/n2023_hua/a117511b.mp3",
-        "sec": 6.427417
+        "sec": 7.267875
       },
       "en/n2023_hua/53f8c85b": {
         "src": "assets/audio/voice/en/n2023_hua/53f8c85b.mp3",
-        "sec": 3.37325
+        "sec": 3.329542
       },
       "en/n2023_hua/45c65193": {
         "src": "assets/audio/voice/en/n2023_hua/45c65193.mp3",
-        "sec": 5.69875
+        "sec": 6.218292
       },
       "en/n2023_gao/cde6d3d4": {
         "src": "assets/audio/voice/en/n2023_gao/cde6d3d4.mp3",
@@ -8349,7 +8349,7 @@
       },
       "en/n2023_hua/1f09c8dc": {
         "src": "assets/audio/voice/en/n2023_hua/1f09c8dc.mp3",
-        "sec": 7.110792
+        "sec": 7.228958
       },
       "en/grandma/559097d6": {
         "src": "assets/audio/voice/en/grandma/559097d6.mp3",
@@ -8465,7 +8465,7 @@
       },
       "en/n2023_hua/3c716719": {
         "src": "assets/audio/voice/en/n2023_hua/3c716719.mp3",
-        "sec": 7.497083
+        "sec": 7.426125
       },
       "en/client_chen/0aa55c36": {
         "src": "assets/audio/voice/en/client_chen/0aa55c36.mp3",
@@ -9649,7 +9649,7 @@
       },
       "ja/rival_vicky/24bbc57b": {
         "src": "assets/audio/voice/ja/rival_vicky/24bbc57b.mp3",
-        "sec": 6.845125
+        "sec": 6.580292
       },
       "ja/clerk_ning/e573359e": {
         "src": "assets/audio/voice/ja/clerk_ning/e573359e.mp3",
@@ -9661,7 +9661,7 @@
       },
       "ja/rival_vicky/8ccf97a8": {
         "src": "assets/audio/voice/ja/rival_vicky/8ccf97a8.mp3",
-        "sec": 8.127458
+        "sec": 7.689417
       },
       "ja/client_chen/96d1bb69": {
         "src": "assets/audio/voice/ja/client_chen/96d1bb69.mp3",
@@ -9669,7 +9669,7 @@
       },
       "ja/rival_vicky/d4cbac5b": {
         "src": "assets/audio/voice/ja/rival_vicky/d4cbac5b.mp3",
-        "sec": 6.948958
+        "sec": 8.027125
       },
       "ja/client_chen/6119c5bf": {
         "src": "assets/audio/voice/ja/client_chen/6119c5bf.mp3",
@@ -9677,7 +9677,7 @@
       },
       "ja/rival_vicky/37b4a3de": {
         "src": "assets/audio/voice/ja/rival_vicky/37b4a3de.mp3",
-        "sec": 7.02
+        "sec": 7.073833
       },
       "ja/boss_lin/a033d622": {
         "src": "assets/audio/voice/ja/boss_lin/a033d622.mp3",
@@ -9689,7 +9689,7 @@
       },
       "ja/rival_vicky/02b5d67f": {
         "src": "assets/audio/voice/ja/rival_vicky/02b5d67f.mp3",
-        "sec": 7.033958
+        "sec": 7.06425
       },
       "ja/client_wu/45d9d29f": {
         "src": "assets/audio/voice/ja/client_wu/45d9d29f.mp3",
@@ -9705,7 +9705,7 @@
       },
       "ja/rival_vicky/aedd044f": {
         "src": "assets/audio/voice/ja/rival_vicky/aedd044f.mp3",
-        "sec": 8.171792
+        "sec": 8.497958
       },
       "ja/client_chen/bc7bebf6": {
         "src": "assets/audio/voice/ja/client_chen/bc7bebf6.mp3",
@@ -9829,7 +9829,7 @@
       },
       "ja/rival_vicky/d0265345": {
         "src": "assets/audio/voice/ja/rival_vicky/d0265345.mp3",
-        "sec": 8.103833
+        "sec": 6.541917
       },
       "ja/data_kai/62d3c24c": {
         "src": "assets/audio/voice/ja/data_kai/62d3c24c.mp3",
@@ -9853,11 +9853,11 @@
       },
       "ja/rival_vicky/fd808c59": {
         "src": "assets/audio/voice/ja/rival_vicky/fd808c59.mp3",
-        "sec": 5.861458
+        "sec": 5.588042
       },
       "ja/rival_vicky/e9849d5d": {
         "src": "assets/audio/voice/ja/rival_vicky/e9849d5d.mp3",
-        "sec": 5.611625
+        "sec": 5.560208
       },
       "ja/boss_lin/eeffa4b5": {
         "src": "assets/audio/voice/ja/boss_lin/eeffa4b5.mp3",
@@ -9865,7 +9865,7 @@
       },
       "ja/rival_vicky/1cf36c6e": {
         "src": "assets/audio/voice/ja/rival_vicky/1cf36c6e.mp3",
-        "sec": 6.187625
+        "sec": 6.073958
       },
       "ja/data_kai/b5f58dbe": {
         "src": "assets/audio/voice/ja/data_kai/b5f58dbe.mp3",
@@ -9905,7 +9905,7 @@
       },
       "ja/rival_vicky/8ca25fc4": {
         "src": "assets/audio/voice/ja/rival_vicky/8ca25fc4.mp3",
-        "sec": 6.966875
+        "sec": 6.476625
       },
       "ja/temple_uncle/6e33a9e5": {
         "src": "assets/audio/voice/ja/temple_uncle/6e33a9e5.mp3",
@@ -9973,11 +9973,11 @@
       },
       "ja/rival_vicky/71d12f53": {
         "src": "assets/audio/voice/ja/rival_vicky/71d12f53.mp3",
-        "sec": 5.772375
+        "sec": 6.869708
       },
       "ja/rival_vicky/33486fa6": {
         "src": "assets/audio/voice/ja/rival_vicky/33486fa6.mp3",
-        "sec": 6.743583
+        "sec": 6.130583
       },
       "ja/ae_mei/62eb5e33": {
         "src": "assets/audio/voice/ja/ae_mei/62eb5e33.mp3",
@@ -9997,7 +9997,7 @@
       },
       "ja/rival_vicky/5b950fbc": {
         "src": "assets/audio/voice/ja/rival_vicky/5b950fbc.mp3",
-        "sec": 6.275708
+        "sec": 5.636083
       },
       "ja/client_chen/8bca7aab": {
         "src": "assets/audio/voice/ja/client_chen/8bca7aab.mp3",
@@ -10013,11 +10013,11 @@
       },
       "ja/rival_vicky/1689cd0d": {
         "src": "assets/audio/voice/ja/rival_vicky/1689cd0d.mp3",
-        "sec": 7.857125
+        "sec": 7.42575
       },
       "ja/rival_vicky/a61b5657": {
         "src": "assets/audio/voice/ja/rival_vicky/a61b5657.mp3",
-        "sec": 6.058583
+        "sec": 6.939875
       },
       "ja/breakfast_auntie/b02d0dc8": {
         "src": "assets/audio/voice/ja/breakfast_auntie/b02d0dc8.mp3",
@@ -10069,11 +10069,11 @@
       },
       "ja/player_m/fd3d5aed": {
         "src": "assets/audio/voice/ja/player_m/fd3d5aed.mp3",
-        "sec": 1.350917
+        "sec": 0.907833
       },
       "ja/rival_vicky/f83165ff": {
         "src": "assets/audio/voice/ja/rival_vicky/f83165ff.mp3",
-        "sec": 5.743333
+        "sec": 5.899375
       },
       "ja/data_kai/a6bc670c": {
         "src": "assets/audio/voice/ja/data_kai/a6bc670c.mp3",
@@ -10085,7 +10085,7 @@
       },
       "ja/rival_vicky/4f97fa3e": {
         "src": "assets/audio/voice/ja/rival_vicky/4f97fa3e.mp3",
-        "sec": 5.226375
+        "sec": 5.079208
       },
       "ja/boss_lin/172ec9b7": {
         "src": "assets/audio/voice/ja/boss_lin/172ec9b7.mp3",
@@ -10181,7 +10181,7 @@
       },
       "ja/rival_vicky/8db9c79d": {
         "src": "assets/audio/voice/ja/rival_vicky/8db9c79d.mp3",
-        "sec": 5.855292
+        "sec": 6.83425
       },
       "ja/data_kai/4ba23621": {
         "src": "assets/audio/voice/ja/data_kai/4ba23621.mp3",
@@ -10241,7 +10241,7 @@
       },
       "ja/rival_vicky/d72f8897": {
         "src": "assets/audio/voice/ja/rival_vicky/d72f8897.mp3",
-        "sec": 5.089958
+        "sec": 4.662083
       },
       "ja/player_m/a7357ba3": {
         "src": "assets/audio/voice/ja/player_m/a7357ba3.mp3",
@@ -10257,7 +10257,7 @@
       },
       "ja/rival_vicky/d13baf4d": {
         "src": "assets/audio/voice/ja/rival_vicky/d13baf4d.mp3",
-        "sec": 6.392125
+        "sec": 5.905958
       },
       "ja/grandma/34c3c00d": {
         "src": "assets/audio/voice/ja/grandma/34c3c00d.mp3",
@@ -10341,7 +10341,7 @@
       },
       "ja/boss_lin/663b391c": {
         "src": "assets/audio/voice/ja/boss_lin/663b391c.mp3",
-        "sec": 7.617792
+        "sec": 8.375958
       },
       "ja/player_f/22a15418": {
         "src": "assets/audio/voice/ja/player_f/22a15418.mp3",
@@ -10589,7 +10589,7 @@
       },
       "ja/player_m/55d67386": {
         "src": "assets/audio/voice/ja/player_m/55d67386.mp3",
-        "sec": 1.985958
+        "sec": 1.311667
       },
       "ja/tv_su/6a57834c": {
         "src": "assets/audio/voice/ja/tv_su/6a57834c.mp3",
@@ -10617,7 +10617,7 @@
       },
       "ja/player_f/24035fff": {
         "src": "assets/audio/voice/ja/player_f/24035fff.mp3",
-        "sec": 1.57125
+        "sec": 1.740167
       },
       "ja/ae_mei/ba6ebe2a": {
         "src": "assets/audio/voice/ja/ae_mei/ba6ebe2a.mp3",
@@ -10849,7 +10849,7 @@
       },
       "ja/rival_vicky/6fc73973": {
         "src": "assets/audio/voice/ja/rival_vicky/6fc73973.mp3",
-        "sec": 6.204375
+        "sec": 5.986958
       },
       "ja/n2019_lai/82290c43": {
         "src": "assets/audio/voice/ja/n2019_lai/82290c43.mp3",
@@ -11361,7 +11361,7 @@
       },
       "ja/player_f/86ce6245": {
         "src": "assets/audio/voice/ja/player_f/86ce6245.mp3",
-        "sec": 2.799583
+        "sec": 2.757292
       },
       "ja/client_hsu/816d76a8": {
         "src": "assets/audio/voice/ja/client_hsu/816d76a8.mp3",
@@ -11493,7 +11493,7 @@
       },
       "ja/player_m/93d9abbe": {
         "src": "assets/audio/voice/ja/player_m/93d9abbe.mp3",
-        "sec": 3.24225
+        "sec": 3.284542
       },
       "ja/n2020_cheng/16b24b0d": {
         "src": "assets/audio/voice/ja/n2020_cheng/16b24b0d.mp3",
@@ -12085,7 +12085,7 @@
       },
       "ja/breakfast_auntie/0ce6c08b": {
         "src": "assets/audio/voice/ja/breakfast_auntie/0ce6c08b.mp3",
-        "sec": 4.212958
+        "sec": 4.020667
       },
       "ja/player_m/34df27fc": {
         "src": "assets/audio/voice/ja/player_m/34df27fc.mp3",
@@ -12569,7 +12569,7 @@
       },
       "ja/n2023_hua/a2345b7e": {
         "src": "assets/audio/voice/ja/n2023_hua/a2345b7e.mp3",
-        "sec": 6.238708
+        "sec": 7.391333
       },
       "ja/client_hsu/7bca65c5": {
         "src": "assets/audio/voice/ja/client_hsu/7bca65c5.mp3",
@@ -12593,7 +12593,7 @@
       },
       "ja/n2023_hua/53f8c85b": {
         "src": "assets/audio/voice/ja/n2023_hua/53f8c85b.mp3",
-        "sec": 4.42825
+        "sec": 4.005542
       },
       "ja/roommate_yu/3633c5fa": {
         "src": "assets/audio/voice/ja/roommate_yu/3633c5fa.mp3",
@@ -12601,11 +12601,11 @@
       },
       "ja/n2023_hua/a117511b": {
         "src": "assets/audio/voice/ja/n2023_hua/a117511b.mp3",
-        "sec": 7.037833
+        "sec": 6.210458
       },
       "ja/n2023_hua/66004a87": {
         "src": "assets/audio/voice/ja/n2023_hua/66004a87.mp3",
-        "sec": 7.165167
+        "sec": 8.007417
       },
       "ja/client_wu/38372d99": {
         "src": "assets/audio/voice/ja/client_wu/38372d99.mp3",
@@ -12625,7 +12625,7 @@
       },
       "ja/n2023_hua/45c65193": {
         "src": "assets/audio/voice/ja/n2023_hua/45c65193.mp3",
-        "sec": 6.415083
+        "sec": 7.0715
       },
       "ja/rechao_boss/9ef4d3fa": {
         "src": "assets/audio/voice/ja/rechao_boss/9ef4d3fa.mp3",
@@ -12633,11 +12633,11 @@
       },
       "ja/n2023_hua/3c716719": {
         "src": "assets/audio/voice/ja/n2023_hua/3c716719.mp3",
-        "sec": 7.528
+        "sec": 7.24025
       },
       "ja/n2023_hua/c1237ef0": {
         "src": "assets/audio/voice/ja/n2023_hua/c1237ef0.mp3",
-        "sec": 6.446333
+        "sec": 7.508708
       },
       "ja/grandma/cf110d66": {
         "src": "assets/audio/voice/ja/grandma/cf110d66.mp3",
@@ -12649,7 +12649,7 @@
       },
       "ja/n2023_hua/f617b181": {
         "src": "assets/audio/voice/ja/n2023_hua/f617b181.mp3",
-        "sec": 6.643542
+        "sec": 7.187167
       },
       "ja/roommate_yu/dbefd261": {
         "src": "assets/audio/voice/ja/roommate_yu/dbefd261.mp3",
@@ -12669,7 +12669,7 @@
       },
       "ja/n2023_hua/1f09c8dc": {
         "src": "assets/audio/voice/ja/n2023_hua/1f09c8dc.mp3",
-        "sec": 6.944042
+        "sec": 6.622167
       },
       "ja/n2023_gao/4f3837d3": {
         "src": "assets/audio/voice/ja/n2023_gao/4f3837d3.mp3",
@@ -12809,7 +12809,7 @@
       },
       "ja/vendor_cheng/fac04a78": {
         "src": "assets/audio/voice/ja/vendor_cheng/fac04a78.mp3",
-        "sec": 5.747958
+        "sec": 5.000875
       },
       "ja/ae_mei/ab78e7ee": {
         "src": "assets/audio/voice/ja/ae_mei/ab78e7ee.mp3",
@@ -13357,7 +13357,7 @@
       },
       "ja/player_m/6c0784cf": {
         "src": "assets/audio/voice/ja/player_m/6c0784cf.mp3",
-        "sec": 1.976583
+        "sec": 2.230875
       },
       "ja/client_hsu/5da8540b": {
         "src": "assets/audio/voice/ja/client_hsu/5da8540b.mp3",
@@ -13377,7 +13377,7 @@
       },
       "ja/player_f/29e00016": {
         "src": "assets/audio/voice/ja/player_f/29e00016.mp3",
-        "sec": 1.483958
+        "sec": 1.643125
       },
       "ja/roommate_yu/10f5ec0e": {
         "src": "assets/audio/voice/ja/roommate_yu/10f5ec0e.mp3",
@@ -13665,7 +13665,7 @@
       },
       "ja/player_m/d3542679": {
         "src": "assets/audio/voice/ja/player_m/d3542679.mp3",
-        "sec": 2.547458
+        "sec": 2.421708
       },
       "ja/n2026_ming/fab8fa55": {
         "src": "assets/audio/voice/ja/n2026_ming/fab8fa55.mp3",
@@ -13677,7 +13677,7 @@
       },
       "ja/player_f/840519c6": {
         "src": "assets/audio/voice/ja/player_f/840519c6.mp3",
-        "sec": 2.382667
+        "sec": 2.259708
       },
       "ja/client_wu/dad128ad": {
         "src": "assets/audio/voice/ja/client_wu/dad128ad.mp3",
@@ -13873,11 +13873,11 @@
       },
       "ja/player_f/3613a576": {
         "src": "assets/audio/voice/ja/player_f/3613a576.mp3",
-        "sec": 0.9385
+        "sec": 1.260625
       },
       "ja/player_m/e7b5a17f": {
         "src": "assets/audio/voice/ja/player_m/e7b5a17f.mp3",
-        "sec": 1.211792
+        "sec": 1.179625
       },
       "ja/breakfast_auntie/272567b3": {
         "src": "assets/audio/voice/ja/breakfast_auntie/272567b3.mp3",
@@ -19537,7 +19537,7 @@
       },
       "data_kai/c76dbd18": {
         "src": "assets/audio/voice/data_kai/c76dbd18.mp3",
-        "sec": 5.002042
+        "sec": 6.398708
       },
       "en/data_kai/089930ac": {
         "src": "assets/audio/voice/en/data_kai/089930ac.mp3",

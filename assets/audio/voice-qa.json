@@ -887,33 +887,6 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/24bbc57b": {
-  "lang": "zh",
-  "text": "創意，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 6.667167,
-  "heard": "創意，又碰到了。我們上週也提了一版，全部買流量，報表很漂亮，",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/aedd044f": {
-  "lang": "zh",
-  "text": "CX／電商顧問，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 0.966,
-  "sec": 7.818375,
-  "heard": "CX，電商顧問，又碰到啦。我們上週也提了一版全部買流量，報表很漂亮",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/d4cbac5b": {
-  "lang": "zh",
-  "text": "策略企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 6.95675,
-  "heard": "策略企劃，又碰到了。我們上週也提了一版，全部買流量，報表很漂亮，",
-  "tries": 2,
-  "long": false
- },
  "player_m/b7a1ba4d": {
   "lang": "zh",
   "text": "會越來越難找。你們手上有多少自己的會員資料？",
@@ -930,15 +903,6 @@
   "sec": 3.60625,
   "heard": "會越來越難找，你們手上有多少自己的會員資料啊？",
   "tries": 1,
-  "long": false
- },
- "rival_vicky/37b4a3de": {
-  "lang": "zh",
-  "text": "數據分析師，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 7.06675,
-  "heard": "數據分析師，又碰到了。我們上週也提了一版，全部買流量，報表很漂亮，",
-  "tries": 2,
   "long": false
  },
  "client_chen/8bca7aab": {
@@ -959,30 +923,12 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/02b5d67f": {
-  "lang": "zh",
-  "text": "媒體企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 6.272042,
-  "heard": "媒體企劃，又碰到了。我們上週也提了一版，全部買流量，報表很漂亮，",
-  "tries": 3,
-  "long": false
- },
  "client_chen/6119c5bf": {
   "lang": "zh",
   "text": "去年的訂單檔在藍山廣場的數據實驗室，媒體企劃要不要先去看一眼？",
   "ratio": 1.0,
   "sec": 5.891292,
   "heard": "去年的訂單檔在藍山廣場的數據實驗室，媒體企劃要不要先去看一眼？",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/8ccf97a8": {
-  "lang": "zh",
-  "text": "業務 AE，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 0.857,
-  "sec": 6.020625,
-  "heard": "Yeah, we也碰到了，我們上週也提了一版，全部買流量，報表很漂亮",
   "tries": 1,
   "long": false
  },
@@ -1256,15 +1202,6 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/8ca25fc4": {
-  "lang": "zh",
-  "text": "許經理，我們的提案明天寄給您。業務 AE，晚上比稿見。",
-  "ratio": 1.0,
-  "sec": 4.6825,
-  "heard": "許經理，我們的提案明天寄給您。業務AE，晚上比稿見。",
-  "tries": 2,
-  "long": false
- },
  "vendor_cheng/a9eabcc0": {
   "lang": "zh",
   "text": "又來一間大店喔？上次那間開幕排三天隊，第四天就沒人了。",
@@ -1319,15 +1256,6 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/fd808c59": {
-  "lang": "zh",
-  "text": "許經理，我們的提案明天寄給您。策略企劃，晚上比稿見。",
-  "ratio": 0.864,
-  "sec": 5.434208,
-  "heard": "許經理，我們的提案明天寄給您。策略企劃，晚上必搞定。",
-  "tries": 1,
-  "long": false
- },
  "data_kai/6fd65ed7": {
   "lang": "zh",
   "text": "數據分析師，奶茶不加班的新品海報 AI 跑完了，四十張，明早八點上線。",
@@ -1361,15 +1289,6 @@
   "ratio": 0.881,
   "sec": 8.398208,
   "heard": "業務AE，上一件服飾下週在臨江街開旗艦店，客戶只給一場開幕的錢欸",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/8db9c79d": {
-  "lang": "zh",
-  "text": "許經理，我們的提案明天寄給您。創意，晚上比稿見。",
-  "ratio": 1.0,
-  "sec": 4.302542,
-  "heard": "許經理，我們的提案明天寄給您。創意晚上比稿見。",
   "tries": 1,
   "long": false
  },
@@ -1553,24 +1472,6 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/a61b5657": {
-  "lang": "zh",
-  "text": "我剛從樓上下來，老闆很堅持喔。媒體企劃，加油。",
-  "ratio": 1.0,
-  "sec": 4.895917,
-  "heard": "我剛從樓上下來，老闆很堅持喔，媒體企劃，加油。",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/5b950fbc": {
-  "lang": "zh",
-  "text": "我剛從樓上下來，老闆很堅持喔。數據分析師，加油。",
-  "ratio": 1.0,
-  "sec": 4.753958,
-  "heard": "我剛從樓上下來，老闆很堅持喔。數據分析師，加油！",
-  "tries": 1,
-  "long": false
- },
  "player_m/fd3d5aed": {
   "lang": "zh",
   "text": "……六根。",
@@ -1589,30 +1490,12 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/33486fa6": {
-  "lang": "zh",
-  "text": "我剛從樓上下來，老闆很堅持喔。業務 AE，加油。",
-  "ratio": 1.0,
-  "sec": 4.369958,
-  "heard": "我剛從樓上下來，老闆很堅持喔，業務 AE，加油！",
-  "tries": 1,
-  "long": false
- },
  "tv_su/718235bc": {
   "lang": "zh",
   "text": "還有二十分鐘。吳興街巷口那家早餐店晚上賣宵夜，騎去看一眼。",
   "ratio": 0.923,
   "sec": 7.299583,
   "heard": "還有二十分鐘，武信街巷口那家早餐店晚上賣宵夜，騎去看一眼。",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/1689cd0d": {
-  "lang": "zh",
-  "text": "我剛從樓上下來，老闆很堅持喔。CX／電商顧問，加油。",
-  "ratio": 1.0,
-  "sec": 5.55725,
-  "heard": "我剛從樓上下來，老闆很堅持喔。CX 電商顧問，加油。",
   "tries": 1,
   "long": false
  },
@@ -1676,15 +1559,6 @@
   "ratio": 0.931,
   "sec": 6.737583,
   "heard": "媒體企劃，少一件服飾下週在臨江街開旗艦店，客戶只給一場開幕的錢，",
-  "tries": 3,
-  "long": false
- },
- "rival_vicky/e9849d5d": {
-  "lang": "zh",
-  "text": "許經理，我們的提案明天寄給您。媒體企劃，晚上比稿見。",
-  "ratio": 0.864,
-  "sec": 4.911,
-  "heard": "許經理，我們的提案明天寄給您，媒體企劃完整比稿件。",
   "tries": 3,
   "long": false
  },
@@ -1769,15 +1643,6 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/d0265345": {
-  "lang": "zh",
-  "text": "許經理，我們的提案明天寄給您。CX／電商顧問，晚上比稿見。",
-  "ratio": 0.917,
-  "sec": 5.082083,
-  "heard": "徐經理，我們的提案明天寄給您，C叉電商顧問，晚上比稿見。",
-  "tries": 3,
-  "long": false
- },
  "boss_lin/172ec9b7": {
   "lang": "zh",
   "text": "CX／電商顧問，還在 A25？買了再說選物的客服主管剛打來，聲音在發抖。",
@@ -1814,15 +1679,6 @@
   "tries": 1,
   "long": false
  },
- "rival_vicky/4f97fa3e": {
-  "lang": "zh",
-  "text": "聽說你們也接到這個稿？晚上見，這次不會讓你。",
-  "ratio": 0.895,
-  "sec": 3.805375,
-  "heard": "聽說你們也接到這個稿，案上見，這次不會讓妳",
-  "tries": 1,
-  "long": false
- },
  "boss_lin/f7423694": {
   "lang": "zh",
   "text": "數據分析師，還在 A25？買了再說選物的客服主管剛打來，聲音在發抖。",
@@ -1848,15 +1704,6 @@
   "sec": 6.290708,
   "heard": "客戶明早九點要答案，Agent 的權限停在哪一層，什麼時候交給真人？",
   "tries": 1,
-  "long": false
- },
- "rival_vicky/f83165ff": {
-  "lang": "zh",
-  "text": "我剛從樓上下來，老闆很堅持喔。創意，加油。",
-  "ratio": 1.0,
-  "sec": 3.978917,
-  "heard": "我剛從樓上下來，老闆很堅持喔。創意，加油！",
-  "tries": 2,
   "long": false
  },
  "player_m/beef5f07": {
@@ -1893,15 +1740,6 @@
   "sec": 5.04575,
   "heard": "疫情這半年，你是第一個叫我先別把預算全壓在流量上的人",
   "tries": 1,
-  "long": false
- },
- "rival_vicky/71d12f53": {
-  "lang": "zh",
-  "text": "我剛從樓上下來，老闆很堅持喔。策略企劃，加油。",
-  "ratio": 1.0,
-  "sec": 5.113958,
-  "heard": "我剛從樓上下來，老闆很堅持喔。策略企劃，加油。",
-  "tries": 2,
   "long": false
  },
  "grandma/bacf1607": {
@@ -2174,15 +2012,6 @@
   "tries": 2,
   "long": false
  },
- "rival_vicky/d72f8897": {
-  "lang": "zh",
-  "text": "兩家的結論幾乎一模一樣，客戶說要再想想。",
-  "ratio": 1.0,
-  "sec": 3.084875,
-  "heard": "兩家的結論幾乎一模一樣，客戶說要再想想",
-  "tries": 1,
-  "long": false
- },
  "grandma/64dad7ea": {
   "lang": "zh",
   "text": "比完了沒？吃飽了沒？阿嬤想聽你今天怎麼講。",
@@ -2306,15 +2135,6 @@
   "ratio": 1.0,
   "sec": 6.4275,
   "heard": "媒體企劃，你幫我看，我LINE會員兩千個，最近一個月來不到兩百",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/1cf36c6e": {
-  "lang": "zh",
-  "text": "許經理，我們的提案明天寄給您。數據分析師，晚上比稿見。",
-  "ratio": 0.913,
-  "sec": 5.082583,
-  "heard": "許經理，我們的提案明天寄給您，數據分析師晚上逼稿件。",
   "tries": 1,
   "long": false
  },
@@ -2712,15 +2532,6 @@
   "sec": 2.147167,
   "heard": "他們有沒有一句話說得出品牌是什麼",
   "tries": 1,
-  "long": false
- },
- "rival_vicky/d13baf4d": {
-  "lang": "zh",
-  "text": "我們那份也有九頁，可是沒有那一頁。這杯我敬你。",
-  "ratio": 0.976,
-  "sec": 4.883583,
-  "heard": "我們那一份也有九頁，可是沒有那一頁。\n這杯，我敬你。",
-  "tries": 2,
   "long": false
  },
  "ae_mei/42a3af38": {
@@ -3548,15 +3359,6 @@
   "ratio": 1.0,
   "sec": 2.00275,
   "heard": "那他們現在每週怎麼看成效",
-  "tries": 1,
-  "long": false
- },
- "rival_vicky/6fc73973": {
-  "lang": "zh",
-  "text": "我們上週提了，派兩個人駐點幫你們帶團隊，服務費打七折。",
-  "ratio": 1.0,
-  "sec": 4.288458,
-  "heard": "我們上週提了派兩個人駐點幫你們帶團隊，服務費打七折",
   "tries": 1,
   "long": false
  },
@@ -6647,21 +6449,12 @@
   "tries": 1,
   "long": false
  },
- "n2023_hua/a2345b7e": {
-  "lang": "zh",
-  "text": "業務 AE，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.889,
-  "sec": 4.708292,
-  "heard": "欸，他們說AI版的我不會累，不會沙啞，半夜三點也能賣鍋子欸",
-  "tries": 1,
-  "long": false
- },
  "player_m/1ad242d5": {
   "lang": "zh",
   "text": "妳那時候在趕什麼？",
-  "ratio": 0.824,
-  "sec": 1.793333,
-  "heard": "欸，你那時候在趕什麼？",
+  "ratio": 0.75,
+  "sec": 1.553333,
+  "heard": "你那時候在幹什麼",
   "tries": 7,
   "long": false
  },
@@ -6680,24 +6473,6 @@
   "ratio": 0.857,
   "sec": 4.334792,
   "heard": "你的老客人是來買東西，還是來找你聊天的？",
-  "tries": 1,
-  "long": false
- },
- "n2023_hua/f617b181": {
-  "lang": "zh",
-  "text": "分潤給我一成。條件是我以後少開播，免得跟 AI 搶客人。",
-  "ratio": 1.0,
-  "sec": 5.45375,
-  "heard": "分潤給我一成，條件是我以後少開播，免得跟AI搶客人",
-  "tries": 1,
-  "long": false
- },
- "n2023_hua/3c716719": {
-  "lang": "zh",
-  "text": "CX／電商顧問，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.949,
-  "sec": 6.3405,
-  "heard": "電商顧問哦，他們說AI版的我不會累、不會沙啞，半夜三點也能賣鍋子",
   "tries": 1,
   "long": false
  },
@@ -6728,24 +6503,6 @@
   "tries": 1,
   "long": false
  },
- "n2023_hua/45c65193": {
-  "lang": "zh",
-  "text": "創意，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 1.0,
-  "sec": 5.297958,
-  "heard": "創意，他們說AI版的我不會累、不會沙啞，半夜三點也能賣鍋子",
-  "tries": 1,
-  "long": false
- },
- "n2023_hua/a117511b": {
-  "lang": "zh",
-  "text": "媒體企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 1.0,
-  "sec": 6.209667,
-  "heard": "媒體企劃，他們說AI版的我不會累、不會沙啞，半夜三點也能賣鍋子",
-  "tries": 1,
-  "long": false
- },
  "player_m/09e2769a": {
   "lang": "zh",
   "text": "可以試試。阿嬤，妳的痛是什麼感覺？",
@@ -6762,15 +6519,6 @@
   "sec": 8.218125,
   "heard": "C端電商顧問喔，上週有個新人說想試試用AI做分鏡，我第一句話就問，做這個要幹嘛？",
   "tries": 2,
-  "long": false
- },
- "n2023_hua/c1237ef0": {
-  "lang": "zh",
-  "text": "都有吧。有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓十分鐘。",
-  "ratio": 1.0,
-  "sec": 6.519875,
-  "heard": "都有吧，有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓十分鐘",
-  "tries": 1,
   "long": false
  },
  "client_hsu/327db8df": {
@@ -6881,15 +6629,6 @@
   "tries": 1,
   "long": false
  },
- "n2023_hua/1f09c8dc": {
-  "lang": "zh",
-  "text": "數據分析師，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.966,
-  "sec": 8.325208,
-  "heard": "數據分析師，他們說AI版的我不會累、不會沙啞，半夜三點也能賣脖子。",
-  "tries": 1,
-  "long": false
- },
  "player_m/1500b473": {
   "lang": "zh",
   "text": "它要用什麼資料來算？",
@@ -6975,8 +6714,8 @@
   "lang": "zh",
   "text": "妳那時候在趕什麼？",
   "ratio": 0.75,
-  "sec": 1.251458,
-  "heard": "你那時候在幹什麼？",
+  "sec": 1.274,
+  "heard": "你那時候在幹什麼",
   "tries": 1,
   "long": false
  },
@@ -7058,15 +6797,6 @@
   "ratio": 1.0,
   "sec": 6.594167,
   "heard": "CX電商顧問，你看這張，我們家的氣泡水，喝的人整張臉在發光。",
-  "tries": 1,
-  "long": false
- },
- "n2023_hua/66004a87": {
-  "lang": "zh",
-  "text": "策略企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.982,
-  "sec": 7.201958,
-  "heard": "呵，策略企劃，他們說AI版的我不會累，不會沙啞，半夜三點也能賣鍋子。",
   "tries": 1,
   "long": false
  },
@@ -7397,10 +7127,10 @@
  "roommate_yu/3633c5fa": {
   "lang": "zh",
   "text": "CX／電商顧問，我的 AI 助理今天幫我擋了一百三十七封廣告信。",
-  "ratio": 0.846,
-  "sec": 7.78225,
-  "heard": "CX電商顧問，我的AI助理今天幫我擋了137封廣告信",
-  "tries": 7,
+  "ratio": 1.0,
+  "sec": 6.676708,
+  "heard": "CX電商顧問，我的AI助理今天幫我擋了一百三十七封廣告信。",
+  "tries": 8,
   "long": false
  },
  "n2023_lai/da337fed": {
@@ -8771,15 +8501,6 @@
   "tries": 1,
   "long": false
  },
- "n2023_hua/53f8c85b": {
-  "lang": "zh",
-  "text": "可是我也五十了，喉嚨真的會痛。",
-  "ratio": 0.963,
-  "sec": 2.607417,
-  "heard": "可是我也五十了欸，喉嚨真的會痛。",
-  "tries": 3,
-  "long": false
- },
  "player_f/12e99796": {
   "lang": "zh",
   "text": "所以你想用模擬的消費者先問？",
@@ -9893,16 +9614,6 @@
   "tries": 1,
   "long": false
  },
- "en/rival_vicky/24bbc57b": {
-  "lang": "en",
-  "text": "Creative, us again. We pitched one last week too: all traffic, beautiful reports.",
-  "zh": "創意，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 6.952167,
-  "heard": "Creative. Us again. We pitched one last week, too. All traffic, beautiful reports.",
-  "tries": 1,
-  "long": false
- },
  "en/data_kai/447e6d23": {
   "lang": "en",
   "text": "I'm at A25 waiting on your first page. The City Hall crowd's gone by nine, so move.",
@@ -9929,16 +9640,6 @@
   "ratio": 1.0,
   "sec": 2.257958,
   "heard": "Which one will viewers actually remember?",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/02b5d67f": {
-  "lang": "en",
-  "text": "Media Planner, us again. We pitched one last week too: all traffic, beautiful reports.",
-  "zh": "媒體企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 6.485042,
-  "heard": "Media planner, us again. We pitched one last week, too. All traffic, beautiful reports.",
   "tries": 1,
   "long": false
  },
@@ -10219,26 +9920,6 @@
   "tries": 2,
   "long": false
  },
- "en/rival_vicky/8ca25fc4": {
-  "lang": "en",
-  "text": "Manager Hsu, our proposal comes tomorrow. Account Executive, see you at the pitch tonight.",
-  "zh": "許經理，我們的提案明天寄給您。業務 AE，晚上比稿見。",
-  "ratio": 0.986,
-  "sec": 5.00475,
-  "heard": "Manager Sue: our proposal comes tomorrow. Account executive: see you at the pitch tonight.",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/fd808c59": {
-  "lang": "en",
-  "text": "Manager Hsu, our proposal comes tomorrow. Strategic Planner, see you at the pitch tonight.",
-  "zh": "許經理，我們的提案明天寄給您。策略企劃，晚上比稿見。",
-  "ratio": 0.979,
-  "sec": 5.961,
-  "heard": "Manager Xu, our proposal comes tomorrow. Strategic planner? See you at the pitch tonight.",
-  "tries": 1,
-  "long": false
- },
  "en/client_hsu/06cbc979": {
   "lang": "en",
   "text": "My boss wants a plan next week. And don't let anyone say we're greenwashing. Please.",
@@ -10256,26 +9937,6 @@
   "ratio": 1.0,
   "sec": 3.076375,
   "heard": "Do shoppers think it's too pricey, or too much hassle?",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/e9849d5d": {
-  "lang": "en",
-  "text": "Manager Hsu, our proposal comes tomorrow. Media Planner, see you at the pitch tonight.",
-  "zh": "許經理，我們的提案明天寄給您。媒體企劃，晚上比稿見。",
-  "ratio": 0.978,
-  "sec": 5.296458,
-  "heard": "Manager Xu, our proposal comes tomorrow. Media planner, see you at the pitch tonight.",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/d0265345": {
-  "lang": "en",
-  "text": "Manager Hsu, our proposal comes tomorrow. CX & E-com Consultant, see you at the pitch tonight.",
-  "zh": "許經理，我們的提案明天寄給您。CX／電商顧問，晚上比稿見。",
-  "ratio": 0.98,
-  "sec": 6.81025,
-  "heard": "Manager Shu, our proposal comes tomorrow. CXN E-com Consultant, see you at the pitch tonight.",
   "tries": 1,
   "long": false
  },
@@ -10416,16 +10077,6 @@
   "sec": 5.025417,
   "heard": "策略企劃，客戶要五百組素材，五個平台，下週一上線。",
   "tries": 3,
-  "long": false
- },
- "en/rival_vicky/1cf36c6e": {
-  "lang": "en",
-  "text": "Manager Hsu, our proposal comes tomorrow. Data Analyst, see you at the pitch tonight.",
-  "zh": "許經理，我們的提案明天寄給您。數據分析師，晚上比稿見。",
-  "ratio": 0.985,
-  "sec": 5.1565,
-  "heard": "Manager Shu, our proposal comes tomorrow. Data analyst, see you at the pitch tonight.",
-  "tries": 1,
   "long": false
  },
  "en/client_chen/dd65bb5b": {
@@ -10668,16 +10319,6 @@
   "tries": 1,
   "long": false
  },
- "en/rival_vicky/8db9c79d": {
-  "lang": "en",
-  "text": "Manager Hsu, our proposal comes tomorrow. Creative, see you at the pitch tonight.",
-  "zh": "許經理，我們的提案明天寄給您。創意，晚上比稿見。",
-  "ratio": 0.955,
-  "sec": 5.597042,
-  "heard": "Managers view, our proposal comes tomorrow. Creative, see you at the pitch tonight.",
-  "tries": 1,
-  "long": false
- },
  "en/client_hsu/237b902b": {
   "lang": "en",
   "text": "Look, CX & E-com Consultant. In a whole week, the refills sold less than half what the bottles did.",
@@ -10685,16 +10326,6 @@
   "ratio": 0.929,
   "sec": 6.685708,
   "heard": "Look, see, as an econ consultant, in a whole week, the refills sold less than half what the bottles did.",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/a61b5657": {
-  "lang": "en",
-  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Media Planner.",
-  "zh": "我剛從樓上下來，老闆很堅持喔。媒體企劃，加油。",
-  "ratio": 1.0,
-  "sec": 5.596542,
-  "heard": "I just came down from upstairs, the boss is pretty set. Good luck, media planner.",
   "tries": 1,
   "long": false
  },
@@ -10758,16 +10389,6 @@
   "tries": 1,
   "long": false
  },
- "en/rival_vicky/1689cd0d": {
-  "lang": "en",
-  "text": "I just came down from upstairs. The boss is pretty set. Good luck, CX & E-com Consultant.",
-  "zh": "我剛從樓上下來，老闆很堅持喔。CX／電商顧問，加油。",
-  "ratio": 0.978,
-  "sec": 7.475583,
-  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, CX and eCom consultant.",
-  "tries": 1,
-  "long": false
- },
  "en/breakfast_auntie/a48494ea": {
   "lang": "en",
   "text": "Who has time to scroll? I buy all the soy sauce at home. My grandson just eats!",
@@ -10785,16 +10406,6 @@
   "ratio": 0.972,
   "sec": 6.268,
   "heard": "20 minutes left. The Wuxing Street breakfast shop does late-night food. Ride over and look.",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/33486fa6": {
-  "lang": "en",
-  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Account Executive.",
-  "zh": "我剛從樓上下來，老闆很堅持喔。業務 AE，加油。",
-  "ratio": 1.0,
-  "sec": 5.745083,
-  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, account executive.",
   "tries": 1,
   "long": false
  },
@@ -10847,16 +10458,6 @@
   "tries": 1,
   "long": false
  },
- "en/rival_vicky/71d12f53": {
-  "lang": "en",
-  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Strategic Planner.",
-  "zh": "我剛從樓上下來，老闆很堅持喔。策略企劃，加油。",
-  "ratio": 1.0,
-  "sec": 6.064042,
-  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, strategic planner.",
-  "tries": 1,
-  "long": false
- },
  "en/player_f/2e6a67e6": {
   "lang": "en",
   "text": "The breakfast griddle below beats any alarm. Scooter stalled again. Third kick did it.",
@@ -10875,16 +10476,6 @@
   "sec": 6.817958,
   "heard": "The agent cited general policy, then flipped to the defect clause. It contradicted itself.",
   "tries": 1,
-  "long": false
- },
- "en/rival_vicky/8ccf97a8": {
-  "lang": "en",
-  "text": "Account Executive, us again. We pitched one last week too: all traffic, beautiful reports.",
-  "zh": "業務 AE，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 6.203167,
-  "heard": "Account Executive, us again. We pitched one last week, too. All traffic, beautiful reports.",
-  "tries": 2,
   "long": false
  },
  "en/boss_lin/4a96e474": {
@@ -10914,16 +10505,6 @@
   "ratio": 1.0,
   "sec": 5.770458,
   "heard": "The breakfast griddle below beats any alarm. Scooter stalled again. Third kick did it.",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/37b4a3de": {
-  "lang": "en",
-  "text": "Data Analyst, us again. We pitched one last week too: all traffic, beautiful reports.",
-  "zh": "數據分析師，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 7.745208,
-  "heard": "Data analyst, us again. We pitched one last week, too. All traffic, beautiful reports,",
   "tries": 1,
   "long": false
  },
@@ -11017,17 +10598,6 @@
   "tries": 1,
   "long": false
  },
- "en/rival_vicky/aedd044f": {
-  "lang": "en",
-  "text": "CX & E-com Consultant, us again. We pitched one last week too: all traffic, beautiful reports.",
-  "zh": "CX／電商顧問，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 0.95,
-  "sec": 8.3,
-  "heard": "CX and Ecom consultant us again. We pitched one last week, too. All traffic, beautiful reports.",
-  "tries": 1,
-  "long": false,
-  "note": "trimmed duplicate second read"
- },
  "en/boss_lin/f7423694": {
   "lang": "en",
   "text": "Data Analyst, still at A25? Support at “Buy First Select” just called, voice shaking.",
@@ -11054,16 +10624,6 @@
   "ratio": 0.931,
   "sec": 6.364917,
   "heard": "What if the rivals' nine pages tonight are all AI? We at least can have six fingers.",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/d4cbac5b": {
-  "lang": "en",
-  "text": "Strategic Planner, us again. We pitched one last week too: all traffic, beautiful reports.",
-  "zh": "策略企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 6.88,
-  "heard": "Strategic planner, us again. We pitched one last week, too. All traffic, beautiful reports,",
   "tries": 1,
   "long": false
  },
@@ -11286,16 +10846,6 @@
   "tries": 1,
   "long": false
  },
- "en/rival_vicky/d13baf4d": {
-  "lang": "en",
-  "text": "Ours had nine pages too, but not that one. This drink's for you.",
-  "zh": "我們那份也有九頁，可是沒有那一頁。這杯我敬你。",
-  "ratio": 1.0,
-  "sec": 4.161375,
-  "heard": "Ours had nine pages, too, but not that one. This drink's for you.",
-  "tries": 1,
-  "long": false
- },
  "en/grandma/64dad7ea": {
   "lang": "en",
   "text": "Pitch over? Eaten yet? Ama wants to hear how you told it today.",
@@ -11353,16 +10903,6 @@
   "ratio": 1.0,
   "sec": 6.319917,
   "heard": "Page five, green never gets full marks, but nobody's calling her greenwashing, probably.",
-  "tries": 2,
-  "long": false
- },
- "en/rival_vicky/4f97fa3e": {
-  "lang": "en",
-  "text": "Heard you got this pitch too? See you tonight. I'm not going easy on you this time.",
-  "zh": "聽說你們也接到這個稿？晚上見，這次不會讓你。",
-  "ratio": 1.0,
-  "sec": 4.970833,
-  "heard": "Heard you got this pitch too? See you tonight. I'm not going easy on you this time.",
   "tries": 2,
   "long": false
  },
@@ -11610,7 +11150,7 @@
   "text": "OK.",
   "zh": "OK。",
   "ratio": 0.667,
-  "sec": 0.519542,
+  "sec": 0.373167,
   "heard": "Okay",
   "tries": 1,
   "long": false
@@ -11683,16 +11223,6 @@
   "sec": 4.697375,
   "heard": "Auntie, when you buy soy sauce, is it the phone or the TV that sways you?",
   "tries": 1,
-  "long": false
- },
- "en/rival_vicky/f83165ff": {
-  "lang": "en",
-  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Creative.",
-  "zh": "我剛從樓上下來，老闆很堅持喔。創意，加油。",
-  "ratio": 1.0,
-  "sec": 4.451917,
-  "heard": "I just came down from upstairs, the boss is pretty set. Good luck, creative.",
-  "tries": 2,
   "long": false
  },
  "en/player_f/aa8ced6e": {
@@ -12053,16 +11583,6 @@
   "sec": 5.446208,
   "heard": "Media planner: No, Cubento's GM is done with pitches. He wants a three-year partner.",
   "tries": 1,
-  "long": false
- },
- "en/rival_vicky/d72f8897": {
-  "lang": "en",
-  "text": "Our conclusions were nearly identical. The client says they'll think it over.",
-  "zh": "兩家的結論幾乎一模一樣，客戶說要再想想。",
-  "ratio": 1.0,
-  "sec": 5.165292,
-  "heard": "Our conclusions were nearly identical. The client says they'll think it over.",
-  "tries": 3,
   "long": false
  },
  "en/rechao_boss/1da8745e": {
@@ -12779,10 +12299,10 @@
   "lang": "en",
   "text": "Media Planner, look. Two thousand LINE members, and under two hundred came last month.",
   "zh": "媒體企劃，你幫我看，我 LINE 會員兩千個，最近一個月來不到兩百。",
-  "ratio": 0.794,
-  "sec": 6.674875,
-  "heard": "Media Planner, look, 2,000 online members, and under 200 came last month.",
-  "tries": 2,
+  "ratio": 0.774,
+  "sec": 6.80525,
+  "heard": "Media Planner, look! 2,000 LINE members and under 200 came last month.",
+  "tries": 1,
   "long": false
  },
  "en/n2019_lai/7686db1a": {
@@ -12825,16 +12345,6 @@
   "tries": 1,
   "long": false
  },
- "en/rival_vicky/5b950fbc": {
-  "lang": "en",
-  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Data Analyst.",
-  "zh": "我剛從樓上下來，老闆很堅持喔。數據分析師，加油。",
-  "ratio": 1.0,
-  "sec": 5.03825,
-  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, data analyst.",
-  "tries": 1,
-  "long": false
- },
  "en/n2019_tsai/c7b6e9d1": {
   "lang": "en",
   "text": "Honestly? People claim trial coupons on our site and never use them. Boss only sees fees.",
@@ -12872,16 +12382,6 @@
   "ratio": 0.97,
   "sec": 8.068208,
   "heard": "Someone selling a 100k leads with names, phones, and interests on sale for $10,000.",
-  "tries": 1,
-  "long": false
- },
- "en/rival_vicky/6fc73973": {
-  "lang": "en",
-  "text": "We pitched last week: two people on-site to train your team, and 30% off our fees.",
-  "zh": "我們上週提了，派兩個人駐點幫你們帶團隊，服務費打七折。",
-  "ratio": 1.0,
-  "sec": 5.393125,
-  "heard": "We pitched last week: two people on-site to train your team and 30% off our fees.",
   "tries": 1,
   "long": false
  },
@@ -13090,9 +12590,9 @@
   "text": "CX & E-com Consultant, look. Two thousand LINE members, and under two hundred came last month.",
   "zh": "CX／電商顧問，你幫我看，我 LINE 會員兩千個，最近一個月來不到兩百。",
   "ratio": 0.77,
-  "sec": 6.7035,
-  "heard": "CX and Ecom consultant. Look, 2,000 LINE members and under 200 came last month.",
-  "tries": 2,
+  "sec": 7.160125,
+  "heard": "CX and e-com consultant. Look, 2,000 LINE members and under 200 came last month.",
+  "tries": 1,
   "long": false
  },
  "en/grandma/e08e90f2": {
@@ -13219,10 +12719,10 @@
   "lang": "en",
   "text": "Account Executive, look. Two thousand LINE members, and under two hundred came last month.",
   "zh": "業務 AE，你幫我看，我 LINE 會員兩千個，最近一個月來不到兩百。",
-  "ratio": 0.788,
-  "sec": 6.0175,
-  "heard": "Account executive, look, 2,000 line members, and under 200 came last month.",
-  "tries": 1,
+  "ratio": 0.806,
+  "sec": 6.374167,
+  "heard": "Account executive, look, 2,000 online members, and under 200 came last month.",
+  "tries": 2,
   "long": false
  },
  "en/player_f/d7d3c465": {
@@ -13619,9 +13119,9 @@
   "text": "Creative, look. Two thousand LINE members, and under two hundred came last month.",
   "zh": "創意，你幫我看，我 LINE 會員兩千個，最近一個月來不到兩百。",
   "ratio": 0.78,
-  "sec": 6.725333,
-  "heard": "creative. Look, 2,000 online members and under 200 came last month.",
-  "tries": 4,
+  "sec": 6.396333,
+  "heard": "Creative. Look, 2,000 online members, and under 200 came last month.",
+  "tries": 7,
   "long": false
  },
  "en/data_kai/a83e58bd": {
@@ -17194,16 +16694,6 @@
   "tries": 1,
   "long": false
  },
- "en/n2023_hua/f617b181": {
-  "lang": "en",
-  "text": "They'd give me a 10% cut. The catch: I go live less, so I don't steal the AI's customers.",
-  "zh": "分潤給我一成。條件是我以後少開播，免得跟 AI 搶客人。",
-  "ratio": 0.992,
-  "sec": 6.970875,
-  "heard": "They give me a 10% cut. The catch, I go live less so I don't steal the AI's customers.",
-  "tries": 1,
-  "long": false
- },
  "en/player_f/dee70ec0": {
   "lang": "en",
   "text": "What data will it use?",
@@ -17224,26 +16714,6 @@
   "tries": 1,
   "long": false
  },
- "en/n2023_hua/c1237ef0": {
-  "lang": "en",
-  "text": "Both. One auntie buys the same loofah sponge every time, just to banter for ten minutes.",
-  "zh": "都有吧。有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓十分鐘。",
-  "ratio": 0.964,
-  "sec": 5.924583,
-  "heard": "Both. One auntie buys the same loofah sponge every time just to banter for 10 minutes.",
-  "tries": 1,
-  "long": false
- },
- "en/n2023_hua/66004a87": {
-  "lang": "en",
-  "text": "Strategic Planner, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
-  "zh": "策略企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.985,
-  "sec": 6.92975,
-  "heard": "strategic planner. They say AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
-  "tries": 1,
-  "long": false
- },
  "en/roommate_yu/d8d194ad": {
   "lang": "en",
   "text": "Data Analyst, my AI assistant blocked 137 ad emails for me today.",
@@ -17251,16 +16721,6 @@
   "ratio": 0.981,
   "sec": 6.688625,
   "heard": "Uh, data analyst? My AI assistant blocked 137 ad emails for me today.",
-  "tries": 1,
-  "long": false
- },
- "en/n2023_hua/a2345b7e": {
-  "lang": "en",
-  "text": "Account Executive, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
-  "zh": "業務 AE，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.985,
-  "sec": 6.788917,
-  "heard": "account executive. They say AI me won't get tired or hoarse and can sell pots at 3:00 a.m.",
   "tries": 1,
   "long": false
  },
@@ -17294,36 +16754,6 @@
   "tries": 1,
   "long": false
  },
- "en/n2023_hua/a117511b": {
-  "lang": "en",
-  "text": "Media Planner, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
-  "zh": "媒體企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.984,
-  "sec": 6.427417,
-  "heard": "media planner. They say AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
-  "tries": 1,
-  "long": false
- },
- "en/n2023_hua/53f8c85b": {
-  "lang": "en",
-  "text": "But I'm fifty now. My throat really does hurt.",
-  "zh": "可是我也五十了，喉嚨真的會痛。",
-  "ratio": 0.896,
-  "sec": 3.37325,
-  "heard": "But, I'm 50 now. My throat really does hurt.",
-  "tries": 1,
-  "long": false
- },
- "en/n2023_hua/45c65193": {
-  "lang": "en",
-  "text": "Creative, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
-  "zh": "創意，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 1.0,
-  "sec": 5.69875,
-  "heard": "creative? They say AI me won't get tired or hoarse, and can sell pots at 3 a.m.",
-  "tries": 1,
-  "long": false
- },
  "en/n2023_gao/cde6d3d4": {
   "lang": "en",
   "text": "The vendor says AI can give me a new formula in three days. We used to need a month.",
@@ -17341,16 +16771,6 @@
   "ratio": 0.986,
   "sec": 5.866917,
   "heard": "Strategic planner, the fragrance is out. I need a substitute without blowing cost or form.",
-  "tries": 1,
-  "long": false
- },
- "en/n2023_hua/1f09c8dc": {
-  "lang": "en",
-  "text": "Data Analyst, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
-  "zh": "數據分析師，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.984,
-  "sec": 7.110792,
-  "heard": "data analyst. They say AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
   "tries": 1,
   "long": false
  },
@@ -17631,16 +17051,6 @@
   "ratio": 1.0,
   "sec": 4.270125,
   "heard": "Worse, someone online is already using her voice for scam calls.",
-  "tries": 1,
-  "long": false
- },
- "en/n2023_hua/3c716719": {
-  "lang": "en",
-  "text": "CX & E-com Consultant, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
-  "zh": "CX／電商顧問，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.964,
-  "sec": 7.497083,
-  "heard": "CX and e-com consultant, they say AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
   "tries": 1,
   "long": false
  },
@@ -20594,16 +20004,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/24bbc57b": {
-  "lang": "ja",
-  "text": "クリエイティブさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
-  "zh": "創意，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 0.938,
-  "sec": 6.845125,
-  "heard": "クリエイティブさん、また会いましたね。一応先週、全部トラフィックの案を。数字は映えますよ。",
-  "tries": 1,
-  "long": false
- },
  "ja/clerk_ning/e573359e": {
   "lang": "ja",
   "text": "かゆみ退散ですか？先月はほぼ売れなかったのに、今週いきなり棚一列ぶん売れたんです。",
@@ -20624,16 +20024,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/8ccf97a8": {
-  "lang": "ja",
-  "text": "営業AEさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
-  "zh": "業務 AE，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 0.987,
-  "sec": 8.127458,
-  "heard": "営業Aさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
-  "tries": 1,
-  "long": false
- },
  "ja/client_chen/96d1bb69": {
   "lang": "ja",
   "text": "でもCookieがなくなるとか。今買っているオーディエンス、この先も見つかりますか？",
@@ -20644,16 +20034,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/d4cbac5b": {
-  "lang": "ja",
-  "text": "戦略プランナーさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
-  "zh": "策略企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 0.938,
-  "sec": 6.948958,
-  "heard": "戦略プランナーさん、また会いましたね。うちも先週全部トラフィックの案を数字暴きますよ。",
-  "tries": 1,
-  "long": false
- },
  "ja/client_chen/6119c5bf": {
   "lang": "ja",
   "text": "去年の注文データは藍山広場のデータラボにあります。メディアプランナーさん、先に見てもらえますか？",
@@ -20661,16 +20041,6 @@
   "ratio": 0.978,
   "sec": 6.961958,
   "heard": "去年の注文データは青山広場のデータラボにあります。メディアプランナーさん、先に見てもらえますか？",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/37b4a3de": {
-  "lang": "ja",
-  "text": "データアナリストさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
-  "zh": "數據分析師，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 7.02,
-  "heard": "データアナリストさん、また会いましたね。うちも先週全部トラフィックの案を、数字は映えますよ。",
   "tries": 1,
   "long": false
  },
@@ -20691,16 +20061,6 @@
   "ratio": 0.852,
   "sec": 4.890833,
   "heard": "メディアプランナー、かいみたいさんの本社が電話口で焦ってる",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/02b5d67f": {
-  "lang": "ja",
-  "text": "メディアプランナーさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
-  "zh": "媒體企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 7.033958,
-  "heard": "メディアプランナーさん、また会いましたね。うちも先週全部トラフィックの案を数字は映えますよ。",
   "tries": 1,
   "long": false
  },
@@ -20731,16 +20091,6 @@
   "ratio": 0.857,
   "sec": 5.573583,
   "heard": "しょうじゅろうの路地のコンビニで扱ってる。最近誰が買ってるか、店員に聞いてこい。",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/aedd044f": {
-  "lang": "ja",
-  "text": "CX・ECコンサルさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
-  "zh": "CX／電商顧問，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
-  "ratio": 1.0,
-  "sec": 8.171792,
-  "heard": "CX ECコンサルさん、また会いましたね。うちも先週、全部トラフィックの案を、数字は映えますよ。",
   "tries": 1,
   "long": false
  },
@@ -21044,16 +20394,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/d0265345": {
-  "lang": "ja",
-  "text": "許課長、弊社の提案は明日お送りします。CX・ECコンサルさん、では今夜のコンペで。",
-  "zh": "許經理，我們的提案明天寄給您。CX／電商顧問，晚上比稿見。",
-  "ratio": 0.972,
-  "sec": 8.103833,
-  "heard": "許可長、弊社の提案は明日お送りします。CX ECコンサルさん、では今夜のコンペで",
-  "tries": 1,
-  "long": false
- },
  "ja/data_kai/62d3c24c": {
   "lang": "ja",
   "text": "戦略プランナー、「残業しないミルクティー」の新作ポスター、AIで40枚。明朝8時公開だ。",
@@ -21104,26 +20444,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/fd808c59": {
-  "lang": "ja",
-  "text": "許課長、弊社の提案は明日お送りします。戦略プランナーさん、では今夜のコンペで。",
-  "zh": "許經理，我們的提案明天寄給您。策略企劃，晚上比稿見。",
-  "ratio": 0.958,
-  "sec": 5.861458,
-  "heard": "三共課長、弊社の提案は明日お送りします。戦略プランナーさん、では今夜のコンペで。",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/e9849d5d": {
-  "lang": "ja",
-  "text": "許課長、弊社の提案は明日お送りします。メディアプランナーさん、では今夜のコンペで。",
-  "zh": "許經理，我們的提案明天寄給您。媒體企劃，晚上比稿見。",
-  "ratio": 0.96,
-  "sec": 5.611625,
-  "heard": "今日、課長、弊社の提案は明日お送りします。メディアプランナーさん、では今夜のコンペで。",
-  "tries": 1,
-  "long": false
- },
  "ja/boss_lin/eeffa4b5": {
   "lang": "ja",
   "text": "データアナリスト、かゆみ退散の本社が電話口で焦ってる。",
@@ -21132,16 +20452,6 @@
   "sec": 4.89025,
   "heard": "データアナリスト、かゆみ退散の本社が、電話口で焦ってる。",
   "tries": 2,
-  "long": false
- },
- "ja/rival_vicky/1cf36c6e": {
-  "lang": "ja",
-  "text": "許課長、弊社の提案は明日お送りします。データアナリストさん、では今夜のコンペで。",
-  "zh": "許經理，我們的提案明天寄給您。數據分析師，晚上比稿見。",
-  "ratio": 0.959,
-  "sec": 6.187625,
-  "heard": "今日、課長、弊社の提案は明日お送りします。データアナリストさん、では今夜のコンペで。",
-  "tries": 1,
   "long": false
  },
  "ja/data_kai/b5f58dbe": {
@@ -21231,16 +20541,6 @@
   "ratio": 0.976,
   "sec": 7.117667,
   "heard": "先方の社長が、AIは早いんだから遅らせるなってさ。プロンプト次第で、再生成は30分だって。",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/8ca25fc4": {
-  "lang": "ja",
-  "text": "許課長、弊社の提案は明日お送りします。営業AEさん、では今夜のコンペで。",
-  "zh": "許經理，我們的提案明天寄給您。業務 AE，晚上比稿見。",
-  "ratio": 1.0,
-  "sec": 6.966875,
-  "heard": "許課長、弊社の提案は明日お送りします。営業AEさん、では今夜のコンペで",
   "tries": 1,
   "long": false
  },
@@ -21404,26 +20704,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/71d12f53": {
-  "lang": "ja",
-  "text": "今、上から下りてきました。社長、かなり頑固ですよ。戦略プランナーさん、頑張って。",
-  "zh": "我剛從樓上下來，老闆很堅持喔。策略企劃，加油。",
-  "ratio": 0.971,
-  "sec": 5.772375,
-  "heard": "今、上から降りてきました。社長、かなり頑固ですよ。戦略プランナーさん、頑張って。",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/33486fa6": {
-  "lang": "ja",
-  "text": "今、上から下りてきました。社長、かなり頑固ですよ。営業AEさん、頑張って。",
-  "zh": "我剛從樓上下來，老闆很堅持喔。業務 AE，加油。",
-  "ratio": 0.951,
-  "sec": 6.743583,
-  "heard": "今、上から降りてきました。社長、かなり頑固ですよ。営業Aさん、頑張って。",
-  "tries": 1,
-  "long": false
- },
  "ja/ae_mei/62eb5e33": {
   "lang": "ja",
   "text": "営業AE、「あと一着」が来週リンジャン街に旗艦店を出す。予算はオープニング1回分よ。",
@@ -21464,16 +20744,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/5b950fbc": {
-  "lang": "ja",
-  "text": "今、上から下りてきました。社長、かなり頑固ですよ。データアナリストさん、頑張って。",
-  "zh": "我剛從樓上下來，老闆很堅持喔。數據分析師，加油。",
-  "ratio": 0.971,
-  "sec": 6.275708,
-  "heard": "今上から降りてきました。社長、かなり頑固ですよ。データアナリストさん、頑張って。",
-  "tries": 1,
-  "long": false
- },
  "ja/client_chen/8bca7aab": {
   "lang": "ja",
   "text": "去年の注文データは藍山広場のデータラボにあります。戦略プランナーさん、先に見てもらえますか？",
@@ -21501,26 +20771,6 @@
   "ratio": 0.945,
   "sec": 5.297917,
   "heard": "おばさん、醤油を買う時ってスマホとテレビどっちで決めます？",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/1689cd0d": {
-  "lang": "ja",
-  "text": "今、上から下りてきました。社長、かなり頑固ですよ。CX・ECコンサルさん、頑張って。",
-  "zh": "我剛從樓上下來，老闆很堅持喔。CX／電商顧問，加油。",
-  "ratio": 0.971,
-  "sec": 7.857125,
-  "heard": "今、上から降りてきました。社長、かなり頑固ですよ。CX ECコンサルさん、頑張って！",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/a61b5657": {
-  "lang": "ja",
-  "text": "今、上から下りてきました。社長、かなり頑固ですよ。メディアプランナーさん、頑張って。",
-  "zh": "我剛從樓上下來，老闆很堅持喔。媒體企劃，加油。",
-  "ratio": 0.972,
-  "sec": 6.058583,
-  "heard": "今、上から降りてきました。社長、かなり頑固ですよ。メディアプランナーさん、頑張って。",
   "tries": 1,
   "long": false
  },
@@ -21648,20 +20898,10 @@
   "lang": "ja",
   "text": "……6本。",
   "zh": "……六根。",
-  "ratio": 0.571,
-  "sec": 1.350917,
-  "heard": "えーと、6本",
+  "ratio": 0.5,
+  "sec": 0.907833,
+  "heard": "六本",
   "tries": 2,
-  "long": false
- },
- "ja/rival_vicky/f83165ff": {
-  "lang": "ja",
-  "text": "今、上から下りてきました。社長、かなり頑固ですよ。クリエイティブさん、頑張って。",
-  "zh": "我剛從樓上下來，老闆很堅持喔。創意，加油。",
-  "ratio": 0.971,
-  "sec": 5.743333,
-  "heard": "今上から降りてきました。社長かなり頑固ですよ。クリエイティブさん頑張って。",
-  "tries": 1,
   "long": false
  },
  "ja/data_kai/a6bc670c": {
@@ -21681,16 +20921,6 @@
   "ratio": 0.974,
   "sec": 6.444208,
   "heard": "お客さんが最後に言ったのが、で、返品できるの？できないの？そのスクショがもうSNSに",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/4f97fa3e": {
-  "lang": "ja",
-  "text": "そっちもこの案件取ったんだって？夜に会いましょ。今回は譲らないから。",
-  "zh": "聽說你們也接到這個稿？晚上見，這次不會讓你。",
-  "ratio": 0.984,
-  "sec": 5.226375,
-  "heard": "そっちもこの案件取ったんだって？夜に会いましょう。今回は譲らないから。",
   "tries": 1,
   "long": false
  },
@@ -21924,16 +21154,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/8db9c79d": {
-  "lang": "ja",
-  "text": "許課長、弊社の提案は明日お送りします。クリエイティブさん、では今夜のコンペで。",
-  "zh": "許經理，我們的提案明天寄給您。創意，晚上比稿見。",
-  "ratio": 0.971,
-  "sec": 5.855292,
-  "heard": "清課長、弊社の提案は明日お送りします。クリエイティブさん、では今夜のコンペで",
-  "tries": 1,
-  "long": false
- },
  "ja/data_kai/4ba23621": {
   "lang": "ja",
   "text": "4ページ目、受け取った。メイキング写真の威さん、複雑な顔してたぞ。一体何撮ったんだよ。",
@@ -22074,16 +21294,6 @@
   "tries": 1,
   "long": false
  },
- "ja/rival_vicky/d72f8897": {
-  "lang": "ja",
-  "text": "二社の結論はほとんど同じ。クライアントは、もう少し考えたいって。",
-  "zh": "兩家的結論幾乎一模一樣，客戶說要再想想。",
-  "ratio": 0.966,
-  "sec": 5.089958,
-  "heard": "2社の結論はほとんど同じ。クライアントは、もう少し考えたいって。",
-  "tries": 1,
-  "long": false
- },
  "ja/player_m/a7357ba3": {
   "lang": "ja",
   "text": "うちのおばあちゃんです。",
@@ -22111,16 +21321,6 @@
   "ratio": 0.947,
   "sec": 9.729,
   "heard": "さっき、いとこの声を真似た電話でお金の無心。昔飼ってた犬の名前を聞いたら、切れたよ。",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/d13baf4d": {
-  "lang": "ja",
-  "text": "うちのも9ページあった。でも、あのページはなかった。この一杯はあなたに。",
-  "zh": "我們那份也有九頁，可是沒有那一頁。這杯我敬你。",
-  "ratio": 1.0,
-  "sec": 6.392125,
-  "heard": "うちのも9ページあった。でも、あのページはなかった。この一杯はあなたに。",
   "tries": 1,
   "long": false
  },
@@ -22329,8 +21529,8 @@
   "text": "先方は明朝9時に答えがほしい。Agentの権限をどの層で止め、いつ人に渡すか。",
   "zh": "客戶明早九點要答案：Agent 的權限停在哪一層，什麼時候交給真人。",
   "ratio": 0.822,
-  "sec": 7.617792,
-  "heard": "先方は明朝9時に答えが欲しい。\nエージェントの権限をどの層で止め、いつ人に渡すか。",
+  "sec": 8.375958,
+  "heard": "先方は明朝9時に答えが欲しい。エージェントの権限をどの層で止め、いつ人に渡すか。",
   "tries": 1,
   "long": false
  },
@@ -22948,9 +22148,9 @@
   "lang": "ja",
   "text": "チーズ蛋餅のほうは？",
   "zh": "那起司蛋餅呢？",
-  "ratio": 0.778,
-  "sec": 1.985958,
-  "heard": "チーズ団子のほうは？",
+  "ratio": 0.588,
+  "sec": 1.311667,
+  "heard": "チーズ難民の方は？",
   "tries": 3,
   "long": false
  },
@@ -23019,9 +22219,9 @@
   "text": "チーズ蛋餅のほうは？",
   "zh": "那起司蛋餅呢？",
   "ratio": 0.7,
-  "sec": 1.57125,
-  "heard": "チーズどんびんのほうは？",
-  "tries": 8,
+  "sec": 1.740167,
+  "heard": "チーズダンビンのほうは？",
+  "tries": 3,
   "long": false
  },
  "ja/ae_mei/ba6ebe2a": {
@@ -23591,16 +22791,6 @@
   "ratio": 1.0,
   "sec": 6.991125,
   "heard": "CX ECコンサルさん、まだ忙しい？上司に頼まれたことが、なんか変な気がして。",
-  "tries": 1,
-  "long": false
- },
- "ja/rival_vicky/6fc73973": {
-  "lang": "ja",
-  "text": "うちは先週提案済みよ。2人常駐させてチームを育てて、手数料は3割引き。",
-  "zh": "我們上週提了，派兩個人駐點幫你們帶團隊，服務費打七折。",
-  "ratio": 1.0,
-  "sec": 6.204375,
-  "heard": "うちは先週提案済みよ。2人常駐させてチームを育てて、手数料は3割引き。",
   "tries": 1,
   "long": false
  },
@@ -24879,9 +24069,9 @@
   "text": "蔡課長、今いちばん痛いのはどこですか？",
   "zh": "蔡經理，你們現在最痛的是哪一塊？",
   "ratio": 0.75,
-  "sec": 2.799583,
-  "heard": "西課長、今一番痛いのはどこですか？",
-  "tries": 3,
+  "sec": 2.757292,
+  "heard": "で、課長、今一番痛いのはどこですか？",
+  "tries": 5,
   "long": false
  },
  "ja/client_hsu/816d76a8": {
@@ -25209,9 +24399,9 @@
   "text": "蔡課長、今いちばん痛いのはどこですか？",
   "zh": "蔡經理，你們現在最痛的是哪一塊？",
   "ratio": 0.75,
-  "sec": 3.24225,
-  "heard": "せ、課長、今一番痛いのはどこですか？",
-  "tries": 5,
+  "sec": 3.284542,
+  "heard": "崔課長、今一番痛いのはどこですか？",
+  "tries": 6,
   "long": false
  },
  "ja/n2020_cheng/16b24b0d": {
@@ -26688,10 +25878,10 @@
   "lang": "ja",
   "text": "こっちはCookieがお菓子のクッキーかどうかも分かんないのに。",
   "zh": "我連 Cookie 是不是餅乾都搞不清楚。",
-  "ratio": 0.833,
-  "sec": 4.212958,
-  "heard": "こっちはクッキーがお菓子のクッキーかどうかも分かんないのに",
-  "tries": 1,
+  "ratio": 0.82,
+  "sec": 4.020667,
+  "heard": "こっちはクッキングがお菓子のクッキーかどうかも分かんないのに",
+  "tries": 2,
   "long": false
  },
  "ja/player_m/34df27fc": {
@@ -27894,16 +27084,6 @@
   "tries": 1,
   "long": false
  },
- "ja/n2023_hua/a2345b7e": {
-  "lang": "ja",
-  "text": "営業AEさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
-  "zh": "業務 AE，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.907,
-  "sec": 6.238708,
-  "heard": "営業AIさ。AI版の私は疲れないし声も枯れない。夜中3時でも鍋が売れるってさ",
-  "tries": 1,
-  "long": false
- },
  "ja/client_hsu/7bca65c5": {
   "lang": "ja",
   "text": "CX・ECコンサルさん、社長が「持ち歩ける洗浄用品」をって。開発の返事は「どうやって？」だけ。",
@@ -27954,16 +27134,6 @@
   "tries": 1,
   "long": false
  },
- "ja/n2023_hua/53f8c85b": {
-  "lang": "ja",
-  "text": "でも、あたしももう50。喉が本当に痛むんだよ。",
-  "zh": "可是我也五十了，喉嚨真的會痛。",
-  "ratio": 0.895,
-  "sec": 4.42825,
-  "heard": "でも私ももう50、喉が本当に痛むんだよ。",
-  "tries": 1,
-  "long": false
- },
  "ja/roommate_yu/3633c5fa": {
   "lang": "ja",
   "text": "CX・ECコンサルさん、今日AIアシスタントが広告メールを137通ブロックしてくれたよ。",
@@ -27971,26 +27141,6 @@
   "ratio": 1.0,
   "sec": 8.565042,
   "heard": "CX ECコンサルさん、今日AIアシスタントが広告メールを137通ブロックしてくれたよ。",
-  "tries": 1,
-  "long": false
- },
- "ja/n2023_hua/a117511b": {
-  "lang": "ja",
-  "text": "メディアプランナーさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
-  "zh": "媒體企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 0.953,
-  "sec": 7.037833,
-  "heard": "メディアプランナーさん、AI版の私は疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
-  "tries": 1,
-  "long": false
- },
- "ja/n2023_hua/66004a87": {
-  "lang": "ja",
-  "text": "戦略プランナーさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
-  "zh": "策略企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 1.0,
-  "sec": 7.165167,
-  "heard": "戦略プランナーさん、AI版のあたしは疲れないし声も枯れない。夜中3時でも鍋が売れるってさ。",
   "tries": 1,
   "long": false
  },
@@ -28034,16 +27184,6 @@
   "tries": 1,
   "long": false
  },
- "ja/n2023_hua/45c65193": {
-  "lang": "ja",
-  "text": "クリエイティブさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
-  "zh": "創意，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 1.0,
-  "sec": 6.415083,
-  "heard": "クリエイティブさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ",
-  "tries": 1,
-  "long": false
- },
  "ja/rechao_boss/9ef4d3fa": {
   "lang": "ja",
   "text": "娘がネットで冷凍パックを売ろうって。熱炒一筋30年、やるべきか分からなくて。",
@@ -28051,26 +27191,6 @@
   "ratio": 0.889,
   "sec": 7.982125,
   "heard": "娘がネットで冷凍パックを売ろうって。ねっちゃ一筋30年、やるべきかわからなくて。",
-  "tries": 1,
-  "long": false
- },
- "ja/n2023_hua/3c716719": {
-  "lang": "ja",
-  "text": "CX・ECコンサルさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
-  "zh": "CX／電商顧問，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 1.0,
-  "sec": 7.528,
-  "heard": "CX ECコンサルさん、AI版のあたしは疲れないし、声も枯れない。夜中3時でも鍋が売れるってさ。",
-  "tries": 1,
-  "long": false
- },
- "ja/n2023_hua/c1237ef0": {
-  "lang": "ja",
-  "text": "両方だね。毎回同じたわしを買うおばさんがいてさ、あたしと10分しゃべるためだけに。",
-  "zh": "都有吧。有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓十分鐘。",
-  "ratio": 0.889,
-  "sec": 6.446333,
-  "heard": "両方だね。毎回同じたわしを買うおばさんがいてさ、私と10分喋るためだけに",
   "tries": 1,
   "long": false
  },
@@ -28091,16 +27211,6 @@
   "ratio": 1.0,
   "sec": 7.419333,
   "heard": "あんた、そのパソコンで、ばあちゃんの膝の痛みが絵になるって、本当かい？",
-  "tries": 1,
-  "long": false
- },
- "ja/n2023_hua/f617b181": {
-  "lang": "ja",
-  "text": "取り分は1割。条件はあたしが配信を減らすこと。AIと客を取り合わないようにって。",
-  "zh": "分潤給我一成。條件是我以後少開播，免得跟 AI 搶客人。",
-  "ratio": 1.0,
-  "sec": 6.643542,
-  "heard": "取り分は1割。条件はあたしが配信を減らすこと。AIと客を取り合わないように、って。",
   "tries": 1,
   "long": false
  },
@@ -28141,16 +27251,6 @@
   "ratio": 1.0,
   "sec": 1.917667,
   "heard": "何のデータで計算するんですか？",
-  "tries": 1,
-  "long": false
- },
- "ja/n2023_hua/1f09c8dc": {
-  "lang": "ja",
-  "text": "データアナリストさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
-  "zh": "數據分析師，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
-  "ratio": 1.0,
-  "sec": 6.944042,
-  "heard": "データアナリストさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
   "tries": 1,
   "long": false
  },
@@ -28499,8 +27599,8 @@
   "text": "甥っ子が、看板に「阿成、鶏排やめます」って書いて驚かせようって。",
   "zh": "我姪子說，要不要在招牌上寫「阿成不賣雞排了」，嚇一下大家。",
   "ratio": 0.78,
-  "sec": 5.747958,
-  "heard": "甥っ子が看板にアーチェンチーパイやめますって書いて驚かせようって",
+  "sec": 5.000875,
+  "heard": "甥っ子が看板に「あーちゃんジーパイやめます」って書いて驚かせようって",
   "tries": 1,
   "long": false
  },
@@ -29869,7 +28969,7 @@
   "text": "いちばん心配なのは何？",
   "zh": "你最擔心的是什麼？",
   "ratio": 0.667,
-  "sec": 1.976583,
+  "sec": 2.230875,
   "heard": "一番心配なのは何？",
   "tries": 1,
   "long": false
@@ -29919,7 +29019,7 @@
   "text": "いちばん心配なのは何？",
   "zh": "你最擔心的是什麼？",
   "ratio": 0.667,
-  "sec": 1.483958,
+  "sec": 1.643125,
   "heard": "一番心配なのは何？",
   "tries": 1,
   "long": false
@@ -30639,7 +29739,7 @@
   "text": "フォロワーはふだん何を一番見てる？",
   "zh": "你的粉絲平常最愛看什麼？",
   "ratio": 0.839,
-  "sec": 2.547458,
+  "sec": 2.421708,
   "heard": "フォロワーは普段何を一番見てる？",
   "tries": 1,
   "long": false
@@ -30669,7 +29769,7 @@
   "text": "フォロワーはふだん何を一番見てる？",
   "zh": "你的粉絲平常最愛看什麼？",
   "ratio": 0.839,
-  "sec": 2.382667,
+  "sec": 2.259708,
   "heard": "フォロワーは普段何を一番見てる？",
   "tries": 1,
   "long": false
@@ -31159,7 +30259,7 @@
   "text": "ほかの人たちは？",
   "zh": "其他人呢？",
   "ratio": 0.769,
-  "sec": 0.9385,
+  "sec": 1.260625,
   "heard": "他の人たちは？",
   "tries": 1,
   "long": false
@@ -31169,7 +30269,7 @@
   "text": "ほかの人たちは？",
   "zh": "其他人呢？",
   "ratio": 0.769,
-  "sec": 1.211792,
+  "sec": 1.179625,
   "heard": "他の人たちは？",
   "tries": 1,
   "long": false
@@ -44788,9 +43888,9 @@
   "lang": "zh",
   "text": "第五頁收到。電梯口一天播八十次，我差點看成八十個人。",
   "ratio": 0.826,
-  "sec": 5.002042,
-  "heard": "第五頁，收到。電梯口一天播80次，我差點看成80個人。",
-  "tries": 8,
+  "sec": 6.398708,
+  "heard": "第五頁，收到。電梯口一天播80次？我差點看成80個人。",
+  "tries": 6,
   "long": false
  },
  "en/data_kai/089930ac": {
@@ -46745,6 +45845,905 @@
   "ratio": 1.0,
   "sec": 8.4275,
   "heard": "スタジオじゃハマグリのスープがうまそうに映るかばっかり考えてた。お客さんはいつ届くかが知りたかったんだよな。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/d4cbac5b": {
+  "lang": "zh",
+  "text": "策略企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 7.071792,
+  "heard": "策略企劃？又碰到了。我們上週也提了一版，全部買流量，報表很漂亮",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/37b4a3de": {
+  "lang": "zh",
+  "text": "數據分析師，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 6.955792,
+  "heard": "數據分析師，又碰到了。我們上週也提了一版，全部買流量，報表很漂亮",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/24bbc57b": {
+  "lang": "zh",
+  "text": "創意，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 6.584167,
+  "heard": "創意，又碰到了，我們上週也提了一版。全部買流量，報表很漂亮。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/aedd044f": {
+  "lang": "zh",
+  "text": "CX／電商顧問，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 0.897,
+  "sec": 7.001917,
+  "heard": "CX線上顧問有碰到了，我們上週也提了一版，全部買流量，報表很漂亮",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/8ca25fc4": {
+  "lang": "zh",
+  "text": "許經理，我們的提案明天寄給您。業務 AE，晚上比稿見。",
+  "ratio": 1.0,
+  "sec": 5.072,
+  "heard": "許經理，我們的提案明天寄給您，業務AE，晚上比稿見。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/e9849d5d": {
+  "lang": "zh",
+  "text": "許經理，我們的提案明天寄給您。媒體企劃，晚上比稿見。",
+  "ratio": 1.0,
+  "sec": 4.782708,
+  "heard": "許經理，我們的提案明天寄給您。媒體企劃，晚上比稿見。",
+  "tries": 2,
+  "long": false
+ },
+ "rival_vicky/02b5d67f": {
+  "lang": "zh",
+  "text": "媒體企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 7.164583,
+  "heard": "媒體企劃，又碰到了。我們上週也提了一版，全部買流量，報表很漂亮。",
+  "tries": 3,
+  "long": false
+ },
+ "rival_vicky/8ccf97a8": {
+  "lang": "zh",
+  "text": "業務 AE，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 0.885,
+  "sec": 6.419542,
+  "heard": "第一，又碰到了。我們上週也提了一版，全部買流量，報表很漂亮",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/8db9c79d": {
+  "lang": "zh",
+  "text": "許經理，我們的提案明天寄給您。創意，晚上比稿見。",
+  "ratio": 0.9,
+  "sec": 4.61125,
+  "heard": "許經理，我們的提案明天寄給您。創意，晚上逼稿件。",
+  "tries": 2,
+  "long": false
+ },
+ "rival_vicky/fd808c59": {
+  "lang": "zh",
+  "text": "許經理，我們的提案明天寄給您。策略企劃，晚上比稿見。",
+  "ratio": 0.955,
+  "sec": 4.836833,
+  "heard": "徐經理，我們的提案明天寄給您。策略企劃，晚上比稿見。",
+  "tries": 3,
+  "long": false
+ },
+ "rival_vicky/71d12f53": {
+  "lang": "zh",
+  "text": "我剛從樓上下來，老闆很堅持喔。策略企劃，加油。",
+  "ratio": 1.0,
+  "sec": 4.311292,
+  "heard": "我剛從樓上下來，老闆很堅持喔，策略企劃，加油。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/a61b5657": {
+  "lang": "zh",
+  "text": "我剛從樓上下來，老闆很堅持喔。媒體企劃，加油。",
+  "ratio": 1.0,
+  "sec": 5.302208,
+  "heard": "我剛從樓上下來，老闆很堅持喔，媒體企劃，加油！",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/f83165ff": {
+  "lang": "zh",
+  "text": "我剛從樓上下來，老闆很堅持喔。創意，加油。",
+  "ratio": 1.0,
+  "sec": 4.958667,
+  "heard": "我剛從樓上下來，老闆很堅持喔。創意，加油！",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/5b950fbc": {
+  "lang": "zh",
+  "text": "我剛從樓上下來，老闆很堅持喔。數據分析師，加油。",
+  "ratio": 1.0,
+  "sec": 4.581208,
+  "heard": "我剛從樓上下來，老闆很堅持喔，數據分析師，加油。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/1689cd0d": {
+  "lang": "zh",
+  "text": "我剛從樓上下來，老闆很堅持喔。CX／電商顧問，加油。",
+  "ratio": 1.0,
+  "sec": 4.990667,
+  "heard": "我剛從樓上下來，老闆很堅持喔，CX電商顧問，加油。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/d13baf4d": {
+  "lang": "zh",
+  "text": "我們那份也有九頁，可是沒有那一頁。這杯我敬你。",
+  "ratio": 1.0,
+  "sec": 4.91875,
+  "heard": "我們那份也有九頁，可是沒有那一頁。這杯我敬你",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/d72f8897": {
+  "lang": "zh",
+  "text": "兩家的結論幾乎一模一樣，客戶說要再想想。",
+  "ratio": 1.0,
+  "sec": 3.277333,
+  "heard": "兩家的結論幾乎一模一樣，客戶說要再想想",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/33486fa6": {
+  "lang": "zh",
+  "text": "我剛從樓上下來，老闆很堅持喔。業務 AE，加油。",
+  "ratio": 0.974,
+  "sec": 4.791333,
+  "heard": "我剛從樓上下來，老闆很堅持喔。業務AE加油喔！",
+  "tries": 3,
+  "long": false
+ },
+ "rival_vicky/6fc73973": {
+  "lang": "zh",
+  "text": "我們上週提了，派兩個人駐點幫你們帶團隊，服務費打七折。",
+  "ratio": 1.0,
+  "sec": 5.778917,
+  "heard": "我們上週提了派兩個人駐點幫你們帶團隊，服務費打七折",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/d0265345": {
+  "lang": "zh",
+  "text": "許經理，我們的提案明天寄給您。CX／電商顧問，晚上比稿見。",
+  "ratio": 0.875,
+  "sec": 5.308125,
+  "heard": "徐經理，我們的提案明天寄給您。CX電商顧問，晚上八點見。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/1cf36c6e": {
+  "lang": "zh",
+  "text": "許經理，我們的提案明天寄給您。數據分析師，晚上比稿見。",
+  "ratio": 0.957,
+  "sec": 5.206375,
+  "heard": "徐經理，我們的提案明天寄給您。數據分析師，晚上比稿見。",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/a2345b7e": {
+  "lang": "zh",
+  "text": "業務 AE，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.906,
+  "sec": 5.823833,
+  "heard": "欸，他們說AI版的我不會累、不會沙啞，半夜三點也能賣鍋子",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/66004a87": {
+  "lang": "zh",
+  "text": "策略企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 1.0,
+  "sec": 6.602417,
+  "heard": "策略企劃，他們說AI版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "tries": 1,
+  "long": false
+ },
+ "rival_vicky/4f97fa3e": {
+  "lang": "zh",
+  "text": "聽說你們也接到這個稿？晚上見，這次不會讓你。",
+  "ratio": 1.0,
+  "sec": 4.1125,
+  "heard": "聽說你們也接到這個稿？晚上見，這次不會讓你。",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/1f09c8dc": {
+  "lang": "zh",
+  "text": "數據分析師，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.983,
+  "sec": 6.872083,
+  "heard": "數據分析師，他們說 AI 版本的我不會累，不會沙啞，半夜三點也能賣鍋子，",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/45c65193": {
+  "lang": "zh",
+  "text": "創意，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.962,
+  "sec": 6.909708,
+  "heard": "暢意，他們說AI版的我不會累、不會沙啞，半夜三點也能賣鍋子",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/a117511b": {
+  "lang": "zh",
+  "text": "媒體企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 1.0,
+  "sec": 6.940208,
+  "heard": "媒體企劃，他們說AI版的我不會累，不會沙啞，半夜三點也能賣鍋子，",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/3c716719": {
+  "lang": "zh",
+  "text": "CX／電商顧問，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.933,
+  "sec": 6.686833,
+  "heard": "喜事電商顧問，他們說AI版的我不會累、不會沙啞，半夜三點也能賣鍋子",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/c1237ef0": {
+  "lang": "zh",
+  "text": "都有吧。有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓十分鐘。",
+  "ratio": 0.945,
+  "sec": 5.618708,
+  "heard": "都有吧，有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓10分鐘，",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/53f8c85b": {
+  "lang": "zh",
+  "text": "可是我也五十了，喉嚨真的會痛。",
+  "ratio": 0.929,
+  "sec": 3.300667,
+  "heard": "啊可是我也五十了，喉嚨真的會痛欸",
+  "tries": 1,
+  "long": false
+ },
+ "n2023_hua/f617b181": {
+  "lang": "zh",
+  "text": "分潤給我一成。條件是我以後少開播，免得跟 AI 搶客人。",
+  "ratio": 1.0,
+  "sec": 5.955,
+  "heard": "分潤給我一成，條件是我以後少開播，免得跟AI搶客人。",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/d4cbac5b": {
+  "lang": "en",
+  "text": "Strategic Planner, us again. We pitched one last week too: all traffic, beautiful reports.",
+  "zh": "策略企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 7.689583,
+  "heard": "Strategic planner? Us again? We pitched one last week, too. All traffic. Beautiful reports.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/24bbc57b": {
+  "lang": "en",
+  "text": "Creative, us again. We pitched one last week too: all traffic, beautiful reports.",
+  "zh": "創意，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 5.829542,
+  "heard": "creative? Us again? We pitched one last week, too. All traffic, beautiful reports.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/aedd044f": {
+  "lang": "en",
+  "text": "CX & E-com Consultant, us again. We pitched one last week too: all traffic, beautiful reports.",
+  "zh": "CX／電商顧問，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 0.98,
+  "sec": 8.840292,
+  "heard": "CX and E-com consultant us again. We pitched one last week, too. All traffic, beautiful reports",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/fd808c59": {
+  "lang": "en",
+  "text": "Manager Hsu, our proposal comes tomorrow. Strategic Planner, see you at the pitch tonight.",
+  "zh": "許經理，我們的提案明天寄給您。策略企劃，晚上比稿見。",
+  "ratio": 0.979,
+  "sec": 6.29775,
+  "heard": "Manager Xu, our proposal comes tomorrow. Strategic planner, see you at the pitch tonight.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/8ccf97a8": {
+  "lang": "en",
+  "text": "Account Executive, us again. We pitched one last week too: all traffic, beautiful reports.",
+  "zh": "業務 AE，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 7.158542,
+  "heard": "Account executive, us again. We pitched one last week, too. All traffic, beautiful reports,",
+  "tries": 2,
+  "long": false
+ },
+ "en/rival_vicky/e9849d5d": {
+  "lang": "en",
+  "text": "Manager Hsu, our proposal comes tomorrow. Media Planner, see you at the pitch tonight.",
+  "zh": "許經理，我們的提案明天寄給您。媒體企劃，晚上比稿見。",
+  "ratio": 0.986,
+  "sec": 4.657958,
+  "heard": "Manager Shu, our proposal comes tomorrow. Media planner, see you at the pitch tonight.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/8ca25fc4": {
+  "lang": "en",
+  "text": "Manager Hsu, our proposal comes tomorrow. Account Executive, see you at the pitch tonight.",
+  "zh": "許經理，我們的提案明天寄給您。業務 AE，晚上比稿見。",
+  "ratio": 0.973,
+  "sec": 5.097167,
+  "heard": "Manager: Who? Our proposal comes tomorrow. Account Executive: See you at the pitch tonight.",
+  "tries": 2,
+  "long": false
+ },
+ "en/rival_vicky/02b5d67f": {
+  "lang": "en",
+  "text": "Media Planner, us again. We pitched one last week too: all traffic, beautiful reports.",
+  "zh": "媒體企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 0.971,
+  "sec": 7.079333,
+  "heard": "Okay. Media planner, us again. We pitched one last week, too. All traffic, beautiful reports.",
+  "tries": 3,
+  "long": false
+ },
+ "en/rival_vicky/d0265345": {
+  "lang": "en",
+  "text": "Manager Hsu, our proposal comes tomorrow. CX & E-com Consultant, see you at the pitch tonight.",
+  "zh": "許經理，我們的提案明天寄給您。CX／電商顧問，晚上比稿見。",
+  "ratio": 0.953,
+  "sec": 6.824625,
+  "heard": "Manager who, our proposal comes tomorrow. CX and eCom consultant, see you at the pitch tonight.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/71d12f53": {
+  "lang": "en",
+  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Strategic Planner.",
+  "zh": "我剛從樓上下來，老闆很堅持喔。策略企劃，加油。",
+  "ratio": 1.0,
+  "sec": 6.217958,
+  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, strategic planner.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/33486fa6": {
+  "lang": "en",
+  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Account Executive.",
+  "zh": "我剛從樓上下來，老闆很堅持喔。業務 AE，加油。",
+  "ratio": 0.985,
+  "sec": 5.860292,
+  "heard": "I just came down from upstairs. The boss is pretty upset. Good luck, account executive.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/37b4a3de": {
+  "lang": "en",
+  "text": "Data Analyst, us again. We pitched one last week too: all traffic, beautiful reports.",
+  "zh": "數據分析師，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 0.971,
+  "sec": 7.283458,
+  "heard": "Hmph, data analyst. Us again. We pitched one last week, too. All traffic, beautiful reports.",
+  "tries": 2,
+  "long": false
+ },
+ "en/rival_vicky/1cf36c6e": {
+  "lang": "en",
+  "text": "Manager Hsu, our proposal comes tomorrow. Data Analyst, see you at the pitch tonight.",
+  "zh": "許經理，我們的提案明天寄給您。數據分析師，晚上比稿見。",
+  "ratio": 0.978,
+  "sec": 5.549167,
+  "heard": "Manager Xu, our proposal comes tomorrow. Data analyst, see you at the pitch tonight.",
+  "tries": 2,
+  "long": false
+ },
+ "en/rival_vicky/8db9c79d": {
+  "lang": "en",
+  "text": "Manager Hsu, our proposal comes tomorrow. Creative, see you at the pitch tonight.",
+  "zh": "許經理，我們的提案明天寄給您。創意，晚上比稿見。",
+  "ratio": 0.977,
+  "sec": 5.679625,
+  "heard": "Manager Xu, our proposal comes tomorrow. Creative, see you at the pitch tonight.",
+  "tries": 2,
+  "long": false
+ },
+ "en/rival_vicky/4f97fa3e": {
+  "lang": "en",
+  "text": "Heard you got this pitch too? See you tonight. I'm not going easy on you this time.",
+  "zh": "聽說你們也接到這個稿？晚上見，這次不會讓你。",
+  "ratio": 1.0,
+  "sec": 4.8755,
+  "heard": "Heard you got this pitch, too. See you tonight. I'm not going easy on you this time.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/d72f8897": {
+  "lang": "en",
+  "text": "Our conclusions were nearly identical. The client says they'll think it over.",
+  "zh": "兩家的結論幾乎一模一樣，客戶說要再想想。",
+  "ratio": 1.0,
+  "sec": 4.396208,
+  "heard": "Our conclusions were nearly identical. The client says they'll think it over.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/6fc73973": {
+  "lang": "en",
+  "text": "We pitched last week: two people on-site to train your team, and 30% off our fees.",
+  "zh": "我們上週提了，派兩個人駐點幫你們帶團隊，服務費打七折。",
+  "ratio": 1.0,
+  "sec": 5.783083,
+  "heard": "We pitched last week, two people on site to train your team, and 30% off our fees.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/1689cd0d": {
+  "lang": "en",
+  "text": "I just came down from upstairs. The boss is pretty set. Good luck, CX & E-com Consultant.",
+  "zh": "我剛從樓上下來，老闆很堅持喔。CX／電商顧問，加油。",
+  "ratio": 0.978,
+  "sec": 6.318583,
+  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, CX and e-com consultant.",
+  "tries": 2,
+  "long": false
+ },
+ "en/rival_vicky/a61b5657": {
+  "lang": "en",
+  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Media Planner.",
+  "zh": "我剛從樓上下來，老闆很堅持喔。媒體企劃，加油。",
+  "ratio": 1.0,
+  "sec": 5.797542,
+  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, media planner.",
+  "tries": 3,
+  "long": false
+ },
+ "en/n2023_hua/a2345b7e": {
+  "lang": "en",
+  "text": "Account Executive, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
+  "zh": "業務 AE，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.985,
+  "sec": 6.262708,
+  "heard": "Account Executive. They say AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/5b950fbc": {
+  "lang": "en",
+  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Data Analyst.",
+  "zh": "我剛從樓上下來，老闆很堅持喔。數據分析師，加油。",
+  "ratio": 1.0,
+  "sec": 4.938708,
+  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, data analyst.",
+  "tries": 2,
+  "long": false
+ },
+ "en/n2023_hua/66004a87": {
+  "lang": "en",
+  "text": "Strategic Planner, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
+  "zh": "策略企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.985,
+  "sec": 7.651375,
+  "heard": "strategic planner, they say AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
+  "tries": 1,
+  "long": false
+ },
+ "en/n2023_hua/a117511b": {
+  "lang": "en",
+  "text": "Media Planner, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
+  "zh": "媒體企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.952,
+  "sec": 7.267875,
+  "heard": "media planner, this a- AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
+  "tries": 1,
+  "long": false
+ },
+ "en/rival_vicky/d13baf4d": {
+  "lang": "en",
+  "text": "Ours had nine pages too, but not that one. This drink's for you.",
+  "zh": "我們那份也有九頁，可是沒有那一頁。這杯我敬你。",
+  "ratio": 0.938,
+  "sec": 4.459167,
+  "heard": "Ours had nine pages, too, but not that one. The string's for you.",
+  "tries": 2,
+  "long": false
+ },
+ "en/rival_vicky/f83165ff": {
+  "lang": "en",
+  "text": "I just came down from upstairs. The boss is pretty set. Good luck, Creative.",
+  "zh": "我剛從樓上下來，老闆很堅持喔。創意，加油。",
+  "ratio": 1.0,
+  "sec": 5.081333,
+  "heard": "I just came down from upstairs. The boss is pretty set. Good luck, creative.",
+  "tries": 1,
+  "long": false
+ },
+ "en/n2023_hua/45c65193": {
+  "lang": "en",
+  "text": "Creative, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
+  "zh": "創意，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.906,
+  "sec": 6.218292,
+  "heard": "Crazy, eh? They say AI me won't get tired or hoarse and can sell pots at 3:00 a.m.",
+  "tries": 1,
+  "long": false
+ },
+ "en/n2023_hua/3c716719": {
+  "lang": "en",
+  "text": "CX & E-com Consultant, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
+  "zh": "CX／電商顧問，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.964,
+  "sec": 7.426125,
+  "heard": "CX and e-com consultant, they say AI me won't get tired or hoarse, and can sell pots at 3:00 a.m.",
+  "tries": 1,
+  "long": false
+ },
+ "en/n2023_hua/1f09c8dc": {
+  "lang": "en",
+  "text": "Data Analyst, they say AI me won't get tired or hoarse, and can sell pots at 3 AM.",
+  "zh": "數據分析師，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.976,
+  "sec": 7.228958,
+  "heard": "Data analysts, they say, AI me won't get tired or hoarse and can sell pots at 3:00 a.m.",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/8ccf97a8": {
+  "lang": "ja",
+  "text": "営業AEさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "zh": "業務 AE，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 0.987,
+  "sec": 7.689417,
+  "heard": "営業のAEさん、また会いましたね。うちも先週全部トラフィックの案を。数字は映えますよ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/02b5d67f": {
+  "lang": "ja",
+  "text": "メディアプランナーさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "zh": "媒體企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 7.06425,
+  "heard": "メディアプランナーさん、また会いましたね。うちも先週全部トラフィックの案を。数字は映えますよ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/d4cbac5b": {
+  "lang": "ja",
+  "text": "戦略プランナーさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "zh": "策略企劃，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 8.027125,
+  "heard": "戦略プランナーさん、また会いましたね。うちも先週全部トラフィックの案を。数字は映えますよ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/37b4a3de": {
+  "lang": "ja",
+  "text": "データアナリストさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "zh": "數據分析師，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 7.073833,
+  "heard": "データアナリストさん、また会いましたね。うちも先週全部トラフィックの案を、数字は映えますよ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/24bbc57b": {
+  "lang": "ja",
+  "text": "クリエイティブさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "zh": "創意，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 6.580292,
+  "heard": "クリエイティブさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/fd808c59": {
+  "lang": "ja",
+  "text": "許課長、弊社の提案は明日お送りします。戦略プランナーさん、では今夜のコンペで。",
+  "zh": "許經理，我們的提案明天寄給您。策略企劃，晚上比稿見。",
+  "ratio": 0.957,
+  "sec": 5.588042,
+  "heard": "局長、弊社の提案は明日お送りします。戦略プランナーさん、では今夜のコンペで。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/aedd044f": {
+  "lang": "ja",
+  "text": "CX・ECコンサルさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "zh": "CX／電商顧問，又碰到了。我們上週也提了一版：全部買流量，報表很漂亮。",
+  "ratio": 1.0,
+  "sec": 8.497958,
+  "heard": "CX ECコンサルさん、また会いましたね。うちも先週、全部トラフィックの案を。数字は映えますよ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/e9849d5d": {
+  "lang": "ja",
+  "text": "許課長、弊社の提案は明日お送りします。メディアプランナーさん、では今夜のコンペで。",
+  "zh": "許經理，我們的提案明天寄給您。媒體企劃，晚上比稿見。",
+  "ratio": 0.986,
+  "sec": 5.560208,
+  "heard": "課長、弊社の提案は明日お送りします、メディアプランナーさん。では、今夜のコンペで。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/8db9c79d": {
+  "lang": "ja",
+  "text": "許課長、弊社の提案は明日お送りします。クリエイティブさん、では今夜のコンペで。",
+  "zh": "許經理，我們的提案明天寄給您。創意，晚上比稿見。",
+  "ratio": 0.971,
+  "sec": 6.83425,
+  "heard": "か、課長、弊社の提案は明日お送りします。クリエイティブさん、では今夜のコンペで",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/33486fa6": {
+  "lang": "ja",
+  "text": "今、上から下りてきました。社長、かなり頑固ですよ。営業AEさん、頑張って。",
+  "zh": "我剛從樓上下來，老闆很堅持喔。業務 AE，加油。",
+  "ratio": 0.951,
+  "sec": 6.130583,
+  "heard": "今、上から降りてきました。社長、かなり頑固ですよ。営業、Aさん、頑張って。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/1cf36c6e": {
+  "lang": "ja",
+  "text": "許課長、弊社の提案は明日お送りします。データアナリストさん、では今夜のコンペで。",
+  "zh": "許經理，我們的提案明天寄給您。數據分析師，晚上比稿見。",
+  "ratio": 0.959,
+  "sec": 6.073958,
+  "heard": "きょ、課長、弊社の提案は明日お送りします。データアナリストさん、では今夜のコンペで",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/71d12f53": {
+  "lang": "ja",
+  "text": "今、上から下りてきました。社長、かなり頑固ですよ。戦略プランナーさん、頑張って。",
+  "zh": "我剛從樓上下來，老闆很堅持喔。策略企劃，加油。",
+  "ratio": 0.971,
+  "sec": 6.869708,
+  "heard": "今、上から降りてきました。社長、かなり頑固ですよ。戦略プランナーさん、頑張って。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/d0265345": {
+  "lang": "ja",
+  "text": "許課長、弊社の提案は明日お送りします。CX・ECコンサルさん、では今夜のコンペで。",
+  "zh": "許經理，我們的提案明天寄給您。CX／電商顧問，晚上比稿見。",
+  "ratio": 0.946,
+  "sec": 6.541917,
+  "heard": "ひょう課長、弊社の提案は明日お送りします。CX ECコンサルさん、では、今夜のコンペで",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/a61b5657": {
+  "lang": "ja",
+  "text": "今、上から下りてきました。社長、かなり頑固ですよ。メディアプランナーさん、頑張って。",
+  "zh": "我剛從樓上下來，老闆很堅持喔。媒體企劃，加油。",
+  "ratio": 0.972,
+  "sec": 6.939875,
+  "heard": "今、上から降りてきました。 社長、かなり頑固ですよ。 メディアプランナーさん、頑張って。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/8ca25fc4": {
+  "lang": "ja",
+  "text": "許課長、弊社の提案は明日お送りします。営業AEさん、では今夜のコンペで。",
+  "zh": "許經理，我們的提案明天寄給您。業務 AE，晚上比稿見。",
+  "ratio": 0.969,
+  "sec": 6.476625,
+  "heard": "き課長、弊社の提案は明日お送りします。営業AEさん、では今夜のコンペで",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/5b950fbc": {
+  "lang": "ja",
+  "text": "今、上から下りてきました。社長、かなり頑固ですよ。データアナリストさん、頑張って。",
+  "zh": "我剛從樓上下來，老闆很堅持喔。數據分析師，加油。",
+  "ratio": 0.971,
+  "sec": 5.636083,
+  "heard": "今、上から降りてきました。社長かなり頑固ですよ。データアナリストさん、頑張って。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/1689cd0d": {
+  "lang": "ja",
+  "text": "今、上から下りてきました。社長、かなり頑固ですよ。CX・ECコンサルさん、頑張って。",
+  "zh": "我剛從樓上下來，老闆很堅持喔。CX／電商顧問，加油。",
+  "ratio": 0.971,
+  "sec": 7.42575,
+  "heard": "今、上から降りてきました。社長、かなり頑固ですよ。CXECコンサルさん、頑張って。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/4f97fa3e": {
+  "lang": "ja",
+  "text": "そっちもこの案件取ったんだって？夜に会いましょ。今回は譲らないから。",
+  "zh": "聽說你們也接到這個稿？晚上見，這次不會讓你。",
+  "ratio": 0.984,
+  "sec": 5.079208,
+  "heard": "そっちもこの案件取ったんだって？夜に会いましょう。今回は譲らないから。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/d13baf4d": {
+  "lang": "ja",
+  "text": "うちのも9ページあった。でも、あのページはなかった。この一杯はあなたに。",
+  "zh": "我們那份也有九頁，可是沒有那一頁。這杯我敬你。",
+  "ratio": 0.938,
+  "sec": 5.905958,
+  "heard": "どちらも9ページあった。でもあのページはなかった。この一杯はあなたに。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/d72f8897": {
+  "lang": "ja",
+  "text": "二社の結論はほとんど同じ。クライアントは、もう少し考えたいって。",
+  "zh": "兩家的結論幾乎一模一樣，客戶說要再想想。",
+  "ratio": 1.0,
+  "sec": 4.662083,
+  "heard": "二社の結論はほとんど同じ。クライアントはもう少し考えたいって。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/6fc73973": {
+  "lang": "ja",
+  "text": "うちは先週提案済みよ。2人常駐させてチームを育てて、手数料は3割引き。",
+  "zh": "我們上週提了，派兩個人駐點幫你們帶團隊，服務費打七折。",
+  "ratio": 1.0,
+  "sec": 5.986958,
+  "heard": "うちは先週提案済みよ。2人常駐させてチームを育てて、手数料は3割引き。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/a2345b7e": {
+  "lang": "ja",
+  "text": "営業AEさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "zh": "業務 AE，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.907,
+  "sec": 7.391333,
+  "heard": "営業AIさ、AI版の私は疲れないし声も枯れない、夜中3時でも鍋が売れるってさ",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/66004a87": {
+  "lang": "ja",
+  "text": "戦略プランナーさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "zh": "策略企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 1.0,
+  "sec": 8.007417,
+  "heard": "戦略プランナーさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/a117511b": {
+  "lang": "ja",
+  "text": "メディアプランナーさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "zh": "媒體企劃，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.953,
+  "sec": 6.210458,
+  "heard": "メディアプランナーさん、AI版の私は疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/45c65193": {
+  "lang": "ja",
+  "text": "クリエイティブさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "zh": "創意，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.938,
+  "sec": 7.0715,
+  "heard": "クリエイティブさ、AI版の私は疲れないし声も枯れない。夜中3時でも鍋が売れるってさ",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/1f09c8dc": {
+  "lang": "ja",
+  "text": "データアナリストさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "zh": "數據分析師，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 0.952,
+  "sec": 6.622167,
+  "heard": "で、アナリストさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/3c716719": {
+  "lang": "ja",
+  "text": "CX・ECコンサルさん、AI版のあたしは疲れないし声も枯れない、夜中3時でも鍋が売れるってさ。",
+  "zh": "CX／電商顧問，他們說 AI 版的我不會累、不會沙啞，半夜三點也能賣鍋子。",
+  "ratio": 1.0,
+  "sec": 7.24025,
+  "heard": "CX ECコンサルさん、AI版のあたしは疲れないし、声も枯れない。夜中3時でも鍋が売れるってさ。",
+  "tries": 1,
+  "long": false
+ },
+ "en/n2023_hua/53f8c85b": {
+  "lang": "en",
+  "text": "But I'm fifty now. My throat really does hurt.",
+  "zh": "可是我也五十了，喉嚨真的會痛。",
+  "ratio": 1.0,
+  "sec": 3.329542,
+  "heard": "But I'm fifty now. My throat really does hurt.",
+  "tries": 1,
+  "long": false
+ },
+ "ja/rival_vicky/f83165ff": {
+  "lang": "ja",
+  "text": "今、上から下りてきました。社長、かなり頑固ですよ。クリエイティブさん、頑張って。",
+  "zh": "我剛從樓上下來，老闆很堅持喔。創意，加油。",
+  "ratio": 0.971,
+  "sec": 5.899375,
+  "heard": "今上から降りてきました。社長かなり頑固ですよ。クリエイティブさん頑張って。",
+  "tries": 1,
+  "long": false
+ },
+ "en/n2023_hua/f617b181": {
+  "lang": "en",
+  "text": "They'd give me a 10% cut. The catch: I go live less, so I don't steal the AI's customers.",
+  "zh": "分潤給我一成。條件是我以後少開播，免得跟 AI 搶客人。",
+  "ratio": 1.0,
+  "sec": 7.797458,
+  "heard": "They'd give me a 10% cut. The catch, I go live less so I don't steal the AI's customers.",
+  "tries": 1,
+  "long": false
+ },
+ "en/n2023_hua/c1237ef0": {
+  "lang": "en",
+  "text": "Both. One auntie buys the same loofah sponge every time, just to banter for ten minutes.",
+  "zh": "都有吧。有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓十分鐘。",
+  "ratio": 0.964,
+  "sec": 6.067875,
+  "heard": "Both. One auntie buys the same loofah sponge every time, just to banter for 10 minutes.",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/f617b181": {
+  "lang": "ja",
+  "text": "取り分は1割。条件はあたしが配信を減らすこと。AIと客を取り合わないようにって。",
+  "zh": "分潤給我一成。條件是我以後少開播，免得跟 AI 搶客人。",
+  "ratio": 0.973,
+  "sec": 7.187167,
+  "heard": "取り分は一割。条件はあたしが配信を減らすこと。AIと客を取り合わないようにって。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/c1237ef0": {
+  "lang": "ja",
+  "text": "両方だね。毎回同じたわしを買うおばさんがいてさ、あたしと10分しゃべるためだけに。",
+  "zh": "都有吧。有個阿姨每次都買一樣的菜瓜布，就為了跟我抬槓十分鐘。",
+  "ratio": 0.868,
+  "sec": 7.508708,
+  "heard": "やあ、ホウだね。毎回同じたわしを買うおばさんがいてさ、あたしと10分喋るためだけに。",
+  "tries": 1,
+  "long": false
+ },
+ "ja/n2023_hua/53f8c85b": {
+  "lang": "ja",
+  "text": "でも、あたしももう50。喉が本当に痛むんだよ。",
+  "zh": "可是我也五十了，喉嚨真的會痛。",
+  "ratio": 1.0,
+  "sec": 4.005542,
+  "heard": "でもあたしももう50、喉が本当に痛むんだよ。",
   "tries": 1,
   "long": false
  }

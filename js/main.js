@@ -1,18 +1,18 @@
 // 進入點：讀素材清單、載入引擎（真的載不到或 ?mock=1 就用假引擎）、
 // 載入內容（?fixtures=1 用假資料；真的內容讀不到時在標題畫面顯示可重試的錯誤）。
 
-import { installErrorGuard } from './game/errors.js?v=7c27097e';
-import { VERSION } from './game/version.js?v=7c27097e';
-import { loadAssets } from './game/assets.js?v=7c27097e';
-import { loadContent } from './game/content.js?v=7c27097e';
-import { createStore } from './game/save.js?v=7c27097e';
-import { createSound, voiceKey } from './game/sound.js?v=7c27097e';
-import { Game } from './game/game.js?v=7c27097e';
-import { showTitle } from './game/ui/title.js?v=7c27097e';
-import { createHint } from './game/ui/hint.js?v=7c27097e';
-import { hintFor } from './game/hints.js?v=7c27097e';
-import { T, LANG } from './game/strings.js?v=7c27097e';
-import { createBootProgress } from './game/boot-progress.js?v=7c27097e';
+import { installErrorGuard } from './game/errors.js?v=986dcfc6';
+import { VERSION } from './game/version.js?v=986dcfc6';
+import { loadAssets } from './game/assets.js?v=986dcfc6';
+import { loadContent } from './game/content.js?v=986dcfc6';
+import { createStore } from './game/save.js?v=986dcfc6';
+import { createSound, voiceKey } from './game/sound.js?v=986dcfc6';
+import { Game } from './game/game.js?v=986dcfc6';
+import { showTitle } from './game/ui/title.js?v=986dcfc6';
+import { createHint } from './game/ui/hint.js?v=986dcfc6';
+import { hintFor } from './game/hints.js?v=986dcfc6';
+import { T, LANG } from './game/strings.js?v=986dcfc6';
+import { createBootProgress } from './game/boot-progress.js?v=986dcfc6';
 
 const params = new URLSearchParams(window.location.search);
 const opts = {
@@ -91,7 +91,7 @@ async function loadEngine() {
   if (!opts.mock) {
     try {
       progress.start('code');
-      const mod = await import('./engine/index.js?v=7c27097e');
+      const mod = await import('./engine/index.js?v=986dcfc6');
       progress.done('code');
       progress.start('city');
       const engine = await mod.createEngine({ canvas: els.canvas, minimapCanvas: els.minimap });
@@ -104,7 +104,7 @@ async function loadEngine() {
       freshCanvas('minimap');
     }
   }
-  const mock = await import('./game/dev/mock-engine.js?v=7c27097e');
+  const mock = await import('./game/dev/mock-engine.js?v=986dcfc6');
   const engine = await mock.createEngine({ canvas: els.canvas, minimapCanvas: els.minimap });
   progress.done('code');
   progress.done('city');
@@ -179,7 +179,7 @@ async function boot() {
     }
     if (content.source === 'fixtures') {
       // 假資料自帶一份極短的測試音，讓聲音的行為（該播、該停）在沒有正式音檔時也驗得到。
-      const { buildFixtureAudio } = await import('./game/dev/fixtures/audio.js?v=7c27097e');
+      const { buildFixtureAudio } = await import('./game/dev/fixtures/audio.js?v=986dcfc6');
       assets.setAudio(buildFixtureAudio(content, voiceKey));
     }
 
@@ -202,7 +202,7 @@ async function boot() {
     });
     guard.setContext(() => game.errorContext());
     if (opts.debug) {
-      const { mountDebug } = await import('./game/ui/debug.js?v=7c27097e');
+      const { mountDebug } = await import('./game/ui/debug.js?v=986dcfc6');
       mountDebug({ game, content });
       window.__DC_GAME__ = game;
     }

@@ -1,5 +1,5 @@
-import * as T from '../vendor/three.module.min.js?v=7c27097e';
-import {toWorld,metersPerUnit as unit,buildingHeightAt} from '../world.mjs?v=7c27097e';
+import * as T from '../vendor/three.module.min.js?v=986dcfc6';
+import {toWorld,metersPerUnit as unit,buildingHeightAt} from '../world.mjs?v=986dcfc6';
 
 // Vehicles face local +X. Bake small parts into one vertex-coloured surface per
 // finish, so wheels, turbine vanes and hardware don't each submit a draw call.
