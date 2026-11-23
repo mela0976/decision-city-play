@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=d89c3a18';
-import {TextureLoader} from './city-primitives.js?v=d89c3a18'; // 手機貼圖減半
-import {toWorld,metersPerUnit as unit,buildingHeightAt} from '../world.mjs?v=d89c3a18';
+import * as T from '../vendor/three.module.min.js?v=dbaa7c29';
+import {TextureLoader} from './city-primitives.js?v=dbaa7c29'; // 手機貼圖減半
+import {toWorld,metersPerUnit as unit,buildingHeightAt} from '../world.mjs?v=dbaa7c29';
 
 // Vehicles face local +X. Bake small parts into one vertex-coloured surface per
 // finish, so wheels, turbine vanes and hardware don't each submit a draw call.

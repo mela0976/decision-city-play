@@ -1,19 +1,19 @@
-import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=d89c3a18';
-import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=d89c3a18';
-import * as T from '../vendor/three.module.min.js?v=d89c3a18';
-import {mobileTextures} from './city-primitives.js?v=d89c3a18'; // 手機降級
-import {drawCockpit} from '../car-cockpit.js?v=d89c3a18'; // A26
-import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=d89c3a18';
-import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=d89c3a18'; // i18n
-import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=d89c3a18';
-import {createActors} from './actors.js?v=d89c3a18';
-import {streetCrowds} from '../crowds.mjs?v=d89c3a18';
-import {xinyiBusBay} from './street-life.js?v=d89c3a18';
-import {createFarCity} from './far-city.js?v=d89c3a18'; // A20 far-city
-import {createOsmCity} from './osm-city.js?v=d89c3a18';
-import {drain,later,release,releaseAfter,setUploader} from './idle-work.js?v=d89c3a18'; // P2 perf
-import {metersPerUnit as unit} from '../world.mjs?v=d89c3a18';
-import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=d89c3a18';
+import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=dbaa7c29';
+import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=dbaa7c29';
+import * as T from '../vendor/three.module.min.js?v=dbaa7c29';
+import {mobileTextures} from './city-primitives.js?v=dbaa7c29'; // 手機降級
+import {drawCockpit} from '../car-cockpit.js?v=dbaa7c29'; // A26
+import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=dbaa7c29';
+import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=dbaa7c29'; // i18n
+import {buildings,landmarks,locations,scooterSpeed,toWorld,roads,civicWalkway} from '../world.mjs?v=dbaa7c29';
+import {createActors} from './actors.js?v=dbaa7c29';
+import {streetCrowds} from '../crowds.mjs?v=dbaa7c29';
+import {xinyiBusBay} from './street-life.js?v=dbaa7c29';
+import {createFarCity} from './far-city.js?v=dbaa7c29'; // A20 far-city
+import {createOsmCity} from './osm-city.js?v=dbaa7c29';
+import {drain,later,release,releaseAfter,setUploader} from './idle-work.js?v=dbaa7c29'; // P2 perf
+import {metersPerUnit as unit} from '../world.mjs?v=dbaa7c29';
+import {cameraFraction,cameraObstacles,planFlyover,streetSkylineView} from './camera.js?v=dbaa7c29';
 
 const officeBuilding=buildings.find(b=>b.shape==='office');
 const xinyiView=toWorld(25.03291,121.56645);

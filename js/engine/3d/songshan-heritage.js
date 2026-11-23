@@ -1,4 +1,4 @@
-import {buildings,metersPerUnit as unit,water} from '../world.mjs?v=d89c3a18';
+import {buildings,metersPerUnit as unit,water} from '../world.mjs?v=dbaa7c29';
 
 // This long north-facing wall follows the mapped outline of the factory itself.
 // Keep each bay parallel to its wall even where the old factory bends.

@@ -1,7 +1,7 @@
-import {carRoute,carParking} from './drive-car.mjs?v=d89c3a18'; // A26
-import {crossingForNode,gateAhead,waitSeconds,junctionById} from './street-crossings.mjs?v=d89c3a18'; // A24
-import {curbContact} from './sidewalks.mjs?v=d89c3a18';
-import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit,worldContact} from './world.mjs?v=d89c3a18';
+import {carRoute,carParking} from './drive-car.mjs?v=dbaa7c29'; // A26
+import {crossingForNode,gateAhead,waitSeconds,junctionById} from './street-crossings.mjs?v=dbaa7c29'; // A24
+import {curbContact} from './sidewalks.mjs?v=dbaa7c29';
+import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit,worldContact} from './world.mjs?v=dbaa7c29';
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const drivable=new Map(),edgeSignals=new Map();
 function laneGate(key,a,b,edge){

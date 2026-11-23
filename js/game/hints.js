@@ -1,7 +1,7 @@
 // 下方提示列的內容：依目前狀態與輸入方式（鍵盤或觸控）決定。
 // 回傳 { task, parts }；parts 每段是 { keys: [鍵帽…], text }。
 
-import { T, KEY, HINT } from './strings.js?v=d89c3a18';
+import { T, KEY, HINT } from './strings.js?v=dbaa7c29';
 
 // A24 the engine publishes wait transitions on its canvas before refreshing the ride hint.
 let waitingForSignal=false;

@@ -1,5 +1,5 @@
 import landuse from './data/xinyi-landuse.json' with {type:'json'};
-import {metersPerUnit as unit,toWorld,inWuxing,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs?v=d89c3a18';
+import {metersPerUnit as unit,toWorld,inWuxing,roadAt,worldContact,random,roads,locations,civicWalkway} from './world.mjs?v=dbaa7c29';
 
 // Residential rings keep their original character; the wide ring covers every other gap in the map.
 const neighborhoods=[
@@ -8,7 +8,7 @@ const neighborhoods=[
   {center:toWorld(25.044,121.5596),radius:255,civic:false},
   {center:toWorld(25.0335,121.5640),radius:1150,civic:false,sparse:true},
 ];
-import {occupancy} from './collision.mjs?v=d89c3a18';
+import {occupancy} from './collision.mjs?v=dbaa7c29';
 const civicCenter=toWorld(25.0375,121.5664);
 const walkwayHalfWidth=20/unit;
 

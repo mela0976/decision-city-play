@@ -1,11 +1,11 @@
 // Seasonal lighting follows existing plaza trees, facade polygons and elevated footways.
-import * as T from '../vendor/three.module.min.js?v=d89c3a18';
-import {courtPlanters,courtPoint} from '../entry-courts.mjs?v=d89c3a18';
-import {buildings,byId,civicWalkway,metersPerUnit as unit,toWorld} from '../world.mjs?v=d89c3a18';
-import {marketCarts,nightMarketOpen} from '../night-market.mjs?v=d89c3a18';
-import {visitLandscapeTrees} from './vegetation.js?v=d89c3a18';
-import {skywalks} from './landmarks.js?v=d89c3a18';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=d89c3a18';
+import * as T from '../vendor/three.module.min.js?v=dbaa7c29';
+import {courtPlanters,courtPoint} from '../entry-courts.mjs?v=dbaa7c29';
+import {buildings,byId,civicWalkway,metersPerUnit as unit,toWorld} from '../world.mjs?v=dbaa7c29';
+import {marketCarts,nightMarketOpen} from '../night-market.mjs?v=dbaa7c29';
+import {visitLandscapeTrees} from './vegetation.js?v=dbaa7c29';
+import {skywalks} from './landmarks.js?v=dbaa7c29';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=dbaa7c29';
 
 // Crop just the glazing from the two authored retail atlases. Other materials retain their full UVs.
 const glazing=shapes.plane.clone();
