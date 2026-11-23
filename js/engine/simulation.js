@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=441539db'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=441539db'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=441539db'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=441539db'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=441539db';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=441539db'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=441539db';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=441539db'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=441539db';
-import {neonDistrict} from './neon-districts.mjs?v=441539db'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=441539db';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=441539db';
-import {streetCrowds} from './crowds.mjs?v=441539db';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=441539db';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=441539db';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=441539db';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=441539db';
-import { touchControls } from './overlay.js?v=441539db';
-import {setLabels,placeLabel} from './labels.mjs?v=441539db'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=7c27097e'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=7c27097e'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=7c27097e'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=7c27097e'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=7c27097e';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=7c27097e'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=7c27097e';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=7c27097e'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=7c27097e';
+import {neonDistrict} from './neon-districts.mjs?v=7c27097e'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=7c27097e';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=7c27097e';
+import {streetCrowds} from './crowds.mjs?v=7c27097e';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=7c27097e';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=7c27097e';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=7c27097e';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=7c27097e';
+import { touchControls } from './overlay.js?v=7c27097e';
+import {setLabels,placeLabel} from './labels.mjs?v=7c27097e'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));

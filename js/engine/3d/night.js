@@ -1,10 +1,10 @@
-import * as T from '../vendor/three.module.min.js?v=441539db';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=441539db';
-import {venues,venuePoint} from '../venue-entrances.mjs?v=441539db'; // A27
-import {byId,metersPerUnit as unit} from '../world.mjs?v=441539db';
-import {signalState} from '../street-crossings.mjs?v=441539db'; // A24
-import {marketCarts,nightMarketOpen} from '../night-market.mjs?v=441539db';
-import {nightScenes,vendorCounters} from './night-scenes.js?v=441539db';
+import * as T from '../vendor/three.module.min.js?v=7c27097e';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=7c27097e';
+import {venues,venuePoint} from '../venue-entrances.mjs?v=7c27097e'; // A27
+import {byId,metersPerUnit as unit} from '../world.mjs?v=7c27097e';
+import {signalState} from '../street-crossings.mjs?v=7c27097e'; // A24
+import {marketCarts,nightMarketOpen} from '../night-market.mjs?v=7c27097e';
+import {nightScenes,vendorCounters} from './night-scenes.js?v=7c27097e';
 
 export const windowKinds=['old','oldB','oldC','new','towerB','towerC','office'];
 const shopKinds=[...'abcdefghijkl'].map(letter=>'shop'+letter).concat('mall');

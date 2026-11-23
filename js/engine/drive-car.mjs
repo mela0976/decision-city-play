@@ -1,6 +1,6 @@
 // A26 passenger-car dimensions are half extents in simulation units.
-import {metersPerUnit as unit, nearestOnRoad, roadAt, roadNodes, roadOptions, worldContact} from './world.mjs?v=441539db';
-import {carriagewayAt, curbContact} from './sidewalks.mjs?v=441539db';
+import {metersPerUnit as unit, nearestOnRoad, roadAt, roadNodes, roadOptions, worldContact} from './world.mjs?v=7c27097e';
+import {carriagewayAt, curbContact} from './sidewalks.mjs?v=7c27097e';
 
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 export const carLength=2.35/unit, carWidth=.95/unit;
