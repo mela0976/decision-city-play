@@ -18,52 +18,62 @@
     "title_key": {
       "src": "assets/img/title_key.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "62% 50%"
     },
     "book_2018": {
       "src": "assets/img/book_2018.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "34% 20%"
     },
     "book_2019": {
       "src": "assets/img/book_2019.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "54% 15%"
     },
     "book_2020": {
       "src": "assets/img/book_2020.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "38% 15%"
     },
     "book_2021": {
       "src": "assets/img/book_2021.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "34% 15%"
     },
     "book_2022": {
       "src": "assets/img/book_2022.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "53% 15%"
     },
     "book_2023": {
       "src": "assets/img/book_2023.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "28% 25%"
     },
     "book_2024": {
       "src": "assets/img/book_2024.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "42% 15%"
     },
     "book_2025": {
       "src": "assets/img/book_2025.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "62% 22%"
     },
     "book_2026": {
       "src": "assets/img/book_2026.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "41% 20%"
     },
     "loc_office": {
       "src": "assets/img/loc_office.webp",
@@ -98,27 +108,32 @@
     "ending_s": {
       "src": "assets/img/ending_s.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "60% 40%"
     },
     "ending_a": {
       "src": "assets/img/ending_a.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "50% 30%"
     },
     "ending_b": {
       "src": "assets/img/ending_b.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "33% 30%"
     },
     "ending_c": {
       "src": "assets/img/ending_c.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "56% 50%"
     },
     "ending_grandma": {
       "src": "assets/img/ending_grandma.webp",
       "w": 1600,
-      "h": 900
+      "h": 900,
+      "focus": "52% 30%"
     },
     "intro_poster": {
       "src": "assets/img/intro_poster.webp",

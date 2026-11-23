@@ -15,6 +15,7 @@ import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=7c913f1f'
 import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=7c913f1f';
 import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=7c913f1f';
 import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=7c913f1f';
+import {planFlight} from './flight-path.mjs?v=7c913f1f';
 import { touchControls } from './overlay.js?v=7c913f1f';
 import {setLabels,placeLabel} from './labels.mjs?v=7c913f1f'; // i18n
 
@@ -1020,7 +1021,11 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         if(teslaHop){pendingRide=true;rideFailed('landing');return;}
         const flight=planRide(player,state.target,[],{clock:state.clock,hour:state.time,speed:ridingSpeed(),car:true});
         if(!flight?.length){rideFailed('route');return;}
-        route=[...flight];state.rideFail=null;rideStarted=state.clock;
+        // 不管道路：只取汽車路線的降落點（終點旁的車道），從現在位置找繞開建築的最短航線
+        const landing=flight[flight.length-1];
+        const hitsBuilding=(x,y)=>buildingHeightAt(x,y,4.5*speedUnits,4.5*speedUnits,0)>0; // 機身加餘裕，離建築至少約 4.5 公尺
+        route=planFlight(player,{x:landing.x,y:landing.y},hitsBuilding,{cell:5*speedUnits,margin:150*speedUnits});
+        state.rideFail=null;rideStarted=state.clock;
         emit('autoride:change',{on:true,reason:'started'});
         return;
       }
@@ -2100,7 +2105,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         if(!detour&&player.mode==='scooter'&&route.length>1&&!route[0].turnSignal&&!route[0].curbPivot&&distance(player,route[0])<6*speedUnits){ // 只跳過身邊 6 公尺內到不了的點；遠處的路線點不能丟
           const p0=route[0],p1=route[1],r=radius.rider;
           const stuckOn=a=>curbContact(p0.x,p0.y,r,.37*speedUnits,a)||worldContact(p0.x,p0.y,r,.37/metersPerUnit,a);
-          if(stuckOn(Math.atan2(p1.y-p0.y,p1.x-p0.x))&&stuckOn(Math.atan2(p0.y-player.y,p0.x-player.x))){route.shift();continue;}
+          if(stuckOn(Math.atan2(p1.y-p0.y,p1.x-p0.x))&&stuckOn(Math.atan2(p0.y-player.y,p0.x-player.x))){if(rideDebug)(state.navSkips??=[]).push({k:'near',x:p0.x,y:p0.y,t:state.clock});route.shift();continue;}
         }
         const next=detour??route[0],gap=distance(player,next);
         let step=Math.min(gap,budget);
@@ -2312,6 +2317,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
                 player.heading=facing;
                 const clear=sweep(player.x,player.y,future.x,future.y,wall);
                 if(clear.x===future.x&&clear.y===future.y&&!contact(player.x,player.y)){
+                  if(rideDebug)(state.navSkips??=[]).push({k:'splice',n:i,x:route[0].x,y:route[0].y,px:player.x,py:player.y,t:state.clock});
                   route.splice(0,i);break;
                 }
               }
@@ -2340,7 +2346,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
               heldAtSignal=true;notifySignal(j,delay);break;
             }
           }
-          if(detour){route.splice(0,detour.resume);detour=null;}
+          if(detour){if(rideDebug)(state.navSkips??=[]).push({k:'detour',n:detour.resume,x:route[0].x,y:route[0].y,t:state.clock});route.splice(0,detour.resume);detour=null;}
           else { // A26 only mark a lane point passed when the car actually reaches it.
             const point=route.shift(),i=driving&&carItinerary?carItinerary.indices.get(point):undefined;
             if(i!==undefined)carItinerary.next=Math.max(carItinerary.next,i+1);
@@ -2630,6 +2636,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     signalAt(id){const j=junctionById.get(id);return j?signalState(j,state.clock,state.time):null;},
     get autoRide() {return Boolean(route);},
     get rideDebugState(){return rideDebug?state:null;}, // ?rideDebug probes read blockedRide/rideFail/frameCost
+    get rideDebugRoute(){return rideDebug&&route?{points:route.map(p=>({x:p.x,y:p.y,t:p.turnSignal?1:0,c:p.curbPivot?1:0})),detour:detour&&{x:detour.x,y:detour.y}}:null;}, // probe-turn 讀路線點
     get inputMode() {return inputMode;},
     get player() {return Object.freeze({...player});},
     setPlayerSkin(skin) {

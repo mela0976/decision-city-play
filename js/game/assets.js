@@ -50,7 +50,8 @@ export async function loadAssets() {
 
   /** 一塊插畫：永遠先有色塊，圖載入成功才蓋上去。kind：wide（16:9）、portrait（3:4）、square。 */
   const art = (key, { kind = 'wide', alt = '', className = '' } = {}) => {
-    const box = h('div', { class: `art art--${kind} ${className}`.trim(), dataset: { tone: String(toneOf(key)), key: key || '' } });
+    const focus = manifest.images?.[key]?.focus; // 裁切時保留的重點（例如人物的臉），手機直向畫面特別需要
+    const box = h('div', { class: `art art--${kind} ${className}`.trim(), dataset: { tone: String(toneOf(key)), key: key || '' }, vars: focus ? { '--focus': focus } : undefined });
     const src = imageSrc(key);
     if (src) {
       const img = h('img', { alt, decoding: 'async', draggable: 'false' });

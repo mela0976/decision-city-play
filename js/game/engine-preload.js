@@ -48,6 +48,7 @@ export const ENGINE_MODULES = [
   "js/engine/neon-districts.mjs?v=7c913f1f",
   "js/engine/crowds.mjs?v=7c913f1f",
   "js/engine/navigation.js?v=7c913f1f",
+  "js/engine/flight-path.mjs?v=7c913f1f",
   "js/engine/3d/render.js?v=7c913f1f",
   "js/engine/3d/sky-light.js?v=7c913f1f",
   "js/engine/3d/pbr.js?v=7c913f1f",

@@ -613,7 +613,7 @@ body:has(dialog[open]) .scene-art img {
 
 /* 裁切時保留人物頭頂，多切下方 */
 .scene-art img {
-  object-position: 50% 22%;
+  object-position: var(--focus, 50% 22%);
 }
 
 .scene-art {

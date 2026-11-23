@@ -632,6 +632,7 @@ kbd {
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
+  object-position: var(--focus, 50% 50%);
   opacity: 0;
   transition: opacity 0.5s;
 }
