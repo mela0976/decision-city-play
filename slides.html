@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>3 分鐘作品簡報｜決策之城 Decision City</title>
+  <meta name="description" content="《決策智慧》10 週年 Vibe Coding 競賽 3 分鐘互動簡報：決策之城 Decision City 作品介紹、製作緣由、操作說明、Vibe Coding 實作與部署資安自評。" />
+  <link rel="icon" type="image/png" href="assets/img/icon.png" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #06080c;
+      --night: #0b1018;
+      --panel: #0d131c;
+      --panel-soft: rgba(16, 23, 34, 0.88);
+      --line: rgba(255, 255, 255, 0.16);
+      --line-strong: rgba(255, 255, 255, 0.36);
+      --text: #f3f0e9;
+      --muted: #b8c0cc;
+      --paper: #efe9d9;
+      --neon: #3dff9a;
+      --neon-ink: #071910;
+      --post: #0b7a55;
+      --red: #ff6958;
+      --taxi: #f5c400;
+      --sunset: #ff9f54;
+      --font: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Noto Sans Mono CJK TC", monospace;
+      --pad: clamp(0.75rem, 1.5vw, 1.5rem);
+      --tex-tile:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background-color: var(--ink);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: clamp(15px, 0.35vw + 13.5px, 18px);
+      line-height: 1.55;
+      overflow: hidden;
+    }
+
+    body {
+      background-image:
+        radial-gradient(circle at 12% 14%, rgba(61, 255, 154, 0.12), transparent 42%),
+        radial-gradient(circle at 88% 82%, rgba(11, 122, 85, 0.2), transparent 46%),
+        var(--tex-tile);
+      background-size: 100% 100%, 100% 100%, 28px 14px;
+    }
+
+    :where(a, button):focus-visible {
+      outline: 3px solid var(--neon);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .deck {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      height: 100dvh;
+      max-width: 1340px;
+      margin: 0 auto;
+      padding:
+        max(10px, env(safe-area-inset-top))
+        max(var(--pad), env(safe-area-inset-right))
+        max(10px, env(safe-area-inset-bottom))
+        max(var(--pad), env(safe-area-inset-left));
+      gap: 10px;
+    }
+
+    /* 頂部列 */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 8px 14px;
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      letter-spacing: 0.02em;
+    }
+
+    .plate-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: var(--post);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pace-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(61, 255, 154, 0.4);
+      background: rgba(61, 255, 154, 0.1);
+      color: var(--neon);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-block-size: 40px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.14s ease, border-color 0.14s ease, background-color 0.14s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--neon);
+      background: rgba(61, 255, 154, 0.12);
+    }
+
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: var(--neon);
+      color: var(--neon-ink);
+      border-color: transparent;
+    }
+
+    .btn-primary:hover {
+      background: #67ffb2;
+      border-color: transparent;
+    }
+
+    .btn[disabled] {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    /* 主投影片舞台 */
+    .stage {
+      position: relative;
+      min-height: 0;
+    }
+
+    .slide {
+      display: none;
+      height: 100%;
+      overflow-y: auto;
+      padding: clamp(16px, 2.4vw, 30px);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(12px, 1.8vh, 20px);
+      animation: slideIn 180ms ease-out;
+    }
+
+    .slide.is-active { display: flex; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide { animation: none; }
+      .btn { transition: none; }
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--neon);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.75rem, 1.1rem + 2.5vw, 2.85rem);
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+    }
+
+    h1 .sub-en {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.56em;
+      font-weight: 700;
+      color: var(--neon);
+      letter-spacing: 0.04em;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 1rem + 1.4vw, 2rem);
+      line-height: 1.22;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--paper);
+    }
+
+    p { margin: 0; }
+
+    .lead {
+      font-size: clamp(0.95rem, 0.86rem + 0.45vw, 1.12rem);
+      color: var(--paper);
+      max-width: 74ch;
+    }
+
+    .muted { color: var(--muted); }
+
+    /* 版面格線 */
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+      gap: clamp(14px, 2vw, 24px);
+      align-items: center;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--line);
+    }
+
+    .card-accent {
+      border-color: rgba(61, 255, 154, 0.42);
+      background: rgba(61, 255, 154, 0.06);
+    }
+
+    .card-warn {
+      border-color: rgba(245, 196, 0, 0.42);
+      background: rgba(245, 196, 0, 0.06);
+    }
+
+    .card-warm {
+      border-color: rgba(255, 159, 84, 0.45);
+      background: rgba(255, 159, 84, 0.07);
+    }
+
+    .stat-num {
+      font-family: var(--mono);
+      font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+      font-weight: 800;
+      color: var(--neon);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .stat-num.taxi { color: var(--taxi); }
+    .stat-num.sunset { color: var(--sunset); }
+    .stat-num.red { color: var(--red); }
+
+    .stat-label {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 1.2em;
+      display: grid;
+      gap: 7px;
+      font-size: 0.92rem;
+      color: var(--paper);
+    }
+
+    .list li strong { color: #ffffff; }
+
+    /* 圖片框 */
+    .frame {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: #090d14;
+      aspect-ratio: 16 / 10;
+    }
+
+    .frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .frame-caption {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(6, 8, 12, 0.84);
+      border: 1px solid var(--line);
+      font-size: 0.78rem;
+      color: var(--paper);
+    }
+
+    .mini-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .thumb {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #0a0f17;
+      aspect-ratio: 4 / 3;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 鍵帽與操作表 */
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      border: 1px solid var(--line-strong);
+      border-bottom-width: 2px;
+      background: #161f2c;
+      color: #ffffff;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .key-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .key-table th, .key-table td {
+      text-align: left;
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .key-table th {
+      color: var(--neon);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    /* 講者備忘（不搶版面，提供 3 分鐘口述參考） */
+    .cue {
+      padding: 10px 14px;
+      border-left: 3px solid var(--neon);
+      background: rgba(61, 255, 154, 0.06);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .cue strong { color: var(--neon); }
+
+    /* 底部控制列 */
+    .footerbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 14px;
+      background: var(--panel-soft);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      min-width: 34px;
+      min-block-size: 34px;
+      padding: 0 8px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .dot:hover {
+      border-color: var(--line-strong);
+      color: #ffffff;
+    }
+
+    .dot[aria-current="step"] {
+      background: var(--neon);
+      color: var(--neon-ink);
+      border-color: transparent;
+      font-weight: 800;
+    }
+
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-counter {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      min-width: 5ch;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .split, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .slide { justify-content: flex-start; }
+    }
+
+    @media (forced-colors: active) {
+      .slide, .card, .topbar, .footerbar, .btn, .dot {
+        border: 1px solid CanvasText;
+      }
+      .dot[aria-current="step"], .btn-primary {
+        border: 2px solid Highlight;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="topbar">
+      <div class="brand">
+        <span class="plate-badge">信義區｜松高路 × 松智路</span>
+        <span>決策之城 Decision City — 3 分鐘作品簡報</span>
+      </div>
+      <div class="top-actions">
+        <span class="pace-pill" id="pacePill" title="3 分鐘建議節奏">00:00 / 03:00</span>
+        <button type="button" class="btn" id="timerBtn" aria-pressed="false">開始計時</button>
+        <a class="btn btn-primary" href="./index.html" target="_blank" rel="noopener">開啟實機遊戲 →</a>
+      </div>
+    </header>
+
+    <main class="stage" id="stage" aria-label="簡報投影片區域">
+      <!-- Slide 1: Cover -->
+      <section class="slide is-active" data-title="作品定位" data-pace="0:00–0:20" aria-hidden="false">
+        <div class="split">
+          <div style="display:grid; gap:14px;">
+            <span class="kicker">01 / 08 · 0:00–0:20 · 《決策智慧》10 週年 VIBE CODING 競賽</span>
+            <h1>
+              決策之城 Decision City
+              <span class="sub-en">2018–2026 九本年鑑 × 台北信義區 3D 代理商生存遊戲</span>
+            </h1>
+            <p class="lead">
+              選一個代理商職能，騎車在 2026 台北信義區過完一個工作天，一天走過九年《決策智慧》。不用安裝、不用登入，手機與桌機打開網址就能玩。
+            </p>
+            <div class="grid-3">
+              <div class="card card-accent">
+                <div class="stat-num">9 年 9 關</div>
+                <div class="stat-label">9 本年鑑＋89 支線＋108 題庫</div>
+              </div>
+              <div class="card">
+                <div class="stat-num taxi">6+1 角色</div>
+                <div class="stat-label">6 職能專屬劇本＋阿嬤彩蛋</div>
+              </div>
+              <div class="card">
+                <div class="stat-num sunset">3 語 4,836 音</div>
+                <div class="stat-label">中英日介面與全對話配音</div>
+              </div>
+            </div>
+            <p class="muted" style="font-size:0.86rem;">
+              參賽者：蔡政霖 Lewis Tsai（DSC）｜提示：使用鍵盤 <kbd>←</kbd> <kbd>→</kbd> 或下方按鈕換頁
+            </p>
+          </div>
+          <div class="frame">
+            <img src="assets/img/title_key.webp" alt="決策之城遊戲主視覺：夜晚雨後的台北信義區街景與機車騎士" />
+            <div class="frame-caption">《決策之城》實機主視覺：2026 台北信義區夜晚，代理商的一天從 08:00 吳興街出發</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 2: Motivation -->
+      <section class="slide" data-title="製作緣由" data-pace="0:20–0:45" aria-hidden="true">
+        <span class="kicker">02 / 08 · 0:20–0:45 · 製作緣由與解決什麼閱讀問題</span>
+        <h2>把 785 頁年度趨勢報告，變成「玩完就記得三年洞察」的城市現場</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>原本的閱讀門檻</h3>
+            <ul class="list">
+              <li><strong>份量龐大：</strong>2018–2026 九本《決策智慧》合計約 785 頁，內容紮實但能從頭讀完的人少。</li>
+              <li><strong>脈絡斷裂：</strong>新人訓與客戶很難在短時間內看懂「九年來行銷決策到底怎麼變」。</li>
+              <li><strong>缺少體感：</strong>只看報告摘要容易流於背口號，難以理解預算、品牌與客戶信任之間的真實取捨。</li>
+            </ul>
+          </div>
+          <div class="card card-accent">
+            <h3>我們的設計解法</h3>
+            <ul class="list">
+              <li><strong>一天走過九年：</strong>08:30 捷運戶外看板（2018）一路跑到 21:00 Agentic 時代加班夜（2026）。</li>
+              <li><strong>每個現場都有代價：</strong>沒有「全錯選項」，三選一抉擇後立即對照「書中依據」與年鑑原意。</li>
+              <li><strong>15–25 分鐘一輪：</strong>破關拿到九張年鑑圖鑑與成績單，還可用「年度選擇」重玩補支線。</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cue">
+          <strong>講者提示：</strong> 點出核心目標——不是把 PDF 貼到網頁上，而是讓代理商同仁在「被客戶催、被肝指數追」的情境裡親自做決策。
+        </div>
+      </section>
+
+      <!-- Slide 3: Content Curation -->
+      <section class="slide" data-title="內容策展" data-pace="0:45–1:15" aria-hidden="true">
+        <span class="kicker">03 / 08 · 0:45–1:15 · 閱讀體驗與內容策展（40%）</span>
+        <h2>九年主題 × 六大職能 × 台灣街頭味，忠於原著又好讀好玩</h2>
+        <div class="split">
+          <div style="display:grid; gap:12px;">
+            <div class="card">
+              <h3>1. 六種代理商職能，各有專屬劇本與加成</h3>
+              <p class="muted" style="font-size:0.88rem;">
+                業務 AE、策略企劃、媒體企劃、創意、數據分析師、CX／電商顧問——同一場會議，不同職能看到的對話、提示與數值加成都不一樣。
+              </p>
+            </div>
+            <div class="card">
+              <h3>2. 四項真實指標：品牌力・業績・客戶信任・肝指數</h3>
+              <p class="muted" style="font-size:0.88rem;">
+                問答與抉擇拉扯長短期績效；肝指數衝到 100 會強制帶去「吳興街熱炒」收工結算，去「彩虹河濱公園」或「巷口早餐店」才能喘口氣。
+              </p>
+            </div>
+            <div class="card card-warm">
+              <h3>3. 彩蛋「阿嬤模組」與長輩圖生成器</h3>
+              <p class="muted" style="font-size:0.88rem;">
+                標題輸入 <kbd>AMA</kbd> 或去福德街土地公廟拜三次解鎖：換騎電動代步車（車流禮讓）、暖色濾鏡、第 4 個長輩生活經驗選項，還能挑年鑑金句做成早安長輩圖下載分享。
+              </p>
+            </div>
+          </div>
+          <div style="display:grid; gap:10px;">
+            <div class="mini-gallery">
+              <div class="thumb"><img src="assets/img/role_ae.webp" alt="業務 AE 角色插畫" /></div>
+              <div class="thumb"><img src="assets/img/role_planner.webp" alt="策略企劃角色插畫" /></div>
+              <div class="thumb"><img src="assets/img/role_creative.webp" alt="創意角色插畫" /></div>
+              <div class="thumb"><img src="assets/img/loc_office.webp" alt="富幫 A25 辦公大樓場景" /></div>
+              <div class="thumb"><img src="assets/img/avatar_grandma.webp" alt="阿嬤模組角色頭像" /></div>
+              <div class="thumb"><img src="assets/img/ending_s.webp" alt="S 級結局慶功插畫" /></div>
+            </div>
+            <div class="card" style="padding:10px 14px;">
+              <p style="font-size:0.84rem; color:var(--paper);">
+                <strong>15 個信義區真實／諧音地標：</strong>富幫 A25、台北一洞么、鬆山文創、大巨旦、思思南村柑仔店、拎薑街夜市⋯⋯搭配九個年代電台跑馬燈與 108 題實戰題庫。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 4: Controls & Gameplay -->
+      <section class="slide" data-title="操作描述" data-pace="1:15–1:45" aria-hidden="true">
+        <span class="kicker">04 / 08 · 1:15–1:45 · 操作說明：30 秒看懂怎麼玩</span>
+        <h2>桌機鍵盤與手機觸控雙模式，簡單三個動作就能跑完整座城</h2>
+        <div class="grid-2">
+          <div class="card">
+            <h3>基本操作（含 60 秒新手互動教學）</h3>
+            <table class="key-table">
+              <thead>
+                <tr>
+                  <th scope="col">操作</th>
+                  <th scope="col">桌機鍵盤</th>
+                  <th scope="col">手機觸控</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>移動轉向</strong></td>
+                  <td><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 或 <kbd>WASD</kbd></td>
+                  <td>左下角虛擬搖桿</td>
+                </tr>
+                <tr>
+                  <td><strong>萬用動作鍵</strong></td>
+                  <td><kbd>Space</kbd> / <kbd>Enter</kbd> / <kbd>E</kbd></td>
+                  <td>右下角大顆動作按鈕</td>
+                </tr>
+                <tr>
+                  <td><strong>自動前往</strong></td>
+                  <td><kbd>G</kbd>（沿路網導航到任務點）</td>
+                  <td>動作鍵旁小按鈕</td>
+                </tr>
+                <tr>
+                  <td><strong>上下車 / 步行</strong></td>
+                  <td><kbd>F</kbd>（停門前也會自動下車）</td>
+                  <td>車型 / 步行切換鈕</td>
+                </tr>
+                <tr>
+                  <td><strong>飛天電動車</strong></td>
+                  <td><kbd>T</kbd>（升空巡航越過車流）</td>
+                  <td>飛天車按鈕</td>
+                </tr>
+                <tr>
+                  <td><strong>大地圖 / 選單</strong></td>
+                  <td><kbd>M</kbd> 大地圖・<kbd>Esc</kbd> 選單</td>
+                  <td>點小地圖・點 ☰ 選單</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="display:grid; gap:12px;">
+            <div class="card card-accent">
+              <h3>為什麼鼓勵「自己騎」？</h3>
+              <ul class="list">
+                <li><strong>準時獎勵：</strong>限時任務全程自己騎並在倒數內抵達，<strong>客戶信任 +2</strong>（剩一半以上時間 +3）；使用自動前往則無。</li>
+                <li><strong>路邊靈感 ✦：</strong>路上散落數十個靈感點，騎車經過自動收集進提案附錄，<strong>每 5 個品牌力 +1</strong>。</li>
+              </ul>
+            </div>
+            <div class="card card-warn">
+              <h3>卡關保護與三語切換</h3>
+              <ul class="list">
+                <li>撞車或撞牆只會輕微減速震動，不會死亡卡死。</li>
+                <li>選單隨時提供<strong>「回到路上」</strong>脫困、<strong>中／英／日三語切換</strong>、音量獨立調整與結局分享圖下載。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 5: Vibe Coding Architecture -->
+      <section class="slide" data-title="Vibe Coding 實作" data-pace="1:45–2:15" aria-hidden="true">
+        <span class="kicker">05 / 08 · 1:45–2:15 · VIBE CODING 實作力（30%）</span>
+        <h2>規格契約先行的多代理工廠：4 個平行分支 × 4 類生成式 AI 工具</h2>
+        <div class="grid-4">
+          <div class="card card-accent">
+            <div class="stat-num">Step 0–1</div>
+            <h3>讀書與定契約</h3>
+            <p class="muted" style="font-size:0.84rem;">
+              9 個 Claude 子代理先拆讀九本書出摘要與 108 題題庫；撰寫 <code>PRD.md</code> 與 <code>CONTRACTS.md</code> 鎖定資料與引擎介面。
+            </p>
+          </div>
+          <div class="card">
+            <div class="stat-num taxi">A · 引擎</div>
+            <h3>Codex 寫 3D 城</h3>
+            <p class="muted" style="font-size:0.84rem;">
+              Three.js + OpenStreetMap 真實信義區路網：車道方向、紅綠燈、雙向斑馬線、小地圖、日夜雨天、飛天車高空導航與 2D 備援。
+            </p>
+          </div>
+          <div class="card">
+            <div class="stat-num">B+C · 遊戲</div>
+            <h3>Claude 做系統</h3>
+            <p class="muted" style="font-size:0.84rem;">
+              純原生 ES Modules 狀態機、六職能各自劇本、89 個支線任務、長輩圖 Canvas 生成器、Web Audio 音效與無障礙響應式介面。
+            </p>
+          </div>
+          <div class="card card-warm">
+            <div class="stat-num sunset">D · 視聽</div>
+            <h3>多模態 AI 素材</h3>
+            <p class="muted" style="font-size:0.84rem;">
+              <code>gpt-image 2.6</code> 產寫實劇照與 3D 寫實載具、<code>Higgsfield</code> 產 6 支過場影片、<code>Gemini TTS</code>＋<code>VoAI</code> 產 4,836 段三語配音。
+            </p>
+          </div>
+        </div>
+        <div class="card">
+          <p style="font-size:0.9rem;">
+            <strong>關鍵工程紀律：</strong> 四個分支寫入範圍互斥，遊戲層先用 <code>mock-engine.js</code> 獨立開發，再接上真 Three.js 引擎並進行自動化全流程實機回歸測試（6 職能 × 9 任務 × 三語掃描）。
+          </p>
+        </div>
+      </section>
+
+      <!-- Slide 6: Build Journey -->
+      <section class="slide" data-title="製作歷程" data-pace="2:15–2:40" aria-hidden="true">
+        <span class="kicker">06 / 08 · 2:15–2:40 · 製作歷程：遇到問題怎麼調整</span>
+        <h2>從「第一版 2D 展示品」到「陌生玩家真機能玩 20 分鐘的 3D 產品」</h2>
+        <div class="grid-3">
+          <div class="card">
+            <h3>轉向一：視覺與維度升級</h3>
+            <p class="muted" style="font-size:0.86rem;">
+              原採插畫與俯視 2D，檢視後下令重做為<strong>電影感寫實劇照＋3D 第三人稱信義區</strong>，並以「台灣日常質感」（磨石子、小口磚、郵局綠路牌、鐵窗花）取代一般科技感介面。
+            </p>
+          </div>
+          <div class="card card-accent">
+            <h3>轉向二：上線前缺口盤點</h3>
+            <p class="muted" style="font-size:0.86rem;">
+              盤點「玩家為什麼會在第一分鐘離開」：把人物移動改成<strong>以角色視角轉向</strong>、加 60 秒晨會路上教學、全地點門洞碰撞、4G 載入從 <strong>25.1 秒壓到 11.7–14.1 秒</strong>。
+            </p>
+          </div>
+          <div class="card card-warn">
+            <h3>轉向三：真機驗證與除錯</h3>
+            <p class="muted" style="font-size:0.86rem;">
+              修正 763 個路口箭頭、1,254 根號誌燈桿位置、汽車自動導航沿用偏好、飛天車遇高樓改高空巡航並用三語提示被擋原因，並做雙向道斑馬線對齊。
+            </p>
+          </div>
+        </div>
+        <div class="cue">
+          <strong>製作心得：</strong> Vibe Coding 最難的不是生成第一版，而是用契約、自動化測試證據（<code>tests/evidence/</code>）與真機試玩，一輪輪把卡住玩家的細節修掉。
+        </div>
+      </section>
+
+      <!-- Slide 7: Deployment & Security -->
+      <section class="slide" data-title="部署與資安" data-pace="2:40–3:00" aria-hidden="true">
+        <span class="kicker">07 / 08 · 2:40–3:00 · 部署思路與資安自評（15%）</span>
+        <h2>純靜態零後端部署 × 私有／公開雙庫隔離，從根源杜絕金鑰與原文外洩</h2>
+        <div class="grid-3">
+          <div class="card card-accent">
+            <h3>1. 放哪裡＆為什麼</h3>
+            <ul class="list">
+              <li><strong>GitHub Pages 靜態託管：</strong><code>mela0976.github.io/decision-city-play/</code></li>
+              <li><strong>零框架零打包工具：</strong>純 HTML + CSS + ES Modules，Three.js 與音圖資全數自架於同站，開啟即玩、不需維護伺服器。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>2. 後端與隱私設計</h3>
+            <ul class="list">
+              <li><strong>無後端、無資料庫：</strong>沒有會員註冊、沒有登入牆、沒有第三方追蹤碼（Analytics）。</li>
+              <li><strong>純本機存檔：</strong>進度、設定與語音狀態只寫在玩家自己的 <code>localStorage</code>，不蒐集任何個人資料。</li>
+            </ul>
+          </div>
+          <div class="card card-warn">
+            <h3>3. 資安與版權檢查項目</h3>
+            <ul class="list">
+              <li><strong>雙倉庫隔離：</strong>年鑑 PDF、InDesign 與設計文件留在私有庫；<code>publish.sh</code> 只同步執行期靜態檔案至公開庫。</li>
+              <li><strong>金鑰零內嵌：</strong>語音在離線建置時先預錄成 MP3；發布腳本每次推送前自動掃描 <code>AIza...</code> 等 API 金鑰，並確認無客戶機密或帳密。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 8: Closing -->
+      <section class="slide" data-title="實機體驗" data-pace="3:00 收尾" aria-hidden="true">
+        <div class="split">
+          <div style="display:grid; gap:14px;">
+            <span class="kicker">08 / 08 · Q&A · 歡迎評審現在就打開手機或電腦試玩</span>
+            <h2>一天走過九年，《決策之城》等你上車</h2>
+            <p class="lead">
+              所有內容取自 2018–2026 九本《決策智慧》，並加上真實代理商的日常掙扎與台灣味彩蛋。試試輸入 <kbd>AMA</kbd> 召喚台灣阿嬤一起跑業務！
+            </p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn btn-primary" href="./index.html" target="_blank" rel="noopener">立即進入《決策之城》→</a>
+              <button type="button" class="btn" id="restartDeckBtn">回到第 1 頁</button>
+            </div>
+            <div class="card" style="font-size:0.86rem;">
+              <p><strong>作品網址：</strong> <code>https://mela0976.github.io/decision-city-play/</code></p>
+              <p><strong>聯絡人：</strong> 蔡政霖 Lewis Tsai（DSC）｜ <code>lewis.tsai@dentsu.com</code></p>
+            </div>
+          </div>
+          <div class="frame">
+            <img src="assets/img/loc_client_hq.webp" alt="台北信義區超高樓客戶總部夜景" />
+            <div class="frame-caption">台北一洞么客戶總部：每個時代的廣告人，都在這裡做下關鍵決策</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footerbar">
+      <nav class="dots" id="dots" aria-label="投影片頁碼導覽"></nav>
+      <div class="nav-group">
+        <button type="button" class="btn" id="prevBtn">← 上一頁</button>
+        <span class="slide-counter" id="counter">1 / 8</span>
+        <button type="button" class="btn btn-primary" id="nextBtn">下一頁 →</button>
+      </div>
+    </footer>
+  </div>
+
+  <p class="sr-only" id="liveAnnouncer" aria-live="polite"></p>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const dotsEl = document.getElementById('dots');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const counterEl = document.getElementById('counter');
+      const pacePill = document.getElementById('pacePill');
+      const timerBtn = document.getElementById('timerBtn');
+      const restartDeckBtn = document.getElementById('restartDeckBtn');
+      const announcer = document.getElementById('liveAnnouncer');
+
+      let index = 0;
+      let timerId = null;
+      let elapsedSec = 0;
+
+      // 建立頁碼按鈕
+      const dots = slides.map((slide, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dot';
+        btn.textContent = String(i + 1);
+        btn.setAttribute('aria-label', `第 ${i + 1} 頁：${slide.dataset.title || ''}`);
+        btn.addEventListener('click', () => go(i));
+        dotsEl.appendChild(btn);
+        return btn;
+      });
+
+      function formatTime(sec) {
+        const m = String(Math.floor(sec / 60)).padStart(2, '0');
+        const s = String(sec % 60).padStart(2, '0');
+        return `${m}:${s} / 03:00`;
+      }
+
+      function go(nextIndex) {
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        slides.forEach((slide, i) => {
+          const active = i === index;
+          slide.classList.toggle('is-active', active);
+          slide.setAttribute('aria-hidden', active ? 'false' : 'true');
+          if (active) slide.scrollTop = 0;
+        });
+        dots.forEach((dot, i) => {
+          if (i === index) dot.setAttribute('aria-current', 'step');
+          else dot.removeAttribute('aria-current');
+        });
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === slides.length - 1;
+        counterEl.textContent = `${index + 1} / ${slides.length}`;
+        const activeSlide = slides[index];
+        if (!timerId && elapsedSec === 0 && activeSlide.dataset.pace) {
+          pacePill.textContent = `${activeSlide.dataset.pace} · 目標 03:00`;
+        }
+        announcer.textContent = `第 ${index + 1} 頁，共 ${slides.length} 頁：${activeSlide.dataset.title || ''}`;
+        history.replaceState(null, '', `#slide-${index + 1}`);
+      }
+
+      prevBtn.addEventListener('click', () => go(index - 1));
+      nextBtn.addEventListener('click', () => go(index + 1));
+      if (restartDeckBtn) restartDeckBtn.addEventListener('click', () => go(0));
+
+      timerBtn.addEventListener('click', () => {
+        if (timerId) {
+          clearInterval(timerId);
+          timerId = null;
+          timerBtn.textContent = '繼續計時';
+          timerBtn.setAttribute('aria-pressed', 'false');
+          return;
+        }
+        timerBtn.textContent = '暫停計時';
+        timerBtn.setAttribute('aria-pressed', 'true');
+        pacePill.textContent = formatTime(elapsedSec);
+        timerId = setInterval(() => {
+          elapsedSec += 1;
+          pacePill.textContent = formatTime(elapsedSec);
+        }, 1000);
+      });
+
+      // 鍵盤換頁
+      window.addEventListener('keydown', (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        const tag = e.target && e.target.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+        if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+          e.preventDefault();
+          go(index + 1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          go(index - 1);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          go(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          go(slides.length - 1);
+        }
+      });
+
+      // 觸控水平滑動（保留垂直捲動）
+      let touchStartX = null;
+      let touchStartY = null;
+      const stage = document.getElementById('stage');
+      stage.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+      stage.addEventListener('touchend', (e) => {
+        if (touchStartX === null || !e.changedTouches.length) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        touchStartX = null;
+        touchStartY = null;
+        if (Math.abs(dx) > 54 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+          go(dx < 0 ? index + 1 : index - 1);
+        }
+      }, { passive: true });
+
+      const match = /^#slide-(\d+)$/.exec(location.hash);
+      go(match ? Number(match[1]) - 1 : 0);
+    })();
+  </script>
+</body>
+</html>
