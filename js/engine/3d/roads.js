@@ -1,11 +1,11 @@
-import * as T from '../vendor/three.module.min.js?v=3b36a303';
-import {roads,roadNodes,roadAt,roadOptions,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=3b36a303';
-import {crossingForNode} from '../street-crossings.mjs?v=3b36a303';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=3b36a303';
-import {xinyiBusBay,addUtilityPoles} from './furniture.js?v=3b36a303';
-import {paintJunctions} from './junction-markings.js?v=3b36a303'; // A24
+import * as T from '../vendor/three.module.min.js?v=5dbcfc52';
+import {roads,roadNodes,roadAt,roadOptions,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=5dbcfc52';
+import {crossingForNode} from '../street-crossings.mjs?v=5dbcfc52';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=5dbcfc52';
+import {xinyiBusBay} from './furniture.js?v=5dbcfc52';
+import {paintJunctions} from './junction-markings.js?v=5dbcfc52'; // A24
 
-import {drawSidewalks} from './sidewalks.js?v=3b36a303'; // A24
+import {drawSidewalks} from './sidewalks.js?v=5dbcfc52'; // A24
 const {plane}=shapes;
 const BUS_ROADS=new Set(['忠孝東路四段','忠孝東路五段','仁愛路四段','信義路四段','信義路五段','南京東路五段']);
 export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sidewalks=drawSidewalks}) { // P2 perf：osm-city 可改成先保留位置、稍後才畫人行道
@@ -222,9 +222,7 @@ export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sid
           paint(patchAt,patchEnd,patchWidth,.031,'road',patchOffset,hash(from,55)>.4?'#b7b2ae':'#d5ccc1',3);
         }
       }
-      if(way.name&&!arterial&&d*unit>25&&(span<9)){
-        addUtilityPoles({instance:furnitureInstance,way,by,ay,bx,ax,span,d,at});
-      }
+      // 信義區電線已地下化：不畫電線桿與電線（2026-11-24）
       if(length>17&&way.name&&hash(from,67)>.65){
         const t=length*(.44+.22*hash(from,68)),pt=at(t/unit);
         const offset=(hash(from,69)-.5)*span*.32,heading=Math.atan2(by-ay,bx-ax);

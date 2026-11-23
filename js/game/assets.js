@@ -1,8 +1,8 @@
 // 素材清單：讀 assets/manifest.json；清單讀不到、key 不在清單、或檔案載入失敗，都記進 missing，
 // 用到時由 .art 的色塊替代畫面頂著，流程不會停。
 
-import { h } from './dom.js?v=3b36a303';
-import { ENGINE_MODULES, ENGINE_DATA } from './engine-preload.js?v=3b36a303';
+import { h } from './dom.js?v=5dbcfc52';
+import { ENGINE_MODULES, ENGINE_DATA } from './engine-preload.js?v=5dbcfc52';
 
 function toneOf(key) {
   let sum = 0;
@@ -139,7 +139,7 @@ export async function loadAssets() {
     let worker = null;
     const waiting = new Map();
     try {
-      worker = new Worker(new URL('./prefetch-worker.js?v=3b36a303', import.meta.url));
+      worker = new Worker(new URL('./prefetch-worker.js?v=5dbcfc52', import.meta.url));
       worker.onmessage = ({ data }) => { waiting.get(data)?.(); waiting.delete(data); };
       worker.onerror = () => { for (const done of waiting.values()) done(); waiting.clear(); };
     } catch {

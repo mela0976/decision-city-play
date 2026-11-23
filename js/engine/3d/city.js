@@ -1,9 +1,9 @@
-import {canvasTexture,TextureLoader} from './city-primitives.js?v=3b36a303';
-export {canvasTexture} from './city-primitives.js?v=3b36a303';
-import * as T from '../vendor/three.module.min.js?v=3b36a303';
-import {trafficGreen} from '../navigation.js?v=3b36a303';
-import {buildLandmark} from './xinyi.js?v=3b36a303';
-import {buildings,civicWalkway,columns,columnNames,height,random,river,roads,rows,rowNames,width} from '../world.mjs?v=3b36a303';
+import {canvasTexture,TextureLoader} from './city-primitives.js?v=5dbcfc52';
+export {canvasTexture} from './city-primitives.js?v=5dbcfc52';
+import * as T from '../vendor/three.module.min.js?v=5dbcfc52';
+import {trafficGreen} from '../navigation.js?v=5dbcfc52';
+import {buildLandmark} from './xinyi.js?v=5dbcfc52';
+import {buildings,civicWalkway,columns,columnNames,height,random,river,roads,rows,rowNames,width} from '../world.mjs?v=5dbcfc52';
 
 export const unit=.105;
 const chunkSize=69;
@@ -253,8 +253,7 @@ export function createCity(scene,doc,maxAnisotropy=4) {
         instance('bulb','box','#351f1c',tx-side*2.23,4.55-k*.24,tz-side*.025,.06,.13,.18,0,0,0,(i*rows.length+j)*6+k+3);
       }
     }
-    wire(x-14,z,false);
-    if((i+j)%2===0) wire(x,z+15,true);
+    // 電線已地下化：不畫電線桿與電線
   }
 
   function tree(x,z,seed) {

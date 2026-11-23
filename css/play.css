@@ -1809,3 +1809,28 @@ html[lang="en"] .hud-meters .m-name {
 :root:lang(ja) .coach-step {
   white-space: nowrap;
 }
+
+/* 洞察便利貼：題目上方的閱讀資料 */
+.choice-note {
+  justify-self: center;
+  max-width: min(42rem, 100%);
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.55rem 0.85rem;
+  background: #f3e3a3;
+  color: #2b2618;
+  border-radius: 2px;
+  box-shadow: 0 6px 14px rgb(0 0 0 / 0.35);
+  transform: rotate(-0.6deg);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.choice-note b {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.choice-note p {
+  margin: 0;
+}

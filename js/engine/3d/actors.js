@@ -1,15 +1,15 @@
-import {surfaceAt} from '../sidewalks.mjs?v=3b36a303'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=3b36a303'; // A22
-import {marketTruck} from '../night-market.mjs?v=3b36a303'; // A23 night
-import {parkedKey} from '../impact.mjs?v=3b36a303';
-import {streetCrowds} from '../crowds.mjs?v=3b36a303';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=3b36a303';
-import {createNamedNpcModels} from './named-npcs.js?v=3b36a303';
-import {buildOfficePeople} from './office-people.js?v=3b36a303';
-import {createModelAssets} from './model-assets.js?v=3b36a303';
-import {fixtureColliders} from '../fixtures.mjs?v=3b36a303';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=3b36a303';
-import * as T from '../vendor/three.module.min.js?v=3b36a303';
+import {surfaceAt} from '../sidewalks.mjs?v=5dbcfc52'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=5dbcfc52'; // A22
+import {marketTruck} from '../night-market.mjs?v=5dbcfc52'; // A23 night
+import {parkedKey} from '../impact.mjs?v=5dbcfc52';
+import {streetCrowds} from '../crowds.mjs?v=5dbcfc52';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=5dbcfc52';
+import {createNamedNpcModels} from './named-npcs.js?v=5dbcfc52';
+import {buildOfficePeople} from './office-people.js?v=5dbcfc52';
+import {createModelAssets} from './model-assets.js?v=5dbcfc52';
+import {fixtureColliders} from '../fixtures.mjs?v=5dbcfc52';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=5dbcfc52';
+import * as T from '../vendor/three.module.min.js?v=5dbcfc52';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -338,7 +338,10 @@ const delivery=[
 const truckModels={waste:serviceTruck(),recycling:serviceTruck(true),bus,delivery};
 const cat=[ball('#8a6652',0,.21,0,.39,.26,.225),ball('#a68669',.19,.30,0,.18,.18,.17),
   ball('#9c7254',.205,.40,.052,.065,.121,.055),ball('#9c7254',.205,.40,-.052,.065,.121,.055),
-  limb('#7e5945',[-.15,.24,0],[-.40,.37,-.02],.074)];
+  limb('#7e5945',[-.15,.24,0],[-.40,.37,-.02],.074),
+  // 四隻腳站在地上（身體底部約 8 公分高，腳從身體伸到地面）
+  limb('#8a6652',[.12,.16,.07],[.13,0,.075],.05),limb('#8a6652',[.12,.16,-.07],[.13,0,-.075],.05),
+  limb('#8a6652',[-.12,.16,.07],[-.13,0,.075],.05),limb('#8a6652',[-.12,.16,-.07],[-.13,0,-.075],.05)];
 
 // Pair each top with trousers from the same wardrobe before applying either tint.
 // Slate, concrete and weathered tile keep their distinction without competing with street signage.
@@ -637,10 +640,13 @@ export function createActors(scene,glow,parkedScooters=[]) {
         const loaded=models.draw('scooter_parked',px,pz,item.heading,{impact});
         if(!loaded)stamp(parkedModel,px,pz,item.heading,0,impact);
       }else if(item.scooter) {
-        const look=lookOf(item)%120,near=distance<18;
-        const key=[item.color,look,Boolean(rain),near].join('/');
-        if(!farScooters.has(key))farScooters.set(key,riderModel(item.color,look,rain,near));
-        stamp(farScooters.get(key),px,pz,item.heading,0);
+        // 40 公尺內用寫實騎士模型（一次批次繪製），更遠才用程式畫的簡化外形
+        if(!(distance<40&&models.draw('rider_scooter',px,pz,item.heading))){
+          const look=lookOf(item)%120,near=distance<18;
+          const key=[item.color,look,Boolean(rain),near].join('/');
+          if(!farScooters.has(key))farScooters.set(key,riderModel(item.color,look,rain,near));
+          stamp(farScooters.get(key),px,pz,item.heading,0);
+        }
       } else {
         const variant=lookOf(item)%3,taxi=item.service==='taxi',tone=taxi?'#eeb82e':item.color;
         const key=tone+variant;
@@ -766,7 +772,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
         if(id!=='home'||!models.draw('garbage_truck',truckX,truckZ,direction))
           stamp(truckModels[id==='home'?'waste':'recycling'],truckX,truckZ,direction,0);
       }
-      stamp(cat,...at(3.2+Math.sin(clock*.9)*.6,2.98),heading,0);
+      stamp(cat,...at(3.2+Math.sin(clock*.9)*.6,2.98),heading,0,null,-.07); // 抵銷 stamp 預設抬高的 7 公分，腳踩地
     }
     if(!photorealistic&&scalePortrait){
       const {x,z,heading,car,walker}=scalePortrait;

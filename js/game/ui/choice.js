@@ -3,8 +3,8 @@
 // options 每筆：{ text, feedback, insight, isGrandma, bonusLabel, hint }
 // onPick(option) 由遊戲層結算，回傳 { deltas, bonusLabel }。
 
-import { h, fill, interaction, formatDelta, arrowFocus } from '../dom.js?v=3b36a303';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=3b36a303';
+import { h, fill, interaction, formatDelta, arrowFocus } from '../dom.js?v=5dbcfc52';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=5dbcfc52';
 
 export function deltaChips(deltas, className = 'chips') {
   const items = METER_IDS.filter((id) => deltas?.[id]).map((id) => {
@@ -15,13 +15,15 @@ export function deltaChips(deltas, className = 'chips') {
   return h('ul', { class: className }, items);
 }
 
-export function runChoice({ layer, prompt, options, onPick, signal, sfx, onState }) {
+export function runChoice({ layer, prompt, note, options, onPick, signal, sfx, onState }) {
   return interaction(signal, (done) => {
     const heading = h('h2', { class: 'choice-prompt', id: 'choice-prompt', text: prompt || '' });
     const list = h('div', { class: 'choice-options', vars: { '--n': String(options.length) } });
     const result = h('div', { class: 'choice-result', hidden: true });
     const actions = h('div', { class: 'cine-actions' });
-    const panel = h('section', { class: 'choice', 'aria-labelledby': 'choice-prompt', tabindex: '-1' }, heading, list, result, actions);
+    // 洞察便利貼：題目上方的閱讀資料（不標示哪個選項是答案）
+    const noteEl = note ? h('aside', { class: 'choice-note' }, h('b', { text: note.label }), h('p', { text: note.text })) : null;
+    const panel = h('section', { class: 'choice', 'aria-labelledby': 'choice-prompt', tabindex: '-1' }, noteEl, heading, list, result, actions);
 
     const buttons = options.map((option, i) => {
       const button = h(
@@ -50,6 +52,7 @@ export function runChoice({ layer, prompt, options, onPick, signal, sfx, onState
         done(option);
       });
       heading.textContent = option.text;
+      noteEl?.remove();
       fill(
         result,
         h('p', { class: 'sub-text choice-feedback', text: option.feedback || '' }),
