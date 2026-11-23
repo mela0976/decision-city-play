@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=51145f5b';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=51145f5b';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=51145f5b';
+import * as T from '../vendor/three.module.min.js?v=de58bb6c';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=de58bb6c';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=de58bb6c';
 
 const optionalVehicles={garbage_truck:6.5,bus:12};
 const catalog={

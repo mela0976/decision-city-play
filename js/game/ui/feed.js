@@ -2,9 +2,9 @@
 // 八種外框都是通用樣式（直播、行車紀錄器、限時動態、論壇、群組、短影音、線上會議、與 AI 的對話），
 // 不模仿任何真實平台的標誌、配色與版面。有圖的貼文用 9:16 直式圖置中，兩側用同一張圖模糊放大鋪滿。
 
-import { h, interaction, reducedMotion } from '../dom.js?v=51145f5b';
-import { T, ZH_T } from '../strings.js?v=51145f5b';
-import { icon } from './icons.js?v=51145f5b';
+import { h, interaction, reducedMotion } from '../dom.js?v=de58bb6c';
+import { T, ZH_T } from '../strings.js?v=de58bb6c';
+import { icon } from './icons.js?v=de58bb6c';
 
 const BASE_MS = 2200;
 const PER_CHAR_MS = 12;

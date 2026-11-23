@@ -1,5 +1,5 @@
 // Night vendors line the pedestrian-only section of the mapped Linjiang Street.
-import {byId,civicWalkway,metersPerUnit as unit,random,roadAt,roadDistance,roads,worldContact} from './world.mjs?v=51145f5b';
+import {byId,civicWalkway,metersPerUnit as unit,random,roadAt,roadDistance,roads,worldContact} from './world.mjs?v=de58bb6c';
 
 export const nightMarketOpen=hour=>hour>=18||hour<5;
 export const marketCarts=[];

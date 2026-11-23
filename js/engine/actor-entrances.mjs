@@ -1,6 +1,6 @@
 // Reserve the marker and three metres across the approaches from the surrounding streets.
-import {locations,metersPerUnit as unit,roadAt} from './world.mjs?v=51145f5b';
-import {officePoint} from './office-entrance.mjs?v=51145f5b';
+import {locations,metersPerUnit as unit,roadAt} from './world.mjs?v=de58bb6c';
+import {officePoint} from './office-entrance.mjs?v=de58bb6c';
 
 export const locationRadius=84; // world units, shared with location:enter
 const halfWidth=1.5/unit,extent=24/unit;

@@ -1,7 +1,7 @@
-import {paving,pavingHeight,pavingPoint,curbWidth,fillets,surfaceAt} from '../sidewalks.mjs?v=51145f5b';
-import {metersPerUnit as unit} from '../world.mjs?v=51145f5b';
+import {paving,pavingHeight,pavingPoint,curbWidth,fillets,surfaceAt} from '../sidewalks.mjs?v=de58bb6c';
+import {metersPerUnit as unit} from '../world.mjs?v=de58bb6c';
 
-import {subtractConvex,subtractRectangle} from '../paving-geometry.mjs?v=51145f5b';
+import {subtractConvex,subtractRectangle} from '../paving-geometry.mjs?v=de58bb6c';
 
 // P2 perf：同樣的切割順序與三角化，只是改用迴圈、不再每步建立閉包與展開陣列；送進 buffer 的參數逐位元相同。
 const cornerUv=[[0,0],[0,0],[0,0],[0,0]];

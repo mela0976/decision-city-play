@@ -1,5 +1,5 @@
-import * as T from '../vendor/three.module.min.js?v=51145f5b';
-import {mobileTextures} from './city-primitives.js?v=51145f5b';
+import * as T from '../vendor/three.module.min.js?v=de58bb6c';
+import {mobileTextures} from './city-primitives.js?v=de58bb6c';
 
 export function surfaceMaps(doc,source,anisotropy,strength){
   const size=mobileTextures?256:512,canvas=doc.createElement('canvas');

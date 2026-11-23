@@ -2,10 +2,10 @@
 //   序幕、每個任務開場的「那一年的台灣網路」、任務之後的過場（提案入手、真心話被打斷、搭檔與阿嬤的訊息）、收工時的兩種結尾。
 // 這裡只管流程；文字全部來自內容檔，畫面在 ui/phone.js、ui/feed.js、ui/interlude.js。
 
-import { showMessages } from './ui/phone.js?v=51145f5b';
-import { playFeed } from './ui/feed.js?v=51145f5b';
-import { showSlide, runSincere } from './ui/interlude.js?v=51145f5b';
-import { T, LANG } from './strings.js?v=51145f5b';
+import { showMessages } from './ui/phone.js?v=de58bb6c';
+import { playFeed } from './ui/feed.js?v=de58bb6c';
+import { showSlide, runSincere } from './ui/interlude.js?v=de58bb6c';
+import { T, LANG } from './strings.js?v=de58bb6c';
 
 // 序幕在吳興街租屋處；清單裡沒有那張圖就退回開場海報
 const PROLOGUE_SCENE = 'loc_home';
