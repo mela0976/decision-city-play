@@ -5,7 +5,7 @@
 //   會讓三項全滿、肝指數必爆。所以支線帶來的增減一律只算三分之一，而且整局累計有上限：
 //   品牌力、業績、客戶信任各 +12（最多扣到 −8），肝指數 +5（最多降到 −10）。到了上限，支線只給章節卡。
 
-import { METER_IDS } from './strings.js?v=de58bb6c';
+import { METER_IDS } from './strings.js?v=3b36a303';
 
 export const SIDE_SCALE = 1 / 3;
 export const SIDE_CAP = { brand: [-8, 12], sales: [-8, 12], trust: [-8, 12], liver: [-10, 5] };

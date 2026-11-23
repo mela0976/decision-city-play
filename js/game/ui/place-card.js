@@ -1,8 +1,8 @@
 // 目的地卡：goto 步驟開始時，疊在目的地插畫上的一張路名牌（地名、要去做什麼、限時多久）。
 // 按一下「出發」才回到街上開始倒數。
 
-import { h, interaction } from '../dom.js?v=de58bb6c';
-import { T } from '../strings.js?v=de58bb6c';
+import { h, interaction } from '../dom.js?v=3b36a303';
+import { T } from '../strings.js?v=3b36a303';
 
 export function showPlaceCard({ layer, name, hint, limit, signal, sfx }) {
   return interaction(signal, (done) => {

@@ -1,6 +1,6 @@
 // A27. The fixture visitor and the renderer both consume these metre-scale solids.
-import {metersPerUnit as unit} from '../world.mjs?v=de58bb6c';
-import {venues,venuePoint,canopyReach} from '../venue-entrances.mjs?v=de58bb6c';
+import {metersPerUnit as unit} from '../world.mjs?v=3b36a303';
+import {venues,venuePoint,canopyReach} from '../venue-entrances.mjs?v=3b36a303';
 
 const palettes={
   home:['#b9a592','#534d49','#705647'],

@@ -1,6 +1,6 @@
 // A24. Coordinates use world units; crosswalk, stop and box distances are metres
 // from the OSM arm's anchor, including on divided carriageways.
-import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=de58bb6c';
+import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=3b36a303';
 import tagged from './data/xinyi-signals.json' with {type:'json'};
 
 const rank={primary:3,secondary:2,tertiary:1};

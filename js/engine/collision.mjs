@@ -1,4 +1,4 @@
-import {metersPerUnit as unit} from './world.mjs?v=de58bb6c';
+import {metersPerUnit as unit} from './world.mjs?v=3b36a303';
 
 const cell=48;
 export const radius={rider:1.03/unit,foot:.29/unit,scooter:1.02/unit,car:2.45/unit,truck:2.9/unit};

@@ -1,12 +1,12 @@
-import * as T from '../vendor/three.module.min.js?v=de58bb6c';
-import {mobileTextures} from './city-primitives.js?v=de58bb6c';
+import * as T from '../vendor/three.module.min.js?v=3b36a303';
+import {mobileTextures} from './city-primitives.js?v=3b36a303';
 import data from '../data/far-city.json' with {type:'json'};
-import {buildings,toWorld,metersPerUnit as unit} from '../world.mjs?v=de58bb6c';
-import {isTowerBlock} from '../tower-structures.mjs?v=de58bb6c'; // A23 towers
-import {shellHeight,towerFacade} from './buildings-tower.js?v=de58bb6c'; // A23 towers
-import {oldFacade} from './buildings-old.js?v=de58bb6c';
-import {hash} from './city-primitives.js?v=de58bb6c';
-import {urbanInfill} from '../infill.mjs?v=de58bb6c';
+import {buildings,toWorld,metersPerUnit as unit} from '../world.mjs?v=3b36a303';
+import {isTowerBlock} from '../tower-structures.mjs?v=3b36a303'; // A23 towers
+import {shellHeight,towerFacade} from './buildings-tower.js?v=3b36a303'; // A23 towers
+import {oldFacade} from './buildings-old.js?v=3b36a303';
+import {hash} from './city-primitives.js?v=3b36a303';
+import {urbanInfill} from '../infill.mjs?v=3b36a303';
 
 const origin=toWorld(...data.origin),ox=origin.x*unit,oz=origin.y*unit;
 function unpack(row,start=0){
