@@ -94,7 +94,7 @@ while(pending.size){
   const axis=[...approaches].sort((a,b)=>(rank[b.way.kind]??0)-(rank[a.way.kind]??0)||b.width-a.width||a.way.id-b.way.id)[0];
   const center={x:0,y:0};
   for(const i of members){center.x+=roadNodes[i].x/members.length;center.y+=roadNodes[i].y/members.length;}
-  const id='j'+first,hash=Math.imul(first+1,2654435761)>>>0,cycle=60,greenA=Math.round((cycle-10)*.6);
+  const id='j'+first,hash=Math.imul(first+1,2654435761)>>>0,cycle=30,greenA=Math.round((cycle-10)*.5);
   const j={...center,id,node:first,members,osmIds:members.flatMap(i=>ids.get(i)??[]),twoStage:arterialIntersection(approaches),
     dx:axis.dx,dy:axis.dy,width:axis.width,cycle,greenA,greenB:cycle-10-greenA,
     offset:0,approaches,poles:[]};
