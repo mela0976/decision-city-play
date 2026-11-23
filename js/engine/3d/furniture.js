@@ -1,9 +1,9 @@
-import {placeTree} from './vegetation.js?v=9b45bc39';
-import {hash} from './city-primitives.js?v=9b45bc39';
-import {crossings} from '../street-crossings.mjs?v=9b45bc39';
-import {carriagewayAt} from '../sidewalks.mjs?v=9b45bc39';
-import {placedPoles} from '../signal-poles.mjs?v=9b45bc39';
-import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs?v=9b45bc39';
+import {placeTree} from './vegetation.js?v=51145f5b';
+import {hash} from './city-primitives.js?v=51145f5b';
+import {crossings} from '../street-crossings.mjs?v=51145f5b';
+import {carriagewayAt} from '../sidewalks.mjs?v=51145f5b';
+import {placedPoles} from '../signal-poles.mjs?v=51145f5b';
+import {roads,locations,inBuilding,roadAt,roadOptions,toWorld,random,worldContact,metersPerUnit as unit} from '../world.mjs?v=51145f5b';
 
 const marketApproach=toWorld(25.02960,121.55408);
 const studioEntrance=toWorld(25.04509,121.55910);

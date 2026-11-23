@@ -1,4 +1,4 @@
-import { h } from '../dom.js?v=9b45bc39';
+import { h } from '../dom.js?v=51145f5b';
 
 /** art：一塊插畫（assets.art 的結果），有的話做成一張小卡，插畫當背景。title：小卡上的地名。 */
 export function createToasts(root) {

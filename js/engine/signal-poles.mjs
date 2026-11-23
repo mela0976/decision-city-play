@@ -1,9 +1,9 @@
 // 號誌燈桿的實際位置：street-crossings.mjs 算出的位置有時落在車道上（大路口、多個節點合併的路口）。
 // 立在車道中央的燈桿不對，直接丟掉又會讓那個方向看不到號誌，所以：落在車道上的燈桿沿進路往外、往兩側找最近的路外位置
 // （最遠 14 公尺）；找不到才不放。繪製（3d/traffic-signals.js）與碰撞（3d/furniture.js）共用這份結果。
-import {crossings} from './street-crossings.mjs?v=9b45bc39';
-import {carriagewayAt} from './sidewalks.mjs?v=9b45bc39';
-import {metersPerUnit as unit} from './world.mjs?v=9b45bc39';
+import {crossings} from './street-crossings.mjs?v=51145f5b';
+import {carriagewayAt} from './sidewalks.mjs?v=51145f5b';
+import {metersPerUnit as unit} from './world.mjs?v=51145f5b';
 
 const clear=(x,y)=>!carriagewayAt(x/unit,y/unit);
 export const placedPoles=[];

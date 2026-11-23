@@ -873,6 +873,42 @@
       "triangles": 33608,
       "rigged": false,
       "animations": []
+    },
+    "walker_m2": {
+      "src": "assets/models/walker_m2.glb",
+      "bytes": 529116,
+      "triangles": 16522,
+      "rigged": true,
+      "animations": [
+        "Armature|Casual_Walk|baselayer"
+      ]
+    },
+    "walker_m3": {
+      "src": "assets/models/walker_m3.glb",
+      "bytes": 469692,
+      "triangles": 16425,
+      "rigged": true,
+      "animations": [
+        "Armature|Casual_Walk|baselayer"
+      ]
+    },
+    "walker_f2": {
+      "src": "assets/models/walker_f2.glb",
+      "bytes": 593896,
+      "triangles": 16614,
+      "rigged": true,
+      "animations": [
+        "Armature|Casual_Walk|baselayer"
+      ]
+    },
+    "walker_f3": {
+      "src": "assets/models/walker_f3.glb",
+      "bytes": 586584,
+      "triangles": 16246,
+      "rigged": true,
+      "animations": [
+        "Armature|Casual_Walk|baselayer"
+      ]
     }
   },
   "audio": {

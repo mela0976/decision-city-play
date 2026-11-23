@@ -1,11 +1,13 @@
-import * as T from '../vendor/three.module.min.js?v=9b45bc39';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=9b45bc39';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=9b45bc39';
+import * as T from '../vendor/three.module.min.js?v=51145f5b';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=51145f5b';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=51145f5b';
 
 const optionalVehicles={garbage_truck:6.5,bus:12};
 const catalog={
   rider_scooter:['length',1.9],grandma_scooter:['length',1.72],walker_m:['height',1.72],
-  walker_f:['height',1.66],car_ev:['length',4.7],scooter_parked:['length',1.9],
+  walker_f:['height',1.66],
+  // 2026-11-24 Higgsfield 寫實路人：中年男上班族、長者、年輕女生、高中女生
+  walker_m2:['height',1.72],walker_m3:['height',1.66],walker_f2:['height',1.62],walker_f3:['height',1.58],car_ev:['length',4.7],scooter_parked:['length',1.9],
 };
 
 function cloneRig(template){

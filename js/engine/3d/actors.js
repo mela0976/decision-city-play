@@ -1,15 +1,15 @@
-import {surfaceAt} from '../sidewalks.mjs?v=9b45bc39'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=9b45bc39'; // A22
-import {marketTruck} from '../night-market.mjs?v=9b45bc39'; // A23 night
-import {parkedKey} from '../impact.mjs?v=9b45bc39';
-import {streetCrowds} from '../crowds.mjs?v=9b45bc39';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=9b45bc39';
-import {createNamedNpcModels} from './named-npcs.js?v=9b45bc39';
-import {buildOfficePeople} from './office-people.js?v=9b45bc39';
-import {createModelAssets} from './model-assets.js?v=9b45bc39';
-import {fixtureColliders} from '../fixtures.mjs?v=9b45bc39';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=9b45bc39';
-import * as T from '../vendor/three.module.min.js?v=9b45bc39';
+import {surfaceAt} from '../sidewalks.mjs?v=51145f5b'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=51145f5b'; // A22
+import {marketTruck} from '../night-market.mjs?v=51145f5b'; // A23 night
+import {parkedKey} from '../impact.mjs?v=51145f5b';
+import {streetCrowds} from '../crowds.mjs?v=51145f5b';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=51145f5b';
+import {createNamedNpcModels} from './named-npcs.js?v=51145f5b';
+import {buildOfficePeople} from './office-people.js?v=51145f5b';
+import {createModelAssets} from './model-assets.js?v=51145f5b';
+import {fixtureColliders} from '../fixtures.mjs?v=51145f5b';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=51145f5b';
+import * as T from '../vendor/three.module.min.js?v=51145f5b';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -710,7 +710,10 @@ export function createActors(scene,glow,parkedScooters=[]) {
       // 有名字的角色照角色設定的性別；路人才用外觀類型或輪流
       const female=femaleNpcs.has(item.id)?true:maleNpcs.has(item.id)?false:standing?index%2===0:femaleSkins.includes(skin);
       const elder=skin==='npc_elder'||skin==='npc_grandma';
-      const stature=(elder?.94:1)*style[2],type=female?'walker_f':'walker_m';
+      const stature=(elder?.94:1)*style[2],base=female?'walker_f':'walker_m';
+      // 路人輪流用不同長相的寫實模型；換色只套在原本兩個模型上，其他保留原本的衣服
+      const looks=female?(skin==='npc_student'?['walker_f3']:['walker_f','walker_f2','walker_f3']):elder?['walker_m3','walker_m3','walker_m2']:['walker_m','walker_m2','walker_m3'];
+      const type=item.id!=null?base:looks[index%looks.length];
       const hatAllowed=elder&&(item.zone==='market'||nearSite(elderHats,px,pz,scale,45));
       if(hatAllowed)stamp(one(part('hat','#afa178',0,1.68*stature,0,.46,.16,.46)),px,pz,facing,0,null,ground);
       let drawn=false;
@@ -718,7 +721,10 @@ export function createActors(scene,glow,parkedScooters=[]) {
         walkerOptions.dt=dt;walkerOptions.moving=moving;walkerOptions.speed=speed;walkerOptions.ground=ground;
         walkerOptions.tint=shirt;walkerOptions.trousers=pants;walkerOptions.stature=stature;
         walkerOptions.idlePose=index%5;walkerOptions.build=style[3];walkerOptions.complexion=((index*11)%7-3)*.034;
+        const original=type===base;
+        if(!original){walkerOptions.tint=undefined;walkerOptions.trousers=undefined;walkerOptions.build=1;}
         drawn=models.draw(type,px,pz,facing,walkerOptions);
+        if(!drawn&&!original){walkerOptions.tint=shirt;walkerOptions.trousers=pants;walkerOptions.build=style[3];drawn=models.draw(base,px,pz,facing,walkerOptions);}
       }
       if(!drawn){
         const pose=trackGait(item,px,pz,facing,clock,moving,index);
