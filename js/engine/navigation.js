@@ -1,5 +1,6 @@
 import {carRoute,carParking} from './drive-car.mjs?v=9b45bc39'; // A26
 import {crossingForNode,gateAhead,waitSeconds,junctionById} from './street-crossings.mjs?v=9b45bc39'; // A24
+import {curbContact} from './sidewalks.mjs?v=9b45bc39';
 import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit,worldContact} from './world.mjs?v=9b45bc39';
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const drivable=new Map(),edgeSignals=new Map();
@@ -159,13 +160,20 @@ function findRide(origin,target,avoid=[],timing,turns=Boolean(timing),car=Boolea
   for(let i=0;i<spine.length;i++){
     const center=spine[i],next=spine[i+1];
     if(distance(center,previous)<.1)continue;
-    const lane=next?rightLane(previous,next,42,!car):null; // A26
+    // 偏移量依實際路寬（路口取相交道路中最窄的一條）；原本寫死 42 單位（4.4 公尺），每條路都套到 8 公尺以下巷子的靠右規則，
+    // 3～4 公尺的窄巷車身右緣會壓到路緣
+    const roadWidth=Math.min(42,...roadOptions(center.x,center.y,4).filter(o=>o.d<6).map(o=>o.r[4]));
+    const lane=next?rightLane(previous,next,roadWidth,!car):null; // A26
     let point=center;
     if(lane&&distance(center,previous)>24&&distance(center,next)>24){
-      const candidate=add(center,lane);
       const orientation=Math.atan2(next.y-previous.y,next.x-previous.x);
-      if(!worldContact(candidate.x,candidate.y,1.03/metersPerUnit,.37/metersPerUnit,orientation)&&
-        clearPath(previous,candidate)&&clearPath(candidate,next))point=candidate;
+      // 機車：OSM 路寬常比實際路緣間距寬，靠右偏移後整段車身可能壓到路緣或建築；放不下就減半，再不行就走中心線
+      for(const scale of car?[1]:[1,.5]){
+        const candidate=add(center,{x:lane.x*scale,y:lane.y*scale});
+        if(!worldContact(candidate.x,candidate.y,1.03/metersPerUnit,.37/metersPerUnit,orientation)&&
+          (car||!curbContact(candidate.x,candidate.y,1.03/metersPerUnit,.37/metersPerUnit,orientation)&&bodyFree(previous,candidate,2/metersPerUnit))&&
+          clearPath(previous,candidate)&&clearPath(candidate,next)){point=candidate;break;}
+      }
     }
     if(!clearPath(previous,point))return null;
     const previousNode=spine[i-1],junction=crossingForNode.get(center.index);
@@ -183,8 +191,46 @@ function findRide(origin,target,avoid=[],timing,turns=Boolean(timing),car=Boolea
     route.push({x:point.x,y:point.y});
     previous=point;
   }
-  return route;
+  return car?route:pullTight(origin,route);
 
+}
+// 出發／抵達接線與繞障礙用的格狀路徑（aroundObstacle，每格 14 單位、可走對角）會在路口切成 45 度斜角，
+// 而且格點容許超出路面 1.3 公尺，結果機車在路口前就斜切進彎角內側、擦到路緣或建築停住。
+// 這裡把連續的短間距點拉直：只有整段機車車身（含 0.15 公尺餘裕）都碰不到路緣與建築時才省略中間點，
+// 拉不直就保留原本的點。間距 24 單位以上的車道點（含右側偏移的轉角點）與兩段式左轉點一律保留。
+const bodyFree=(a,b,skip=0)=>{
+  const len=distance(a,b),heading=Math.atan2(b.y-a.y,b.x-a.x),half=1.03/metersPerUnit,width=.52/metersPerUnit;
+  for(let s=skip;s<=len;s+=3){
+    const x=a.x+(b.x-a.x)*s/Math.max(len,1e-6),y=a.y+(b.y-a.y)*s/Math.max(len,1e-6);
+    if(curbContact(x,y,half,width,heading)||worldContact(x,y,half,width,heading))return false;
+  }
+  return true;
+};
+// 撞到路緣或建築的格點：拉回最近道路中心線上（拉回後車身放得下才採用）。終點前 3 點保留，因為終點常在路外。
+function snapGrid(route){
+  return route.map((p,i)=>{
+    if(p.turnSignal||i>=route.length-3)return p;
+    const prev=route[i-1],next=route[i+1];
+    if(!(prev&&distance(prev,p)<24||next&&distance(p,next)<24))return p;
+    const heading=next?Math.atan2(next.y-p.y,next.x-p.x):0,half=1.03/metersPerUnit,width=.52/metersPerUnit;
+    if(!curbContact(p.x,p.y,half,width,heading)&&!worldContact(p.x,p.y,half,width,heading))return p;
+    for(const option of roadOptions(p.x,p.y,3)){
+      if(option.d>3.5/metersPerUnit)break;
+      if(!curbContact(option.x,option.y,half,width,heading)&&!worldContact(option.x,option.y,half,width,heading))return {x:option.x,y:option.y};
+    }
+    return p;
+  });
+}
+function pullTight(origin,input){
+  const route=snapGrid(input),out=[];
+  let anchor=origin;
+  for(let i=0;i<route.length;){
+    let j=i;
+    // 只在短間距的格狀點串裡往前找；遇到長段或轉彎號誌點就停
+    while(j+1<route.length&&!route[j+1].turnSignal&&!route[j].turnSignal&&distance(route[j],route[j+1])<24&&distance(anchor,route[j+1])<120&&bodyFree(anchor,route[j+1]))j++;
+    out.push(route[j]);anchor=route[j];i=j+1;
+  }
+  return out;
 }
 export function planRide(origin,target,avoid=[],timing){
   if(timing?.car){ // A26 retain the same red-light timing and trip-duration contract.
