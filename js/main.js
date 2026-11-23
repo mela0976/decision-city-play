@@ -2,6 +2,7 @@
 // 載入內容（?fixtures=1 用假資料；真的內容讀不到時在標題畫面顯示可重試的錯誤）。
 
 import { installErrorGuard } from './game/errors.js?v=7c913f1f';
+import { installCrashNotice } from './game/crash-notice.js?v=7c913f1f';
 import { VERSION } from './game/version.js?v=7c913f1f';
 import { loadAssets } from './game/assets.js?v=7c913f1f';
 import { loadContent } from './game/content.js?v=7c913f1f';
@@ -24,6 +25,8 @@ const opts = {
 const $ = (id) => document.getElementById(id);
 // 先裝錯誤攔截：之後任何一步出錯都會記進本機紀錄，並顯示可以回到路上、重新整理或複製資訊的錯誤卡。
 const guard = installErrorGuard({ root: document.body });
+// 上次在前景被瀏覽器強制關閉（手機記憶體不足）時，說明原因
+installCrashNotice({ root: document.body });
 document.documentElement.dataset.version = VERSION;
 if (opts.debug) window.__DC_ERRORS__ = guard;
 

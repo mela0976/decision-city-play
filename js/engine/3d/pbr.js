@@ -1,7 +1,8 @@
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
+import {mobileTextures} from './city-primitives.js?v=7c913f1f';
 
 export function surfaceMaps(doc,source,anisotropy,strength){
-  const size=512,canvas=doc.createElement('canvas');
+  const size=mobileTextures?256:512,canvas=doc.createElement('canvas');
   canvas.width=canvas.height=size;
   const ctx=canvas.getContext('2d',{willReadFrequently:true});
   ctx.drawImage(source,0,0,size,size);

@@ -60,6 +60,7 @@ export async function createEngine({canvas,minimapCanvas}) {
       const draw3D=createRenderer(canvas,minimapCanvas,overlay,context,googleLayer,mode==='google');
       canvas.dataset.engine='stylized';
       dispose3D=draw3D.dispose;
+      if(query.has('memDebug'))canvas.ownerDocument.defaultView.__dcDraw=draw3D; // 記憶體量測用（tests/evidence/perf）
       const render3D=state=>{
         lastState=state;
         try { draw3D(state); }

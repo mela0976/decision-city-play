@@ -1,4 +1,5 @@
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
+import {TextureLoader} from './city-primitives.js?v=7c913f1f'; // 手機貼圖減半
 import {toWorld,metersPerUnit as unit,buildingHeightAt} from '../world.mjs?v=7c913f1f';
 
 // Vehicles face local +X. Bake small parts into one vertex-coloured surface per
@@ -192,7 +193,7 @@ export function skyTraffic(clock){
 export function createFeaturedCars(scene,glow){
   let textureReady;
   const ready=new Promise(resolve=>{textureReady=resolve;});
-  const atlas=new T.TextureLoader().load(new URL('../../../assets/tex/featured-car-wraps.webp',import.meta.url).href,textureReady,undefined,()=>textureReady(null));
+  const atlas=new TextureLoader().load(new URL('../../../assets/tex/featured-car-wraps.webp',import.meta.url).href,textureReady,undefined,()=>textureReady(null));
   atlas.colorSpace=T.SRGBColorSpace;atlas.anisotropy=4;
   const metal=new T.MeshStandardMaterial({vertexColors:true,metalness:.32,roughness:.33});
   const luminous=new T.MeshBasicMaterial({vertexColors:true,toneMapped:false});

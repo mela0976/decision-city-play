@@ -2,7 +2,7 @@ import {createSignalLayer,signalReflections} from './traffic-signals.js?v=7c913f
 import {createNeonStreet} from './neon-street.js?v=7c913f1f'; // A22 street signs
 import {surfaceMaps} from './pbr.js?v=7c913f1f';
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
-import {canvasTexture,hash,shapes,color} from './city-primitives.js?v=7c913f1f';
+import {canvasTexture,hash,shapes,color,TextureLoader} from './city-primitives.js?v=7c913f1f';
 import {addGround,addWaterAndParks} from './terrain.js?v=7c913f1f';
 import {createRoads} from './roads.js?v=7c913f1f'; // A24 decks are owned by roads
 import {createLandmarks,addEntrances} from './landmarks.js?v=7c913f1f';
@@ -126,7 +126,7 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true,deferDerived=fal
   for(const [variant,[fallback,key]] of Object.entries(variants))types[variant]=[types[fallback][0],key];
   const available=enabled?fetch(new URL('../../../assets/manifest.json',import.meta.url))
     .then(response=>response.ok?response.json():null).then(manifest=>manifest?.images??{}).catch(()=>({})):Promise.resolve({});
-  const loader=new T.TextureLoader();
+  const loader=new TextureLoader();
   const adImages=new Map();
   function loadAd(id){
     const key='ad_'+id;
@@ -404,6 +404,14 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true,deferDerived=fal
     c.meshes.clear();
     c.shadow=undefined; // 讓下一次 update 依距離設定陰影
   }
+  // 只還區塊自己的 GPU 緩衝；共用的基本形狀（shapes）留著，不然每個區塊進出都要重傳
+  const sharedShapes=new Set(Object.values(shapes));
+  function releaseChunk(c){
+    c.group.traverse(o=>{
+      if(o.isInstancedMesh)o.dispose(); // 只放掉 instanceMatrix 等每個 mesh 自己的緩衝
+      if(o.geometry&&!sharedShapes.has(o.geometry))o.geometry.dispose();
+    });
+  }
   const pendingChunks=new Set();
   for(const c of chunks.values()){
     group.add(c.group);
@@ -444,6 +452,10 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true,deferDerived=fal
         const dx=x-chunk.x,dz=z-chunk.z,d2=dx*dx+dz*dz;
         if(!chunk.built&&d2<radius*radius){pendingChunks.delete(chunk);finishChunk(chunk);} // P2 perf：要看到了就當場建
         chunk.group.visible=d2<radius*radius;
+        // 記憶體：Three.js 把畫過的區塊幾何留在 GPU，物件隱藏也不釋放，騎越遠 GPU 用量越大（手機分頁會被系統殺掉）。
+        // 離開可見圈再遠 120 m 就把區塊的 GPU 緩衝還掉（CPU 端資料保留，回來時 Three.js 自動重傳）。
+        if(chunk.built&&chunk.uploaded&&d2>(radius+120)**2){releaseChunk(chunk);chunk.uploaded=false;}
+        else if(chunk.group.visible)chunk.uploaded=true;
         chunk.detail.visible=!aerial&&d2<detailRadius*detailRadius;
         const vegetationRadius=chunk.primaryVegetation?corridorRadius:detailRadius;
         chunk.vegetation.visible=!aerial&&d2<vegetationRadius*vegetationRadius;

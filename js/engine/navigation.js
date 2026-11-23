@@ -81,7 +81,9 @@ export function aroundObstacle(a,b,test=clearPath,foot=false){ // A27 sub-metre 
 
 export function rightLane(a,b,width,scooter=true) {
   const len=distance(a,b);
-  const offset=Math.min((scooter?2.3:1.45)/metersPerUnit,width*.27);
+  let offset=Math.min((scooter?2.3:1.45)/metersPerUnit,width*.27);
+  // 8 公尺以下的巷子：機車盡量靠右，車身右緣離路邊約 0.4 公尺（半個車寬 0.37 加 0.38 餘裕）
+  if(scooter&&width*metersPerUnit<=8)offset=Math.max(offset,Math.min(2.3/metersPerUnit,width/2-.75/metersPerUnit));
   return len>0?{x:-(b.y-a.y)*offset/len,y:(b.x-a.x)*offset/len}:{x:0,y:0};
 }
 const add=(p,v)=>({x:p.x+v.x,y:p.y+v.y});

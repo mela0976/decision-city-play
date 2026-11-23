@@ -25,7 +25,7 @@ export const T = {
   useFixtures: 'デモデータを使う',
   fixturesBadge: 'デモデータ',
 
-  pickRole: '今日のあなたは誰？',
+  pickRole: 'どの役を担当する？',
   confirmRole: (title) => `${title}として出社`,
   backToTitle: 'タイトルへ',
 

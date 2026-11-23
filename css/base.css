@@ -890,3 +890,33 @@ kbd {
 :root:lang(en) .stamp--long span {
   font-size: 0.5em;
 }
+
+/* 上次被瀏覽器強制關閉的說明 */
+.crash-notice {
+  max-inline-size: min(28rem, calc(100% - 2rem));
+  padding: 1.2rem 1.3rem;
+  background: #0c0e14;
+  color: #f2efe6;
+  border: 1px solid var(--line-strong);
+  border-inline-start: 3px solid var(--red);
+  line-height: 1.6;
+}
+
+.crash-notice::backdrop {
+  background: rgb(0 0 0 / 0.78);
+}
+
+.crash-notice h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.crash-notice ul {
+  margin: 0.6rem 0 1rem;
+  padding-inline-start: 1.2rem;
+  list-style: disc;
+}
+
+.crash-notice li {
+  display: list-item;
+}

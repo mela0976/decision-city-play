@@ -1,4 +1,4 @@
-import {canvasTexture} from './city-primitives.js?v=7c913f1f';
+import {canvasTexture,TextureLoader} from './city-primitives.js?v=7c913f1f';
 export {canvasTexture} from './city-primitives.js?v=7c913f1f';
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
 import {trafficGreen} from '../navigation.js?v=7c913f1f';
@@ -109,7 +109,7 @@ export function createCity(scene,doc,maxAnisotropy=4) {
   const loadedTextures=[];
   function loadTexture(key,material,white=false) {
     const texURL=new URL('../../../assets/tex/'+key+'.webp',import.meta.url);
-    const loader=new T.TextureLoader();
+    const loader=new TextureLoader();
     loader.load(texURL.href,texture=>{
       texture.colorSpace=T.SRGBColorSpace;
       texture.wrapS=texture.wrapT=T.RepeatWrapping;

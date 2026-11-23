@@ -1,5 +1,5 @@
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
-import {canvasTexture,shapes} from './city-primitives.js?v=7c913f1f';
+import {canvasTexture,shapes,mobileTextures} from './city-primitives.js?v=7c913f1f';
 import {crossings,signalState} from '../street-crossings.mjs?v=7c913f1f';
 import {placedPoles} from '../signal-poles.mjs?v=7c913f1f';
 
@@ -8,7 +8,8 @@ const poles=placedPoles;
 export const signalReflections=poles.map(p=>({x:p.x-p.dy*2.7,z:p.y+p.dx*2.7,crossing:p})); // A24
 const names=[...new Map(poles.map(p=>[p.name,p])).values()];
 const nameTile=new Map(names.map((p,i)=>[p.name,i]));
-const cell=128,columns=16,sharp=2; // 路名牌貼圖：繪製座標仍以 128 為一格，畫布放大兩倍，近看不糊
+const cell=128,columns=16,sharp=mobileTextures?1:2; // 路名牌貼圖：繪製座標仍以 128 為一格，畫布放大兩倍，近看不糊
+// 記憶體：手機不放大（兩張路名牌圖集原本 4096×3584 與 4096×2048，約 117 MB GPU，是手機最大宗的貼圖）
 function atlas(doc,count,paint){
   const rows=Math.ceil(count/columns);
   const map=canvasTexture(doc,columns*cell*sharp,rows*cell*sharp,(ctx)=>{

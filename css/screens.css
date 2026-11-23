@@ -328,6 +328,11 @@
   transition: filter 0.3s;
 }
 
+/* 卡片比立繪扁時（手機橫向卡片）從上方裁切，保留頭部與上半身 */
+.role-card > .art img {
+  object-position: 50% 8%;
+}
+
 /* 立繪下半的漸層遮罩，讓字落在暗部 */
 .role-card::after {
   content: "";
@@ -461,6 +466,34 @@
 
   .role-meters {
     font-size: 0.9rem;
+  }
+
+  /* 數值改成「名稱 數字」同一行，文字區只佔卡片下半，上半留給人物 */
+  .role-meters li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 0.4rem;
+  }
+
+  .role-meters li > :nth-child(2) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .role-tagline {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .roles-head h2 {
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .roles-head .btn {
+    white-space: nowrap;
   }
 
   .roles-foot {

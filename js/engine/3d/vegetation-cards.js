@@ -1,5 +1,5 @@
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
-import {canvasTexture,color,matrix,shapes} from './city-primitives.js?v=7c913f1f';
+import {canvasTexture,color,matrix,shapes,TextureLoader} from './city-primitives.js?v=7c913f1f';
 
 const atlasSlots={leaf:0,pod:1,hedge:2,autumn:3};
 const hedgeFaces=[
@@ -52,7 +52,7 @@ function fallbackAtlas(doc){
 }
 
 export function vegetationMaterials(doc,manifest,anisotropy){
-  const fallback=fallbackAtlas(doc),loader=new T.TextureLoader();
+  const fallback=fallbackAtlas(doc),loader=new TextureLoader();
   return ['near','far'].map((lod,index)=>{
     const material=new T.MeshLambertMaterial({map:fallback,side:T.DoubleSide,alphaTest:index?.36:.46});
     material.onBeforeCompile=shader=>{

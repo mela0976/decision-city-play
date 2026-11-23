@@ -26,7 +26,7 @@ export const T = {
   useFixtures: 'Use Demo Data',
   fixturesBadge: 'Demo Data',
 
-  pickRole: 'Who are you today?',
+  pickRole: 'Which role will you take?',
   confirmRole: (title) => `Clock In as ${title}`,
   backToTitle: 'Back to Title',
 

@@ -1,6 +1,7 @@
 import {nearOfficeDoor,officePoint,officeDoor} from '../office-entrance.mjs?v=7c913f1f';
 import {createSkyLight,drawAtmosphereOverlay} from './sky-light.js?v=7c913f1f';
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
+import {mobileTextures} from './city-primitives.js?v=7c913f1f'; // 手機降級
 import {drawCockpit} from '../car-cockpit.js?v=7c913f1f'; // A26
 import {createMapRenderer,drawTouch,surface} from '../overlay.js?v=7c913f1f';
 import {placeLabel,landmarkLabel,playerLabel,uiLabel} from '../labels.mjs?v=7c913f1f'; // i18n
@@ -165,7 +166,8 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
     if(!snap&&!capture) adjustQuality(dt);
     if(dt>0&&!capture)release(); // P2 perf：模擬開始走（玩家上街）才做延後的工作
     lastClock=clock;
-    const requestedDpr=Math.min(devicePixelRatio||1,quality===2?2:quality===1?1.25:.85);
+    // 記憶體：手機（觸控）最高畫質的解析度上限壓到 1.5（DPR 3 的手機原本是 2），drawing buffer 與後製緩衝約少 44%
+    const requestedDpr=Math.min(devicePixelRatio||1,quality===2?(mobileTextures?1.5:2):quality===1?1.25:.85);
     if (w!==sizeW||h!==sizeH||dpr!==requestedDpr) {
       dpr=requestedDpr;sizeW=w;sizeH=h;
       view.setPixelRatio(dpr);view.setSize(w,h,false);
@@ -651,6 +653,7 @@ export function createRenderer(canvas,minimapCanvas,overlay,context,createGoogle
   // P2 perf：測試用。立刻建完延後的區塊、遠景與貼圖衍生圖；scene 供場景雜湊比對
   draw.finishStreaming=()=>{city.finishAll();drain();};
   draw.scene=scene;
+  draw.info=view.info; // 記憶體量測用
   // E3 WebGL context 還回來：Three.js 會自己重傳貼圖與幾何，這裡補做渲染器算出來的貼圖
   draw.restore=()=>{atmosphere.restore();sun.shadow.map?.dispose();sun.shadow.map=null;lastView=-1;};
   draw.dispose=()=>{disposed=true;setUploader(null);farCity?.dispose();tiles?.dispose();actors.dispose();atmosphere.dispose();view.dispose();};

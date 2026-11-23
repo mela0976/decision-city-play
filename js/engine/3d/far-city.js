@@ -1,4 +1,5 @@
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
+import {mobileTextures} from './city-primitives.js?v=7c913f1f';
 import data from '../data/far-city.json' with {type:'json'};
 import {buildings,toWorld,metersPerUnit as unit} from '../world.mjs?v=7c913f1f';
 import {isTowerBlock} from '../tower-structures.mjs?v=7c913f1f'; // A23 towers
@@ -24,7 +25,7 @@ function rectangle(x,z,w,d,angle=0){
 }
 function groundMap(doc){
   const canvas=doc.createElement('canvas');
-  canvas.width=canvas.height=1536;
+  canvas.width=canvas.height=mobileTextures?768:1536; // 手機貼圖減半
   const ctx=canvas.getContext('2d'),radius=data.radius;
   const scale=canvas.width/(2*radius);
   ctx.setTransform(scale,0,0,scale,(radius-ox)*scale,(radius-oz)*scale);

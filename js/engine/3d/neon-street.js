@@ -1,7 +1,7 @@
 // Projecting blades, enamel fascias and illustrated lightboxes share one printed atlas.
 import * as T from '../vendor/three.module.min.js?v=7c913f1f';
 import {createSignLayout,mallFaces} from './sign-layout.mjs?v=7c913f1f';
-import {shapes} from './city-primitives.js?v=7c913f1f';
+import {shapes,TextureLoader} from './city-primitives.js?v=7c913f1f';
 
 const tradeLights=['#ffa259','#ffe8ca','#91b4ff','#ffd56e','#ff9d87','#dce7ff','#92d8be','#9abaff'];
 const boutiqueLights=['#ff8a85','#7fd9cd','#ffad6c','#b8a5ec','#ff8e9b','#aad493','#edbf77','#82ccd9'];
@@ -113,7 +113,7 @@ export function createNeonStreet({group,scene,groupOf,available,anisotropy,night
     available.then(async images=>{
       const asset=images?.['neon-shop-atlas'];
       if(!asset)return;
-      const texture=await new T.TextureLoader().loadAsync(new URL('../../../'+asset.src,import.meta.url).href);
+      const texture=await new TextureLoader().loadAsync(new URL('../../../'+asset.src,import.meta.url).href);
       texture.colorSpace=T.SRGBColorSpace;texture.anisotropy=Math.min(8,anisotropy);
       material.map=texture;material.needsUpdate=true;
       attach();

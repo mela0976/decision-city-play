@@ -25,7 +25,7 @@ export const T = {
   useFixtures: '改用示範資料',
   fixturesBadge: '示範資料',
 
-  pickRole: '今天你是誰？',
+  pickRole: '你要擔任哪個角色？',
   confirmRole: (title) => `用${title}上班`,
   backToTitle: '回標題',
 
