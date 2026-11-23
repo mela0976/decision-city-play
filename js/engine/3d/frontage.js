@@ -1,10 +1,10 @@
-import {placeVenueFront} from './venue-fronts.js?v=7c913f1f'; // A27
-import {courtPlanters,courtPoint,entranceHeaders} from '../entry-courts.mjs?v=7c913f1f'; // A23 night: visible entrances
-import {placeTree} from './vegetation.js?v=7c913f1f';
-import {placeOfficeReception} from './office-door.js?v=7c913f1f'; // A23 landmarks2
-import {surfaceAt} from '../sidewalks.mjs?v=7c913f1f';
-import {placeStudioEntrance} from './songshan-heritage.js?v=7c913f1f'; // A23 landmarks2
-import {inBuilding,roadAt,toWorld,metersPerUnit as unit} from '../world.mjs?v=7c913f1f';
+import {placeVenueFront} from './venue-fronts.js?v=f213092'; // A27
+import {courtPlanters,courtPoint,entranceHeaders} from '../entry-courts.mjs?v=f213092'; // A23 night: visible entrances
+import {placeTree} from './vegetation.js?v=f213092';
+import {placeOfficeReception} from './office-door.js?v=f213092'; // A23 landmarks2
+import {surfaceAt} from '../sidewalks.mjs?v=f213092';
+import {placeStudioEntrance} from './songshan-heritage.js?v=f213092'; // A23 landmarks2
+import {inBuilding,roadAt,toWorld,metersPerUnit as unit} from '../world.mjs?v=f213092';
 // Facades are visual detail only. OSM remains authoritative for building collisions.
 const shops=['牛肉麵','茶飲','五金','藥局','早餐','鐘錶','機車行','便當','自助洗衣','文具'];
 const plates=['#426352','#963f37','#76513b','#36556b','#a57a39'];

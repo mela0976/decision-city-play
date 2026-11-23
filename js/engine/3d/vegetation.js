@@ -1,7 +1,7 @@
 import {
   civicWalkway, locations, metersPerUnit as unit, random, roadAt, roadOptions, roads, toWorld, worldContact,
-} from '../world.mjs?v=7c913f1f';
-import {crossingForNode} from '../street-crossings.mjs?v=7c913f1f';
+} from '../world.mjs?v=f213092';
+import {crossingForNode} from '../street-crossings.mjs?v=f213092';
 import landuse from '../data/xinyi-landuse.json' with {type:'json'};
 
 const tau=2*Math.PI;

@@ -3,7 +3,7 @@
 // 英日版（lang.js）：中文原檔照常載入，再疊上 content/i18n/<lang>/ 的同名譯檔。譯檔缺少或結構和原檔不同時，
 // 那一檔退回中文並在主控台警告一次。語音照中文原句找檔，所以載入時記下每句譯文對應的中文（見 voiceTexts）。
 
-import { LANG, T, ZH_T } from './strings.js?v=7c913f1f';
+import { LANG, T, ZH_T } from './strings.js?v=f213092';
 
 export const CONTENT_FILES = ['roles', 'books', 'missions', 'quiz', 'npcs', 'radio', 'grandma', 'endings', 'story', 'feed'];
 const FEED_FORMATS = new Set(['livestream', 'dashcam', 'story', 'forum', 'chat', 'short', 'meeting', 'aichat']);
