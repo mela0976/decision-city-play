@@ -1,2 +1,2 @@
-export {placeStreetLife,xinyiBusBay} from './furniture.js?v=ac7fc88';
-export {placeTree} from './vegetation.js?v=ac7fc88';
+export {placeStreetLife,xinyiBusBay} from './furniture.js?v=441539d';
+export {placeTree} from './vegetation.js?v=441539d';

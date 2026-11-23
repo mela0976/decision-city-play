@@ -1,22 +1,22 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=ac7fc88'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=ac7fc88'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=ac7fc88'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=ac7fc88'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=ac7fc88';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=ac7fc88'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=ac7fc88';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=ac7fc88'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=ac7fc88';
-import {neonDistrict} from './neon-districts.mjs?v=ac7fc88'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=ac7fc88';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=ac7fc88';
-import {streetCrowds} from './crowds.mjs?v=ac7fc88';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=ac7fc88';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=ac7fc88';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=ac7fc88';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=ac7fc88';
-import { touchControls } from './overlay.js?v=ac7fc88';
-import {setLabels,placeLabel} from './labels.mjs?v=ac7fc88'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=441539d'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=441539d'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=441539d'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=441539d'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=441539d';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=441539d'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=441539d';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=441539d'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=441539d';
+import {neonDistrict} from './neon-districts.mjs?v=441539d'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=441539d';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=441539d';
+import {streetCrowds} from './crowds.mjs?v=441539d';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=441539d';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=441539d';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=441539d';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=441539d';
+import { touchControls } from './overlay.js?v=441539d';
+import {setLabels,placeLabel} from './labels.mjs?v=441539d'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -802,7 +802,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     }
     if(parked&&parked!==nearestParked())return false;
     const clear=(x,y,heading)=>!trafficSpace.hit(x,y,carLength,{width:carWidth,heading,ignore:player});
-    if(parked)space.remove(parked.collider);
+    if(parked)space.remove(parked.collider,parked);
     const spot=parked&&!carTerrain(parked.x,parked.y,parked.heading)&&clear(parked.x,parked.y,parked.heading)?
       {x:parked.x,y:parked.y,heading:parked.heading}:
       (parked||carriagewayAt(player.x,player.y))&&(carParking(parked||player,clear)??
@@ -845,7 +845,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     }else{
       if(player.mode==='car'&&carTerrain(player.x,player.y,player.heading))return false; // A26
       if(route)setRide(false); // 自動飛行中自己按 T 降落：取消自動前往
-      space.remove(teslaCollider);teslaCollider=null;teslaBody=player; // A26
+      space.remove(teslaCollider,teslaBody);teslaCollider=null;teslaBody=player; // A26
       delete player.vehicle;
       delete player.altitude;
     }
@@ -1582,7 +1582,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       }
       else space.put(player,playerRadius,'player');
     }
-    for(const person of [...state.npcs,...streetCrowds])space.put(person,radius.foot,'person');
+    for(const person of state.npcs)space.put(person,radius.foot,'person');
+    for(const person of streetCrowds)space.put(person,radius.foot,'person');
     if(staticRegistry!==state.staticColliders){
       staticRegistry=state.staticColliders;staticSpace.clear();
       // A14 impact
@@ -1810,7 +1811,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     // A14 impact
     const impactColliders=new Map();
     const indexImpact=car=>{
-      space.remove(impactColliders.get(car));
+      space.remove(impactColliders.get(car),car);
       if(car.impact.air>=1){impactColliders.delete(car);return;}
       impactColliders.set(car,space.put(car,colliderRadius(car),'vehicle'));
     };
@@ -1850,7 +1851,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       space.put(car,colliderRadius(car),'vehicle');
     }
     const moveWalker=(walker,x,y)=>{
-      if(walker.collider)space.remove(walker.collider);
+      if(walker.collider)space.remove(walker.collider,walker);
       walker.movingSpeed=0;
       const step=dt*(walker.role==='cyclist'?4.6:walker.role==='runner'?2.8:1.45)/metersPerUnit,len=Math.hypot(x-walker.x,y-walker.y);
       if(step===0){x=walker.x;y=walker.y;} // A24 keep priming stationary
@@ -2399,7 +2400,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       if(scooter&&!terrainAtContact&&(hitAtContact?.kind==='vehicle'||body?.type==='parked')){
         reaction=impact.strike(player,body,velocityX,velocityY);
         if(reaction&&body.type==='parked'){
-          staticSpace.remove(parkedColliders.get(body));
+          staticSpace.remove(parkedColliders.get(body),body);
           parkedColliders.delete(body);
           indexImpact(impact.parked.get(body));
         }

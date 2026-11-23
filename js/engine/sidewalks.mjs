@@ -1,9 +1,9 @@
-import {subtractConvex,subtractRectangle} from './paving-geometry.mjs?v=ac7fc88';
-import {wuxingArcades} from './wuxing-arcades.mjs?v=ac7fc88'; // A24
+import {subtractConvex,subtractRectangle} from './paving-geometry.mjs?v=441539d';
+import {wuxingArcades} from './wuxing-arcades.mjs?v=441539d'; // A24
 // All geometry here is in metres (x east, z south). World queries take simulation units.
-import {buildings, inWuxing, inBuilding, metersPerUnit as unit, oldStreetDistrict, roadAt, roadNodes, roads, toGeo, worldContact} from './world.mjs?v=ac7fc88';
-import {urbanInfill} from './infill.mjs?v=ac7fc88';
-import {crosswalkEnds} from './crosswalks.mjs?v=ac7fc88';
+import {buildings, inWuxing, inBuilding, metersPerUnit as unit, oldStreetDistrict, roadAt, roadNodes, roads, toGeo, worldContact} from './world.mjs?v=441539d';
+import {urbanInfill} from './infill.mjs?v=441539d';
+import {crosswalkEnds} from './crosswalks.mjs?v=441539d';
 
 const cells = new Map(), asphalt = new Map();
 export const fillets=[]; // A25 rounded kerb corners

@@ -1,4 +1,4 @@
-import {metersPerUnit as unit} from './world.mjs?v=ac7fc88';
+import {metersPerUnit as unit} from './world.mjs?v=441539d';
 
 const cell=48;
 export const radius={rider:1.03/unit,foot:.29/unit,scooter:1.02/unit,car:2.45/unit,truck:2.9/unit};
@@ -33,38 +33,44 @@ const query={x:0,y:0,a:0,b:0,u:0,v:0};
 export function occupancy(){
   const cells=new Map();
   let touched=[];
+  const pool=[];let used=0; // 每輪 clear() 之後重用 item，不再每幀新建數千個物件
   const lo=(v,r)=>Math.floor((v-r)/cell),hi=(v,r)=>Math.floor((v+r)/cell);
   return {
     clear(){
-      for(let i=0;i<touched.length;i++)touched[i].clear();
+      for(let i=0;i<touched.length;i++)touched[i].length=0; // 陣列清空不重新配置（Set.clear 每次都會重建雜湊表）
       touched.length=0;
+      for(let i=0;i<used;i++)pool[i].body=null;
+      used=0;
     },
     put(body,r,kind){
-      const item={body,kind,x:0,y:0,a:0,b:0,u:0,v:0,reach:0};
+      let item=pool[used];
+      if(!item)pool[used]=item={body:null,kind:null,x:0,y:0,a:0,b:0,u:0,v:0,reach:0};
+      used++;item.body=body;item.kind=kind;
       box(body.x,body.y,r,body,item);
       item.reach=Math.hypot(item.a,item.b);
       const x=item.x,y=item.y,reach=item.reach;
       for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++){
         const k=iy*65536+ix;
         let row=cells.get(k);
-        if(!row)cells.set(k,row=new Set());
-        if(!row.size)touched.push(row);
-        row.add(item);
+        if(!row)cells.set(k,row=[]);
+        if(!row.length)touched.push(row);
+        row.push(item);
       }
       return item;
     },
-    remove(item){
-      if(!item)return;
+    remove(item,body=item?.body){
+      if(!item||item.body!==body)return; // 舊幀的 handle 已被別人重用：不要誤刪
+      item.body=null;
       const x=item.x,y=item.y,reach=item.reach;
-      for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++)cells.get(iy*65536+ix)?.delete(item);
+      for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++){const row=cells.get(iy*65536+ix),i=row?row.indexOf(item):-1;if(i>=0)row.splice(i,1);}
     },
     hit(x,y,r,ignore){
       const bounds=box(x,y,r,ignore,query);
       const skip=ignore?.ignore??ignore,reach=Math.hypot(bounds.a,bounds.b);
       for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++){
         const row=cells.get(iy*65536+ix);
-        if(!row||!row.size)continue;
-        for(const item of row)if(item.body!==skip&&overlap(bounds,item,reach))return item;
+        if(!row||!row.length)continue;
+        for(let n=0;n<row.length;n++){const item=row[n];if(item.body!==skip&&overlap(bounds,item,reach))return item;}
       }
       return null;
     },
