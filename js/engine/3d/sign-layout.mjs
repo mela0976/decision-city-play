@@ -1,8 +1,8 @@
 // Street-side coordinates are metres. The frame of a panel uses Three's rotation about Y.
-import {buildings,buildingHeightAt,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from '../world.mjs?v=dbaa7c29';
-import {urbanInfill} from '../infill.mjs?v=dbaa7c29';
-import {mallPromenade,neonDistrict} from '../neon-districts.mjs?v=dbaa7c29';
-import {hash} from './city-primitives.js?v=dbaa7c29';
+import {buildings,buildingHeightAt,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from '../world.mjs?v=b0bdcee1';
+import {urbanInfill} from '../infill.mjs?v=b0bdcee1';
+import {mallPromenade,neonDistrict} from '../neon-districts.mjs?v=b0bdcee1';
+import {hash} from './city-primitives.js?v=b0bdcee1';
 
 const cell=24;
 // P2 perf：同樣的格子走訪順序（先 z 後 x、格內依加入順序），只是不再每格建立閉包與呼叫 some()。
