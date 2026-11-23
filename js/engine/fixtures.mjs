@@ -1,14 +1,14 @@
-import {alleyParking} from './actor-streets.mjs?v=5dbcfc52'; // A23 actors
-import {visitWuxingArcades} from './wuxing-arcades.mjs?v=5dbcfc52'; // A23 alleys
-import {urbanInfill} from './infill.mjs?v=5dbcfc52';
-import {placeStreetLife} from './3d/street-life.js?v=5dbcfc52';
-import {visitLandscapeTrees,visitLandscapeHedges} from './3d/vegetation.js?v=5dbcfc52'; // A19 vegetation hook
-import {placeEntrance} from './3d/frontage.js?v=5dbcfc52';
+import {alleyParking} from './actor-streets.mjs?v=d89c3a18'; // A23 actors
+import {visitWuxingArcades} from './wuxing-arcades.mjs?v=d89c3a18'; // A23 alleys
+import {urbanInfill} from './infill.mjs?v=d89c3a18';
+import {placeStreetLife} from './3d/street-life.js?v=d89c3a18';
+import {visitLandscapeTrees,visitLandscapeHedges} from './3d/vegetation.js?v=d89c3a18'; // A19 vegetation hook
+import {placeEntrance} from './3d/frontage.js?v=d89c3a18';
 // A19 terrain-landmarks hook
-import {placeFloodDefenses} from './3d/terrain.js?v=5dbcfc52';
-import {placeArcadeColumns} from './3d/songshan-heritage.js?v=5dbcfc52'; // A23 landmarks2: mapped factory arcade.
-import {placeTempleCourt} from './3d/landmarks.js?v=5dbcfc52';
-import {locations,metersPerUnit as unit,inBuilding} from './world.mjs?v=5dbcfc52';
+import {placeFloodDefenses} from './3d/terrain.js?v=d89c3a18';
+import {placeArcadeColumns} from './3d/songshan-heritage.js?v=d89c3a18'; // A23 landmarks2: mapped factory arcade.
+import {placeTempleCourt} from './3d/landmarks.js?v=d89c3a18';
+import {locations,metersPerUnit as unit,inBuilding} from './world.mjs?v=d89c3a18';
 
 let cached;
 export function fixtureColliders(){

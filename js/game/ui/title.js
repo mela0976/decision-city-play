@@ -1,9 +1,9 @@
 // 標題畫面：主視覺滿版，標誌是一支直式霓虹招牌；開始／繼續／年鑑。
 // 輸入阿嬤代碼（grandma.json 的 unlock.titleCode）或連點標誌七下會呼叫 onSecret。
 
-import { h, arrowFocus } from '../dom.js?v=5dbcfc52';
-import { T, ZH_T } from '../strings.js?v=5dbcfc52';
-import { langSwitch } from './lang-switch.js?v=5dbcfc52';
+import { h, arrowFocus } from '../dom.js?v=d89c3a18';
+import { T, ZH_T } from '../strings.js?v=d89c3a18';
+import { langSwitch } from './lang-switch.js?v=d89c3a18';
 
 const TAPS_NEEDED = 7;
 const TAP_WINDOW_MS = 4000;

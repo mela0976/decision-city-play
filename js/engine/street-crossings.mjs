@@ -1,6 +1,6 @@
 // A24. Coordinates use world units; crosswalk, stop and box distances are metres
 // from the OSM arm's anchor, including on divided carriageways.
-import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=5dbcfc52';
+import {roads,roadNodes,toWorld,roadAt,metersPerUnit as unit} from './world.mjs?v=d89c3a18';
 import tagged from './data/xinyi-signals.json' with {type:'json'};
 
 const rank={primary:3,secondary:2,tertiary:1};
@@ -253,8 +253,13 @@ function placeWalk(j,a,into=crosswalks){
     const x=a.x*unit+a.dx*(start+depth/2),y=a.y*unit+a.dy*(start+depth/2);
     const edges=curbSpan(x,y,-a.dy,a.dx,span/2);
     if(!edges)continue;
+    // 路邊是廣場或空地時，路緣離得很遠，斑馬線會拉得比路寬長好幾倍（例如市民大道五段14巷 6 公尺的路畫出 38 公尺）。
+    // 超過路寬 1.5 倍＋2 公尺時，只畫到路寬兩側各多 1 公尺。
+    // 路緣斜坡與行人路線仍用原本的路緣位置；只有畫在地上的斑馬線縮短（paintSpan、paintX、paintY）。
+    const paint=edges[1]-edges[0]>span*1.5+2?[Math.max(edges[0],-span/2-1),Math.min(edges[1],span/2+1)]:edges;
     const offset=(edges[0]+edges[1])/2;
     rect.x=x-a.dy*offset;rect.y=y+a.dx*offset;rect.span=edges[1]-edges[0];
+    const paintOffset=(paint[0]+paint[1])/2;rect.paintX=x-a.dy*paintOffset;rect.paintY=y+a.dx*paintOffset;rect.paintSpan=paint[1]-paint[0];
     if(j.members.every(i=>Math.hypot(roadNodes[i].x*unit-rect.x,roadNodes[i].y*unit-rect.y)>15))continue;
     const shared=local.find(p=>overlaps(p,rect));
     if(shared){
