@@ -1,6 +1,6 @@
 // 下方提示列：永遠在畫面底部置中。左段是現在要做什麼，右段是現在能按什麼；按鍵名稱用小鍵帽。
 
-import { h, fill } from '../dom.js?v=66d2a5f0';
+import { h, fill } from '../dom.js?v=7c913f1f';
 
 export function createHint({ root, stage }) {
   const taskEl = root.querySelector('#hint-task');

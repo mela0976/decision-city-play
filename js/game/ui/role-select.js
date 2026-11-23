@@ -2,8 +2,8 @@
 // 寬螢幕六張並排；直向或窄螢幕改成可左右滑動的卡片，滑到中間那張就是選中的。
 // 鍵盤：左右鍵換人，動作鍵（空白鍵、Enter、E）確認。
 
-import { h, fill, reducedMotion } from '../dom.js?v=66d2a5f0';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=66d2a5f0';
+import { h, fill, reducedMotion } from '../dom.js?v=7c913f1f';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=7c913f1f';
 
 export function showRoleSelect({ screen, assets, roles, onPick, onBack, sfx }) {
   let selected = roles[0];
