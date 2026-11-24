@@ -1,11 +1,11 @@
-// Hand-built props that dress three sparse destinations: the 44 South Village shop
+// Hand-built props that dress sparse destinations: the corner breakfast shop, the 44 South Village shop
 // forecourt, the Rainbow riverside promenade and the Songshan creative-park lawn.
 // The renderer and fixtures.mjs both call placeLocationDressing with the same arguments,
 // so every box or cylinder that reaches walking height is also a collider.
 // Flat paving goes through the optional `paving` batch and never blocks movement.
-import {metersPerUnit as unit,roadAt,inBuilding} from '../world.mjs?v=70a6a7b0';
-import {riversideBank,promenade} from '../riverside-bank.mjs?v=70a6a7b0';
-import {placeTree} from './vegetation.js?v=70a6a7b0';
+import {metersPerUnit as unit,roadAt,inBuilding} from '../world.mjs?v=fced202e';
+import {riversideBank,promenade} from '../riverside-bank.mjs?v=fced202e';
+import {placeTree} from './vegetation.js?v=fced202e';
 
 // Local frame shared with placeEntrance: u runs along the street, d away from it.
 function frame(p){
@@ -340,10 +340,145 @@ function dressStudioLawn(p,{instance,paving,treeInstance}){
   for(const [u,d] of [[-8.5,8.6],[-8.5,10.2]])potted(u,d,1.2,'#5e7f47','#8e8a80');
 }
 
+// A street-corner breakfast shop: a griddle counter with stools and a hood along the
+// kiosk's open side wall, a takeaway case, urns, menu boards, a fridge and parked scooters.
+// Local frame: the kiosk spans u -4.9..0.7 and d 5..7.3; its door aisle (u -4.15..-0.05) stays open.
+function dressBreakfast(p,{instance,paving,sign}){
+  const {at,turn}=frame(p);
+  const {box,post,blob,put}=kit(instance,at,turn);
+  const steel='#aeb3b1',steelLight='#cfd3d0',steelDark='#7d8381';
+  const sideFace=-p.viewHeading; // sign rotation facing local -u, toward the corner lot
+  // Pale ceramic tiles under the stall.
+  tilePatch(paving,at,{u0:-7.1,u1:-4.95,d0:3.9,d1:7.6,size:[.3,.3],
+    tints:['#c9c6bc','#bfbcb2','#d2cfc5','#c4c1b6']});
+  // White tiled splashback over the kiosk's side wall.
+  box('#e5e2d9',-4.93,1.78,5.85,.03,1.66,2.84,0,'concrete');
+
+  // Stainless counter running along the side wall, open to stools on the lot side.
+  const cu=-5.33;
+  box(steel,cu,.47,5.85,.76,.94,2.8);
+  box(steelLight,cu,.955,5.85,.84,.03,2.88);
+  box('#3d3f3e',cu+.02,.05,5.85,.7,.1,2.76);
+  for(let i=0;i<5;i++)box(steelDark,cu-.385,.5,4.6+i*.62,.012,.78,.02);
+  // Takeaway case at the street end: glass box with sandwiches, buns and rolls.
+  const gd=4.83;
+  box('#d6e1df',cu,1.22,gd,.62,.5,.66,0,'lobbyGlass');
+  box(steelLight,cu,1.48,gd,.66,.03,.7);
+  box('#f3eedf',cu,1.21,gd,.56,.015,.6,0,'lobbyLight');
+  for(const [du,dd] of [[-.3,-.32],[.3,-.32],[-.3,.32],[.3,.32]])post(steelDark,cu+du,1.22,gd+dd,.025,.5);
+  for(let i=0;i<4;i++){
+    const dd=gd-.24+i*.16;
+    box('#efe3c4',cu-.12,1.02,dd,.15,.05,.12,.3);
+    box('#e1bd46',cu-.12,1.02,dd,.155,.012,.125,.3);
+    box('#86a85a',cu-.12,1.008,dd,.15,.008,.12,.3);
+    blob(i%2?'#d79a55':'#e2b674',cu+.12,1.26,dd,.12,.07,.12,'concrete');
+    box('#c58b4f',cu-.1,1.25,dd,.07,.06,.13,.1);
+  }
+  // Griddle with egg crepes, turnip cakes and a scraper.
+  const gr=5.85;
+  box('#2b2a28',cu,.985,gr,.62,.035,1.05);
+  box(steelDark,cu+.32,1.04,gr,.02,.14,1.08);
+  for(const [du,dd,c] of [[-.12,-.33,'#ecc657'],[.1,-.1,'#e6bd52'],[-.1,.16,'#f0cf65'],[.12,.38,'#e8c65e']])
+    box(c,cu+du,1.008,gr+dd,.2,.012,.15,du*3);
+  for(const dd of [-.4,.1,.4])box('#d8c9a8',cu-.2,1.01,gr+dd,.12,.02,.09,.4);
+  box('#c4c8c6',cu-.05,1.025,gr-.25,.22,.008,.09,.6);
+  // Soy-milk and black-tea urns with taps, and stacked bowls.
+  for(const [dd,c] of [[6.62,steelLight],[6.98,'#b9bdbb']]){
+    post(c,cu,1.22,dd,.3,.5);
+    post(steelDark,cu,1.49,dd,.22,.04);
+    box('#2e2f2f',cu-.17,1.06,dd,.06,.04,.04);
+  }
+  for(let i=0;i<4;i++)post('#f2f0ea',cu-.05,.99+i*.035,7.15+(i%2)*.01,.17,.03,'concrete');
+
+  // Hood over the griddle, ducted up into the roof.
+  box('#9aa09e',-5.4,2.28,gr,.98,.3,1.45);
+  box('#868c8a',-5.5,2.08,gr,.8,.12,1.52);
+  box(steelDark,-5.07,2.66,gr,.3,.46,.36);
+  box('#f6f0d8',-5.55,2.015,gr,.5,.015,1.1,0,'luminous');
+  // Shelves of pots behind the urns.
+  for(const y of [1.72,2.12])box(steelLight,-5.05,y,6.95,.24,.025,.6);
+  for(let i=0;i<3;i++){
+    post(i%2?'#b7bab8':'#9da2a0',-5.06,1.82,6.75+i*.2,.17,.18);
+    post('#c9ccc9',-5.06,2.2,6.75+i*.2,.15,.13);
+  }
+  // Menu boards: one over the takeaway case, one on the kiosk front.
+  box('#2f4a3d',-4.9,2.08,4.82,.03,.62,.72);
+  for(let i=0;i<5;i++){
+    box('#e9e3cf',-4.92,2.27-i*.1,4.76,.01,.035,.46);
+    box('#d4583f',-4.92,2.27-i*.1,5.08,.01,.035,.1);
+  }
+  box('#2f4a3d',-4.35,1.72,4.88,.9,.9,.03);
+  for(let i=0;i<6;i++){
+    box('#ece6d2',-4.43,1.92-i*.11,4.865,.58,.04,.01);
+    box('#d4583f',-4.03,1.92-i*.11,4.865,.12,.04,.01);
+  }
+  if(sign){
+    const [mx,mz]=at(-4.35,4.855);
+    sign('早餐菜單',mx,2.27,mz,-Math.PI/2-p.viewHeading,'#2f4a3d',false,.9,.2);
+  }
+
+  // Sheet-metal roof on two posts, fluorescent tubes, a fascia and a blade sign.
+  box('#c9c4b8',-5.98,2.79,5.8,2.16,.06,3.36);
+  box('#b23a2f',-7.05,2.66,5.8,.04,.3,3.36);
+  for(const d of [4.2,7.4])post(steelDark,-6.95,1.38,d,.08,2.76);
+  for(const u of [-6.4,-5.85])box('#f7f8f0',u,2.72,5.8,.05,.04,1.3,0,'luminous');
+  if(sign){
+    const [fx,fz]=at(-7.08,5.8);
+    sign('燒餅 蛋餅 豆漿',fx,2.66,fz,sideFace,'#b23a2f',false,2.6,.28);
+    const [bx,bz]=at(-6.95,3.93);
+    sign('早餐',bx,2.05,bz,sideFace,'#b23a2f',false,.42,1.0,'acrylic');
+  }
+
+  // Bar stools facing the counter.
+  for(const d of [4.75,5.45,6.15,6.85]){
+    post('#9a6b40',-6.2,.75,d,.36,.06);
+    post('#4f5453',-6.2,.37,d,.055,.72);
+    post('#4f5453',-6.2,.27,d,.3,.025);
+    post('#4f5453',-6.2,.015,d,.34,.03);
+  }
+  // Stacked plastic stools by the back corner.
+  for(const [u,c,n] of [[-5.32,'#c9413a',6],[-5.86,'#3f74b6',4]]){
+    for(const [du,dd] of [[-.14,-.14],[.14,-.14],[-.14,.14],[.14,.14]])box(c,u+du,.19,7.82+dd,.05,.38,.05);
+    for(let i=0;i<n;i++)box(c,u,.4+i*.075,7.82,.36,.06,.36);
+  }
+
+  // Drinks fridge in front of the kiosk's right wing.
+  const fu=.31,fd=4.56;
+  box('#e3e5e3',fu,.93,fd,.64,1.86,.6);
+  box('#d6463a',fu,1.74,fd-.305,.6,.16,.02,0,'luminous');
+  box('#eef3ee',fu,.86,fd+.04,.52,1.28,.02,0,'lobbyLight');
+  box('#aecbcc',fu,.86,fd-.31,.54,1.3,.015,0,'lobbyGlass');
+  for(let row=0;row<4;row++)for(let i=0;i<4;i++)
+    box(['#e8d6a2','#c84b3c','#6aa36c','#e6e2d4'][(i+row)%4],fu-.18+i*.12,.38+row*.3,fd-.2,.07,.2,.07);
+  box('#5f6462',fu+.24,.86,fd-.33,.025,.5,.03);
+
+  // Two scooters parked nose-out beside the kiosk.
+  const scooter=(u,d,rot,tint)=>{
+    const c=Math.cos(rot),s=Math.sin(rot);
+    // Offsets along the body (a, positive toward the nose) and across it (b).
+    const part=(tint,a,b,y,len,h,w,kind)=>box(tint,u+a*c+b*s,y,d-a*s+b*c,len,h,w,rot,kind);
+    for(const a of [-.6,.6])put('metal','cylinder','#24272a',u+a*c,.21,d-a*s,.42,.12,.42,rot+Math.PI/2,0,Math.PI/2);
+    part('#38393b',.05,0,.3,.75,.1,.34);
+    part(tint,-.36,0,.52,.86,.42,.4);
+    part('#2a292b',-.33,0,.78,.72,.1,.35);
+    part(tint,.42,0,.63,.16,.78,.42);
+    part(tint,.6,0,.43,.3,.08,.16);
+    part('#3a3c3e',.5,0,1.08,.08,.32,.08);
+    part('#bbc1bc',.5,0,1.2,.1,.05,.64);
+    part('#fff1c8',.55,0,1.1,.05,.08,.15,'lobbyLight');
+    for(const b of [-.28,.28])part('#3a3c3e',.48,b,1.34,.03,.22,.03);
+    part('#c8382f',-.8,0,.64,.03,.07,.18,'luminous');
+  };
+  scooter(1.55,4.15,Math.PI/2+.08,'#d9d4c6');
+  scooter(2.4,4.3,Math.PI/2-.06,'#7d9fb8');
+}
+
 // `paving(x,z,kind)` returns a triangle batch; omit it for collision-only visits.
 // `treeInstance` defaults to `instance` so collision visits register the same trunks.
-export function placeLocationDressing(p,{instance,paving=null,treeInstance=instance}){
-  if(p.id==='gamadiam')dressVillageShop(p,{instance,paving,treeInstance});
+// `sign` draws text panels in the renderer; collision visits omit it.
+export function placeLocationDressing(p,{instance,paving=null,treeInstance=instance,sign=null}){
+  if(p.id==='breakfast')dressBreakfast(p,{instance,paving,sign});
+  else if(p.id==='gamadiam')dressVillageShop(p,{instance,paving,treeInstance});
   else if(p.id==='riverside')dressRiverside(p,{instance,paving,treeInstance});
   else if(p.id==='studio')dressStudioLawn(p,{instance,paving,treeInstance});
 }

@@ -1,15 +1,15 @@
-import * as T from '../vendor/three.module.min.js?v=70a6a7b0';
-import {metersPerUnit as unit,locations,toWorld,elevatedRoofs} from '../world.mjs?v=70a6a7b0';
-import {towerSkywalks} from './buildings-tower.js?v=70a6a7b0'; // A23 towers
-import {addFactoryFront,addPondWalk} from './songshan-heritage.js?v=70a6a7b0';
-import {addTemple} from './temple-court.js?v=70a6a7b0';
-export {placeTempleCourt} from './temple-court.js?v=70a6a7b0';
-import {buildLandmark} from './xinyi.js?v=70a6a7b0';
-import {placeEntrance} from './frontage.js?v=70a6a7b0';
-import {venues} from '../venue-entrances.mjs?v=70a6a7b0'; // A27
-import {createOfficeDoor} from './office-door.js?v=70a6a7b0';
-import {placeLocationDressing} from './location-dressing.js?v=70a6a7b0';
-import {shapes,matrix,color} from './city-primitives.js?v=70a6a7b0';
+import * as T from '../vendor/three.module.min.js?v=fced202e';
+import {metersPerUnit as unit,locations,toWorld,elevatedRoofs} from '../world.mjs?v=fced202e';
+import {towerSkywalks} from './buildings-tower.js?v=fced202e'; // A23 towers
+import {addFactoryFront,addPondWalk} from './songshan-heritage.js?v=fced202e';
+import {addTemple} from './temple-court.js?v=fced202e';
+export {placeTempleCourt} from './temple-court.js?v=fced202e';
+import {buildLandmark} from './xinyi.js?v=fced202e';
+import {placeEntrance} from './frontage.js?v=fced202e';
+import {venues} from '../venue-entrances.mjs?v=fced202e'; // A27
+import {createOfficeDoor} from './office-door.js?v=fced202e';
+import {placeLocationDressing} from './location-dressing.js?v=fced202e';
+import {shapes,matrix,color} from './city-primitives.js?v=fced202e';
 
 const landmarkShapes={...shapes,spireTier:new T.CylinderGeometry(Math.SQRT1_2,.56,1,4,1,false,Math.PI/4)};
 
@@ -237,7 +237,7 @@ export function addEntrances({instance,sign,batch,textWall,foliage}) {
   addFactoryFront(instance,batch);
   addPondWalk(batch);
   for(const p of locations){
-    placeLocationDressing(p,{instance,paving:batch,treeInstance:foliage?instance:()=>{}});
+    placeLocationDressing(p,{instance,paving:batch,treeInstance:foliage?instance:()=>{},sign});
     if(p.shape==='temple'){
       placeEntrance(p,{instance,sign:()=>{}}); // A27 shrine returns
       addTemple(p,{instance,batch,sign,foliage});

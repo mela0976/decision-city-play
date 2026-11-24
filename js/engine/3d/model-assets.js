@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=70a6a7b0';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=70a6a7b0';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=70a6a7b0';
+import * as T from '../vendor/three.module.min.js?v=fced202e';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=fced202e';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=fced202e';
 
 const optionalVehicles={garbage_truck:6.5,bus:12};
 const catalog={
@@ -63,7 +63,7 @@ export function createModelAssets(scene){
       if(key==='car_ev'||key==='scooter_parked'||key==='rider_scooter'||optionalVehicles[key])template.traverse(obj=>{
         if(!obj.isMesh||obj.isSkinnedMesh)return;
         const geometry=obj.geometry.clone().applyMatrix4(obj.matrixWorld);
-        const inst=new T.InstancedMesh(geometry,obj.material,180);
+        const inst=new T.InstancedMesh(geometry,obj.material,600); // 停車格整排機車也用寫實模型（原本 180）
         inst.count=0;inst.frustumCulled=false;inst.castShadow=true;inst.receiveShadow=true;
         scene.add(inst);batches.push(inst);
       });
@@ -89,7 +89,7 @@ export function createModelAssets(scene){
       const asset=assets.get(key);
       if(!asset)return false;
       if(asset.batches.length){
-        if(asset.used>=180)return false;
+        if(asset.used>=600)return false;
         matrix.position.set(x,impact?.center??ground,z);
         matrix.rotation.set(impact?.roll??lean,-heading,impact?.pitch??pitch,'YXZ');
         matrix.scale.set(1,1,1);
@@ -110,7 +110,7 @@ export function createModelAssets(scene){
         asset.used++;
         return true;
       }
-      if(asset.used>=128)return false; // 每款寫實路人最多同時 128 個（原本 64）
+      if(asset.used>=256)return false; // 每款寫實路人最多同時 256 個（人多的地方也不退回圓頭小人）
       const slot=asset.used++;
       if(!asset.pool[slot]){
         const object=cloneRig(asset.template),mixer=new T.AnimationMixer(object),standingPose=[];

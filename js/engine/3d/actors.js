@@ -1,16 +1,16 @@
-import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=70a6a7b0'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=70a6a7b0'; // A22
-import {marketTruck} from '../night-market.mjs?v=70a6a7b0'; // A23 night
-import {parkedKey} from '../impact.mjs?v=70a6a7b0';
-import {streetCrowds} from '../crowds.mjs?v=70a6a7b0';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=70a6a7b0';
-import {createNamedNpcModels} from './named-npcs.js?v=70a6a7b0';
-import {buildOfficePeople} from './office-people.js?v=70a6a7b0';
-import {createModelAssets} from './model-assets.js?v=70a6a7b0';
-import {fixtureColliders} from '../fixtures.mjs?v=70a6a7b0';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=70a6a7b0';
-import * as T from '../vendor/three.module.min.js?v=70a6a7b0';
-import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=70a6a7b0';
+import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=fced202e'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=fced202e'; // A22
+import {marketTruck} from '../night-market.mjs?v=fced202e'; // A23 night
+import {parkedKey} from '../impact.mjs?v=fced202e';
+import {streetCrowds} from '../crowds.mjs?v=fced202e';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=fced202e';
+import {createNamedNpcModels} from './named-npcs.js?v=fced202e';
+import {buildOfficePeople} from './office-people.js?v=fced202e';
+import {createModelAssets} from './model-assets.js?v=fced202e';
+import {fixtureColliders} from '../fixtures.mjs?v=fced202e';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=fced202e';
+import * as T from '../vendor/three.module.min.js?v=fced202e';
+import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=fced202e';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -577,6 +577,7 @@ const paint=['#35373c','#d2cbbf','#57677d','#895b55','#a3a4a0','#464951','#65575
 const bikeRing=new T.TorusGeometry(.37,.032,5,14);
 const canopy=new T.SphereGeometry(.5,8,3,0,Math.PI*2,0,Math.PI*.49);
 // 寫實騎士模型原本都是白衣：每台車依外觀編號套一個色調（乘在模型上，衣服與車身一起變），街上不再一整排白衣
+const parkedTints=['#ffffff','#c9d3de','#e6d6c4','#b8c8bc','#d8c2c8','#9aa3ad','#e8e0c8','#a8b8c8'];
 const riderTints=['#ffffff','#5d6f8c','#8a7a5c','#6f8a6c','#8c5a5e','#4a4d55','#a89a7c','#6a8aa0','#9a6f8a','#7c8c8f','#c8b89a','#3f5a7a'];
 function riderModel(color,index,rain,near){
   const shirt=sidewalkWardrobe[index%8][0],helmet=helmets[index%helmets.length];
@@ -785,7 +786,8 @@ export function createActors(scene,glow,parkedScooters=[]) {
   function drawParked(x,z,missingParked){
     for(const prop of parkedScooters){
       if(Math.hypot(x-prop.x,z-prop.z)>43||missingParked?.has(parkedKey(prop.x,prop.z)))continue;
-      if(Math.hypot(x-prop.x,z-prop.z)>24||!models.draw('scooter_parked',prop.x,prop.z,prop.heading))
+      // 停放的機車一律用寫實模型（原本 24 公尺外是方塊）；模型未載入或數量滿了才用程式畫的外形
+      if(!models.draw('scooter_parked',prop.x,prop.z,prop.heading))
         stamp(Math.hypot(x-prop.x,z-prop.z)>24?parkedStyles[4].far:parkedModel,prop.x,prop.z,prop.heading,0);
     }
   }
@@ -793,7 +795,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
     for(const prop of racks){
       if(Math.abs(x-prop.x)>53||Math.abs(z-prop.z)>53||missing?.has(parkedKey(prop.x,prop.z)))continue;
       const style=prop.look%paint.length;
-      stamp(Math.hypot(x-prop.x,z-prop.z)<20?parkedStyles[style].near:parkedStyles[style].far,prop.x,prop.z,prop.heading,0);
+      // 機車停車格：用寫實停放機車模型，依原本的車色上色；畫不出來才用方塊外形
+      if(!models.draw('scooter_parked',prop.x,prop.z,prop.heading,{tint:parkedTints[style%parkedTints.length]}))
+        stamp(Math.hypot(x-prop.x,z-prop.z)<20?parkedStyles[style].near:parkedStyles[style].far,prop.x,prop.z,prop.heading,0);
     }
   }
   function uploadInstances(){
@@ -878,7 +882,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
         if(!loaded)stamp(parkedModel,px,pz,item.heading,0,impact);
       }else if(item.scooter) {
         // 40 公尺內用寫實騎士模型（一次批次繪製），更遠才用程式畫的簡化外形
-        if(!(distance<40&&models.draw('rider_scooter',px,pz,item.heading,{tint:riderTints[lookOf(item)%riderTints.length]}))){
+        if(!(models.draw('rider_scooter',px,pz,item.heading,{tint:riderTints[lookOf(item)%riderTints.length]}))){
           const look=lookOf(item)%120,near=distance<18;
           const key=[item.color,look,Boolean(rain),near].join('/');
           if(!farScooters.has(key))farScooters.set(key,riderModel(item.color,look,rain,near));
@@ -932,7 +936,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
     }
     function stampPerson(item,px,pz,facing,index,moving,ground,distance,complexion=complexions[index%complexions.length]){ // A24
       // 80 公尺內的路人（含具名角色、辦公室同事、學生）一律用 Higgsfield 生成的寫實模型；畫不出來（模型未載入或同款太多）才用程式畫的外形
-      if(distance<=80&&item!==walkerPortrait){
+      if(distance<=150&&item!==walkerPortrait){
         const gskin=item.skin??'npc_vendor';
         const gfemale=femaleNpcs.has(item.id)?true:maleNpcs.has(item.id)?false:item.standing?index%2===0:femaleSkins.includes(gskin);
         const gelder=elderSkin(gskin);
@@ -944,6 +948,8 @@ export function createActors(scene,glow,parkedScooters=[]) {
         walkerOptions.idlePose=index%5;walkerOptions.build=1;walkerOptions.complexion=0;walkerOptions.lod=distance>30?3:1;
         if(models.draw(glooks[key%glooks.length],px,pz,facing,walkerOptions))return;
       }
+      // 80 公尺外只剩幾個像素：寫實模型畫不出來（數量滿了）就不畫，不退回程式畫的圓頭小人
+      if(distance>80&&item!==walkerPortrait)return;
       const officePerson=item.locationId==='office'?officePeople.get(item.id):null;
       if(officePerson){
         stamp(officePerson,px,pz,facing,0,null,ground);
@@ -1096,16 +1102,32 @@ export function createActors(scene,glow,parkedScooters=[]) {
         // The named models' soles are built at local zero; cancel stamp's default lift.
         stamp(namedModel,px,pz,facing,0,null,ground-.07);
       }else if(item.role==='cyclist'){
-        stamp(activeCycle(look,clock*6,complexion.color),px,pz,facing,0,null,ground);
+        // 40 公尺內用寫實騎士模型（目前沒有腳踏車騎士的寫實模型，先用電動車騎士代替）；更遠才用程式畫的外形
+        if(!(models.draw('rider_scooter',px,pz,facing,{tint:riderTints[look%riderTints.length],ground})))
+          stamp(activeCycle(look,clock*6,complexion.color),px,pz,facing,0,null,ground);
+      }else if(item.role==='runner'&&distance<150&&(()=>{
+        // 慢跑的人 40 公尺內用寫實路人模型（走路動畫加快）
+        walkerOptions.dt=dt;walkerOptions.lod=1;walkerOptions.moving=true;walkerOptions.speed=Math.max(2.3,item.movingSpeed??2.6);walkerOptions.ground=ground;
+        walkerOptions.tint=undefined;walkerOptions.trousers=undefined;walkerOptions.stature=1;walkerOptions.idlePose=0;walkerOptions.build=1;walkerOptions.complexion=0;
+        return models.draw(['walker_m','walker_f2','walker_m2','walker_f'][look%4],px,pz,facing,walkerOptions);
+      })()){
+        // drawn as a realistic runner
       }else if(item.role==='runner'){
         stamp(person(item.skin,clock*9+look,false,0,false,[sidewalkWardrobe[look%8][0],'#424655',''],true,false,-1,0,undefined,undefined,null,false,placeFeet(px/scale,pz/scale,facing,ground),complexion.color),px,pz,facing,-.04,null,ground-stampLift);
+      }else if(item.takingPhoto&&distance<150&&(()=>{
+        // 拍照的人也用寫實路人模型（站著）
+        walkerOptions.dt=dt;walkerOptions.lod=1;walkerOptions.moving=false;walkerOptions.speed=0;walkerOptions.ground=ground;
+        walkerOptions.tint=undefined;walkerOptions.trousers=undefined;walkerOptions.stature=1;walkerOptions.idlePose=2;walkerOptions.build=1;walkerOptions.complexion=0;
+        return models.draw(['walker_f2','walker_m2','walker_f3'][look%3],px,pz,facing,walkerOptions);
+      })()){
+        held=true;
       }else if(item.takingPhoto){ // A22 raised arms and phone face the parked car.
         // Both hands stay on the phone, so the photographer carries no umbrella.
         held=true;
         const photographer=person(item.skin??'npc_student',0,false,0,true,null,false,false,-1,0,undefined,undefined,null,false,placeFeet(px/scale,pz/scale,facing,ground),complexion.color);
         for(const entry of photoPhone)photographer.push(entry);
         stamp(photographer,px,pz,facing,0,null,ground-stampLift);
-      }else if(item.skin!=='npc_student'&&!isElder(item.skin)&&item.localId?.startsWith?.('evening:plaza:')&&distance>80){
+      }else if(item.skin!=='npc_student'&&!isElder(item.skin)&&item.localId?.startsWith?.('evening:plaza:')&&distance>1e9){ // 已由寫實模型處理（stampPerson）
         // A23 night: keep the holiday visitor outfit while using the pavement pose.
         const pose=trackGait(item,px,pz,facing,clock,!named&&(item.movingSpeed??0)>.05,look);
         const idle=Math.sin(clock*1.7+(look%13)*.82)*(1-pose.weight);

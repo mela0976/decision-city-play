@@ -1,8 +1,8 @@
 // 手機裡的「支線任務」：按年份分組的清單。最上面是整體進度（章節已讀 n／總數）與每年的進度。
 // 每個支線：標題、地點、出題者、對應的書中章節、狀態（未開放／可做／完成）；可做的可以設為導航目標。
 
-import { h, fill, arrowFocus } from '../dom.js?v=70a6a7b0';
-import { T, chapterQuote } from '../strings.js?v=70a6a7b0';
+import { h, fill, arrowFocus } from '../dom.js?v=fced202e';
+import { T, chapterQuote } from '../strings.js?v=fced202e';
 
 export function openSideList({ dialog, groups, progress, target, onNavigate, onClear }) {
   const close = h('button', { type: 'button', class: 'btn btn--small', text: T.close, onClick: () => dialog.close() });

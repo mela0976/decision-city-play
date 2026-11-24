@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
-import {locations,metersPerUnit,scooterSpeed,roadOptions,toGeo,roads,buildings} from './world.mjs?v=70a6a7b0';
-import {clearPath,planRide,autoRideCruiseSeconds} from './navigation.js?v=70a6a7b0';
+import {locations,metersPerUnit,scooterSpeed,roadOptions,toGeo,roads,buildings} from './world.mjs?v=fced202e';
+import {clearPath,planRide,autoRideCruiseSeconds} from './navigation.js?v=fced202e';
 
 assert.equal(locations.length,15);
 assert.equal(new Set(locations.map(site=>site.id)).size,15);
