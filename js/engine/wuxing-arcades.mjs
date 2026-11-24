@@ -1,6 +1,6 @@
 // A23 alleys. Distances in metres. The same street-facing bays supply the roof, posts and fixture colliders.
-import {buildings,inWuxing,locations,metersPerUnit as unit,random,roadAt,inBuilding} from './world.mjs?v=196bd4fd';
-import {urbanInfill} from './infill.mjs?v=196bd4fd';
+import {buildings,inWuxing,locations,metersPerUnit as unit,random,roadAt,inBuilding} from './world.mjs?v=1dff2833';
+import {urbanInfill} from './infill.mjs?v=1dff2833';
 
 let cached;
 export function wuxingArcades(){ // A24 shared arcade deck footprints

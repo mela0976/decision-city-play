@@ -4,7 +4,7 @@
 // 做法：畫面在前景時記一個「進行中」標記並定時更新；正常離開（切到背景、關閉）就清掉。
 // 下次開啟時標記還在且時間很近，就代表上次是在前景被關掉，顯示說明。
 
-import { LANG } from './strings.js?v=196bd4fd';
+import { LANG } from './strings.js?v=1dff2833';
 
 const KEY = 'decision-city-alive-v1';
 const RECENT_MS = 15 * 60 * 1000;

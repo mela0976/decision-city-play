@@ -1,16 +1,16 @@
-import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=196bd4fd'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=196bd4fd'; // A22
-import {marketTruck} from '../night-market.mjs?v=196bd4fd'; // A23 night
-import {parkedKey} from '../impact.mjs?v=196bd4fd';
-import {streetCrowds} from '../crowds.mjs?v=196bd4fd';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=196bd4fd';
-import {createNamedNpcModels} from './named-npcs.js?v=196bd4fd';
-import {buildOfficePeople} from './office-people.js?v=196bd4fd';
-import {createModelAssets} from './model-assets.js?v=196bd4fd';
-import {fixtureColliders} from '../fixtures.mjs?v=196bd4fd';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=196bd4fd';
-import * as T from '../vendor/three.module.min.js?v=196bd4fd';
-import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=196bd4fd';
+import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=1dff2833'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=1dff2833'; // A22
+import {marketTruck} from '../night-market.mjs?v=1dff2833'; // A23 night
+import {parkedKey} from '../impact.mjs?v=1dff2833';
+import {streetCrowds} from '../crowds.mjs?v=1dff2833';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=1dff2833';
+import {createNamedNpcModels} from './named-npcs.js?v=1dff2833';
+import {buildOfficePeople} from './office-people.js?v=1dff2833';
+import {createModelAssets} from './model-assets.js?v=1dff2833';
+import {fixtureColliders} from '../fixtures.mjs?v=1dff2833';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=1dff2833';
+import * as T from '../vendor/three.module.min.js?v=1dff2833';
+import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=1dff2833';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -576,6 +576,8 @@ const coats=['#e3bf53','#394764','#cbc6b8','#88749a','#a95e66','#567875'];
 const paint=['#35373c','#d2cbbf','#57677d','#895b55','#a3a4a0','#464951','#65575f','#b2a691'];
 const bikeRing=new T.TorusGeometry(.37,.032,5,14);
 const canopy=new T.SphereGeometry(.5,8,3,0,Math.PI*2,0,Math.PI*.49);
+// 寫實騎士模型原本都是白衣：每台車依外觀編號套一個色調（乘在模型上，衣服與車身一起變），街上不再一整排白衣
+const riderTints=['#ffffff','#5d6f8c','#8a7a5c','#6f8a6c','#8c5a5e','#4a4d55','#a89a7c','#6a8aa0','#9a6f8a','#7c8c8f','#c8b89a','#3f5a7a'];
 function riderModel(color,index,rain,near){
   const shirt=sidewalkWardrobe[index%8][0],helmet=helmets[index%helmets.length];
   const carriesDelivery=index%5===1;
@@ -694,7 +696,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
     far:[...scooterBody(tone,0),p('#303439',.46,1.015,0,.12,.075,.68)],
   }));
   const carModels=new Map();
-  const walkerOptions={dt:0,moving:false,speed:1.28,ground:0,tint:undefined,trousers:undefined,stature:1,idlePose:0,build:1,complexion:0};
+  const walkerOptions={dt:0,moving:false,speed:1.28,ground:0,tint:undefined,trousers:undefined,stature:1,idlePose:0,build:1,complexion:0,lod:1};
   const headlightMat=new T.MeshBasicMaterial({
     map:glow,transparent:true,depthWrite:false,opacity:0,blending:T.AdditiveBlending,side:T.DoubleSide,color:'#f8cc88',
   });
@@ -876,7 +878,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
         if(!loaded)stamp(parkedModel,px,pz,item.heading,0,impact);
       }else if(item.scooter) {
         // 40 公尺內用寫實騎士模型（一次批次繪製），更遠才用程式畫的簡化外形
-        if(!(distance<40&&models.draw('rider_scooter',px,pz,item.heading))){
+        if(!(distance<40&&models.draw('rider_scooter',px,pz,item.heading,{tint:riderTints[lookOf(item)%riderTints.length]}))){
           const look=lookOf(item)%120,near=distance<18;
           const key=[item.color,look,Boolean(rain),near].join('/');
           if(!farScooters.has(key))farScooters.set(key,riderModel(item.color,look,rain,near));
@@ -929,6 +931,19 @@ export function createActors(scene,glow,parkedScooters=[]) {
       return look;
     }
     function stampPerson(item,px,pz,facing,index,moving,ground,distance,complexion=complexions[index%complexions.length]){ // A24
+      // 80 公尺內的路人（含具名角色、辦公室同事、學生）一律用 Higgsfield 生成的寫實模型；畫不出來（模型未載入或同款太多）才用程式畫的外形
+      if(distance<=80&&item!==walkerPortrait){
+        const gskin=item.skin??'npc_vendor';
+        const gfemale=femaleNpcs.has(item.id)?true:maleNpcs.has(item.id)?false:item.standing?index%2===0:femaleSkins.includes(gskin);
+        const gelder=elderSkin(gskin);
+        const glooks=gfemale?(gskin==='npc_student'?['walker_f3']:gelder?['walker_f','walker_f2']:['walker_f','walker_f2','walker_f3']):
+          gelder?['walker_m3']:gskin==='npc_student'?['walker_m','walker_m2']:['walker_m','walker_m2','walker_m3'];
+        const key=item.id!=null?[...String(item.id)].reduce((sum,c)=>sum*31+c.charCodeAt(0)>>>0,7):index;
+        walkerOptions.dt=dt;walkerOptions.moving=moving;walkerOptions.speed=item.movingSpeed;walkerOptions.ground=ground;
+        walkerOptions.tint=undefined;walkerOptions.trousers=undefined;walkerOptions.stature=gelder?.96:1;
+        walkerOptions.idlePose=index%5;walkerOptions.build=1;walkerOptions.complexion=0;walkerOptions.lod=distance>30?3:1;
+        if(models.draw(glooks[key%glooks.length],px,pz,facing,walkerOptions))return;
+      }
       const officePerson=item.locationId==='office'?officePeople.get(item.id):null;
       if(officePerson){
         stamp(officePerson,px,pz,facing,0,null,ground);
@@ -961,8 +976,8 @@ export function createActors(scene,glow,parkedScooters=[]) {
       const type=item.id!=null?base:looks[index%looks.length];
       const hatAllowed=elder&&(item.zone==='market'||nearSite(elderHats,px,pz,scale,45));
       let drawn=false;
-      if(distance<=20&&item.id!=='ae_mei'){
-        walkerOptions.dt=dt;walkerOptions.moving=moving;walkerOptions.speed=speed;walkerOptions.ground=ground;
+      if(distance<=25&&item.id!=='ae_mei'){ // 25 公尺內的路人都用寫實模型（原本 20；30 公尺在慢速 CPU 少約一成幀數）
+        walkerOptions.dt=dt;walkerOptions.lod=1;walkerOptions.moving=moving;walkerOptions.speed=speed;walkerOptions.ground=ground;
         walkerOptions.tint=worker?workerVest:shirt;walkerOptions.trousers=pants;walkerOptions.stature=stature;
         walkerOptions.idlePose=index%5;walkerOptions.build=style[3];walkerOptions.complexion=complexion.shift;
         const original=type===base;
@@ -1090,7 +1105,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
         const photographer=person(item.skin??'npc_student',0,false,0,true,null,false,false,-1,0,undefined,undefined,null,false,placeFeet(px/scale,pz/scale,facing,ground),complexion.color);
         for(const entry of photoPhone)photographer.push(entry);
         stamp(photographer,px,pz,facing,0,null,ground-stampLift);
-      }else if(item.skin!=='npc_student'&&!isElder(item.skin)&&item.localId?.startsWith?.('evening:plaza:')&&distance>23){
+      }else if(item.skin!=='npc_student'&&!isElder(item.skin)&&item.localId?.startsWith?.('evening:plaza:')&&distance>80){
         // A23 night: keep the holiday visitor outfit while using the pavement pose.
         const pose=trackGait(item,px,pz,facing,clock,!named&&(item.movingSpeed??0)>.05,look);
         const idle=Math.sin(clock*1.7+(look%13)*.82)*(1-pose.weight);

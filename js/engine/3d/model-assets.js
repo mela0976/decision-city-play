@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=196bd4fd';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=196bd4fd';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=196bd4fd';
+import * as T from '../vendor/three.module.min.js?v=1dff2833';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=1dff2833';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=1dff2833';
 
 const optionalVehicles={garbage_truck:6.5,bus:12};
 const catalog={
@@ -85,7 +85,7 @@ export function createModelAssets(scene){
         for(const batch of asset.batches)batch.count=0;
       }
     },
-    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0,impact=null,idlePose=0}={}){
+    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0,impact=null,idlePose=0,lod=1}={}){
       const asset=assets.get(key);
       if(!asset)return false;
       if(asset.batches.length){
@@ -110,7 +110,7 @@ export function createModelAssets(scene){
         asset.used++;
         return true;
       }
-      if(asset.used>=64)return false;
+      if(asset.used>=128)return false; // 每款寫實路人最多同時 128 個（原本 64）
       const slot=asset.used++;
       if(!asset.pool[slot]){
         const object=cloneRig(asset.template),mixer=new T.AnimationMixer(object),standingPose=[];
@@ -204,7 +204,9 @@ export function createModelAssets(scene){
       }
       if(item.action){
         item.action.timeScale=Math.max(.24,Math.min(1.8,speed/1.28));
-        item.mixer.update(dt);
+        // 遠處的寫實路人（lod>1）每 lod 格才更新一次走路動畫，省 CPU；累積的時間一次補上，步伐速度不變
+        item.lodDt=(item.lodDt??0)+dt;item.lodN=(item.lodN??0)+1;
+        if(lod<=1||item.lodN%lod===0){item.mixer.update(item.lodDt);item.lodDt=0;}
       }
       item.colored.value=tint&&key!=='grandma_scooter'?1:0;
       if(tint)item.paint.value.set(tint);

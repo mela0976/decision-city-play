@@ -1,7 +1,7 @@
-import {obstructsEntrance} from './actor-entrances.mjs?v=196bd4fd'; // A23 actors
-import {occupancy,radius} from './collision.mjs?v=196bd4fd'; // A23 actors test the actual oriented pavement fixtures.
-import {fixtureColliders} from './fixtures.mjs?v=196bd4fd';
-import {byId,random,metersPerUnit as unit,roadAt,roads,worldContact} from './world.mjs?v=196bd4fd';
+import {obstructsEntrance} from './actor-entrances.mjs?v=1dff2833'; // A23 actors
+import {occupancy,radius} from './collision.mjs?v=1dff2833'; // A23 actors test the actual oriented pavement fixtures.
+import {fixtureColliders} from './fixtures.mjs?v=1dff2833';
+import {byId,random,metersPerUnit as unit,roadAt,roads,worldContact} from './world.mjs?v=1dff2833';
 
 // A23 actors: fixed neighbours use distinct pavement pockets, headings and stable identities.
 const neighbours={

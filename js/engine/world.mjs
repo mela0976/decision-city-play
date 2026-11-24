@@ -221,6 +221,38 @@ function blocksRoad(b){
   }
   return false;
 }
+// 建築角凸進車道（沒蓋到中心線，所以上面的 blocksRoad 沒拿掉）：把凸進去的頂點推回路緣外 2 公尺（保留人行道）。
+// 凸進超過 4 公尺的通常是騎樓或穿越道，不動。畫面與碰撞用同一份輪廓，車子不會再被路邊的房子卡住。
+const trimmedBuildings=[];
+const siteAnchors=locationDefs.map(([,,lat,lon])=>toWorld(lat,lon));
+for(const b of buildings){
+  if(b.shape)continue;
+  // 地點（店家、公司）附近 40 公尺內不修：那裡是上下車與進出的路線，動了會影響入口
+  if(siteAnchors.some(a=>Math.hypot(b.x+b.w/2-a.x,b.y+b.h/2-a.y)*metersPerUnit<40))continue;
+  let moved=false;
+  for(const p of b.polygon){
+    const near=new Set();
+    for(const road of roadCells.get(key(Math.floor(p.x/cellSize),Math.floor(p.y/cellSize)))??[])near.add(road);
+    for(const [ax,ay,bx,by,w,edge] of near){
+      if(edge.way.layer!==0||['pedestrian','service','footway','steps','elevator'].includes(edge.way.kind))continue;
+      if(w*metersPerUnit<6)continue; // 窄巷不修：兩側很近，往外推會推到另一條巷子
+      const dx=bx-ax,dy=by-ay,len=Math.hypot(dx,dy);if(!len)continue;
+      const ux=dx/len,uy=dy/len,along=(p.x-ax)*ux+(p.y-ay)*uy;
+      if(along<0||along>len)continue;
+      const side=-(p.x-ax)*uy+(p.y-ay)*ux,half=w/2,depth=half-Math.abs(side);
+      if(depth<=0||depth*metersPerUnit>4)continue;
+      const push=depth+2/metersPerUnit,sign=Math.sign(side)||1; // 推到路緣外 2 公尺，留一條人行道（推到 0.3 公尺會讓人行道、路緣消失）
+      p.x+=-uy*sign*push;p.y+=ux*sign*push;moved=true;
+    }
+  }
+  if(moved){
+    const xs=b.polygon.map(p=>p.x),ys=b.polygon.map(p=>p.y);
+    b.x=Math.min(...xs);b.y=Math.min(...ys);b.w=Math.max(...xs)-b.x;b.h=Math.max(...ys)-b.y;
+    trimmedBuildings.push({id:b.osmId,x:b.x+b.w/2,y:b.y+b.h/2});
+  }
+}
+export const trimmedBuildingCount=trimmedBuildings.length;
+export const trimmedBuildingList=trimmedBuildings;
 for(const b of buildings)insert(buildingCells,b,b.x,b.y,b.x+b.w,b.y+b.h);
 export const landmarks=buildings.filter(b=>b.shape && !b.id);
 function contains(x,y,polygon) {

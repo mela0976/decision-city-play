@@ -210,7 +210,7 @@ export const T = {
   carDrivingTouch: '搖桿向前加速、向後煞車或倒車，左右轉向。點汽車按鈕下車。',
   carBoard: '巷口太窄，步行到大路上車。',
   carTake: "開這台車",
-  carDriving: "↑ 前進　↓ 煞車／倒車　← → 轉向　V 換視角　C 下車",
+  carDriving: "↑ 前進　↓ 煞車／倒車　← → 轉向　V 換視角　F 下車走路　C 換機車",
   debugGrandma: '開關阿嬤模組',
   debugBond: '阿嬤線',
   debugBondApply: '設定',

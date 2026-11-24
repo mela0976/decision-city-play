@@ -211,7 +211,7 @@ export const T = {
   carDrivingTouch: 'Push up to accelerate, down to brake or reverse, and left or right to steer. Tap the car to get out.',
   carBoard: 'The alley is too narrow. Walk to the car on the main road.',
   carTake: "Drive this car",
-  carDriving: "↑ Accelerate · ↓ Brake / reverse · ← → Steer · V View · C Exit",
+  carDriving: "↑ Accelerate · ↓ Brake / reverse · ← → Steer · V View · F Get out and walk · C Switch to scooter",
   debugGrandma: 'Toggle Ama Mode',
   debugBond: 'Ama Bond',
   debugBondApply: 'Set',

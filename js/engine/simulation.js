@@ -1,23 +1,23 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=196bd4fd'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=196bd4fd'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=196bd4fd'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=196bd4fd'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=196bd4fd';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=196bd4fd'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=196bd4fd';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=196bd4fd'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=196bd4fd';
-import {neonDistrict} from './neon-districts.mjs?v=196bd4fd'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=196bd4fd';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=196bd4fd';
-import {streetCrowds} from './crowds.mjs?v=196bd4fd';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=196bd4fd';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=196bd4fd';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=196bd4fd';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=196bd4fd';
-import {planFlight} from './flight-path.mjs?v=196bd4fd';
-import { touchControls } from './overlay.js?v=196bd4fd';
-import {setLabels,placeLabel} from './labels.mjs?v=196bd4fd'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=1dff2833'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=1dff2833'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=1dff2833'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=1dff2833'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=1dff2833';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=1dff2833'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=1dff2833';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=1dff2833'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=1dff2833';
+import {neonDistrict} from './neon-districts.mjs?v=1dff2833'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=1dff2833';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=1dff2833';
+import {streetCrowds} from './crowds.mjs?v=1dff2833';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=1dff2833';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=1dff2833';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=1dff2833';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=1dff2833';
+import {planFlight} from './flight-path.mjs?v=1dff2833';
+import { touchControls } from './overlay.js?v=1dff2833';
+import {setLabels,placeLabel} from './labels.mjs?v=1dff2833'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -1051,9 +1051,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
         const flight=planRide(player,state.target,[],{clock:state.clock,hour:state.time,speed:ridingSpeed(),car:true});
         if(!flight?.length){rideFailed('route');return;}
         // 不管道路：只取汽車路線的降落點（終點旁的車道），從現在位置找繞開建築的最短航線
-        const landing=flight[flight.length-1];
-        const hitsBuilding=(x,y)=>buildingHeightAt(x,y,4.5*speedUnits,4.5*speedUnits,0)>0; // 機身加餘裕，離建築至少約 4.5 公尺
-        route=planFlight(player,{x:landing.x,y:landing.y},hitsBuilding,{cell:5*speedUnits,margin:150*speedUnits});
+        // 沿道路的最短路線飛（汽車路線），不直接飛越建築（2026-11-24 依使用者要求改回）
+        route=[...flight];
         state.rideFail=null;rideStarted=state.clock;
         emit('autoride:change',{on:true,reason:'started'});
         return;
@@ -1380,7 +1379,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     if(code==='KeyT'){setFlyingTesla(player.vehicle!=='flyingTesla');return;}
     if(player.vehicle==='flyingTesla'&&(code==='KeyF'||teslaHop&&actionKeys.has(code)))return;
     if (code==='KeyF') {
-      if(player.mode==='car')return; // A26
+      // 在車上按 F：停車後直接下車走路（原本 F 沒反應，要先按 C 換機車再按 F）
+      if(player.mode==='car'&&!switchCar())return; // A26
       if(player.mode==='foot'&&(!carriagewayAt(player.x,player.y)||surfaceAt(player.x,player.y))){ // A24
         emit('curb:hint',{kind:'road'});return;
       }
@@ -1506,7 +1506,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     if(length<1e-6)return false;
     const travel=Math.atan2(my,mx),heading=player.heading,forward=Math.cos(angleDiff(travel,heading))>=0;
     let best=null;
-    for(const delta of [.18,-.18,.36,-.36,.55,-.55,.78,-.78,1.05,-1.05])for(const yaw of forward?[heading+clamp(delta,-.12,.12),heading]:[heading]){
+    // 1.3（約 75°）：轉角擦到建築時還能貼著牆滑過去，不會整台停住
+    for(const delta of [.18,-.18,.36,-.36,.55,-.55,.78,-.78,1.05,-1.05,1.3,-1.3])for(const yaw of forward?[heading+clamp(delta,-.12,.12),heading]:[heading]){
       const a=travel+delta,reach=length*Math.cos(delta);
       player.heading=yaw;
       const end=yaw!==heading&&wall(ox,oy)?{x:ox,y:oy}:sweep(ox,oy,ox+Math.cos(a)*reach,oy+Math.sin(a)*reach,wall,1.9);
@@ -1585,6 +1586,16 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     if(!trying||!pose){stallTime=0;return;}
     const moved=distance(player,pose)>.02*speedUnits; // turning in place alone does not free a trapped player
     stallTime=moved?0:stallTime+dt;
+    // 手動騎機車頂著轉角（還能倒車所以不算受困）：1.2 秒沒前進就把車頭轉成沿最近那條路的方向，讓玩家能順勢騎出去
+    if(!route&&player.mode==='scooter'&&!player.vehicle&&stallTime>=1.2&&!curbContact(player.x,player.y,radius.rider+.15*speedUnits,.52*speedUnits,player.heading)){ // 頂著路緣是規則（要下車或倒車），不自動轉
+      for(const site of roadOptions(player.x,player.y,1)){
+        const axis=Math.atan2(site.r[3]-site.r[1],site.r[2]-site.r[0]);
+        const best=[axis,axis+Math.PI].sort((a,b)=>Math.abs(angleDiff(a,player.heading))-Math.abs(angleDiff(b,player.heading)))[0];
+        if(Math.abs(angleDiff(best,player.heading))>.05&&Math.abs(angleDiff(best,player.heading))<1.75&&clearPose(player.x,player.y,'scooter',best)){
+          player.heading=best;velocityX=0;velocityY=0;stallTime=0;return;
+        }
+      }
+    }
     if(stallTime<2)return;
     if(!canManoeuvre()||route&&stallTime>=4){
       if(route&&(player.mode==='car'||canManoeuvre())){ // A26 recover along the planned lane instead of oscillating between two parking poses.

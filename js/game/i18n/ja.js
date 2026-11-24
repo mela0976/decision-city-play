@@ -210,7 +210,7 @@ export const T = {
   carDrivingTouch: 'スティックを上に倒すと加速、下でブレーキ・後退、左右でハンドル操作。車のボタンで降車。',
   carBoard: '路地が狭いため、大通りまで歩いて乗車します。',
   carTake: "この車に乗る",
-  carDriving: "↑ アクセル　↓ ブレーキ／後退　← → ハンドル　V 視点　C 降車",
+  carDriving: "↑ アクセル　↓ ブレーキ／後退　← → ハンドル　V 視点　F 降りて歩く　C バイクに乗り換え",
   debugGrandma: 'おばあちゃんモード切替',
   debugBond: 'おばあちゃんとの絆',
   debugBondApply: '設定',
