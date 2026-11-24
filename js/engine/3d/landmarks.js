@@ -1,14 +1,15 @@
-import * as T from '../vendor/three.module.min.js?v=1dff2833';
-import {metersPerUnit as unit,locations,toWorld,elevatedRoofs} from '../world.mjs?v=1dff2833';
-import {towerSkywalks} from './buildings-tower.js?v=1dff2833'; // A23 towers
-import {addFactoryFront,addPondWalk} from './songshan-heritage.js?v=1dff2833';
-import {addTemple} from './temple-court.js?v=1dff2833';
-export {placeTempleCourt} from './temple-court.js?v=1dff2833';
-import {buildLandmark} from './xinyi.js?v=1dff2833';
-import {placeEntrance} from './frontage.js?v=1dff2833';
-import {venues} from '../venue-entrances.mjs?v=1dff2833'; // A27
-import {createOfficeDoor} from './office-door.js?v=1dff2833';
-import {shapes,matrix,color} from './city-primitives.js?v=1dff2833';
+import * as T from '../vendor/three.module.min.js?v=70a6a7b0';
+import {metersPerUnit as unit,locations,toWorld,elevatedRoofs} from '../world.mjs?v=70a6a7b0';
+import {towerSkywalks} from './buildings-tower.js?v=70a6a7b0'; // A23 towers
+import {addFactoryFront,addPondWalk} from './songshan-heritage.js?v=70a6a7b0';
+import {addTemple} from './temple-court.js?v=70a6a7b0';
+export {placeTempleCourt} from './temple-court.js?v=70a6a7b0';
+import {buildLandmark} from './xinyi.js?v=70a6a7b0';
+import {placeEntrance} from './frontage.js?v=70a6a7b0';
+import {venues} from '../venue-entrances.mjs?v=70a6a7b0'; // A27
+import {createOfficeDoor} from './office-door.js?v=70a6a7b0';
+import {placeLocationDressing} from './location-dressing.js?v=70a6a7b0';
+import {shapes,matrix,color} from './city-primitives.js?v=70a6a7b0';
 
 const landmarkShapes={...shapes,spireTier:new T.CylinderGeometry(Math.SQRT1_2,.56,1,4,1,false,Math.PI/4)};
 
@@ -157,6 +158,17 @@ function addSkywalks(instance){
       if(length<.8)continue;
       const x=(a.x+b.x)*unit/2,z=(a.y+b.y)*unit/2,turn=-Math.atan2(dz,dx);
       instance('metal','box','#b4b5ad',x,6.42,z,length+.18,.46,3.1,turn);
+      // 從橋下看：底面加一層較亮的天花板、兩側邊樑與每 2.4 公尺一道橫向鋼梁，讀得出是天橋結構，不再是一整塊灰色斜板
+      instance('metal','box','#c9ccc4',x,6.17,z,length+.1,.04,2.9,turn);
+      for(const side of [-1,1]){
+        const ox=-dz*side*1.5/length,oz=dx*side*1.5/length;
+        instance('metal','box','#8f9894',x+ox,6.02,z+oz,length+.18,.34,.22,turn);
+      }
+      const ribs=Math.max(1,Math.round(length/2.4));
+      for(let j=0;j<ribs;j++){
+        const t=(j+.5)/ribs-.5;
+        instance('metal','box','#7f8784',x+t*dx,5.98,z+t*dz,.18,.28,3.0,turn);
+      }
       instance('glass','box','#a8bec1',x,8.88,z,length+.18,.18,3.18,turn);
       for(const side of [-1,1]){
         const ox=-dz*side*1.44/length,oz=dx*side*1.44/length;
@@ -225,6 +237,7 @@ export function addEntrances({instance,sign,batch,textWall,foliage}) {
   addFactoryFront(instance,batch);
   addPondWalk(batch);
   for(const p of locations){
+    placeLocationDressing(p,{instance,paving:batch,treeInstance:foliage?instance:()=>{}});
     if(p.shape==='temple'){
       placeEntrance(p,{instance,sign:()=>{}}); // A27 shrine returns
       addTemple(p,{instance,batch,sign,foliage});

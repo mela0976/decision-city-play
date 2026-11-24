@@ -1,7 +1,8 @@
 import {
   civicWalkway, locations, metersPerUnit as unit, random, roadAt, roadOptions, roads, toWorld, worldContact,
-} from '../world.mjs?v=1dff2833';
-import {crossingForNode} from '../street-crossings.mjs?v=1dff2833';
+} from '../world.mjs?v=70a6a7b0';
+import {crossingForNode} from '../street-crossings.mjs?v=70a6a7b0';
+import {onRiversidePath} from '../riverside-bank.mjs?v=70a6a7b0';
 import landuse from '../data/xinyi-landuse.json' with {type:'json'};
 
 const tau=2*Math.PI;
@@ -240,6 +241,7 @@ export function visitLandscapeTrees(visit){
             const x=gx+random(seed)*spacing,z=gz+random(seed+7)*spacing;
             const distance=Math.hypot(x-focus.x,z-focus.y);
             if(distance>range||distance<6/unit||!inside(ring,x,z)||random(seed+12)<.48)continue;
+            if(river&&onRiversidePath(x*unit,z*unit,2))continue; // keep the promenade clear
             add(x*unit,z*unit,seed,mix[Math.abs(seed)%mix.length],.43,1.46);
           }
         }
@@ -300,7 +302,7 @@ export function placeGroundVegetation(instance){
       const gx=x+random(seed+3)*step,gz=z+random(seed+5)*step,px=gx*unit,pz=gz*unit;
       if(river&&!near(px,pz,riverside,145))continue;
       if(!inside(ring,gx,gz)||!clearGround(gx,gz,1.1))continue;
-      if(river)plumeClump(instance,px,pz,seed);
+      if(river){if(!onRiversidePath(px,pz))plumeClump(instance,px,pz,seed);}
       else {
         const turn=random(seed+9)*tau;
         instance('grass','crown','#51663d',px,.20,pz,1.16,.41,1.02,turn);

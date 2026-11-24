@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=1dff2833';
-import {canvasTexture,hash} from './city-primitives.js?v=1dff2833';
-import {towerStructures} from '../tower-structures.mjs?v=1dff2833';
+import * as T from '../vendor/three.module.min.js?v=70a6a7b0';
+import {canvasTexture,hash} from './city-primitives.js?v=70a6a7b0';
+import {towerStructures} from '../tower-structures.mjs?v=70a6a7b0';
 
 const bays=32,floors=8,paneWidth=16,paneHeight=64;
 const width=bays*paneWidth,height=floors*paneHeight;
@@ -122,6 +122,11 @@ export function towerSkywalks(instance,detail){
       place('metal','box',tint,x+ux*u-uz*v,y,z+uz*u+ux*v,w,h,d,turn);
     }
     beam(instance,'#91999a',0,6.46,0,len+.12,.36,3.12);
+    // 從橋下看：較亮的底板、兩側邊樑、每 2.4 公尺一道橫向鋼梁，讀得出是天橋，不是一整塊灰色斜板
+    beam(instance,'#cfd2ca',0,6.26,0,len+.08,.04,2.96);
+    for(const s of [-1,1])beam(instance,'#7d8784',0,6.12,s*1.5,len+.12,.32,.22);
+    const ribs=Math.max(1,Math.round(len/2.4));
+    for(let r=0;r<ribs;r++)beam(instance,'#6f7976',len*((r+.5)/ribs-.5),6.06,0,.2,.26,3.0);
     beam(instance,'#a3b6b8',0,8.93,0,len+.12,.14,3.28);
     for(const s of [-1,1]){
       beam(instance,'#607c83',0,7.08,s*1.47,len,.82,.10);
