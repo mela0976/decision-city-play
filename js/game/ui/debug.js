@@ -1,7 +1,7 @@
 // 除錯面板：網址帶 ?debug=1 才會出現。驗收用：設數值、跳任務、看結局、開關阿嬤模組。
 
-import { h } from '../dom.js?v=0da320b3';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=0da320b3';
+import { h } from '../dom.js?v=e5a00467';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=e5a00467';
 
 export function mountDebug({ game, content }) {
   const inputs = Object.fromEntries(

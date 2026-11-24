@@ -8,6 +8,14 @@ const looks={
   n2025_pei: {height:1.63,width:.94,skin:'#c4896e',hair:'#59343d',cut:'pageboy',coat:'#6b5583',shirt:'#decde3',pants:'#353846',prop:'portfolio',accent:'#ddaa72'},
 };
 
+// 支線帶進辦公室的同事借用最接近的寫實路人模型，上衣、褲子換成上面的配色、身高照設定；
+// 林總、美玲姐有專屬模型（named-npcs.js）。模型還沒載入時才畫下面的程式外形
+const walkerCast={n2020_zhe:'walker_m',n2021_ting:'walker_f2',n2022_fang:'walker_f2',n2025_pei:'walker_f'};
+export const officeWalkers=Object.fromEntries(Object.entries(walkerCast).map(([id,model])=>{
+  const {coat,pants,height,width}=looks[id];
+  return [id,{model,tint:coat,trousers:pants,height,build:width}];
+}));
+
 export function buildOfficePeople(box,ball,limb,part){
   return new Map(Object.entries(looks).map(([id,look])=>[id,buildPerson(look,box,ball,limb,part)]));
 }

@@ -39,6 +39,30 @@ const hairstyles={
 // 模型還沒載入或載入失敗時照舊畫程式外形
 export const namedNpcFigures={boss_lin:'npc_lin',ae_mei:'npc_mei'};
 
+// 其他角色沒有專屬模型，借用最接近的寫實路人：先對性別與年紀，再看職業與身形。上衣、褲子換成上面設定的顏色，
+// 身高照設定縮放，所以和同一款的隨機路人看得出不同。阿嬤沒有站著的長者女性模型（grandma_scooter 坐在代步車上，
+// 柑仔店前沒有她的車），照舊畫程式外形
+const walkerCast={
+  data_kai:'walker_m',        // 二十多歲的數據分析師
+  cd_wei:'walker_m2',         // 四十多歲的創意總監：用中年款（年齡優先於服裝款式），也免得和業務 AE 主角的 walker_m 撞臉
+  client_wu:'walker_m2',      // 四十多歲的連鎖咖啡行銷經理，咖啡色上衣
+  client_chen:'walker_m2',    // 四十歲上下的保健品牌經理，灰藍上衣（年輕男性款和業務 AE 主角同款，換成上班族款）
+  vendor_cheng:'walker_m2',   // 四十多歲的雞排攤老闆，短袖、體格壯
+  temple_uncle:'walker_m3',   // 六十多歲的廟公
+  rider_jie:'walker_m',       // 二十多歲的外送員（河濱旁沒有他的機車，用年輕男性款）
+  breakfast_auntie:'walker_f',// 五十多歲的早餐店老闆娘（最年長的女性款）
+  clerk_ning:'walker_f2',     // 二十出頭的超商店員，綁馬尾
+  client_hsu:'walker_f',      // 三十多歲的品牌經理，西裝外套
+  tv_su:'walker_f',           // 四十多歲的電視台業務經理
+  rechao_boss:'walker_f',     // 五十多歲的熱炒店老闆娘
+  roommate_yu:'walker_f2',    // 二十二歲的實習生室友，毛衣牛仔褲
+  rival_vicky:'walker_f',     // 三十多歲的提案總監，鮑伯頭、西裝外套
+};
+export const namedNpcWalkers=Object.fromEntries(Object.entries(walkerCast).map(([id,model])=>{
+  const {coat,trousers,height,build}=designs[id];
+  return [id,{model,tint:coat,trousers,height,build}];
+}));
+
 // Descriptors are built once, outside the per-frame scratch pool. Local +X faces forward.
 export function createNamedNpcModels(box,ball,limb){
   const models=new Map();

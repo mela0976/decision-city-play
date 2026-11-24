@@ -1,7 +1,7 @@
-import * as T from '../vendor/three.module.min.js?v=0da320b3';
-import {canvasTexture,shapes,mobileTextures} from './city-primitives.js?v=0da320b3';
-import {crossings,signalState} from '../street-crossings.mjs?v=0da320b3';
-import {placedPoles} from '../signal-poles.mjs?v=0da320b3';
+import * as T from '../vendor/three.module.min.js?v=e5a00467';
+import {canvasTexture,shapes,mobileTextures} from './city-primitives.js?v=e5a00467';
+import {crossings,signalState} from '../street-crossings.mjs?v=e5a00467';
+import {placedPoles} from '../signal-poles.mjs?v=e5a00467';
 
 // 燈桿位置見 signal-poles.mjs：落在車道上的會先移到路外，繪製和碰撞用同一份
 const poles=placedPoles;

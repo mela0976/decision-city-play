@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=0da320b3';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=0da320b3';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=0da320b3';
+import * as T from '../vendor/three.module.min.js?v=e5a00467';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=e5a00467';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=e5a00467';
 
 const optionalVehicles={garbage_truck:6.5,bus:12};
 const catalog={
@@ -14,6 +14,42 @@ const catalog={
 };
 // 靜態人物模型（npc_*）同時畫幾個：每位角色同時只會出現一次，留兩個位置就夠，超過就畫程式外形
 const figureSlots=2;
+// 寫實路人的身高（公尺）：具名角色借用路人模型時，用它換算成角色設定的身高
+export const modelHeight=key=>catalog[key]?.[0]==='height'?catalog[key][1]:undefined;
+// 換衣服顏色時不能染到皮膚：依骨架權重標出手、頭、脖子，短袖款（中年上班族、長者、高中女生）再加整段前臂。
+// （walker_m／walker_f 另有依膚色判斷的遮罩，只拿來調膚色；粉紅西裝外套也是暖色，拿它擋換色會讓外套染不上色）
+const bareSkin=/^(Left|Right)Hand$|^Head$|^neck$|^head(_end|front)$/,bareForearm=/^(Left|Right)ForeArm$/;
+const shortSleeves=new Set(['walker_m2','walker_m3','walker_f3']);
+// 每款路人的上衣與褲子在綁定姿勢的高度（佔模型高度的比例，依貼圖顏色逐段量出）：[上衣下緣, 上衣上緣, 褲管下緣, 褲頭]。
+// 換色只染這兩段，西裝外套下擺不會被染成褲子的顏色，皮鞋、腰帶也不變色；沒列的模型用原本的通用範圍
+const clothingBands={
+  walker_m:[.446,.835,.075,.428],walker_f:[.494,.83,.052,.469],
+  walker_m2:[.582,.84,.055,.552],walker_m3:[.587,.835,.05,.553],walker_f2:[.565,.835,.068,.535],
+};
+// 具名角色正面站姿時前臂要內旋多少（弧度），只有長者款需要
+const palmTurn={walker_m3:.9};
+const bandGlsl=(low,high,soft)=>`smoothstep(${(low-soft).toFixed(3)},${(low+soft).toFixed(3)},dcGarmentHeight)*(1.-smoothstep(${(high-soft).toFixed(3)},${(high+soft).toFixed(3)},dcGarmentHeight))`;
+function markBareSkin(key,source){
+  if(!key.startsWith('walker_'))return;
+  source.traverse(o=>{
+    if(!o.isSkinnedMesh)return;
+    const bones=o.skeleton.bones.map(b=>bareSkin.test(b.name)||shortSleeves.has(key)&&bareForearm.test(b.name));
+    const index=o.geometry.getAttribute('skinIndex'),weight=o.geometry.getAttribute('skinWeight');
+    if(!index||!weight)return;
+    const mask=new Float32Array(index.count);
+    for(let i=0;i<index.count;i++){
+      let sum=0;
+      for(let k=0;k<4;k++)if(bones[index.getComponent(i,k)])sum+=weight.getComponent(i,k);
+      mask[i]=Math.min(1,sum);
+    }
+    o.geometry.setAttribute('dcBare',new T.BufferAttribute(mask,1));
+  });
+}
+// 檔案裡沒寫車頭方向的模型（看頭燈與尾燈在哪一端）：car_ev 頭燈 LED ice white 在 -X、尾燈在 +X；
+// scooter_parked 頭燈 White light guides 在 -X、Red rear lenses 在 +X（原本沒轉，停車格的機車整台反過來停）；
+// bus 檔案已宣告 '-X'，這裡留著給沒有宣告的替代檔。其他模型（騎士、路人）不轉。
+// 檢查：tests/evidence/engine/model-forward.mjs（Node）與 tests/evidence/game/scripts/probe-home-truck.body.js 的 lineup（截圖）。
+const undeclaredForward={car_ev:'-X',scooter_parked:'-X',bus:'-X'};
 
 function cloneRig(template){
   const clone=template.clone(true),old=[],copies=[];
@@ -45,12 +81,15 @@ export function createModelAssets(scene){
       const model=await loader.parseAsync(await answer.arrayBuffer(),new URL('.',url).href);
       if(disposed)return;
       const source=model.scene;
+      markBareSkin(key,source);
       source.updateMatrixWorld(true);
       const bounds=new T.Box3().setFromObject(source),size=bounds.getSize(new T.Vector3());
       if(axis==='length'&&size.z>size.x)source.rotation.y+=Math.PI/2;
-      const declaredForward=model.userData?.forward;
-      const reversed=typeof declaredForward==='string'?declaredForward.startsWith('-'):key==='bus';
-      if(key==='car_ev'||optionalVehicles[key]&&reversed)source.rotation.y+=Math.PI;
+      // 引擎讓模型的 +X 朝 heading（draw 的 rotation.y=-heading）。車頭方向的宣告在 glTF scene 的 extras，
+      // GLTFLoader 把它放在 model.scene.userData，不在 model.userData（那是檔案最外層的 extras）。
+      // 原本只讀 model.userData，garbage_truck 的 '-X' 讀不到，路上的垃圾車倒著開、家門口那台車頭朝錯邊。
+      const declaredForward=source.userData?.forward??model.userData?.forward??undeclaredForward[key];
+      if(typeof declaredForward==='string'&&declaredForward.startsWith('-'))source.rotation.y+=Math.PI;
       if(axis==='height')source.rotation.y+=Math.PI/2;
       source.updateMatrixWorld(true);
       bounds.setFromObject(source);bounds.getSize(size);
@@ -90,7 +129,7 @@ export function createModelAssets(scene){
         for(const batch of asset.batches)batch.count=0;
       }
     },
-    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0,impact=null,idlePose=0,lod=1}={}){
+    draw(key,x,z,heading,{moving=false,dt=0,tint,trousers,stature=1,build=1,complexion=0,speed=1.28,ground=0,lean=0,pitch=0,impact=null,idlePose=0,lod=1,breathe=false,dye=1}={}){
       const asset=assets.get(key);
       if(!asset)return false;
       if(asset.batches.length){
@@ -158,7 +197,7 @@ export function createModelAssets(scene){
           if(!o.isMesh)return;
           o.geometry.computeBoundingBox();
           const {min,max}=o.geometry.boundingBox;
-          const span=Math.max(.001,max.y-min.y);
+          const span=Math.max(.001,max.y-min.y),bare=Boolean(o.geometry.getAttribute('dcBare'));
           const tintMaterial=original=>{
             const material=original.clone();
             material.onBeforeCompile=shader=>{
@@ -166,17 +205,21 @@ export function createModelAssets(scene){
               shader.uniforms.garmentEnabled=colored;
               shader.uniforms.skinTone=skinTone;
               shader.uniforms.pantsTint=pants;shader.uniforms.pantsEnabled=pantsEnabled;
-              shader.vertexShader='varying float dcGarmentHeight;\n'+shader.vertexShader;
+              shader.vertexShader=(bare?'attribute float dcBare;\n':'')+'varying float dcGarmentHeight;varying float dcBareMask;\n'+shader.vertexShader;
               shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>',
-                '#include <begin_vertex>\ndcGarmentHeight=(position.y-('+min.y.toFixed(6)+'))/'+span.toFixed(6)+';');
-              shader.fragmentShader='varying float dcGarmentHeight; uniform vec3 garmentTint; uniform float garmentEnabled;uniform float skinTone; uniform vec3 pantsTint; uniform float pantsEnabled;\n'+shader.fragmentShader;
-              const band=key==='rider_scooter'?'smoothstep(.54,.59,dcGarmentHeight)*(1.-smoothstep(.76,.83,dcGarmentHeight))':
+                '#include <begin_vertex>\ndcGarmentHeight=(position.y-('+min.y.toFixed(6)+'))/'+span.toFixed(6)+';dcBareMask='+(bare?'dcBare':'0.')+';');
+              shader.fragmentShader='varying float dcGarmentHeight;varying float dcBareMask; uniform vec3 garmentTint; uniform float garmentEnabled;uniform float skinTone; uniform vec3 pantsTint; uniform float pantsEnabled;\n'+shader.fragmentShader;
+              const fit=clothingBands[key];
+              const band=fit?bandGlsl(fit[0],fit[1],.014):key==='rider_scooter'?'smoothstep(.54,.59,dcGarmentHeight)*(1.-smoothstep(.76,.83,dcGarmentHeight))':
                 'smoothstep(.51,.57,dcGarmentHeight)*(1.-smoothstep(.76,.82,dcGarmentHeight))';
+              const legs=fit?bandGlsl(fit[2],fit[3],.012):'smoothstep(.12,.17,dcGarmentHeight)*(1.-smoothstep(.47,.54,dcGarmentHeight))';
+              // walker_m／walker_f：外套敞開處露出的深色褲頭不染外套色（否則腰間一圈暗紅帶）；這兩款的上衣都是淺色，不會被排除
               const walker=key==='walker_f'||key==='walker_m';
               shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>', `
                 #include <map_fragment>
                 float garment=${band};
                 float light=dot(diffuseColor.rgb,vec3(.25,.55,.20));
+                ${walker?'garment*=smoothstep(.05,.13,light);':''}
                 ${walker?`
                   // The original albedo atlas shares skin, hair and clothing.
                   vec3 texel=diffuseColor.rgb;
@@ -185,9 +228,10 @@ export function createModelAssets(scene){
                   float hands=smoothstep(.36,.47,dcGarmentHeight)*(1.-smoothstep(.72,.80,dcGarmentHeight));
                   float skinMask=warm*smoothstep(.085,.20,texel.r)*max(head,hands);
                 `:''}
-                diffuseColor.rgb=mix(diffuseColor.rgb,garmentTint*(.38+light*.85),garment*garmentEnabled*.53${walker?'*(1.-skinMask)':''});
-                float pantsBand=smoothstep(.12,.17,dcGarmentHeight)*(1.-smoothstep(.47,.54,dcGarmentHeight));
-                diffuseColor.rgb=mix(diffuseColor.rgb,pantsTint*(.52+light*.93),pantsBand*pantsEnabled*.69${walker?'*(1.-skinMask)':''});
+                float clothed=1.-dcBareMask;
+                diffuseColor.rgb=mix(diffuseColor.rgb,garmentTint*(.38+light*.85),min(1.,garment*garmentEnabled*.53)*clothed);
+                float pantsBand=${legs};
+                diffuseColor.rgb=mix(diffuseColor.rgb,pantsTint*(.52+light*.93),min(1.,pantsBand*pantsEnabled*.69)*clothed);
                 ${walker?'diffuseColor.rgb*=mix(vec3(1.),vec3(1.02,1.06,.99)*(1.+skinTone),skinMask);':''}
               `);
               if(walker){
@@ -196,7 +240,7 @@ export function createModelAssets(scene){
                   .replace('#include <metalnessmap_fragment>', '#include <metalnessmap_fragment>\nmetalnessFactor*=1.-skinMask;');
               }
             };
-            material.customProgramCacheKey=()=>key+'-'+min.y+'-'+span;
+            material.customProgramCacheKey=()=>key+'-'+min.y+'-'+span+(bare?'-bare':'');
             return material;
           };
           o.material=Array.isArray(o.material)?o.material.map(tintMaterial):tintMaterial(o.material);
@@ -221,12 +265,16 @@ export function createModelAssets(scene){
       if(!moving&&key.startsWith('walker_')){
         item.idleClock=(item.idleClock??0)+dt;
         const {chest,head,forearms}=item;
-        if(chest)chest[0].quaternion.copy(chest[2]).multiply(idleSway.setFromAxisAngle(vertical,(idlePose-2)*.07+Math.sin(item.idleClock*1.7+idlePose)*.018));
-        if(head)head[0].quaternion.copy(head[2]).multiply(idleSway.setFromAxisAngle(vertical,(2-idlePose)*.105));
+        // idlePose 0–4 是路人的幾種站姿（轉身、看旁邊、抬手）；5 是具名角色的正面站姿：身體與頭都朝前、雙手自然垂下
+        const facing=idlePose===5;
+        if(chest)chest[0].quaternion.copy(chest[2]).multiply(idleSway.setFromAxisAngle(vertical,(facing?0:(idlePose-2)*.07)+Math.sin(item.idleClock*1.7+idlePose)*.018));
+        if(head)head[0].quaternion.copy(head[2]).multiply(idleSway.setFromAxisAngle(vertical,facing?Math.sin(item.idleClock*.41+1)*.03:(2-idlePose)*.105));
         for(const [joint,,rest] of forearms){
           const side=joint.name==='LeftForeArm'?1:-1;
-          const bend=idlePose===1&&side===1?.80:idlePose===2&&side===-1?.64:idlePose===3?.40:.08;
+          const bend=facing?.14:idlePose===1&&side===1?.80:idlePose===2&&side===-1?.64:idlePose===3?.40:.08;
           joint.quaternion.copy(rest).multiply(idleSway.setFromAxisAngle(sideAxis,side*bend));
+          // 長者款綁定姿勢的掌心朝前，手放下後像攤開手；正面站姿把前臂內旋，讓掌心朝向大腿
+          if(facing&&palmTurn[key])joint.quaternion.multiply(idleSway.setFromAxisAngle(vertical,side*palmTurn[key]));
         }
       }
       if(item.action){
@@ -235,13 +283,18 @@ export function createModelAssets(scene){
         item.lodDt=(item.lodDt??0)+dt;item.lodN=(item.lodN??0)+1;
         if(lod<=1||item.lodN%lod===0){item.mixer.update(item.lodDt);item.lodDt=0;}
       }
-      item.colored.value=tint&&key!=='grandma_scooter'?1:0;
+      // dye 是換色濃度（1 是路人原本的程度）；具名角色用較濃的顏色，才看得出是角色設定的衣服
+      item.colored.value=tint&&key!=='grandma_scooter'?dye:0;
       if(tint)item.paint.value.set(tint);
       item.skinTone.value=complexion;
-      item.pantsEnabled.value=trousers?1:0;
+      item.pantsEnabled.value=trousers?dye:0;
       if(trousers)item.pants.value.set(trousers);
-      item.object.scale.set(stature*build,stature,stature*build);
-      item.object.position.set(x,ground,z);item.object.rotation.y=-heading;
+      // 具名角色站著時加上和林總、美玲姐一樣的呼吸（約 4 秒一次，身高 ±0.5%）與繞腳底的輕晃；原點在腳底，腳不離地
+      const idle=breathe&&!moving?1:0,t=idle*(item.idleClock??0),breath=idle*Math.sin(t*1.55);
+      const wide=stature*build*(1+.003*breath);
+      item.object.scale.set(wide,stature*(1+.005*breath),wide);
+      item.object.position.set(x,ground,z);
+      item.object.rotation.set(idle*Math.sin(t*.83)*.006,-heading,idle*Math.sin(t*.59+1.3)*.004,'YXZ');
       item.object.visible=true;
       return true;
     },

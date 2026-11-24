@@ -1,16 +1,16 @@
-import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=0da320b3'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=0da320b3'; // A22
-import {marketTruck} from '../night-market.mjs?v=0da320b3'; // A23 night
-import {parkedKey} from '../impact.mjs?v=0da320b3';
-import {streetCrowds} from '../crowds.mjs?v=0da320b3';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=0da320b3';
-import {createNamedNpcModels,namedNpcFigures} from './named-npcs.js?v=0da320b3';
-import {buildOfficePeople} from './office-people.js?v=0da320b3';
-import {createModelAssets} from './model-assets.js?v=0da320b3';
-import {fixtureColliders} from '../fixtures.mjs?v=0da320b3';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=0da320b3';
-import * as T from '../vendor/three.module.min.js?v=0da320b3';
-import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=0da320b3';
+import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=e5a00467'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=e5a00467'; // A22
+import {marketTruck} from '../night-market.mjs?v=e5a00467'; // A23 night
+import {parkedKey} from '../impact.mjs?v=e5a00467';
+import {streetCrowds} from '../crowds.mjs?v=e5a00467';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=e5a00467';
+import {createNamedNpcModels,namedNpcFigures,namedNpcWalkers} from './named-npcs.js?v=e5a00467';
+import {buildOfficePeople,officeWalkers} from './office-people.js?v=e5a00467';
+import {createModelAssets,modelHeight} from './model-assets.js?v=e5a00467';
+import {fixtureColliders,homeTruck} from '../fixtures.mjs?v=e5a00467';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=e5a00467';
+import * as T from '../vendor/three.module.min.js?v=e5a00467';
+import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=e5a00467';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -216,6 +216,9 @@ const elderSkin=skin=>skin==='npc_elder'||skin==='npc_grandma'||skin==='grandma'
 
 const personBody=[],kneeAt=[0,0,0],ankleAt=[0,0,0],elbowAt=[0,0,0],handAt=[0,0,0],rootAt=[0,0,0];
 const namedNpcModels=createNamedNpcModels(p,ball,limb);
+// 借用寫實路人模型的具名角色與辦公室同事：設定身高先換算成模型縮放，每幀直接查表
+const castWalkers=new Map(Object.entries({...namedNpcWalkers,...officeWalkers})
+  .map(([id,cast])=>[id,{...cast,stature:cast.height/(modelHeight(cast.model)??cast.height)}]));
 const v3=(out,x,y,z)=>{out[0]=x;out[1]=y;out[2]=z;return out;};
 const stampLift=.07;
 const shoeLength=.231,shoeHeight=.115,shoeWidth=.121;
@@ -699,6 +702,13 @@ export function createActors(scene,glow,parkedScooters=[]) {
   const carModels=new Map();
   const walkerOptions={dt:0,moving:false,speed:1.28,ground:0,tint:undefined,trousers:undefined,stature:1,idlePose:0,build:1,complexion:0,lod:1};
   const figureOptions={dt:0,ground:0}; // 具名角色的寫實模型只用到這兩項，每幀重用不配置
+  // 借用路人模型的具名角色：站著不走（idlePose 5 是正面站姿）、和林總一樣呼吸輕晃、衣服顏色染得比路人濃
+  const castOptions={dt:0,moving:false,speed:0,ground:0,tint:undefined,trousers:undefined,stature:1,idlePose:5,build:1,complexion:0,lod:1,breathe:true,dye:1.6};
+  function drawCast(cast,x,z,heading,ground,dt){
+    castOptions.dt=dt;castOptions.ground=ground;castOptions.tint=cast.tint;castOptions.trousers=cast.trousers;
+    castOptions.stature=cast.stature;castOptions.build=cast.build;
+    return models.draw(cast.model,x,z,heading,castOptions);
+  }
   const headlightMat=new T.MeshBasicMaterial({
     map:glow,transparent:true,depthWrite:false,opacity:0,blending:T.AdditiveBlending,side:T.DoubleSide,color:'#f8cc88',
   });
@@ -801,6 +811,13 @@ export function createActors(scene,glow,parkedScooters=[]) {
         stamp(Math.hypot(x-prop.x,z-prop.z)<20?parkedStyles[style].near:parkedStyles[style].far,prop.x,prop.z,prop.heading,0);
     }
   }
+  // 車輛的可見範圍（路上的車與停著的垃圾車、回收車共用）：22 公尺內一律畫；104 公尺內只略過鏡頭外的；
+  // 再遠只畫鏡頭裡的。鏡頭判斷每台最多算一次。
+  function vehicleInSight(state,item,distance){
+    if(distance<=22)return true;
+    const seen=state.inActorView?.(item,true);
+    return distance>104?Boolean(seen):seen!==false||Boolean(item.impact);
+  }
   function uploadInstances(){
     for (const mesh of meshes) {
       if(!mesh.count)continue;
@@ -873,8 +890,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
       if(item.hidden)continue;
       const px=item.x*scale,pz=item.y*scale;
       const distance=Math.hypot(px-x,pz-z);
-      if(distance>104&&!state.inActorView?.(item,true))continue;
-      if(distance>22&&!item.impact&&state.inActorView?.(item,true)===false)continue;
+      if(!vehicleInSight(state,item,distance))continue;
       const impact=item.impact;
       if(item.featuredStyle!=null){ // A22 use the same rigid body as A14.
         featured.street(item,px,pz);
@@ -938,6 +954,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
     function stampPerson(item,px,pz,facing,index,moving,ground,distance,complexion=complexions[index%complexions.length]){ // A24
       // 80 公尺內的路人（含具名角色、辦公室同事、學生）一律用 Higgsfield 生成的寫實模型；畫不出來（模型未載入或同款太多）才用程式畫的外形
       if(distance<=150&&item!==walkerPortrait){
+        // 辦公室同事照 office-people.js 的配色借用寫實路人（不再隨機抽到高中女生款）
+        const cast=castWalkers.get(item.id);
+        if(cast&&drawCast(cast,px,pz,facing,ground,dt))return;
         const gskin=item.skin??'npc_vendor';
         const gfemale=femaleNpcs.has(item.id)?true:maleNpcs.has(item.id)?false:item.standing?index%2===0:femaleSkins.includes(gskin);
         const gelder=elderSkin(gskin);
@@ -1049,14 +1068,21 @@ export function createActors(scene,glow,parkedScooters=[]) {
     if(!photorealistic)for(const id of ['home','night_market','client_hq']){
       const site=byId.get(id),heading=site.viewHeading,fx=Math.cos(heading),fz=Math.sin(heading);
       const sx=site.x*scale,sz=site.y*scale;
-      if(Math.hypot(x-sx,z-sz)>39)continue;
-      const at=(side,front)=>[sx+fz*side+fx*front,sz-fx*side+fz*front];
       if(id!=='client_hq'&&!previewBus){
-        const [truckX,truckZ]=id==='night_market'?[marketTruck.x*scale,marketTruck.y*scale]:at(-3.8,.95); // A23 night
-        const direction=heading-Math.PI/2;
-        if(id!=='home'||!models.draw('garbage_truck',truckX,truckZ,direction))
+        const truck=id==='night_market'?marketTruck:homeTruck; // A23 night；家門口的垃圾車與碰撞共用 fixtures.mjs 的車身
+        const truckX=truck.x*scale,truckZ=truck.y*scale,direction=truck.heading;
+        // 停著的車照車身離主角多遠、用路上車輛的可見範圍決定畫不畫，不跟著地點中心 39 公尺：
+        // 家門口那台停在對街、離中心 10.8 公尺，原本騎回家時會在前方 30 公尺左右憑空出現。
+        // 家門口那台遠近都用寫實模型，不像路上的垃圾車在 42 公尺外換成較小的方塊車（換的那一下也看得出來）；
+        // 代價是多出垃圾車模型那 15 個 batch 的 draw call（含陰影）。vehicleInSight 在 104 公尺外只看車身中心在不在
+        // 畫面內、沒有距離上限，所以另外限 260 公尺：沿莊敬路騎回家在 200 多公尺外就看得到，從城裡其他地方望過來不畫。
+        const truckDistance=Math.hypot(x-truckX,z-truckZ);
+        if(truckDistance<260&&vehicleInSight(state,truck,truckDistance)&&
+          (id!=='home'||!models.draw('garbage_truck',truckX,truckZ,direction)))
           stamp(truckModels[id==='home'?'waste':'recycling'],truckX,truckZ,direction,0);
       }
+      if(Math.hypot(x-sx,z-sz)>39)continue;
+      const at=(side,front)=>[sx+fz*side+fx*front,sz-fx*side+fz*front];
       stamp(cat,...at(3.2+Math.sin(clock*.9)*.6,2.98),heading,0,null,-.07); // 抵銷 stamp 預設抬高的 7 公分，腳踩地
     }
     if(!photorealistic&&scalePortrait){
@@ -1100,11 +1126,13 @@ export function createActors(scene,glow,parkedScooters=[]) {
       const namedModel=item.id==null?undefined:namedNpcModels.get(item.id);
       const complexion=complexions[look%complexions.length];
       if(namedModel){
-        // 林總、美玲姐用寫實 GLB（同樣的位置、朝向與地面高度）；模型未載入或載入失敗才畫程式外形
-        const figure=namedNpcFigures[item.id];
+        // 林總、美玲姐用專屬的寫實 GLB，其他角色借用最接近的寫實路人（同樣的位置、朝向與地面高度）；
+        // 模型未載入或載入失敗才畫程式外形（阿嬤沒有合適的模型，一直是程式外形）
+        const figure=namedNpcFigures[item.id],cast=castWalkers.get(item.id);
         figureOptions.dt=dt;figureOptions.ground=ground;
         // The named models' soles are built at local zero; cancel stamp's default lift.
-        if(!(figure&&models.draw(figure,px,pz,facing,figureOptions)))stamp(namedModel,px,pz,facing,0,null,ground-.07);
+        if(!(figure&&models.draw(figure,px,pz,facing,figureOptions)||cast&&drawCast(cast,px,pz,facing,ground,dt)))
+          stamp(namedModel,px,pz,facing,0,null,ground-.07);
       }else if(item.role==='cyclist'){
         // 40 公尺內用寫實騎士模型（目前沒有腳踏車騎士的寫實模型，先用電動車騎士代替）；更遠才用程式畫的外形
         if(!(models.draw('rider_scooter',px,pz,facing,{tint:riderTints[look%riderTints.length],ground})))
