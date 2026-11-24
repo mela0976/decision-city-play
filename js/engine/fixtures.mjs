@@ -1,15 +1,15 @@
-import {alleyParking} from './actor-streets.mjs?v=2717b081'; // A23 actors
-import {visitWuxingArcades} from './wuxing-arcades.mjs?v=2717b081'; // A23 alleys
-import {urbanInfill} from './infill.mjs?v=2717b081';
-import {placeStreetLife} from './3d/street-life.js?v=2717b081';
-import {visitLandscapeTrees,visitLandscapeHedges} from './3d/vegetation.js?v=2717b081'; // A19 vegetation hook
-import {placeEntrance} from './3d/frontage.js?v=2717b081';
+import {alleyParking} from './actor-streets.mjs?v=c7fd08ae'; // A23 actors
+import {visitWuxingArcades} from './wuxing-arcades.mjs?v=c7fd08ae'; // A23 alleys
+import {urbanInfill} from './infill.mjs?v=c7fd08ae';
+import {placeStreetLife} from './3d/street-life.js?v=c7fd08ae';
+import {visitLandscapeTrees,visitLandscapeHedges} from './3d/vegetation.js?v=c7fd08ae'; // A19 vegetation hook
+import {placeEntrance} from './3d/frontage.js?v=c7fd08ae';
 // A19 terrain-landmarks hook
-import {placeFloodDefenses} from './3d/terrain.js?v=2717b081';
-import {placeArcadeColumns} from './3d/songshan-heritage.js?v=2717b081'; // A23 landmarks2: mapped factory arcade.
-import {placeTempleCourt} from './3d/landmarks.js?v=2717b081';
-import {placeLocationDressing} from './3d/location-dressing.js?v=2717b081';
-import {byId,locations,metersPerUnit as unit,inBuilding} from './world.mjs?v=2717b081';
+import {placeFloodDefenses} from './3d/terrain.js?v=c7fd08ae';
+import {placeArcadeColumns} from './3d/songshan-heritage.js?v=c7fd08ae'; // A23 landmarks2: mapped factory arcade.
+import {placeTempleCourt} from './3d/landmarks.js?v=c7fd08ae';
+import {placeLocationDressing} from './3d/location-dressing.js?v=c7fd08ae';
+import {byId,locations,metersPerUnit as unit,inBuilding} from './world.mjs?v=c7fd08ae';
 
 // 家門口（吳興街租屋處）的垃圾車：畫面（3d/actors.js）、預覽（3d/render.js）與碰撞共用這一個車身。
 // 原本停在門口這一側的路緣（side -3.8、depth .95），只畫不擋：出門按 G 在門口上機車後，往晨會、捷運等目的地

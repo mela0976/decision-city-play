@@ -1,16 +1,16 @@
-import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=2717b081'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=2717b081'; // A22
-import {marketTruck} from '../night-market.mjs?v=2717b081'; // A23 night
-import {parkedKey} from '../impact.mjs?v=2717b081';
-import {streetCrowds} from '../crowds.mjs?v=2717b081';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=2717b081';
-import {createNamedNpcModels,namedNpcFigures,namedNpcWalkers} from './named-npcs.js?v=2717b081';
-import {buildOfficePeople,officeWalkers} from './office-people.js?v=2717b081';
-import {createModelAssets,modelHeight} from './model-assets.js?v=2717b081';
-import {fixtureColliders,homeTruck} from '../fixtures.mjs?v=2717b081';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=2717b081';
-import * as T from '../vendor/three.module.min.js?v=2717b081';
-import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=2717b081';
+import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=c7fd08ae'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=c7fd08ae'; // A22
+import {marketTruck} from '../night-market.mjs?v=c7fd08ae'; // A23 night
+import {parkedKey} from '../impact.mjs?v=c7fd08ae';
+import {streetCrowds} from '../crowds.mjs?v=c7fd08ae';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=c7fd08ae';
+import {createNamedNpcModels,namedNpcFigures,namedNpcWalkers} from './named-npcs.js?v=c7fd08ae';
+import {buildOfficePeople,officeWalkers} from './office-people.js?v=c7fd08ae';
+import {createModelAssets,modelHeight} from './model-assets.js?v=c7fd08ae';
+import {fixtureColliders,homeTruck} from '../fixtures.mjs?v=c7fd08ae';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=c7fd08ae';
+import * as T from '../vendor/three.module.min.js?v=c7fd08ae';
+import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=c7fd08ae';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -1131,8 +1131,9 @@ export function createActors(scene,glow,parkedScooters=[]) {
         const figure=namedNpcFigures[item.id],cast=castWalkers.get(item.id);
         figureOptions.dt=dt;figureOptions.ground=ground;
         // The named models' soles are built at local zero; cancel stamp's default lift.
-        if(!(figure&&models.draw(figure,px,pz,facing,figureOptions)||cast&&drawCast(cast,px,pz,facing,ground,dt)))
-          stamp(namedModel,px,pz,facing,0,null,ground-.07);
+        // 寫實模型雙手垂在身側、沒有握傘的姿勢：下雨時不另外蓋一把浮在旁邊的傘
+        held=Boolean(figure&&models.draw(figure,px,pz,facing,figureOptions)||cast&&drawCast(cast,px,pz,facing,ground,dt));
+        if(!held)stamp(namedModel,px,pz,facing,0,null,ground-.07);
       }else if(item.role==='cyclist'){
         // 40 公尺內用寫實騎士模型（目前沒有腳踏車騎士的寫實模型，先用電動車騎士代替）；更遠才用程式畫的外形
         if(!(models.draw('rider_scooter',px,pz,facing,{tint:riderTints[look%riderTints.length],ground})))

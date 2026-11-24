@@ -1,7 +1,7 @@
-import {carRoute,carParking} from './drive-car.mjs?v=2717b081'; // A26
-import {crossingForNode,gateAhead,waitSeconds,junctionById} from './street-crossings.mjs?v=2717b081'; // A24
-import {curbContact} from './sidewalks.mjs?v=2717b081';
-import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit,worldContact} from './world.mjs?v=2717b081';
+import {carRoute,carParking} from './drive-car.mjs?v=c7fd08ae'; // A26
+import {crossingForNode,gateAhead,waitSeconds,junctionById} from './street-crossings.mjs?v=c7fd08ae'; // A24
+import {curbContact} from './sidewalks.mjs?v=c7fd08ae';
+import {blocked,roadNodes,roadOptions,nearestOnRoad,metersPerUnit,worldContact} from './world.mjs?v=c7fd08ae';
 const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const drivable=new Map(),edgeSignals=new Map();
 function laneGate(key,a,b,edge){
@@ -227,7 +227,7 @@ function pullTight(origin,input){
   for(let i=0;i<route.length;){
     let j=i;
     // 只在短間距的格狀點串裡往前找；遇到長段或轉彎號誌點就停
-    while(j+1<route.length&&!route[j+1].turnSignal&&!route[j].turnSignal&&distance(route[j],route[j+1])<24&&distance(anchor,route[j+1])<120&&bodyFree(anchor,route[j+1]))j++;
+    while(j+1<route.length&&!route[j+1].turnSignal&&!route[j].turnSignal&&distance(route[j],route[j+1])<24&&distance(anchor,route[j+1])<120&&bodyFree(anchor,route[j+1])&&clearPath(anchor,route[j+1]))j++;
     out.push(route[j]);anchor=route[j];i=j+1;
   }
   return out;
@@ -238,7 +238,7 @@ export function planRide(origin,target,avoid=[],timing){
     if(path?.length){
       const start=path.mount??origin;
       const usual=rideCruiseSpeed(rideLength(start,path),timing.speed);
-      const option=timedCruise(start,path,usual,timing.speed,timing.clock,timing.hour);
+      const option=timedCruise(start,path,usual,timing.speed,timing.clock,timing.hour,0,8/metersPerUnit);
       return Object.assign(path,{cruise:option.speed,usual,seconds:option.seconds+(path.mount?distance(origin,start)*metersPerUnit/1.39:0),signalCount:option.signals,reserve:option.reserve});
     }
     // A26 an isolated departure can need the existing obstacle-recovery route.
@@ -311,17 +311,27 @@ function routeGates(origin,path){
   return gates;
 }
 
-export function timedCruise(origin,path,usual,topSpeed,clock,hour){
+// 自動前往的車速是漸進加速（機車約 12 m/s²、汽車約 8 m/s²，見 simulation.js），巡航速度又常到每秒數十公尺：
+// 從靜止加到巡航要好幾秒。原本假設一出發、紅燈一轉綠就是巡航速度，算出的抵達時刻比實際早好幾秒，
+// 排好的綠燈波在第一個路口就錯過，之後一路吃紅燈。這裡出發與每次停等後都從 start／0 加速。
+const scooterAccel=12/metersPerUnit;
+function travelTime(s,v0,v,a){
+  if(v0>=v)return s/v;
+  const ramp=(v*v-v0*v0)/(2*a);
+  return s<=ramp?(Math.sqrt(v0*v0+2*a*s)-v0)/a:(v-v0)/a+(s-ramp)/v;
+}
+export function timedCruise(origin,path,usual,topSpeed,clock,hour,start=0,accel=scooterAccel){
   const gates=routeGates(origin,path),length=rideLength(origin,path);
   let best;
   for(let slot=0;slot<=(gates.length?32:0);slot++){
     const factor=slot===0?1:.82+slot*.043,speed=usual*factor;
-    const free=estimateRideDuration(length,topSpeed,speed);
-    let delay=0,reserve=0,risk=0;
+    const loss=v0=>v0>=speed?0:(speed-v0)**2/(2*accel*speed); // 加速比一路巡航多花的秒數
+    const free=estimateRideDuration(length,topSpeed,speed)+loss(start);
+    let delay=0,reserve=0,risk=0,from=0,leave=clock,v0=start;
     for(const g of gates){
-      const arrival=clock+g.along/speed+delay;
+      const arrival=leave+travelTime(g.along-from,v0,speed,accel);
       const wait=waitSeconds(g.j,g.group,arrival,hour);
-      delay+=wait;
+      if(wait>0){delay+=wait+loss(0);from=g.along;leave=arrival+wait;v0=0;}
       // A marginal green is easily lost at peak density when a vehicle exits ahead.
       if(!wait&&!trafficFlashing(hour)&&waitSeconds(g.j,g.group,arrival+2,hour)>0)risk+=5;
       // A traffic queue or obstruction can consume the next green window.

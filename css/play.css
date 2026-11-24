@@ -1864,7 +1864,8 @@ html[lang="en"] .hud-meters .m-name {
 
   #layer:not(:empty) ~ #toasts .toast,
   #screen:not(:empty) ~ #toasts .toast {
-    font-size: 0.78rem;
+    font-size: 1rem;
+    line-height: 1.3;
     padding: 0.2rem 0.6rem;
   }
 
@@ -1900,7 +1901,8 @@ html[lang="en"] .hud-meters .m-name {
 }
 
 #stage[data-phase="play"]:has(#layer > .feed) #toasts .toast {
-  font-size: 0.78rem;
+  font-size: 1rem;
+  line-height: 1.3;
   padding: 0.2rem 0.6rem;
 }
 
@@ -2039,5 +2041,31 @@ html[lang="en"] .hud-meters .m-name {
 
   .ticket--chapter .ticket-body h2 {
     min-block-size: 3.6rem;
+  }
+}
+
+/* 橫向手機：測驗題目＋四個選項＋結果一個畫面放不下（428–458px > 390px），結果還壓到提示列與按鈕。
+   選項排成兩欄、間距收緊，題目與說明字距不變（仍 ≥ 17px） */
+@media (max-height: 480px) and (orientation: landscape) {
+  .quiz {
+    gap: 0.35rem;
+    padding-block-start: calc(var(--bar-t) + 0.2rem);
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 0.6rem;
+    inline-size: min(100%, 52rem);
+  }
+
+  /* 結果框右下讓出「下一題」按鈕的位置 */
+  .quiz-result {
+    max-inline-size: calc(100% - 2 * (var(--edge) + 7.5rem));
+  }
+
+  .quiz-head h2,
+  #quiz-q {
+    line-height: 1.35;
   }
 }

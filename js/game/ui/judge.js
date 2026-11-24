@@ -2,8 +2,8 @@
 // 下面是整本書的目錄：依書的頁序分 Intro／People／Model／AI 四段，每篇一列寫頁碼、篇名、作者、一句摘要、在遊戲裡的哪一關。
 // 摘要預設兩行，點篇名展開全文。
 
-import { h, fill, arrowFocus } from '../dom.js?v=2717b081';
-import { T } from '../strings.js?v=2717b081';
+import { h, fill, arrowFocus } from '../dom.js?v=c7fd08ae';
+import { T } from '../strings.js?v=c7fd08ae';
 
 const SECTIONS = ['Intro', 'People', 'Model', 'AI'];
 
