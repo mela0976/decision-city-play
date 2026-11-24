@@ -1,42 +1,43 @@
 // 遊戲控制器：一天的推進、任務執行、數值、存檔、阿嬤模組、結局。
 // 任務、角色、題目的文字全部來自 content；這裡只有流程與規則。
 
-import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js?v=96676fd2';
-import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=96676fd2';
-import { pickEnding, metersForEnding } from './endings.js?v=96676fd2';
-import { hintFor, curbHint } from './hints.js?v=96676fd2';
-import { voiceKey, voiceInfo } from './sound.js?v=96676fd2';
-import { createHud } from './ui/hud.js?v=96676fd2';
-import { createToasts } from './ui/toast.js?v=96676fd2';
-import { showTitle } from './ui/title.js?v=96676fd2';
-import { showRoleSelect } from './ui/role-select.js?v=96676fd2';
-import { runDialogue } from './ui/dialogue.js?v=96676fd2';
-import { runChoice } from './ui/choice.js?v=96676fd2';
-import { runQuiz } from './ui/quiz.js?v=96676fd2';
-import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=96676fd2';
-import { pickWork } from './ui/side-pick.js?v=96676fd2';
-import { openSideList } from './ui/side-list.js?v=96676fd2';
-import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js?v=96676fd2';
-import { showPlaceCard } from './ui/place-card.js?v=96676fd2';
-import { playCutscene } from './ui/cutscene.js?v=96676fd2';
-import { showEnding } from './ui/ending.js?v=96676fd2';
-import { openProposal } from './ui/proposal.js?v=96676fd2';
-import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=96676fd2'; // A26
-import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=96676fd2';
-import { openManual } from './ui/manual.js?v=96676fd2';
-import { openElderCard } from './ui/elder-card.js?v=96676fd2';
-import { langControls } from './ui/lang-switch.js?v=96676fd2';
-import { createCoach } from './ui/coach.js?v=96676fd2';
-import { shareResult } from './share.js?v=96676fd2';
-import { VERSION } from './version.js?v=96676fd2';
-import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=96676fd2';
-import { createInspireChip } from './ui/inspire.js?v=96676fd2';
-import { showYearSelect } from './ui/year-select.js?v=96676fd2';
+import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js?v=196bd4fd';
+import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=196bd4fd';
+import { pickEnding, metersForEnding } from './endings.js?v=196bd4fd';
+import { hintFor, curbHint } from './hints.js?v=196bd4fd';
+import { voiceKey, voiceInfo } from './sound.js?v=196bd4fd';
+import { createHud } from './ui/hud.js?v=196bd4fd';
+import { createToasts } from './ui/toast.js?v=196bd4fd';
+import { showTitle } from './ui/title.js?v=196bd4fd';
+import { showRoleSelect } from './ui/role-select.js?v=196bd4fd';
+import { runDialogue } from './ui/dialogue.js?v=196bd4fd';
+import { runChoice } from './ui/choice.js?v=196bd4fd';
+import { runQuiz } from './ui/quiz.js?v=196bd4fd';
+import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=196bd4fd';
+import { pickWork } from './ui/side-pick.js?v=196bd4fd';
+import { openSideList } from './ui/side-list.js?v=196bd4fd';
+import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js?v=196bd4fd';
+import { showPlaceCard } from './ui/place-card.js?v=196bd4fd';
+import { playCutscene } from './ui/cutscene.js?v=196bd4fd';
+import { showEnding } from './ui/ending.js?v=196bd4fd';
+import { openProposal } from './ui/proposal.js?v=196bd4fd';
+import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=196bd4fd'; // A26
+import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=196bd4fd';
+import { openManual } from './ui/manual.js?v=196bd4fd';
+import { openElderCard } from './ui/elder-card.js?v=196bd4fd';
+import { langControls } from './ui/lang-switch.js?v=196bd4fd';
+import { createCoach } from './ui/coach.js?v=196bd4fd';
+import { shareResult } from './share.js?v=196bd4fd';
+import { VERSION } from './version.js?v=196bd4fd';
+import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=196bd4fd';
+import { createInspireChip } from './ui/inspire.js?v=196bd4fd';
+import { showYearSelect } from './ui/year-select.js?v=196bd4fd';
 
 // 固定規則：docs/CONTRACTS.md 第 3.4 節。
 const QUIZ_RIGHT = { trust: 3 };
 const QUIZ_WRONG = { liver: 3 };
 const GOTO_LATE_LIVER = 5;
+const LIVER_GAIN = 0.6; // 肝指數增加的倍率（2026-11-24 由 1 調為 0.6）
 const RELIEF = { riverside: -10, breakfast: -5, convenience: -5, night_market: -5 };
 // 契約沒有定的數字（回報時列為假設）。
 const REMIND_AUTO_MS = 6000;
@@ -245,8 +246,10 @@ export class Game {
     }
     const deltas = {};
     for (const id of METER_IDS) {
-      const change = Number(effects?.[id]) || 0;
+      let change = Number(effects?.[id]) || 0;
       if (!change) continue;
+      // 肝指數累積打六折（休息、補品等減少不變）：原本照第一個選項玩，六個職能有五個在 m2025 就爆肝、跳過最後一個任務
+      if (id === 'liver' && change > 0) change = Math.max(1, Math.round(change * LIVER_GAIN));
       const before = this.state.meters[id];
       const after = clamp(before + change);
       this.state.meters[id] = after;

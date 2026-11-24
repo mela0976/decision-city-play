@@ -1,4 +1,4 @@
-import * as T from '../vendor/three.module.min.js?v=96676fd2';
+import * as T from '../vendor/three.module.min.js?v=196bd4fd';
 
 // The HDR scene is sampled once at full resolution. Bright texels contribute to
 // an eight-tap ring in the composite, while local lamp glows stay world-space.

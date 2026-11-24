@@ -1,14 +1,14 @@
-import * as T from '../vendor/three.module.min.js?v=96676fd2';
-import {metersPerUnit as unit,locations,toWorld,elevatedRoofs} from '../world.mjs?v=96676fd2';
-import {towerSkywalks} from './buildings-tower.js?v=96676fd2'; // A23 towers
-import {addFactoryFront,addPondWalk} from './songshan-heritage.js?v=96676fd2';
-import {addTemple} from './temple-court.js?v=96676fd2';
-export {placeTempleCourt} from './temple-court.js?v=96676fd2';
-import {buildLandmark} from './xinyi.js?v=96676fd2';
-import {placeEntrance} from './frontage.js?v=96676fd2';
-import {venues} from '../venue-entrances.mjs?v=96676fd2'; // A27
-import {createOfficeDoor} from './office-door.js?v=96676fd2';
-import {shapes,matrix,color} from './city-primitives.js?v=96676fd2';
+import * as T from '../vendor/three.module.min.js?v=196bd4fd';
+import {metersPerUnit as unit,locations,toWorld,elevatedRoofs} from '../world.mjs?v=196bd4fd';
+import {towerSkywalks} from './buildings-tower.js?v=196bd4fd'; // A23 towers
+import {addFactoryFront,addPondWalk} from './songshan-heritage.js?v=196bd4fd';
+import {addTemple} from './temple-court.js?v=196bd4fd';
+export {placeTempleCourt} from './temple-court.js?v=196bd4fd';
+import {buildLandmark} from './xinyi.js?v=196bd4fd';
+import {placeEntrance} from './frontage.js?v=196bd4fd';
+import {venues} from '../venue-entrances.mjs?v=196bd4fd'; // A27
+import {createOfficeDoor} from './office-door.js?v=196bd4fd';
+import {shapes,matrix,color} from './city-primitives.js?v=196bd4fd';
 
 const landmarkShapes={...shapes,spireTier:new T.CylinderGeometry(Math.SQRT1_2,.56,1,4,1,false,Math.PI/4)};
 
