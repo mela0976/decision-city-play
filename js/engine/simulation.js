@@ -1,23 +1,23 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=1448599f'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=1448599f'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=1448599f'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=1448599f'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=1448599f';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=1448599f'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=1448599f';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=1448599f'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=1448599f';
-import {neonDistrict} from './neon-districts.mjs?v=1448599f'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=1448599f';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=1448599f';
-import {streetCrowds} from './crowds.mjs?v=1448599f';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=1448599f';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=1448599f';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=1448599f';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=1448599f';
-import {planFlight} from './flight-path.mjs?v=1448599f';
-import { touchControls } from './overlay.js?v=1448599f';
-import {setLabels,placeLabel} from './labels.mjs?v=1448599f'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=c1d6a75d'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=c1d6a75d'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=c1d6a75d'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=c1d6a75d'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=c1d6a75d';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=c1d6a75d'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=c1d6a75d';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=c1d6a75d'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=c1d6a75d';
+import {neonDistrict} from './neon-districts.mjs?v=c1d6a75d'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=c1d6a75d';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=c1d6a75d';
+import {streetCrowds} from './crowds.mjs?v=c1d6a75d';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=c1d6a75d';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=c1d6a75d';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=c1d6a75d';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=c1d6a75d';
+import {planFlight} from './flight-path.mjs?v=c1d6a75d';
+import { touchControls } from './overlay.js?v=c1d6a75d';
+import {setLabels,placeLabel} from './labels.mjs?v=c1d6a75d'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -546,20 +546,22 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
       room=Math.min(room,Math.max(0,low-.42*speedUnits));
       if(holdingEntrance)leadSpeed=0;
       if(room<.5*speedUnits)car.hold='lead:'+lead.kind+(lead.body?.id!=null?':'+lead.body.id:'');
-      // 機車被停著的前車擋住：往旁邊有空的那側慢慢挪約 1.1 公尺（跟真實機車一樣鑽到旁邊排），停紅燈時並排成好幾排。
+      // 機車被停著的前車擋住：往右邊（路緣側）有空就慢慢挪約 1.1 公尺（跟真實機車一樣鑽到旁邊排），停紅燈時並排成好幾排。
       // 只在停下來時挪，轉彎路徑不變；路緣與車輛用同一個碰撞檢查，不會挪上人行道。
       if(car.scooter&&dt>0&&lead.kind==='vehicle'&&room<.5*speedUnits&&(lead.body.speed??0)<.3*speedUnits){
+        // 挪位一律用嚴格的路緣檢查，並多留 0.6 公尺（路口附近一般行駛會放寬路緣，挪位不放寬）
+        const sideHit=(x,y)=>curbContact(x,y,r+.6*speedUnits,halfWidth+.6*speedUnits,car.heading,true)||worldContact(x,y,r,halfWidth,car.heading)||space.hit(x,y,r,car);
         const nx=-Math.sin(car.heading),ny=Math.cos(car.heading),fx=Math.cos(car.heading)*.9*speedUnits,fy=Math.sin(car.heading)*.9*speedUnits;
         if(car.filter==null){
           car.filter=false;
-          for(const side of (car.look??0)%2?[1,-1]:[-1,1]){
+          for(const side of [-1]){ // 只往右（路緣側）挪，不擋到旁邊汽車的車道
             const tx=car.x+nx*side*1.1*speedUnits,ty=car.y+ny*side*1.1*speedUnits;
-            if(!contact(tx,ty)&&!contact(tx+fx,ty+fy)){car.filter={side,left:1.1*speedUnits};break;}
+            if(!sideHit(tx,ty)&&!sideHit(tx+fx,ty+fy)){car.filter={side,left:1.1*speedUnits};break;}
           }
         }
         if(car.filter&&car.filter.left>0){
           const d=Math.min(car.filter.left,1.2*speedUnits*dt),tx=car.x+nx*car.filter.side*d,ty=car.y+ny*car.filter.side*d;
-          if(!contact(tx,ty)){car.x=tx;car.y=ty;car.filter.left-=d;}else car.filter.left=0;
+          if(!sideHit(tx,ty)){car.x=tx;car.y=ty;car.filter.left-=d;}else car.filter.left=0;
         }
       }
     }
@@ -2055,7 +2057,7 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
     const blend=scooter?1-Math.exp(-dt*(brakingInput?7.5:input>0?4.9:3.4)):1;
     velocityX+=(Math.cos(player.heading)*targetSpeed-velocityX)*blend;
     velocityY+=(Math.sin(player.heading)*targetSpeed-velocityY)*blend;
-    const contact=(x,y)=>{const item=trafficSpace.hit(x,y,r,player);return dodgeUntil>state.clock&&item?.kind==='vehicle'?null:item;};
+    const contact=(x,y)=>{const item=trafficSpace.hit(x,y,r,player);return dodgeUntil>state.clock&&item?.kind==='vehicle'&&!item.body?.parked&&item.body?.type!=='parked'&&!(item.body?.speed<=0)?null:item;}; // 閃開只穿過行駛中的車流，停著的車不能穿
     const terrain=(x,y)=>driving?(route&&narrowLane(x,y)?'curb':carTerrain(x,y,player.heading)):scooter&&curbContact(x,y,r,.37*speedUnits,player.heading)?'curb':worldContact(x,y,r,scooter?.37/metersPerUnit:r,scooter?player.heading:0); // A26
     const wall=(x,y)=>Boolean(terrain(x,y)||contact(x,y));
     if(scooter&&!driving&&enabled&&impact.hasWrecks()&&(route||input>.035&&!state.reversing)){
@@ -2127,8 +2129,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           }
         }
       }
-      // 漸進加減速：機車約 5 m/s²、汽車約 4 m/s² 加速，煞車約 7 m/s²
-      const accel=(driving?4:5)*speedUnits*dt,brake=7*speedUnits*dt;
+      // 漸進加減速：機車約 8 m/s²、汽車約 6 m/s² 加速，煞車約 7 m/s²
+      const accel=(driving?6:8)*speedUnits*dt,brake=7*speedUnits*dt; // 台北機車起步快：機車 8、汽車 6 m/s²（原本 5／4 讓自動前往慢了約四成）
       paceNow=pace>paceNow?Math.min(pace,paceNow+accel):Math.max(pace,paceNow-brake);
       if(!noAccel)pace=Math.max(paceNow,.8*speedUnits);
       let budget=pace*dt;
@@ -2498,7 +2500,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       const target=reaction?.target??(!terrainAtContact&&(hitAtContact?.kind==='vehicle'||body?.type==='parked')?
         impactTarget(body):'building');
       emit('crash',{speed,target,launched:reaction?.launched??false});
-      if(!terrainAtContact&&(hitAtContact?.kind==='vehicle'||body?.type==='parked')){
+      // 只有撞到「行駛中」的車才算進 10 秒內撞兩次；停著的車倒退就能離開，不觸發閃開與移位
+      if(!terrainAtContact&&hitAtContact?.kind==='vehicle'&&body?.type!=='parked'&&!body?.parked&&(body?.speed??0)>.5*speedUnits){
         vehicleHits=vehicleHits.filter(t=>state.clock-t<10);vehicleHits.push(state.clock);
         if(vehicleHits.length>=2){
           vehicleHits=[];dodgeUntil=state.clock+3;
