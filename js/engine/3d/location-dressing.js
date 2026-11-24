@@ -3,9 +3,9 @@
 // The renderer and fixtures.mjs both call placeLocationDressing with the same arguments,
 // so every box or cylinder that reaches walking height is also a collider.
 // Flat paving goes through the optional `paving` batch and never blocks movement.
-import {metersPerUnit as unit,roadAt,inBuilding} from '../world.mjs?v=b7b57ceb';
-import {riversideBank,promenade} from '../riverside-bank.mjs?v=b7b57ceb';
-import {placeTree} from './vegetation.js?v=b7b57ceb';
+import {metersPerUnit as unit,roadAt,inBuilding} from '../world.mjs?v=0da320b3';
+import {riversideBank,promenade} from '../riverside-bank.mjs?v=0da320b3';
+import {placeTree} from './vegetation.js?v=0da320b3';
 
 // Local frame shared with placeEntrance: u runs along the street, d away from it.
 function frame(p){

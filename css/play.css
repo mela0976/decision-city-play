@@ -1090,11 +1090,28 @@ body:has(dialog[open]) .scene-art img {
 
 /* ── 任務卡與過關結算：疊在劇照上的兩張單據 ─────────── */
 
+/* 單據排在按鈕列上面那一格。單據比畫面高時整層往下捲，按鈕黏在黑邊裡（sticky），
+   捲到底單據一定完整落在按鈕上方。捲動範圍只到提示列上緣，捲動中的字不會跑進提示底下；
+   只多伸進去一點點（--chapter-b，留在底部 padding 裡），按鈕的焦點框與光暈才不會被切掉 */
 .chapter {
+  --chapter-b: min(var(--actions-b), 0.4rem);
   display: grid;
-  padding: calc(var(--bar-t) + clamp(0.5rem, 2.4vh, 1.6rem)) max(var(--edge), 4vw) calc(var(--bar-b) + clamp(0.5rem, 2.4vh, 1.6rem));
+  grid-template-rows: 1fr auto;
+  row-gap: clamp(0.5rem, 2.4vh, 1.6rem);
+  inset-block-end: calc(var(--actions-b) - var(--chapter-b));
+  padding: calc(var(--bar-t) + clamp(0.5rem, 2.4vh, 1.6rem)) max(var(--edge), 4vw) var(--chapter-b);
   overflow: hidden auto;
   scrollbar-width: none;
+}
+
+/* sticky 的底線已扣掉捲動容器的底部 padding，所以貼齊 0 就是原本按鈕列的位置 */
+.chapter > .cine-actions {
+  position: sticky;
+  inset: auto;
+  inset-block-end: 0;
+  grid-row: 2;
+  justify-self: stretch;
+  margin-inline: calc(var(--edge) - max(var(--edge), 4vw));
 }
 
 /* 任務卡：單據壓在劇照左下的暗部，人物留在畫面上 */
@@ -1905,34 +1922,108 @@ html[lang="en"] .hud-meters .m-name {
   white-space: nowrap;
 }
 
-/* 直式小手機：任務單常比畫面高，按鈕壓到「委託」那一行。
-   欄位改成「標籤＋內容」同一行、說明字小一點；還是太高就從頂端排、往下捲得到 */
-@media (max-width: 420px) {
+/* 直式小手機、橫放手機：任務單與章節卡常比畫面高，按鈕壓到「委託」那一行。
+   上下留白收窄、欄位改成「標籤＋內容」同一行、說明字收小一點（內文仍不小於 1rem）、章節卡的印章縮小；
+   還是太高就從頂端排，往下捲到底一定在按鈕上方（見 .chapter 的 sticky 按鈕列） */
+@media (max-width: 420px), (max-height: 480px) {
+  .chapter {
+    row-gap: 0.5rem;
+  }
+
   .chapter--card {
     align-items: safe end;
   }
 
-  .ticket--mission .ticket-stub {
+  .chapter .ticket-stub {
     padding: 0.5rem 0.9rem 0.4rem;
   }
 
-  .ticket--mission .ticket-body {
+  .chapter .ticket-body {
     gap: 0.35rem;
     padding: 0.6rem 0.9rem 0.7rem;
   }
 
-  .ticket--mission .ticket-body h2 {
+  .ticket--mission .ticket-body h2,
+  .ticket--chapter .ticket-body h2 {
     font-size: 1.2rem;
   }
 
   .ticket--mission .ticket-brief {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.4;
   }
 
-  .ticket--mission .ticket-chapters {
+  .chapter .ticket-chapters {
     font-size: 0.82rem;
     line-height: 1.35;
+  }
+
+  .ticket--mission .ticket-field dt {
+    letter-spacing: 0.12em;
+  }
+
+  .ticket--chapter .chapter-quote {
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .ticket--chapter .stamp {
+    inset-block-start: 2.8rem;
+    inline-size: 3.8rem;
+    block-size: 3.8rem;
+    font-size: 1.35rem;
+  }
+
+  .ticket--chapter .ticket-body h2 {
+    margin-inline-end: 4.6rem;
+  }
+
+  .ticket--chapter .chapter-deltas {
+    gap: 0.15rem 1rem;
+    padding-block-start: 0.4rem;
+  }
+
+  .ticket--chapter .chapter-capped {
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+}
+
+/* 橫放手機：高度更緊，上下留白再收一點；欄位照舊並排，標籤改放在內容左邊（省掉標籤那一行），放不下才換行 */
+@media (max-height: 480px) {
+  .chapter {
+    row-gap: 0.35rem;
+  }
+
+  .chapter .ticket-stub {
+    padding-block: 0.45rem 0.35rem;
+  }
+
+  .chapter .ticket-body {
+    padding-block: 0.5rem 0.6rem;
+  }
+
+  .ticket--mission .ticket-fields {
+    gap: 0.25rem 1.4rem;
+  }
+
+  .ticket--mission .ticket-field {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6em;
+    min-inline-size: 0;
+  }
+
+  .ticket--mission .ticket-field dt {
+    flex: none;
+  }
+}
+
+/* 直式小手機：單據頂端緊貼上方黑邊（選單鈕底下）；欄位排成「標籤｜內容」兩欄，一個欄位一行；
+   章節卡的引文排到印章底下，標題的高度只留到縮小後的印章為止 */
+@media (max-width: 420px) {
+  .chapter {
+    padding-block-start: calc(max(var(--bar-t), 3.3rem) + 0.35rem);
   }
 
   .ticket--mission .ticket-fields {
@@ -1946,7 +2037,7 @@ html[lang="en"] .hud-meters .m-name {
     display: contents;
   }
 
-  .ticket--mission .ticket-field dt {
-    letter-spacing: 0.12em;
+  .ticket--chapter .ticket-body h2 {
+    min-block-size: 3.6rem;
   }
 }

@@ -1,16 +1,16 @@
-import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=b7b57ceb'; // A24
-import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=b7b57ceb'; // A22
-import {marketTruck} from '../night-market.mjs?v=b7b57ceb'; // A23 night
-import {parkedKey} from '../impact.mjs?v=b7b57ceb';
-import {streetCrowds} from '../crowds.mjs?v=b7b57ceb';
-import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=b7b57ceb';
-import {createNamedNpcModels} from './named-npcs.js?v=b7b57ceb';
-import {buildOfficePeople} from './office-people.js?v=b7b57ceb';
-import {createModelAssets} from './model-assets.js?v=b7b57ceb';
-import {fixtureColliders} from '../fixtures.mjs?v=b7b57ceb';
-import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=b7b57ceb';
-import * as T from '../vendor/three.module.min.js?v=b7b57ceb';
-import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=b7b57ceb';
+import {carriagewayAt,footwayAt,surfaceAt} from '../sidewalks.mjs?v=0da320b3'; // A24
+import {createFeaturedCars,skyTraffic} from './featured-cars.js?v=0da320b3'; // A22
+import {marketTruck} from '../night-market.mjs?v=0da320b3'; // A23 night
+import {parkedKey} from '../impact.mjs?v=0da320b3';
+import {streetCrowds} from '../crowds.mjs?v=0da320b3';
+import {femaleNpcs,maleNpcs} from '../npc-gender.mjs?v=0da320b3';
+import {createNamedNpcModels,namedNpcFigures} from './named-npcs.js?v=0da320b3';
+import {buildOfficePeople} from './office-people.js?v=0da320b3';
+import {createModelAssets} from './model-assets.js?v=0da320b3';
+import {fixtureColliders} from '../fixtures.mjs?v=0da320b3';
+import {byId,metersPerUnit,roadAt,worldContact} from '../world.mjs?v=0da320b3';
+import * as T from '../vendor/three.module.min.js?v=0da320b3';
+import {mergeGeometries} from '../vendor/three-examples/utils/BufferGeometryUtils.js?v=0da320b3';
 
 const cube=new T.BoxGeometry(1,1,1);
 const round=new T.SphereGeometry(.5,10,7);
@@ -698,6 +698,7 @@ export function createActors(scene,glow,parkedScooters=[]) {
   }));
   const carModels=new Map();
   const walkerOptions={dt:0,moving:false,speed:1.28,ground:0,tint:undefined,trousers:undefined,stature:1,idlePose:0,build:1,complexion:0,lod:1};
+  const figureOptions={dt:0,ground:0}; // 具名角色的寫實模型只用到這兩項，每幀重用不配置
   const headlightMat=new T.MeshBasicMaterial({
     map:glow,transparent:true,depthWrite:false,opacity:0,blending:T.AdditiveBlending,side:T.DoubleSide,color:'#f8cc88',
   });
@@ -1099,8 +1100,11 @@ export function createActors(scene,glow,parkedScooters=[]) {
       const namedModel=item.id==null?undefined:namedNpcModels.get(item.id);
       const complexion=complexions[look%complexions.length];
       if(namedModel){
+        // 林總、美玲姐用寫實 GLB（同樣的位置、朝向與地面高度）；模型未載入或載入失敗才畫程式外形
+        const figure=namedNpcFigures[item.id];
+        figureOptions.dt=dt;figureOptions.ground=ground;
         // The named models' soles are built at local zero; cancel stamp's default lift.
-        stamp(namedModel,px,pz,facing,0,null,ground-.07);
+        if(!(figure&&models.draw(figure,px,pz,facing,figureOptions)))stamp(namedModel,px,pz,facing,0,null,ground-.07);
       }else if(item.role==='cyclist'){
         // 40 公尺內用寫實騎士模型（目前沒有腳踏車騎士的寫實模型，先用電動車騎士代替）；更遠才用程式畫的外形
         if(!(models.draw('rider_scooter',px,pz,facing,{tint:riderTints[look%riderTints.length],ground})))

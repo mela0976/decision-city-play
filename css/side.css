@@ -124,6 +124,13 @@
   }
 }
 
+/* 直式小手機、橫放手機：任務單與章節卡上的署名直接接在章節名後面，不另起一行 */
+@media (max-width: 420px), (max-height: 480px) {
+  .ticket .chapter-by {
+    display: inline;
+  }
+}
+
 .chapter-quote {
   margin: 0;
   padding-inline-start: 0.8rem;

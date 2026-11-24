@@ -719,7 +719,15 @@
   border-block-style: dashed;
 }
 
+/* 每一格標籤在上、數字在下。標籤排成的行數不一樣時（英日文常排兩行），
+   各格一樣高、標籤貼齊數字，四個數字留在同一條線上 */
+.report-facts > div {
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
 .report-facts dt {
+  align-self: end;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   color: var(--muted);
@@ -1224,6 +1232,20 @@
   .report-facts dt {
     min-inline-size: 0;
     overflow-wrap: anywhere;
+  }
+
+  /* 事實格的標籤只在整個字放不下時才斷，不把「Accuracy」拆成兩半 */
+  .report-facts dt {
+    overflow-wrap: break-word;
+  }
+}
+
+/* 更窄的手機：英文四格（多了黑咖啡）時排成兩欄兩列，「Quiz Accuracy」不必斷字；
+   中日文逐字換行不會斷在字中間，維持一列省高度 */
+@media (max-width: 340px) {
+  :root:lang(en) .report-facts:has(> :nth-child(4)) {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

@@ -35,6 +35,10 @@ const hairstyles={
   helmet: {color:'#e79c35', crown:[-.034,.077,0,.264,.185,.241], brim:[.102,.050,0,.094,.033,.226]},
 };
 
+// 有寫實 GLB 的角色（assets/models/<key>.glb，model-assets.js 載入）：載入完成後取代下面的程式外形，
+// 模型還沒載入或載入失敗時照舊畫程式外形
+export const namedNpcFigures={boss_lin:'npc_lin',ae_mei:'npc_mei'};
+
 // Descriptors are built once, outside the per-frame scratch pool. Local +X faces forward.
 export function createNamedNpcModels(box,ball,limb){
   const models=new Map();

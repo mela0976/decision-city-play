@@ -909,6 +909,20 @@
       "animations": [
         "Armature|Casual_Walk|baselayer"
       ]
+    },
+    "npc_lin": {
+      "src": "assets/models/npc_lin.glb",
+      "bytes": 930156,
+      "triangles": 29468,
+      "rigged": false,
+      "animations": []
+    },
+    "npc_mei": {
+      "src": "assets/models/npc_mei.glb",
+      "bytes": 903400,
+      "triangles": 28316,
+      "rigged": false,
+      "animations": []
     }
   },
   "audio": {

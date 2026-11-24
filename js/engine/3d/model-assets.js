@@ -1,6 +1,6 @@
-import * as T from '../vendor/three.module.min.js?v=b7b57ceb';
-import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=b7b57ceb';
-import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=b7b57ceb';
+import * as T from '../vendor/three.module.min.js?v=0da320b3';
+import {GLTFLoader} from '../vendor/three-examples/loaders/GLTFLoader.js?v=0da320b3';
+import {DRACOLoader} from '../vendor/three-examples/loaders/DRACOLoader.js?v=0da320b3';
 
 const optionalVehicles={garbage_truck:6.5,bus:12};
 const catalog={
@@ -8,7 +8,12 @@ const catalog={
   walker_f:['height',1.66],
   // 2026-11-24 Higgsfield 寫實路人：中年男上班族、長者、年輕女生、高中女生
   walker_m2:['height',1.72],walker_m3:['height',1.66],walker_f2:['height',1.62],walker_f3:['height',1.58],car_ev:['length',4.7],scooter_parked:['length',1.9],
+  // 2026-11-25 具名角色的寫實模型（Tripo 圖生 3D：靜態網格、沒有骨架；檔案已轉成面向 +Z，同 walker）：
+  // 林總、美玲姐。身高同 named-npcs.js 的程式外形（美玲姐含跟鞋）
+  npc_lin:['height',1.80],npc_mei:['height',1.67],
 };
+// 靜態人物模型（npc_*）同時畫幾個：每位角色同時只會出現一次，留兩個位置就夠，超過就畫程式外形
+const figureSlots=2;
 
 function cloneRig(template){
   const clone=template.clone(true),old=[],copies=[];
@@ -67,7 +72,7 @@ export function createModelAssets(scene){
         inst.count=0;inst.frustumCulled=false;inst.castShadow=true;inst.receiveShadow=true;
         scene.add(inst);batches.push(inst);
       });
-      assets.set(key,{template,animations:model.animations,dimensions,bottom,batches,pool:[],used:0});
+      assets.set(key,{template,animations:model.animations,dimensions,bottom,batches,pool:[],used:0,figure:key.startsWith('npc_')});
     }catch{}finally{pending.delete(key);}
   }
   const defaults=Object.entries(catalog).map(([key,[axis,length]])=>load(key,axis,length));
@@ -108,6 +113,28 @@ export function createModelAssets(scene){
           batch.setColorAt(idx,instanceTint.set(tint??'#fff'));batch.instanceColor.needsUpdate=true;
         }
         asset.used++;
+        return true;
+      }
+      if(asset.figure){
+        if(asset.used>=figureSlots)return false;
+        const slot=asset.used++;
+        let item=asset.pool[slot];
+        if(!item){
+          // clone 共用幾何與材質（不套路人的換色 shader），每位角色就是一個 mesh、一次 draw call
+          const object=asset.template.clone(true);
+          object.traverse(o=>{if(o.isMesh)o.castShadow=true;});
+          scene.add(object);
+          // 兩位角色的呼吸與晃動錯開相位，不會同步起伏
+          item={object,clock:[...key].reduce((sum,c)=>sum+c.charCodeAt(0),slot*3)%7};
+          asset.pool.push(item);
+        }
+        // 沒有骨架，用整個模型的變形做待機：原點在腳底，所以縮放與旋轉都不會讓腳離地。
+        // 呼吸約 4 秒一次（身高 ±0.5%、胸寬 ±0.3%），再加上繞腳踝的輕微左右、前後晃動（頭頂約 1 公分）
+        const t=item.clock+=dt,breath=Math.sin(t*1.55),wide=stature*(1+.003*breath);
+        item.object.scale.set(wide,stature*(1+.005*breath),wide);
+        item.object.position.set(x,ground,z);
+        item.object.rotation.set(Math.sin(t*.83)*.006,-heading,Math.sin(t*.59+1.3)*.004,'YXZ');
+        item.object.visible=true;
         return true;
       }
       if(asset.used>=256)return false; // 每款寫實路人最多同時 256 個（人多的地方也不退回圓頭小人）

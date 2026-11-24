@@ -360,22 +360,11 @@ html {
     inset-block-start: max(calc(var(--top) + 8.2rem), calc(var(--hud-bottom, 0px) + 0.5rem));
   }
 
-  /* 章節卡：印章縮小，引文與章節名少佔幾行，「繼續」才不會壓到卡片 */
+  /* 章節卡：標題與引文讓出縮小的印章（字級收小在 play.css 的小螢幕壓縮區） */
   .ticket--chapter h2,
   .ticket--chapter .chapter-quote {
     margin-inline-end: 5.5rem;
   }
-
-  .ticket--chapter .chapter-quote {
-    font-size: 1rem;
-    line-height: 1.45;
-  }
-
-  .ticket--chapter .ticket-chapters {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
 }
 
 /* 平板直向（761–1100px）：四項數值收窄一點，讓電台鈕與小地圖之間有空隙 */

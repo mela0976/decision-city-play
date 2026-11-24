@@ -1,7 +1,7 @@
 // 選單與二次確認，都用原生 <dialog>（焦點、Esc、背景失效由瀏覽器處理）。
 
-import { h, fill, arrowFocus } from '../dom.js?v=b7b57ceb';
-import { T } from '../strings.js?v=b7b57ceb';
+import { h, fill, arrowFocus } from '../dom.js?v=0da320b3';
+import { T } from '../strings.js?v=0da320b3';
 
 /**
  * items：[{ id, label, onSelect, danger, keepOpen }]，依序排成一欄。
