@@ -1,8 +1,8 @@
 // 同一個地點有不只一件事可以做（主線、收工、幾個支線）：先出一張清單讓玩家選。
 // 第一項是預設（動作鍵就選它）；數字鍵或點選其他項；「先不要」回到街上。
 
-import { h, interaction, arrowFocus } from '../dom.js?v=2104ee78';
-import { T } from '../strings.js?v=2104ee78';
+import { h, interaction, arrowFocus } from '../dom.js?v=53ac0414';
+import { T } from '../strings.js?v=53ac0414';
 
 /** entries：[{ tag, title, sub, value }]。回傳選中的 value，取消回傳 null。 */
 export function pickWork({ layer, place, entries, signal, sfx }) {

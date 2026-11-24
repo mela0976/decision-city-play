@@ -1,43 +1,47 @@
 // 遊戲控制器：一天的推進、任務執行、數值、存檔、阿嬤模組、結局。
 // 任務、角色、題目的文字全部來自 content；這裡只有流程與規則。
 
-import { h, interaction, arrowFocus, clockToHours, hoursToClock } from './dom.js?v=2104ee78';
-import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=2104ee78';
-import { pickEnding, metersForEnding } from './endings.js?v=2104ee78';
-import { hintFor, curbHint } from './hints.js?v=2104ee78';
-import { voiceKey, voiceInfo } from './sound.js?v=2104ee78';
-import { createHud } from './ui/hud.js?v=2104ee78';
-import { createToasts } from './ui/toast.js?v=2104ee78';
-import { showTitle } from './ui/title.js?v=2104ee78';
-import { showRoleSelect } from './ui/role-select.js?v=2104ee78';
-import { runDialogue } from './ui/dialogue.js?v=2104ee78';
-import { runChoice } from './ui/choice.js?v=2104ee78';
-import { runQuiz } from './ui/quiz.js?v=2104ee78';
-import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=2104ee78';
-import { pickWork } from './ui/side-pick.js?v=2104ee78';
-import { openSideList } from './ui/side-list.js?v=2104ee78';
-import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterTitles, sideGroups, appendixCards } from './side.js?v=2104ee78';
-import { showPlaceCard } from './ui/place-card.js?v=2104ee78';
-import { playCutscene } from './ui/cutscene.js?v=2104ee78';
-import { showEnding } from './ui/ending.js?v=2104ee78';
-import { openProposal } from './ui/proposal.js?v=2104ee78';
-import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=2104ee78'; // A26
-import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=2104ee78';
-import { openManual } from './ui/manual.js?v=2104ee78';
-import { openElderCard } from './ui/elder-card.js?v=2104ee78';
-import { langControls } from './ui/lang-switch.js?v=2104ee78';
-import { createCoach } from './ui/coach.js?v=2104ee78';
-import { shareResult } from './share.js?v=2104ee78';
-import { VERSION } from './version.js?v=2104ee78';
-import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=2104ee78';
-import { createInspireChip } from './ui/inspire.js?v=2104ee78';
-import { showYearSelect } from './ui/year-select.js?v=2104ee78';
+import { h, interaction, arrowFocus, abortError, clockToHours, hoursToClock } from './dom.js?v=53ac0414';
+import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=53ac0414';
+import { pickEnding, metersForEnding } from './endings.js?v=53ac0414';
+import { hintFor, curbHint } from './hints.js?v=53ac0414';
+import { voiceKey, voiceInfo } from './sound.js?v=53ac0414';
+import { createHud } from './ui/hud.js?v=53ac0414';
+import { createToasts } from './ui/toast.js?v=53ac0414';
+import { showTitle } from './ui/title.js?v=53ac0414';
+import { showRoleSelect } from './ui/role-select.js?v=53ac0414';
+import { runDialogue } from './ui/dialogue.js?v=53ac0414';
+import { runChoice } from './ui/choice.js?v=53ac0414';
+import { runQuiz } from './ui/quiz.js?v=53ac0414';
+import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=53ac0414';
+import { pickWork } from './ui/side-pick.js?v=53ac0414';
+import { openSideList } from './ui/side-list.js?v=53ac0414';
+import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterRefs, sideGroups, appendixCards } from './side.js?v=53ac0414';
+import { showPlaceCard } from './ui/place-card.js?v=53ac0414';
+import { playCutscene } from './ui/cutscene.js?v=53ac0414';
+import { showEnding } from './ui/ending.js?v=53ac0414';
+import { openProposal } from './ui/proposal.js?v=53ac0414';
+import { openJudge } from './ui/judge.js?v=53ac0414';
+import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=53ac0414'; // A26
+import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=53ac0414';
+import { openManual } from './ui/manual.js?v=53ac0414';
+import { openElderCard } from './ui/elder-card.js?v=53ac0414';
+import { langControls } from './ui/lang-switch.js?v=53ac0414';
+import { createCoach } from './ui/coach.js?v=53ac0414';
+import { shareResult } from './share.js?v=53ac0414';
+import { VERSION } from './version.js?v=53ac0414';
+import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=53ac0414';
+import { createInspireChip } from './ui/inspire.js?v=53ac0414';
+import { showYearSelect } from './ui/year-select.js?v=53ac0414';
 
 // 固定規則：docs/CONTRACTS.md 第 3.4 節。
 const QUIZ_RIGHT = { trust: 3 };
 const QUIZ_WRONG = { liver: 3 };
 const GOTO_LATE_LIVER = 5;
 const LIVER_GAIN = 0.6; // 肝指數增加的倍率（2026-11-24 由 1 調為 0.6）
+// 肝指數滿了選「灌一杯黑咖啡」：肝指數回到 80（直接設定），信任度扣一點
+const BURNOUT_LIVER = 80;
+const BURNOUT_COST = { trust: -2 };
 const RELIEF = { riverside: -10, breakfast: -5, convenience: -5, night_market: -5 };
 // 契約沒有定的數字（回報時列為假設）。
 const REMIND_AUTO_MS = 6000;
@@ -86,6 +90,8 @@ function blankState() {
     side: {},
     sideGain: blankGain(),
     inspiration: [],
+    coffees: 0,
+    burnedOut: false, // 肝指數滿了選過「收工」：這一局已經結束，繼續就直接到結局
   };
 }
 
@@ -203,6 +209,8 @@ export class Game {
       side: Object.fromEntries(Object.entries(saved.side || {}).filter(([id]) => content.side.byId.has(id))),
       sideGain: { ...blankGain(), ...(saved.sideGain || {}) },
       inspiration: this.pickups.length ? (saved.inspiration || []).filter((id) => this.pickups.some((p) => p.id === id)) : saved.inspiration || [],
+      coffees: saved.coffees || 0,
+      burnedOut: saved.burnedOut === true,
     };
     if (!state.roleId) return { ...blankState(), grandma: state.grandma, quizSeen: { correct: state.quizSeen.correct, asked: 0, right: 0 } };
     return state;
@@ -786,7 +794,7 @@ export class Game {
     this.phase = 'mission';
     this.setFree(false);
     const signal = this.newFlow();
-    this.sideRun = { id: side.id, capped: false };
+    this.sideRun = { id: side.id, capped: false, coffee: {} };
     try {
       await this.runSide(side, signal);
     } catch (err) {
@@ -806,27 +814,30 @@ export class Game {
     const ctx = { perkUsed: true, option: -1, quiz: false };
     const giver = this.content.npcById.get(side.giver);
     const place = this.placeName(side.locationId);
-    const chapters = chapterTitles(this, side);
+    const chapters = chapterRefs(this, side);
     this.hud.setTask(`${T.sideTag}　${side.title}`, '');
     this.setScene(side.splash);
     this.setHint('card');
     await showMissionCard({ layer, mission: { ...side, clock: '' }, place, giver, kind: T.sideSlip, chapters, signal, sfx: this.sfx });
     for (const step of side.steps) {
       await this.runStep(side, step, ctx, signal);
-      if (this.state.meters.liver >= 100) {
-        this.sideRun = null;
-        this.runEnding({ forced: true });
-        return;
-      }
+      // 流程被換掉了（回標題、重新開始、評審速覽直接玩 2026…）：狀態已經不是這個支線的，不能在上面結算
+      if (signal.aborted) return;
+      if (this.state.meters.liver >= 100 && (await this.burnout(signal))) return;
     }
     this.applyEffects(side.reward, { silent: true });
     const capped = !!this.sideRun?.capped;
+    const coffee = this.sideRun?.coffee || {};
     this.sideRun = null;
     this.state.side[side.id] = { option: ctx.option, quiz: !!ctx.quiz };
     if (this.sideTarget === side.id) this.sideTarget = null;
     this.commit();
+    // 章節卡只列支線自己帶來的增減：途中灌黑咖啡的肝指數重設與信任度扣分不算在內
     const deltas = {};
-    for (const id of METER_IDS) if (this.state.meters[id] !== before[id]) deltas[id] = this.state.meters[id] - before[id];
+    for (const id of METER_IDS) {
+      const change = this.state.meters[id] - before[id] - (coffee[id] || 0);
+      if (change) deltas[id] = change;
+    }
     this.setScene(side.splash);
     this.setHint('clear');
     await showChapterCard({ layer, side, card: side.card, chapters, deltas, capped, signal, sfx: this.sfx });
@@ -913,6 +924,7 @@ export class Game {
         onContinue: () => this.continueRun(),
         onProposal: () => this.openProposal(),
         onYears: this.hasFinished() ? () => this.showYears() : null,
+        onJudge: () => this.openJudge(),
         onSecret: grandma ? () => this.unlockGrandma() : null,
       }),
       'title',
@@ -924,11 +936,31 @@ export class Game {
 
   // ── 年度選擇與年度重玩（LAUNCH_READINESS #10）──────────────
 
-  /** 破關過一次（看過任何一個結局）：偏好裡記過，或主線存檔九個任務都做完（這個功能上線前就破關的存檔）。 */
+  /** 破關過一次（看過任何一個結局）：偏好裡記過，或主線存檔九個任務都做完（這個功能上線前就破關的存檔）。重玩中看的是主線存檔，不是重玩那一份。 */
   hasFinished() {
     if (this.store.readPrefs().finished === true) return true;
-    const done = new Set(this.committed.doneMissionIds || []);
+    const main = this.replay ? this.replay.main.committed : this.committed;
+    const done = new Set(main.doneMissionIds || []);
     return this.content.missions.length > 0 && this.content.missions.every((m) => done.has(m.id));
+  }
+
+  /** 重玩結束回到哪裡：破關過回年度選擇；還沒破關（從評審速覽直接玩 2026）看完結果卡回標題。 */
+  replayReturnsToYears() {
+    return this.replay?.from !== 'judge' || this.hasFinished();
+  }
+
+  /** 年度重玩用哪個職能：主線存檔的職能 → 上次破關的職能 → 第一個職能。 */
+  replayRoleId() {
+    const { content } = this;
+    const prefs = this.store.readPrefs();
+    return [this.committed.roleId, prefs.lastRole, content.roles[0]?.id].find((id) => id && content.roleById.has(id)) || null;
+  }
+
+  /** 某個職能那一年的主線：有職能劇本就是劇本換掉的那一版（和 applyRoleScript 同一個選法），不動目前套用的劇本。 */
+  roleMission(roleId, year) {
+    const { content } = this;
+    const list = (roleId && content.roleMissions?.get(roleId)) || content.baseMissions || content.missions;
+    return list.find((m) => m.year === Number(year)) || null;
   }
 
   /** 偏好裡的重玩紀錄：{ <年份>: { done, sides: [支線 id] } }。 */
@@ -986,7 +1018,9 @@ export class Game {
   }
 
   showYears({ result = null } = {}) {
-    if (!this.hasFinished()) {
+    // 還沒破關：年度選擇不開放。從評審速覽直接玩 2026 結束時例外，留一頁結果卡（沒有年份格），回標題
+    const finished = this.hasFinished();
+    if (!finished && !result) {
       this.showTitle();
       return;
     }
@@ -1002,14 +1036,14 @@ export class Game {
       showYearSelect({
         screen: this.els.screen,
         assets: this.assets,
-        years: this.yearCards(),
+        years: finished ? this.yearCards() : [],
         result,
         onPick: (year) => this.startReplay(year),
         onBack: () => this.showTitle(),
       }),
       'title',
     );
-    this.setHint('years');
+    this.setHint('years', { resultOnly: !finished });
     this.playTitleMusic();
   }
 
@@ -1024,17 +1058,17 @@ export class Game {
    * 單獨重玩某一年：用另一份狀態跑，主線存檔不動。前面幾年當作做完（序幕、晨會、過場都跳過），
    * 從前一個任務的地點出發；數值是職能的起始值往那個時段推一點。
    */
-  startReplay(year) {
+  startReplay(year, { from = 'years' } = {}) {
     const { content } = this;
-    const mission = content.missions.find((m) => m.year === Number(year));
-    if (!mission || this.replay) return;
-    const prefs = this.store.readPrefs();
-    const roleId = [this.committed.roleId, prefs.lastRole, content.roles[0]?.id].find((id) => id && content.roleById.has(id));
-    if (!roleId) return;
+    if (this.replay) return;
+    // 職能劇本會換掉主線：任務、前面幾年與出發地點都要從這個職能的劇本拿
+    const roleId = this.replayRoleId();
+    const mission = roleId ? this.roleMission(roleId, year) : null;
+    if (!mission) return;
     const main = { state: clone(this.state), committed: clone(this.committed) };
+    const run = this.freshRun(roleId); // 套上這個職能的劇本，content.missions 才是這一輪要玩的那一份
     const index = content.missions.indexOf(mission);
     const earlier = content.missions.slice(0, index);
-    const run = this.freshRun(roleId);
     for (const id of METER_IDS) run.meters[id] = clamp(run.meters[id] + REPLAY_DRIFT[id] * index);
     run.doneMissionIds = earlier.map((m) => m.id);
     run.books = earlier.map((m) => m.year).filter((y) => content.bookByYear.has(y));
@@ -1044,7 +1078,8 @@ export class Game {
     run.carUnlocked = true;
     run.clock = earlier.length ? this.clockAfter(earlier[earlier.length - 1]) : START_CLOCK;
     run.grandma = { ...this.state.grandma };
-    this.replay = { year: mission.year, missionId: mission.id, title: mission.title, start: { ...run.meters }, punctual: 0, inspiration: 0, main };
+    // from：從哪裡開的（years 年度選擇、judge 評審速覽），決定結束後回哪裡、確認鈕怎麼寫
+    this.replay = { year: mission.year, missionId: mission.id, title: mission.title, start: { ...run.meters }, punctual: 0, inspiration: 0, main, from };
     this.state = run;
     this.committed = clone(run);
     this.engine.setCarUnlocked?.(true);
@@ -1075,7 +1110,7 @@ export class Game {
     }
   }
 
-  /** 結束重玩：算出結果、還原主線存檔的狀態，回到年度選擇並顯示結果卡。 */
+  /** 結束重玩：算出結果、還原主線存檔的狀態，顯示結果卡（破關過的在年度選擇上，沒破關過的單獨一頁、回標題）。 */
   finishReplay({ forced = false } = {}) {
     const r = this.replay;
     if (!r) return;
@@ -1108,6 +1143,7 @@ export class Game {
     this.setRain(false);
     this.hud.setTask('', '');
     this.els.toasts.replaceChildren();
+    this.hint.setNote(null); // 開場那句「主線存檔不會變」不留到結果頁
     this.refreshNpcs();
     this.lastReplay = result;
     this.showYears({ result });
@@ -1225,7 +1261,8 @@ export class Game {
     const lastDone = done[done.length - 1];
     const current = content.missionById.get(state.currentMissionId) || null;
     // 過場播到一半（阿嬤的訊息還沒回）就離開的：回來先把那段過場補完，再往下一個任務。
-    const pending = !current && lastDone && content.interludeByMission.has(lastDone.id) && !state.interludesSeen.includes(lastDone.id) ? lastDone : null;
+    // 選過收工的存檔不補過場：nextObjective 直接進結局
+    const pending = !state.burnedOut && !current && lastDone && content.interludeByMission.has(lastDone.id) && !state.interludesSeen.includes(lastDone.id) ? lastDone : null;
     const at = current ? current.locationId : lastDone?.locationId || LOC.home;
     this.enterWorld({ at, resume: current, pendingInterlude: pending });
   }
@@ -1339,8 +1376,15 @@ export class Game {
   nextObjective({ resume = null } = {}) {
     this.els.layer.replaceChildren();
     this.setScene(null);
-    if (this.state.meters.liver >= 100) {
+    // 肝指數滿了選過收工（存檔記著）：那一局已經結束，照改版前的做法直接到結局，不再問、也不能回頭灌咖啡重做放棄的任務
+    if (this.state.burnedOut) {
       this.runEnding({ forced: true });
+      return;
+    }
+    if (this.state.meters.liver >= 100) {
+      this.burnout().then((ended) => {
+        if (!ended) this.nextObjective({ resume });
+      });
       return;
     }
     const mission = this.nextMission();
@@ -1546,11 +1590,10 @@ export class Game {
 
     for (const step of steps) {
       await this.runStep(mission, step, ctx, signal);
+      // 流程被換掉了（回標題、重新開始、評審速覽直接玩 2026…）：狀態已經不是這個任務的，不能在上面過關
+      if (signal.aborted) return;
       this.persist();
-      if (this.state.meters.liver >= 100) {
-        this.runEnding({ forced: true });
-        return;
-      }
+      if (this.state.meters.liver >= 100 && (await this.burnout(signal))) return;
     }
 
     this.applyEffects(mission.reward, { silent: true });
@@ -1748,7 +1791,8 @@ export class Game {
           this.applyEffects({ liver: GOTO_LATE_LIVER });
           this.sfx.play('wrong');
           this.toast(T.late, { tone: 'bad' });
-          if (this.state.meters.liver >= 100) done();
+          // 肝指數滿了：問要不要收工；灌咖啡的話照樣騎過去
+          if (this.state.meters.liver >= 100) this.burnout(signal);
         }, 200);
         return () => {
           clearInterval(tick);
@@ -1964,8 +2008,78 @@ export class Game {
         },
       });
       this.persist();
-      if (this.state.meters.liver >= 100) return;
+      // 收工或抉擇被中斷：以中斷結束，任務／支線的迴圈不會接著往下結算（startMission、startSide 會接住 AbortError）
+      if (this.state.meters.liver >= 100 && (await this.burnout(signal))) throw abortError();
     }
+  }
+
+  /**
+   * 肝指數滿了：問玩家要收工（照舊進結局；年度重玩就結算那一年）還是灌一杯黑咖啡把今天跑完。
+   * 回傳 true 表示已經收工或流程被中斷，呼叫的地方就此停下；false 表示繼續原本的步驟。
+   * 同一時間只問一次；結局進行中不問。
+   */
+  burnout(signal = null) {
+    if (this.phase === 'ending') return Promise.resolve(true);
+    if (!this.burning) this.burning = this.askBurnout(signal).finally(() => (this.burning = null));
+    return this.burning;
+  }
+
+  async askBurnout(signal) {
+    const { layer, scene } = this.els;
+    const sceneKey = scene.hidden ? null : scene.dataset.key || null;
+    const kept = [...layer.childNodes];
+    const { phase, free, hintState } = this;
+    // 騎車途中、街上：先停住世界，也不讓動作鍵在抉擇時接任務
+    if (free) this.setFree(false);
+    if (phase === 'roam' || phase === 'rechao') this.phase = 'mission';
+    const options = [
+      { id: 'end', text: T.burnout.end, feedback: T.burnout.endFeedback },
+      { id: 'coffee', text: T.burnout.coffee, feedback: T.burnout.coffeeFeedback },
+    ];
+    let picked;
+    try {
+      this.setScene(`loc_${LOC.final}`);
+      picked = await runChoice({
+        layer,
+        prompt: T.burnout.prompt,
+        options,
+        signal: signal || (this.flow ??= new AbortController()).signal,
+        sfx: this.sfx,
+        onState: (kind, count) => this.setHint(kind, { count }),
+        onPick: (option) => (option.id === 'coffee' ? { deltas: this.drinkCoffee() } : {}),
+      });
+    } catch (err) {
+      if (isAbort(err)) return true;
+      throw err;
+    }
+    if (picked.id === 'end') {
+      this.sideRun = null;
+      // 記進存檔（runEnding 會 commit）：之後按繼續直接到結局。年度重玩不動主線存檔，不記
+      if (!this.replay) this.state.burnedOut = true;
+      this.runEnding({ forced: true });
+      return true;
+    }
+    layer.replaceChildren(...kept);
+    this.setScene(sceneKey);
+    this.phase = phase;
+    this.hintState = hintState;
+    this.refreshHint();
+    if (free) {
+      this.setFree(true);
+      this.focusCanvas();
+    }
+    return false;
+  }
+
+  /** 黑咖啡：肝指數直接回到 80、扣一點信任度；支線的打折不算在這裡，也不算進支線章節卡的增減。 */
+  drinkCoffee() {
+    const side = this.sideRun;
+    this.sideRun = null;
+    const deltas = this.applyEffects({ ...BURNOUT_COST, liver: BURNOUT_LIVER - this.state.meters.liver });
+    this.sideRun = side;
+    if (side?.coffee) for (const [id, n] of Object.entries(deltas)) side.coffee[id] = (side.coffee[id] || 0) + n;
+    this.state.coffees = (this.state.coffees || 0) + 1;
+    return deltas;
   }
 
   // ── 結局 ───────────────────────────────────────────
@@ -2028,6 +2142,7 @@ export class Game {
         extraPages: proposalPages(this).some((page) => page.grandma) ? 1 : 0,
         side: content.side.missions.length ? chapterProgress(this) : null,
         role: this.role?.title || '',
+        coffees: state.coffees || 0,
         note: forced ? T.forcedEnd : '',
         sfx: this.sfx,
         onAgain: () => this.showRoles(),
@@ -2232,6 +2347,43 @@ export class Game {
     this.syncWorld();
   }
 
+  /** 2026 評審速覽：2026 那本書的主旨、整本目錄與每篇在遊戲裡的哪一關；直接玩 2026、九年年鑑全部攤開。 */
+  openJudge() {
+    const { content } = this;
+    const year = 2026; // 公司競賽的題目是 2026 年版
+    // 「直接玩」會用哪個職能、玩到哪一版主線，目錄就寫那一關的名字（和 startReplay 同一個選法）
+    const mission = this.roleMission(this.replayRoleId(), year);
+    const chapters = content.side.chapters
+      .filter((chapter) => chapter.year === year)
+      .map((chapter) => {
+        const side = content.side.byId.get(chapter.coveredBy);
+        const where = side ? { main: false, title: side.title } : mission && chapter.coveredBy === mission.id ? { main: true, title: mission.title } : null;
+        return { ...chapter, where };
+      });
+    const dialog = this.els.judge;
+    openJudge({
+      dialog,
+      book: content.bookByYear.get(year),
+      chapters,
+      canPlay: !!mission && !this.replay,
+      onPlay: () => {
+        dialog.close();
+        // 從遊戲中進來：手上的任務先收掉（和回標題一樣，沒存的那一段不算）；重玩結束後還原主線存檔
+        if (this.phase !== 'title') {
+          this.abortFlow();
+          this.els.layer.replaceChildren();
+        }
+        this.startReplay(year, { from: 'judge' });
+      },
+      onYearbook: () => {
+        dialog.close();
+        openProposal({ dialog: this.els.proposal, pages: proposalPages(this), preview: true });
+        this.syncWorld();
+      },
+    });
+    this.syncWorld();
+  }
+
   openSideList() {
     openSideList({
       dialog: this.els.sidelist,
@@ -2259,7 +2411,7 @@ export class Game {
   openMenu() {
     if (!this.inGame || this.anyModalOpen) return;
     const g = this.state.grandma;
-    const items = [{ id: 'resume', label: () => T.menuResume, onSelect: () => {} }, { id: 'proposal', label: () => T.proposal, onSelect: () => this.openProposal() }];
+    const items = [{ id: 'resume', label: () => T.menuResume, onSelect: () => {} }, { id: 'proposal', label: () => T.proposal, onSelect: () => this.openProposal() }, { id: 'judge', label: () => T.judge.button, onSelect: () => this.openJudge() }];
     if (this.content.side.missions.length) items.push({ id: 'side', label: () => T.menuSide, onSelect: () => this.openSideList() });
     if (g.unlocked) {
       items.push({ id: 'elder', label: () => T.menuElder, onSelect: () => this.openElder() });
@@ -2305,7 +2457,8 @@ export class Game {
     if (!this.replay) return;
     // 主線還沒做完就離開：問一下（做完了就直接結算）
     if (!this.state.doneMissionIds.includes(this.replay.missionId)) {
-      const ok = await askConfirm({ dialog: this.els.confirm, question: T.replay.quitAsk, yes: T.replay.quitYes, no: T.replay.quitNo });
+      const yes = this.replayReturnsToYears() ? T.replay.quitYes : T.replay.quitYesResult;
+      const ok = await askConfirm({ dialog: this.els.confirm, question: T.replay.quitAsk, yes, no: T.replay.quitNo });
       this.syncWorld();
       if (!ok) return;
     }
@@ -2361,7 +2514,7 @@ export class Game {
         for (const id of METER_IDS) if (Number.isFinite(values[id])) this.state.meters[id] = clamp(values[id]);
         this.hud.setMeters(this.state.meters);
         if (this.phase !== 'mission') this.commit();
-        if (this.state.meters.liver >= 100 && ['roam', 'rechao'].includes(this.phase)) this.runEnding({ forced: true });
+        if (this.state.meters.liver >= 100 && ['roam', 'rechao'].includes(this.phase)) this.burnout();
       },
       jumpTo: (missionId) => {
         const target = this.content.missionById.get(missionId);
@@ -2372,6 +2525,7 @@ export class Game {
         this.state.doneMissionIds = earlier.map((m) => m.id);
         this.state.carUnlocked ||= earlier.length >= 5; // A26
         this.state.currentMissionId = null;
+        this.state.burnedOut = false;
         this.state.prologueSeen = true;
         this.state.morningDone = true;
         this.state.interludesSeen = earlier.map((m) => m.id).filter((id) => this.content.interludeByMission.has(id));

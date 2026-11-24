@@ -4,10 +4,21 @@
 /* ── 標題 ─────────────────────────────────────────── */
 
 .title {
+  /* 招牌那一欄：左邊位置與字級。標誌和右上角共用，右上角才知道要讓到哪裡。
+     --after-logo：招牌（寬 1.2 字＋框線）與旁邊直排的 Decision City（離 0.7rem、寬 0.88rem）再留 0.8rem 之後 */
+  --title-x: max(var(--edge), min(7vw, 7.5rem));
+  --logo-f: min(17vh, 9.2rem, 30vw);
+  --after-logo: calc(var(--title-x) + 1.2 * var(--logo-f) + 2px + 2.4rem);
   position: absolute;
   inset: 0;
   overflow: hidden;
   background: var(--ink);
+}
+
+@supports (height: 1dvh) {
+  .title {
+    --logo-f: min(17dvh, 9.2rem, 30vw);
+  }
 }
 
 .title-scrim {
@@ -21,7 +32,7 @@
 .title-main {
   position: absolute;
   inset-block: var(--top) calc(var(--bottom) + var(--hint-h));
-  inset-inline-start: max(var(--edge), min(7vw, 7.5rem));
+  inset-inline-start: var(--title-x);
   display: flex;
   align-items: center;
   gap: clamp(1rem, 3vw, 2.4rem);
@@ -36,8 +47,7 @@
   padding: 0.08em 0.1em 0.1em;
   border: 1px solid var(--line-strong);
   background: rgb(4 6 9 / 0.45);
-  font-size: min(17vh, 9.2rem, 30vw);
-  font-size: min(17dvh, 9.2rem, 30vw);
+  font-size: var(--logo-f);
   font-weight: 600;
   line-height: 1.1;
   color: #f4fff9;
@@ -214,8 +224,55 @@
   display: flex;
 }
 
-.title-badge ~ .lang-switch {
+.title-badge ~ .lang-switch,
+.title-badge ~ .title-corner {
   inset-block-start: calc(var(--top) + 2.4rem);
+}
+
+/* 標題右上角：語言切換＋評審速覽，同一排靠右。左界讓開招牌那一欄（--after-logo），
+   所以不論尺寸、語言、阿嬤模組都不會蓋到招牌。擠不下時語言改短寫；還擠不下評審速覽掉到下一行、可換行 */
+.title-corner {
+  position: absolute;
+  inset-block-start: var(--top);
+  inset-inline: var(--after-logo) var(--edge);
+  container-type: inline-size;
+  display: flex;
+  flex-flow: row-reverse wrap;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none; /* 空白的地方不擋到底下的招牌與按鈕 */
+}
+
+.title-corner > * {
+  pointer-events: auto;
+}
+
+.title-corner .lang-switch {
+  position: static;
+}
+
+.title-judge {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgb(4 6 9 / 0.62);
+  letter-spacing: 0.04em;
+  text-align: center;
+  word-break: keep-all; /* 要換行只在「2026」後面斷，不把「評審速覽」拆開 */
+}
+
+/* 全名一排（約 26.5rem）放不下：語言按鈕改短寫（中／EN／日），讀屏仍念全名；評審速覽左右留白收一點 */
+@container (inline-size < 27rem) {
+  .title-corner .lang-name {
+    display: none;
+  }
+
+  .title-corner .lang-btn::after {
+    content: attr(data-short);
+  }
+
+  .title-judge {
+    padding-inline: 0.7rem;
+  }
 }
 
 .lang-btn {
@@ -246,9 +303,14 @@
     align-items: flex-end;
   }
 
-  .logo {
-    font-size: min(11vh, 22vw, 9.2rem);
-    font-size: min(11dvh, 22vw, 9.2rem);
+  .title {
+    --logo-f: min(11vh, 22vw, 9.2rem);
+  }
+
+  @supports (height: 1dvh) {
+    .title {
+      --logo-f: min(11dvh, 22vw, 9.2rem);
+    }
   }
 
   .title-hook {
@@ -264,6 +326,36 @@
     inline-size: auto;
     max-inline-size: 30rem;
     margin-inline: auto;
+  }
+}
+
+/* 矮的橫向手機：右邊一欄疊三、四顆大按鈕會往上頂到右上角那一排（阿嬤模組或破關後多一顆「年度選擇」時甚至超出畫面）。
+   改成從右上角那一排底下開始、招牌右邊排兩欄 */
+@media (orientation: landscape) and (max-height: 440px) {
+  .title-actions {
+    inset-block: calc(var(--top) + var(--tap) + 0.6rem) auto;
+    inset-inline: var(--after-logo) var(--edge);
+    inline-size: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  /* 假資料的標記佔了右上角最上面，右上角那一排往下移，按鈕跟著往下 */
+  .title:has(> .title-badge) .title-actions {
+    inset-block-start: calc(var(--top) + 2.4rem + var(--tap) + 0.6rem);
+  }
+
+  .title-actions .btn--big {
+    padding-inline: 0.9rem;
+  }
+
+  .title-error {
+    grid-column: 1 / -1;
+  }
+
+  /* 標語往下貼齊招牌底，留在兩排按鈕下面（阿嬤模組字大、按鈕換行變高也不會被蓋到） */
+  .title-hook {
+    margin-block-end: 0.2rem;
   }
 }
 
@@ -616,7 +708,8 @@
 
 .report-facts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   gap: 0.5rem;
   padding-block: 0.8rem;
   border-block: 1px solid var(--line);
@@ -1088,4 +1181,62 @@
   .year-card {
     min-block-size: 7rem;
   }
+}
+
+/* 2026-11-24 外語版小螢幕：選角色標題可換行、成績單欄位可縮，整頁不再被撐得比畫面寬 */
+@media (max-width: 420px) {
+  .roles-head {
+    min-inline-size: 0;
+  }
+
+  .roles-head h2 {
+    min-inline-size: 0;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    white-space: normal;
+  }
+
+  .report-meters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0.8rem;
+  }
+
+  .report-meters li,
+  .report-facts > * {
+    min-inline-size: 0;
+  }
+
+  .report-facts {
+    grid-auto-columns: minmax(0, 1fr);
+  }
+
+  .report-facts dt {
+    letter-spacing: 0.04em;
+  }
+
+  .report > :not(.ticket-stub) {
+    margin-inline: 0.7rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .report-meters .m-name,
+  .report-facts dt {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* 成績單欄寬不再被票根列（「成績表＋職稱」）撐開；票根太長就換行 */
+.report {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.report .ticket-stub {
+  flex-wrap: wrap;
+  row-gap: 0.2rem;
+}
+
+.report .ticket-stub > * {
+  min-inline-size: 0;
 }

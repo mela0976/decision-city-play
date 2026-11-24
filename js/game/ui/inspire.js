@@ -1,8 +1,8 @@
 // 靈感指針：HUD 右上（選單鈕下面）一顆小牌子，發光的 ✦ 加一支箭頭指向最近的靈感、距離，以及撿到幾個。
 // 箭頭以玩家朝向為準（往上＝正前方），手機與鍵盤一樣，不需要點它。
 
-import { h } from '../dom.js?v=2104ee78';
-import { T } from '../strings.js?v=2104ee78';
+import { h } from '../dom.js?v=53ac0414';
+import { T } from '../strings.js?v=53ac0414';
 
 export function createInspireChip(root) {
   const arrow = h('span', { class: 'inspire-arrow', 'aria-hidden': 'true', text: '➤' });

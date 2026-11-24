@@ -1,27 +1,28 @@
 {
   "year": 2026,
   "chapters": [
-    { "id": "c2026_01", "title": "Agentic 時代，品牌與人的真實距離", "by": "電通行銷傳播集團", "summary": "市場研究最大的成本已從研究變成等待；用 AI Persona 在決策前先和模擬消費者對話，AI 要用來幫品牌更懂人。", "coveredBy": "s2026_01" },
-    { "id": "c2026_02", "title": "真實的力量，重新定義中", "by": "電通創意事業群、台灣電通", "summary": "AI 讓真假難辨，真實成為稀缺資產；品牌要走不被最佳化的創意，從爭奪注意 Attention 轉向建立依戀 Affection。", "coveredBy": "s2026_02" },
-    { "id": "c2026_03", "title": "Agents of Growth：AI 代理時代的增長推手", "by": "電通創意事業群", "summary": "AI 代理替消費者搜尋、比價、購買，品牌要用增長三角同時贏得演算法、人心與文化，兼顧短期變現與長期轉型。", "coveredBy": "s2026_03" },
-    { "id": "c2026_04", "title": "AI 代理時代的增長架構師", "by": "安索帕台灣", "summary": "策略從傳播一句漂亮的話，升級為從成長課題出發串起目標、洞察、旅程與成效的增長架構；AI 擴張資訊，人負責判斷與意義。", "coveredBy": "s2026_03" },
-    { "id": "c2026_05", "title": "信任為何成為 AI 時代最難複製的競爭力", "by": "安索帕台灣", "summary": "AI 讓內容生產成本崩跌，消失的是查證；品牌競爭從注意力經濟進入信任經濟，公關要成為信任工程師。", "coveredBy": "s2026_02" },
-    { "id": "c2026_06", "title": "AI 可以幫人買東西，但品牌要讓人想買東西", "by": "安索帕台灣", "summary": "對話式商務回答需求，社群要在 AI 比價之前喚醒渴望；從需求分眾升級為情緒情境分眾。", "coveredBy": "s2026_04" },
-    { "id": "c2026_07", "title": "當注意力成為稀缺資源：娛樂與運動如何累積品牌心智資產？", "by": "電通娛樂", "summary": "品牌買得到曝光買不到記憶，娛樂與運動是情緒消費的核心；競爭從聲量占有率轉向文化占有率。", "coveredBy": "s2026_05" },
-    { "id": "c2026_08", "title": "討好演算法，還是打動人？別讓效率邏輯把社群砍掉", "by": "凱絡媒體", "summary": "AI 讀的是別人怎麼說你，社群要同時說給人與 AI 聽；關鍵是真實的人自發、具體地談論你。", "coveredBy": "s2026_04" },
-    { "id": "c2026_09", "title": "別買曝光了，開始買注意力吧――把媒體做成體驗，幫品牌累積「滑不走」的記憶資產", "by": "安布思沛", "summary": "可視曝光只是門票，注意力才是資產；用注意力品質重新衡量媒體，並把媒體做成讓人自願參與的體驗。", "coveredBy": "s2026_06" },
-    { "id": "c2026_10", "title": "從金曲獎到甄嬛傳 共同記憶帶來的品牌價值", "by": "貝立德媒體實驗室", "summary": "內容無限、演算法分眾，「一起看過」的時刻反而稀缺；品牌要把記憶符碼帶向現在，從聲量占有率補上記憶占有率。", "coveredBy": "s2026_05" },
-    { "id": "c2026_11", "title": "＜特別企劃＞ People Model 讓消費者研究 變成一場隨時能開口的對話", "by": "電通智能中心", "summary": "以 CCS 調查微調出 AI 數位分身，讓團隊先模擬再決策；用於前期探索，不取代真人研究，並清楚標出使用邊界。", "coveredBy": "s2026_01" },
-    { "id": "c2026_12", "title": "重建 SOV：在注意力被 AI 稀釋的時代，如何守住品牌被選擇的關鍵場域", "by": "貝立德媒體實驗室", "summary": "SOV 的稀釋來源擴大到演算法與 AI 摘要；要升級為選擇場域占位，分三層經營，並選定自己的主戰場。", "coveredBy": "s2026_06" },
-    { "id": "c2026_13", "title": "AI 普及下的演算法世代，「衡斷力（Judgment）」將成為最稀缺的競爭力", "by": "凱絡媒體", "summary": "大家用同樣的模型，優勢在誰判斷得更好；AI 擅長生成不擅長核實，衡斷力要靠感知、數據、趨勢、經驗與協作養成。", "coveredBy": "s2026_07" },
-    { "id": "c2026_14", "title": "生成式體驗來臨 誰能掌握顧客的下一步？", "by": "安索帕台灣", "summary": "AI 代理介入後顧客不照設計的旅程走；企業要從旅程地圖走向決策地圖，從個人化推薦走向可被信任的決策支援。", "coveredBy": "s2026_08" },
-    { "id": "c2026_15", "title": "贏在 AI 時代的隱形戰場：看見「文化暗流」，啟動企業真實的轉型動能", "by": "電通商業顧問", "summary": "AI 轉型多停在工具層，忽略員工恐懼與中層焦慮；用健檢、連結、培養三步處理文化暗流。", "coveredBy": "s2026_07" },
-    { "id": "c2026_16", "title": "顧客為何停下來？從洞察到治理的體驗優化", "by": "美庫爾台灣", "summary": "轉換優化要看懂顧客為何猶豫，用行為數據、人本洞察與實驗形成閉環，並搭配風險控管指標，不把成本推給後端。", "coveredBy": "s2026_08" },
-    { "id": "c2026_17", "title": "體驗這件事，我們一直只問了一半", "by": "美庫爾台灣", "summary": "AI Agent 也是要被設計的使用者；Agent 的信任靠意圖預覽、可解釋與升級路徑等設計，加上治理。", "coveredBy": "m2026" },
-    { "id": "c2026_18", "title": "GEO 時代，被 AI 看見是技術，被消費者記住才是本事", "by": "安布思沛", "summary": "大家都做 GEO，內容就同質化；品牌要用品類進入點搶佔生活情境，建立 AI 信任並持續量測。", "coveredBy": "s2026_10" },
-    { "id": "c2026_19", "title": "定義「素材產出標準」：將 AI 的「生成力」升級為品牌的「交付力」", "by": "台灣電通", "summary": "AI 讓生成變成商品，風險是變平均；用 SLIP 框架把製作中心變成品牌交付系統，區分防平庸與防出錯兩種把關。", "coveredBy": "s2026_09" },
-    { "id": "c2026_20", "title": "超越效率 解碼 AI 原生創意代理商", "by": "Tag", "summary": "把大創意與製作規模拆開，以 AI 製作人、在地內容引擎與成效數據，在規模化的同時保有創意工藝。", "coveredBy": "s2026_09" },
-    { "id": "c2026_21", "title": "AI Agent 走進消費旅程 保健、美妝與零售如何把 AI 變成行動能力", "by": "電通智能中心", "summary": "重點不是要不要導入 Agent，而是哪些任務交給 AI、授權到哪一層；四層權限框架提醒高風險任務保留人工確認。", "coveredBy": "m2026" }
+    { "id": "c2026_22", "title": "AI for Growth 看懂世界，加速成長", "by": "電通行銷傳播集團", "summary": "AI 改變的是技術和做法，不變的是經營本質：為客戶創造價值、靠人才驅動成長、用信任贏得品牌。先知先覺的企業從做中學，把行銷當成長引擎保護，也守住資料安全、避免 AI 成癮。", "coveredBy": "s2026_03", "section": "Intro", "page": 6, "authors": [{"name": "唐心慧", "alt": "Jennifer Tang", "role": "電通集團大北亞區暨台灣執行長"}] },
+    { "id": "c2026_01", "title": "Agentic 時代，品牌與人的真實距離", "by": "電通行銷傳播集團", "summary": "市場研究最大的成本已從研究變成等待；用 AI Persona 在決策前先和模擬消費者對話，AI 要用來幫品牌更懂人。", "coveredBy": "s2026_01", "section": "Intro", "page": 12, "authors": [{"name": "邵懿文", "alt": "Freda Shao", "role": "電通集團策略創新長"}] },
+    { "id": "c2026_02", "title": "真實的力量，重新定義中", "by": "電通創意事業群、台灣電通", "summary": "AI 讓真假難辨，真實成為稀缺資產；品牌要走不被最佳化的創意，從爭奪注意 Attention 轉向建立依戀 Affection。", "coveredBy": "s2026_02", "section": "People", "page": 20, "authors": [{"name": "周麗君", "alt": "Alice Chou", "role": "電通創意事業群 & 台灣電通首席創意長"}] },
+    { "id": "c2026_03", "title": "Agents of Growth：AI 代理時代的增長推手", "by": "電通創意事業群", "summary": "AI 代理替消費者搜尋、比價、購買，品牌要用增長三角同時贏得演算法、人心與文化，兼顧短期變現與長期轉型。", "coveredBy": "s2026_03", "section": "People", "page": 28, "authors": [{"name": "紀緻謙", "alt": "Gary Chi", "role": "電通創意專業服務執行長"}] },
+    { "id": "c2026_04", "title": "AI 代理時代的增長架構師", "by": "安索帕台灣", "summary": "策略從傳播一句漂亮的話，升級為從成長課題出發串起目標、洞察、旅程與成效的增長架構；AI 擴張資訊，人負責判斷與意義。", "coveredBy": "s2026_03", "section": "People", "page": 36, "authors": [{"name": "朱芳儀", "alt": "Julia Chu", "role": "安索帕策略長"}] },
+    { "id": "c2026_05", "title": "信任為何成為 AI 時代最難複製的競爭力", "by": "安索帕台灣", "summary": "AI 讓內容生產成本崩跌，消失的是查證；品牌競爭從注意力經濟進入信任經濟，公關要成為信任工程師。", "coveredBy": "s2026_02", "section": "People", "page": 44, "authors": [{"name": "楊欣怡", "alt": "Cynthia Yang", "role": "安索帕副總經理"}] },
+    { "id": "c2026_06", "title": "AI 可以幫人買東西，但品牌要讓人想買東西", "by": "安索帕台灣", "summary": "對話式商務回答需求，社群要在 AI 比價之前喚醒渴望；從需求分眾升級為情緒情境分眾。", "coveredBy": "s2026_04", "section": "People", "page": 50, "authors": [{"name": "陳蒔", "alt": "Rene Chen", "role": "安索帕社群營運群總監"}] },
+    { "id": "c2026_07", "title": "當注意力成為稀缺資源：娛樂與運動如何累積品牌心智資產？", "by": "電通娛樂", "summary": "品牌買得到曝光買不到記憶，娛樂與運動是情緒消費的核心；競爭從聲量占有率轉向文化占有率。", "coveredBy": "s2026_05", "section": "People", "page": 58, "authors": [{"name": "何華軒", "alt": "Louis Ho", "role": "dentsu sports & entertainment 娛樂行銷資深總監"}] },
+    { "id": "c2026_08", "title": "討好演算法，還是打動人？別讓效率邏輯把社群砍掉", "by": "凱絡媒體", "summary": "AI 讀的是別人怎麼說你，社群要同時說給人與 AI 聽；關鍵是真實的人自發、具體地談論你。", "coveredBy": "s2026_04", "section": "People", "page": 66, "authors": [{"name": "孫韞筑", "alt": "Sunny Sun", "role": "凱絡媒體客戶長"}] },
+    { "id": "c2026_09", "title": "別買曝光了，開始買注意力吧――把媒體做成體驗，幫品牌累積「滑不走」的記憶資產", "by": "安布思沛", "summary": "可視曝光只是門票，注意力才是資產；用注意力品質重新衡量媒體，並把媒體做成讓人自願參與的體驗。", "coveredBy": "s2026_06", "section": "People", "page": 72, "authors": [{"name": "徐莉媛", "alt": "Amy Hsu", "role": "安布思沛副總監"}] },
+    { "id": "c2026_10", "title": "從金曲獎到甄嬛傳 共同記憶帶來的品牌價值", "by": "貝立德媒體實驗室", "summary": "內容無限、演算法分眾，「一起看過」的時刻反而稀缺；品牌要把記憶符碼帶向現在，從聲量占有率補上記憶占有率。", "coveredBy": "s2026_05", "section": "People", "page": 80, "authors": [{"name": "吳宗霖", "alt": "Jeremy Wu", "role": "電通集團媒體事業群洞察與媒體效能領導人／貝立德營運長 & 媒體實驗室所長"}, {"name": "陳炯文", "alt": "Elmo Chen", "role": "貝立德營業一部媒體企劃經理"}] },
+    { "id": "c2026_11", "title": "＜特別企劃＞ People Model 讓消費者研究 變成一場隨時能開口的對話", "by": "電通智能中心", "summary": "以 CCS 調查微調出 AI 數位分身，讓團隊先模擬再決策；用於前期探索，不取代真人研究，並清楚標出使用邊界。", "coveredBy": "s2026_01", "section": "Model", "page": 96, "authors": [{"name": "陳介立", "alt": "Bass Chen", "role": "電通智能中心 智庫負責人"}, {"name": "孫郁喬", "alt": "Chiao Sun", "role": "電通智能中心 資料科學家"}, {"name": "高靖萍", "alt": "Chingping Kao", "role": "電通智能中心 Insight & Analysis 經理"}] },
+    { "id": "c2026_12", "title": "重建 SOV：在注意力被 AI 稀釋的時代，如何守住品牌被選擇的關鍵場域", "by": "貝立德媒體實驗室", "summary": "SOV 的稀釋來源擴大到演算法與 AI 摘要；要升級為選擇場域占位，分三層經營，並選定自己的主戰場。", "coveredBy": "s2026_06", "section": "Model", "page": 116, "authors": [{"name": "吳宗霖", "alt": "Jeremy Wu", "role": "電通集團媒體事業群洞察與媒體效能領導人／貝立德營運長 & 媒體實驗室所長"}] },
+    { "id": "c2026_13", "title": "AI 普及下的演算法世代，「衡斷力（Judgment）」將成為最稀缺的競爭力", "by": "凱絡媒體", "summary": "大家用同樣的模型，優勢在誰判斷得更好；AI 擅長生成不擅長核實，衡斷力要靠感知、數據、趨勢、經驗與協作養成。", "coveredBy": "s2026_07", "section": "Model", "page": 128, "authors": [{"name": "強義明", "alt": "Nick Chiang", "role": "凱絡媒體數位運營總統籌"}] },
+    { "id": "c2026_14", "title": "生成式體驗來臨 誰能掌握顧客的下一步？", "by": "安索帕台灣", "summary": "AI 代理介入後顧客不照設計的旅程走；企業要從旅程地圖走向決策地圖，從個人化推薦走向可被信任的決策支援。", "coveredBy": "s2026_08", "section": "Model", "page": 136, "authors": [{"name": "鄭怡櫛", "alt": "Vera Cheng", "role": "安索帕顧客體驗策略諮詢副總經理"}, {"name": "張家誠", "alt": "Jason Chang", "role": "安索帕顧客體驗策略總監"}] },
+    { "id": "c2026_15", "title": "贏在 AI 時代的隱形戰場：看見「文化暗流」，啟動企業真實的轉型動能", "by": "電通商業顧問", "summary": "AI 轉型多停在工具層，忽略員工恐懼與中層焦慮；用健檢、連結、培養三步處理文化暗流。", "coveredBy": "s2026_07", "section": "Model", "page": 144, "authors": [{"name": "王馥蓓", "alt": "Fupei Wang", "role": "電通商業顧問 永續顧問長"}, {"name": "周允玉", "alt": "Edith Chou", "role": "電通商業顧問 商業顧問合夥人"}] },
+    { "id": "c2026_16", "title": "顧客為何停下來？從洞察到治理的體驗優化", "by": "美庫爾台灣", "summary": "轉換優化要看懂顧客為何猶豫，用行為數據、人本洞察與實驗形成閉環，並搭配風險控管指標，不把成本推給後端。", "coveredBy": "s2026_08", "section": "AI", "page": 152, "authors": [{"name": "陳詳翰", "alt": "Harvey Chen", "role": "美庫爾台灣 Executive Vice President, CX Science"}, {"name": "康晉嵐", "alt": "Jason Kang", "role": "美庫爾台灣 Associate Vice President, CX Analytics & Technology"}] },
+    { "id": "c2026_17", "title": "體驗這件事，我們一直只問了一半", "by": "美庫爾台灣", "summary": "AI Agent 也是要被設計的使用者；Agent 的信任靠意圖預覽、可解釋與升級路徑等設計，加上治理。", "coveredBy": "m2026", "section": "AI", "page": 160, "authors": [{"name": "王姿喨", "alt": "Maureen Wang", "role": "美庫爾台灣 Head of Brand Experience"}, {"name": "詹佳穎", "alt": "Jennifer Chan", "role": "美庫爾台灣 Senior Manager, Brand Experience"}, {"name": "黃靖婷", "alt": "Daisy Huang", "role": "美庫爾台灣 Associate Manager, Brand Experience"}] },
+    { "id": "c2026_18", "title": "GEO 時代，被 AI 看見是技術，被消費者記住才是本事", "by": "安布思沛", "summary": "大家都做 GEO，內容就同質化；品牌要用品類進入點搶佔生活情境，建立 AI 信任並持續量測。", "coveredBy": "s2026_10", "section": "AI", "page": 168, "authors": [{"name": "莊閔雯", "alt": "Wen Chuang", "role": "安布思沛 SEO Optimization 副總監"}, {"name": "呂季霖", "alt": "Alice Lu", "role": "安布思沛 SEO Optimization 副理"}] },
+    { "id": "c2026_19", "title": "定義「素材產出標準」：將 AI 的「生成力」升級為品牌的「交付力」", "by": "台灣電通", "summary": "AI 讓生成變成商品，風險是變平均；用 SLIP 框架把製作中心變成品牌交付系統，區分防平庸與防出錯兩種把關。", "coveredBy": "s2026_09", "section": "AI", "page": 176, "authors": [{"name": "潘其偉", "alt": "Chiwei Pan", "role": "台灣電通營運長"}] },
+    { "id": "c2026_20", "title": "超越效率 解碼 AI 原生創意代理商", "by": "Tag", "summary": "把大創意與製作規模拆開，以 AI 製作人、在地內容引擎與成效數據，在規模化的同時保有創意工藝。", "coveredBy": "s2026_09", "section": "AI", "page": 182, "authors": [{"name": "Trent Agnew", "role": "Tag 泰意執行長（JAPAC）"}] },
+    { "id": "c2026_21", "title": "AI Agent 走進消費旅程 保健、美妝與零售如何把 AI 變成行動能力", "by": "電通智能中心", "summary": "重點不是要不要導入 Agent，而是哪些任務交給 AI、授權到哪一層；四層權限框架提醒高風險任務保留人工確認。", "coveredBy": "m2026", "section": "AI", "page": 188, "authors": [{"name": "張詠琦", "alt": "Sibyl Chang", "role": "電通智能中心智庫 洞察分析經理"}, {"name": "蔡孟軒", "alt": "Stan Tsai", "role": "電通智能中心智庫 洞察分析經理"}, {"name": "楊至靜", "alt": "Joce Yang", "role": "電通智能中心智庫 資深洞察分析經理"}] }
   ],
   "npcs": [
     { "id": "n2026_ming", "name": "明叔", "skin": "npc_vendor", "locationId": "night_market", "title": "「看得清眼鏡」老闆", "lines": ["我驗光驗了三十年，AI 說我家「CP 值普通」。", "客人進門第一句話：我問過 AI 了。", "配眼鏡要試戴，螢幕上哪看得出來適不適合。", "夜市人多，可是願意坐下來驗光的，一晚上沒幾個。"] },
@@ -73,7 +74,7 @@
       "card": { "title": "真實是稀缺資產", "text": "能被生成的東西越多，沒法生成的那一點越值錢。" }
     },
     {
-      "id": "s2026_03", "year": 2026, "chapterIds": ["c2026_03", "c2026_04"], "title": "預算砍兩成，還要 AI 轉型",
+      "id": "s2026_03", "year": 2026, "chapterIds": ["c2026_22", "c2026_03", "c2026_04"], "title": "預算砍兩成，還要 AI 轉型",
       "locationId": "client_hq", "giver": "client_chen", "time": "morning",
       "brief": "陳經理的預算被砍兩成，老闆卻要求「明年業績要成長，順便做 AI 轉型」。錢要押在短期轉單，還是長期讓人偏心？",
       "steps": [
@@ -85,7 +86,7 @@
           { "who": "client_chen", "text": "下週董事會。我需要一個不是「再給我一點預算」的答案。" }
         ] },
         { "type": "choice", "prompt": "你建議陳經理怎麼分配這筆變少的預算？", "options": [
-          { "text": "全押短期轉單，品牌活動先停，先讓董事會看到數字。", "effects": { "sales": 5, "brand": -3, "liver": 2 }, "feedback": "第一季數字很好看，董事會鼓掌。第三季新客開始變少，因為消費者問 AI 推薦時，你們的名字越來越少出現。", "insight": "〈Agents of Growth〉引《2025 CMO Report》：90% 的行銷長相信強大的品牌偏好是致勝關鍵。AI 代理開始替消費者搜尋、比價、購買，傳統漏斗已不足以解釋決策。", "roleBonus": { "media": { "sales": 3 } } },
+          { "text": "全押短期轉單，品牌活動先停，先讓董事會看到數字。", "effects": { "sales": 5, "brand": -3, "liver": 2 }, "feedback": "第一季數字很好看，董事會鼓掌。第三季新客開始變少，因為消費者問 AI 推薦時，你們的名字越來越少出現。", "insight": "〈AI for Growth〉提醒：行銷不該被當成可以隨意砍除的裁量支出，而應被保護為成長的引擎；景氣不佳時仍維持投資的品牌，回升後往往獲得更高的獲利和聲量佔比。〈Agents of Growth〉也指出，90% 的行銷長相信強大的品牌偏好是致勝關鍵。", "roleBonus": { "media": { "sales": 3 } } },
           { "text": "先從成長課題出發，畫一張從洞察、旅程、內容到成效的增長藍圖。", "effects": { "brand": 4, "trust": 3, "liver": 6 }, "feedback": "你們訪了二十位流失的客人，發現他們不是嫌貴，是不知道怎麼吃才有效。藍圖的第一頁只寫了一句話，董事會討論了一個小時。", "insight": "〈AI 代理時代的增長架構師〉說，策略要從想一句漂亮的話，升級為串起目標、洞察、旅程與成效的增長架構。書中一句話：數據決定我們如何精準抵達，人性洞察決定我們為何能真正打動。", "roleBonus": { "planner": { "brand": 3 } } },
           { "text": "先讓品牌進入 AI 代理的決策語境：把產品資料整理到 AI 讀得懂、說得清。", "effects": { "sales": 3, "trust": 2, "brand": 2, "liver": 4 }, "feedback": "你們把產品成分、適用情境、常見問題重整成一套乾淨的資料。一個月後，AI 推薦清單裡開始出現他們，只是推薦理由還是「CP 值高」。", "insight": "〈Agents of Growth〉的增長三角要同時贏得演算法、人心與文化。書中說對話式解答引擎讓產品探索進入零點擊體驗，品牌得先讓 AI 理解自己。", "roleBonus": { "data": { "sales": 3 } } }
         ] },

@@ -107,6 +107,23 @@
   line-height: 1.5;
 }
 
+/* 章節名後面的署名：作者或團隊與頁碼，字小一級、顏色再淡一點，整段一起換行 */
+.chapter-by {
+  display: inline-block;
+  margin-inline-start: 0.6em;
+  font-size: 0.82em;
+  letter-spacing: 0.02em;
+  opacity: 0.8;
+}
+
+/* 直向手機：章節名加署名最多六行，字收小一點，任務單與章節卡才放得進一個畫面 */
+@media (max-width: 620px) {
+  .ticket-chapters {
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+}
+
 .chapter-quote {
   margin: 0;
   padding-inline-start: 0.8rem;

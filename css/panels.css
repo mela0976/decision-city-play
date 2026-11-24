@@ -681,3 +681,194 @@ html.grandma dialog.sheet {
 .oops-actions .btn {
   flex: 1 1 auto;
 }
+
+/* ── 2026 評審速覽：書的主旨＋兩個動作，下面是整本目錄（頁碼｜篇名、作者、摘要、在哪一關）── */
+
+.judge-hero {
+  display: grid;
+  gap: 0.7rem;
+  margin-block-end: 1.4rem;
+}
+
+.judge-book {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.judge-book .lightbox {
+  color: #17191d;
+}
+
+.judge-theme {
+  font-size: clamp(1.2rem, 1.2vmin + 0.9rem, 1.75rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.judge-points {
+  display: grid;
+  gap: 0.35rem;
+  padding-inline-start: 1.2rem;
+  list-style: square;
+  line-height: 1.55;
+}
+
+.judge-points li::marker {
+  color: var(--accent);
+}
+
+.judge-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-block-start: 0.3rem;
+}
+
+.judge-actions .btn {
+  flex: 1 1 13rem;
+}
+
+.judge-toc {
+  display: grid;
+  gap: 1.3rem;
+  padding-block-end: 0.6rem;
+}
+
+.judge-section h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-block-end: 0.35rem;
+  border-block-end: 1px solid var(--line-strong);
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.judge-count {
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.judge-list {
+  display: grid;
+  column-gap: 1.8rem;
+}
+
+.judge-row {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0 0.7rem;
+  padding-block: 0.6rem 0.75rem;
+  border-block-end: 1px solid var(--line);
+}
+
+.judge-page {
+  padding-block-start: 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  text-align: end;
+  color: var(--muted);
+}
+
+.judge-text {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  min-inline-size: 0;
+}
+
+.judge-text h4 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.judge-title {
+  display: block;
+  inline-size: 100%;
+  padding: 0.15rem 0;
+  border: 0;
+  background: none;
+  text-align: start;
+}
+
+.judge-title:hover {
+  color: var(--accent);
+}
+
+.judge-authors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1rem 1rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.judge-authors strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.judge-summary {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.judge-row.is-open .judge-summary {
+  display: block;
+}
+
+.judge-where {
+  justify-self: start;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0 0.5em;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--stone);
+}
+
+.judge-where b {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.judge-where.is-main {
+  border-color: color-mix(in srgb, var(--red) 70%, transparent);
+}
+
+.judge-where.is-main b {
+  color: #ff8a7a;
+}
+
+/* 手機（直向或橫放）：兩個動作提到三個重點前面，一打開就按得到 */
+@media (max-width: 620px), (max-height: 480px) {
+  .judge-points {
+    order: 1;
+  }
+}
+
+/* 寬螢幕：目錄排兩欄，一屏看得到更多篇 */
+@media (min-width: 900px) and (min-height: 481px) {
+  .judge-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

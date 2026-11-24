@@ -187,6 +187,16 @@ export const T = {
   playAgain: 'Play Again',
   forcedEnd: 'Burnout maxed. Wrapping up early.',
 
+  // Burnout choice when the liver meter fills: wrap up, or push on with coffee
+  burnout: {
+    prompt: 'Burnout maxed. Your eyes are closing, and the day isn\'t over.',
+    end: 'Call it a day at Wuxing St. Stir-Fry',
+    endFeedback: 'Laptop shut, messages can wait. The beer at Wuxing St. Stir-Fry is already cold.',
+    coffee: 'Down a black coffee and finish the day',
+    coffeeFeedback: 'A large convenience-store Americano, gone in one go. Your hands shake and your replies get curt, but you can keep going.',
+    fact: 'Coffees',
+  },
+
   autoRide: 'Auto-Ride',
   autoRiding: 'Auto-riding',
   menuHintOn: 'Control Hints: On',
@@ -305,6 +315,7 @@ export const T = {
   replay: {
     button: 'Year Select',
     title: 'Year Select',
+    resultTitle: 'Replay Result',
     done: 'Cleared',
     notDone: 'Not cleared yet',
     sides: (done, total) => `Side jobs ${done}/${total}`,
@@ -315,12 +326,19 @@ export const T = {
     menuQuit: 'End Replay',
     quitAsk: 'This year\'s main mission isn\'t done yet. End the replay?',
     quitYes: 'End and go back to Year Select',
+    quitYesResult: 'End and see the result',
     quitNo: 'Keep Playing',
     cleared: 'Cleared',
     unfinished: 'Unfinished',
     forced: 'Burned out',
     punctual: (n) => `On time: Trust +${n}`,
     inspiration: (n) => `Ideas ${n}`,
+  },
+  // 2026 Judge's Guide: from the title and the menu; the 2026 book on one page, play 2026 directly, all nine yearbook pages open
+  judge: {
+    button: "2026 Judge's Guide",
+    play: 'Play the 2026 Chapter',
+    yearbook: 'Nine-Year Yearbook',
   },
   version: (v) => `Version ${v}`,
 };

@@ -1,9 +1,9 @@
 // 結局與成績單：結局圖、蓋章的等第；成績單是一張單據（欄位、騎縫線、等寬數字），列四項數值、任務數、問答正確率、提案頁數。
 
-import { h } from '../dom.js?v=2104ee78';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=2104ee78';
+import { h } from '../dom.js?v=53ac0414';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=53ac0414';
 
-export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, side = null, role, note, onAgain, onShare = null, sfx }) {
+export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, side = null, role, coffees = 0, note, onAgain, onShare = null, sfx }) {
   const rate = quiz.asked > 0 ? `${Math.round((quiz.right / quiz.asked) * 100)}%` : '—';
   const again = h('button', { type: 'button', class: 'btn btn--primary btn--big', id: 'ending-again', 'data-primary': true, text: T.playAgain });
   again.addEventListener('click', () => {
@@ -58,6 +58,7 @@ export function showEnding({ screen, assets, ending, stamp, meters, missionsDone
         h('div', {}, h('dt', { text: T.reportMissions }), h('dd', { id: 'report-missions', text: `${missionsDone}／${missionsTotal}` })),
         h('div', {}, h('dt', { text: T.reportQuiz }), h('dd', { id: 'report-quiz', text: rate })),
         h('div', {}, h('dt', { text: T.reportBooks }), h('dd', { id: 'report-books', text: `${ownedYears.length + extraPages}／${books.length + extraPages}` })),
+        coffees > 0 ? h('div', {}, h('dt', { text: T.burnout.fact }), h('dd', { id: 'report-coffees', text: String(coffees) })) : null,
       ),
       // 支線：完成幾個、書裡的章節讀了幾章
       side ? h('p', { class: 'report-side', id: 'report-side' }, h('span', { text: T.reportSide }), h('b', { text: `${side.sidesDone}／${side.sidesTotal}` }), h('span', { text: T.reportChapters }), h('b', { text: `${side.read}／${side.total}` })) : null,

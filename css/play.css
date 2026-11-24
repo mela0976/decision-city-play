@@ -1861,3 +1861,92 @@ html[lang="en"] .hud-meters .m-name {
     padding: 0.4rem 0.65rem;
   }
 }
+
+/* 動態牆播放時沒有 data-scene，原本套到城市畫面的規則：提示列被抬高壓到「略過」，通知落在貼文中間。
+   動態牆一律比照劇照：提示留在下方黑邊，通知縮小貼在標題列下方左側 */
+#stage:has(#layer > .feed) #hint {
+  inset-block-end: env(safe-area-inset-bottom);
+  max-inline-size: calc(100% - 2 * var(--edge));
+}
+
+@media (max-width: 1100px) {
+  #stage[data-phase="play"]:has(#layer > .feed) #hint {
+    inset-block-end: env(safe-area-inset-bottom);
+  }
+}
+
+#stage[data-phase="play"]:has(#layer > .feed) #toasts {
+  inset-block-start: auto;
+  inset-block-end: calc(var(--actions-b) + var(--bar) / 2 - 0.8rem);
+  inset-inline: var(--edge) calc(var(--edge) + 6.5rem);
+  justify-items: start;
+}
+
+#stage[data-phase="play"]:has(#layer > .feed) #toasts .toast {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+}
+
+@media (max-width: 1100px) {
+  #stage[data-phase="play"]:has(#layer > .feed) #toasts {
+    inset-block-start: auto;
+  }
+}
+
+/* 動態牆標題列讓出右上角的選單鈕，英文長標題縮字不撞到 */
+.feed-head {
+  max-inline-size: calc(100% - 2 * var(--edge) - var(--tap) - 0.6rem);
+}
+
+.feed-head .feed-title {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 直式小手機：任務單常比畫面高，按鈕壓到「委託」那一行。
+   欄位改成「標籤＋內容」同一行、說明字小一點；還是太高就從頂端排、往下捲得到 */
+@media (max-width: 420px) {
+  .chapter--card {
+    align-items: safe end;
+  }
+
+  .ticket--mission .ticket-stub {
+    padding: 0.5rem 0.9rem 0.4rem;
+  }
+
+  .ticket--mission .ticket-body {
+    gap: 0.35rem;
+    padding: 0.6rem 0.9rem 0.7rem;
+  }
+
+  .ticket--mission .ticket-body h2 {
+    font-size: 1.2rem;
+  }
+
+  .ticket--mission .ticket-brief {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .ticket--mission .ticket-chapters {
+    font-size: 0.82rem;
+    line-height: 1.35;
+  }
+
+  .ticket--mission .ticket-fields {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.2rem 0.8rem;
+    align-items: baseline;
+  }
+
+  .ticket--mission .ticket-field {
+    display: contents;
+  }
+
+  .ticket--mission .ticket-field dt {
+    letter-spacing: 0.12em;
+  }
+}

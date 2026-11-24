@@ -4,6 +4,8 @@
 export const LANGS = ['zh', 'en', 'ja'];
 const PREF_KEY = 'decision-city-lang';
 export const HTML_LANG = { zh: 'zh-Hant', en: 'en', ja: 'ja' };
+// 標題右上角擠不下全名時的短寫（各用自己的寫法）
+export const LANG_SHORT = { zh: '中', en: 'EN', ja: '日' };
 
 const valid = (value) => (LANGS.includes(value) ? value : null);
 

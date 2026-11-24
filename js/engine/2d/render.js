@@ -1,7 +1,7 @@
-import {createMapRenderer,drawTouch} from '../overlay.js?v=2104ee78';
-import {createWindshield} from './windshield.js?v=2104ee78'; // A26
-import {placeLabel,uiLabel} from '../labels.mjs?v=2104ee78'; // i18n
-import { buildings, byId, columns, height, locations, random, river, roads, rows, water, width } from '../world.mjs?v=2104ee78';
+import {createMapRenderer,drawTouch} from '../overlay.js?v=53ac0414';
+import {createWindshield} from './windshield.js?v=53ac0414'; // A26
+import {placeLabel,uiLabel} from '../labels.mjs?v=53ac0414'; // i18n
+import { buildings, byId, columns, height, locations, random, river, roads, rows, water, width } from '../world.mjs?v=53ac0414';
 
 const ink='#242b30';
 const paper='#fff2cd';

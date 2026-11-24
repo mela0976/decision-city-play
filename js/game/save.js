@@ -4,11 +4,14 @@
 //     relief, bond, interludesSeen, prologueSeen, morningDone,
 //     side: { <支線 id>: { option, quiz } }, sideGain: { <meter>: 支線累計帶來的增減 } }   ← 支線；舊存檔沒有就當成空的
 //     inspiration: [<靈感 id>]   ← 自己騎車沿路撿到的靈感，依撿到的順序；舊存檔沒有就當成空的
+//     coffees   ← 肝指數滿了選擇灌黑咖啡撐下去的次數；舊存檔沒有就當成 0
+//     burnedOut ← 肝指數滿了選了「收工」：這一局已經結束，繼續就直接到結局。舊存檔沒有這個欄位：
+//                 改版前肝指數到 100 一律直接進結局，所以肝指數 100 的舊存檔當成已經收工
 // 讀寫都包在 try/catch；讀不到、版本不符或欄位不齊（例如舊格式的存檔），一律當作沒有存檔。
 // 音效、提示列等偏好另存 decision-city-prefs-v1。破關紀錄與年度重玩的成績也記在偏好裡（finished、lastRole、replay），
 // 所以重新開一局、或年度重玩，都不會動到主線存檔。
 
-import { METER_IDS } from './strings.js?v=2104ee78';
+import { METER_IDS } from './strings.js?v=53ac0414';
 
 export const SAVE_KEY = 'decision-city-save-v1';
 export const SAVE_VERSION = 1;
@@ -73,6 +76,8 @@ function normalize(data) {
     side: normalizeSide(data.side),
     sideGain: normalizeGain(data.sideGain),
     inspiration: Array.isArray(data.inspiration) ? [...new Set(strings(data.inspiration))] : [],
+    coffees: isCount(data.coffees) ? data.coffees : 0,
+    burnedOut: typeof data.burnedOut === 'boolean' ? data.burnedOut : meters.liver >= 100,
   };
 }
 

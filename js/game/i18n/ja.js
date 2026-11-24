@@ -186,6 +186,16 @@ export const T = {
   playAgain: 'もう一度遊ぶ',
   forcedEnd: '過労度が満タン、早めに撤収',
 
+  // 過労度が満タンのときの選択：撤収するか、コーヒーで乗り切るか
+  burnout: {
+    prompt: '過労度が満タン。まぶたが重いけど、今日はまだ終わっていない。',
+    end: '撤収して、呉興街の熱炒へ',
+    endFeedback: 'パソコンを閉じて、返信は後回し。呉興街の熱炒でビールが冷えている。',
+    coffee: 'ブラックコーヒーを流し込んで、今日を走り切る',
+    coffeeFeedback: 'コンビニの大きいアメリカーノを一気に飲み干す。手は少し震えて返信もそっけなくなるけど、まだいける。',
+    fact: 'コーヒー',
+  },
+
   autoRide: 'オート移動',
   autoRiding: 'オート移動中',
   menuHintOn: '操作ヒント：オン',
@@ -304,6 +314,7 @@ export const T = {
   replay: {
     button: '年度選択',
     title: '年度選択',
+    resultTitle: 'やり直しの結果',
     done: 'クリア済み',
     notDone: '未クリア',
     sides: (done, total) => `サブ案件 ${done}／${total}`,
@@ -314,12 +325,19 @@ export const T = {
     menuQuit: 'やり直しを終える',
     quitAsk: 'この年のメイン案件はまだ終わっていない。やり直しを終える？',
     quitYes: '終えて年度選択へ',
+    quitYesResult: '終えて結果を見る',
     quitNo: '続ける',
     cleared: 'クリア',
     unfinished: '未完了',
     forced: '過労で撤収',
     punctual: (n) => `時間内 信頼度 +${n}`,
     inspiration: (n) => `ひらめき ${n}`,
+  },
+  // 2026 審査員ガイド：タイトルとメニューから。2026 年版を一画面で、2026 をそのままプレイ、9年分の年鑑をすべて開く
+  judge: {
+    button: '2026 審査員ガイド',
+    play: '2026 年の章をプレイ',
+    yearbook: '9年分の年鑑',
   },
   version: (v) => `バージョン ${v}`,
 };

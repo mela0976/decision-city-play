@@ -2,151 +2,410 @@
   "year": 2026,
   "chapters": [
     {
+      "id": "c2026_22",
+      "title": "AI for Growth 世界を理解し、成長を加速する",
+      "by": "電通グループ（台湾）",
+      "summary": "AIが変えるのはやり方で、経営の本質（顧客価値・人材・信頼）は不変。先行企業はやりながら学び、マーケティングを成長のエンジンとして守る。データを守り、AI依存も避ける。",
+      "coveredBy": "s2026_03",
+      "section": "Intro",
+      "page": 6,
+      "authors": [
+        {
+          "name": "唐心慧",
+          "alt": "Jennifer Tang",
+          "role": "電通グループ 大北アジア・台湾 CEO"
+        }
+      ]
+    },
+    {
       "id": "c2026_01",
       "title": "Agentic時代、ブランドと人のリアルな距離",
       "by": "電通グループ（台湾）",
       "summary": "市場調査の最大のコストは、調査から待ち時間に変わりました。決める前にAI Personaで模擬消費者と対話し、AIはブランドが人をより深く理解するために使います。",
-      "coveredBy": "s2026_01"
+      "coveredBy": "s2026_01",
+      "section": "Intro",
+      "page": 12,
+      "authors": [
+        {
+          "name": "邵懿文",
+          "alt": "Freda Shao",
+          "role": "電通グループ 最高戦略イノベーション責任者"
+        }
+      ]
     },
     {
       "id": "c2026_02",
       "title": "リアルの力は、いま再定義されている",
       "by": "電通クリエイティブ、台湾電通",
       "summary": "AIで真偽が見分けにくくなり、リアルが希少な資産に。ブランドは最適化されない創造性を選び、注意Attentionの奪い合いから愛着Affectionづくりへ移るべきです。",
-      "coveredBy": "s2026_02"
+      "coveredBy": "s2026_02",
+      "section": "People",
+      "page": 20,
+      "authors": [
+        {
+          "name": "周麗君",
+          "alt": "Alice Chou",
+          "role": "電通クリエイティブ／台湾電通 チーフ・クリエイティブ・オフィサー"
+        }
+      ]
     },
     {
       "id": "c2026_03",
       "title": "Agents of Growth：AIエージェント時代の成長の推進役",
       "by": "電通クリエイティブ",
       "summary": "AIエージェントが消費者に代わって検索・比較・購入します。ブランドは成長トライアングルでアルゴリズム・人の心・文化を同時に勝ち取り、短期の収益化と長期の変革を両立します。",
-      "coveredBy": "s2026_03"
+      "coveredBy": "s2026_03",
+      "section": "People",
+      "page": 28,
+      "authors": [
+        {
+          "name": "紀緻謙",
+          "alt": "Gary Chi",
+          "role": "電通クリエイティブ・プロフェッショナルサービス CEO"
+        }
+      ]
     },
     {
       "id": "c2026_04",
       "title": "AIエージェント時代の成長アーキテクト",
       "by": "Isobar台湾",
       "summary": "戦略は気の利いた一言を広めることから、成長課題を起点に目標・インサイト・ジャーニー・成果をつなぐ成長アーキテクチャへ。AIは情報を広げ、人は判断と意味を担います。",
-      "coveredBy": "s2026_03"
+      "coveredBy": "s2026_03",
+      "section": "People",
+      "page": 36,
+      "authors": [
+        {
+          "name": "朱芳儀",
+          "alt": "Julia Chu",
+          "role": "アイソバー台湾 チーフ・ストラテジー・オフィサー"
+        }
+      ]
     },
     {
       "id": "c2026_05",
       "title": "信頼はなぜAI時代に最も複製しにくい競争力なのか",
       "by": "Isobar台湾",
       "summary": "AIでコンテンツ制作のコストが崩れ、消えたのは検証でした。ブランドの競争はアテンション・エコノミーから信頼エコノミーへ移り、PRは信頼のエンジニアになるべきです。",
-      "coveredBy": "s2026_02"
+      "coveredBy": "s2026_02",
+      "section": "People",
+      "page": 44,
+      "authors": [
+        {
+          "name": "楊欣怡",
+          "alt": "Cynthia Yang",
+          "role": "アイソバー台湾 副総経理"
+        }
+      ]
     },
     {
       "id": "c2026_06",
       "title": "AIは人の代わりに買い物ができる。でもブランドは、人に「買いたい」と思わせなければ",
       "by": "Isobar台湾",
       "summary": "対話型コマースはニーズに答えます。SNSはAIが価格比較する前に欲求を呼び起こし、ニーズ別のセグメントから感情・状況別のセグメントへ進化すべきです。",
-      "coveredBy": "s2026_04"
+      "coveredBy": "s2026_04",
+      "section": "People",
+      "page": 50,
+      "authors": [
+        {
+          "name": "陳蒔",
+          "alt": "Rene Chen",
+          "role": "アイソバー台湾 ソーシャル運営ディレクター"
+        }
+      ]
     },
     {
       "id": "c2026_07",
       "title": "注意が希少資源になるとき：エンタメとスポーツはどうブランドの記憶資産を積み上げるか？",
       "by": "電通エンタテインメント",
       "summary": "ブランドは露出を買えても記憶は買えません。エンタメとスポーツは感情消費の中核で、競争は声量シェアから文化シェアへ移っています。",
-      "coveredBy": "s2026_05"
+      "coveredBy": "s2026_05",
+      "section": "People",
+      "page": 58,
+      "authors": [
+        {
+          "name": "何華軒",
+          "alt": "Louis Ho",
+          "role": "dentsu sports & entertainment エンターテインメント・マーケティング シニアディレクター"
+        }
+      ]
     },
     {
       "id": "c2026_08",
       "title": "アルゴリズムに媚びるか、人の心を動かすか？効率の論理でSNSを切り捨てるな",
       "by": "Carat",
       "summary": "AIが読むのは、他人があなたをどう語るかです。SNSは人とAIの両方に向けて語る必要があり、カギは実在の人が自発的に、具体的にあなたを語ることです。",
-      "coveredBy": "s2026_04"
+      "coveredBy": "s2026_04",
+      "section": "People",
+      "page": 66,
+      "authors": [
+        {
+          "name": "孫韞筑",
+          "alt": "Sunny Sun",
+          "role": "カラ・メディア チーフ・クライアント・オフィサー"
+        }
+      ]
     },
     {
       "id": "c2026_09",
       "title": "インプレッションではなくアテンションを買え――メディアを体験にし、「スワイプされない」記憶資産を",
       "by": "iProspect",
       "summary": "可視インプレッションは入場券にすぎず、資産になるのはアテンションです。アテンションの質でメディアを測り直し、人が自ら参加したくなる体験へメディアを変えます。",
-      "coveredBy": "s2026_06"
+      "coveredBy": "s2026_06",
+      "section": "People",
+      "page": 72,
+      "authors": [
+        {
+          "name": "徐莉媛",
+          "alt": "Amy Hsu",
+          "role": "iProspect アソシエイトディレクター"
+        }
+      ]
     },
     {
       "id": "c2026_10",
       "title": "金曲奨から『宮廷の諍い女』まで、共通の記憶がもたらすブランド価値",
       "by": "dentsu X メディアラボ",
       "summary": "コンテンツは無限、アルゴリズムで細分化される今、「一緒に見た」瞬間こそ希少です。ブランドは記憶のコードを現在へ持ち込み、声量シェアに記憶シェアを加えるべきです。",
-      "coveredBy": "s2026_05"
+      "coveredBy": "s2026_05",
+      "section": "People",
+      "page": 80,
+      "authors": [
+        {
+          "name": "呉宗霖",
+          "alt": "Jeremy Wu",
+          "role": "電通グループ メディア事業 インサイト＆メディア効果責任者／dentsu X COO 兼メディアラボ所長"
+        },
+        {
+          "name": "陳炯文",
+          "alt": "Elmo Chen",
+          "role": "dentsu X メディアプランニング・マネージャー"
+        }
+      ]
     },
     {
       "id": "c2026_11",
       "title": "【特別企画】People Model：消費者リサーチを、いつでも話しかけられる対話に",
       "by": "電通インテリジェンスセンター",
       "summary": "CCS調査でAIのデジタルツインを微調整し、チームはまず模擬してから決めます。初期の探索に使い、実際の人への調査は代替せず、利用の境界も明示します。",
-      "coveredBy": "s2026_01"
+      "coveredBy": "s2026_01",
+      "section": "Model",
+      "page": 96,
+      "authors": [
+        {
+          "name": "陳介立",
+          "alt": "Bass Chen",
+          "role": "電通インテリジェンス シンクタンク責任者"
+        },
+        {
+          "name": "孫郁喬",
+          "alt": "Chiao Sun",
+          "role": "電通インテリジェンス データサイエンティスト"
+        },
+        {
+          "name": "高靖萍",
+          "alt": "Chingping Kao",
+          "role": "電通インテリジェンス インサイト＆アナリシス・マネージャー"
+        }
+      ]
     },
     {
       "id": "c2026_12",
       "title": "SOVの再構築：注意がAIに薄められる時代、ブランドが選ばれる場をどう守るか",
       "by": "dentsu X メディアラボ",
       "summary": "SOVを薄める要因はアルゴリズムやAI要約にまで広がりました。「選ばれる場」の陣取りへ進化させて三層で運営し、自らの主戦場を選びます。",
-      "coveredBy": "s2026_06"
+      "coveredBy": "s2026_06",
+      "section": "Model",
+      "page": 116,
+      "authors": [
+        {
+          "name": "呉宗霖",
+          "alt": "Jeremy Wu",
+          "role": "電通グループ メディア事業 インサイト＆メディア効果責任者／dentsu X COO 兼メディアラボ所長"
+        }
+      ]
     },
     {
       "id": "c2026_13",
       "title": "AIが普及したアルゴリズム世代、「衡断力（Judgment）」が最も希少な競争力になる",
       "by": "Carat",
       "summary": "皆が同じモデルを使う今、優位は判断の質で決まります。AIは生成が得意で検証は苦手。衡断力は感知・データ・トレンド・経験・協働で育ちます。",
-      "coveredBy": "s2026_07"
+      "coveredBy": "s2026_07",
+      "section": "Model",
+      "page": 128,
+      "authors": [
+        {
+          "name": "強義明",
+          "alt": "Nick Chiang",
+          "role": "カラ・メディア デジタル運営統括"
+        }
+      ]
     },
     {
       "id": "c2026_14",
       "title": "生成型体験の到来、顧客の次の一歩をつかむのは誰か？",
       "by": "Isobar台湾",
       "summary": "AIエージェントが介入すると、顧客は設計どおりのジャーニーを歩きません。ジャーニーマップから意思決定マップへ、パーソナライズ推薦から信頼される意思決定支援へ進みます。",
-      "coveredBy": "s2026_08"
+      "coveredBy": "s2026_08",
+      "section": "Model",
+      "page": 136,
+      "authors": [
+        {
+          "name": "鄭怡櫛",
+          "alt": "Vera Cheng",
+          "role": "アイソバー台湾 CX戦略コンサルティング副総経理"
+        },
+        {
+          "name": "張家誠",
+          "alt": "Jason Chang",
+          "role": "アイソバー台湾 CX戦略ディレクター"
+        }
+      ]
     },
     {
       "id": "c2026_15",
       "title": "AI時代の見えない戦場で勝つ：「文化の暗流」を見抜き、企業の真の変革を動かす",
       "by": "電通ビジネスコンサルティング",
       "summary": "AI変革の多くはツールの段階で止まり、社員の恐れや中間層の焦りが見落とされています。診断・連結・育成の三段階で文化の暗流に向き合います。",
-      "coveredBy": "s2026_07"
+      "coveredBy": "s2026_07",
+      "section": "Model",
+      "page": 144,
+      "authors": [
+        {
+          "name": "王馥蓓",
+          "alt": "Fupei Wang",
+          "role": "電通ビジネスコンサルティング サステナビリティ・コンサルティング責任者"
+        },
+        {
+          "name": "周允玉",
+          "alt": "Edith Chou",
+          "role": "電通ビジネスコンサルティング パートナー"
+        }
+      ]
     },
     {
       "id": "c2026_16",
       "title": "顧客はなぜ立ち止まるのか？インサイトからガバナンスまでの体験最適化",
       "by": "Merkle台湾",
       "summary": "コンバージョン最適化では、顧客がなぜ迷うのかを理解します。行動データ・人間中心のインサイト・実験でループを回し、リスク管理指標も併用してコストを後工程に押しつけません。",
-      "coveredBy": "s2026_08"
+      "coveredBy": "s2026_08",
+      "section": "AI",
+      "page": 152,
+      "authors": [
+        {
+          "name": "陳詳翰",
+          "alt": "Harvey Chen",
+          "role": "マークル台湾 Executive Vice President, CX Science"
+        },
+        {
+          "name": "康晉嵐",
+          "alt": "Jason Kang",
+          "role": "マークル台湾 Associate Vice President, CX Analytics & Technology"
+        }
+      ]
     },
     {
       "id": "c2026_17",
       "title": "体験について、私たちはずっと半分しか問うてこなかった",
       "by": "Merkle台湾",
       "summary": "AIエージェントもまた設計されるべきユーザーです。エージェントへの信頼は、意図のプレビュー、説明可能性、エスカレーション経路などの設計とガバナンスで成り立ちます。",
-      "coveredBy": "m2026"
+      "coveredBy": "m2026",
+      "section": "AI",
+      "page": 160,
+      "authors": [
+        {
+          "name": "王姿喨",
+          "alt": "Maureen Wang",
+          "role": "マークル台湾 Head of Brand Experience"
+        },
+        {
+          "name": "詹佳穎",
+          "alt": "Jennifer Chan",
+          "role": "マークル台湾 Senior Manager, Brand Experience"
+        },
+        {
+          "name": "黄靖婷",
+          "alt": "Daisy Huang",
+          "role": "マークル台湾 Associate Manager, Brand Experience"
+        }
+      ]
     },
     {
       "id": "c2026_18",
       "title": "GEO時代、AIに見つけられるのは技術、消費者に覚えられるのが実力",
       "by": "iProspect",
       "summary": "皆がGEOに取り組めば、コンテンツは同質化します。ブランドはカテゴリー・エントリー・ポイントで生活シーンを押さえ、AIからの信頼を築き、継続的に測定すべきです。",
-      "coveredBy": "s2026_10"
+      "coveredBy": "s2026_10",
+      "section": "AI",
+      "page": 168,
+      "authors": [
+        {
+          "name": "莊閔雯",
+          "alt": "Wen Chuang",
+          "role": "iProspect SEO Optimization アソシエイトディレクター"
+        },
+        {
+          "name": "呂季霖",
+          "alt": "Alice Lu",
+          "role": "iProspect SEO Optimization アシスタントマネージャー"
+        }
+      ]
     },
     {
       "id": "c2026_19",
       "title": "「素材制作基準」を定義する：AIの「生成力」をブランドの「納品力」へ",
       "by": "台湾電通",
       "summary": "AIで生成はコモディティになり、リスクは平均化です。SLIPフレームワークで制作センターをブランドの納品システムに変え、凡庸を防ぐ関門とミスを防ぐ関門を分けます。",
-      "coveredBy": "s2026_09"
+      "coveredBy": "s2026_09",
+      "section": "AI",
+      "page": 176,
+      "authors": [
+        {
+          "name": "潘其偉",
+          "alt": "Chiwei Pan",
+          "role": "台湾電通 COO"
+        }
+      ]
     },
     {
       "id": "c2026_20",
       "title": "効率の先へ：AIネイティブなクリエイティブ代理店を読み解く",
       "by": "Tag",
       "summary": "ビッグアイデアと制作規模を切り分け、AIプロデューサー、ローカルコンテンツエンジン、成果データで、規模を広げながらクリエイティブの技を守ります。",
-      "coveredBy": "s2026_09"
+      "coveredBy": "s2026_09",
+      "section": "AI",
+      "page": 182,
+      "authors": [
+        {
+          "name": "Trent Agnew",
+          "role": "Tag CEO（JAPAC）"
+        }
+      ]
     },
     {
       "id": "c2026_21",
       "title": "AI Agentが消費者ジャーニーへ：健康食品・コスメ・小売はAIをどう行動力に変えるか",
       "by": "電通インテリジェンスセンター",
       "summary": "要はエージェントを導入するかではなく、どのタスクをAIに任せ、どこまで権限を渡すかです。4層の権限フレームワークは、高リスクのタスクに人の確認を残すよう促します。",
-      "coveredBy": "m2026"
+      "coveredBy": "m2026",
+      "section": "AI",
+      "page": 188,
+      "authors": [
+        {
+          "name": "張詠琦",
+          "alt": "Sibyl Chang",
+          "role": "電通インテリジェンス・シンクタンク インサイト分析マネージャー"
+        },
+        {
+          "name": "蔡孟軒",
+          "alt": "Stan Tsai",
+          "role": "電通インテリジェンス・シンクタンク インサイト分析マネージャー"
+        },
+        {
+          "name": "楊至靜",
+          "alt": "Joce Yang",
+          "role": "電通インテリジェンス・シンクタンク シニア・インサイト分析マネージャー"
+        }
+      ]
     }
   ],
   "npcs": [
@@ -414,6 +673,7 @@
       "id": "s2026_03",
       "year": 2026,
       "chapterIds": [
+        "c2026_22",
         "c2026_03",
         "c2026_04"
       ],
@@ -460,7 +720,7 @@
                 "liver": 2
               },
               "feedback": "第1四半期の数字は上々で、取締役会は拍手。第3四半期から新規客が減り始めた。消費者がAIにおすすめを聞いても、このブランドの名前が出てこなくなったからだ。",
-              "insight": "「Agents of Growth」は『2025 CMO Report』を引き、CMOの90%が強いブランド選好こそ勝敗を分けると考えていると紹介。AIエージェントが検索・比較・購入を代行し始め、従来のファネルでは意思決定を説明しきれません。",
+              "insight": "「AI for Growth」は、マーケティングは削れる裁量的支出でなく守るべき成長エンジンだと指摘。不況でも投資を続けたブランドは回復後、利益と声量シェアを伸ばしやすい。「Agents of Growth」では、CMOの90%が強いブランド選好を勝因とみる。",
               "roleBonus": {
                 "media": {
                   "sales": 3

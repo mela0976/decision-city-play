@@ -1,5 +1,5 @@
-import {colliderRadius} from './collision.mjs?v=2104ee78';
-import {metersPerUnit as unit,worldContact} from './world.mjs?v=2104ee78';
+import {colliderRadius} from './collision.mjs?v=53ac0414';
+import {metersPerUnit as unit,worldContact} from './world.mjs?v=53ac0414';
 
 const specs={
   scooter:{mass:180,length:1.08,width:.40,height:.65},

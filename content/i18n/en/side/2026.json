@@ -2,151 +2,410 @@
   "year": 2026,
   "chapters": [
     {
+      "id": "c2026_22",
+      "title": "AI for Growth: Understand the World, Accelerate Growth",
+      "by": "Dentsu Marketing Communications Group",
+      "summary": "AI changes methods, not the essence: client value, people, trust. Early movers learn by doing, protect marketing as a growth engine, guard data, and avoid AI dependence.",
+      "coveredBy": "s2026_03",
+      "section": "Intro",
+      "page": 6,
+      "authors": [
+        {
+          "name": "Jennifer Tang",
+          "alt": "唐心慧",
+          "role": "CEO, dentsu Greater North Asia & Taiwan"
+        }
+      ]
+    },
+    {
       "id": "c2026_01",
       "title": "The Agentic Era: The Real Distance Between Brands and People",
       "by": "Dentsu Marketing Communications Group",
       "summary": "Research's biggest cost is now the wait, not the research. Use AI Personas to talk with simulated consumers before deciding; AI should help brands understand people.",
-      "coveredBy": "s2026_01"
+      "coveredBy": "s2026_01",
+      "section": "Intro",
+      "page": 12,
+      "authors": [
+        {
+          "name": "Freda Shao",
+          "alt": "邵懿文",
+          "role": "Chief Strategy & Innovation Officer, dentsu"
+        }
+      ]
     },
     {
       "id": "c2026_02",
       "title": "The Power of Authenticity, Being Redefined",
       "by": "Dentsu Creative, Dentsu Taiwan",
       "summary": "AI blurs real and fake, making authenticity a scarce asset. Brands need creativity that resists optimization, shifting from fighting for Attention to building Affection.",
-      "coveredBy": "s2026_02"
+      "coveredBy": "s2026_02",
+      "section": "People",
+      "page": 20,
+      "authors": [
+        {
+          "name": "Alice Chou",
+          "alt": "周麗君",
+          "role": "Chief Creative Officer, Dentsu Creative & Dentsu Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_03",
       "title": "Agents of Growth: Growth Drivers in the Age of AI Agents",
       "by": "Dentsu Creative",
       "summary": "AI agents search, compare, and buy for consumers. A growth triangle wins algorithms, hearts, and culture at once, balancing short-term revenue and long-term change.",
-      "coveredBy": "s2026_03"
+      "coveredBy": "s2026_03",
+      "section": "People",
+      "page": 28,
+      "authors": [
+        {
+          "name": "Gary Chi",
+          "alt": "紀緻謙",
+          "role": "CEO, Dentsu Creative Professional Services"
+        }
+      ]
     },
     {
       "id": "c2026_04",
       "title": "Growth Architects for the Age of AI Agents",
       "by": "Isobar Taiwan",
       "summary": "From a pretty line to growth architecture: start with the growth challenge, then link goals, insight, journey, and results. AI expands information; people bring judgment.",
-      "coveredBy": "s2026_03"
+      "coveredBy": "s2026_03",
+      "section": "People",
+      "page": 36,
+      "authors": [
+        {
+          "name": "Julia Chu",
+          "alt": "朱芳儀",
+          "role": "Chief Strategy Officer, Isobar Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_05",
       "title": "Why Trust Is the Hardest Edge to Copy in the AI Era",
       "by": "Isobar Taiwan",
       "summary": "AI crashes the cost of making content; what vanishes is verification. Brands move from the attention economy to the trust economy, and PR must become trust engineers.",
-      "coveredBy": "s2026_02"
+      "coveredBy": "s2026_02",
+      "section": "People",
+      "page": 44,
+      "authors": [
+        {
+          "name": "Cynthia Yang",
+          "alt": "楊欣怡",
+          "role": "Deputy General Manager, Isobar Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_06",
       "title": "AI Can Buy Things for People, but Brands Must Make People Want to Buy",
       "by": "Isobar Taiwan",
       "summary": "Conversational commerce answers needs; social must spark desire before AI compares prices. Upgrade from need-based segments to emotion-and-context segments.",
-      "coveredBy": "s2026_04"
+      "coveredBy": "s2026_04",
+      "section": "People",
+      "page": 50,
+      "authors": [
+        {
+          "name": "Rene Chen",
+          "alt": "陳蒔",
+          "role": "Director, Social Operations, Isobar Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_07",
       "title": "When Attention Is Scarce: How Entertainment and Sports Build Brand Mental Assets",
       "by": "Dentsu Entertainment",
       "summary": "Brands can buy exposure but not memory; entertainment and sports are the core of emotional consumption. Competition shifts from share of voice to share of culture.",
-      "coveredBy": "s2026_05"
+      "coveredBy": "s2026_05",
+      "section": "People",
+      "page": 58,
+      "authors": [
+        {
+          "name": "Louis Ho",
+          "alt": "何華軒",
+          "role": "Entertainment Marketing Senior Director, dentsu sports & entertainment"
+        }
+      ]
     },
     {
       "id": "c2026_08",
       "title": "Pleasing the Algorithm or Moving People? Don't Let Efficiency Logic Cut Down Social",
       "by": "Carat",
       "summary": "AI reads what others say about you, so social must speak to people and AI at once. The key: real people talking about you on their own, in specifics.",
-      "coveredBy": "s2026_04"
+      "coveredBy": "s2026_04",
+      "section": "People",
+      "page": 66,
+      "authors": [
+        {
+          "name": "Sunny Sun",
+          "alt": "孫韞筑",
+          "role": "Chief Client Officer, Carat"
+        }
+      ]
     },
     {
       "id": "c2026_09",
       "title": "Stop Buying Impressions, Start Buying Attention—Make Media an Experience That Builds “Unscrollable” Memory",
       "by": "iProspect",
       "summary": "Viewable impressions are just the ticket; attention is the asset. Re-measure media by attention quality and make media an experience people choose to join.",
-      "coveredBy": "s2026_06"
+      "coveredBy": "s2026_06",
+      "section": "People",
+      "page": 72,
+      "authors": [
+        {
+          "name": "Amy Hsu",
+          "alt": "徐莉媛",
+          "role": "Associate Director, iProspect"
+        }
+      ]
     },
     {
       "id": "c2026_10",
       "title": "From the Golden Melody Awards to Empresses in the Palace: The Brand Value of Shared Memories",
       "by": "dentsu X Media Lab",
       "summary": "Endless content and algorithmic silos make “watched it together” moments rare. Bring memory codes into the present, adding share of memory to share of voice.",
-      "coveredBy": "s2026_05"
+      "coveredBy": "s2026_05",
+      "section": "People",
+      "page": 80,
+      "authors": [
+        {
+          "name": "Jeremy Wu",
+          "alt": "吳宗霖",
+          "role": "Head of Insights & Media Effectiveness, dentsu Media; COO & Head of Media Lab, dentsu X"
+        },
+        {
+          "name": "Elmo Chen",
+          "alt": "陳炯文",
+          "role": "Media Planning Manager, dentsu X"
+        }
+      ]
     },
     {
       "id": "c2026_11",
       "title": "[Special Feature] People Model: Turning Consumer Research into a Conversation You Can Start Anytime",
       "by": "Dentsu Intelligence Center",
       "summary": "AI digital twins fine-tuned on CCS survey data let teams simulate before deciding. For early exploration, not a substitute for real research, with clear usage limits.",
-      "coveredBy": "s2026_01"
+      "coveredBy": "s2026_01",
+      "section": "Model",
+      "page": 96,
+      "authors": [
+        {
+          "name": "Bass Chen",
+          "alt": "陳介立",
+          "role": "Head of Think Tank, Dentsu Intelligence"
+        },
+        {
+          "name": "Chiao Sun",
+          "alt": "孫郁喬",
+          "role": "Data Scientist, Dentsu Intelligence"
+        },
+        {
+          "name": "Chingping Kao",
+          "alt": "高靖萍",
+          "role": "Insight & Analysis Manager, Dentsu Intelligence"
+        }
+      ]
     },
     {
       "id": "c2026_12",
       "title": "Rebuilding SOV: Holding the Key Arenas Where Brands Get Chosen as AI Dilutes Attention",
       "by": "dentsu X Media Lab",
       "summary": "SOV now gets diluted by algorithms and AI summaries too. Upgrade to owning choice arenas, run them in three layers, and pick your own main battlefield.",
-      "coveredBy": "s2026_06"
+      "coveredBy": "s2026_06",
+      "section": "Model",
+      "page": 116,
+      "authors": [
+        {
+          "name": "Jeremy Wu",
+          "alt": "吳宗霖",
+          "role": "Head of Insights & Media Effectiveness, dentsu Media; COO & Head of Media Lab, dentsu X"
+        }
+      ]
     },
     {
       "id": "c2026_13",
       "title": "In an Algorithm Generation Steeped in AI, “Judgment” Will Be the Scarcest Edge",
       "by": "Carat",
       "summary": "Same models for all; the edge is better judgment. AI generates well but verifies poorly. Judgment grows from perception, data, trends, experience, and collaboration.",
-      "coveredBy": "s2026_07"
+      "coveredBy": "s2026_07",
+      "section": "Model",
+      "page": 128,
+      "authors": [
+        {
+          "name": "Nick Chiang",
+          "alt": "強義明",
+          "role": "Head of Digital Operations, Carat"
+        }
+      ]
     },
     {
       "id": "c2026_14",
       "title": "Generative Experience Is Here: Who Can Grasp the Customer's Next Step?",
       "by": "Isobar Taiwan",
       "summary": "Once AI agents step in, customers stop following designed journeys. Move from journey maps to decision maps, and from personalized picks to trustworthy decision support.",
-      "coveredBy": "s2026_08"
+      "coveredBy": "s2026_08",
+      "section": "Model",
+      "page": 136,
+      "authors": [
+        {
+          "name": "Vera Cheng",
+          "alt": "鄭怡櫛",
+          "role": "Deputy General Manager, CX Strategy Consulting, Isobar Taiwan"
+        },
+        {
+          "name": "Jason Chang",
+          "alt": "張家誠",
+          "role": "CX Strategy Director, Isobar Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_15",
       "title": "Winning AI's Invisible Battlefield: See the “Cultural Undercurrent” to Unlock Real Transformation",
       "by": "Dentsu Business Consulting",
       "summary": "AI transformation often stalls at tools, ignoring staff fears and middle-manager anxiety. Tackle the cultural undercurrent in three steps: check, connect, cultivate.",
-      "coveredBy": "s2026_07"
+      "coveredBy": "s2026_07",
+      "section": "Model",
+      "page": 144,
+      "authors": [
+        {
+          "name": "Fupei Wang",
+          "alt": "王馥蓓",
+          "role": "Chief Sustainability Consultant, dentsu Consulting"
+        },
+        {
+          "name": "Edith Chou",
+          "alt": "周允玉",
+          "role": "Business Consulting Partner, dentsu Consulting"
+        }
+      ]
     },
     {
       "id": "c2026_16",
       "title": "Why Do Customers Stop? Experience Optimization from Insight to Governance",
       "by": "Merkle Taiwan",
       "summary": "To optimize conversion, see why customers hesitate. Close the loop with behavioral data, human insight, and experiments, plus risk metrics so costs don't land downstream.",
-      "coveredBy": "s2026_08"
+      "coveredBy": "s2026_08",
+      "section": "AI",
+      "page": 152,
+      "authors": [
+        {
+          "name": "Harvey Chen",
+          "alt": "陳詳翰",
+          "role": "Executive Vice President, CX Science, Merkle Taiwan"
+        },
+        {
+          "name": "Jason Kang",
+          "alt": "康晉嵐",
+          "role": "Associate Vice President, CX Analytics & Technology, Merkle Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_17",
       "title": "On Experience, We've Only Ever Asked Half the Question",
       "by": "Merkle Taiwan",
       "summary": "AI agents are users to design for too. Agent trust comes from design such as intent previews, explainability, and escalation paths, plus governance.",
-      "coveredBy": "m2026"
+      "coveredBy": "m2026",
+      "section": "AI",
+      "page": 160,
+      "authors": [
+        {
+          "name": "Maureen Wang",
+          "alt": "王姿喨",
+          "role": "Head of Brand Experience, Merkle Taiwan"
+        },
+        {
+          "name": "Jennifer Chan",
+          "alt": "詹佳穎",
+          "role": "Senior Manager, Brand Experience, Merkle Taiwan"
+        },
+        {
+          "name": "Daisy Huang",
+          "alt": "黃靖婷",
+          "role": "Associate Manager, Brand Experience, Merkle Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_18",
       "title": "In the GEO Era, Being Seen by AI Is Technique; Being Remembered by Consumers Is True Skill",
       "by": "iProspect",
       "summary": "When everyone does GEO, content turns generic. Brands should claim life moments through category entry points, build AI trust, and keep measuring.",
-      "coveredBy": "s2026_10"
+      "coveredBy": "s2026_10",
+      "section": "AI",
+      "page": 168,
+      "authors": [
+        {
+          "name": "Wen Chuang",
+          "alt": "莊閔雯",
+          "role": "Associate Director, SEO Optimization, iProspect"
+        },
+        {
+          "name": "Alice Lu",
+          "alt": "呂季霖",
+          "role": "Assistant Manager, SEO Optimization, iProspect"
+        }
+      ]
     },
     {
       "id": "c2026_19",
       "title": "Defining “Asset Output Standards”: Turning AI's “Generative Power” into a Brand's “Delivery Power”",
       "by": "Dentsu Taiwan",
       "summary": "AI makes generation a commodity; the risk is mediocrity. SLIP turns production hubs into brand delivery systems, with separate gates against blandness and errors.",
-      "coveredBy": "s2026_09"
+      "coveredBy": "s2026_09",
+      "section": "AI",
+      "page": 176,
+      "authors": [
+        {
+          "name": "Chiwei Pan",
+          "alt": "潘其偉",
+          "role": "COO, Dentsu Taiwan"
+        }
+      ]
     },
     {
       "id": "c2026_20",
       "title": "Beyond Efficiency: Decoding the AI-Native Creative Agency",
       "by": "Tag",
       "summary": "Split the big idea from production scale. With AI producers, a local content engine, and performance data, scale up while keeping creative craft.",
-      "coveredBy": "s2026_09"
+      "coveredBy": "s2026_09",
+      "section": "AI",
+      "page": 182,
+      "authors": [
+        {
+          "name": "Trent Agnew",
+          "role": "CEO, Tag (JAPAC)"
+        }
+      ]
     },
     {
       "id": "c2026_21",
       "title": "AI Agents Enter the Consumer Journey: How Health, Beauty, and Retail Turn AI into Action",
       "by": "Dentsu Intelligence Center",
       "summary": "It's not whether to adopt agents, but which tasks go to AI and how far its authority goes. A four-tier permission framework keeps human sign-off on high-risk tasks.",
-      "coveredBy": "m2026"
+      "coveredBy": "m2026",
+      "section": "AI",
+      "page": 188,
+      "authors": [
+        {
+          "name": "Sibyl Chang",
+          "alt": "張詠琦",
+          "role": "Insight Analysis Manager, Dentsu Intelligence Think Tank"
+        },
+        {
+          "name": "Stan Tsai",
+          "alt": "蔡孟軒",
+          "role": "Insight Analysis Manager, Dentsu Intelligence Think Tank"
+        },
+        {
+          "name": "Joce Yang",
+          "alt": "楊至靜",
+          "role": "Senior Insight Analysis Manager, Dentsu Intelligence Think Tank"
+        }
+      ]
     }
   ],
   "npcs": [
@@ -414,6 +673,7 @@
       "id": "s2026_03",
       "year": 2026,
       "chapterIds": [
+        "c2026_22",
         "c2026_03",
         "c2026_04"
       ],
@@ -460,7 +720,7 @@
                 "liver": 2
               },
               "feedback": "Q1 looks great and the board applauds. By Q3, new customers dry up, because your name comes up less and less when consumers ask AI for picks.",
-              "insight": "“Agents of Growth” cites the “2025 CMO Report”: 90% of CMOs believe strong brand preference is key to winning. As AI agents search, compare, and buy for consumers, the old funnel can't explain decisions anymore.",
+              "insight": "“AI for Growth”: marketing isn't a discretionary cost to cut but a growth engine to protect; brands that keep investing in a downturn often gain more profit and share of voice on recovery. “Agents of Growth” adds: 90% of CMOs call strong brand preference key.",
               "roleBonus": {
                 "media": {
                   "sales": 3

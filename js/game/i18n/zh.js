@@ -186,6 +186,16 @@ export const T = {
   playAgain: '再玩一次',
   forcedEnd: '肝指數滿了，提早收工',
 
+  // 肝指數滿了的抉擇：收工或灌咖啡撐下去
+  burnout: {
+    prompt: '肝指數滿了。眼睛快睜不開，今天還沒跑完。',
+    end: '收工，去吳興街熱炒',
+    endFeedback: '電腦闔上，訊息先不回。吳興街熱炒的啤酒已經冰好了。',
+    coffee: '灌一杯黑咖啡，把今天跑完',
+    coffeeFeedback: '超商的大杯美式一口氣喝掉。手有點抖，回訊息的語氣也硬了點，但還撐得住。',
+    fact: '黑咖啡',
+  },
+
   autoRide: '自動前往',
   autoRiding: '自動前往中',
   menuHintOn: '操作提示：開',
@@ -305,6 +315,7 @@ export const T = {
   replay: {
     button: '年度選擇',
     title: '年度選擇',
+    resultTitle: '重玩結果',
     done: '已完成',
     notDone: '還沒完成',
     sides: (done, total) => `支線 ${done}／${total}`,
@@ -315,12 +326,19 @@ export const T = {
     menuQuit: '結束重玩',
     quitAsk: '這一年的主線還沒做完，要結束重玩嗎？',
     quitYes: '結束，回年度選擇',
+    quitYesResult: '結束，看結果',
     quitNo: '繼續玩',
     cleared: '過關',
     unfinished: '未完成',
     forced: '肝指數滿了',
     punctual: (n) => `準時 信任 +${n}`,
     inspiration: (n) => `靈感 ${n}`,
+  },
+  // 2026 評審速覽：標題與選單都進得去；2026 專書一頁看完、直接玩 2026、九年年鑑全部攤開
+  judge: {
+    button: '2026 評審速覽',
+    play: '直接玩 2026 專章',
+    yearbook: '九年年鑑總覽',
   },
   version: (v) => `版本 ${v}`,
 };

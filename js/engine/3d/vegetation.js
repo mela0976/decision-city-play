@@ -1,8 +1,9 @@
 import {
   civicWalkway, locations, metersPerUnit as unit, random, roadAt, roadOptions, roads, toWorld, worldContact,
-} from '../world.mjs?v=2104ee78';
-import {crossingForNode} from '../street-crossings.mjs?v=2104ee78';
-import {onRiversidePath} from '../riverside-bank.mjs?v=2104ee78';
+} from '../world.mjs?v=53ac0414';
+import {crossingForNode} from '../street-crossings.mjs?v=53ac0414';
+import {onRiversidePath} from '../riverside-bank.mjs?v=53ac0414';
+import {venues,venueLocal} from '../venue-entrances.mjs?v=53ac0414';
 import landuse from '../data/xinyi-landuse.json' with {type:'json'};
 
 const tau=2*Math.PI;
@@ -177,6 +178,19 @@ function plantAvenues(addTree,addHedge,addMedian=()=>{}){
   }
 }
 
+// 綠籬（碰撞長度 length*1.07）有沒有落在某個門口往街上的走道裡：門寬兩側各多 1.2 m，從門檻往外 45 m。
+function blocksVenueWalk(x,z,length,dx,dz){
+  for(const v of venues.values()){
+    if(Math.hypot(x-v.site.x*unit,z-v.site.y*unit)>length/2+60)continue;
+    const half=v.opening/2+1.2;
+    for(let t=-.54;t<=.54;t+=.06){
+      const {side,depth}=venueLocal(v,{x:(x+dx*t*length)/unit,y:(z+dz*t*length)/unit});
+      if(Math.abs(side)<half&&depth>-45&&depth<1)return true;
+    }
+  }
+  return false;
+}
+
 // The renderer and collision fixture registration use the same trunk positions.
 export function visitLandscapeTrees(visit){
   if(!landscapeTrees){
@@ -209,6 +223,9 @@ export function visitLandscapeTrees(visit){
       if(!clear||crowded(hedgeCells,1.5,x,z,1.25))return;
       // 綠籬會擋人：店門口與地點入口前後留開口，讓人從路邊走得到門口
       if(locations.some(site=>Math.hypot(x-site.x*unit,z-site.y*unit)<length/2+14))return;
+      // 門口正前方往街上的那條走道也不能有綠籬：綠籬離地點超過上面的半徑時（例如 client_hq 前 17 m 那排連續綠籬），
+      // 下車的人會被整排擋住、走不到門口
+      if(blocksVenueWalk(x,z,length,dx,dz))return;
       const hedge={x,z,length,heading,median};
       landscapeHedges.push(hedge);remember(hedgeCells,1.5,hedge);
     };

@@ -2,8 +2,8 @@
 // 九個年份各一張卡：年份、那一年的主線、完成與否、支線做了幾件。挑一年就單獨重玩那一年的主線，可以順便補支線。
 // 重玩結束回到這裡，最上面一張小結果卡。
 
-import { h, arrowFocus } from '../dom.js?v=2104ee78';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=2104ee78';
+import { h, arrowFocus } from '../dom.js?v=53ac0414';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=53ac0414';
 
 const signed = (n) => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : '±0');
 
@@ -28,7 +28,7 @@ function resultCard(result) {
 }
 
 /**
- * years：[{ year, title, place, done, sidesDone, sidesTotal }]
+ * years：[{ year, title, place, done, sidesDone, sidesTotal }]；空的時候只有結果卡（還沒破關、從評審速覽直接玩 2026 的那一輪）
  * result：上一次重玩的結果（可省略）
  */
 export function showYearSelect({ screen, assets, years, result = null, onPick, onBack }) {
@@ -47,23 +47,24 @@ export function showYearSelect({ screen, assets, years, result = null, onPick, o
       ),
     ),
   );
-  const grid = h('ol', { class: 'year-grid' }, cards);
+  const grid = cards.length ? h('ol', { class: 'year-grid' }, cards) : null;
   const root = h(
     'section',
     { class: 'years', 'aria-labelledby': 'years-title' },
-    h('header', { class: 'years-head' }, h('h2', { id: 'years-title', text: T.replay.title }), back),
+    h('header', { class: 'years-head' }, h('h2', { id: 'years-title', text: grid ? T.replay.title : T.replay.resultTitle }), back),
     h('div', { class: 'years-body' }, result ? resultCard(result) : null, grid),
   );
-  const buttons = () => [...grid.querySelectorAll('.year-card'), back];
+  const buttons = () => [...(grid?.querySelectorAll('.year-card') || []), back];
   arrowFocus(root, buttons);
   screen.replaceChildren(root);
-  const focus = (result && grid.querySelector(`[data-year="${result.year}"]`)) || grid.querySelector('.year-card');
+  // 只有結果卡時，動作鍵就是「回標題」
+  const focus = grid ? (result && grid.querySelector(`[data-year="${result.year}"]`)) || grid.querySelector('.year-card') : back;
   focus?.setAttribute('data-primary', '');
   focus?.focus({ preventScroll: true });
   // 焦點移到哪一張，動作鍵就按哪一張
   root.addEventListener('focusin', (e) => {
     const card = e.target.closest?.('.year-card');
-    if (!card) return;
+    if (!card || !grid) return;
     for (const other of grid.querySelectorAll('[data-primary]')) other.removeAttribute('data-primary');
     card.setAttribute('data-primary', '');
   });

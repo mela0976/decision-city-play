@@ -1,8 +1,9 @@
 // 「今晚的提案」：每過一關拿到一頁。每頁是那一年的一句答案（slide 標題）、年鑑的三個重點與一句話；
 // 還沒拿到的是空白頁。阿嬤線累積夠了，最後多一頁阿嬤的那一句。
 
-import { h, fill, arrowFocus } from '../dom.js?v=2104ee78';
-import { T, chapterQuote } from '../strings.js?v=2104ee78';
+import { h, fill, arrowFocus } from '../dom.js?v=53ac0414';
+import { T } from '../strings.js?v=53ac0414';
+import { chapterCite } from './cite.js?v=53ac0414';
 
 /**
  * pages：[{ no, year, title, points, quote, source, owned, grandma }]
@@ -10,7 +11,9 @@ import { T, chapterQuote } from '../strings.js?v=2104ee78';
 // 英日版：書名與章節名是譯名，頁尾註明一行（中文版是空字串，不顯示）
 const translatedNote = () => (T.translatedNote ? h('p', { class: 'translated-note', text: T.translatedNote }) : null);
 
-export function openProposal({ dialog, pages, appendix = [], inspirations = [] }) {
+// preview：評審速覽進來的年鑑總覽，九頁全部攤開可讀（不看有沒有拿到），標題換成「九年年鑑總覽」
+export function openProposal({ dialog, pages, appendix = [], inspirations = [], preview = false }) {
+  if (preview) pages = pages.map((page) => ({ ...page, owned: true }));
   const body = h('div', { class: 'proposal-body' });
   const close = h('button', { type: 'button', class: 'btn btn--small', text: T.close, onClick: () => dialog.close() });
   const owned = pages.filter((page) => page.owned).length;
@@ -46,7 +49,7 @@ export function openProposal({ dialog, pages, appendix = [], inspirations = [] }
             h(
               'ol',
               { class: 'appendix-list' },
-              appendix.map((card) => h('li', { class: 'appendix-card', dataset: { side: card.id } }, h('span', { class: 'lightbox lightbox--small', text: String(card.year) }), h('strong', { text: card.title }), h('p', { text: card.text }), card.chapters.map((title) => h('span', { class: 'side-chapter', text: chapterQuote(title) })))),
+              appendix.map((card) => h('li', { class: 'appendix-card', dataset: { side: card.id } }, h('span', { class: 'lightbox lightbox--small', text: String(card.year) }), h('strong', { text: card.title }), h('p', { text: card.text }), card.chapters.map((ref) => chapterCite('span', 'side-chapter', ref)))),
             ),
           )
         : null,
@@ -87,7 +90,7 @@ export function openProposal({ dialog, pages, appendix = [], inspirations = [] }
     (at < ownedPages.length - 1 ? next : back).focus({ preventScroll: true });
   };
 
-  const head = h('header', { class: 'sheet-head' }, h('h2', { id: 'proposal-title', text: `${T.proposalTitle}　${owned}／${pages.length}` }), close);
+  const head = h('header', { class: 'sheet-head' }, h('h2', { id: 'proposal-title', text: preview ? T.judge.yearbook : `${T.proposalTitle}　${owned}／${pages.length}` }), close);
   arrowFocus(head, () => [close, ...body.querySelectorAll('.page--owned, .slide-nav button')]);
   fill(dialog, head, h('div', { class: 'ironwork', 'aria-hidden': 'true' }), body);
   if (!dialog.open) dialog.showModal();

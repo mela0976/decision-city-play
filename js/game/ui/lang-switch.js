@@ -1,22 +1,27 @@
 // 語言切換：中文／English／日本語，各用自己的寫法。按下去記住偏好並重新載入（lang.js）。
 
-import { h } from '../dom.js?v=2104ee78';
-import { T, LANG } from '../strings.js?v=2104ee78';
-import { LANGS, HTML_LANG, switchLang } from '../lang.js?v=2104ee78';
+import { h } from '../dom.js?v=53ac0414';
+import { T, LANG } from '../strings.js?v=53ac0414';
+import { LANGS, HTML_LANG, LANG_SHORT, switchLang } from '../lang.js?v=53ac0414';
 
+// 全名包在 .lang-name 裡；標題右上角太窄時 CSS 改顯示 data-short 的短寫，讀屏照樣念全名（aria-label）
 export function langButtons() {
   return LANGS.map((code) =>
-    h('button', {
-      type: 'button',
-      class: 'btn btn--small lang-btn',
-      lang: HTML_LANG[code],
-      'aria-pressed': String(code === LANG),
-      dataset: { lang: code },
-      text: T.langNames[code],
-      onClick: () => {
-        if (code !== LANG) switchLang(code);
+    h(
+      'button',
+      {
+        type: 'button',
+        class: 'btn btn--small lang-btn',
+        lang: HTML_LANG[code],
+        'aria-label': T.langNames[code],
+        'aria-pressed': String(code === LANG),
+        dataset: { lang: code, short: LANG_SHORT[code] },
+        onClick: () => {
+          if (code !== LANG) switchLang(code);
+        },
       },
-    }),
+      h('span', { class: 'lang-name', text: T.langNames[code] }),
+    ),
   );
 }
 

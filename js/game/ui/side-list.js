@@ -1,8 +1,9 @@
 // 手機裡的「支線任務」：按年份分組的清單。最上面是整體進度（章節已讀 n／總數）與每年的進度。
 // 每個支線：標題、地點、出題者、對應的書中章節、狀態（未開放／可做／完成）；可做的可以設為導航目標。
 
-import { h, fill, arrowFocus } from '../dom.js?v=2104ee78';
-import { T, chapterQuote } from '../strings.js?v=2104ee78';
+import { h, fill, arrowFocus } from '../dom.js?v=53ac0414';
+import { T } from '../strings.js?v=53ac0414';
+import { chapterCite } from './cite.js?v=53ac0414';
 
 export function openSideList({ dialog, groups, progress, target, onNavigate, onClear }) {
   const close = h('button', { type: 'button', class: 'btn btn--small', text: T.close, onClick: () => dialog.close() });
@@ -35,7 +36,7 @@ export function openSideList({ dialog, groups, progress, target, onNavigate, onC
       return h(
         'li',
         { class: `side-row side-row--${item.status}`, dataset: { side: item.id } },
-        h('div', { class: 'side-main' }, h('strong', { text: item.status === 'locked' ? T.sideLockedTitle : item.title }), h('span', { class: 'side-meta', text: [item.place, item.giver].filter(Boolean).join('　') }), item.chapters.map((title) => h('span', { class: 'side-chapter', text: chapterQuote(title) }))),
+        h('div', { class: 'side-main' }, h('strong', { text: item.status === 'locked' ? T.sideLockedTitle : item.title }), h('span', { class: 'side-meta', text: [item.place, item.giver].filter(Boolean).join('　') }), item.chapters.map((ref) => chapterCite('span', 'side-chapter', ref))),
         h('div', { class: 'side-side' }, h('span', { class: `side-state side-state--${item.status}`, text: T.sideStatus[item.status] }), action),
       );
     });

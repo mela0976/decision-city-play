@@ -5,7 +5,7 @@
 //   會讓三項全滿、肝指數必爆。所以支線帶來的增減一律只算三分之一，而且整局累計有上限：
 //   品牌力、業績、客戶信任各 +12（最多扣到 −8），肝指數 +5（最多降到 −10）。到了上限，支線只給章節卡。
 
-import { METER_IDS } from './strings.js?v=2104ee78';
+import { METER_IDS, chapterByline } from './strings.js?v=53ac0414';
 
 export const SIDE_SCALE = 1 / 3;
 export const SIDE_CAP = { brand: [-8, 12], sales: [-8, 12], trust: [-8, 12], liver: [-10, 5] };
@@ -75,7 +75,12 @@ export function chapterProgress(game) {
   return { read, total: content.side.chapters.length, sidesDone, sidesTotal: content.side.missions.length, years: [...years.values()].sort((a, b) => a.year - b.year), isRead };
 }
 
-export const chapterTitles = (game, side) => side.chapterIds.map((id) => game.content.side.chapterById.get(id)?.title).filter(Boolean);
+/** 支線引用的書中章節：{ title, by, roles }。by 是署名一行，roles 是作者頭銜（滑鼠停留時看得到）。 */
+export const chapterRefs = (game, side) =>
+  side.chapterIds
+    .map((id) => game.content.side.chapterById.get(id))
+    .filter((chapter) => chapter?.title)
+    .map((chapter) => ({ title: chapter.title, by: chapterByline(chapter), roles: (chapter.authors || []).map((a) => [a.name, a.role].filter(Boolean).join(' ')).join('\n') }));
 
 /** 手機裡的支線清單：按年份分組。 */
 export function sideGroups(game) {
@@ -90,7 +95,7 @@ export function sideGroups(game) {
         title: side.title,
         place: game.placeName(side.locationId),
         giver: game.content.npcById.get(side.giver)?.name || '',
-        chapters: chapterTitles(game, side),
+        chapters: chapterRefs(game, side),
         status: sideStatus(game, side),
       })),
   }));
@@ -100,5 +105,5 @@ export function sideGroups(game) {
 export function appendixCards(game) {
   return game.content.side.missions
     .filter((side) => game.state.side[side.id] && side.card)
-    .map((side) => ({ id: side.id, year: side.year, title: side.card.title || side.title, text: side.card.text || '', chapters: chapterTitles(game, side) }));
+    .map((side) => ({ id: side.id, year: side.year, title: side.card.title || side.title, text: side.card.text || '', chapters: chapterRefs(game, side) }));
 }
