@@ -1834,3 +1834,30 @@ html[lang="en"] .hud-meters .m-name {
 .choice-note p {
   margin: 0;
 }
+
+/* 小螢幕（2026-11-24）：卡片、對話、抉擇、貼文顯示時，提示訊息移到左上角縮小，不再蓋住題目與卡片標題；
+   抉擇底部多留操作提示的高度，最後一個選項不被「選一個做法」蓋住；洞察便利貼縮小 */
+@media (max-width: 420px), (max-height: 700px) {
+  #layer:not(:empty) ~ #toasts,
+  #screen:not(:empty) ~ #toasts {
+    inset-block-start: calc(env(safe-area-inset-top) + 0.4rem);
+    inset-inline: var(--edge) calc(var(--tap) + var(--edge) + 0.4rem);
+    justify-items: start;
+  }
+
+  #layer:not(:empty) ~ #toasts .toast,
+  #screen:not(:empty) ~ #toasts .toast {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .choice {
+    padding-block-end: calc(var(--bar-b) + var(--hint-h) + 1.2rem);
+  }
+
+  .choice-note {
+    font-size: 0.84rem;
+    line-height: 1.4;
+    padding: 0.4rem 0.65rem;
+  }
+}

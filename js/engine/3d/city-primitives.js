@@ -1,4 +1,4 @@
-import * as T from '../vendor/three.module.min.js?v=fced202e';
+import * as T from '../vendor/three.module.min.js?v=2104ee78';
 
 export function canvasTexture(doc,w,h,paint) {
   const canvas=doc.createElement('canvas');

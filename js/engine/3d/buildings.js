@@ -1,11 +1,11 @@
-import * as T from '../vendor/three.module.min.js?v=fced202e';
-import {buildings,roadAt,metersPerUnit as unit} from '../world.mjs?v=fced202e';
-import {placeFrontage,placeRoof} from './frontage.js?v=fced202e';
-import {hash} from './city-primitives.js?v=fced202e';
-import {commercialDistrict} from '../neon-districts.mjs?v=fced202e';
-import {addApartmentRoof,oldFacade} from './buildings-old.js?v=fced202e';
-import {isTowerBlock} from '../tower-structures.mjs?v=fced202e'; // A23 towers
-import {podiumFace,shellHeight,towerFacade} from './buildings-tower.js?v=fced202e'; // A23 towers
+import * as T from '../vendor/three.module.min.js?v=2104ee78';
+import {buildings,roadAt,metersPerUnit as unit} from '../world.mjs?v=2104ee78';
+import {placeFrontage,placeRoof} from './frontage.js?v=2104ee78';
+import {hash} from './city-primitives.js?v=2104ee78';
+import {commercialDistrict} from '../neon-districts.mjs?v=2104ee78';
+import {addApartmentRoof,oldFacade} from './buildings-old.js?v=2104ee78';
+import {isTowerBlock} from '../tower-structures.mjs?v=2104ee78'; // A23 towers
+import {podiumFace,shellHeight,towerFacade} from './buildings-tower.js?v=2104ee78'; // A23 towers
 
 // The two mapped Songshan warehouses and the preservation block at Four Four South Village.
 const historicFootprints=new Map([[228920407,'studio'],[228920409,'studio'],[441377762,'village'],[1131522120,'museum']]);

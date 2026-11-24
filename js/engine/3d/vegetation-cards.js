@@ -1,5 +1,5 @@
-import * as T from '../vendor/three.module.min.js?v=fced202e';
-import {canvasTexture,color,matrix,shapes,TextureLoader} from './city-primitives.js?v=fced202e';
+import * as T from '../vendor/three.module.min.js?v=2104ee78';
+import {canvasTexture,color,matrix,shapes,TextureLoader} from './city-primitives.js?v=2104ee78';
 
 const atlasSlots={leaf:0,pod:1,hedge:2,autumn:3};
 const hedgeFaces=[

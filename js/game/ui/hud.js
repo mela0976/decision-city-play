@@ -1,9 +1,9 @@
 // HUD：職稱與立繪、時鐘、四項數值、目前任務與提示、倒數、電台跑馬燈、小地圖外框、選單鈕。
 // 骨架寫在 index.html（小地圖 canvas 要在引擎建立前就存在），這裡只負責填內容。
 
-import { h, formatDelta, reducedMotion } from '../dom.js?v=fced202e';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=fced202e';
-import { icon } from './icons.js?v=fced202e';
+import { h, formatDelta, reducedMotion } from '../dom.js?v=2104ee78';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=2104ee78';
+import { icon } from './icons.js?v=2104ee78';
 
 export function createHud({ root, assets, onMenu, onRadio, onAutoRide }) {
   const $ = (id) => root.querySelector(`#${id}`);
