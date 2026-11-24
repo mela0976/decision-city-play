@@ -1,23 +1,23 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=e5a00467'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=e5a00467'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=e5a00467'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=e5a00467'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=e5a00467';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=e5a00467'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=e5a00467';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=e5a00467'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=e5a00467';
-import {neonDistrict} from './neon-districts.mjs?v=e5a00467'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=e5a00467';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=e5a00467';
-import {streetCrowds} from './crowds.mjs?v=e5a00467';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=e5a00467';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=e5a00467';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=e5a00467';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=e5a00467';
-import {planFlight} from './flight-path.mjs?v=e5a00467';
-import { touchControls } from './overlay.js?v=e5a00467';
-import {setLabels,placeLabel} from './labels.mjs?v=e5a00467'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=2717b081'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=2717b081'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=2717b081'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=2717b081'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=2717b081';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=2717b081'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=2717b081';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=2717b081'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=2717b081';
+import {neonDistrict} from './neon-districts.mjs?v=2717b081'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=2717b081';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=2717b081';
+import {streetCrowds} from './crowds.mjs?v=2717b081';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=2717b081';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=2717b081';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=2717b081';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=2717b081';
+import {planFlight} from './flight-path.mjs?v=2717b081';
+import { touchControls } from './overlay.js?v=2717b081';
+import {setLabels,placeLabel} from './labels.mjs?v=2717b081'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -160,7 +160,164 @@ function driveSegment(car,edge) {
   car.previous=car.node;
   car.node=edge.to;
   car.end={x:end.x+lane.x,y:end.y+lane.y};
-  return {x:start.x+lane.x,y:start.y+lane.y};
+  // 車道線起點（laneAim 沿 laneStart→end 這條線跟車道）。一律換新物件、不原地修改：addCar 只淺拷貝種子
+  car.laneStart={x:start.x+lane.x,y:start.y+lane.y};
+  car.dodge=null;
+  return car.laneStart;
+}
+// 平移整條車道線（單行道繞過障礙、單行道並排起步的機車隊伍：沿新的那一條走到路段終點）；換新物件，不影響共用的種子
+function shiftLane(car,dx,dy){
+  car.end={x:car.end.x+dx,y:car.end.y+dy};
+  if(car.laneStart)car.laneStart={x:car.laneStart.x+dx,y:car.laneStart.y+dy};
+}
+// 車道跟隨（2026-11-25）：雙向道瞄準「車道線上前方幾公尺的點」，不再直接瞄準路段終點。
+// 原本只瞄準終點，轉彎出口、迴轉、挪位、閃避造成的側向偏離要整段路（最長上百公尺）才慢慢消掉：
+// 轉彎後沿著道路中線騎、迴轉後在對向車道騎半條街（逆向）。現在偏離後幾公尺內就回到自己的右側車道。
+// car.dodge 是暫時的側移（閃避主角〔player:true，dodgePlayer 每幀更新 until／entry〕、雙向道繞過障礙、機車停等時挪到旁邊，
+// 相對車道線、右側為正），開過 until 之後歸零；離路段終點不到 look 時逐漸收回。
+// 閃避主角時還沒到 entry（主角後方）就直接瞄準側移那一條上的 entry 點，到主角旁邊之前就已經移好，不會斜斜卡在主角後面。
+const aimPoint={x:0,y:0}; // 重複使用（呼叫端當下就讀完）
+function laneAim(car){
+  const s=car.laneStart,e=car.end;
+  if(!s)return e;
+  const dx=e.x-s.x,dy=e.y-s.y,len=Math.hypot(dx,dy);
+  if(len<.5*speedUnits)return e;
+  const ux=dx/len,uy=dy/len,along=(car.x-s.x)*ux+(car.y-s.y)*uy;
+  if(car.dodge&&along>car.dodge.until)car.dodge=null;
+  const look=(car.scooter?2.2:3)*speedUnits+car.speed*.4; // 慢速時看近一點、轉得急一點（路口起步要先閃開對向車頭），快的時候看遠一點、併得順
+  // 單行道沒有對向車，沒有閃避時照舊直接瞄準終點（多車道的單行幹道上，轉彎進來的車會散在幾條車道上，不會全擠在同一條線）
+  if(along+look>=len&&!car.dodge||!car.dodge&&!(car.roadEdge?.forward&&car.roadEdge?.reverse))return e;
+  // 閃避主角時，側移要在 entry 之前就移好：瞄準 entry 前 lead（最多 1.5 公尺）的那一點；離那一點不到 1 公尺之後，
+  // 到 entry 為止都瞄準側移那一條上前方 1 公尺（不往前看 look 那麼遠），開過 entry 才改沿側移那一條往前看。
+  // 原本瞄準 entry 本身、前 1.5 公尺就改成往前看，到主角旁邊時還差 0.1～0.2 公尺沒移到位，間隔比計畫的少；
+  // 第三輪（2026-11-25）：改成瞄準 entry 前 lead 之後，離那一點 1 公尺內仍然切到往前看 look（2.2～5 公尺），
+  // 剩下的側移要再開好幾公尺才移完：主角停住、側移空間剛好 1:2 時（例如原本跟在後面、主角停下才開始繞），
+  // 車頭到主角車尾旁邊時還差 0.2～0.6 公尺，車身離主角只剩 0.03～0.3 公尺
+  const entry=car.dodge?.entry,lead=entry!=null?clamp((entry-along)/3,0,1.5*speedUnits):0;
+  const t=Math.min(entry!=null&&along<entry?along+Math.max(entry-lead-along,speedUnits):along+look,len);
+  const offset=car.dodge?car.dodge.offset*clamp((len-along)/look,0,1):0;
+  aimPoint.x=s.x+ux*t-uy*offset;aimPoint.y=s.y+uy*t+ux*offset;
+  return aimPoint;
+}
+// 閃避主角（2026-11-25「路上騎士要自動閃避主角」）：主角（走路、騎機車、開車）擋在自己車道前方時，
+// 先平順減速，再在自己這半邊道路內從主角旁邊繞過（左右取偏移較小、放得下的一邊，車身與主角至少留 0.45／0.6 公尺），
+// 繞過後 laneAim 帶回原車道。兩邊都放不下就減速跟在主角後面（主角停著就停下來等），不借對向車道；主角同向騎得夠快就跟在後面。
+// 原本 NPC 把主角當成停著的障礙：衝到 0.4 公尺前急停，卡 1.5 秒後往左橫移 2.15 公尺、整段路開在對向車道。
+// 第二輪修正（同日）：主角在移動時（同向慢騎、迎面而來），側移的結束點 until 與側移完成點 entry 原本只在規劃當下依主角位置算一次，
+// 主角往前騎就過期：NPC 還在主角旁邊就收回側移、切回主角那一條，下一幀找不到空位就在主角正前方急煞。
+// 現在主角在附近時每幀都依主角「現在的位置與速度」重算：entry 用追上主角時主角會在的位置，until 是車尾領先主角車頭
+// 1.2 公尺（同向前進的主角再多 0.4 秒車距）的位置，確實超過才切回；已經和主角並排時不煞停，留在現在這一條繼續超過。
+// 回傳這一幀的速度上限（units/s，Infinity 表示不限）。只有主角附近的車會做到側向檢查，其餘車一兩個乘法就跳出。
+const playerExtent={foot:[.29,.29],scooter:[1.03,.37],car:[carLength*metersPerUnit,carWidth*metersPerUnit]}; // 半長、半寬（公尺），同 space 裡主角的碰撞方框
+// 主角車身沿 laneDir 方向的半長與橫向半寬（units）
+function playerHalf(player,laneDir){
+  const [halfLong,halfWide]=playerExtent[player.vehicle==='flyingTesla'?'car':player.mode]??playerExtent.foot;
+  const rel=(player.mode==='foot'?0:player.heading)-laneDir; // 走路的碰撞方框不轉向
+  const c=Math.abs(Math.cos(rel)),sn=Math.abs(Math.sin(rel));
+  return [(c*halfLong+sn*halfWide)*speedUnits,(sn*halfLong+c*halfWide)*speedUnits];
+}
+function dodgePlayer(car,player,space,clock){
+  car.yieldPlayer=false;
+  const s=car.laneStart,e=car.end;
+  if(!s||(player.altitude??0)>=1.2)return Infinity;
+  const dx=e.x-s.x,dy=e.y-s.y,len=Math.hypot(dx,dy);
+  if(len<.5*speedUnits)return Infinity;
+  const ux=dx/len,uy=dy/len,r=colliderRadius(car);
+  const px=player.x-s.x,py=player.y-s.y,pAlong=px*ux+py*uy,pLat=-px*uy+py*ux;
+  const along=(car.x-s.x)*ux+(car.y-s.y)*uy,ahead=pAlong-along;
+  // 遠處的主角一兩個乘法就跳出（後方 6.5 公尺：clearPast 最多 r+5.95 公尺，超過時這台車的側移已在上一幀收回）
+  if(ahead>r+6*speedUnits+car.speed*1.6||ahead< -r-6.5*speedUnits)return Infinity;
+  const laneDir=Math.atan2(uy,ux),[pLong,pWide]=playerHalf(player,laneDir);
+  // 主角沿車道方向的速度（同向為正）
+  const pSpeed=(player.speed??0)*Math.cos(player.heading-laneDir);
+  // 超過主角之後，車尾要領先主角車頭 1.2 公尺（主角同向前進時再加 0.4 秒的距離，最多 2.4 公尺）才收回側移、切回車道
+  const clearPast=r+pLong+1.2*speedUnits+.4*clamp(pSpeed,0,6*speedUnits);
+  const until=pAlong+clearPast;
+  // 追上（迎面遇到）主角要多久、那時主角在哪裡：側移要在那之前完成（entry），能用來側移的距離 room 也依此計算
+  const closing=Math.max(car.speed-pSpeed,speedUnits),tMeet=Math.min(Math.max(0,ahead-r-pLong)/closing,4);
+  const meet=pAlong+pSpeed*tMeet,entry=meet-pLong-r-.3*speedUnits;
+  const halfWidth=(car.scooter?.37:car.service==='bus'?1.25:car.service?1.02:.95)*speedUnits;
+  // 橫向間隔：至少 tight（機車 0.45、汽車 0.6 公尺），這時要放慢到繞行速度；留到 comfort 以上照常速度通過，中間線性內插。
+  // 主角走路時 comfort 1.2 公尺、繞行速度 4／3.5 m/s（經過行人會放慢）；主角騎車、開車時留得出 tight 就照常速度，
+  // 要側移到剛好 tight 才繞得過時放慢到 6 m/s
+  const foot=player.mode==='foot'&&player.vehicle!=='flyingTesla',tight=(car.scooter?.45:.6)*speedUnits;
+  const comfort=foot?1.2*speedUnits:tight+.01*speedUnits,body=pWide+halfWidth;
+  // 每幀更新進行中的側移：閃避主角的側移跟著主角現在的位置走（超過主角之後也繼續，直到車尾領先 clearPast）；
+  // 繞過障礙物的側移剛好也讓開了主角時，接近、並排的這段時間把 until 延到超過主角
+  if(car.dodge?.player){car.dodge.until=until;car.dodge.entry=entry;}
+  else if(car.dodge&&ahead>=-r-pLong&&Math.abs(pLat)-body<comfort)car.dodge.until=Math.max(car.dodge.until,until);
+  // 整台車已經在主角前方（車尾在主角車頭前面）：主角在後面，不減速、不讓路，照自己的速度開走。
+  // 第三輪修正（2026-11-25）：原本到車尾領先 clearPast 才放行，而且每台車都這樣，主角停在排隊的車後面 1 公尺內（紅燈時很常見）
+  // 或貼著前車騎，前車會被限在主角的速度：綠燈後主角不動它就不走、主角跟車它就加速不了。
+  // 現在只有正在閃避主角的側移會延長到 clearPast（laneAim 開過 until 才收回側移、切回車道），速度一律不限
+  if(ahead< -r-pLong)return Infinity;
+  // 同向騎得比這台車巡航速度六成還快：不開始超車（要超很久），跟在後面。
+  // 原本這裡直接放行，前車探測只看得到正前方：主角偏一點點（車道線離主角不到 tight）時 NPC 會用巡航速度貼著主角身邊擦過去
+  const overtake=pSpeed<=.6*(car.cruise??0);
+  const passSpeed=Math.max((foot?car.scooter?4:3.5:6)*speedUnits,pSpeed+2.5*speedUnits);
+  const approach=ahead-r-pLong-speedUnits+pSpeed*tMeet; // 到主角車尾之前還能減速的距離（主角同向前進時較長）
+  const capFor=offset=>{
+    const clear=Math.abs(pLat-offset)-body;
+    if(clear>=comfort)return Infinity;
+    const speed=passSpeed+((car.cruise??passSpeed)-passSpeed)*clamp((clear-tight)/(comfort-tight),0,1);
+    return Math.sqrt(speed**2+2*2.5*speedUnits*Math.max(0,approach));
+  };
+  // 已經在側移中：主角沒有明顯擋進來（少於 tight 0.1 公尺以上）就不重找，避免在邊界上一下側移一下取消
+  const planned=car.dodge?.offset??0,clear=Math.abs(pLat-planned)-body+(car.dodge?.1*speedUnits:0);
+  if(clear>=comfort)return Infinity;
+  // 現在的側向位置（相對車道線）；車頭已經到主角車尾旁邊、車尾還沒超過主角車頭（beside）就是並排中
+  const lateral=-(car.x-s.x)*uy+(car.y-s.y)*ux,beside=Math.abs(ahead)<=r+pLong;
+  // 來不及在追上主角之前移好（斜度超過約 1:2）就不繞。主角同向前進時，追上之前車子自己走的距離比眼前的間距長
+  const room=ahead-r-pLong-.5*speedUnits+pSpeed*tMeet;
+  // 整段超車：從車頭到主角車尾旁邊（first），到車尾領先主角車頭 clearPast（last，這段時間主角也在前進）
+  const first=Math.max(meet-pLong-r,along);
+  const tPass=Math.min((clearPast+Math.min(r+pLong,ahead))/closing,6),last=meet+pSpeed*tPass+clearPast;
+  if((overtake||beside)&&last<len-speedUnits&&!(car.dodgeRetry>clock)){
+    const A=roadNodes[car.previous],B=roadNodes[car.node],bx=B.x-A.x,by=B.y-A.y,bl=Math.hypot(bx,by);
+    const twoWay=car.roadEdge?.forward&&car.roadEdge?.reverse;
+    const steps=clamp(Math.ceil((last-first)/(2*r)),2,6);
+    const legal=offset=>{
+      const shift=Math.abs(offset-lateral);
+      if(Math.abs(offset)>3.4*speedUnits||shift>.05*speedUnits&&room<2*shift)return false;
+      // 側移途中（現在位置到 entry 的中點），以及整段超車路線上每隔約一個車身，都要放得下車身
+      for(let k=-1;k<=steps;k++){
+        const t=k<0?(along+entry)/2:first+(last-first)*k/steps,side=k<0?(lateral+offset)/2:offset;
+        if(k<0&&(beside||shift<=.05*speedUnits))continue;
+        const qx=s.x+ux*t-uy*side,qy=s.y+uy*t+ux*side;
+        // 雙向道：繞過主角的那一段車身要整個在中線右側（不借對向車道）
+        if(twoWay&&k>=0&&bl>0&&(-(qx-A.x)*by+(qy-A.y)*bx)/bl<halfWidth+.1*speedUnits)return false;
+        if(!roadAt(qx,qy,halfWidth)||curbContact(qx,qy,r,halfWidth,laneDir)||worldContact(qx,qy,r,halfWidth,laneDir))return false;
+        // 同向行駛中的車會自己開走，不算擋住；停著的車、人、對向來車都算
+        const hit=space.hit(qx,qy,r,carProbe(car,laneDir));
+        if(hit&&!(hit.kind==='vehicle'&&hit.body.speed>2*speedUnits&&Math.cos(hit.body.heading-laneDir)>.7))return false;
+      }
+      return true;
+    };
+    const near=(a,b)=>Math.abs(a)-Math.abs(b);
+    // 先找留得出 1.2 公尺的位置（照常速度通過），再找最少間隔的位置（放慢通過）；已經在計畫中的側移不重找。
+    // 車子現在的位置就繞得過（例如剛繞過別的障礙物、還沒回到車道）就先留在原地這一條，不要往主角那邊切回車道；
+    // 已經並排時只能留在現在這一條（不能再往主角那邊切）
+    const stay=Math.abs(pLat-lateral)-body>=tight?[lateral]:[];
+    const snug=tight+.05*speedUnits; // 最少間隔的位置多留 5 公分，不要剛好卡在邊界上
+    const choices=beside?stay:[...stay,...[[pLat+body+comfort,pLat-body-comfort].sort(near),[pLat+body+snug,pLat-body-snug].sort(near)].flat()];
+    if(clear<tight||!car.dodge){
+      for(const offset of clear<tight?choices:choices.slice(0,stay.length+2)){
+        if(legal(offset)){car.dodge={offset,until,entry,player:true};return capFor(offset);}
+      }
+      // 放不下的車每 0.25 秒才重新找一次空位（排在主角後面的車不用每幀都做側向檢查）
+      car.dodgeRetry=clock+.25;
+    }
+  }
+  if(clear>=tight)return capFor(planned); // 不必側移（或已經在側移中）也繞得過：依間隔放慢
+  // 已經和主角並排：煞停只會停在主角旁邊或正前方（主角同向前進時就是切到主角前面急煞）。
+  // 現在這一條和主角之間還有空隙就留在這一條，用繞行速度繼續超過去
+  if(beside&&Math.abs(pLat-lateral)-body>0){car.dodge={offset:lateral,until,entry,player:true};return passSpeed;}
+  // 放不下：跟在主角後面（主角停著就停下來等；advanceCar 的前方探測會在主角前 0.4 公尺停住），這裡讓減速早一點、平順一點，
+  // 主角同向前進時跟著主角的速度，保持 0.8 公尺加 0.5 秒的距離。
+  // 停住 1.5 秒後 advanceCar 的繞行會以主角為障礙物，算剛好繞得過的側移量再試一次（雙向道可短暫越過中線，繞過就回來）
+  car.dodge=null;car.yieldPlayer=true;
+  const follow=Math.max(0,pSpeed);
+  return Math.sqrt(follow**2+2*3*speedUnits*Math.max(0,ahead-r-pLong-.8*speedUnits-.5*follow));
 }
 function buildTraffic() {
   const roadEdges=roads.filter(r=>r[4]>35 && r[5].d>75 && r[5].way.kind!=='pedestrian'&&r[5].way.kind!=='service'&&r[5].way.layer===0);
@@ -318,7 +475,7 @@ function packScooter(pack,j,turnPocket=false,openCarriageway=false){
     const extra=car.queueColumn*((span-.78)*.5-compact)*speedUnits;
     // Keep the waiting row parallel through the junction. driveSegment chooses
     // normal travelling lanes on the next edge.
-    car.end={x:car.end.x-Math.sin(heading)*extra,y:car.end.y+Math.cos(heading)*extra};
+    shiftLane(car,-Math.sin(heading)*extra,Math.cos(heading)*extra);
   }
   const back=(turnPocket?stop+j*2.62:stop+upstream+Math.floor(j/cols)*2.82+col*.16)*speedUnits;
   if(back+1.1*speedUnits>=edge.d)return null;
@@ -371,11 +528,15 @@ function carProbe(car,heading){
 function advanceCar(car,dt,player,clock,space,passage,flow) {
   // 互卡解套：卡住超過 10 秒（不是在等紅燈）的車，接下來 3.5 秒穿過其他 NPC 車輛（不穿過玩家與固定物），
   // 讓「繞行的機車等待轉的機車、待轉的機車等繞行的機車」這種死結自己解開，不要整排車停在路口好幾分鐘。
+  const solid=space; // 判斷能不能繞、能不能超車時要看得到所有車（互卡解套的穿車只用在實際移動）
   if(car.ghostUntil>clock){
-    const real=space;
-    space={hit:(x,y,rr,b)=>{const item=real.hit(x,y,rr,b);return item&&item.kind==='vehicle'&&item.body!==player?null:item;}};
+    // 2026-11-25 修正：原本只看第一個碰到的東西，第一個是車就整個放行，同一個位置後面的玩家、行人、固定物也一起穿過去
+    const real=space,pass=item=>item.kind==='vehicle'&&item.body!==player;
+    space={hit:(x,y,rr,b)=>real.hit(x,y,rr,b,pass)};
   }
-  const {x,y}=car.end,heading=Math.atan2(y-car.y,x-car.x);
+  // 先決定要不要側移繞過主角（會改 car.dodge），再沿車道線（含側移）算這一幀的行進方向；終點距離 gap 仍以 car.end 計
+  const passCap=car.roadKind!=null&&!car.turnStage&&!car.bypass?dodgePlayer(car,player,solid,clock):Infinity;
+  const aim=laneAim(car),{x,y}=car.end,heading=Math.atan2(aim.y-car.y,aim.x-car.x);
   const aheadX=player.x-car.x,aheadY=player.y-car.y;
   const ahead=aheadX*Math.cos(heading)+aheadY*Math.sin(heading);
   const across=aheadX*Math.sin(heading)-aheadY*Math.cos(heading);
@@ -430,7 +591,17 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
         car.speed=distance(car,end)/dt;
         car.x=end.x;car.y=end.y;
         if(distance(end,target)<.02){
-          car.end=car.bypass.end;car.entranceWindows=null;car.bypass=null;car.stuck=0;
+          const {dx,dy,until}=car.bypass,s=car.laneStart;
+          if(until!=null&&s){
+            // 雙向道：暫時側移，開過障礙物（until）就回到右側車道（側移量 0 表示已經回到自己車道）
+            const len=distance(s,car.end),ux=(car.end.x-s.x)/len,uy=(car.end.y-s.y)/len;
+            const offset=-(car.x-s.x)*uy+(car.y-s.y)*ux;
+            car.dodge=Math.abs(offset)>.1*speedUnits?{offset,until}:null;
+          }else{
+            // 單行道：整條車道線平移到繞行的那一條，沿它開到路段終點（下一段路回到一般車道）
+            shiftLane(car,dx,dy);car.dodge=null;
+          }
+          car.entranceWindows=null;car.bypass=null;car.stuck=0;
         }
         return;
       }
@@ -446,6 +617,7 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
   car.redWait=false;
   car.exitBlocked=false;
   car.hold=null; // A25 why the car is holding (diagnostics)
+  car.leadBody=null; // 擋住這台車的前車／人（繞行時用它的位置決定要繞多遠）
   let room=Infinity,creep=false,spill=false;
   if(!car.committed&&(controlled||intersection)){
     const remaining=gap-line;
@@ -538,6 +710,9 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
       if(lead.kind==='vehicle'&&Math.abs(angleDiff(heading,lead.body.heading))<.32){
         leadSpeed=lead.body.speed;
         car.redWait||=lead.body.redWait;
+      }else if(lead.kind==='player'&&Math.abs(angleDiff(heading,lead.body.heading))<.32){
+        // 主角騎車／開車在前面同向前進：跟著主角的速度，不要當成停著的障礙一下急停一下起步
+        leadSpeed=lead.body.speed??0;
       }
       // Match the moving leader instead of braking as though it were stationary.
       const spacing=low-(.65*speedUnits+car.speed*.18);
@@ -545,23 +720,36 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
       leadSpeed=Math.min(leadSpeed,safeSpeed);
       room=Math.min(room,Math.max(0,low-.42*speedUnits));
       if(holdingEntrance)leadSpeed=0;
-      if(room<.5*speedUnits)car.hold='lead:'+lead.kind+(lead.body?.id!=null?':'+lead.body.id:'');
-      // 機車被停著的前車擋住：往右邊（路緣側）有空就慢慢挪約 1.1 公尺（跟真實機車一樣鑽到旁邊排），停紅燈時並排成好幾排。
+      if(room<.5*speedUnits){car.hold='lead:'+lead.kind+(lead.body?.id!=null?':'+lead.body.id:'');car.leadBody=lead.body;}
+      // 機車被停著的前車擋住：往旁邊有空就慢慢挪約 1.1 公尺（跟真實機車一樣鑽到旁邊排），停紅燈時並排成好幾排。
       // 只在停下來時挪，轉彎路徑不變；路緣與車輛用同一個碰撞檢查，不會挪上人行道。
+      // 雙向道只往右（路緣側）挪，不往中線、對向車道挪。單行道沒有對向車，維持原本往左挪（實測往右挪會讓幹道車速掉到 A15 下限以下）。
       if(car.scooter&&dt>0&&lead.kind==='vehicle'&&room<.5*speedUnits&&(lead.body.speed??0)<.3*speedUnits){
         // 挪位一律用嚴格的路緣檢查，並多留 0.6 公尺（路口附近一般行駛會放寬路緣，挪位不放寬）
-        const sideHit=(x,y)=>curbContact(x,y,r+.6*speedUnits,halfWidth+.6*speedUnits,car.heading,true)||worldContact(x,y,r,halfWidth,car.heading)||space.hit(x,y,r,car);
+        // 車身也要整個留在路面上（沒有人行道路緣的巷子，靠路緣側挪會挪出路面）
+        const sideHit=(x,y)=>!roadAt(x,y,halfWidth)||curbContact(x,y,r+.6*speedUnits,halfWidth+.6*speedUnits,car.heading,true)||worldContact(x,y,r,halfWidth,car.heading)||space.hit(x,y,r,car);
+        // (nx,ny) 是車頭方向的右側法向量（與 navigation.rightLane 相同）：side 1 往右、-1 往左。
+        // 2026-11-25 修正：原本一律用 -1（註解寫往右，實際是往左），雙向道上會把機車挪到中線、對向車道
         const nx=-Math.sin(car.heading),ny=Math.cos(car.heading),fx=Math.cos(car.heading)*.9*speedUnits,fy=Math.sin(car.heading)*.9*speedUnits;
         if(car.filter==null){
           car.filter=false;
-          for(const side of [-1]){ // 只往右（路緣側）挪，不擋到旁邊汽車的車道
+          for(const side of [car.roadEdge?.forward&&car.roadEdge?.reverse?1:-1]){
             const tx=car.x+nx*side*1.1*speedUnits,ty=car.y+ny*side*1.1*speedUnits;
             if(!sideHit(tx,ty)&&!sideHit(tx+fx,ty+fy)){car.filter={side,left:1.1*speedUnits};break;}
           }
         }
         if(car.filter&&car.filter.left>0){
+          // 起步後：雙向道由 laneAim 帶回車道，單行道照舊朝路段終點斜斜併回
           const d=Math.min(car.filter.left,1.2*speedUnits*dt),tx=car.x+nx*car.filter.side*d,ty=car.y+ny*car.filter.side*d;
           if(!sideHit(tx,ty)){car.x=tx;car.y=ty;car.filter.left-=d;}else car.filter.left=0;
+        }
+        // 雙向道（第二輪 2026-11-25）：挪到旁邊之後就沿挪過去的那一條等、起步，開過前車才由 laneAim 帶回車道。
+        // 原本 laneAim 一直瞄準車道線，停著的機車在原地把車頭轉向車道線（斜 20 度以上），前車探測就不把前車當成同向排隊的車，
+        // 停等紅燈也一直累積「卡住」時間，1.5 秒後從排隊的位置直接開始下一段路（莊敬路上會在路中間迴轉，橫在對向車道 3.7 秒）
+        const s=car.laneStart;
+        if(car.filter&&s&&car.roadEdge?.forward&&car.roadEdge?.reverse){
+          const len=distance(s,car.end),lx=(car.end.x-s.x)/len,ly=(car.end.y-s.y)/len,lb=lead.body;
+          car.dodge={offset:-(car.x-s.x)*ly+(car.y-s.y)*lx,until:(lb.x-s.x)*lx+(lb.y-s.y)*ly+colliderRadius(lb)+r+speedUnits};
         }
       }
     }
@@ -575,7 +763,7 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
     return;
   }
   const flashing=controlled&&(flow.time>=23||flow.time<6)&&gap<30*speedUnits; // A24
-  const target=Math.min(car.cruise,flashing?6*speedUnits:Infinity,creep?2.2*speedUnits:Infinity,cornerSpeed,Math.sqrt(leadSpeed**2+2*braking*room))*
+  const target=Math.min(car.cruise,flashing?6*speedUnits:Infinity,creep?2.2*speedUnits:Infinity,cornerSpeed,passCap,Math.sqrt(leadSpeed**2+2*braking*room))*
     (yielding?clamp((ahead-34)/90,0,1):1);
   const acceleration=(!major?(car.scooter?3.6:2.5):
     car.roadName==='松仁路'?(car.scooter?8.6:7.15):(car.scooter?8:6.6))*speedUnits;
@@ -630,7 +818,12 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
   }):car;
   car.blockedBy=blockedBy;
   const progress=distance(car,moved);
-  if(progress>.02){
+  // 剛起步、只是速度還小的一步照走（第三輪 2026-11-25）：原本一步不到 0.02（約 2 毫米）就當成沒動、速度歸零。
+  // 從停止起步時第一步是 加速度×dt²，每秒 60 幀時只有 0.7～1.8 毫米，速度每幀都被歸零、起步不了，
+  // 要等卡住 3 秒倒車脫困（倒車把速度設成 1.3 m/s）才開走：綠燈、前車開走後，停著的車中位數 1.8 秒、最久 3.8 秒才走
+  // （每秒 20 幀的無頭測試一步有 6 毫米以上，量不到）。被擋住、或被前方距離 room 限住的小步照舊當成沒動
+  const accelerating=!blockedBy&&step>0&&step===car.speed*dt;
+  if(progress>.02||accelerating){
     car.x=moved.x;car.y=moved.y;
     if(progress<step-.02||step===room)car.speed=progress/dt;
     car.stuck=stalled;
@@ -657,7 +850,9 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
     car.speed=0;
     car.stuck=car.redWait?0:stalled;
   }
-  if(holdingEntrance||car.stuck<1.5)return; // A25 try a lateral bypass after 1.5 s
+  // A25 try a lateral bypass after 1.5 s. 雙向道上被建築角、路緣、固定物擋住（等也不會讓開）：0.3 秒就試著從旁邊繞
+  const staticBlock=car.blockedBy&&car.blockedBy.kind!=='corridor'&&(car.blockedBy.kind==='static'||!car.blockedBy.body);
+  if(holdingEntrance||car.stuck<(staticBlock&&car.roadEdge?.forward&&car.roadEdge?.reverse?.3:1.5))return;
   // A25 a kerb corner or a parked body right at the end of the lane: start the next segment
   // from here (the turn begins a little early) instead of waiting for the exact lane end.
   if(next&&!car.turnStage&&gap<4.5*speedUnits&&!(red&&gap>line)){
@@ -669,17 +864,73 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
   }
 
   // Move laterally to a clear strip and keep that strip until the next road edge.
+  // (sideX,sideY) 是行進方向的右側法向量（offset 正值往右）。原本一律先試 -2.15（左側），而且繞過之後整段路（最長上百公尺）
+  // 都留在那一條，雙向道就一路開在對向車道（逆向）。現在單行道照舊（先左後右，沿繞行的那一條開到路段終點）；
+  // 雙向道（2026-11-25）先試回自己車道、再試右側（路緣側），最後左側由小到大試 0.6、1.1、2.15 公尺，改成暫時側移（car.dodge），
+  // 開過擋路的車（或路邊凸出的建築角，約 8 公尺）就由 laneAim 帶回自己的右側車道。
+  // 雙向道繞行前先看整段繞行路線沒有對向來車或其他車、障礙物後面的車道也有空位可以切回來（跟真的超車一樣），
+  // 前面是一整排車就不繞（不會借對向車道超一整排車，也不會卡在中線上）。
   const sideX=-Math.sin(car.approach),sideY=Math.cos(car.approach);
+  if(car.dodge&&car.stuck>=1.5)car.dodge=null; // 側移中又卡住：放棄側移，回自己車道
   if(gap>line+5*speedUnits&&!car.bypass){
-    for(const offset of [-2.15,2.15]){
-      const dx=sideX*offset*speedUnits,dy=sideY*offset*speedUnits;
+    const twoWay=car.roadEdge?.forward&&car.roadEdge?.reverse,s=car.laneStart;
+    const body=car.blockedBy?.body??car.leadBody??(car.yieldPlayer?player:null);
+    // 擋路的是正在排隊的 NPC 車（等紅燈、等路口、跟著它前面的車），或剛停下來不到 4 秒（它自己會繞開或開走）：
+    // 雙向道不借對向車道超車，只試右側。路邊停的車、人、主角、真的卡死的車才從左側繞
+    const queue=body?.roadKind!==undefined&&!body.parked&&(body.redWait||body.hold!=null||clock-(body.anchor?.t??clock)<4);
+    let until=null,ux=0,uy=0,along=0;
+    if(twoWay&&s){
+      const len=distance(s,car.end);
+      ux=(car.end.x-s.x)/len;uy=(car.end.y-s.y)/len;along=(car.x-s.x)*ux+(car.y-s.y)*uy;
+      until=along+r+8*speedUnits;
+      if(body?.x!=null)until=Math.max(until,(body.x-s.x)*ux+(body.y-s.y)*uy+(body.r??colliderRadius(body))+r+1.5*speedUnits);
+      else if(staticBlock){
+        // 擋路的是建築角、路緣等固定物（第二輪 2026-11-25）：沿車道線往前找它在哪裡結束，車身開過去再 1 公尺就切回車道。
+        // 原本一律側移 8 公尺，固定物離路段終點不到 8 公尺時就一路保留到路口（莊敬路239巷：建築角在 39 公尺路段的 25.6 公尺處，
+        // 每台車騎在中線上 3～5 秒）
+        const lineHit=(x,y)=>curbContact(x,y,r,halfWidth,car.approach,!inJunction)||worldContact(x,y,r,halfWidth,car.approach);
+        let inside=false;
+        for(let d=.5*speedUnits;d<=12*speedUnits;d+=.5*speedUnits){ // 只在卡住、要繞行的那幾幀檢查
+          if(lineHit(s.x+ux*(along+d),s.y+uy*(along+d)))inside=true;
+          else if(inside){until=along+d+speedUnits;break;}
+        }
+      }
+      // 切回來的位置（自己車道上、障礙物後面）要是空的；障礙物就在路段尾端時，側移一路保留到路口（laneAim 接近終點會收回）
+      const mx=s.x+ux*(until+r),my=s.y+uy*(until+r);
+      if(until+r>=len-speedUnits)until=len;
+      else if(staticHit(mx,my)||solid.hit(mx,my,r,carProbe(car,car.approach)))until=false;
+    }
+    // 雙向道的側移量以自己的車道線為準（轉彎出口、閃避中還沒回到車道時，先試直接回車道 0），單行道以目前位置為準
+    const lane=until!=null?-(car.x-s.x)*uy+(car.y-s.y)*ux:0;
+    // 擋路的是主角：先試依主角車身算出、剛好繞得過的左右側移量（公尺，相對車道線）
+    let exact=[];
+    if(body===player&&until){
+      const [,pWide]=playerHalf(player,car.approach),pLat=-(player.x-s.x)*uy+(player.y-s.y)*ux;
+      const need=pWide+halfWidth+(car.scooter?.45:.6)*speedUnits;
+      exact=[pLat+need,pLat-need].sort((a,b)=>Math.abs(a)-Math.abs(b)).map(v=>v/speedUnits);
+    }
+    const offsets=until==null?[-2.15,2.15]:[...(Math.abs(lane)>.3*speedUnits?[0]:[]),...exact,2.15,...(queue?[]:[-.6,-1.1,-2.15])];
+    // 前方 4 公尺的檢查用這段路的方向擺車身（停住的車 car.heading 還是上一段路的方向，轉彎後卡住時會斜斜地掃到旁邊的人車）
+    const leaving=item=>item.kind==='vehicle'&&item.body.speed>2*speedUnits&&Math.cos(item.body.heading-car.approach)>.7;
+    const aheadHit=(x,y)=>!embedded&&(curbContact(x,y,r,halfWidth,car.approach,!inJunction)||worldContact(x,y,r,halfWidth,car.approach))||
+      space.hit(x,y,r,carProbe(car,car.approach));
+    if(until!==false)for(const offset of offsets){
+      const dx=sideX*(offset*speedUnits-lane),dy=sideY*(offset*speedUnits-lane);
+      if(Math.hypot(dx,dy)<.1*speedUnits)continue; // 已經在這個位置（例如剛好就是避開主角的位置）：不是繞行
       const target={x:car.x+dx,y:car.y+dy};
       const ahead={x:target.x+Math.cos(car.approach)*4*speedUnits,y:target.y+Math.sin(car.approach)*4*speedUnits};
       if(car.scooter&&obstructsEntrance(target.x,target.y,scooterReach))continue;
-      if(!roadAt(target.x,target.y,-halfWidth)||!roadAt(ahead.x,ahead.y,-halfWidth)||contact(ahead.x,ahead.y))continue;
+      if(!roadAt(target.x,target.y,-halfWidth)||!roadAt(ahead.x,ahead.y,-halfWidth)||aheadHit(ahead.x,ahead.y))continue;
+      if(until!=null){
+        // 整段繞行路線（側移後的那一條，到 until 再往前 15 公尺，留給對向來車的距離）不能有車、人。
+        // 前面同向開走的車（2 m/s 以上）不算（第二輪：巷子裡同一隊的機車先繞過建築角開走了，後面的汽車就找不到小的側移量，
+        // 只能整台橫移 2.15 公尺騎在中線上）
+        const reach=until-along+15*speedUnits;
+        if(solid.hit(target.x+ux*reach/2,target.y+uy*reach/2,reach/2+r,carProbe(car,car.approach),leaving))continue;
+      }
       const shift=sweep(car.x,car.y,target.x,target.y,(x,y)=>contact(x,y));
       if(distance(shift,target)>.02)continue;
-      car.bypass={target,end:{x:car.end.x+dx,y:car.end.y+dy}};
+      car.bypass={target,dx,dy,until};
       return;
     }
   }
@@ -690,6 +941,9 @@ function advanceCar(car,dt,player,clock,space,passage,flow) {
   const backY=car.y-Math.sin(car.heading)*dt*1.3*speedUnits;
   if(car.scooter&&obstructsEntrance(backX,backY,scooterReach))return;
   if(!roadAt(backX,backY,-halfWidth)||contact(backX,backY)||car.reversed>=2.2*speedUnits)return;
+  // 倒車不能更靠近擋住自己的車：路口兩車互卡時，倒車只會讓車頭朝外的那台退開（轉彎後車身還朝原方向的車倒退，會退進對向車的路線）
+  const blocker=car.leadBody??car.blockedBy?.body;
+  if(blocker?.x!=null&&distance({x:backX,y:backY},blocker)<distance(car,blocker))return;
   car.reversed=(car.reversed??0)+Math.hypot(backX-car.x,backY-car.y);
   car.x=backX;car.y=backY;
   car.speed=1.3*speedUnits;
@@ -703,9 +957,9 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
   const pool=buildTraffic();
   let packClock=0,primedPacks=false;
   const space=occupancy(),staticSpace=occupancy(),doorSpace=occupancy(),obstacleSpace=occupancy();
-  const trafficSpace={hit(x,y,r,body){return space.hit(x,y,r,body)??staticSpace.hit(x,y,r,body)??doorSpace.hit(x,y,r,body);}};
+  const trafficSpace={hit(x,y,r,body,pass){return space.hit(x,y,r,body,pass)??staticSpace.hit(x,y,r,body,pass)??doorSpace.hit(x,y,r,body,pass);}};
   let hasTrafficObstacles=false;
-  const npcTrafficSpace={hit(x,y,r,body){return trafficSpace.hit(x,y,r,body)??(hasTrafficObstacles?obstacleSpace.hit(x,y,r,body):null);}};
+  const npcTrafficSpace={hit(x,y,r,body,pass){return trafficSpace.hit(x,y,r,body,pass)??(hasTrafficObstacles?obstacleSpace.hit(x,y,r,body,pass):null);}};
   const fixtures=fixtureColliders();
   const eveningFixtures=fixtures.concat(marketColliders); // A23 night: physics and the camera read the same bodies.
   const doorLeaves=[-1,1].map(side=>({side,r:officeDoor.halfLeaf/metersPerUnit,

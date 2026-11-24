@@ -1,7 +1,7 @@
 // 書中章節的引用：章節名加上一行小字署名（作者或團隊、頁碼）。任務卡、章節卡、支線清單、提案附錄共用。
 
-import { h } from '../dom.js?v=e5a00467';
-import { chapterQuote } from '../strings.js?v=e5a00467';
+import { h } from '../dom.js?v=2717b081';
+import { chapterQuote } from '../strings.js?v=2717b081';
 
 export const chapterCite = (tag, className, ref) =>
   h(tag, { class: className }, chapterQuote(ref.title), ref.by ? h('small', { class: 'chapter-by', text: ref.by, title: ref.roles || null }) : null);

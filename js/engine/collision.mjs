@@ -1,4 +1,4 @@
-import {metersPerUnit as unit} from './world.mjs?v=e5a00467';
+import {metersPerUnit as unit} from './world.mjs?v=2717b081';
 
 const cell=48;
 export const radius={rider:1.03/unit,foot:.29/unit,scooter:1.02/unit,car:2.45/unit,truck:2.9/unit};
@@ -64,13 +64,14 @@ export function occupancy(){
       const x=item.x,y=item.y,reach=item.reach;
       for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++){const row=cells.get(iy*65536+ix),i=row?row.indexOf(item):-1;if(i>=0)row.splice(i,1);}
     },
-    hit(x,y,r,ignore){
+    // pass(item)：選填，傳回 true 的項目當作不存在（例如互卡解套時只穿過其他車，仍要撞得到玩家、行人與固定物）
+    hit(x,y,r,ignore,pass){
       const bounds=box(x,y,r,ignore,query);
       const skip=ignore?.ignore??ignore,reach=Math.hypot(bounds.a,bounds.b);
       for(let iy=lo(y,reach),y1=hi(y,reach);iy<=y1;iy++)for(let ix=lo(x,reach),x1=hi(x,reach);ix<=x1;ix++){
         const row=cells.get(iy*65536+ix);
         if(!row||!row.length)continue;
-        for(let n=0;n<row.length;n++){const item=row[n];if(item.body!==skip&&overlap(bounds,item,reach))return item;}
+        for(let n=0;n<row.length;n++){const item=row[n];if(item.body!==skip&&overlap(bounds,item,reach)&&!(pass&&pass(item)))return item;}
       }
       return null;
     },
