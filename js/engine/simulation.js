@@ -1,23 +1,23 @@
-import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=c1d6a75d'; // A26
-import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=c1d6a75d'; // A24
-import {towerBlocksHop} from './tower-structures.mjs?v=c1d6a75d'; // A23 towers: test aerial clearance only
-import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=c1d6a75d'; // A27
-import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=c1d6a75d';
-import {createFeaturedTraffic} from './featured-traffic.mjs?v=c1d6a75d'; // A22 featured traffic
-import {createImpact,impactTarget} from './impact.mjs?v=c1d6a75d';
-import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=c1d6a75d'; // A23 night
-import {fixtureColliders} from './fixtures.mjs?v=c1d6a75d';
-import {neonDistrict} from './neon-districts.mjs?v=c1d6a75d'; // A22 shopping-street foot traffic
-import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=c1d6a75d';
-import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=c1d6a75d';
-import {streetCrowds} from './crowds.mjs?v=c1d6a75d';
-import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=c1d6a75d';
-import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=c1d6a75d';
-import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=c1d6a75d';
-import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=c1d6a75d';
-import {planFlight} from './flight-path.mjs?v=c1d6a75d';
-import { touchControls } from './overlay.js?v=c1d6a75d';
-import {setLabels,placeLabel} from './labels.mjs?v=c1d6a75d'; // i18n
+import {carLength,carWidth,carParking,carTerrain,narrowLane,forwardCarSpace} from './drive-car.mjs?v=96676fd2'; // A26
+import {carriagewayAt,curbContact,laneTouchdown,pedestrianEntrance,surfaceAt} from './sidewalks.mjs?v=96676fd2'; // A24
+import {towerBlocksHop} from './tower-structures.mjs?v=96676fd2'; // A23 towers: test aerial clearance only
+import {venues,venuePoint,activeVenue,atVenueMouth} from './venue-entrances.mjs?v=96676fd2'; // A27
+import {nearOfficeDoor,officeDoor,officeLeaf} from './office-entrance.mjs?v=96676fd2';
+import {createFeaturedTraffic} from './featured-traffic.mjs?v=96676fd2'; // A22 featured traffic
+import {createImpact,impactTarget} from './impact.mjs?v=96676fd2';
+import {eveningPlazaWalks,marketColliders,nightMarketOpen} from './night-market.mjs?v=96676fd2'; // A23 night
+import {fixtureColliders} from './fixtures.mjs?v=96676fd2';
+import {neonDistrict} from './neon-districts.mjs?v=96676fd2'; // A22 shopping-street foot traffic
+import {entranceWindows,locationRadius,obstructsEntrance} from './actor-entrances.mjs?v=96676fd2';
+import {districtWalks,pedestrianTarget,walkScheduled} from './actor-streets.mjs?v=96676fd2';
+import {streetCrowds} from './crowds.mjs?v=96676fd2';
+import {occupancy,radius,colliderRadius,sweep} from './collision.mjs?v=96676fd2';
+import {crossings,crossingForNode,signalGroup,signalState,junctionById,gateAhead,waitSeconds} from './street-crossings.mjs?v=96676fd2';
+import { blocked, byId, inBuilding, buildingHeightAt, worldContact, toWorld, locations, metersPerUnit, nearestOnRoad, roadAt, random, scooterSpeed,roadNodes,roadOptions,roads } from './world.mjs?v=96676fd2';
+import {planRide,aroundObstacle,rightLane,rideLength,rideCruiseSpeed,ridePace,timedCruise} from './navigation.js?v=96676fd2';
+import {planFlight} from './flight-path.mjs?v=96676fd2';
+import { touchControls } from './overlay.js?v=96676fd2';
+import {setLabels,placeLabel} from './labels.mjs?v=96676fd2'; // i18n
 
 const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 const angleDiff=(a,b)=>Math.atan2(Math.sin(a-b),Math.cos(a-b));
@@ -941,6 +941,14 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
       walkSelected=true;setMode('foot');state.standingPoint=null;
       if(venue)startEntryWalk(venue);
       else{finalWalk=entrance;finalWalkSince=state.clock;route=[entrance];detour=null;blocker=null;nextReroute=0;}
+      emit('curb:hint',{kind:'parked'});
+      return;
+    }
+    // 沒有建築入口的地點（河濱、公園）：下車走到地點本身
+    if(site&&distance(player,site)>locationRadius*.5){
+      walkSelected=true;setMode('foot');state.standingPoint=null;
+      const spot={x:site.x,y:site.y};
+      finalWalk=spot;finalWalkSince=state.clock;route=[spot];detour=null;blocker=null;nextReroute=0;
       emit('curb:hint',{kind:'parked'});
       return;
     }
@@ -2129,8 +2137,8 @@ export function createSimulation(canvas,draw,minimapCanvas,options={}) {
           }
         }
       }
-      // 漸進加減速：機車約 8 m/s²、汽車約 6 m/s² 加速，煞車約 7 m/s²
-      const accel=(driving?6:8)*speedUnits*dt,brake=7*speedUnits*dt; // 台北機車起步快：機車 8、汽車 6 m/s²（原本 5／4 讓自動前往慢了約四成）
+      // 漸進加減速：機車約 12 m/s²、汽車約 8 m/s² 加速，煞車約 7 m/s²
+      const accel=(driving?8:12)*speedUnits*dt,brake=7*speedUnits*dt; // 台北機車起步快：機車 12、汽車 8 m/s²（原本 5／4 讓自動前往慢了約四成；8／6 時 201/210 準時，12／8 時 208/210）
       paceNow=pace>paceNow?Math.min(pace,paceNow+accel):Math.max(pace,paceNow-brake);
       if(!noAccel)pace=Math.max(paceNow,.8*speedUnits);
       let budget=pace*dt;

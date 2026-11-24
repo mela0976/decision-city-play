@@ -1,23 +1,23 @@
-import {createSignalLayer,signalReflections} from './traffic-signals.js?v=c1d6a75d'; // A24
-import {createNeonStreet} from './neon-street.js?v=c1d6a75d'; // A22 street signs
-import {surfaceMaps} from './pbr.js?v=c1d6a75d';
-import * as T from '../vendor/three.module.min.js?v=c1d6a75d';
-import {canvasTexture,hash,shapes,color,TextureLoader} from './city-primitives.js?v=c1d6a75d';
-import {addGround,addWaterAndParks} from './terrain.js?v=c1d6a75d';
-import {createRoads} from './roads.js?v=c1d6a75d'; // A24 decks are owned by roads
-import {createLandmarks,addEntrances} from './landmarks.js?v=c1d6a75d';
-import {curtainMaterial} from './buildings-tower.js?v=c1d6a75d'; // A23 towers
-import {addBuildings} from './buildings.js?v=c1d6a75d';
-import {addInfill,apartmentWindowMask} from './buildings-old.js?v=c1d6a75d';
-import {createStorefront,addBillboards,addStreetNames,updateSigns} from './storefront.js?v=c1d6a75d';
-import {placeStreetLife} from './furniture.js?v=c1d6a75d';
-import {createNight,updateNight,windowKinds} from './night.js?v=c1d6a75d';
-import {placeGroundVegetation} from './vegetation.js?v=c1d6a75d';
-import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} from './vegetation-cards.js?v=c1d6a75d';
-import {metersPerUnit as unit} from '../world.mjs?v=c1d6a75d';
-import {later,preload} from './idle-work.js?v=c1d6a75d'; // P2 perf
-import {paving,fillets} from '../sidewalks.mjs?v=c1d6a75d';
-import {drawSidewalks} from './sidewalks.js?v=c1d6a75d';
+import {createSignalLayer,signalReflections} from './traffic-signals.js?v=96676fd2'; // A24
+import {createNeonStreet} from './neon-street.js?v=96676fd2'; // A22 street signs
+import {surfaceMaps} from './pbr.js?v=96676fd2';
+import * as T from '../vendor/three.module.min.js?v=96676fd2';
+import {canvasTexture,hash,shapes,color,TextureLoader,mobileTextures} from './city-primitives.js?v=96676fd2';
+import {addGround,addWaterAndParks} from './terrain.js?v=96676fd2';
+import {createRoads} from './roads.js?v=96676fd2'; // A24 decks are owned by roads
+import {createLandmarks,addEntrances} from './landmarks.js?v=96676fd2';
+import {curtainMaterial} from './buildings-tower.js?v=96676fd2'; // A23 towers
+import {addBuildings} from './buildings.js?v=96676fd2';
+import {addInfill,apartmentWindowMask} from './buildings-old.js?v=96676fd2';
+import {createStorefront,addBillboards,addStreetNames,updateSigns} from './storefront.js?v=96676fd2';
+import {placeStreetLife} from './furniture.js?v=96676fd2';
+import {createNight,updateNight,windowKinds} from './night.js?v=96676fd2';
+import {placeGroundVegetation} from './vegetation.js?v=96676fd2';
+import {foliageBatch,landscapeTrunkBatch,populateInstances,vegetationMaterials} from './vegetation-cards.js?v=96676fd2';
+import {metersPerUnit as unit} from '../world.mjs?v=96676fd2';
+import {later,preload} from './idle-work.js?v=96676fd2'; // P2 perf
+import {paving,fillets} from '../sidewalks.mjs?v=96676fd2';
+import {drawSidewalks} from './sidewalks.js?v=96676fd2';
 const chunkSize=100;
 
 // P1 perf: tint strings parse once (same values Color.set produces); pushes without spreading.
@@ -214,7 +214,8 @@ export function createOsmCity(scene,doc,anisotropy,has=()=>true,deferDerived=fal
         mask.wrapS=mask.wrapT=T.RepeatWrapping;
         material.emissiveMap=mask;material.emissive.set('#fff');material.emissiveIntensity=0;
       }
-      try{Object.assign(material,surfaceMaps(doc,texture.image,anisotropy,['new','office','towerB','towerC'].includes(kind)?.42:1.6));}catch{}
+      // 手機（觸控螢幕）不產生法線與粗糙度貼圖：小螢幕看不出差別，省掉開局約 30 秒、每 5 秒約 40 MB 的貼圖運算卡頓
+      if(!mobileTextures)try{Object.assign(material,surfaceMaps(doc,texture.image,anisotropy,['new','office','towerB','towerC'].includes(kind)?.42:1.6));}catch{}
       if(['new','office','towerB','towerC'].includes(kind)){material.metalness=.32;material.roughness=.47;}
       material.color.set(kind==='road'?'#b3a8a0':kind==='paving'?'#d1c7b7':'#fff');
       material.userData.authored=variant;

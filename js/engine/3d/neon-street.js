@@ -1,7 +1,7 @@
 // Projecting blades, enamel fascias and illustrated lightboxes share one printed atlas.
-import * as T from '../vendor/three.module.min.js?v=c1d6a75d';
-import {createSignLayout,mallFaces} from './sign-layout.mjs?v=c1d6a75d';
-import {shapes,TextureLoader} from './city-primitives.js?v=c1d6a75d';
+import * as T from '../vendor/three.module.min.js?v=96676fd2';
+import {createSignLayout,mallFaces} from './sign-layout.mjs?v=96676fd2';
+import {shapes,TextureLoader} from './city-primitives.js?v=96676fd2';
 
 const tradeLights=['#ffa259','#ffe8ca','#91b4ff','#ffd56e','#ff9d87','#dce7ff','#92d8be','#9abaff'];
 const boutiqueLights=['#ff8a85','#7fd9cd','#ffad6c','#b8a5ec','#ff8e9b','#aad493','#edbf77','#82ccd9'];
