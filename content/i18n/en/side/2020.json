@@ -40,7 +40,7 @@
       "id": "c2020_06",
       "title": "Outpacing Rivals in Digital: The New Era of the “Search 4V” Is Here",
       "by": "iProspect Taiwan",
-      "summary": "Behind every search is a real person. Build organic search across four types: voice, image, vertical, and universal.",
+      "summary": "Behind every search is a real person. Build organic search across four types: voice, visual, vertical, and various.",
       "coveredBy": "s2020_05"
     },
     {
@@ -60,7 +60,7 @@
     {
       "id": "c2020_09",
       "title": "AI X Creativity",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "AI can churn out banners in seconds and predict performance; creatives' value shifts to refinement, strategy, and full-funnel creative.",
       "coveredBy": "s2020_04"
     },
@@ -81,7 +81,7 @@
     {
       "id": "c2020_12",
       "title": "Report on Japan's Health Industry",
-      "by": "Dentsu Taiwan, Dentsu Kuohua, Isobar Taiwan",
+      "by": "Dentsu Taiwan, Dentsu One, Isobar Taiwan",
       "summary": "Japan shifted focus from average to healthy life expectancy; companies turn social issues into business via functional foods, channel shifts, and senior services.",
       "coveredBy": "s2020_09"
     },
@@ -89,7 +89,7 @@
       "id": "c2020_13",
       "title": "Taiwan's Health, Seen Through Data",
       "by": "Dentsu Aegis Network",
-      "summary": "Taiwanese value health but don't prioritize spending on it. Knowing beats doing; they prefer low-barrier options and rely on channels where someone explains.",
+      "summary": "Taiwanese value health but don't prioritize spending on it. Knowing is easy, doing is hard; they prefer low-barrier options and rely on channels where someone explains.",
       "coveredBy": "s2020_08"
     },
     {
@@ -258,7 +258,7 @@
                 "liver": 4
               },
               "feedback": "The new creative runs a week at City Hall Station, and people start bringing strollers to test the fit. Within a month, test-drive bookings climb to mid-pack.",
-              "insight": "Drawing on “Automotive Psychology,” the book lays out seven psychological decision factors and scores each car's attributes from 178 hardware specs, scientifically finding the appeals a brand should strengthen.",
+              "insight": "Drawing on “The Psychology of the Car,” the book lays out seven psychological decision factors and scores each car's attributes from 178 hardware specs, scientifically finding the appeals a brand should strengthen.",
               "roleBonus": {
                 "planner": {
                   "sales": 3
@@ -358,7 +358,7 @@
                 "liver": 3
               },
               "feedback": "The meme gets shared thousands of times, and a short line forms the day the rain stops. One comment: places are still cleaning up floods and you're selling chicken?",
-              "insight": "Relevance in A.R.I.S.E. means riding an issue to win mindshare; the book cites Sunflower's lutein ad pitted against bananas. Beyond the book: where riding an issue becomes exploiting it is your call.",
+              "insight": "Relevance in A.R.I.S.E. means riding an issue to win mindshare; the book cites a lutein brand's “Sunflower vs. Banana” ad. Beyond the book: where riding an issue becomes exploiting it is your call.",
               "roleBonus": {
                 "creative": {
                   "brand": 3
@@ -373,7 +373,7 @@
                 "liver": 3
               },
               "feedback": "A small cutlet plus black tea as a rainy-day combo sells out on day one. Ah-Cheng says margins are a bit thinner, but his regulars stuck around.",
-              "insight": "One of the book's three key mindsets is “opportunity survives, but demand changes”; answering new needs with agility and innovation weathers a crisis better than clinging to old ways.",
+              "insight": "One of the book's three key mindsets is “opportunity never dies; what changes is consumer demand”; answering new needs with agility and innovation weathers a crisis better than clinging to old ways.",
               "roleBonus": {
                 "planner": {
                   "trust": 3
@@ -576,7 +576,7 @@
                 "liver": 2
               },
               "feedback": "Week one's top CTR is a “Free 10x Pull” banner, and downloads jump. Week two falls back to baseline; most returning players pull and leave.",
-              "insight": "Dentsu Kuohua's “AI X Creativity” presents ADAM, which makes a banner every five seconds; a prediction engine then estimates CTR and ranks them by brand or direct-response goals.",
+              "insight": "Dentsu One's “AI X Creativity” presents ADAM, which makes a banner every five seconds; a prediction engine then estimates CTR and ranks them by brand or direct-response goals.",
               "roleBonus": {
                 "media": {
                   "sales": 3
@@ -591,7 +591,7 @@
                 "liver": 5
               },
               "feedback": "You and Ah-Che revise till 11:30, keep four of the top ten, and add two headlines he wrote by hand. Results beat average; the client says it finally feels like them.",
-              "insight": "The book quotes a Dentsu Japan leader: people will never be replaced by AI. AI handles mass output, and creatives' time shifts to refinement and strategy.",
+              "insight": "The book quotes Takuya Kodama, cross-company project lead for Dentsu Japan's AI MIRAI venture: people will never be replaced by AI. AI handles mass output, and creatives' time shifts to refinement and strategy.",
               "roleBonus": {
                 "creative": {
                   "brand": 3
@@ -722,7 +722,7 @@
                 "liver": 5
               },
               "feedback": "Auntie Hsiu-chin starts out shy, but clip five, where she fumbles a crepe flip, gets the most views. One comment says it reminds them of the shop on their own corner.",
-              "insight": "Carat's “Media Genesis” says people have shifted from aimless browsing to purposeful on-demand, with social and search as the two gateways; the only way to be searchable and crawlable is content people need.",
+              "insight": "Carat's “Media Genesis” says people have shifted from aimless browsing to purposeful on-demand, with social and search as the two gateways; the only way to be found in search and seen while scrolling is content people need.",
               "roleBonus": {
                 "creative": {
                   "brand": 3
@@ -738,11 +738,11 @@
             "options": [
               "Buy it with budget, borrow it without",
               "Follow trends when there are some, make them when there aren't",
-              "Searchable with a purpose, crawlable without one",
+              "Found by search with a purpose, seen while scrolling without one",
               "Keep members when you have them, win them back when you don't"
             ],
             "answer": 2,
-            "explain": "The book says brands' future media war is a visibility war: searchable when people have a purpose (search visibility), crawlable when they don't.",
+            "explain": "The book says brands' future media war is a visibility war: found by search when people have a purpose (search visibility), seen while scrolling when they don't (social visibility).",
             "source": "Media Genesis: Who Gets on the Ark?"
           }
         }
@@ -1055,7 +1055,7 @@
                 "liver": 5
               },
               "feedback": "You run small sessions at thirty pharmacies and come home hoarse nightly. Two months on, Pharmacist Cheng says she now recommends it; she can explain how it's different.",
-              "insight": "Nielsen's analysis finds that at pharmacies, the key to purchase isn't visibility but the pharmacist's recommendation; at personal-care stores, shoppers care most about finding the product easily.",
+              "insight": "Nielsen's survey of OTC drug buyers finds that at pharmacies, the key to purchase isn't visibility but the pharmacist's recommendation; at personal-care stores, shoppers care most about finding the product easily.",
               "roleBonus": {
                 "cx": {
                   "trust": 3

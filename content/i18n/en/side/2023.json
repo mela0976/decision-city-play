@@ -12,7 +12,7 @@
       "id": "c2023_02",
       "title": "Phenomenal Trends Reshaping Future Supply and Demand",
       "by": "Dentsu Intelligence Center",
-      "summary": "Like steam, power, and the web, AI is won in the mature build-out. Tech cuts four frictions: money, time, effort, focus. Profit needs first-party data, uses, investment.",
+      "summary": "Like steam, power, and the web, AI is won in the mature build-out. Tech cuts four costs: money, time, energy, mental effort. Profit: first-party data, uses, investment.",
       "coveredBy": "s2023_02"
     },
     {
@@ -24,7 +24,7 @@
     },
     {
       "id": "c2023_04",
-      "title": "The Metamorphosis of Dentsu Intelligence: AIQ",
+      "title": "The Metamorphosis of AIQ",
       "by": "Dentsu MC Group, Web3 Growth Partner",
       "summary": "Generative AI is a paradigm shift. Consumers may reach brands through AI assistants rather than directly, so brands need AIQ, their own digital humans, and plugins.",
       "coveredBy": "s2023_03"
@@ -47,7 +47,7 @@
       "id": "c2023_07",
       "title": "Human-Machine Collaboration Defines New Value",
       "by": "Dentsu Intelligence Center Think Tank",
-      "summary": "Gucci's AI mural in Chengdu, Coca-Cola's “Masterpiece,” Horizon turning gout patients' words to images, Vivo's “Journey of Autism”: human ideas, aided by AI, move people.",
+      "summary": "Gucci's Chengdu AI mural, Coca-Cola's “Masterpiece,” Horizon turning gout patients' words to images, Vivo's “The Autism Journey”: human ideas, aided by AI, move people.",
       "coveredBy": "s2023_06"
     },
     {
@@ -451,7 +451,7 @@
         {
           "type": "quiz",
           "inline": {
-            "q": "Citing “Harvard Business Review” (Chinese edition), why does “The Metamorphosis of Dentsu Intelligence: AIQ” urge firms to set up “digital humans”?",
+            "q": "Citing “Harvard Business Review” (Chinese edition), why does “The Metamorphosis of AIQ” urge firms to set up “digital humans”?",
             "options": [
               "Digital humans don't need salaries",
               "People respond more to things that look human",
@@ -460,7 +460,7 @@
             ],
             "answer": 1,
             "explain": "The book says digital humans need more than conversation—they need a human look, because people respond more to humanlike things, which reach people's hearts more easily.",
-            "source": "The Metamorphosis of Dentsu Intelligence: AIQ"
+            "source": "The Metamorphosis of AIQ"
           }
         }
       ],
@@ -569,7 +569,7 @@
         {
           "type": "quiz",
           "inline": {
-            "q": "“Reading the Future, Responding to Opportunity” says generative AI makes content easy to produce. What order of effect is this?",
+            "q": "“Reading the Future, Responding to Opportunity” says that after generative AI arrived, fast production of social posts and images became the most obvious effect in business. What order of effect is it?",
             "options": [
               "Second-order effect",
               "First-order effect",
@@ -761,7 +761,7 @@
                 "liver": 3
               },
               "feedback": "The animation is polished and the medical terms are correct. Ama watches and says, “That's somebody else's knee.” Completion rate: under 20%.",
-              "insight": "Beyond the book: its cases all start from real people. AI can make visuals fast and beautiful, but without patients' own words, it's just a textbook.",
+              "insight": "Beyond the book: its gout and autism cases start from real people. AI can make visuals fast and beautiful, but without patients' own words, it's just a textbook.",
               "roleBonus": {
                 "media": {
                   "brand": 2
@@ -793,7 +793,7 @@
                 "liver": 6
               },
               "feedback": "The app takes a month, with text at max size. Ama's first card reads, “My knee is raining today.” Your mom calls, and they talk for forty minutes.",
-              "insight": "The book cites Vivo's “Journey of Autism”: people on the autism spectrum type simple words to generate personal cards that voice their thoughts—AI speaking for those who struggle to express themselves.",
+              "insight": "The book cites Vivo's “The Autism Journey”: people on the autism spectrum type simple words to generate personal cards that voice their thoughts—AI speaking for those who struggle to express themselves.",
               "roleBonus": {
                 "planner": {
                   "trust": 3
@@ -813,7 +813,7 @@
               "Bronze Lion"
             ],
             "answer": 0,
-            "explain": "The book says this work, “The Outside Trial: Wasp,” won a Silver Lion at Cannes Lions 2023.",
+            "explain": "The book says this work, “The Outside In Experiment: Wasps,” won a Silver Lion at Cannes Lions 2023.",
             "source": "Human-Machine Collaboration Defines New Value"
           }
         }

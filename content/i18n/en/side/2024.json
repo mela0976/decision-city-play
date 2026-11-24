@@ -88,7 +88,7 @@
     {
       "id": "c2024_13",
       "title": "Beyond the Brand: Why Companies Also Need IP",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "Look-alike products and shorter cycles leave brands with only transactions. IP uses characters, stories and values to build emotional bonds that don't depend on products.",
       "coveredBy": "s2024_06"
     },
@@ -144,8 +144,8 @@
     {
       "id": "c2024_21",
       "title": "Next-Level Imaging Power That Multiplies Creative Possibilities",
-      "by": "Dentsu Kuohua",
-      "summary": "AI Visual Studio links creativity, AI and production: what you imagine is what you get. Cases: Honda CR-V's veteran-driver referrals and AI ambassador Ou Hsueh-li.",
+      "by": "Dentsu One",
+      "summary": "AI Visual Studio links creativity, AI and production: what you imagine is what you get. Cases: Honda CR-V's veteran-driver referrals and AI ambassador O Sherry.",
       "coveredBy": "s2024_09"
     },
     {
@@ -158,7 +158,7 @@
     {
       "id": "c2024_23",
       "title": "Virtual Era, Real Experience: Pioneering the “AI Virtual Studio”",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "Design real-time virtual humans from the brand's personality to win over young fans and avoid the risks and limits of human endorsers.",
       "coveredBy": "s2024_09"
     },
@@ -357,7 +357,7 @@
               "Twelve weeks"
             ],
             "answer": 0,
-            "explain": "The book uses this to show how short attention has become: 20 years ago a song stayed on the Hot 100 for 20 weeks; now it's just two.",
+            "explain": "The book uses this to show how fast the world is changing: 20 years ago a song stayed on the Hot 100 for 20 weeks; now it's just two.",
             "source": "Changing Times, Transforming Creativity"
           }
         }
@@ -556,7 +556,7 @@
                 "liver": 6
               },
               "feedback": "You run five cross-department meetings; e-com and customer service share a table for the first time. Three months later, the hotline greets Ama by name.",
-              "insight": "“Member Data Asset Management” notes traditional functional splits create silos. In a Merkle survey, about 57% of companies said their org can't support data-driven CX. The book proposes three designs: centralized, federated and autonomous.",
+              "insight": "“Member Data Asset Management” notes traditional functional splits create silos. In a Merkle survey, about 57% of companies said their org can't support data-driven CX. The book proposes three designs: centralized control, decentralized collaboration and agile autonomy.",
               "roleBonus": {
                 "ae": {
                   "trust": 3
@@ -808,7 +808,7 @@
                 "liver": 4
               },
               "feedback": "The store's rep takes three days to check, then agrees to a de-identified conversion report. Not every retailer can do that; your shortlist loses two names.",
-              "insight": "“Reaching the Summit of the Retail Media Kingdom” says an RMN's value lies in first-party data and closed-loop measurement. The book also cites IAB: 69% of ad buyers rank buying complexity as their top challenge.",
+              "insight": "“Reaching the Summit of the Retail Media Kingdom” says an RMN's value lies in first-party data and closed-loop measurement. “RMN Is Here” also cites IAB: 69% of ad buyers rank buying complexity as their top challenge.",
               "roleBonus": {
                 "data": {
                   "trust": 3
@@ -1365,7 +1365,7 @@
                 "liver": 2
               },
               "feedback": "Prices drop and online inquiries rise. But customers stall at the last step and often leave mid-chat to see a real car somewhere else.",
-              "insight": "“Tech-Driven Change” cites Dentsu CCS: 30% of Taiwanese bought cars or scooters online in 2023, up 19 points in five years. But the book warns car buying is high-involvement and emotional, and going fully digital isn't always what buyers want.",
+              "insight": "“Tech-Driven Change” cites Dentsu CCS: 30% of recent new-vehicle buyers in Taiwan bought their car or scooter online in 2023, up 19 points in five years. But the book warns car buying is high-involvement and emotional, and going fully digital isn't always what buyers want.",
               "roleBonus": {
                 "media": {
                   "sales": 3

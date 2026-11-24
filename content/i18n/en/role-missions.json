@@ -372,7 +372,7 @@
         "liver": 8
        },
        "feedback": "The video goes live on schedule and brand reach rises, but orders still come up short at month-end. Finance asks you to explain the gap next week, and you're chasing sign-offs from Legal and Retail every evening.",
-       "insight": "Third-party research found that 65% of Adidas sales came from brand activity. Adidas shifted its brand-to-performance budget split from 23:77 to 60:40.",
+       "insight": "Third-party research found that 65% of Adidas sales came from brand activity. Adidas announced it would shift its brand-to-performance budget split from 23:77 to 60:40.",
        "roleBonus": {
         "data": {
          "brand": 4
@@ -1103,7 +1103,7 @@
         "liver": 6
        },
        "feedback": "You go through the announcement line by line with e-commerce and support, and your client contact takes the revised copy to their boss. Recommendations still send shoppers to product pages, but after the pitch you’re back at your desk filling out the sign-off checklist.",
-       "insight": "The yearbook describes three ways to build trust into the agent experience: previewing what the agent intends to do, auditing its actions, and providing a way to escalate.",
+       "insight": "The yearbook's trust patterns for the agent experience include previewing what the agent intends to do, auditing its actions, and providing a way to escalate.",
        "roleBonus": {
         "cx": {
          "trust": 5
@@ -2650,7 +2650,7 @@
         "liver": 8
        },
        "feedback": "More people recognize the new product in the brand survey, but weekend orders drop. The platforms calculate frequency differently, and you spend several evenings with the schedule open, adjusting the next day's delivery.",
-       "insight": "Research cited in the annual report found that 65% of Adidas sales came from brand activity. Adidas shifted its brand-to-performance budget split from 23:77 to 60:40.",
+       "insight": "Research cited in the annual report found that 65% of Adidas sales came from brand activity. Adidas then announced it would shift its brand-to-performance budget split from 23:77 to 60:40.",
        "roleBonus": {
         "data": {
          "brand": 4
@@ -3753,7 +3753,7 @@
         "liver": 3
        },
        "feedback": "The stock product photo goes live that afternoon, and the discounted bundles sell out fast. Chen sends a screenshot of someone posting a rival's bottle and asking if it’s part of the same deal.",
-       "insight": "A survey cited in the yearbook found that 73% use their phones while eating and 71% do so while watching TV.",
+       "insight": "A survey cited in the yearbook found that 73% of mobile users use their phones while eating with family or friends and 71% do so while watching TV.",
        "roleBonus": {
         "media": {
          "sales": 4
@@ -3785,7 +3785,7 @@
         "liver": 8
        },
        "feedback": "You shoot inserts of the hands on your phone and spend two nights cutting the three films together. Someone in the comments recognizes the crumpled bag, but the promotion gets fewer placements and orders are down this week.",
-       "insight": "The yearbook cites third-party research finding that 65% of Adidas sales came from brand campaigns. Adidas later shifted its brand-to-performance budget from 23:77 to 60:40.",
+       "insight": "The yearbook cites third-party research finding that 65% of Adidas sales came from brand campaigns. Adidas later announced it would shift its brand-to-performance budget from 23:77 to 60:40.",
        "roleBonus": {
         "data": {
          "brand": 4
@@ -5674,7 +5674,7 @@
         "liver": 5
        },
        "feedback": "You and Mei go through the sampled tickets one by one, and the brand adds a correction and a support link under the original post. Customers share the status link with other shoppers, but the sale loses its fast-returns hook and repeat orders drop.",
-       "insight": "The yearbook describes three ways to build trust in AI agents: preview what they plan to do, audit what they did, and define when to hand off to a person.",
+       "insight": "The yearbook's trust patterns for AI agents include previewing what they plan to do, auditing what they did, and defining when to hand off to a person.",
        "roleBonus": {
         "planner": {
          "brand": 4
@@ -6689,7 +6689,7 @@
         "liver": 7
        },
        "feedback": "The boss agrees to a trial, but cutting the first night’s stock leaves sales short of target. You work the late shift with support to practice repeat orders. The next week, a shopper gives the last four digits of her order number and support finds her original bottle.",
-       "insight": "The yearbook lists check-ins, journey maps that flag drop-off points, and playbooks for returning customers as ways to see where customers get stuck.",
+       "insight": "The yearbook lists check-ins and journey maps that flag drop-off points as ways to see where customers get stuck, and playbooks for returning customers as a way to ease their decision load.",
        "roleBonus": {
         "data": {
          "trust": 4
@@ -6786,7 +6786,7 @@
         "liver": 6
        },
        "feedback": "You and Ah-Kai run a test account all the way to payment and only remember your dinner when you leave the meeting room. Over the weekend, the rep can see the cart as soon as they take over, and the customer uses her points to buy her second box on the spot.",
-       "insight": "The report's section on agent experience (AX) describes three parts of designing for trust: previewing intent, auditing actions, and giving users a way to escalate.",
+       "insight": "The report's section on agent experience (AX) lists trust patterns that include previewing intent, auditing actions, and giving users a way to escalate.",
        "roleBonus": {
         "cx": {
          "trust": 5

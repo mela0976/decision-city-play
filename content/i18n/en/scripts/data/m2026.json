@@ -86,7 +86,7 @@
             "liver": 5
           },
           "feedback": "You and Mei go through the sampled tickets one by one, and the brand adds a correction and a support link under the original post. Customers share the status link with other shoppers, but the sale loses its fast-returns hook and repeat orders drop.",
-          "insight": "The yearbook describes three ways to build trust in AI agents: preview what they plan to do, audit what they did, and define when to hand off to a person.",
+          "insight": "The yearbook's trust patterns for AI agents include previewing what they plan to do, auditing what they did, and defining when to hand off to a person.",
           "roleBonus": {
             "planner": {
               "brand": 4

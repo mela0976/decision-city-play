@@ -39,7 +39,7 @@
     {
       "id": "c2018_06",
       "title": "2025 Business Inspiration Forecast",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "A Future Mandala maps 2025 Taiwan via population, economy, environment, and tech, yielding six mindsets and markets: speed, precision, crossover, fear, worry, solitude.",
       "coveredBy": "s2018_03"
     },
@@ -74,7 +74,7 @@
     {
       "id": "c2018_11",
       "title": "Precise Consumer Insight from Outside the Frame (Translation)",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "Ask consumers what they want and you'll get a faster horse. Find latent needs, treat everything as media, and start from the experience you want to give.",
       "coveredBy": "s2018_02"
     },
@@ -421,7 +421,7 @@
                 "liver": 5
               },
               "feedback": "The lab's booked until next month. Results: customers light up most at the word “crispy.” But twenty people eating egg crepes in a lab all look a little stiff.",
-              "insight": "The book says neuromarketing bypasses the conscious mind to measure real reactions; SAPPE used an emotion analyzer to create its Happy Meter. But the author notes lab settings are unnatural, so results still need cross-checking.",
+              "insight": "The book says neuromarketing bypasses the conscious mind to measure real reactions; Dentsu in Thailand used emotion analysis to build SAPPE's Happy Meter. But the author notes lab settings are unnatural, so results still need cross-checking.",
               "roleBonus": {
                 "data": {
                   "trust": 3

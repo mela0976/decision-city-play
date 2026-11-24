@@ -61,13 +61,13 @@
       "id": "c2019_09",
       "title": "From Creativity to Innovation: How Seeds of Innovation Drive Change for Clients",
       "by": "Dentsu Taiwan",
-      "summary": "Dentsu Japan's “Seeds of Innovation” puts agencies at the very front of product development, turning communication producers into business-planning partners.",
+      "summary": "Dentsu Japan's “Seed creativity” puts agencies at the very front of product development, turning communication producers into business-planning partners.",
       "coveredBy": "s2019_05"
     },
     {
       "id": "c2019_10",
       "title": "Move Human Nature, Transform Business",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "Big data shows correlation; only small data digs out human nature. Insights from in-depth and home interviews lead to strategies that truly resonate.",
       "coveredBy": "s2019_06"
     },
@@ -117,7 +117,7 @@
       "id": "c2019_17",
       "title": "Three Intelligences for Adapting to a Shifting Marketing Landscape",
       "by": "Carat",
-      "summary": "Shifting times call for three intelligences: analytical, effective, and innovative. Brands and agencies should start from business problems, not just media optimization.",
+      "summary": "Shifting times call for three intelligences: analytical, practical, and creative. Brands and agencies should start from business problems, not just media optimization.",
       "coveredBy": "s2019_09"
     },
     {
@@ -447,7 +447,7 @@
               "A value promise customers can experience"
             ],
             "answer": 3,
-            "explain": "The author's favorite definition: a brand is a value promise customers can experience. A promise creates expectations; keeping it builds trust.",
+            "explain": "The author's favorite definition: a brand is a value promise customers can experience. A promise creates expectations; once it is fulfilled again and again, the brand is established.",
             "source": "Making Brand Management Clear and Contemporary"
           }
         }
@@ -629,7 +629,7 @@
                 "liver": 5
               },
               "feedback": "Every Tuesday and Thursday you sit in their office, teaching the new buyers to read reports. Media billings drop, but they start calling you into new-product meetings.",
-              "insight": "Carat's “The Last ‘Have-To’ for Agency Leaders” lists four stages of client in-housing: hazy, transparent, hybrid, and autonomous. The agency's last way out is becoming a consultant with absolute expertise.",
+              "insight": "Carat's “The Last ‘Have-To’ for Agency Leaders” lists four stages of client in-housing: Misty, Transparent, Hybrid, and Build in-house. The agency's last way out is becoming a consultant with absolute expertise.",
               "roleBonus": {
                 "ae": {
                   "trust": 3
@@ -644,7 +644,7 @@
                 "liver": 3
               },
               "feedback": "The price sheet puts the idea on hold, and you keep the account this year. But he ends the meeting with: we'll take another look next year.",
-              "insight": "The book says platforms run lean service with no commissions and transparent accounts. Agencies' own ad products and pre-bought media can hold out a while, but bring high costs and sales pressure.",
+              "insight": "The book says platforms run lean service with no commissions and transparent accounts. Agencies answered with their own ad products and pre-bought media, but these brought high costs and sales pressure, and the vertical integration faltered.",
               "roleBonus": {
                 "media": {
                   "sales": 3
@@ -659,7 +659,7 @@
                 "liver": 4
               },
               "feedback": "You cut redemption from five steps to two and add a reminder message. Redemptions double in a month. The boss doesn't bring up fees again, at least not this month.",
-              "insight": "Isobar argues for breaking transformation into four dimensions, brand, commerce, innovation, and technology, and hitting the most painful point first. Clarins' Beauty Chat grew coupon conversions 16x.",
+              "insight": "Isobar argues for breaking transformation into four dimensions, brand, commerce, innovation, and technology, and hitting the most painful point first. Clarins' Beauty Chat lifted coupon-claim conversions 16x, while actual in-store redemptions rose 9%.",
               "roleBonus": {
                 "data": {
                   "sales": 3
@@ -776,7 +776,7 @@
                 "liver": 4
               },
               "feedback": "The client's R&D team is guarded at first and only loosens up after two workshops. The next batch says “TEA” in big letters, but this sampling run still has to be pulled.",
-              "insight": "Dentsu Taiwan introduced Dentsu Japan's “Seeds of Innovation”: agencies join at the very front of product development, alongside executives, R&D, and market research, going from communication producers to business-planning partners.",
+              "insight": "Dentsu Taiwan introduced Dentsu Japan's “Seed Creativity”: agencies join at the very front of product development, alongside executives, R&D, and market research, going from communication producers to business-planning partners.",
               "roleBonus": {
                 "planner": {
                   "trust": 3
@@ -788,7 +788,7 @@
         {
           "type": "quiz",
           "inline": {
-            "q": "In “From Creativity to Innovation,” how many new digital services did Dentsu Taiwan and its client co-create in a two-day Seeds of Innovation workshop?",
+            "q": "In “From Creativity to Innovation,” how many new digital services did Dentsu Taiwan and its client co-create in a two-day Seed Creativity workshop?",
             "options": [
               "Nearly 30",
               "Nearly 10",
@@ -863,7 +863,7 @@
                 "liver": 5
               },
               "feedback": "Five dinners, one extra kilo. A customer says this sauce is the only taste of home he has in Taipei. Ms. Lan skips the price cut and pushes a “Send It Home” bundle.",
-              "insight": "Dentsu Kuohua's “Move Human Nature, Transform Business” cites the book “Small Data”: big data shows breadth, small data digs deep. A Honda CR-V case found owners cared about safety, rooted in guilt toward family.",
+              "insight": "Dentsu One's “Move Human Nature, Transform Business” cites the book “Small Data”: big data shows breadth, small data digs deep. A Honda CR-V case found owners cared about safety, rooted in love and guilt toward family.",
               "roleBonus": {
                 "planner": {
                   "brand": 3
@@ -913,7 +913,7 @@
               "Love and guilt toward family"
             ],
             "answer": 3,
-            "explain": "In-depth interviews found the safety concern came from love and guilt toward family, which led to the film “Daughter's Little Love Song.”",
+            "explain": "In-depth interviews found the safety concern came from love and guilt toward family, which led to the film “My Sunshine.”",
             "source": "Move Human Nature, Transform Business"
           }
         }

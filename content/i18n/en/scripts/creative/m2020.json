@@ -65,7 +65,7 @@
             "liver": 3
           },
           "feedback": "The stock product photo goes live that afternoon, and the discounted bundles sell out fast. Chen sends a screenshot of someone posting a rival's bottle and asking if it’s part of the same deal.",
-          "insight": "A survey cited in the yearbook found that 73% use their phones while eating and 71% do so while watching TV.",
+          "insight": "A survey cited in the yearbook found that 73% of mobile users use their phones while eating with family or friends and 71% do so while watching TV.",
           "roleBonus": {
             "media": {
               "sales": 4
@@ -97,7 +97,7 @@
             "liver": 8
           },
           "feedback": "You shoot inserts of the hands on your phone and spend two nights cutting the three films together. Someone in the comments recognizes the crumpled bag, but the promotion gets fewer placements and orders are down this week.",
-          "insight": "The yearbook cites third-party research finding that 65% of Adidas sales came from brand campaigns. Adidas later shifted its brand-to-performance budget from 23:77 to 60:40.",
+          "insight": "The yearbook cites third-party research finding that 65% of Adidas sales came from brand campaigns. Adidas later announced it would shift its brand-to-performance budget from 23:77 to 60:40.",
           "roleBonus": {
             "data": {
               "brand": 4

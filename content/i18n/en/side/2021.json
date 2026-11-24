@@ -52,7 +52,7 @@
     },
     {
       "id": "c2021_08",
-      "title": "Crossing 2030 (Twelve Trends)",
+      "title": "Crossing 2030",
       "by": "Dentsu Intelligence Center Think Tank",
       "summary": "Climate, data governance, kaleidoscope self, superhumans, virtual reality, emotional tech, brand titans, happiness, star ratings, human touch, spontaneity, true faith.",
       "coveredBy": "s2021_05"
@@ -81,7 +81,7 @@
     {
       "id": "c2021_12",
       "title": "Brand Value Comes from an Authenticity Consumers Believe In",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "In a sensationalist media age, brands must tell true stories consumers believe. Examples: Dove and HONDA CR-V's “Daughter's Little Love Song.”",
       "coveredBy": "m2021"
     },
@@ -96,7 +96,7 @@
       "id": "c2021_14",
       "title": "Brand Apocalypse Now: The Era of Customer Experience Innovation",
       "by": "Isobar Taiwan",
-      "summary": "Shopify and Grab grew fast on ecosystems and user insight; over a third of people would rely on one brand for daily needs. Better experience is brand growth.",
+      "summary": "Shopify and Grab grew fast on ecosystems and user insight; over a third of people would consider relying on one brand for daily needs. Better experience is brand growth.",
       "coveredBy": "s2021_09"
     },
     {
@@ -123,8 +123,8 @@
     {
       "id": "c2021_18",
       "title": "The Last Mile into the New Normal",
-      "by": "Dentsu Kuohua",
-      "summary": "Taiwanese are online nearly 8 hours a day, so in-person moments stand out. Offline big data reaches seniors; Dentsu Kuohua's running ad jersey uses beacons and face ID.",
+      "by": "Dentsu One",
+      "summary": "Taiwanese are online nearly 8 hours a day, so in-person moments stand out. Offline big data reaches seniors; Dentsu One's running ad jersey uses beacons and face ID.",
       "coveredBy": "s2021_09"
     },
     {
@@ -157,9 +157,9 @@
     },
     {
       "id": "c2021_23",
-      "title": "Crossing Hearts: How a Story About “Trust” Won Taiwan's First Cannes Lions Grand Prix",
-      "by": "",
-      "summary": "Sinyi Realty's “Trust & Happiness” film deliberately sold nothing, lifted positive post-test results by 70%, and won Taiwan's first Cannes Grand Prix.",
+      "title": "How a Story About “Trust” Won Taiwan's First Cannes Lions Grand Prix",
+      "by": "dentsu mb",
+      "summary": "Sinyi Realty's “Trust and Happiness” film deliberately sold nothing, yet 70% of viewers rated the brand higher in post-tests. It won Taiwan's first Cannes Grand Prix.",
       "coveredBy": "m2021"
     }
   ],
@@ -289,7 +289,7 @@
                 "liver": 4
               },
               "feedback": "New members jump by 4,000 in a week, and so do support calls. In week three, someone on a forum asks, “Is the free sign-up jar the same as the full-price one?”",
-              "insight": "The book says Play-to-win brands grab ground with discounts and lower membership bars, and the firms hit least by the pandemic had one thing in common: they went digital earlier.",
+              "insight": "The book says Play-to-win brands grab ground with discounts and lower membership bars, and the firms hit least by the pandemic had one thing in common: their digital development was already fairly mature.",
               "roleBonus": {
                 "media": {
                   "sales": 3
@@ -543,7 +543,7 @@
                 "liver": 6
               },
               "feedback": "The first stream draws just 80 people; by the third, viewers post photos of their own dishes. You spend three straight Thursday nights typing in the chat.",
-              "insight": "The book says home is now an office, gym, Michelin restaurant, and playground at once; the post-pandemic “boredom of routine” and the itch of wasted time are a brand's way into life at home.",
+              "insight": "The book says home is now an office, gym, Michelin restaurant, and playground at once; the pandemic-era “boredom of routine” and the itch of wasted time are a brand's way into life at home.",
               "roleBonus": {
                 "creative": {
                   "brand": 3
@@ -1240,7 +1240,7 @@
                 "liver": 5
               },
               "feedback": "Ah-Kun stops 15 minutes at the riverside entrance and runs two kilometers with a night-run club. Next day, three nearby stores redeem twice as many samples as elsewhere.",
-              "insight": "The book says Taiwanese spend nearly 8 hours a day online, so physical experiences stand out; Dentsu Kuohua's running ad jersey pairs beacons with face recognition to sense target customers and pick what to play.",
+              "insight": "The book says Taiwanese spend nearly 8 hours a day online, so physical experiences stand out; Dentsu One's running ad jersey pairs beacons with face recognition to sense target customers and pick what to play.",
               "roleBonus": {
                 "data": {
                   "sales": 3
@@ -1256,7 +1256,7 @@
                 "liver": 6
               },
               "feedback": "The app takes three rushed weeks; the first group run draws 120 people. The client says it beats the jersey itself. You say that's because you haven't slept in weeks.",
-              "insight": "The book cites Grab, which went from car rides to delivery and payments, building an ecosystem on user insight; in a survey, over a third of people would handle daily needs through a single brand's services.",
+              "insight": "The book cites Grab, which went from car rides to delivery and payments, building an ecosystem on user insight; in a survey, over a third of people would consider handling all daily needs through a single brand's services.",
               "roleBonus": {
                 "cx": {
                   "brand": 3

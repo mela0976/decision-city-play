@@ -178,7 +178,7 @@
         {
           "name": "Elmo Chen",
           "alt": "陳炯文",
-          "role": "Media Planning Manager, dentsu X"
+          "role": "Media Planning Manager, Business Unit 1, dentsu X"
         }
       ]
     },
@@ -273,12 +273,12 @@
         {
           "name": "Fupei Wang",
           "alt": "王馥蓓",
-          "role": "Chief Sustainability Consultant, dentsu Consulting"
+          "role": "Chief Sustainability Consultant, Dentsu Business Consulting"
         },
         {
           "name": "Edith Chou",
           "alt": "周允玉",
-          "role": "Business Consulting Partner, dentsu Consulting"
+          "role": "Business Consulting Partner, Dentsu Business Consulting"
         }
       ]
     },
@@ -603,7 +603,7 @@
                 "liver": 3
               },
               "feedback": "The clarification is thorough. Some believe it; others comment, “BTS photos can be AI too.” The debate burns for two more days.",
-              "insight": "“The Power of Authenticity” notes Prada's brand ad was called AI, and the brand clarified it was shot on location by a crew of nearly 50. The book says when real and fake blur, anything easy to copy loses value.",
+              "insight": "“The Power of Authenticity” notes Prada's brand ad was called AI, and the brand clarified it was shot for real in a studio by a crew of nearly 50. The book says when real and fake blur, anything easy to copy loses value.",
               "roleBonus": {
                 "ae": {
                   "trust": 3
@@ -1099,7 +1099,7 @@
                 "liver": 5
               },
               "feedback": "At 7 AM, you and your coworkers hang 3,000 sample coupons on the platform. They're gone in under two hours, and social fills with photos of the hand straps.",
-              "insight": "A case from the book: CeraVe hung tens of thousands of trial bottles from hand straps on the Tamsui-Xinyi Line. The author says the most valuable attention is the kind that's designed, and given willingly by consumers.",
+              "insight": "A case from the book: CeraVe hung more than ten thousand trial bottles from hand straps on the Tamsui-Xinyi Line. The author says the most valuable attention is the kind that's designed, and given willingly by consumers.",
               "roleBonus": {
                 "creative": {
                   "brand": 3
@@ -1119,7 +1119,7 @@
               "240K posts"
             ],
             "answer": 2,
-            "explain": "CeraVe hung tens of thousands of 30ml trial bottles from train hand straps on the Tamsui-Xinyi Line, sparking 24,000 social posts in a single day.",
+            "explain": "CeraVe hung more than ten thousand 30ml trial bottles from train hand straps on the Tamsui-Xinyi Line, sparking 24,000 social posts in a single day.",
             "source": "Stop Buying Impressions, Start Buying Attention"
           }
         }
@@ -1200,7 +1200,7 @@
                 "liver": 5
               },
               "feedback": "In week three, Yu catches AI swapping two brands' numbers, and her manager fixes the client deck on the spot. She says what she has over AI is the instinct to doubt.",
-              "insight": "“Judgment” says everyone uses the same models; the edge is who judges better. AI is good at generating, not verifying. The book defines Judge as judgment, built through perception, data, trends, experience, and collaboration.",
+              "insight": "“Judgment” says everyone uses the same models; the edge is who judges better. AI is good at generating, not verifying. The book calls this capability Judgment, built through perception, data, trends, experience, and collaboration.",
               "roleBonus": {
                 "planner": {
                   "trust": 3
@@ -1227,7 +1227,7 @@
         {
           "type": "quiz",
           "inline": {
-            "q": "“Winning AI's Invisible Battlefield” cites a 2026 BCG survey. What share of frontline users got no guidance from management on using the time saved?",
+            "q": "“Winning AI's Invisible Battlefield” cites a 2026 BCG survey. What share of respondents got no guidance from management on using the time saved?",
             "options": [
               "28%",
               "45%",
@@ -1236,7 +1236,7 @@
             ],
             "answer": 2,
             "explain": "BCG 2026 survey: 42% of frontline users say AI saves them at least a day a week, and 66% say they got no guidance at all from management.",
-            "source": "Winning AI's Invisible Battlefield: See the “Cultural Undercurrent”"
+            "source": "Winning AI's Invisible Battlefield: See the “Cultural Undercurrent” to Unlock Real Transformation"
           }
         }
       ],
@@ -1432,7 +1432,7 @@
                 "liver": 6
               },
               "feedback": "You spend two nights building a module library and checklist. The first batch is just 200 sets, but no color is off, and the client's legal team signs off in one pass.",
-              "insight": "The book's SLIP framework: Spec, Line, Inspection, Pattern. It cites research on 200+ B2B AI projects: those with a human in the loop saw 104% higher ROI than fully automated ones.",
+              "insight": "The book's SLIP framework: Spec, Line, Inspection, Pattern. It cites research on 200 B2B AI projects: those with a human in the loop saw 104% higher ROI than fully automated ones.",
               "roleBonus": {
                 "data": {
                   "trust": 3
@@ -1562,7 +1562,7 @@
                 "liver": 4
               },
               "feedback": "You make the nephew a small tracker. Three weeks in, you find AI cites an old blog post most. He tracks down the blogger and invites her back for another meal.",
-              "insight": "The book suggests measuring with AI ecosystem metrics: share of AI citations, citation source mix, and Time-to-Citation. The author predicts that within two years, showing up in AI answers will be table stakes.",
+              "insight": "The book suggests measuring with AI ecosystem metrics: share of AI citations, citation source mix, and Time-to-Citation. The authors predict that within two years, showing up in AI answers will be table stakes.",
               "roleBonus": {
                 "data": {
                   "trust": 3

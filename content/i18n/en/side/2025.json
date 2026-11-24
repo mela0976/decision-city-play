@@ -33,7 +33,7 @@
       "id": "c2025_05",
       "title": "Building and Upending Culture in the AI Era: Brand Marketing's Current Bind and Next Step",
       "by": "Carat",
-      "summary": "Algorithms flatten culture and make it superficial. Brands and media must shift from traffic executors to cultural guides.",
+      "summary": "Algorithms flatten culture and make it superficial. Media agencies must shift from trend watchers to cultural guides, not mere traffic operators.",
       "coveredBy": "s2025_02"
     },
     {
@@ -393,7 +393,7 @@
                 "liver": 3
               },
               "feedback": "One video hits 100K views, and sales jump 20% that week. Then a comment says it looks just like the place on the corner. Ah-Cheng isn't thrilled.",
-              "insight": "“Building and Upending Culture in the AI Era” notes that algorithms flatten culture: styles, headlines, and thumbnails look more alike on every platform. Brands and media must go from traffic executors to cultural guides.",
+              "insight": "“Building and Upending Culture in the AI Era” notes that algorithms flatten culture: styles, headlines, and thumbnails look more alike on every platform. Media agencies must go from trend watchers to cultural guides, not just units that execute traffic.",
               "roleBonus": {
                 "media": {
                   "sales": 3
@@ -435,7 +435,7 @@
         {
           "type": "quiz",
           "inline": {
-            "q": "In “The Evolution of Creativity,” Motorola's “Deep Connection” served more than how many coal miners in India?",
+            "q": "Introducing Motorola's “Deep Connect,” “The Evolution of Creativity” says India has more than how many coal miners working underground every day, cut off from their families?",
             "options": [
               "130K",
               "330K",
@@ -443,7 +443,7 @@
               "830K"
             ],
             "answer": 1,
-            "explain": "Motorola turned walkie-talkie signals into phone voice calls, serving over 330K coal miners who work underground more than 10 hours a day.",
+            "explain": "India has over 330K coal miners who work underground more than 10 hours a day, unable to reach their families. Motorola turned the miners' walkie-talkie signals into phone voice calls so they could tell family they were safe.",
             "source": "Beat an Enemy Stronger Than You: From Division to Convergence, the Evolution of Creativity"
           }
         }
@@ -509,7 +509,7 @@
                 "liver": 2
               },
               "feedback": "Clicks rise the first week, but checkouts don't follow. In week two, notification opt-outs hit a record high.",
-              "insight": "“The Rise of A2A” notes that piling on deals and choices traps customers in FOBO, the fear of missing a better option. The book cites “The Paradox of Choice”: the more options, the harder the decision.",
+              "insight": "“The Rise of A2A” notes that piling on deals and choices traps customers in FOBO, the fear of missing a better option. The book cites “The Paradox of Choice”: the more options, the lower customer satisfaction.",
               "roleBonus": {
                 "ae": {
                   "sales": 3
@@ -641,7 +641,7 @@
                 "liver": 5
               },
               "feedback": "You and Pei sort 3,000 forum comments into five pillars, and “quiet with the kids” performs best. Pei says AI needs the right input first.",
-              "insight": "Crea-Mind's Appeal Axis Discovery method uses semantic analysis to find message pillars. The book's example: consumers say “I catch colds so easily lately” or “Got hit again,” not “boost immunity.”",
+              "insight": "Appeal Axis Discovery, a method Crea-Mind adopts from the Mugen AI framework, uses semantic analysis to find message pillars. The book's example: consumers say “I catch colds so easily lately” or “Oh no, I got hit again,” not “boost immunity.”",
               "roleBonus": {
                 "creative": {
                   "brand": 3

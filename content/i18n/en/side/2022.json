@@ -67,7 +67,7 @@
     {
       "id": "c2022_10",
       "title": "Modern Creativity: The Multiplier Power of the Unimagined",
-      "by": "Dentsu Kuohua",
+      "by": "Dentsu One",
       "summary": "For young people, a gag beats a stance. KFC tapped “love it, fear losing it” to tease “No more egg tarts?”; Yahoo made features buzz with an exorcism launch.",
       "coveredBy": "s2022_08"
     },
@@ -88,7 +88,7 @@
     {
       "id": "c2022_13",
       "title": "Sustainable Transformation: Seize the Trends, Break New Ground",
-      "by": "",
+      "by": "Dentsu MC Group, Corporate Sustainability Partner",
       "summary": "Policy, capital, nonprofits, consumers, and companies drive five sustainability trends, but consumers find it pricey, a hassle, and unclear, so actions lag attitudes.",
       "coveredBy": "m2022"
     },
@@ -101,7 +101,7 @@
     },
     {
       "id": "c2022_15",
-      "title": "The Power of Web 3.0: Expanding How We Imagine the World",
+      "title": "Expanding How We Imagine the World",
       "by": "Dentsu MC Group, Web3 Growth Consultant",
       "summary": "Six NFT cases, including Dayungs' metaverse fruit-ice parlor and kidznft, show Web3's participatory commerce. An NFT can even be a membership card.",
       "coveredBy": "s2022_09"
@@ -252,7 +252,7 @@
                 "liver": 5
               },
               "feedback": "You write four questions on an order pad; Li-hua and her daughter argue till closing. They pick one kit, “Mom's Three-Cup Chicken,” for old regulars' kids who moved out.",
-              "insight": "The book quotes Saint-Exupéry: your task is not to foresee the future, but to enable it. Brands can start from four questions: What do I want? What do my customers want? What can I do for them? What ecosystem can we shape together?",
+              "insight": "The book quotes Saint-Exupéry: “As for the future, your task is not to foresee, but to enable it.” Brands can start from four questions: What do I want? What do my customers want? What can I do for them? What ecosystem can we shape together?",
               "roleBonus": {
                 "planner": {
                   "brand": 3
@@ -457,7 +457,7 @@
                 "liver": 2
               },
               "feedback": "The boss loves it: finally, some ambition. After launch, young users' CTR is the lowest on the site. One comment reads, “Let me afford rent first.”",
-              "insight": "The book says views of work are shifting: even senior workers now doubt a few years of hard work can buy a home. A steady, ordinary life is the dream most people share.",
+              "insight": "The book says views of work are shifting: even senior workers now doubt that “hard work now pays off later,” and buying a home or car after a few years of effort is no longer in young people's plans. A steady, ordinary life is the dream most people share.",
               "roleBonus": {
                 "ae": {
                   "trust": 3
@@ -489,7 +489,7 @@
                 "liver": 4
               },
               "feedback": "Three of twenty unboxings gripe about the app. The client wants them gone; you get them kept, with a reply on the fix timeline. Those replies get the most buzz.",
-              "insight": "CCS data in the book shows young workers who care what others think rose from 59% in 2018 to 63% in 2021. How they look on social media weighs heavily on what they buy.",
+              "insight": "CCS data in the book shows young workers who care what others think rose from 59% in 2018 to 63% in 2021. Having their work noticed and talked about by friends on social media is a real point of pride.",
               "roleBonus": {
                 "cx": {
                   "trust": 3
@@ -627,7 +627,7 @@
               "Creative, data, tech"
             ],
             "answer": 1,
-            "explain": "The book says media, the customer journey, and the overall market are all fragmenting, and that won't go away when the pandemic ends.",
+            "explain": "The book says media, the customer journey, and the overall market are all fragmenting, and that won't go away as the pandemic eases.",
             "source": "New Assets, New Skills, New Traits: Mastering a Fragmented New World"
           }
         }
@@ -1048,7 +1048,7 @@
                 "liver": 2
               },
               "feedback": "The video is clean and nice; views are so-so. Regulars add a bag of balls to their chicken order, and by week two sales are back to about twenty a day.",
-              "insight": "The book says new-product news gets buried within a day. For young people, a gag beats a stance; a brand that always brings a gag is easier to remember.",
+              "insight": "The book says new-product news can get buried the very next second. For young people, a gag beats a stance; a brand that always brings a gag resonates more with them.",
               "roleBonus": {
                 "media": {
                   "trust": 3
@@ -1064,7 +1064,7 @@
                 "liver": 5
               },
               "feedback": "By day two there's a forum thread; Wednesday regulars rush over asking if he's quitting. Day four's reveal draws rows of “You scared me!” Both sell out an hour early.",
-              "insight": "A case from the book: KFC tapped “the more you love it, the more you fear losing it,” sparked buzz with “KFC's dropping egg tarts?”, then launched a berry crumble tart. Reach hit nearly 100x, and the new tart sold well alongside the egg tarts.",
+              "insight": "A case from the book: KFC tapped “the more you love it, the more you fear losing it,” sparked buzz with “KFC's dropping egg tarts?”, then launched a berry crumble tart. Earned media hit nearly 100x, and the new tart sold well alongside the egg tarts.",
               "roleBonus": {
                 "creative": {
                   "brand": 3
@@ -1211,7 +1211,7 @@
         {
           "type": "quiz",
           "inline": {
-            "q": "“The Power of Web 3.0” says companies should build toward the metaverse with what mindset?",
+            "q": "“Expanding How We Imagine the World” says companies should build toward the metaverse with what mindset?",
             "options": [
               "Wait until the market fully matures",
               "Ride the hype, cash in, then quit",
@@ -1220,7 +1220,7 @@
             ],
             "answer": 2,
             "explain": "The book calls Web3 early but promising; investing for the long term is a once-in-20-years shot for Taiwan brands. Yahoo found 46% had browsed NFTs; only 7% bought.",
-            "source": "The Power of Web 3.0: Expanding How We Imagine the World"
+            "source": "Expanding How We Imagine the World"
           }
         }
       ],

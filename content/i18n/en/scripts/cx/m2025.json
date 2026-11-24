@@ -105,7 +105,7 @@
             "liver": 7
           },
           "feedback": "The boss agrees to a trial, but cutting the first night’s stock leaves sales short of target. You work the late shift with support to practice repeat orders. The next week, a shopper gives the last four digits of her order number and support finds her original bottle.",
-          "insight": "The yearbook lists check-ins, journey maps that flag drop-off points, and playbooks for returning customers as ways to see where customers get stuck.",
+          "insight": "The yearbook lists check-ins and journey maps that flag drop-off points as ways to see where customers get stuck, and playbooks for returning customers as a way to ease their decision load.",
           "roleBonus": {
             "data": {
               "trust": 4

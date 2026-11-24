@@ -102,7 +102,7 @@
     ],
     "answer": 3,
     "explain": "The book names the three tracks as media, content, and data, which must work together to follow how consumers move and take creativity straight to business.",
-    "source": "Ch. 2: Media x Content x Data: Three Tracks Built as One Take Creativity Straight to Business"
+    "source": "Ch. 2: Media x Content x Data: Three Tracks Built as One Take Creativity Straight to Business!"
   },
   {
     "id": "q2018_08",
@@ -182,7 +182,7 @@
   {
     "id": "q2019_01",
     "year": 2019,
-    "context": "The book cites a 2018 MIT Sloan Management Review survey: an overwhelming majority of CEOs worldwide see digital transformation as the most important and urgent issue, yet those with a clear plan and enough funding to carry it out are fewer than a third of that group. There's a wide gap between “feeling urgent” and “actually doing it.”",
+    "context": "The book cites a 2018 MIT Sloan Management Review survey: an overwhelming majority of CEOs worldwide see digital transformation as the most important and urgent issue, yet those with a clear plan are fewer than a third of that group, and those putting enough funding behind it are fewer still. There's a wide gap between “feeling urgent” and “actually doing it.”",
     "q": "Based on these clues, which pair of shares (“see it as most urgent” / “have a clear plan”) is most plausible?",
     "options": [
       "50% see it as urgent, 40% have a clear plan",
@@ -191,8 +191,8 @@
       "90% see it as urgent, 25% have a clear plan"
     ],
     "answer": 3,
-    "explain": "The book says 90% of CEOs worldwide see digital transformation as most important and urgent, but only 25% have a clear plan and enough funding, a reminder that transformation can't stop at slogans.",
-    "source": "CEO's Talk: Flying Has Never Been a Choice"
+    "explain": "The book says 90% of CEOs worldwide see digital transformation as most important and urgent, but only 25% have a clear plan and fewer than 15% put enough funding behind it, a reminder that transformation can't stop at slogans.",
+    "source": "CEO's Talk: Flying Has Never Been a Choice, but the Whole of Life"
   },
   {
     "id": "q2019_02",
@@ -242,7 +242,7 @@
   {
     "id": "q2019_05",
     "year": 2019,
-    "context": "German knife brand Zwilling owned several kitchen brands through acquisitions, but they lacked connection, leaving marketing fragmented. Isobar built a creative platform around “endless inspiration for cooking,” using interactive tech and a membership system to unite all its brands. In the same period, the platform gained 50,000+ new users and online transaction value rose 6.9%.",
+    "context": "German knife brand Zwilling owned several kitchen brands through acquisitions, but they lacked connection, leaving marketing fragmented. Isobar built a creative platform around “endless inspiration for cooking and the culinary arts,” using interactive tech and a membership system to unite all its brands. In the same period, the platform gained 50,000+ new users and online transaction value rose 6.9%.",
     "q": "The book presents this case as an example of synergy from integration. Based on these clues, how much did total sales most likely rise within three months?",
     "options": [
       "About 5%",
@@ -257,7 +257,7 @@
   {
     "id": "q2019_06",
     "year": 2019,
-    "context": "Dentsu Kuohua wanted media agencies to know Yahoo Oath's digital solutions better. The team observed: agencies sit through dull sales visits all the time; they have many partners to choose from and often decide on price when services look alike; and the best way to build an emotional bond is through the stickiest item in daily life, the cup people hold from morning to night.",
+    "context": "Dentsu One wanted media agencies to know Yahoo Oath's digital solutions better. The team observed: agencies sit through dull sales visits all the time; they have many partners to choose from and often decide on price when services look alike; and the best way to build an emotional bond is through the stickiest item in daily life, the cup people hold from morning to night.",
     "q": "Based on these insights, which approach best matches the book's solution?",
     "options": [
       "Open coffee pop-ups at several big agencies, using custom coffees to promote each content service",
@@ -272,7 +272,7 @@
   {
     "id": "q2019_07",
     "year": 2019,
-    "context": "Dentsu Kuohua ran in-depth interviews for PS4 and found price was often just a verbal excuse: young people spend freely on things they believe in. What really blocked purchases was social friction. First, partners felt gaming “wastes the whole day and leaves no time for me,” so gamers wanted to buy but didn't dare. Second, peer pressure: friends chatted about new titles in group chats and they couldn't join in.",
+    "context": "Dentsu One ran in-depth interviews for PS4 and found price was often just a verbal excuse: young people spend freely on things they believe in. What really blocked purchases was social friction. First, partners felt gaming “wastes the whole day and leaves no time for me,” so gamers wanted to buy but didn't dare. Second, peer pressure: friends chatted about new titles in group chats and they couldn't join in.",
     "q": "For gamers with partners, what is the most sensible next communication strategy?",
     "options": [
       "Deepen discounts and offer zero-interest installments so gamers have no excuse left",
@@ -317,7 +317,7 @@
   {
     "id": "q2019_10",
     "year": 2019,
-    "context": "The book says Gen Z prefers visuals. Analysis by Google and Ipsos found Gen Z uses videos to gain knowledge and learn skills they'll need later, and treats watching videos together as a way to bond with family and friends and to de-stress. A Dentsu Taiwan survey shows over 60% of 16- to 21-year-olds keep using a brand once they find one they love.",
+    "context": "The book says Gen Z prefers visuals. Analysis by Google and Ipsos found Gen Z uses videos to gain knowledge and learn skills they'll need later, and treats watching videos together as a way to bond with family and friends and to de-stress. A consumer survey by the Dentsu group in Taiwan shows over 60% of 16- to 21-year-olds keep using a brand once they find one they love.",
     "q": "You're building a new brand for Gen Z. What is the most sensible lead platform and approach?",
     "options": [
       "Lead with YouTube: authentic videos viewers learn something from",
@@ -377,22 +377,22 @@
   {
     "id": "q2020_02",
     "year": 2020,
-    "context": "A.R.I.S.E. is Carat's set of five adaptability quotients: agility (sensing market shifts fast), association (linking the brand to hot topics), innovation (breaking the existing business model), share of heart (managing the brand's place in consumers' minds), and experience (getting every point where consumers touch the brand right). During the pandemic, several night markets launched dedicated delivery riders: customers could combine orders from different stalls and order by phone or LINE for home delivery, solving two pain points, “going out” and “queuing to pick up food.”",
+    "context": "A.R.I.S.E. is Carat's set of five adaptability quotients: agility (sensing market shifts fast), relevance (linking the brand to hot topics), innovation (breaking the existing business model), sentiment (managing the brand's place in consumers' minds), and experience (getting every point where consumers touch the brand right). During the pandemic, several night markets launched dedicated delivery riders: customers could combine orders from different stalls and order by phone or LINE for home delivery, solving two pain points, “going out” and “queuing to pick up food.”",
     "q": "Within the book's framework, which adaptability quotient does the night markets' move mainly strengthen?",
     "options": [
       "Agility",
-      "Association",
-      "Share of heart",
-      "Experience"
+      "Relevance",
+      "Sentiment",
+      "Innovation"
     ],
     "answer": 3,
-    "explain": "The book files night-market delivery under experience: brand experience is an overall feeling, not a single touchpoint, and the night markets redesigned the flow from ordering to pickup so people could enjoy their food safely at home.",
+    "explain": "The book files night-market delivery under innovation: a need consumers have that no one has solved yet is the opportunity. Working with delivery platforms meant commissions and listing fees, so the night markets set up their own delivery riders and let customers combine orders from different stalls, going after the single-order delivery business of platforms like foodpanda and Uber Eats.",
     "source": "From Black Swans to Gray Rhinos: The Adaptability Quotient Every Brand Needs"
   },
   {
     "id": "q2020_03",
     "year": 2020,
-    "context": "Drawing on “Car Psychology,” the book groups Taiwan car buyers' psychological decision-making into seven factors: status symbol, passenger comfort, safety, speed, space, parking, and fuel efficiency. Comparing the Mercedes-Benz GLC factor by factor with the models it is most often compared to, the GLC shows a strong edge in space and fuel efficiency, but has lots of room to improve on safety and speed.",
+    "context": "Drawing on “The Psychology of the Car,” the book groups Taiwan car buyers' psychological decision-making into seven factors: status symbol, passenger comfort, safety, speed, space, parking, and fuel efficiency. Comparing the Mercedes-Benz GLC factor by factor with the models it is most often compared to, the GLC shows a strong edge in space and fuel efficiency, but has lots of room to improve on safety and speed.",
     "q": "If you were a Mercedes-Benz marketer, what is the most reasonable next step based on this analysis?",
     "options": [
       "Push space and fuel efficiency harder to widen the lead",
@@ -482,7 +482,7 @@
   {
     "id": "q2020_09",
     "year": 2020,
-    "context": "In the ACM automated ad-creation platform that Dentsu Kuohua brought in, the AI creative ADAM picks layouts, visuals, and copy to assemble banners based on preset conditions, predicts click-through rates to rank them, and hands them to creatives for final polish. The traditional process from internal brief to finished banner takes at least several days; the book says that with ADAM, an agency can take on “hundreds of banners within 30 minutes.”",
+    "context": "In the ACM automated ad-creation platform that Dentsu One brought in, the AI creative ADAM picks layouts, visuals, and copy to assemble banners based on preset conditions, predicts click-through rates to rank them, and hands them to creatives for final polish. The traditional process from internal brief to finished banner takes at least several days; the book says that with ADAM, an agency can take on “hundreds of banners within 30 minutes.”",
     "q": "Based on this clue, what is the most plausible estimate of how long ADAM takes to produce one banner?",
     "options": [
       "About five seconds",
@@ -542,7 +542,7 @@
   {
     "id": "q2021_01",
     "year": 2021,
-    "context": "The book uses Google's consumer mobility data to track Taiwan during the pandemic. After the nationwide Level 3 alert on May 19, 2021, foot traffic vanished from shopping districts and department stores as people went into a self-imposed “quasi-lockdown.” The book reads the drop in public transit as “more than half of users” switching to other transport or no longer riding because their companies moved to working from home, though many essential commuters remained.",
+    "context": "The book uses Google's consumer mobility data to track Taiwan during the pandemic. After the nationwide Level 3 alert on May 19, 2021, foot traffic vanished from shopping districts and department stores as people went into a self-imposed “quasi-lockdown.” The book reads the drop in public transit as “more than half of users” possibly switching to other transport or no longer riding because their companies moved to working from home.",
     "q": "Based on these clues, how far had public transit use fallen one week after the Level 3 alert (5/26)?",
     "options": [
       "About 16%",
@@ -557,7 +557,7 @@
   {
     "id": "q2021_02",
     "year": 2021,
-    "context": "Dentsu's Consumer Communication Survey (CCS) tracks agreement with “I'm willing to save up to buy what I want”: 67.2% in 2018, 66.1% in 2019, and an even sharper drop in 2020. The book also notes that the pandemic made people feel how unpredictable life is and rethink what life means.",
+    "context": "Dentsu's Consumer Connection Study (CCS) tracks agreement with “I'm willing to save up to buy what I want”: 67.2% in 2018, 66.1% in 2019, and an even sharper drop in 2020. The book also notes that the pandemic made people feel how unpredictable life is and rethink what life means.",
     "q": "Given this trend, which reading and response makes the most sense for a brand?",
     "options": [
       "Consumers are less patient for what they want; seize the moment to convert",
@@ -602,7 +602,7 @@
   {
     "id": "q2021_05",
     "year": 2021,
-    "context": "The book argues that a company's social impact is a mid- to long-term commitment, not a short-term tactic. In 2018 Dentsu chose Laomei in Shimen District, New Taipei: its economy had declined and many children were raised by grandparents, but it had tourism potential such as the green algae reef. Aiming to revive the local economy, Dentsu worked through the teachers and students of Laomei Elementary and, starting from stories the children created together, launched the four-year “Take Off, Xiaomei!” project.",
+    "context": "The book argues that a company's social impact is a mid- to long-term commitment, not a short-term tactic. In 2018 Dentsu chose Laomei in Shimen District, New Taipei: its economy had declined and many children were raised by grandparents, but it had tourism potential such as the green algae reef. Aiming to revive the local economy, Dentsu worked through the teachers and students of Laomei Elementary and, starting from stories the children created together, launched the four-year “Take Off, Little Mei!” project.",
     "q": "Given these conditions, what outcome did the project most likely end with?",
     "options": [
       "A digital learning center at the school with online courses",
@@ -642,7 +642,7 @@
     ],
     "answer": 3,
     "explain": "Sinyi's chief strategy officer Chou Chuang-yun said this ad reached 70%, far above the past 20–30% KPI, making it “the most successful ad in our history.”",
-    "source": "Crossing Hearts: How a Story About “Trust” Won the Cannes Grand Prix"
+    "source": "How a Story About “Trust” Won Taiwan's First Cannes Lions Grand Prix"
   },
   {
     "id": "q2021_08",
@@ -767,7 +767,7 @@
   {
     "id": "q2022_04",
     "year": 2022,
-    "context": "With third-party cookies about to disappear, brands find it ever harder to reach consumers precisely. Dentsu Taiwan staged an online “exorcism” launch event for Yahoo, portraying a cookieless world as an age overrun by demons. Four demons stood for four problems tied to data, tracking, and media, which Yahoo's four “Truly Connect” solutions then subdued.",
+    "context": "With third-party cookies about to disappear, brands find it ever harder to reach consumers precisely. Dentsu One staged an online “exorcism” launch event for Yahoo, portraying a cookieless world as an age overrun by demons. Four demons stood for four problems tied to data, tracking, and media, which Yahoo's four “Truly Connect” solutions then subdued.",
     "q": "Thinking about the problems of a cookieless world, which “demon” is least likely to have appeared at this event?",
     "options": [
       "Hidden Princess: makes consumers vanish",
@@ -842,7 +842,7 @@
   {
     "id": "q2022_09",
     "year": 2022,
-    "context": "Dentsu Japan noticed uneven tuna quality in supermarkets and found that Japan's rapid aging had caused a severe shortage of tuna inspectors, putting its proud grading know-how at risk of dying out. Veteran inspectors judge tuna by the pattern of the tail's cross-section, so the team worked with Toyosu Market to build the world's first tuna inspection database with AI: TUNA SCOPE.",
+    "context": "Dentsu Japan noticed uneven tuna quality in supermarkets and found that Japan's rapid aging had caused a severe shortage of tuna inspectors, putting its proud grading know-how at risk of dying out. Veteran inspectors judge tuna by the pattern of the tail's cross-section, so the team worked with Toyosu Market to build the world's first tuna inspection database and develop TUNA SCOPE, an AI grading system.",
     "q": "The book uses how long it takes to train a professional inspector to show why training alone can't close the gap. Based on these clues, which estimate is most reasonable?",
     "options": [
       "About 1 year",
@@ -867,7 +867,7 @@
     ],
     "answer": 3,
     "explain": "Citing Christie's, the book says Millennials made up 58%, followed by Gen X at 33%, Gen Z at 6%, and Baby Boomers at 3%, which is why it says NFTs brought Millennials into the art market.",
-    "source": "The Power of Web 3.0: Expanding How We Imagine the World"
+    "source": "Expanding How We Imagine the World"
   },
   {
     "id": "q2022_11",
@@ -1052,7 +1052,7 @@
   {
     "id": "q2023_11",
     "year": 2023,
-    "context": "According to Bloomberg Law, copyright infringement is the most common type of generative AI lawsuit. For example, stock photo company Getty Images sued Stability AI, maker of Stable Diffusion, claiming it copied large numbers of images without permission or compensation. Using ChatGPT as an example, the book also notes that model training may use copyrighted text.",
+    "context": "The book sorts generative AI lawsuits into three types, with copyright infringement the most common. For example, stock photo company Getty Images sued Stability AI, maker of Stable Diffusion, claiming it copied large numbers of images without permission or compensation. Citing Bloomberg Law's checkpoints and using ChatGPT as an example, the book also notes that model training may use copyrighted text.",
     "q": "Your company wants to mass-produce marketing copy with generative AI. Per the book, which move best reduces infringement risk?",
     "options": [
       "Prefer models trained on content without copyright",
@@ -1067,7 +1067,7 @@
   {
     "id": "q2023_12",
     "year": 2023,
-    "context": "The book notes that companies first asked employees for intelligence (IQ), then for emotional intelligence (EQ) to keep the workplace stable and communication smooth; in the generative AI era, they must also build “AIQ,” or Dentsu Intelligence. The author also cautions that chasing new tools or building your own should not be the goal, and that consumers will increasingly get information through conversation after conversation with AI.",
+    "context": "The book notes that companies first asked employees for intelligence (IQ), then for emotional intelligence (EQ) to keep the workplace stable and communication smooth; in the generative AI era, they must also build “AIQ” (Artificial Intelligence Quotient). The author also notes that consumers will increasingly get information through conversation after conversation with AI.",
     "q": "A manager wants to raise the team's AIQ. Based on how the book defines AIQ, which move fits best?",
     "options": [
       "Buy top-spec AI computing hardware",
@@ -1077,7 +1077,7 @@
     ],
     "answer": 1,
     "explain": "The book defines AIQ as our ability to get along with AI, and as building a new kind of communication skill. Following on from IQ and EQ, it is about how people interact with AI, not hardware or coding.",
-    "source": "The Metamorphosis of Dentsu Intelligence: AIQ"
+    "source": "The Metamorphosis of AIQ"
   },
   {
     "id": "q2024_01",
@@ -1107,7 +1107,7 @@
     ],
     "answer": 1,
     "explain": "The book says the top 10 strongest brands reached as much as 129%, pulling further ahead of the 88% for strong brands overall, which shows that investing in brand value drives lasting growth.",
-    "source": "Bringing Brand Marketing Up to Date"
+    "source": "Modern Branding & Marketing: Bringing Brand Marketing Up to Date"
   },
   {
     "id": "q2024_03",
@@ -1187,7 +1187,7 @@
   {
     "id": "q2024_08",
     "year": 2024,
-    "context": "Starting in 2020, Google pushed Privacy Sandbox and prepared to phase out third-party cookies in Chrome. After four years of work, it made a major announcement on July 22, 2024 that the digital ad industry saw as great news. Still, the book argues brands must fully enter a low-cookie era, because more and more consumers use browsers that block cookies.",
+    "context": "Starting in 2020, Google pushed Privacy Sandbox and prepared to phase out third-party cookies in Chrome. After four years of work, it made a major announcement on July 22, 2024 that the digital ad industry saw as great news. Still, the book argues brands must fully enter a low-cookie era, because Privacy Sandbox's vice president also said Chrome will introduce a new experience that gives users a choice.",
     "q": "Based on these clues, what did Google announce, and what's the most reasonable response for brands?",
     "options": [
       "It dropped the phaseout, but brands should still prep for a low-cookie era",
@@ -1196,13 +1196,13 @@
       "Phaseout in the EU only, so brands just need to adjust European campaigns"
     ],
     "answer": 0,
-    "explain": "The book says Google announced Chrome would drop its plan to phase out third-party cookies and keep supporting them, but industry experts note that as more consumers use blocking tools, tracking signals will keep weakening.",
+    "explain": "The book says Google announced Chrome would drop its plan to phase out third-party cookies and keep supporting them, but Privacy Sandbox's vice president also said Chrome will give users a choice, which the book reads as a sign that brands and advertisers must prepare for a low-cookie era either way.",
     "source": "Digital Twins: The Hybrid Edge of Brand Power and Data Power"
   },
   {
     "id": "q2024_09",
     "year": 2024,
-    "context": "Honda dealers close up to 70% of in-store visits, but the problem was that showroom visits dropped sharply after the pandemic. Dentsu Kuohua found that 51% of people buy a car because friends or family recommend it, so it created \"Veteran Drivers Recommend\": owners used AI face swap to put friends and family into CR-V scenes and sent them invitations, backed by a referral reward. In eight weeks, over 130K people took part and 668 prospects came in for test drives.",
+    "context": "Honda dealers close up to 70% of in-store visits, but the problem was that showroom visits dropped sharply after the pandemic. dentsu one found that 51% of people buy a car because friends or family recommend it, so it created \"Veteran Drivers Recommend\": owners used AI face swap to put friends and family into CR-V scenes and sent them invitations, backed by a referral reward. In eight weeks, over 130K people took part and 668 prospects came in for test drives.",
     "q": "Based on the high in-store close rate and the number of test drives, what's the most reasonable estimate of the sales growth the campaign drove?",
     "options": [
       "About 0.3%",
@@ -1217,7 +1217,7 @@
   {
     "id": "q2024_10",
     "year": 2024,
-    "context": "A retail media network (RMN) is a retailer's business of selling ad space to brands. It covers on-site ads on the retailer's own channels and off-site ads bought from outside platforms. BCG compared gross margins across retail categories: traditional categories like beauty, home goods, department stores, and groceries sit around 19% to 38%, and off-site ads around 20% to 40%. On-site ads need no stock purchasing, inventory, or logistics, and the ad space runs on the retailer's own traffic.",
+    "context": "A retail media network (RMN) is a retailer's business of selling ad space to brands. It covers on-site ads on the retailer's own channels, off-site ads bought from outside platforms, and digital ads inside physical stores. BCG compared gross margins across retail categories: traditional categories like beauty, home goods, department stores, and groceries sit around 19% to 38%, and off-site ads around 20% to 40%. On-site ads need no stock purchasing, inventory, or logistics, and the ad space runs on the retailer's own traffic.",
     "q": "Based on these clues, what range is the gross margin on RMN on-site ads most likely to fall in?",
     "options": [
       "Under 10%",
@@ -1247,7 +1247,7 @@
   {
     "id": "q2024_12",
     "year": 2024,
-    "context": "HeySong's \"Voice Beasts\" put generative AI into vending machines: say what's on your mind into your phone, and you summon your own AI beast that \"eats\" your message and keeps evolving. The insight came from research showing Gen Z has the highest loneliness score of any group, has no one to talk to, and would rather open up to virtual characters than to real people.",
+    "context": "HeySong's \"Heart-Voice Beasts\" put generative AI into vending machines: say what's on your mind into your phone, and you summon your own AI beast that \"eats\" your message and keeps evolving. The insight came from research showing Gen Z has the highest loneliness score of any group, has no one to talk to, and would rather open up to virtual characters than to real people.",
     "q": "Choosing where to debut this interactive game, which plan best matches what the book describes?",
     "options": [
       "Only a few university campuses, aimed squarely at students",
@@ -1262,7 +1262,7 @@
   {
     "id": "q2025_01",
     "year": 2025,
-    "context": "The book holds up Nutter Butter as a model of “convergence”: a 50-plus-year-old American peanut butter cookie that most people had forgotten. With no ad budget, it posted absurd, illogical short videos on TikTok, layered with hidden codes and connected storylines, and built the Nutterverse, which young people shared, imitated, and co-created on their own. Another award-winning case in the same chapter, covered by media in 102 countries, earned about 330M impressions.",
+    "context": "The book holds up Nutter Butter as a model of “convergence”: a 50-plus-year-old American peanut butter cookie that most people had forgotten. With no ad budget, it posted absurd, illogical short videos on TikTok, layered with hidden codes and connected storylines, and built the Nutterverse, which young people shared, imitated, and co-created on their own. Another award-winning case in the same chapter, covered by media in 102 countries, earned more than 330M impressions.",
     "q": "Based on these clues, what order of magnitude best fits what this zero-budget effort achieved?",
     "options": [
       "About 250M impressions, tens of millions of engagements",
@@ -1272,7 +1272,7 @@
     ],
     "answer": 0,
     "explain": "The book says Nutter Butter earned 249M impressions and 15M engagements with zero budget, on par with a global award winner, by being weird, genuine, and fun rather than loud.",
-    "source": "“From Division to Convergence, the Evolution of Creativity”: Nutter Butter, “Are You OK?”"
+    "source": "“From Division to Convergence, the Evolution of Creativity”: Nutter Butter, “You Good?”"
   },
   {
     "id": "q2025_02",
@@ -1302,7 +1302,7 @@
     ],
     "answer": 2,
     "explain": "The book estimates TV CPM at only about 48 when targeting 30+; only when narrowed to a slice like ages 30–39 does it rise to about 247, slightly above YouTube.",
-    "source": "“Cracking the Data Traps of Video Ads”: TV's Five Myths, Myth 2"
+    "source": "“From Data Illusion to Brand Truth: Cracking the Data Traps of Video Ads”: TV's Five Myths, Myth 2"
   },
   {
     "id": "q2025_04",
@@ -1332,7 +1332,7 @@
     ],
     "answer": 0,
     "explain": "The book says that from 2019 Adidas shifted the split from 23%/77% to 60%/40%, returning to core brand values and the power of mass media.",
-    "source": "“Cracking the Data Traps of Video Ads”: The New Reality of Media Buying"
+    "source": "“From Data Illusion to Brand Truth: Cracking the Data Traps of Video Ads”: The New Reality of Media Buying"
   },
   {
     "id": "q2025_06",
@@ -1347,7 +1347,7 @@
     ],
     "answer": 1,
     "explain": "The book says XGA is Experience GA: it looks at experience-flow design and the quality of value interactions, acting as a gauge and tuner for interaction quality rather than just collecting more data.",
-    "source": "“The Customer Journey in the XGA Era”"
+    "source": "“The Rise of A2A: The Next Customer Experience Revolution Has Quietly Begun”"
   },
   {
     "id": "q2025_07",
@@ -1421,7 +1421,7 @@
       "LINE Official Account: one-to-one push messages"
     ],
     "answer": 2,
-    "explain": "The book says that during the 2020 pandemic SPECTRUM connected CTV (connected TV), extending reach into living rooms, so its five types became Premium, Video, CTV, DOOH, and Performance.",
+    "explain": "The book says that during the 2020 pandemic SPECTRUM connected CTV (connected TV), extending reach into living rooms; DOOH followed in 2021 and Performance in 2023, completing its five types: Premium, Video, CTV, DOOH, and Performance.",
     "source": "“The Quality and Trends of the Digital Ad Ecosystem, Through SPECTRUM”"
   },
   {
@@ -1542,7 +1542,7 @@
     ],
     "answer": 1,
     "explain": "The book says AI Slop usually starts not with weak models but with unclear specs. Many companies think the core asset of the AI era is the prompt, but the Spec (production spec) matters more.",
-    "source": "Defining “Asset Output Standards”: Turning AI's Generative Power into a Brand's Delivery Power"
+    "source": "Defining “Asset Output Standards”: Turning AI's “Generative Power” into a Brand's “Delivery Power”"
   },
   {
     "id": "q2026_08",
@@ -1577,7 +1577,7 @@
   {
     "id": "q2026_10",
     "year": 2026,
-    "context": "The author, a former Apple Daily reporter, argues that once AI starts producing content, what disappears is the “cost of verification.” He recalls the newsroom's logic: one source may have an agenda, adding another may still be biased, and credibility only starts when the next independent source points to the same fact.",
+    "context": "The author, a former Apple Daily reporter, argues that once AI starts producing content, what disappears is the “cost of verification.” She recalls the newsroom's logic: one source may have an agenda, adding another may still be biased, and credibility only starts when the next independent source points to the same fact.",
     "q": "You want to quote a market figure from an AI summary in a pitch. By the author's verification standard, at least how many independent sources pointing to the same fact do you need for it to hold up?",
     "options": [
       "One authoritative source",
