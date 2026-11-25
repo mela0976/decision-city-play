@@ -1302,3 +1302,24 @@
     padding-block-end: calc(var(--bottom) + var(--hint-h) + 1.8rem);
   }
 }
+
+/* 譯版的小直向手機：故事行距與成績單按鈕再收，整頁塞得進提示列上方 */
+@media (max-width: 420px) and (max-height: 720px) {
+  :root:is(:lang(en), :lang(ja)) .ending {
+    gap: 0.4rem;
+  }
+
+  :root:is(:lang(en), :lang(ja)) .ending-text {
+    line-height: 1.35;
+  }
+
+  :root:is(:lang(en), :lang(ja)) .ending h2 {
+    font-size: 1.4rem;
+  }
+
+  :root:is(:lang(en), :lang(ja)) .report-actions .btn {
+    padding-block: 0.35rem;
+    padding-inline: 0.5rem;
+    line-height: 1.2;
+  }
+}

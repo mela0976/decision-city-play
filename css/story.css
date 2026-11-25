@@ -1461,3 +1461,21 @@ body:has(dialog[open]) .voice-wave i {
     padding-block-start: 0.4rem;
   }
 }
+
+/* 窄直向手機的論壇貼：不守 9:16，寬度用滿，英日文長句少折幾行 */
+@media (max-width: 420px) and (orientation: portrait) {
+  .post[data-format="forum"] {
+    aspect-ratio: auto;
+    inline-size: 100%;
+  }
+
+  .post[data-format="forum"] .forum {
+    gap: 0.3rem;
+    padding: 0.6rem 0.75rem;
+    line-height: 1.4;
+  }
+
+  .post[data-format="forum"] .forum-image {
+    display: none;
+  }
+}

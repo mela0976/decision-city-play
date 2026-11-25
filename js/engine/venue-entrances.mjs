@@ -1,6 +1,6 @@
 // A27. All dimensions are metres, relative to the mapped road stop.
 // Positive side follows the facade, positive depth runs from the street into the lobby.
-import {byId,metersPerUnit as unit} from './world.mjs?v=1b0868ba';
+import {byId,metersPerUnit as unit} from './world.mjs?v=3b7de7a7';
 
 const plans = {
   // [side, threshold depth, frontage width, clear opening, canopy height]

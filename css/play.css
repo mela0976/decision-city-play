@@ -225,6 +225,8 @@
 
 .hud-corner {
   display: grid;
+  /* 只佔小地圖與選單鈕的高度：跨列時不要撐到下面引擎畫的飛行鈕 */
+  align-self: start;
   justify-items: end;
   gap: 0.5rem;
   z-index: 3;
@@ -2264,4 +2266,31 @@ html[lang="en"] .hud-meters .m-name {
 
 .option > .option-hint {
   margin-block-start: 0.3rem;
+}
+
+/* 作答後解說捲進視野時，底部讓出黏底按鈕列的高度 */
+.quiz-result,
+.choice-result {
+  scroll-margin-block-end: calc(var(--tap) + 1.2rem);
+}
+
+/* 橫放手機：右上角高度不夠疊三層，選單鈕與靈感數移到小地圖左邊，下面留給引擎畫的飛行鈕 */
+@media (max-height: 480px) and (min-width: 761px) {
+  .hud-corner {
+    grid-template-columns: auto auto;
+    grid-auto-flow: column;
+    align-items: start;
+  }
+
+  .hud-corner > .hud-map {
+    grid-area: 1 / 2 / span 2;
+  }
+
+  .hud-corner > #hud-menu {
+    grid-area: 1 / 1;
+  }
+
+  .hud-corner > #hud-inspire {
+    grid-area: 2 / 1;
+  }
 }

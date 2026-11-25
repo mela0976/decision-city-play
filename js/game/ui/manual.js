@@ -1,7 +1,7 @@
 // 操作手冊：選單裡的一頁，列出按鍵、觸控與一天的流程。內容在語言檔的 T.manual。
 
-import { h, fill } from '../dom.js?v=1b0868ba';
-import { T } from '../strings.js?v=1b0868ba';
+import { h, fill } from '../dom.js?v=3b7de7a7';
+import { T } from '../strings.js?v=3b7de7a7';
 
 export function openManual({ dialog, onClose, onReplay = null }) {
   const close = h('button', { type: 'button', class: 'btn btn--primary manual-close', text: T.manual.close });
