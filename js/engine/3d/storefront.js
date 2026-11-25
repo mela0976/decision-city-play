@@ -1,7 +1,7 @@
-import * as T from '../vendor/three.module.min.js?v=93389064';
-import {locations,ways,metersPerUnit as unit} from '../world.mjs?v=93389064';
-import {canvasTexture,shapes} from './city-primitives.js?v=93389064';
-import {xinyiBusBay} from './furniture.js?v=93389064';
+import * as T from '../vendor/three.module.min.js?v=267cd4de';
+import {locations,ways,metersPerUnit as unit} from '../world.mjs?v=267cd4de';
+import {canvasTexture,shapes} from './city-primitives.js?v=267cd4de';
+import {xinyiBusBay} from './furniture.js?v=267cd4de';
 const {plane}=shapes;
 // The rear quad reverses its positions so both sides keep the same reading order.
 const blade=new T.BufferGeometry();

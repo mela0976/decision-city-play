@@ -3,9 +3,9 @@
 // showMessages 一則一則顯示對方的訊息；最後一則可以帶回覆選項（數字鍵或點選）。
 // 有語音時：一般的訊息出現就播；voiceMessage 為真（阿嬤）則做成語音訊息——播放鍵加波形條，點了才播，文字照樣顯示。
 
-import { h, interaction, arrowFocus } from '../dom.js?v=93389064';
-import { T } from '../strings.js?v=93389064';
-import { icon } from './icons.js?v=93389064';
+import { h, interaction, arrowFocus } from '../dom.js?v=267cd4de';
+import { T } from '../strings.js?v=267cd4de';
+import { icon } from './icons.js?v=267cd4de';
 
 export function avatarFor(contact, assets) {
   if (contact.portrait) return h('span', { class: 'avatar' }, assets.art(contact.portrait, { kind: 'square' }));

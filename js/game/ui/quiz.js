@@ -2,9 +2,9 @@
 // removed：開場就刪掉的錯誤選項索引（數據分析師的加成），沒有就傳 -1。
 // onAnswer(isCorrect) 由遊戲層結算，回傳數值變化。
 
-import { h, fill, interaction, arrowFocus } from '../dom.js?v=93389064';
-import { T } from '../strings.js?v=93389064';
-import { deltaChips } from './choice.js?v=93389064';
+import { h, fill, interaction, arrowFocus } from '../dom.js?v=267cd4de';
+import { T } from '../strings.js?v=267cd4de';
+import { deltaChips } from './choice.js?v=267cd4de';
 
 export function runQuiz({ layer, question, removed = -1, removedLabel, position, total, onAnswer, signal, sfx, onState }) {
   return interaction(signal, (done) => {

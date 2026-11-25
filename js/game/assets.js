@@ -1,8 +1,8 @@
 // 素材清單：讀 assets/manifest.json；清單讀不到、key 不在清單、或檔案載入失敗，都記進 missing，
 // 用到時由 .art 的色塊替代畫面頂著，流程不會停。
 
-import { h } from './dom.js?v=93389064';
-import { ENGINE_MODULES, ENGINE_DATA } from './engine-preload.js?v=93389064';
+import { h } from './dom.js?v=267cd4de';
+import { ENGINE_MODULES, ENGINE_DATA } from './engine-preload.js?v=267cd4de';
 
 function toneOf(key) {
   let sum = 0;
@@ -60,13 +60,14 @@ export async function loadAssets() {
         missing.add(`image:${key}`);
         img.remove();
       });
-      img.src = src;
-      // 手機直向：有 9:16 直式版就換用（瀏覽器依方向自動挑，轉橫向時換回 16:9）
+      // 手機直向：有 9:16 直式版就換用（瀏覽器依方向自動挑，轉橫向時換回 16:9）。
+      // 先把 img 放進 <picture> 再設 src：先設 src 的話，脫離 picture 的 img 會先把橫式圖整張抓下來，直向手機每張圖下載兩次
       const tall = manifest.images?.[key]?.portrait;
       if (tall) {
         box.dataset.portrait = '';
         box.append(h('picture', {}, h('source', { media: '(orientation: portrait) and (max-width: 900px)', srcset: tall }), img));
       } else box.append(img);
+      img.src = src;
     } else if (alt) {
       box.setAttribute('role', 'img');
       box.setAttribute('aria-label', alt);
@@ -116,8 +117,11 @@ export async function loadAssets() {
 
   /** 標題主視覺：高優先，比其他檔案先到。 */
   const warmTitle = () => {
+    // 跟 <picture> 一樣依方向挑：直向手機只抓直式版（index.html 已 preload），不再多抓一張橫式
     const src = imageSrc('title_key');
-    if (src) warm(src, 'high');
+    const tall = manifest.images?.title_key?.portrait;
+    const url = tall && matchMedia('(orientation: portrait) and (max-width: 900px)').matches ? tall : src;
+    if (url) warm(url, 'high');
   };
 
   /**
@@ -139,7 +143,7 @@ export async function loadAssets() {
     let worker = null;
     const waiting = new Map();
     try {
-      worker = new Worker(new URL('./prefetch-worker.js?v=93389064', import.meta.url));
+      worker = new Worker(new URL('./prefetch-worker.js?v=267cd4de', import.meta.url));
       worker.onmessage = ({ data }) => { waiting.get(data)?.(); waiting.delete(data); };
       worker.onerror = () => { for (const done of waiting.values()) done(); waiting.clear(); };
     } catch {

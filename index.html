@@ -21,14 +21,17 @@
   <meta name="twitter:image" content="https://mela0976.github.io/decision-city-play/assets/img/og.jpg">
   <link rel="icon" type="image/png" href="assets/img/icon.png">
   <link rel="apple-touch-icon" href="assets/img/icon.png">
-  <link rel="stylesheet" href="css/base.css?v=93389064">
-  <link rel="stylesheet" href="css/screens.css?v=93389064">
-  <link rel="stylesheet" href="css/play.css?v=93389064">
-  <link rel="stylesheet" href="css/panels.css?v=93389064">
-  <link rel="stylesheet" href="css/story.css?v=93389064">
-  <link rel="stylesheet" href="css/side.css?v=93389064">
-  <link rel="stylesheet" href="css/mobile.css?v=93389064">
-  <script type="module" src="js/main.js?v=93389064"></script>
+  <!-- 標題主視覺最先抓：不然會排在引擎預載的地圖資料（約 830KB）後面，4G 上標題慢 1 秒；依方向只抓需要的那張 -->
+  <link rel="preload" as="image" href="assets/img/portrait/title_key.webp" media="(orientation: portrait) and (max-width: 900px)" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/img/title_key.webp" media="not ((orientation: portrait) and (max-width: 900px))" fetchpriority="high">
+  <link rel="stylesheet" href="css/base.css?v=267cd4de">
+  <link rel="stylesheet" href="css/screens.css?v=267cd4de">
+  <link rel="stylesheet" href="css/play.css?v=267cd4de">
+  <link rel="stylesheet" href="css/panels.css?v=267cd4de">
+  <link rel="stylesheet" href="css/story.css?v=267cd4de">
+  <link rel="stylesheet" href="css/side.css?v=267cd4de">
+  <link rel="stylesheet" href="css/mobile.css?v=267cd4de">
+  <script type="module" src="js/main.js?v=267cd4de"></script>
 </head>
 <body>
   <main id="stage" data-phase="boot">

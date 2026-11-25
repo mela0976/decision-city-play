@@ -1,6 +1,6 @@
 // Shared geometry for the Rainbow riverside promenade (metres). Ground vegetation uses it to
 // keep reeds and trees off the bike path that location-dressing.js lays along the bank.
-import {metersPerUnit as unit,water,riverWidthMeters,byId,toWorld} from './world.mjs?v=93389064';
+import {metersPerUnit as unit,water,riverWidthMeters,byId,toWorld} from './world.mjs?v=267cd4de';
 
 export const promenade={pathIn:24.6,pathOut:27.8,reach:105};
 let bank;
