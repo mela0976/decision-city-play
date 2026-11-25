@@ -2,8 +2,8 @@
 // 底圖缺檔時用程式畫的花色替代，所以沒有素材也下載得到圖。
 // 預覽是一張 <img>（手機可長按存圖），另有一顆下載鈕。
 
-import { h } from '../dom.js?v=3b7de7a7';
-import { T, LANG } from '../strings.js?v=3b7de7a7';
+import { h } from '../dom.js?v=93389064';
+import { T, LANG } from '../strings.js?v=93389064';
 
 const SIZE = 1080;
 // i18n：日文把日文字型排前面；英文用粗的無襯線系統字

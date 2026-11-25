@@ -1,38 +1,38 @@
 // 遊戲控制器：一天的推進、任務執行、數值、存檔、阿嬤模組、結局。
 // 任務、角色、題目的文字全部來自 content；這裡只有流程與規則。
 
-import { h, interaction, arrowFocus, abortError, clockToHours, hoursToClock } from './dom.js?v=3b7de7a7';
-import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=3b7de7a7';
-import { pickEnding, metersForEnding } from './endings.js?v=3b7de7a7';
-import { hintFor, curbHint } from './hints.js?v=3b7de7a7';
-import { voiceKey, voiceInfo } from './sound.js?v=3b7de7a7';
-import { createHud } from './ui/hud.js?v=3b7de7a7';
-import { createToasts } from './ui/toast.js?v=3b7de7a7';
-import { showTitle } from './ui/title.js?v=3b7de7a7';
-import { showRoleSelect } from './ui/role-select.js?v=3b7de7a7';
-import { runDialogue } from './ui/dialogue.js?v=3b7de7a7';
-import { runChoice } from './ui/choice.js?v=3b7de7a7';
-import { runQuiz } from './ui/quiz.js?v=3b7de7a7';
-import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=3b7de7a7';
-import { pickWork } from './ui/side-pick.js?v=3b7de7a7';
-import { openSideList } from './ui/side-list.js?v=3b7de7a7';
-import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterRefs, sideGroups, appendixCards } from './side.js?v=3b7de7a7';
-import { showPlaceCard } from './ui/place-card.js?v=3b7de7a7';
-import { playCutscene } from './ui/cutscene.js?v=3b7de7a7';
-import { showEnding } from './ui/ending.js?v=3b7de7a7';
-import { openProposal } from './ui/proposal.js?v=3b7de7a7';
-import { openJudge } from './ui/judge.js?v=3b7de7a7';
-import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=3b7de7a7'; // A26
-import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=3b7de7a7';
-import { openManual } from './ui/manual.js?v=3b7de7a7';
-import { openElderCard } from './ui/elder-card.js?v=3b7de7a7';
-import { langControls } from './ui/lang-switch.js?v=3b7de7a7';
-import { createCoach } from './ui/coach.js?v=3b7de7a7';
-import { shareResult } from './share.js?v=3b7de7a7';
-import { VERSION } from './version.js?v=3b7de7a7';
-import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=3b7de7a7';
-import { createInspireChip } from './ui/inspire.js?v=3b7de7a7';
-import { showYearSelect } from './ui/year-select.js?v=3b7de7a7';
+import { h, interaction, arrowFocus, abortError, clockToHours, hoursToClock } from './dom.js?v=93389064';
+import { T, METER_IDS, METER_NAMES, PLACES, LANDMARKS, LANG } from './strings.js?v=93389064';
+import { pickEnding, metersForEnding } from './endings.js?v=93389064';
+import { hintFor, curbHint } from './hints.js?v=93389064';
+import { voiceKey, voiceInfo } from './sound.js?v=93389064';
+import { createHud } from './ui/hud.js?v=93389064';
+import { createToasts } from './ui/toast.js?v=93389064';
+import { showTitle } from './ui/title.js?v=93389064';
+import { showRoleSelect } from './ui/role-select.js?v=93389064';
+import { runDialogue } from './ui/dialogue.js?v=93389064';
+import { runChoice } from './ui/choice.js?v=93389064';
+import { runQuiz } from './ui/quiz.js?v=93389064';
+import { showMissionCard, showMissionClear, showChapterCard } from './ui/mission-card.js?v=93389064';
+import { pickWork } from './ui/side-pick.js?v=93389064';
+import { openSideList } from './ui/side-list.js?v=93389064';
+import { blankGain, scaleSideEffects, yearDone, openSides, sidesAt, chapterProgress, chapterRefs, sideGroups, appendixCards } from './side.js?v=93389064';
+import { showPlaceCard } from './ui/place-card.js?v=93389064';
+import { playCutscene } from './ui/cutscene.js?v=93389064';
+import { showEnding } from './ui/ending.js?v=93389064';
+import { openProposal } from './ui/proposal.js?v=93389064';
+import { openJudge } from './ui/judge.js?v=93389064';
+import { playLines, playPrologue, playMorning, playFeedFor, playInterlude, playFinale, proposalPages, grandmaWithUs } from './story.js?v=93389064'; // A26
+import { openMenu, askConfirm, enableLightDismiss, soundControls } from './ui/menu.js?v=93389064';
+import { openManual } from './ui/manual.js?v=93389064';
+import { openElderCard } from './ui/elder-card.js?v=93389064';
+import { langControls } from './ui/lang-switch.js?v=93389064';
+import { createCoach } from './ui/coach.js?v=93389064';
+import { shareResult } from './share.js?v=93389064';
+import { VERSION } from './version.js?v=93389064';
+import { placeInspirations, sweepPickups, nearestPickup, punctualBonus, INSPIRE_BRAND_EVERY, INSPIRE_BRAND } from './ride.js?v=93389064';
+import { createInspireChip } from './ui/inspire.js?v=93389064';
+import { showYearSelect } from './ui/year-select.js?v=93389064';
 
 // 固定規則：docs/CONTRACTS.md 第 3.4 節。
 const QUIZ_RIGHT = { trust: 3 };
@@ -2517,9 +2517,11 @@ export class Game {
         if (this.state.meters.liver >= 100 && ['roam', 'rechao'].includes(this.phase)) this.burnout();
       },
       jumpTo: (missionId) => {
+        if (!this.content.missionById.has(missionId)) return;
+        // 先開局（套上職能劇本）再找任務：從標題直接跳關時，劇本會換掉任務物件，先找的那份對不上
+        ensureRun();
         const target = this.content.missionById.get(missionId);
         if (!target) return;
-        ensureRun();
         this.abortFlow();
         const earlier = this.content.missions.slice(0, this.content.missions.indexOf(target));
         this.state.doneMissionIds = earlier.map((m) => m.id);

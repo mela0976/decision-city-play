@@ -3,9 +3,9 @@
 //   回到路上（遊戲既有的 unstuck）／重新整理（存檔不動）／複製錯誤資訊（給玩家回報用）。
 // 同一個錯誤短時間內重複只顯示一次。不送任何資料到外部服務。
 
-import { h } from './dom.js?v=3b7de7a7';
-import { T, LANG } from './strings.js?v=3b7de7a7';
-import { VERSION, BUILT } from './version.js?v=3b7de7a7';
+import { h } from './dom.js?v=93389064';
+import { T, LANG } from './strings.js?v=93389064';
+import { VERSION, BUILT } from './version.js?v=93389064';
 
 export const ERROR_LOG_KEY = 'decision-city-errors-v1';
 const LOG_MAX = 50;

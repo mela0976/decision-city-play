@@ -1,8 +1,8 @@
 // 語言切換：中文／English／日本語，各用自己的寫法。按下去記住偏好並重新載入（lang.js）。
 
-import { h } from '../dom.js?v=3b7de7a7';
-import { T, LANG } from '../strings.js?v=3b7de7a7';
-import { LANGS, HTML_LANG, LANG_SHORT, switchLang } from '../lang.js?v=3b7de7a7';
+import { h } from '../dom.js?v=93389064';
+import { T, LANG } from '../strings.js?v=93389064';
+import { LANGS, HTML_LANG, LANG_SHORT, switchLang } from '../lang.js?v=93389064';
 
 // 全名包在 .lang-name 裡；標題右上角太窄時 CSS 改顯示 data-short 的短寫，讀屏照樣念全名（aria-label）
 export function langButtons() {

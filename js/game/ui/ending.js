@@ -1,7 +1,7 @@
 // 結局與成績單：結局圖、蓋章的等第；成績單是一張單據（欄位、騎縫線、等寬數字），列四項數值、任務數、問答正確率、提案頁數。
 
-import { h } from '../dom.js?v=3b7de7a7';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=3b7de7a7';
+import { h } from '../dom.js?v=93389064';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=93389064';
 
 export function showEnding({ screen, assets, ending, stamp, meters, missionsDone, missionsTotal, quiz, books, ownedYears, extraPages = 0, side = null, role, coffees = 0, note, onAgain, onShare = null, sfx }) {
   const rate = quiz.asked > 0 ? `${Math.round((quiz.right / quiz.asked) * 100)}%` : '—';

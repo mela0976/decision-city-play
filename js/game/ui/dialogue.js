@@ -3,8 +3,8 @@
 // extra 可帶一顆職能專屬的按鈕（例如業務 AE 的安撫客戶），一場對話只能用一次。
 // voice 有的話每句字幕出現時播對應的語音：第一下快轉只把字顯示完、語音繼續；第二下才跳下一句並停掉語音。
 
-import { h, interaction, reducedMotion, arrowFocus } from '../dom.js?v=3b7de7a7';
-import { T } from '../strings.js?v=3b7de7a7';
+import { h, interaction, reducedMotion, arrowFocus } from '../dom.js?v=93389064';
+import { T } from '../strings.js?v=93389064';
 
 const CHAR_MS = 26;
 

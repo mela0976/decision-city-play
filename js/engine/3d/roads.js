@@ -1,11 +1,11 @@
-import * as T from '../vendor/three.module.min.js?v=3b7de7a7';
-import {roads,roadNodes,roadAt,roadOptions,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=3b7de7a7';
-import {crossingForNode} from '../street-crossings.mjs?v=3b7de7a7';
-import {canvasTexture,hash,shapes} from './city-primitives.js?v=3b7de7a7';
-import {xinyiBusBay} from './furniture.js?v=3b7de7a7';
-import {paintJunctions} from './junction-markings.js?v=3b7de7a7'; // A24
+import * as T from '../vendor/three.module.min.js?v=93389064';
+import {roads,roadNodes,roadAt,roadOptions,inWuxing,toWorld,metersPerUnit as unit} from '../world.mjs?v=93389064';
+import {crossingForNode} from '../street-crossings.mjs?v=93389064';
+import {canvasTexture,hash,shapes} from './city-primitives.js?v=93389064';
+import {xinyiBusBay} from './furniture.js?v=93389064';
+import {paintJunctions} from './junction-markings.js?v=93389064'; // A24
 
-import {drawSidewalks} from './sidewalks.js?v=3b7de7a7'; // A24
+import {drawSidewalks} from './sidewalks.js?v=93389064'; // A24
 const {plane}=shapes;
 const BUS_ROADS=new Set(['忠孝東路四段','忠孝東路五段','仁愛路四段','信義路四段','信義路五段','南京東路五段']);
 export function createRoads({batch,furnitureInstance,doc,group,signs,enabled,sidewalks=drawSidewalks}) { // P2 perf：osm-city 可改成先保留位置、稍後才畫人行道
