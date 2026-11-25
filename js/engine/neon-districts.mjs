@@ -1,5 +1,5 @@
 // The arcade and two shopping streets are designated OSM corridors (world coordinates).
-import {byId,civicWalkway,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from './world.mjs?v=c7fd08ae';
+import {byId,civicWalkway,metersPerUnit as unit,nearestOnRoad,roads,toWorld} from './world.mjs?v=1b0868ba';
 
 const west=toWorld(25.041,121.5638).x,east=toWorld(25.041,121.5705).x;
 const entrance=byId.get('night_market');

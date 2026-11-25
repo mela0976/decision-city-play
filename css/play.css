@@ -2069,3 +2069,199 @@ html[lang="en"] .hud-meters .m-name {
     line-height: 1.35;
   }
 }
+
+/* 抉擇與問答比照 .chapter：捲動範圍只到提示列上緣，按鈕列黏在底部（sticky），
+   內容比畫面高時往下捲，捲到底一定完整落在按鈕列上方，不會藏在提示列或按鈕底下 */
+.choice,
+.quiz {
+  --panel-b: min(var(--actions-b), 0.4rem);
+  inset-block-end: calc(var(--actions-b) + var(--panel-lift, 0rem) - var(--panel-b));
+  padding-block-end: var(--panel-b);
+}
+
+.choice > .cine-actions,
+.quiz > .cine-actions {
+  position: sticky;
+  inset: auto;
+  inset-block-end: 0;
+  flex: none;
+  align-self: stretch;
+}
+
+/* 窄螢幕的提示列在按鈕列下面（已算進 --actions-b）；還沒有按鈕時按鈕列不佔高度。
+   寬螢幕的提示列就在按鈕列那一條黑邊裡，空的按鈕列照樣留著，選項不會伸進提示底下 */
+@media (max-width: 1100px) {
+  .choice > .cine-actions:empty,
+  .quiz > .cine-actions:empty {
+    block-size: 0;
+    margin-block-start: calc(-1 * clamp(0.5rem, 2vh, 1rem));
+  }
+}
+
+/* 內容在按鈕底下捲動時，按鈕列墊一層漸暗的底，字不會從按鈕後面透出來 */
+.choice > .cine-actions:not(:empty),
+.quiz > .cine-actions:not(:empty) {
+  background: linear-gradient(180deg, transparent, rgb(3 5 8 / 0.92) 35%);
+}
+
+/* 直向手機：提示列常排成三行，比預留的 --hint-h 高，捲動範圍再往上收；間距收緊一點 */
+@media (max-width: 620px) {
+  .choice,
+  .quiz {
+    gap: 0.45rem;
+  }
+
+  /* 作答後提示列只剩一行，不必再往上收 */
+  .choice:not(.is-answered),
+  .quiz:not(.is-answered) {
+    --panel-lift: 1.6rem;
+  }
+
+  .choice > .cine-actions:empty,
+  .quiz > .cine-actions:empty {
+    margin-block-start: -0.45rem;
+  }
+}
+
+/* 矮螢幕（橫放手機）：題目與選項再收緊，按鈕列只留按鈕本身的高度 */
+@media (max-height: 480px) {
+  .choice,
+  .quiz {
+    gap: 0.3rem;
+    padding-block-start: calc(var(--bar-t) + 0.2rem);
+  }
+
+  .choice > .cine-actions,
+  .quiz > .cine-actions {
+    block-size: auto;
+    margin-block-start: 0;
+    padding-block: 0.15rem;
+  }
+
+  .choice > .cine-actions:empty,
+  .quiz > .cine-actions:empty {
+    margin-block-start: -0.3rem;
+  }
+
+  .choice-note {
+    padding: 0.25rem 0.6rem;
+    line-height: 1.3;
+  }
+
+  .choice-prompt,
+  .quiz-head h2 {
+    font-size: 1.06rem;
+    line-height: 1.3;
+  }
+
+  .option {
+    column-gap: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  /* 題目與便利貼用滿選單鈕左邊的寬度，少折一行 */
+  .choice-prompt,
+  .quiz-head,
+  .quiz-head h2,
+  .quiz-context {
+    max-inline-size: calc(100% - 13rem);
+  }
+
+  .quiz-head h2,
+  .quiz-context {
+    max-inline-size: 100%;
+  }
+
+  .quiz-head {
+    gap: 0.1rem;
+  }
+
+  .quiz-count {
+    display: none;
+  }
+
+  .quiz-context {
+    line-height: 1.3;
+  }
+
+  /* 作答後背景說明讓給解說；題目留著對照答案 */
+  .quiz.is-answered .quiz-context {
+    display: none;
+  }
+
+  .quiz-option {
+    min-block-size: var(--tap);
+    padding-block: 0.25rem;
+    line-height: 1.25;
+  }
+
+  .quiz-explain {
+    line-height: 1.35;
+  }
+
+  .choice-result .choice-feedback {
+    line-height: 1.4;
+  }
+
+  .choice.is-answered {
+    gap: 0.2rem;
+  }
+
+  .choice-result {
+    gap: 0.3rem 1rem;
+  }
+
+  /* 問答作答後：按鈕列不另佔一列，「下一題」浮在右下，結果框靠左讓出按鈕的寬度 */
+  .quiz > .cine-actions {
+    block-size: 0;
+    padding: 0;
+    align-items: flex-end;
+    overflow: visible;
+  }
+
+  .quiz.is-answered .quiz-result {
+    align-self: flex-start;
+    max-inline-size: calc(100% - 13rem);
+  }
+}
+
+/* 平板直向（761–1100px）的英日文：職稱與數值名稱較長，第一列塞不下電台鈕（會壓到右上角的小地圖），
+   電台鈕改放到任務牌底下 */
+@media (max-width: 1100px) and (min-width: 761px) {
+  :root:is(:lang(en), :lang(ja)) .hud-radio {
+    grid-area: 3 / 1;
+  }
+}
+
+/* 直式小手機：問答的背景說明與選項再收一點行高，題目＋四個選項一個畫面放得下 */
+@media (max-width: 420px) and (max-height: 700px) {
+  .quiz-context {
+    line-height: 1.35;
+  }
+
+  .quiz-head h2,
+  #quiz-q {
+    line-height: 1.4;
+  }
+
+  .quiz-option {
+    padding-block: 0.3rem;
+    line-height: 1.3;
+  }
+}
+
+/* 選項的數字鍵跨四列（標籤、內文、提示…），沒有標籤或提示的選項也會多出三個列距的空白；
+   列距改成只加在標籤之後、提示之前 */
+.option {
+  row-gap: 0;
+}
+
+.option > .option-tag {
+  margin-block-end: 0.3rem;
+}
+
+.option > .option-hint {
+  margin-block-start: 0.3rem;
+}

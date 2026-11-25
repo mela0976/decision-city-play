@@ -1,7 +1,7 @@
 // 開機進度：把「載入中」換成百分比、進度條與目前步驟。
 // 每個工作有權重；進行中的工作依瀏覽器實際載完的檔案數往前推（漸近，不會在完成前到頂），
 // 工作完成就補滿。百分比只增不減。
-import { T } from './strings.js?v=c7fd08ae';
+import { T } from './strings.js?v=1b0868ba';
 
 const TASKS = [
   ['assets', 5],   // 素材清單

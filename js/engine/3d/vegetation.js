@@ -1,9 +1,9 @@
 import {
   civicWalkway, locations, metersPerUnit as unit, random, roadAt, roadOptions, roads, toWorld, worldContact,
-} from '../world.mjs?v=c7fd08ae';
-import {crossingForNode} from '../street-crossings.mjs?v=c7fd08ae';
-import {onRiversidePath} from '../riverside-bank.mjs?v=c7fd08ae';
-import {venues,venueLocal} from '../venue-entrances.mjs?v=c7fd08ae';
+} from '../world.mjs?v=1b0868ba';
+import {crossingForNode} from '../street-crossings.mjs?v=1b0868ba';
+import {onRiversidePath} from '../riverside-bank.mjs?v=1b0868ba';
+import {venues,venueLocal} from '../venue-entrances.mjs?v=1b0868ba';
 import landuse from '../data/xinyi-landuse.json' with {type:'json'};
 
 const tau=2*Math.PI;

@@ -1,9 +1,9 @@
 // 任務卡與過關結算：疊在過場劇照上的兩張單據（票券的欄位、打孔、騎縫線、等寬數字）。
 // 過關時蓋上朱紅印章。年份是一塊壓克力燈箱招牌。
 
-import { h, interaction, formatDelta } from '../dom.js?v=c7fd08ae';
-import { T, METER_IDS, METER_NAMES } from '../strings.js?v=c7fd08ae';
-import { chapterCite } from './cite.js?v=c7fd08ae';
+import { h, interaction, formatDelta } from '../dom.js?v=1b0868ba';
+import { T, METER_IDS, METER_NAMES } from '../strings.js?v=1b0868ba';
+import { chapterCite } from './cite.js?v=1b0868ba';
 
 const field = (label, value, className = '') => (value ? h('div', { class: `ticket-field ${className}`.trim() }, h('dt', { text: label }), h('dd', { text: value })) : null);
 

@@ -1,4 +1,4 @@
-import {buildings,metersPerUnit as unit,roadAt,toWorld} from './world.mjs?v=c7fd08ae';
+import {buildings,metersPerUnit as unit,roadAt,toWorld} from './world.mjs?v=1b0868ba';
 
 // OpenStreetMap level-2 footways. The deck is overhead scenery and has no ground supports.
 const mallCrossing=[[25.0370629,121.5668505],[25.03706,121.5670378]]; // OSM 310909470

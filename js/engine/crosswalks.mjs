@@ -1,7 +1,7 @@
 // A24 accessible ramps and zebra paint share one canonical rectangle.
 // x/y are engine world units (east/south), dx/dy is the outward unit vector.
-import {crosswalks} from './street-crossings.mjs?v=c7fd08ae';
-import {metersPerUnit as unit} from './world.mjs?v=c7fd08ae';
+import {crosswalks} from './street-crossings.mjs?v=1b0868ba';
+import {metersPerUnit as unit} from './world.mjs?v=1b0868ba';
 
 export function crosswalkEnds(){
   return crosswalks.map(walk=>{

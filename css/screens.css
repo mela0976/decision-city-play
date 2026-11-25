@@ -1262,3 +1262,43 @@
 .report .ticket-stub > * {
   min-inline-size: 0;
 }
+
+/* 橫放手機：成績單欄位放寬，事實格的標籤（英日文）不再排成兩行、按鈕字不折行，整張單據放得進提示列上方 */
+@media (max-height: 480px) and (orientation: landscape) {
+  .ending {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 1.2rem;
+  }
+
+  .report {
+    max-inline-size: 30rem;
+  }
+
+  .report-meters {
+    gap: 0.25rem 1rem;
+  }
+
+  .report-facts {
+    gap: 0.4rem;
+    padding-block: 0.3rem;
+  }
+
+  .report-facts dt {
+    letter-spacing: 0.04em;
+  }
+
+  .report-facts dd {
+    font-size: 1.2rem;
+  }
+
+  .report-actions .btn {
+    white-space: nowrap;
+  }
+}
+
+/* 日文直向小手機：選角畫面的提示列排成三行，比預留的高度高，確認鈕再往上讓 */
+@media (max-width: 620px) {
+  :root:lang(ja) .roles {
+    padding-block-end: calc(var(--bottom) + var(--hint-h) + 1.8rem);
+  }
+}

@@ -1441,3 +1441,23 @@ body:has(dialog[open]) .voice-wave i {
     block-size: 2.4rem;
   }
 }
+
+/* 橫放手機：英日文字幕常排成兩行，插播效果（來電卡、警報牌、跑馬燈）往上貼到畫面頂端，不壓到字幕 */
+@media (max-height: 480px) {
+  .fx-slot {
+    inset-block-start: 0;
+  }
+
+  .fx--marquee {
+    inset-block-start: 0.4rem;
+  }
+
+  .fx-alert-plate {
+    inset-block-start: 1.9rem;
+    padding-block: 0.25rem;
+  }
+
+  .fx--call {
+    padding-block-start: 0.4rem;
+  }
+}
